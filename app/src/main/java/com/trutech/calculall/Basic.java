@@ -359,8 +359,10 @@ public class Basic extends Activity {
 		}
 		input.setText(inputText);
 		//Shows bottom
-		ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
-		scrollView.pageScroll(ScrollView.FOCUS_DOWN);
+        if (this instanceof Advanced) {
+            ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
+            scrollView.pageScroll(ScrollView.FOCUS_DOWN);
+        }
 	}
 
 
