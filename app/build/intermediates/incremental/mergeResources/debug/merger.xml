@@ -34,6 +34,11 @@
                 qualifiers=""
                 type="layout" />
             <file
+                name="activity_graphing"
+                path="C:\Users\Alston\Calculall\app\src\main\res\layout\activity_graphing.xml"
+                qualifiers=""
+                type="layout" />
+            <file
                 path="C:\Users\Alston\Calculall\app\src\main\res\values\dimens.xml"
                 qualifiers="" >
                 <dimen name="activity_horizontal_margin" >0dp
@@ -62,8 +67,6 @@
                 </string>
                 <string name="shift" >2nd
                 </string>
-                <string name="Vector" >Vector
-                </string>
                 <string name="varA" >A
                 </string>
                 <string name="varB" >B
@@ -85,9 +88,9 @@
                 </string>
                 <string name="base2" >BIN
                 </string>
-                <string name="powerTen" >Exp
-                </string>
                 <string name="Three" >3
+                </string>
+                <string name="powerTen" >Exp
                 </string>
                 <string name="hyp" >hyp
                 </string>
@@ -139,8 +142,6 @@ C
                 </string>
                 <string name="closedBracket" >)
                 </string>
-                <string name="Function" >Function
-                </string>
                 <string name="permutation" >n
 <b>
                         <b>
@@ -154,33 +155,29 @@ P
                 </string>
                 <string name="Zero" >0
                 </string>
-                <string name="title_activity_vector" >Vector
-                </string>
-                <string name="exponent" ><![CDATA[<p>x<sup><small><small><i>y</i></small></small></sup></p>]]></string>
-                <string name="store" >STO
-                </string>
                 <string name="radix" >K.IJK
                 </string>
-                <string name="hello_world" >Hello world!
+                <string name="store" >STO
                 </string>
+                <string name="exponent" ><![CDATA[<p>x<sup><small><small><i>y</i></small></small></sup></p>]]></string>
                 <string name="Basic" >Basic
-                </string>
-                <string name="Advanced" >Advanced
                 </string>
                 <string name="title_activity_advanced" >Advanced
                 </string>
-                <string name="cbrt" >³√
+                <string name="Advanced" >Advanced
                 </string>
                 <string name="varX" >X
                 </string>
-                <string name="C" >CLR
+                <string name="cbrt" >³√
                 </string>
                 <string name="impFrac" >d/e
                 </string>
-                <string name="varRoot" ><![CDATA[<p><sup><small><small><i>y</i></small></small></sup>√x</p>]]></string>
-                <string name="backspace" >←
+                <string name="C" >CLR
                 </string>
+                <string name="varRoot" ><![CDATA[<p><sup><small><small><i>y</i></small></small></sup>√x</p>]]></string>
                 <string name="Plus" >+
+                </string>
+                <string name="backspace" >←
                 </string>
                 <string name="Decimal" >.
                 </string>
@@ -215,21 +212,6 @@ P
                 <dimen name="activity_horizontal_margin" >64dp
                 </dimen>
             </file>
-            <file
-                name="activity_vector"
-                path="C:\Users\Alston\Calculall\app\src\main\res\layout\activity_vector.xml"
-                qualifiers=""
-                type="layout" />
-            <file
-                name="activity_function"
-                path="C:\Users\Alston\Calculall\app\src\main\res\layout\activity_function.xml"
-                qualifiers=""
-                type="layout" />
-            <file
-                name="vector"
-                path="C:\Users\Alston\Calculall\app\src\main\res\menu\vector.xml"
-                qualifiers=""
-                type="menu" />
         </source>
         <source path="C:\Users\Alston\Calculall\app\build\generated\res\rs\debug" />
         <source path="C:\Users\Alston\Calculall\app\build\generated\res\generated\debug" />

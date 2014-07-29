@@ -78,25 +78,25 @@
                 android:textSize="13sp" />
 
             <Button
-                android:id="@+id/functionButton"
+                android:id="@+id/GraphingButton"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
-                android:onClick="clickFunction"
-                android:text="@string/Function"
+                android:onClick="clickGraphing"
+                android:text="@string/Graphing"
                 android:textSize="14sp" />
 
             <Button
-                android:id="@+id/vectorButton"
+                android:id="@+id/MoreButton"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
-                android:onClick="clickVector"
-                android:text="@string/Vector"
+                android:onClick="clickMore"
+                android:text="@string/More"
                 android:textSize="16sp" />
         </LinearLayout>
 

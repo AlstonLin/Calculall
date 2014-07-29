@@ -19,7 +19,6 @@
     <string name="Equals">=</string>
     <string name="Five">5</string>
     <string name="Four">4</string>
-    <string name="Function">Function</string>
     <string name="Graphing">Graphing</string>
     <string name="Minus">-</string>
     <string name="More">More</string>
@@ -31,7 +30,6 @@
     <string name="Six">6</string>
     <string name="Three">3</string>
     <string name="Two">2</string>
-    <string name="Vector">Vector</string>
     <string name="Zero">0</string>
     <string name="action_settings">Settings</string>
     <string name="app_name">Calculall</string>
@@ -52,7 +50,6 @@
     <string name="factorial">n!</string>
     <string name="grad">GRAD</string>
     <string name="gradians">Gradians</string>
-    <string name="hello_world">Hello world!</string>
     <string name="hyp">hyp</string>
     <string name="impFrac">d/e</string>
     <string name="ln">ln</string>
@@ -80,7 +77,6 @@
     <string name="title_activity_advanced">Advanced</string>
     <string name="title_activity_basic">Basic</string>
     <string name="title_activity_graphing">Graphing</string>
-    <string name="title_activity_vector">Vector</string>
     <string name="varA">A</string>
     <string name="varB">B</string>
     <string name="varC">C</string>
