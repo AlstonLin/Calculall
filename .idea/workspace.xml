@@ -22,11 +22,7 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: com.trutech.calculall" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="377a07f7-27dc-473a-a96c-fb1ac73664cb" name="Default" comment="0.3.1 - Setup for the next version">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/Basic.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/Basic.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/buildConfig/debug/com/trutech/calculall/BuildConfig.java" afterPath="$PROJECT_DIR$/app/build/generated/source/buildConfig/debug/com/trutech/calculall/BuildConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/trutech/calculall/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/trutech/calculall/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/local.properties" afterPath="$PROJECT_DIR$/local.properties" />
+    <list default="true" id="377a07f7-27dc-473a-a96c-fb1ac73664cb" name="Default" comment="0.3.2 - Github Test">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="CalculallE.iws" />
@@ -1185,7 +1181,11 @@
       <created>1406597337074</created>
       <updated>1406597337074</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="0.3.2 - Github Test">
+      <created>1406609923254</created>
+      <updated>1406609923254</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1269,7 +1269,8 @@
     </option>
     <MESSAGE value="First Build with GitHub!" />
     <MESSAGE value="0.3.1 - Setup for the next version" />
-    <option name="LAST_COMMIT_MESSAGE" value="0.3.1 - Setup for the next version" />
+    <MESSAGE value="0.3.2 - Github Test" />
+    <option name="LAST_COMMIT_MESSAGE" value="0.3.2 - Github Test" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
