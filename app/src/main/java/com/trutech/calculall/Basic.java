@@ -330,22 +330,22 @@ public class Basic extends Activity {
 	}
 
 	/**
-	 * When the user wants to change to Graphing Mode.
+	 * When the user wants to change to Function Mode.
 	 * 
 	 * @param v Not Used
 	 */
-	public void clickGraphing(View v){
-		//Goes to the Graphing activity
-		Intent intent = new Intent(this, Graphing.class);
+	public void clickFunction(View v){
+		//Goes to the FunctionMode activity
+		Intent intent = new Intent(this, FunctionMode.class);
 		startActivity(intent);
 	}
 
 	/**
-	 * When the user wants to see the More menu.
+	 * When the user wants to change to Vector Mode.
 	 * 
 	 * @param v Not Used
 	 */
-	public void clickMore(View v){
+	public void clickVector(View v){
 	}
 
 	/**

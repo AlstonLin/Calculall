@@ -118,7 +118,7 @@ public final class R {
     public static final class layout {
         public static final int activity_advanced=0x7f030000;
         public static final int activity_basic=0x7f030001;
-        public static final int activity_graphing=0x7f030002;
+        public static final int activity_function =0x7f030002;
     }
     public static final class string {
         public static final int AC=0x7f050000;

@@ -65,7 +65,8 @@
     <string name="varX">X</string>
     <string name="varY">Y</string>
     <string name="varZ">Z</string>
-    <string name="base16">HEX</string><string name="base10">DEC</string>
+    <string name="base16">HEX</string>
+    <string name="base10">DEC</string>
     <string name="base8">OCT</string>
     <string name="base2">BIN</string>
     <string name="radix">K.IJK</string>
@@ -75,4 +76,9 @@
     <string name="reciprocal">x^-1</string>
     <string name="combination">n<b><b>C</b></b>r</string>
     <string name="permutation">n<b><b>P</b></b>r</string>
+    <string name="title_activity_vector">Vector</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="Function">Function</string>
+    <string name="Vector">Vector</string>
+
 </resources>
