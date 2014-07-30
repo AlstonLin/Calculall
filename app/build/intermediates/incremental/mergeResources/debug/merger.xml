@@ -34,10 +34,20 @@
                 qualifiers=""
                 type="layout" />
             <file
-                name="activity_graphing"
-                path="C:\Users\Alston\Calculall\app\src\main\res\layout\activity_graphing.xml"
+                name="activity_function"
+                path="C:\Users\Alston\Calculall\app\src\main\res\layout\activity_function.xml"
                 qualifiers=""
                 type="layout" />
+            <file
+                name="activity_vector"
+                path="C:\Users\Alston\Calculall\app\src\main\res\layout\activity_vector.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="vector"
+                path="C:\Users\Alston\Calculall\app\src\main\res\menu\vector.xml"
+                qualifiers=""
+                type="menu" />
             <file
                 path="C:\Users\Alston\Calculall\app\src\main\res\values\dimens.xml"
                 qualifiers="" >
@@ -66,6 +76,8 @@
                 <string name="Minus" >-
                 </string>
                 <string name="shift" >2nd
+                </string>
+                <string name="Vector" >Vector
                 </string>
                 <string name="varA" >A
                 </string>
@@ -142,6 +154,8 @@ C
                 </string>
                 <string name="closedBracket" >)
                 </string>
+                <string name="Function" >Function
+                </string>
                 <string name="permutation" >n
 <b>
                         <b>
@@ -155,11 +169,15 @@ P
                 </string>
                 <string name="Zero" >0
                 </string>
+                <string name="title_activity_vector" >Vector
+                </string>
                 <string name="radix" >K.IJK
                 </string>
                 <string name="store" >STO
                 </string>
                 <string name="exponent" ><![CDATA[<p>x<sup><small><small><i>y</i></small></small></sup></p>]]></string>
+                <string name="hello_world" >Hello world!
+                </string>
                 <string name="Basic" >Basic
                 </string>
                 <string name="title_activity_advanced" >Advanced
