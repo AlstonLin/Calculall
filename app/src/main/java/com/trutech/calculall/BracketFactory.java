@@ -15,11 +15,11 @@ public class BracketFactory {
         return new Bracket(")", Bracket.CLOSE);
     }
 
-    public static Bracket createSquareOpenBracket(){
+    public static Bracket createOpenSquareBracket(){
         return new Bracket("[", Bracket.SQUAREOPEN);
     }
 
-    public static Bracket createSquareCloseBracket(){
+    public static Bracket createCloseSquareBracket(){
         return new Bracket("]", Bracket.SQUARECLOSE);
     }
 }

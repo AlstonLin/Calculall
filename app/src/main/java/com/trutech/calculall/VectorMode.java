@@ -43,115 +43,6 @@ public class VectorMode extends Basic {
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * When the user presses the 1 Button.
-     *
-     * @param v Not Used
-     */
-    public void clickOne(View v){
-        tokens.add(DigitFactory.makeOne());
-        updateInput();
-    }
-
-    /**
-     * When the user presses the 2 Button.
-     *
-     * @param v Not Used
-     */
-    public void clickTwo(View v){
-        tokens.add(DigitFactory.makeTwo());
-        updateInput();
-    }
-
-    /**
-     * When the user presses the 3 Button.
-     *
-     * @param v Not Used
-     */
-    public void clickThree(View v){
-        tokens.add(DigitFactory.makeThree());
-        updateInput();
-    }
-
-    /**
-     * When the user presses the 4 Button.
-     *
-     * @param v Not Used
-     */
-    public void clickFour(View v){
-        tokens.add(DigitFactory.makeFour());
-        updateInput();
-    }
-
-    /**
-     * When the user presses the 5 Button.
-     *
-     * @param v Not Used
-     */
-    public void clickFive(View v){
-        tokens.add(DigitFactory.makeFive());
-        updateInput();
-    }
-
-    /**
-     * When the user presses the 6 Button.
-     *
-     * @param v Not Used
-     */
-    public void clickSix(View v){
-        tokens.add(DigitFactory.makeSix());
-        updateInput();
-    }
-
-    /**
-     * When the user presses the 7 Button.
-     *
-     * @param v Not Used
-     */
-    public void clickSeven(View v){
-        tokens.add(DigitFactory.makeSeven());
-        updateInput();
-    }
-
-    /**
-     * When the user presses the 8 Button.
-     *
-     * @param v Not Used
-     */
-    public void clickEight(View v){
-        tokens.add(DigitFactory.makeEight());
-        updateInput();
-    }
-
-    /**
-     * When the user presses the 9 Button.
-     *
-     * @param v Not Used
-     */
-    public void clickNine(View v){
-        tokens.add(DigitFactory.makeNine());
-        updateInput();
-    }
-
-    /**
-     * When the user presses the 0 Button.
-     *
-     * @param v Not Used
-     */
-    public void clickZero(View v){
-        tokens.add(DigitFactory.makeZero());
-        updateInput();
-    }
-
-    /**
-     * When the user presses the . Button.
-     *
-     * @param v Not Used
-     */
-    public void clickDecimal(View v){
-        tokens.add(DigitFactory.makeDecimal());
-        updateInput();
-    }
 
     /**
      * When the user presses the + Button.
@@ -173,41 +64,6 @@ public class VectorMode extends Basic {
         updateInput();
     }
 
-
-    /**
-     * When the user presses the clear Button.
-     *
-     * @param v Not Used
-     */
-    public void clickClear(View v){
-        tokens.clear();
-        updateInput();
-        TextView output = (TextView) findViewById(R.id.txtStack);
-        output.setText(""); //Clears stack
-    }
-
-    /**
-     * When the user presses the back Button.
-     *
-     * @param v Not Used
-     */
-    public void clickBack(View v){
-        if (tokens.isEmpty()){
-            return; //Prevents a bug
-        }
-        tokens.remove(tokens.size() - 1); //Removes last token
-        updateInput();
-    }
-
-    /**
-     * When the user presses the negative Button.
-     *
-     * @param v Not Used
-     */
-    public void clickNegative(View v){
-        tokens.add(DigitFactory.makeNegative());
-        updateInput();
-    }
 
     /**
      * When the user presses the equals Button.
@@ -363,7 +219,7 @@ public class VectorMode extends Basic {
      * @param v Not Used
      */
     public void clickOpenSquareBracket(View v){
-        tokens.add(BracketFactory.createOpenBracket());
+        tokens.add(BracketFactory.createOpenSquareBracket());
         updateInput();
     }
 
@@ -373,7 +229,7 @@ public class VectorMode extends Basic {
      * @param v Not Used
      */
     public void clickCloseSquareBracket(View v){
-        tokens.add(BracketFactory.createCloseBracket());
+        tokens.add(BracketFactory.createCloseSquareBracket());
         updateInput();
     }
 }
