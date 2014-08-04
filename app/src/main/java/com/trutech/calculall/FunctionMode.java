@@ -165,6 +165,18 @@ public class FunctionMode extends Advanced {
     }
 
     /**
+     * When the user presses the x^3 Button.
+     *
+     * @param v Not Used
+     */
+    @Override
+    public void clickCube(View v) {
+        tokens.add(OperatorFactory.makeExponent());
+        tokens.add(DigitFactory.makeThree());
+        updateInput();
+    }
+
+    /**
      * Updates the text on the input screen.
      */
     @Override

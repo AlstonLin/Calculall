@@ -8,8 +8,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import org.w3c.dom.Text;
-
 
 /**
  * The activity for the advanced calculator mode. The advanced mode will be able to
@@ -319,10 +317,10 @@ public class Advanced extends Basic {
                 output.setText(val + "→ A");
                 Variable.a_value = val;
                 mem = false;
+                memButton.setChecked(mem);
             } else {
                 tokens.add(VariableFactory.makeA());
             }
-            memButton.setChecked(mem);
             updateInput();
         } catch (Exception e) { //User did a mistake
             Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
@@ -344,10 +342,10 @@ public class Advanced extends Basic {
                 output.setText(val + "→B");
                 Variable.b_value = val;
                 mem = false;
+                memButton.setChecked(mem);
             } else {
                 tokens.add(VariableFactory.makeB());
             }
-            memButton.setChecked(mem);
             updateInput();
         } catch (Exception e) { //User did a mistake
             Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
@@ -369,10 +367,10 @@ public class Advanced extends Basic {
                 output.setText(val + "→C");
                 Variable.c_value = val;
                 mem = false;
+                memButton.setChecked(mem);
             } else {
                 tokens.add(VariableFactory.makeC());
             }
-            memButton.setChecked(mem);
             updateInput();
         } catch (Exception e) { //User did a mistake
             Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
@@ -394,10 +392,10 @@ public class Advanced extends Basic {
                 output.setText(val + "→X");
                 Variable.x_value = val;
                 mem = false;
+                memButton.setChecked(mem);
             } else {
                 tokens.add(VariableFactory.makeX());
             }
-            memButton.setChecked(mem);
             updateInput();
         } catch (Exception e) { //User did a mistake
             Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
@@ -419,10 +417,10 @@ public class Advanced extends Basic {
                 output.setText(val + "→Y");
                 Variable.y_value = val;
                 mem = false;
+                memButton.setChecked(mem);
             } else {
                 tokens.add(VariableFactory.makeY());
             }
-            memButton.setChecked(mem);
             updateInput();
         } catch (Exception e) { //User did a mistake
             Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
@@ -444,10 +442,10 @@ public class Advanced extends Basic {
                 output.setText(val + "→Z");
                 Variable.z_value = val;
                 mem = false;
+                memButton.setChecked(mem);
             } else {
                 tokens.add(VariableFactory.makeZ());
             }
-            memButton.setChecked(mem);
             updateInput();
         } catch (Exception e) { //User did a mistake
             Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
