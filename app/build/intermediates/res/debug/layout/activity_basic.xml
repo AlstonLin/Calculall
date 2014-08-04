@@ -78,25 +78,25 @@
                 android:textSize="13sp" />
 
             <Button
-                android:id="@+id/GraphingButton"
+                android:id="@+id/functionButton"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
-                android:onClick="clickGraphing"
-                android:text="@string/Graphing"
+                android:onClick="clickFunction"
+                android:text="@string/Function"
                 android:textSize="14sp" />
 
             <Button
-                android:id="@+id/MoreButton"
+                android:id="@+id/vectorButton"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
-                android:onClick="clickMore"
-                android:text="@string/More"
+                android:onClick="clickVector"
+                android:text="@string/Vector"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -371,4 +371,4 @@
         </LinearLayout>
     </LinearLayout>
 
-</LinearLayout><!-- From: file:/C:/Users/Alston/Calculall/app/src/main/res/layout/activity_basic.xml -->
+</LinearLayout><!-- From: file:/C:/Users/Ahsen/Documents/GitHub/Calculall/app/src/main/res/layout/activity_basic.xml -->
