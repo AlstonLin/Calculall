@@ -8,6 +8,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 /**
@@ -98,12 +99,14 @@ public class FunctionMode extends Advanced {
         HashMap<Double, Double> map = new HashMap<Double, Double>();
         double highestDegree = 0;
         int allIntegers = 1; //1 = All degrees are integers, 0 = not
+        boolean negative = false;
         for (int i = 0; i < tokens.size(); i++) {
             Token token = tokens.get(i);
             Token previous = i - 1 >= 0 ? tokens.get(i - 1) : null;
             Token beforePrevious = i - 2 >= 0 ? tokens.get(i - 2) : null;
             Token next = i + 1 < tokens.size() ? tokens.get(i + 1) : null;
             Token afterNext = i + 2 < tokens.size() ? tokens.get(i + 2) : null;
+            Token afterAfterNext = i + 3 < tokens.size() ? tokens.get(i + 3) : null;
             if (token instanceof Variable) { //Has to be an X; there's no other variables
                 //Assumed a value of 1 until defined (ex. 5X has a degree of 1)
                 double coefficient = 1;
@@ -111,21 +114,26 @@ public class FunctionMode extends Advanced {
                 //Looks for the coefficient first if any
                 if (beforePrevious != null && previous instanceof Operator && ((Operator) previous).getType() == Operator.MULTIPLY) { //It has a coefficient as the previous number
                     if (beforePrevious instanceof Number) {
-                        coefficient = ((Number) beforePrevious).getValue();
+                            coefficient = ((Number) beforePrevious).getValue();
                     } else {
                         throw new IllegalArgumentException(); //The user inputted a invalid function
                     }
                 }
+                if(negative) {
+                    coefficient *= -1;
+                }else{
+                    coefficient *= 1;
+                }
                 //Now it looks for the term if any
                 if (afterNext != null && next instanceof Operator && ((Operator) next).getType() == Operator.EXPONENT) { //It has a coefficient as the previous number
                     if (afterNext instanceof Number) {
-                        degree = (int)((Number) afterNext).getValue();
+                        degree = (int) ((Number) afterNext).getValue();
                         //Checks if its the highest degree
-                        if (degree > highestDegree){
+                        if (degree > highestDegree) {
                             highestDegree = degree;
                         }
                         //Checks if the degree is an integer
-                        if (degree % 1 != 0){ //Not an integer
+                        if (degree % 1 != 0) { //Not an integer
                             allIntegers = 0;
                         }
                     } else {
@@ -134,14 +142,48 @@ public class FunctionMode extends Advanced {
                 }
                 //Now maps the coefficient to the term
                 map.put(degree, coefficient);
-            } else if (token instanceof Number && previous instanceof Operator){
+
+            /*} else if (token instanceof Operator && next instanceof Number && afterNext instanceof Variable){
+                Operator o = (Operator) token;
+                if (o.getType() == Operator.SUBTRACT || o.getType() == Operator.ADD){
+                    double value = ((Number)next).getValue();
+                    value *= o.getType() == Operator.SUBTRACT ? -1 : 1; //Accounts the Subtraction as a negative
+                    if(afterAfterNext instanceof Operator && (((Operator) afterAfterNext).getType() == Operator.EXPONENT)){
+                        Token power = i + 4 < tokens.size() ? tokens.get(i + 4) : null;
+                        if(power instanceof Number) {
+                            map.remove(((Number) power).getValue());//prevents duplicates
+                            map.put(((Number) power).getValue(), value);
+                        }
+                    }
+                }
+            }else if (token instanceof Operator && next instanceof Variable){
+                Operator o = (Operator) token;
+                if (o.getType() == Operator.SUBTRACT || o.getType() == Operator.ADD){
+                    double value;
+                    value = o.getType() == Operator.SUBTRACT ? -1 : 1; //Accounts the Subtraction as a negative
+                    if(afterNext instanceof Operator && (((Operator) afterNext).getType() == Operator.EXPONENT)){
+                        if(afterAfterNext instanceof Number){
+                            map.remove(((Number) afterAfterNext).getValue());//prevents duplicates
+                            map.put( ((Number) afterAfterNext).getValue(), value);
+                        }
+                    }
+
+                }*/
+            }else if(token instanceof Operator){
+                if( ((Operator) token).getType() == Operator.ADD){
+                    negative = false;
+                }else if( ((Operator) token).getType() == Operator.SUBTRACT){
+                    negative = true;
+                }
+
+            } /*else if (token instanceof Number && previous instanceof Operator){
                 Operator o = (Operator) previous;
                 if ((o.getType() == Operator.ADD || o.getType() == Operator.SUBTRACT) && i == tokens.size() - 1){ //Constant
                     double value = ((Number)token).getValue();
                     value *= o.getType() == Operator.SUBTRACT ? -1 : 1; //Accounts the Subtraction as a negative
                     map.put(0d, value);
                 }
-            }
+            }*/
         }
         //Maps if the metadata
         map.put(Double.POSITIVE_INFINITY, highestDegree);
