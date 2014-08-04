@@ -7,6 +7,7 @@ package com.trutech.calculall;
  * @version 0.3.0
  * @author ejaaz
  */
+@SuppressWarnings("unused")
 public class Complex {
     private double real, imaginary;
 
@@ -141,15 +142,6 @@ public class Complex {
 
     public static Complex cis(double angle){
         return new Complex(Math.cos(angle),Math.sin(angle));
-    }
-
-    public static Complex cbrt(Complex c){
-        Complex cis = cis(2*Math.PI/3);
-        if(c.isReal()){
-            return new Complex(Math.cbrt(c.getReal()),0);
-        }else {
-            return cis.times(Math.pow(abs(c), 1 / 3));
-        }
     }
 
     public static double arg(Complex c){

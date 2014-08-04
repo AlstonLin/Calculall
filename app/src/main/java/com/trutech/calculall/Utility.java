@@ -11,6 +11,7 @@ import java.util.Stack;
  *
  * @version 0.4.0
  */
+@SuppressWarnings("unused")
 public class Utility {
 
 	//ID of the Buttons (nowhere else to put them)
@@ -52,7 +53,7 @@ public class Utility {
 				value += digit.getValue() * Math.pow(10, power);
 				power--;
 			}
-		};
+		}
 
 		return negative ? value * -1 : value;
 	}
@@ -285,7 +286,13 @@ public class Utility {
 	}
 
 
-
+    /**
+     * Finds all the REAL roots of a quadratic function
+     * @param a the coefficient of the 2nd degree x value of the cubic function
+     * @param b the coefficient of the 1st degree x value of the cubic function
+     * @param c the constant value of the cubic function
+     * @return An ArrayList (of Double objects) containing the real roots of the function
+     **/
 	public static ArrayList<Double> solveQuadratic(double a, double b, double c){
 		ArrayList<Double> roots = new ArrayList<Double>();
 		if((b*b - 4*a*c) < 0){
@@ -298,6 +305,14 @@ public class Utility {
 		return roots;
 	}
 
+
+    /**
+     * Finds all the roots of a quadratic function
+     * @param a the coefficient of the 2nd degree x value of the cubic function
+     * @param b the coefficient of the 1st degree x value of the cubic function
+     * @param c the constant value of the cubic function
+     * @return An ArrayList (of Complex objects) containing the roots of the function
+     **/
 	public static ArrayList<Complex> solveQuadraticC(double a, double b, double c){
 		ArrayList<Complex> roots = new ArrayList<Complex>();
 		if((b*b - 4*a*c) < 0){
@@ -314,48 +329,38 @@ public class Utility {
 
     /**
      * Finds all the REAL roots of a cubic function
-     * @param a the a value of the cubic function
-     * @param b the b value of the cubic function
-     * @param c the c value of the cubic function
-     * @param d the d value of the cubic function
+     * using the method found here: http://www.1728.org/cubic2.htm
+     *
+     * @param a the coefficient of the 3rd degree x value of the cubic function
+     * @param b the coefficient of the 2nd degree x value of the cubic function
+     * @param c the coefficient of the 1st degree x value of the cubic function
+     * @param d the constant value of the cubic function
      * @return An ArrayList (of Double objects) containing the real roots of the function
      **/
     public static ArrayList<Double> solveCubic(double a, double b, double c, double d){
-        ArrayList<Complex> roots = new ArrayList<Complex>();
-        ArrayList<Double> realRoots = new ArrayList<Double>();
-        Complex expression = new Complex(2*b*b*b - 9*a*b*c + 27*a*a*d, 0);
-        Complex exp2 = Complex.sqrt(Math.pow(expression.getReal(),2) - 4*(Math.pow((b*b - 3*a*c),3)));
-        Complex rad1 = Complex.cbrt((expression.add(exp2)).times(0.5));
-        Complex rad2 = Complex.cbrt((expression.subtract(exp2)).times(0.5));
-        final Complex CONST1 = (new Complex(1, Math.sqrt(3))).times(6*a);
-        final Complex CONST2 = (new Complex(1, (-1)*Math.sqrt(3))).times(6*a);
-        final Complex CONST3 = new Complex((-b)/(3*a),0);
-
-        roots.add(new Complex(
-                CONST3.subtract(
-                        rad1.times(1 / (3 * a))).add((rad2.times(1 / (3 * a)))
-                )
-        ));
-
-        roots.add(new Complex(
-                CONST3.add(
-                        CONST1.times(rad1)).add(CONST2.times(rad2)
-                )
-        ));
-
-        roots.add(new Complex(
-                CONST3.add(
-                        CONST1.times(rad2)).add(CONST2.times(rad1)
-                )
-        ));
-
-        for(int i = 0; i < 3; i++){
-            if(roots.get(i).isReal()){
-                realRoots.add(roots.get(i).getReal());
-            }
+        double f = ((3*c/a)-((b*b)/(a*a)))/3;
+        double g = ((2*Math.pow(b,3)/Math.pow(a,3)) - (9*b*c/(a*a)) + (27*d/a))/27;
+        double h = ((g*g/4) + (f*f*f/27));
+        ArrayList<Double> roots = new ArrayList<Double>();
+        if(h > 0){ //only one real root exists
+            double s = Math.cbrt((-g/2) + Math.sqrt(h));
+            double u = Math.cbrt((-g/2) - Math.sqrt(h));
+            roots.add( (s+u) - (b/(3*a)) );
+        }else if(f==0 && g==0 && h==0){//all 3 roots are real and equal
+            roots.add( (-1)*Math.cbrt(d/a) );
+        }else if(h <=0){//all 3 roots are real
+            double i = Math.sqrt((g*g/4) - h);
+            double j = Math.cbrt(i);
+            double k = Math.acos( -1*(g/(2*i)));
+            double m = Math.cos(k/3);
+            double n = Math.sqrt(3)*Math.sin(k/3);
+            double p = (b/(3*a)) * (-1);
+            roots.add( (2*j*m) + p);
+            roots.add( ((-1)*j*(m+n)) + p);
+            roots.add( ((-1)*j*(m-n)) + p);
         }
 
-        return realRoots;
+        return roots;
     }
 
 
