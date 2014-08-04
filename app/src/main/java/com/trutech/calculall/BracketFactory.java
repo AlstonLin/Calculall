@@ -14,4 +14,12 @@ public class BracketFactory {
     public static Bracket createCloseBracket(){
         return new Bracket(")", Bracket.CLOSE);
     }
+
+    public static Bracket createOpenSquareBracket(){
+        return new Bracket("[", Bracket.SQUAREOPEN);
+    }
+
+    public static Bracket createCloseSquareBracket(){
+        return new Bracket("]", Bracket.SQUARECLOSE);
+    }
 }

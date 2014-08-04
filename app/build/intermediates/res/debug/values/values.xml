@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- From: file:/C:/Users/Alston/Calculall/app/src/main/res/values/dimens.xml -->
+    <!-- From: file:/C:/Users/Ahsen/Documents/GitHub/Calculall/app/src/main/res/values/dimens.xml -->
     <eat-comment />
 
     <dimen name="activity_horizontal_margin">0dp</dimen>
     <dimen name="activity_vertical_margin">0dp</dimen>
-    <!-- From: file:/C:/Users/Alston/Calculall/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/C:/Users/Ahsen/Documents/GitHub/Calculall/app/src/main/res/values/strings.xml -->
     <eat-comment />
 
     <string name="AC">AC</string>
@@ -19,6 +19,7 @@
     <string name="Equals">=</string>
     <string name="Five">5</string>
     <string name="Four">4</string>
+    <string name="Function">Function</string>
     <string name="Graphing">Graphing</string>
     <string name="Minus">-</string>
     <string name="More">More</string>
@@ -30,6 +31,7 @@
     <string name="Six">6</string>
     <string name="Three">3</string>
     <string name="Two">2</string>
+    <string name="Vector">Vector</string>
     <string name="Zero">0</string>
     <string name="action_settings">Settings</string>
     <string name="app_name">Calculall</string>
@@ -40,11 +42,15 @@
     <string name="base8">OCT</string>
     <string name="cbrt">³√</string>
     <string name="closedBracket">)</string>
+    <string name="closedSquareBracket">]</string>
     <string name="combination">n<b><b>C</b></b>r</string>
+    <string name="comma">,</string>
     <string name="cos">cos</string>
+    <string name="cross">×</string>
     <string name="cube">x³</string>
     <string name="deg">DEG</string>
     <string name="degrees">Degrees</string>
+    <string name="dot">•</string>
     <string name="e">e</string>
     <string name="exponent"><![CDATA[<p>x<sup><small><small><i>y</i></small></small></sup></p>]]></string>
     <string name="factorial">n!</string>
@@ -57,6 +63,7 @@
     <string name="log_b">log_b</string>
     <string name="mixedFrac">A b/c</string>
     <string name="openBracket">(</string>
+    <string name="openSquareBracket">[</string>
     <string name="permutation">n<b><b>P</b></b>r</string>
     <string name="pi">"π"</string>
     <string name="plusminus">±</string>
@@ -77,6 +84,7 @@
     <string name="title_activity_advanced">Advanced</string>
     <string name="title_activity_basic">Basic</string>
     <string name="title_activity_graphing">Graphing</string>
+    <string name="title_activity_vector">Vector</string>
     <string name="varA">A</string>
     <string name="varB">B</string>
     <string name="varC">C</string>
