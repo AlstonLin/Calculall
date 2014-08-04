@@ -234,7 +234,7 @@ public class VectorMode extends Basic {
     }
 
     /**
-     * 
+     *
      * @param vectors
      * @return
      */
