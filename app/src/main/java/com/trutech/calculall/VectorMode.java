@@ -232,9 +232,21 @@ public class VectorMode extends Basic {
         tokens.add(BracketFactory.createCloseSquareBracket());
         updateInput();
     }
+
+    /**
+     * 
+     * @param vectors
+     * @return
+     */
     public int calculateDotProduct (int[][] vectors){
         return null;
     }
+
+    /**
+     *
+     * @param vectors
+     * @return
+     */
     public int calculateCrossProduct (int[][] vectors){
         return null;
     }
