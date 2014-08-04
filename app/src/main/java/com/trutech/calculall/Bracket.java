@@ -4,7 +4,7 @@ package com.trutech.calculall;
  * When an expression is processed, the pieces within the bracket will be evaluated first. They
  * can be used alone or in conjunction with a function.
  *
- * @version 0.3.0
+ * @version 0.4.0
  */
 public class Bracket extends Token {
 	

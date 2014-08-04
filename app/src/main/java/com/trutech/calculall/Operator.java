@@ -3,7 +3,7 @@ package com.trutech.calculall;
 /**
  * Receives input from the digits surrounding the operation piece and results in a new number.
  *
- * @version 0.3.0
+ * @version 0.4.0
  */
 public abstract class Operator extends Token {
 

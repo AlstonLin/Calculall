@@ -3,8 +3,9 @@ package com.trutech.calculall;
 /**
  * Contains static methods that will create function pieces.
  *
- * @version 0.3.0
+ * @version 0.4.0
  */
+
 public class FunctionFactory {
 	private static double sin(double a){
 		if(a % Math.PI == 0){

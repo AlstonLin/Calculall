@@ -1,5 +1,7 @@
 package com.trutech.calculall;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -7,7 +9,7 @@ import java.util.Stack;
 /**
  * Contains miscellaneous static methods that provide utility.
  *
- * @version 0.3.0
+ * @version 0.4.0
  */
 public class Utility {
 
@@ -73,11 +75,11 @@ public class Utility {
 				} else if (last instanceof Number && b.getType() == Bracket.OPEN){ //Ex. 3(2 + 1)
 					newExpression.add(OperatorFactory.makeMultiply());
 				}
-			} else if (t instanceof Number){ 
+			} else if (t instanceof Number || t instanceof Variable){ //So it works with Function mode too
 				if (last instanceof Number){ //Ex. 5A
 					newExpression.add(OperatorFactory.makeMultiply());
 				}
-			} else if (t instanceof Function){ 
+			} else if (t instanceof Function){
 				if (last instanceof Number || last instanceof Function 
 						|| (last instanceof Bracket && ((Bracket)last).getType() == Bracket.CLOSE)){ //Ex. 2f(x) or f(x)g(x) or (1 + 2)f(x)
 					newExpression.add(OperatorFactory.makeMultiply());
@@ -221,6 +223,17 @@ public class Utility {
 		return a;
 	}
 
+    /**
+     * Rounds the given double to the given amount of significant digits.
+     * @param unrounded The unrounded value
+     * @param sigDigs The amount of significant digits to round to
+     * @return The rounded value
+     */
+    public static double round (double unrounded, int sigDigs){
+        BigDecimal rounded = new BigDecimal(unrounded);
+        return rounded.round(new MathContext(sigDigs)).doubleValue();
+    }
+
 	/**
 	 * Finds the roots of any given function, if any
 	 * 
@@ -276,7 +289,6 @@ public class Utility {
 	public static ArrayList<Double> solveQuadratic(double a, double b, double c){
 		ArrayList<Double> roots = new ArrayList<Double>();
 		if((b*b - 4*a*c) < 0){
-			roots = null;
 		}else if((b*b - 4*a*c) == 0){
 			roots.add( -b/(2*a));
 		}else{
@@ -300,18 +312,51 @@ public class Utility {
 		return roots;
 	}
 
-	/*
-    public static ArrayList<Complex> solveCubic(double a, double b, double c, double d){
+    /**
+     * Finds all the REAL roots of a cubic function
+     * @param a the a value of the cubic function
+     * @param b the b value of the cubic function
+     * @param c the c value of the cubic function
+     * @param d the d value of the cubic function
+     * @return An ArrayList (of Double objects) containing the real roots of the function
+     **/
+    public static ArrayList<Double> solveCubic(double a, double b, double c, double d){
         ArrayList<Complex> roots = new ArrayList<Complex>();
+        ArrayList<Double> realRoots = new ArrayList<Double>();
         Complex expression = new Complex(2*b*b*b - 9*a*b*c + 27*a*a*d, 0);
-        Complex exp2 = Complex.sqrt(Complex.pow(expression,2) - 4*(Math.pow((b*b - 3*a*c),3)));
+        Complex exp2 = Complex.sqrt(Math.pow(expression.getReal(),2) - 4*(Math.pow((b*b - 3*a*c),3)));
         Complex rad1 = Complex.cbrt((expression.add(exp2)).times(0.5));
         Complex rad2 = Complex.cbrt((expression.subtract(exp2)).times(0.5));
-        roots.add(new Complex(
-                (-b)/(3*a) - (rad1/(3*a))
-        ))
-    }*/
+        final Complex CONST1 = (new Complex(1, Math.sqrt(3))).times(6*a);
+        final Complex CONST2 = (new Complex(1, (-1)*Math.sqrt(3))).times(6*a);
+        final Complex CONST3 = new Complex((-b)/(3*a),0);
 
+        roots.add(new Complex(
+                CONST3.subtract(
+                        rad1.times(1 / (3 * a))).add((rad2.times(1 / (3 * a)))
+                )
+        ));
+
+        roots.add(new Complex(
+                CONST3.add(
+                        CONST1.times(rad1)).add(CONST2.times(rad2)
+                )
+        ));
+
+        roots.add(new Complex(
+                CONST3.add(
+                        CONST1.times(rad2)).add(CONST2.times(rad1)
+                )
+        ));
+
+        for(int i = 0; i < 3; i++){
+            if(roots.get(i).isReal()){
+                realRoots.add(roots.get(i).getReal());
+            }
+        }
+
+        return realRoots;
+    }
 
 
 	/**

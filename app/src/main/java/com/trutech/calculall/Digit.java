@@ -3,7 +3,7 @@ package com.trutech.calculall;
 /**
  * Represents a single digit of a number.
  *
- * @version 0.3.0
+ * @version 0.4.0
  */
 public class Digit extends Token {
 
