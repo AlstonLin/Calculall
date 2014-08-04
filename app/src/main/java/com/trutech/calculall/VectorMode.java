@@ -232,4 +232,6 @@ public class VectorMode extends Basic {
         tokens.add(BracketFactory.createCloseSquareBracket());
         updateInput();
     }
+
+    testing 
 }
