@@ -30,9 +30,13 @@
             android:label="@string/title_activity_advanced"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.trutech.calculall.Graphing"
+            android:name="com.trutech.calculall.FunctionMode"
             android:label="@string/title_activity_graphing"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="com.trutech.calculall.VectorMode"
+            android:label="@string/title_activity_vector" >
+        </activity>
     </application>
 
 </manifest>

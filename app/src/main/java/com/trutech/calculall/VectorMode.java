@@ -233,5 +233,5 @@ public class VectorMode extends Basic {
         updateInput();
     }
 
-    testing 
+
 }
