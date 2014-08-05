@@ -233,5 +233,94 @@ public class VectorMode extends Basic {
         updateInput();
     }
 
+<<<<<<< HEAD
 
+=======
+    /**
+     * The parameter vectors should be set up so that each vector is in it's own column
+     * for example if the vectors are 2D vectors the first vector's x co-ordinate should be stored in vectors[0][0]
+     * the y co-ordinate should be stored in vectors[0][1]
+     * for the second vector the x co-ordinate should be stored in vectors[1][0]
+     * the y co-ordinate for the second vector should be stored in vectors[1][1]
+     * @param vectors     is a 2D array that holds the 2 vectors that we are trying to find the dot product of
+     * @return            will return the answer as a double or if it can't calculate it returns null
+     */
+    public double calculateDotProduct (double[][] vectors){
+
+        //first solution
+        //can handle 1D, 2D and 3D vectors
+        //for 2D vectors
+        if (vectors[0].length == 2){
+            double dotProduct = vectors[0][0] * vectors[1][0] + vectors[0][1] * vectors[1][1];
+            return dotProduct;
+        }
+        //for 3D vectors
+        elsif (vectors[0].length == 3) {
+            double dotProduct = vectors[0][0] * vectors[1][0] + vectors[0][1] * vectors[1][1] + vectors[0][2] * vectors[1][2];
+            return dotProduct;
+        }
+        //for 1D vectors basically just multiplication
+        elsif{
+            double dotProduct = vectors[0][0] * vectors[1][0];
+            return dotProduct;
+        }
+        //if the vectors[0].length is greater than 3 it would mean dealing with vectors that are 4D or higher
+        else{
+            return null;
+        }
+
+
+
+
+        //second solution
+        // can handle vectors no matter how many dimensions the vector has
+        // this if is to make sure both vectors will be the same type basically to make sure you are finding the dot product between a 2D vector and another
+        // 2D vector not between a 2D vector and a 3D veector
+        if (vectors[0].length == vectors[1].length) {
+            //are we dealing with 2D vectors?, 3D vectors?, 4D vectors? so on
+            int dimensions = vectors[0].length;
+            //holds the answer
+            double dotProduct = 0;
+            //this for loop wll be able to do dot products no matter how many dimensions there are
+            //loop as many times as here are vectors
+            for (int i = 0; i < dimensions; i++) {
+                //first time it goes through it will multiply the x co-ordinate aka first dimension of each vector with each other
+                //the product is added to the variable dot product
+                //second run it will multiply the y co-ordinate aka second dimension of each vector with each other
+                //this second product will be added to the dot product
+                //for 2D vectors this would be the dot product and the loop would end if the vectors are 3D or higher it would keep looping
+                double dotProduct = dotProduct + vectors[0][i] * vectors[1][i];
+            }
+            //return the answer
+            return dotProduct;
+        }
+        else {
+            return null;
+        }
+
+    }
+
+    /**
+     *the parameter vectors should be set up the same way as it is for dot product
+     * each of the two vectors is in it's own column
+     * the co-ordinates for the first vector should be as such x is in vectors[0][0]
+     * y is in vectors[0][1]  z is in vectors[0][2]
+     * for the second vector x is in vectors[1][0]  y is in vectors[1][1]
+     * z is in vectors[1][2]
+     * @param vectors  is a 2D array that holds the 2 vectors that we are trying to find the dot product of
+     * @return         returns the answer as a 1D array of doubles or if it can't calculate it will return null
+     */
+    public double[] calculateCrossProduct (double[][] vectors){
+        if (vectors[0].length == 3 && vectors[1].length == 3) {
+            double[] crossProduct = new double[3];
+            crossProduct[0] = vectors[0][1] * vectors[1][2] - vectors[0][2] * vectors[1][1];
+            crossProduct[1] = vectors[0][2] * vectors[1][0] - vectors[0][0] * vectors[1][2];
+            crossProduct[2] = vectors[0][0] * vectors[1][1] - vectors[0][1] * vectors[1][2];
+            return crossProduct;
+        }
+        else {
+            return null;
+        }
+    }
+>>>>>>> origin/vector
 }
