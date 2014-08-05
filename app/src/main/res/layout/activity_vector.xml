@@ -472,7 +472,7 @@
                 android:layout_height="fill_parent"
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
-                android:onClick="clickEquals"
+                android:onClick="clickVectorEquals"
                 android:text="@string/Equals"
                 android:textSize="30sp" />
 

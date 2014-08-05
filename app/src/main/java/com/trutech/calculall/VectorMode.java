@@ -9,6 +9,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import java.util.ArrayList;
+
 public class VectorMode extends Basic {
 
     private boolean mem = false;
@@ -70,7 +72,8 @@ public class VectorMode extends Basic {
      *
      * @param v Not Used
      */
-    public void clickEquals(View v){
+    public void clickVectorEquals(View v){
+        evaluateVector();
         TextView output = (TextView) findViewById(R.id.txtStack);
         try{
             String s = Double.toString(process());
@@ -83,6 +86,52 @@ public class VectorMode extends Basic {
         }
         ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
         scrollView.pageScroll(ScrollView.FOCUS_DOWN);
+    }
+
+    private String  processVector () {
+        condenseDigits();
+    }
+
+
+
+    /**
+     * Transforms all the digits into numbers as well as replacing Variables with numbers.
+     *
+     * @return The tokens with the digits condensed and variables substituted
+     */
+    private ArrayList<Token> condenseDigits(){
+        ArrayList<Token> newTokens = new ArrayList<Token>();
+        ArrayList<Digit> digits = new ArrayList<Digit>();
+        boolean atDigits = false; //Tracks if it's currently tracking digits
+        for (Token token : tokens){
+            if (atDigits){ //Going through digits
+                if (token instanceof Digit){ //Number keeps going
+                    digits.add((Digit) token);
+                }else { //Number ended
+                    atDigits = false;
+                    newTokens.add(new Number(Utility.valueOf(digits))); //Adds the sum of all the digits
+                    digits.clear();
+                    if (token instanceof Variable){ //Substitutes Variables
+                        newTokens.add(new Number(((Variable)token).getValue()));
+                    }else {
+                        newTokens.add(token);
+                    }
+                }
+            }else{ //Not going through digits
+                if (token instanceof Digit) { //Start of a number
+                    atDigits = true;
+                    digits.add((Digit) token);
+                } else if (token instanceof Variable){ //Substitutes Variables
+                    newTokens.add(new Number(((Variable)token).getValue()));
+                } else{ //Not a digit; adds to the new list
+                    newTokens.add(token);
+                }
+            }
+        }
+        if (!digits.isEmpty() && atDigits){ //Digits left
+            newTokens.add(new Number (Utility.valueOf(digits)));
+        }
+        return newTokens;
     }
 
     /**
@@ -233,9 +282,38 @@ public class VectorMode extends Basic {
         updateInput();
     }
 
-<<<<<<< HEAD
+    /**
+     * When the user presses the 2 Button.
+     *
+     * @param v Not Used
+     */
+    public void clickDot(View v){
+        tokens.add(new Token ("•"){});
+        updateInput();
+    }
 
-=======
+    /**
+     * When the user presses the 2 Button.
+     *
+     * @param v Not Used
+     */
+    public void clickCross(View v){
+        tokens.add(new Token ("×"){});
+        updateInput();
+    }
+
+    /**
+     * When the user presses the 2 Button.
+     *
+     * @param v Not Used
+     */
+    public void clickComma(View v){
+        tokens.add(new Token (","){});
+        updateInput();
+    }
+
+
+
     /**
      * The parameter vectors should be set up so that each vector is in it's own column
      * for example if the vectors are 2D vectors the first vector's x co-ordinate should be stored in vectors[0][0]
@@ -255,12 +333,12 @@ public class VectorMode extends Basic {
             return dotProduct;
         }
         //for 3D vectors
-        elsif (vectors[0].length == 3) {
+        else if (vectors[0].length == 3) {
             double dotProduct = vectors[0][0] * vectors[1][0] + vectors[0][1] * vectors[1][1] + vectors[0][2] * vectors[1][2];
             return dotProduct;
         }
         //for 1D vectors basically just multiplication
-        elsif{
+        else if{
             double dotProduct = vectors[0][0] * vectors[1][0];
             return dotProduct;
         }
@@ -322,5 +400,4 @@ public class VectorMode extends Basic {
             return null;
         }
     }
->>>>>>> origin/vector
 }

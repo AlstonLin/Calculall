@@ -168,6 +168,14 @@ public class Utility {
 		}
 	}
 
+    private ArrayList<Token> evaluateVector (ArrayList<Token> tokens) {
+
+    }
+
+    private int[] convertVectorToArray (ArrayList<Token> tokens) {
+
+    }
+
 	/**
 	 * Simplifies and Rationalizes the given expression.
 	 * 
