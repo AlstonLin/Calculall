@@ -4,11 +4,12 @@ import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-
+@SuppressWarnings("unused")
 /**
  * The activity for the advanced calculator mode. The advanced mode will be able to
  * perform the most of the operations of a standard scientific calculator.
@@ -62,16 +63,87 @@ public class Advanced extends Basic {
         updateInput();
     }
 
+    public boolean switchedAngleMode = false;
     public void convGtoD() {
         //Converts the number displayed from gradians into degrees ie multiplies the number by 9/10
+
+        //we probably won't convert the functions but if we do we can use this:
+        /*for(int i=0;i<tokens.size();i++){
+            if(tokens.get(i) instanceof Function){
+                if(((Function) tokens.get(i)).getType() == Function.SIN){
+                    tokens.set(i,FunctionFactory.makeSinD());
+                }else if((Function) tokens.get(i)).getType() == Function.COS){
+                    tokens.set(i, FunctionFactory.makeCosD());
+                }else if((Function) tokens.get(i)).getType() == Function.TAN){
+                    tokens.set(i, FunctionFactory.makeTanD());
+                }else if((Function) tokens.get(i)).getType() == Function.ARCSIN){
+                    tokens.set(i, FunctionFactory.makeASinD());
+                }else if((Function) tokens.get(i)).getType() == Function.ARCCOS){
+                    tokens.set(i, FunctionFactory.makeACosD());
+                }else if((Function) tokens.get(i)).getType() == Function.ARCTAN){
+                    tokens.set(i, FunctionFactory.makeATanD());
+                }
+            }
+        }*/
+        TextView input = (TextView) findViewById(R.id.txtInput);
+        TextView output = (TextView) findViewById(R.id.txtStack);
+        try {
+            double val = process();
+            if(switchedAngleMode){
+                tokens.set(tokens.size()-1, new Token(" → DEG"){});
+            }else {
+                tokens.add(new Token(" → DEG"){});
+            }
+            updateInput();
+            output.setText(val*9/10+"");
+            ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
+            scrollView.pageScroll(ScrollView.FOCUS_DOWN);
+            switchedAngleMode = true;
+        } catch (Exception e) { //User made a mistake
+            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
+        }
     }
 
     public void convRtoG() {
         //Converts the number displayed from radians into gradians ie multiplies the number by 100/pi
+        TextView input = (TextView) findViewById(R.id.txtInput);
+        TextView output = (TextView) findViewById(R.id.txtStack);
+        try {
+            double val = process();
+            if(switchedAngleMode){
+                tokens.set(tokens.size()-1, new Token(" → GRAD"){});
+            }else {
+                tokens.add(new Token(" → GRAD"){});
+            }
+            updateInput();
+            output.setText(val*100/Math.PI+"");
+            ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
+            scrollView.pageScroll(ScrollView.FOCUS_DOWN);
+            switchedAngleMode = true;
+        } catch (Exception e) { //User made a mistake
+            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
+        }
     }
 
     public void convDtoR() {
         //Converts the number displayed from degrees into radians ie multiplies the number by pi/180
+        TextView input = (TextView) findViewById(R.id.txtInput);
+        TextView output = (TextView) findViewById(R.id.txtStack);
+        try {
+            double val = process();
+            if(switchedAngleMode){
+                tokens.set(tokens.size()-1, new Token(" → RAD"){});
+            }else {
+                tokens.add(new Token(" → RAD"){});
+            }
+            updateInput();
+            output.setText(val*Math.PI/180+"");
+            ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
+            scrollView.pageScroll(ScrollView.FOCUS_DOWN);
+            switchedAngleMode = true;
+        } catch (Exception e) { //User made a mistake
+            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
+        }
     }
 
     /**
@@ -294,11 +366,7 @@ public class Advanced extends Basic {
      */
     public void clickMem(View v) {
         ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
-        if (mem) {
-            mem = false;
-        } else {
-            mem = true;
-        }
+        mem = !mem;
         memButton.setChecked(mem);
     }
 

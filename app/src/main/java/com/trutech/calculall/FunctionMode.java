@@ -10,6 +10,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * Ability to define functions and perform various actions with them, such as finding
@@ -22,7 +24,7 @@ public class FunctionMode extends Advanced {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_function);
-        //Programmaticly sets the texts that can't be defined with XML
+        //Programmatically sets the texts that can't be defined with XML
         Button powButton = (Button) findViewById(R.id.powButton);
         Button expButton = (Button) findViewById(R.id.powerButton);
         powButton.setText(Html.fromHtml(getString(R.string.powOfTen)));
@@ -54,7 +56,15 @@ public class FunctionMode extends Advanced {
                 double c = coefficients.containsKey(1d) ? coefficients.get(1d) : 0;
                 double d = coefficients.get(0d);
                 roots = Utility.solveCubic(a, b, c, d);
-            } else {
+            }else if(highestDegree==1){
+                double a = coefficients.get(1d);
+                double b = coefficients.containsKey(0d) ? coefficients.get(0d) : 0;
+                //0=ax+b
+                //-b=ax
+                //x=-b/a
+                roots = new ArrayList<Double>();
+                roots.add(-b/a);
+            }else{
                 roots = new ArrayList<Double>(); //Will only contain 1 root
                 //TODO: Complete this using the general root finder
             }
@@ -106,7 +116,6 @@ public class FunctionMode extends Advanced {
             Token beforePrevious = i - 2 >= 0 ? tokens.get(i - 2) : null;
             Token next = i + 1 < tokens.size() ? tokens.get(i + 1) : null;
             Token afterNext = i + 2 < tokens.size() ? tokens.get(i + 2) : null;
-            Token afterAfterNext = i + 3 < tokens.size() ? tokens.get(i + 3) : null;
             if (token instanceof Variable) { //Has to be an X; there's no other variables
                 //Assumed a value of 1 until defined (ex. 5X has a degree of 1)
                 double coefficient = 1;
@@ -142,33 +151,6 @@ public class FunctionMode extends Advanced {
                 }
                 //Now maps the coefficient to the term
                 map.put(degree, coefficient);
-
-            /*} else if (token instanceof Operator && next instanceof Number && afterNext instanceof Variable){
-                Operator o = (Operator) token;
-                if (o.getType() == Operator.SUBTRACT || o.getType() == Operator.ADD){
-                    double value = ((Number)next).getValue();
-                    value *= o.getType() == Operator.SUBTRACT ? -1 : 1; //Accounts the Subtraction as a negative
-                    if(afterAfterNext instanceof Operator && (((Operator) afterAfterNext).getType() == Operator.EXPONENT)){
-                        Token power = i + 4 < tokens.size() ? tokens.get(i + 4) : null;
-                        if(power instanceof Number) {
-                            map.remove(((Number) power).getValue());//prevents duplicates
-                            map.put(((Number) power).getValue(), value);
-                        }
-                    }
-                }
-            }else if (token instanceof Operator && next instanceof Variable){
-                Operator o = (Operator) token;
-                if (o.getType() == Operator.SUBTRACT || o.getType() == Operator.ADD){
-                    double value;
-                    value = o.getType() == Operator.SUBTRACT ? -1 : 1; //Accounts the Subtraction as a negative
-                    if(afterNext instanceof Operator && (((Operator) afterNext).getType() == Operator.EXPONENT)){
-                        if(afterAfterNext instanceof Number){
-                            map.remove(((Number) afterAfterNext).getValue());//prevents duplicates
-                            map.put( ((Number) afterAfterNext).getValue(), value);
-                        }
-                    }
-
-                }*/
             }else if(token instanceof Operator){
                 if( ((Operator) token).getType() == Operator.ADD){
                     negative = false;
@@ -176,14 +158,27 @@ public class FunctionMode extends Advanced {
                     negative = true;
                 }
 
-            } /*else if (token instanceof Number && previous instanceof Operator){
+            }else if (token instanceof Number && previous instanceof Operator){
                 Operator o = (Operator) previous;
                 if ((o.getType() == Operator.ADD || o.getType() == Operator.SUBTRACT) && i == tokens.size() - 1){ //Constant
                     double value = ((Number)token).getValue();
                     value *= o.getType() == Operator.SUBTRACT ? -1 : 1; //Accounts the Subtraction as a negative
                     map.put(0d, value);
                 }
-            }*/
+            }
+        }
+
+        Iterator<Double> keySetIterator = map.keySet().iterator();
+        double hd = 0;
+        double temp;
+        while(keySetIterator.hasNext()){
+            temp = keySetIterator.next();
+            if(temp > hd){
+                hd = temp;
+            }
+        }
+        if(highestDegree < hd){
+            highestDegree = hd;
         }
         //Maps if the metadata
         map.put(Double.POSITIVE_INFINITY, highestDegree);
