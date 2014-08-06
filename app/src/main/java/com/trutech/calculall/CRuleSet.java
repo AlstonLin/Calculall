@@ -9,8 +9,7 @@ public class CRuleSet {
 	ArrayList<Token> newExpression = new ArrayList<Token>();
 
 	public CRuleSet () {
-		CRules.add(new CRule ("[N,N]d[N,N]"));
-                //CRules.add(new CRule ("", "", true));
+		CRules.add(new CRule (("[N,N]d[N,N]"), CRuleSet.DOT, 2));
 	}
 
 	public ArrayList<Token> reduce(ArrayList<Token> expression) {

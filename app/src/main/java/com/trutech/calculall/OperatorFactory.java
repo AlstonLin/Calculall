@@ -47,6 +47,15 @@ public class OperatorFactory {
         };
     }
 
+    public static Operator makeDot(){
+        return new Operator("•", Operator.DOT, 6, true){
+        };
+    }
+    public static Operator makeCross(){
+        return new Operator("×", Operator.CROSS, 6, true){
+        };
+    }
+
     public static Operator makeExponent(){
         return new Operator("^", Operator.EXPONENT, 5, false){ //TODO: Make it so the next number is a superscript
             @Override

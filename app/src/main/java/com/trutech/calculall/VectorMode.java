@@ -263,7 +263,7 @@ public class VectorMode extends Basic {
     }
 
     /**
-     * When the user presses the ( Button.
+     * When the user presses the [ Button.
      *
      * @param v Not Used
      */
@@ -273,7 +273,7 @@ public class VectorMode extends Basic {
     }
 
     /**
-     * When the user presses the ) Button.
+     * When the user presses the ] Button.
      *
      * @param v Not Used
      */
@@ -283,22 +283,22 @@ public class VectorMode extends Basic {
     }
 
     /**
-     * When the user presses the 2 Button.
+     * When the user presses the • Button.
      *
      * @param v Not Used
      */
     public void clickDot(View v){
-        tokens.add(new Token ("•"){});
+        tokens.add(OperatorFactory.makeDot());
         updateInput();
     }
 
     /**
-     * When the user presses the 2 Button.
+     * When the user presses the × Button.
      *
      * @param v Not Used
      */
     public void clickCross(View v){
-        tokens.add(new Token ("×"){});
+        tokens.add(OperatorFactory.makeCross());
         updateInput();
     }
 
