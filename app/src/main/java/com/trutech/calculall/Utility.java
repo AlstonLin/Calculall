@@ -93,7 +93,7 @@ public class Utility {
 	 *
 	 * @param infix The infix expression
 	 * @return The expression in reverse polish
-	 * @throws java.lang.IllegalArgumentException The infix notation is invalid
+	 * @throws IllegalArgumentException The infix notation is invalid
 	 */
 	public static ArrayList<Token> convertToReversePolish(ArrayList<Token> infix) {
 		ArrayList<Token> reversePolish = new ArrayList<Token>();
@@ -142,7 +142,7 @@ public class Utility {
 	 *
 	 * @param tokens The expression in reverse polish
 	 * @return The value of the expression
-	 * @throws java.lang.IllegalArgumentException The user has inputted an invalid expression
+	 * @throws IllegalArgumentException The user has inputted an invalid expression
 	 */
 	public static double evaluateExpression (ArrayList<Token> tokens){
 		Stack<Number> stack = new Stack<Number>();
@@ -201,33 +201,15 @@ public class Utility {
 				}
 			}
 		}
-		if (num.size() == 1){
-			intNum = ((Digit)(num.get(0))).getValue();
-		}
-		if (den.size() == 1){
-			intDen = ((Digit)(den.get(0))).getValue();
-		}
-
-		@SuppressWarnings("unused")
-		int gcf = findGCF(intNum, intDen);
-		
-		num.clear();
-		den.clear();
-
 
 		return null;
 	}
 
-	public static int findGCF(int a, int b)
-	{
-		while (b > 0)
-		{
-			int temp = b;
-			b = a % b; // % is remainder
-			a = temp;
-		}
-		return a;
-	}
+    public static ArrayList<Token> simplifyVector (ArrayList<Token> expression) {
+        CRuleSet cRuleSet = new CRuleSet();
+        return cRuleSet.reduce(expression);
+    }
+
 
 	/**
 	 * Finds the roots of any given function, if any
