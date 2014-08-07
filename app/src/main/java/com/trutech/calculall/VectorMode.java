@@ -9,6 +9,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import java.util.ArrayList;
+
 public class VectorMode extends Basic {
 
     private boolean mem = false;
@@ -70,7 +72,8 @@ public class VectorMode extends Basic {
      *
      * @param v Not Used
      */
-    public void clickEquals(View v){
+    public void clickVectorEquals(View v){
+        evaluateVector();
         TextView output = (TextView) findViewById(R.id.txtStack);
         try{
             String s = Double.toString(process());
@@ -83,6 +86,52 @@ public class VectorMode extends Basic {
         }
         ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
         scrollView.pageScroll(ScrollView.FOCUS_DOWN);
+    }
+
+    private String  processVector () {
+        condenseDigits();
+    }
+
+
+
+    /**
+     * Transforms all the digits into numbers as well as replacing Variables with numbers.
+     *
+     * @return The tokens with the digits condensed and variables substituted
+     */
+    private ArrayList<Token> condenseDigits(){
+        ArrayList<Token> newTokens = new ArrayList<Token>();
+        ArrayList<Digit> digits = new ArrayList<Digit>();
+        boolean atDigits = false; //Tracks if it's currently tracking digits
+        for (Token token : tokens){
+            if (atDigits){ //Going through digits
+                if (token instanceof Digit){ //Number keeps going
+                    digits.add((Digit) token);
+                }else { //Number ended
+                    atDigits = false;
+                    newTokens.add(new Number(Utility.valueOf(digits))); //Adds the sum of all the digits
+                    digits.clear();
+                    if (token instanceof Variable){ //Substitutes Variables
+                        newTokens.add(new Number(((Variable)token).getValue()));
+                    }else {
+                        newTokens.add(token);
+                    }
+                }
+            }else{ //Not going through digits
+                if (token instanceof Digit) { //Start of a number
+                    atDigits = true;
+                    digits.add((Digit) token);
+                } else if (token instanceof Variable){ //Substitutes Variables
+                    newTokens.add(new Number(((Variable)token).getValue()));
+                } else{ //Not a digit; adds to the new list
+                    newTokens.add(token);
+                }
+            }
+        }
+        if (!digits.isEmpty() && atDigits){ //Digits left
+            newTokens.add(new Number (Utility.valueOf(digits)));
+        }
+        return newTokens;
     }
 
     /**
@@ -214,7 +263,7 @@ public class VectorMode extends Basic {
     }
 
     /**
-     * When the user presses the ( Button.
+     * When the user presses the [ Button.
      *
      * @param v Not Used
      */
@@ -224,7 +273,7 @@ public class VectorMode extends Basic {
     }
 
     /**
-     * When the user presses the ) Button.
+     * When the user presses the ] Button.
      *
      * @param v Not Used
      */
@@ -234,20 +283,121 @@ public class VectorMode extends Basic {
     }
 
     /**
+     * When the user presses the • Button.
      *
-     * @param vectors
-     * @return
+     * @param v Not Used
      */
-    public int calculateDotProduct (int[][] vectors){
-        return null;
+    public void clickDot(View v){
+        tokens.add(OperatorFactory.makeDot());
+        updateInput();
     }
 
     /**
+     * When the user presses the × Button.
      *
-     * @param vectors
-     * @return
+     * @param v Not Used
      */
-    public int calculateCrossProduct (int[][] vectors){
-        return null;
+    public void clickCross(View v){
+        tokens.add(OperatorFactory.makeCross());
+        updateInput();
+    }
+
+    /**
+     * When the user presses the 2 Button.
+     *
+     * @param v Not Used
+     */
+    public void clickComma(View v){
+        tokens.add(new Token (","){});
+        updateInput();
+    }
+
+
+
+    /**
+     * The parameter vectors should be set up so that each vector is in it's own column
+     * for example if the vectors are 2D vectors the first vector's x co-ordinate should be stored in vectors[0][0]
+     * the y co-ordinate should be stored in vectors[0][1]
+     * for the second vector the x co-ordinate should be stored in vectors[1][0]
+     * the y co-ordinate for the second vector should be stored in vectors[1][1]
+     * @param vectors     is a 2D array that holds the 2 vectors that we are trying to find the dot product of
+     * @return            will return the answer as a double or if it can't calculate it returns null
+     */
+    public double calculateDotProduct (double[][] vectors){
+
+        //first solution
+        //can handle 1D, 2D and 3D vectors
+        //for 2D vectors
+        if (vectors[0].length == 2){
+            double dotProduct = vectors[0][0] * vectors[1][0] + vectors[0][1] * vectors[1][1];
+            return dotProduct;
+        }
+        //for 3D vectors
+        else if (vectors[0].length == 3) {
+            double dotProduct = vectors[0][0] * vectors[1][0] + vectors[0][1] * vectors[1][1] + vectors[0][2] * vectors[1][2];
+            return dotProduct;
+        }
+        //for 1D vectors basically just multiplication
+        else if{
+            double dotProduct = vectors[0][0] * vectors[1][0];
+            return dotProduct;
+        }
+        //if the vectors[0].length is greater than 3 it would mean dealing with vectors that are 4D or higher
+        else{
+            return null;
+        }
+
+
+
+
+        //second solution
+        // can handle vectors no matter how many dimensions the vector has
+        // this if is to make sure both vectors will be the same type basically to make sure you are finding the dot product between a 2D vector and another
+        // 2D vector not between a 2D vector and a 3D veector
+        if (vectors[0].length == vectors[1].length) {
+            //are we dealing with 2D vectors?, 3D vectors?, 4D vectors? so on
+            int dimensions = vectors[0].length;
+            //holds the answer
+            double dotProduct = 0;
+            //this for loop wll be able to do dot products no matter how many dimensions there are
+            //loop as many times as here are vectors
+            for (int i = 0; i < dimensions; i++) {
+                //first time it goes through it will multiply the x co-ordinate aka first dimension of each vector with each other
+                //the product is added to the variable dot product
+                //second run it will multiply the y co-ordinate aka second dimension of each vector with each other
+                //this second product will be added to the dot product
+                //for 2D vectors this would be the dot product and the loop would end if the vectors are 3D or higher it would keep looping
+                double dotProduct = dotProduct + vectors[0][i] * vectors[1][i];
+            }
+            //return the answer
+            return dotProduct;
+        }
+        else {
+            return null;
+        }
+
+    }
+
+    /**
+     *the parameter vectors should be set up the same way as it is for dot product
+     * each of the two vectors is in it's own column
+     * the co-ordinates for the first vector should be as such x is in vectors[0][0]
+     * y is in vectors[0][1]  z is in vectors[0][2]
+     * for the second vector x is in vectors[1][0]  y is in vectors[1][1]
+     * z is in vectors[1][2]
+     * @param vectors  is a 2D array that holds the 2 vectors that we are trying to find the dot product of
+     * @return         returns the answer as a 1D array of doubles or if it can't calculate it will return null
+     */
+    public double[] calculateCrossProduct (double[][] vectors){
+        if (vectors[0].length == 3 && vectors[1].length == 3) {
+            double[] crossProduct = new double[3];
+            crossProduct[0] = vectors[0][1] * vectors[1][2] - vectors[0][2] * vectors[1][1];
+            crossProduct[1] = vectors[0][2] * vectors[1][0] - vectors[0][0] * vectors[1][2];
+            crossProduct[2] = vectors[0][0] * vectors[1][1] - vectors[0][1] * vectors[1][2];
+            return crossProduct;
+        }
+        else {
+            return null;
+        }
     }
 }
