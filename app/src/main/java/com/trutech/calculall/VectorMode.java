@@ -45,6 +45,10 @@ public class VectorMode extends Basic {
         return super.onOptionsItemSelected(item);
     }
 
+    private ArrayList<Token> processVectors (ArrayList<Token> expression) {
+
+    }
+
 
     /**
      * When the user presses the + Button.
@@ -73,7 +77,7 @@ public class VectorMode extends Basic {
      * @param v Not Used
      */
     public void clickVectorEquals(View v){
-        evaluateVector();
+        processVectors();
         TextView output = (TextView) findViewById(R.id.txtStack);
         try{
             String s = Double.toString(process());
@@ -87,11 +91,6 @@ public class VectorMode extends Basic {
         ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
         scrollView.pageScroll(ScrollView.FOCUS_DOWN);
     }
-
-    private String  processVector () {
-        condenseDigits();
-    }
-
 
 
     /**

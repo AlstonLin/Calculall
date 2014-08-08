@@ -2,18 +2,18 @@ package com.trutech.calculall;
 
 import java.util.ArrayList;
 
-public class CRule {
+public class VRule {
 
-    String pattern;
-    int operation;
-    int dimension;
-    int firstOccurPosition;
+    private String pattern;
+    private int operation;
+    private int dimension;
+    private int firstOccurPosition;
 
     /**
      * @param pattern   String pattern to be replaced
      * @param operation Operation number
      */
-    public CRule(String pattern, int operation, int dimension) {
+    public VRule(String pattern, int operation, int dimension) {
         this.pattern = pattern;
         this.operation = operation;
         this.dimension = dimension;
@@ -29,8 +29,8 @@ public class CRule {
         //Searches for a pattern in the expression
         BoyerMoore bm = new BoyerMoore(pattern);
         //Index of the first time the pattern happens is set to firstOccurPosition and is -1 if no pattern was found
-        firstOccurPostion = bm.search(stringExpression);
-        if (firstOccurPostion == -1) {
+        firstOccurPosition = bm.search(stringExpression);
+        if (firstOccurPosition == -1) {
             return expression;
         } else {
             return applyVectorOperation(expression);
@@ -38,8 +38,7 @@ public class CRule {
     }
 
     /**
-     * N = Number, A = add, S = subtract, D = dot, C = cross, , = comma
-     *
+     * N = Number, A = add, S = subtract, D = dot, C = cross, [ = open bracket, ] = closed bracket, , = comma
      *
      * @param expression An expression represented in a ArrayList of Token
      * @return String The given expression represented in a ArrayList of Token
@@ -60,37 +59,72 @@ public class CRule {
                 } else if (((Operator) (expression.get(i))).getType() == Operator.CROSS) {
                     stringExpression = stringExpression + "C";
                 }
+            } else if (expression.get(i) instanceof Bracket) {
+                if (((Bracket) (expression.get(i))).getType() == Bracket.SQUAREOPEN) {
+                    stringExpression = stringExpression + "[";
+                } else if (((Bracket) (expression.get(i))).getType() == Bracket.SQUARECLOSED) {
+                    stringExpression = stringExpression + "]";
+
+                }
             } else if (expression.get(i).getSymbol() == ",") {
                 stringExpression = stringExpression + ",";
             }
-        }
 
-    return stringExpression;
-}
+
+            return stringExpression;
+        }
+    }
 
     private ArrayList<Token> applyVectorOperation(ArrayList<Token> expression) {
-        ArrayList<Token> tempExpression = new ArrayList<>();
-        ArrayList<Token> numbers = new ArrayList<>();
-        Token operator = new Token("") {
-        };
+        ArrayList<Token> tempExpression = new ArrayList<Token>();
+        ArrayList<Token> numbers = new ArrayList<Token>();
+        ArrayList<Token> operators = new ArrayList<Token>();
         //Load all the numbers in the pattern into numbers and the operator token in the pattern into operator
         for (int i = firstOccurPosition; i < firstOccurPosition + pattern.length(); i++) {
             if (expression.get(i) instanceof Number) {
                 numbers.add(expression.get(i));
             }
         }
-        //TODO change all Numbers into integers and put all the integers into an array of integers. Look at process to see how alston did it
-        double[] leftVector = new double [dimension], rightVector = new double [dimension];
+        double[] leftVector = new double[dimension], rightVector = new double[dimension];
 
-        for (Token n: numbers){
+        //Load all numbers of each vector into an array of doubles
+        for (Token n : numbers) {
             if (numbers.indexOf(n) < dimension) {
                 leftVector[numbers.indexOf(n)] = ((Number) n).getValue();
-            }
-            else {
+            } else {
                 rightVector[numbers.indexOf(n) - dimension] = ((Number) n).getValue();
             }
         }
-        //TODO send array of doubles to ahsen's methods
+        //TODO send array of doubles to ahsen's methods and convert the doubles into tokens
+
+        //Load Tokens that are before the pattern into tempExpression
+        for (int i = 0; i < firstOccurPosition; i++) {
+            tempExpression.add(expression.get(i));
+        }
+
+        //Load all the numbers in the pattern into numbers and all the multiplication or division tokens in the pattern into multAndDiv
+        for (int i = firstOccurPosition; i < firstOccurPosition + pattern.length(); i++) {
+            if (expression.get(i) instanceof Number) {
+                numbers.add(expression.get(i));
+            } else if (expression.get(i) instanceof Operator) {
+                if (((Operator) (expression.get(i))).getType() == 3) {
+                    operators.add(expression.get(i));
+                }
+            }
+        }
+
+        // Add the new vector to the expression
+        if (operation == VRuleSet.DOT) {
+            tempExpression.add(calculateDotProduct(leftVector, rightVector));
+        } else if (operation == VRuleSet.CROSS) {
+            tempExpression.add(Utility.convertDoublesToVector(calculateCrossProduct(leftVector, rightVector)));
+        }
+
+        int tempExpressionSizeBefore = tempExpression.size();
+        //Add the last bit of the expression to tempExpression
+        for (int i = 0; i < expression.size() - tempExpressionSizeBefore + 1; i++) {
+            tempExpression.add(expression.get(i + firstOccurPosition + pattern.length()));
+        }
 
         return applyRule(tempExpression);
     }

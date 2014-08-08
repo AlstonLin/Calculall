@@ -172,10 +172,6 @@ public class Utility {
 
     }
 
-    private int[] convertVectorToArray (ArrayList<Token> tokens) {
-
-    }
-
 	/**
 	 * Simplifies and Rationalizes the given expression.
 	 * 
@@ -206,8 +202,23 @@ public class Utility {
 	}
 
     public static ArrayList<Token> simplifyVector (ArrayList<Token> expression) {
-        CRuleSet cRuleSet = new CRuleSet();
-        return cRuleSet.reduce(expression);
+        VRuleSet vRuleSet = new VRuleSet();
+        return vRuleSet.reduce(expression);
+    }
+
+    public static ArrayList<Token> convertDoublesToVector (double[] vector) {
+        ArrayList<Token> newVector = new ArrayList<Token>();
+        newVector.add(BracketFactory.createOpenSquareBracket());
+        newVector.add(new Number (vector[0]));
+        newVector.add(new Token(","){});
+        newVector.add(new Number (vector[1]));
+        newVector.add(new Token(","){});
+        if (vector.length > 2) {
+            newVector.add(new Number (vector[0]));
+            newVector.add(new Token(","){});
+        }
+        newVector.add(BracketFactory.createCloseSquareBracket());
+        return newVector;
     }
 
 
