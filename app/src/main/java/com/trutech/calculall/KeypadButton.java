@@ -31,7 +31,7 @@ public enum KeypadButton {
     , DIV(Utility.DIV, " / ",KeypadButtonCategory.OPERATOR)
     , RECIPROC(Utility.RECIPROC, "1/x",KeypadButtonCategory.OTHER)
     , DECIMAL_SEP(Utility.DECIMAL_SEP, ".",KeypadButtonCategory.OTHER)
-    , SIGN(Utility.SIGN, "±",KeypadButtonCategory.OTHER)
+    //, SIGN(Utility.SIGN, "ï¿½",KeypadButtonCategory.OTHER)
     , SQRT(Utility.SQRT, "SQRT",KeypadButtonCategory.OTHER)
     , PERCENT(Utility.PERCENT, "%",KeypadButtonCategory.OTHER)
     , CALCULATE(Utility.CALCULATE, "=",KeypadButtonCategory.RESULT)

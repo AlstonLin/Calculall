@@ -11,7 +11,7 @@ public class BracketFactory {
         return new Bracket("(", Bracket.OPEN);
     }
 
-    public static Bracket createClosedBracket(){
+    public static Bracket createCloseBracket(){
         return new Bracket(")", Bracket.CLOSE);
     }
 

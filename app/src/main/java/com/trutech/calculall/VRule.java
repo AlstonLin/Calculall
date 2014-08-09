@@ -30,6 +30,7 @@ public class VRule {
         BoyerMoore bm = new BoyerMoore(pattern);
         //Index of the first time the pattern happens is set to firstOccurPosition and is -1 if no pattern was found
         firstOccurPosition = bm.search(stringExpression);
+        //Base case for recursive implementation or no further rule can be applied
         if (firstOccurPosition == -1) {
             return expression;
         } else {
@@ -64,30 +65,30 @@ public class VRule {
                     stringExpression = stringExpression + "[";
                 } else if (((Bracket) (expression.get(i))).getType() == Bracket.SQUARECLOSED) {
                     stringExpression = stringExpression + "]";
-
                 }
             } else if (expression.get(i).getSymbol() == ",") {
                 stringExpression = stringExpression + ",";
             }
-
-
-            return stringExpression;
         }
+        return stringExpression;
     }
 
     private ArrayList<Token> applyVectorOperation(ArrayList<Token> expression) {
         ArrayList<Token> tempExpression = new ArrayList<Token>();
         ArrayList<Token> numbers = new ArrayList<Token>();
         ArrayList<Token> operators = new ArrayList<Token>();
-        //Load all the numbers in the pattern into numbers and the operator token in the pattern into operator
+        //Load all the numbers in the pattern into numbers and the operator tokens in the pattern into operators
         for (int i = firstOccurPosition; i < firstOccurPosition + pattern.length(); i++) {
             if (expression.get(i) instanceof Number) {
                 numbers.add(expression.get(i));
             }
+            else if (expression.get(i) instanceof Operator) {
+                operators.add(expression.get(i));
+            }
         }
         double[] leftVector = new double[dimension], rightVector = new double[dimension];
 
-        //Load all numbers of each vector into an array of doubles
+        //Load all Numbers of each vector into an array of doubles to send for calculations
         for (Token n : numbers) {
             if (numbers.indexOf(n) < dimension) {
                 leftVector[numbers.indexOf(n)] = ((Number) n).getValue();
@@ -95,41 +96,31 @@ public class VRule {
                 rightVector[numbers.indexOf(n) - dimension] = ((Number) n).getValue();
             }
         }
-        //TODO send array of doubles to ahsen's methods and convert the doubles into tokens
 
         //Load Tokens that are before the pattern into tempExpression
         for (int i = 0; i < firstOccurPosition; i++) {
             tempExpression.add(expression.get(i));
         }
 
-        //Load all the numbers in the pattern into numbers and all the multiplication or division tokens in the pattern into multAndDiv
-        for (int i = firstOccurPosition; i < firstOccurPosition + pattern.length(); i++) {
-            if (expression.get(i) instanceof Number) {
-                numbers.add(expression.get(i));
-            } else if (expression.get(i) instanceof Operator) {
-                if (((Operator) (expression.get(i))).getType() == 3) {
-                    operators.add(expression.get(i));
-                }
-            }
-        }
+
 
         // Add the new vector to the expression
         if (operation == VRuleSet.DOT) {
-            tempExpression.add(calculateDotProduct(leftVector, rightVector));
-        } else if (operation == VRuleSet.CROSS) {
+            tempExpression.add(new Number(Utility.calculateDotProduct(leftVector, rightVector)));
+ /*       } else if (operation == VRuleSet.CROSS) {
             tempExpression.add(Utility.convertDoublesToVector(calculateCrossProduct(leftVector, rightVector)));
-        }
+        } else if (operation == VRuleSet.ADD) {
+            tempExpression.add(Utility.convertDoublesToVector(calculateAdd(leftVector, rightVector)));
+        } else if (operation == VRuleSet.SUBTRACT) {
+            tempExpression.add(Utility.convertDoublesToVector(calculateSubtract(leftVector, rightVector)));
+        }*/
 
-        int tempExpressionSizeBefore = tempExpression.size();
-        //Add the last bit of the expression to tempExpression
-        for (int i = 0; i < expression.size() - tempExpressionSizeBefore + 1; i++) {
-            tempExpression.add(expression.get(i + firstOccurPosition + pattern.length()));
+            int tempExpressionSizeBefore = tempExpression.size();
+            //Add the last bit of the expression to tempExpression
+            for (int i = 0; i < expression.size() - tempExpressionSizeBefore + 1; i++) {
+                tempExpression.add(expression.get(i + firstOccurPosition + pattern.length()));
+            }
         }
-
         return applyRule(tempExpression);
-    }
-
-    private Number evaluate(ArrayList<Token> expression) {
-        return (new Number(Utility.evaluateExpression(Utility.convertToReversePolish(expression))));
     }
 }

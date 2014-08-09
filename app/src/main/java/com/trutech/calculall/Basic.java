@@ -346,6 +346,9 @@ public class Basic extends Activity {
 	 * @param v Not Used
 	 */
 	public void clickVector(View v){
+        //Goes to the VectorMode activity
+        Intent intent = new Intent(this, VectorMode.class);
+        startActivity(intent);
 	}
 
 	/**
