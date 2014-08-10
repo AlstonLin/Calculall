@@ -42,7 +42,7 @@ public class Basic extends Activity {
 	 * the expression into reverse polish and then evaluating it.
 	 *
 	 * @return The numerical value of the expression
-	 * @throws java.lang.IllegalArgumentException If the user has input a invalid expression
+	 * @throws IllegalArgumentException If the user has input a invalid expression
 	 */
 	protected double process (){
         ArrayList<Token> tokens = condenseDigits();

@@ -85,7 +85,7 @@
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:onClick="clickFunction"
-                android:text="@string/function"
+                android:text="@string/Function"
                 android:textSize="14sp" />
 
             <Button
@@ -96,7 +96,7 @@
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:onClick="clickVector"
-                android:text="@string/vector"
+                android:text="@string/Vector"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -371,4 +371,4 @@
         </LinearLayout>
     </LinearLayout>
 
-</LinearLayout><!-- From: file:/C:/Users/Alston/Calculall/app/src/main/res/layout/activity_basic.xml -->
+</LinearLayout><!-- From: file:/C:/Users/Ahsen/Documents/GitHub/Calculall/app/src/main/res/layout/activity_basic.xml -->

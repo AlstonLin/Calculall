@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+
+</LinearLayout>
+<<<<<<< HEAD:app/build/intermediates/res/debug/layout/activity_function.xml
+<!-- From: file:/C:/Users/Jason/AndroidStudioProjects/Calculall/app/src/main/res/layout/activity_function.xml -->
+=======
+<!-- From: file:/C:/Users/Ahsen/Documents/GitHub/Calculall/app/src/main/res/layout/activity_function.xml -->
+>>>>>>> origin/vector:app/build/intermediates/res/debug/layout/activity_function.xml

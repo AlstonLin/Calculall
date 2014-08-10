@@ -3,24 +3,22 @@ import java.util.ArrayList;
 
 public class CRuleSet {
 
-    ArrayList<CRule> CRules = new ArrayList<CRule>();
-    ArrayList<Token> newExpression = new ArrayList<Token>();
+    public static int ADD = 1, SUBTRACT = 2, DOT = 3, CROSS = 4;
 
-    public CRuleSet () {
-        CRules.add(new CRule ("SNMSN", "S(NMN)", false));
-        CRules.add(new CRule ("CNMCN", "C(NMN)", false));
-        CRules.add(new CRule ("NRNMNRN", "NR(NMN)", false));
-        CRules.add(new CRule ("C(NMN)MCN", "C(NMNMN)", false));
-        //CRules.add(new CRule ("", "", true));
-    }
+	ArrayList<CRule> CRules = new ArrayList<CRule>();
+	ArrayList<Token> newExpression = new ArrayList<Token>();
 
-    public ArrayList<Token> reduce(ArrayList<Token> expression) {
-        newExpression = expression;
-        for (CRule c : CRules) {
-            newExpression = c.applyRule(newExpression);
-        }
-        return newExpression;
-    }
+	public CRuleSet () {
+		CRules.add(new CRule (("[N,N]d[N,N]"), CRuleSet.DOT, 2));
+	}
+
+	public ArrayList<Token> reduce(ArrayList<Token> expression) {
+		newExpression = expression;
+		for (CRule c : CRules) {
+			newExpression = c.applyRule(newExpression);
+		}
+		return newExpression;
+	}
 
 
 
