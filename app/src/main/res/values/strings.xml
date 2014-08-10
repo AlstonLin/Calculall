@@ -7,7 +7,7 @@
     <string name="title_activity_advanced">Advanced</string>
     <string name="title_activity_graphing">Graphing</string>
     <string name="AC">AC</string>
-    <string name="C">CLR</string>
+    <string name="C">AC</string>
     <string name="plusminus">±</string>
     <string name="Seven">7</string>
     <string name="Six">6</string>
@@ -78,7 +78,10 @@
     <string name="permutation">n<b><b>P</b></b>r</string>
     <string name="title_activity_vector">Vector</string>
     <string name="hello_world">Hello world!</string>
-    <string name="Function">Function</string>
-    <string name="Vector">Vector</string>
-
+    <string name="function">Function</string>
+    <string name="vector">Vector</string>
+    <string name="findRoots">Solve</string>
+    <string name="derivative">dy/dx</string>
+    <string name="integrate">∫</string>
+    <string name="graph">Graph</string>
 </resources>

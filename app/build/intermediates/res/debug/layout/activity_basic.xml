@@ -85,7 +85,7 @@
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:onClick="clickFunction"
-                android:text="@string/Function"
+                android:text="@string/function"
                 android:textSize="14sp" />
 
             <Button
@@ -96,7 +96,7 @@
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:onClick="clickVector"
-                android:text="@string/Vector"
+                android:text="@string/vector"
                 android:textSize="16sp" />
         </LinearLayout>
 

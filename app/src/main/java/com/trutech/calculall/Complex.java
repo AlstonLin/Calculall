@@ -7,12 +7,18 @@ package com.trutech.calculall;
  * @version 0.3.0
  * @author ejaaz
  */
+@SuppressWarnings("unused")
 public class Complex {
     private double real, imaginary;
 
     public Complex() {
         real = 0;
         imaginary = 0;
+    }
+
+    public Complex(Complex c){
+        real = c.getReal();
+        imaginary = c.getImaginary();
     }
 
     public Complex(double r, double i) {
@@ -31,6 +37,22 @@ public class Complex {
 
     public double getImaginary(){
         return imaginary;
+    }
+
+    public static boolean isReal(Complex c){
+        if(c.getImaginary()==0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public boolean isReal(){
+        if(imaginary == 0){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public Complex add(Complex b){//this+b
@@ -62,8 +84,8 @@ public class Complex {
     public Complex times(int a){
         return new Complex(a*this.real, a*this.imaginary);
     }
-    
-  
+
+
     public Complex recip() {
         return this.conjugate().times(1/Math.pow(this.abs(),2));
     }
@@ -79,9 +101,13 @@ public class Complex {
     public double abs(){
         return Math.sqrt(Math.pow(real,2) + Math.pow(imaginary,2));
     }
-    
-    private final double e = Math.E;
-    
+
+    public static double abs(Complex c){
+        return c.abs();
+    }
+
+    private static final double e = Math.E;
+
     public Complex complexExp(){//returns e raised to the power of this complex object
         double r = real, i=imaginary;
         return new Complex(Math.cos(i),Math.sin(i)).times(Math.pow(e,r));
@@ -103,16 +129,47 @@ public class Complex {
         return new Complex(0,Math.sqrt(x));
     }
 
-	public static Complex pow(Complex expression, int i) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public static Complex pow(Complex expression, int power) {
+        if(power == 1){return expression;}
+        else {
+            Complex c = expression;
+            for (int i = 2; i <= power; i++) {
+                c = c.times(expression);
+            }
+            return c;
+        }
+    }
 
-	public static Complex cbrt() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-    
+    public static Complex cis(double angle){
+        return new Complex(Math.cos(angle),Math.sin(angle));
+    }
+
+    public static double arg(Complex c){
+        double x = c.getReal();
+        double y = c.getImaginary();
+        if(x==0 && y==0){throw new IllegalArgumentException();}
+
+        if(x>0 && y>0){
+            return Math.atan(y/x);
+        }else if(x<0 && y>0){
+            return Math.PI - Math.atan(Math.abs(x/y));
+        }else if(x<0 && y<0){
+            return Math.atan(Math.abs(y/x)) - Math.PI;
+        }else if(x>0 && y<0){
+            return (-1)*Math.atan(Math.abs(y/x));
+        }else if(y==0 && x>0){
+            return 0;
+        }else if(y==0 && x<0){
+            return Math.PI;
+        }else if(x==0 && y>0){
+            return Math.PI/2;
+        }else if(x==0 && y<0){
+            return 3*Math.PI/2;
+        }else {
+            return 0;
+        }
+    }
+
     /*private int round(double a){
         if(a>0) {
             if(a >= Math.floor(a)+0.5){

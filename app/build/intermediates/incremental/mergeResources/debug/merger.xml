@@ -71,6 +71,8 @@
                 </string>
                 <string name="Divide" >/
                 </string>
+                <string name="integrate" >∫
+                </string>
                 <string name="base10" >DEC
                 </string>
                 <string name="Minus" >-
@@ -99,6 +101,8 @@
                 <string name="Seven" >7
                 </string>
                 <string name="base2" >BIN
+                </string>
+                <string name="derivative" >dy/dx
                 </string>
                 <string name="Three" >3
                 </string>
@@ -165,6 +169,8 @@ P
                 </string>
                 <string name="tan" >tan
                 </string>
+                <string name="graph" >Graph
+                </string>
                 <string name="Multiply" >x
                 </string>
                 <string name="Zero" >0
@@ -188,9 +194,11 @@ P
                 </string>
                 <string name="cbrt" >³√
                 </string>
+                <string name="vector" >Vector
+                </string>
                 <string name="impFrac" >d/e
                 </string>
-                <string name="C" >CLR
+                <string name="C" >AC
                 </string>
                 <string name="varRoot" ><![CDATA[<p><sup><small><small><i>y</i></small></small></sup>√x</p>]]></string>
                 <string name="Plus" >+
@@ -203,9 +211,13 @@ P
                 </string>
                 <string name="radians" >Radians
                 </string>
+                <string name="findRoots" >Solve
+                </string>
                 <string name="openBracket" >(
                 </string>
                 <string name="cube" >x³
+                </string>
+                <string name="function" >Function
                 </string>
                 <string name="rad" >RAD
                 </string>

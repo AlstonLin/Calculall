@@ -3,7 +3,7 @@ package com.trutech.calculall;
 /**
  * Contains static methods that will create Variable tokens.
  *
- * @version 0.3.0
+ * @version 0.4.0
  */
 public class VariableFactory {
 	public static Variable makeA(){

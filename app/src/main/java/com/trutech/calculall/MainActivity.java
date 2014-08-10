@@ -8,7 +8,7 @@ import android.os.Bundle;
  * This is the class for the main activity (entry-point to the app). It will simply configure
  * the setting then go to the basic activity.
  *
- * @version 0.3.0
+ * @version 0.4.0
  */
 public class MainActivity extends Activity {
 

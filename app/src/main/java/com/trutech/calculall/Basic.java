@@ -9,6 +9,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
  * The activity for the basic calculator mode. The basic mode will only be able to
  * perform the four operations (add, subtract, multiply and divide) including brackets.
  *
- * @version 0.3.0
+ * @version 0.4.0
  */
 public class Basic extends Activity {
 
@@ -44,19 +45,18 @@ public class Basic extends Activity {
 	 * @throws java.lang.IllegalArgumentException If the user has input a invalid expression
 	 */
 	protected double process (){
-		double unrounded = Utility.evaluateExpression(Utility.convertToReversePolish(Utility.setupExpression(condenseDigits())));
-		BigDecimal rounded = new BigDecimal(unrounded);
-		return rounded.round(new MathContext(9)).doubleValue();
+        ArrayList<Token> tokens = condenseDigits();
+        subVariables();
+        double unrounded = Utility.evaluateExpression(Utility.convertToReversePolish(tokens));
+		return Utility.round(unrounded, 9);
 	} 
 
 
 
 	/**
-	 * Transforms all the digits into numbers as well as replacing Variables with numbers. 
-	 * 
-	 * @return The tokens with the digits condensed and variables substituted
+	 * Transforms all the digits into numbers as well as replacing Variables with numbers.
 	 */
-	private ArrayList<Token> condenseDigits(){
+	protected ArrayList condenseDigits(){
 		ArrayList<Token> newTokens = new ArrayList<Token>();
 		ArrayList<Digit> digits = new ArrayList<Digit>();
 		boolean atDigits = false; //Tracks if it's currently tracking digits
@@ -68,18 +68,12 @@ public class Basic extends Activity {
 					atDigits = false;
 					newTokens.add(new Number(Utility.valueOf(digits))); //Adds the sum of all the digits
 					digits.clear();
-					if (token instanceof Variable){ //Substitutes Variables
-						newTokens.add(new Number(((Variable)token).getValue()));
-					}else {
-						newTokens.add(token);
-					}
+					newTokens.add(token);
 				}
 			}else{ //Not going through digits
 				if (token instanceof Digit) { //Start of a number
 					atDigits = true;
 					digits.add((Digit) token);
-				} else if (token instanceof Variable){ //Substitutes Variables
-					newTokens.add(new Number(((Variable)token).getValue()));
 				} else{ //Not a digit; adds to the new list
 					newTokens.add(token);
 				}
@@ -90,6 +84,20 @@ public class Basic extends Activity {
 		}
 		return newTokens;
 	}
+
+    /**
+     * Substitutes all the variables on the tokens list with the defined values
+     */
+    protected void subVariables(){
+        for (Token token : tokens){
+            if (token instanceof Variable){
+                int index = tokens.indexOf(token);
+                Variable v = (Variable)token;
+                tokens.remove(token);
+                tokens.add(index, new Number(v.getValue()));
+            }
+        }
+    }
 
 	/**
 	 * When the user presses the 1 Button.
@@ -303,11 +311,20 @@ public class Basic extends Activity {
 		}catch (Exception e){ //User did a mistake
 			Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
 		}
-		ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
-		scrollView.pageScroll(ScrollView.FOCUS_DOWN);
+        scrollDown();
 	}
 
-	/**
+    /**
+     * Scrolls down the display (if possible).
+     */
+    protected void scrollDown() {
+        ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
+        if (scrollView != null) {
+            scrollView.pageScroll(ScrollView.FOCUS_DOWN);
+        }
+    }
+
+    /**
 	 * When the user wants to change to Basic Mode.
 	 * 
 	 * @param v Not Used
