@@ -206,10 +206,13 @@ public class Utility {
         ArrayList<Token> newVector = new ArrayList<Token>();
         newVector.add(BracketFactory.createOpenSquareBracket());
         newVector.add(new Number(vector[0]));
-        newVector.add(new Token(",") {});
-        newVector.add(new Number(vector[1]));;
+        newVector.add(new Token(",") {
+        });
+        newVector.add(new Number(vector[1]));
+        ;
         if (vector.length > 2) {
-            newVector.add(new Token(",") {});
+            newVector.add(new Token(",") {
+            });
             newVector.add(new Number(vector[2]));
         }
         newVector.add(BracketFactory.createCloseSquareBracket());
@@ -217,10 +220,10 @@ public class Utility {
     }
 
     public static String convertTokensToString(ArrayList<Token> expression) {
-        String stringExpression = new String ("");
+        String stringExpression = new String("");
         for (int i = 0; i < expression.size(); i++) {
             if (expression.get(i) instanceof Number) {
-                stringExpression = stringExpression + String.valueOf(((Number)expression.get(i)).getValue());
+                stringExpression = stringExpression + String.valueOf(((Number) expression.get(i)).getValue());
             } else if (expression.get(i) instanceof Bracket) {
                 if (((Bracket) (expression.get(i))).getType() == Bracket.SQUAREOPEN) {
                     stringExpression = stringExpression + (expression.get(i)).getSymbol();
@@ -234,16 +237,52 @@ public class Utility {
         return stringExpression;
     }
 
+    public static double[] calculateAddOrSubtract(double[] vectorLeft, double[] vectorRight, int operator) {
+        if (vectorLeft.length == vectorRight.length) {
+            //are we dealing with 2D vectors?, 3D vectors?, 4D vectors? so on
+            int dimensions = vectorLeft.length;
+            if (operator == VRuleSet.ADD) {
+                if (dimensions == 2) {
+                    double[] expression = new double[2];
+                    expression[0] = vectorLeft[0] + vectorRight[0];
+                    expression[1] = vectorLeft[1] + vectorRight[1];
+                    return expression;
+                } else if (dimensions == 3) {
+                    double[] expression = new double[3];
+                    expression[0] = vectorLeft[0] + vectorRight[0];
+                    expression[1] = vectorLeft[1] + vectorRight[1];
+                    expression[2] = vectorLeft[2] + vectorRight[2];
+                    return expression;
+                }
+            } else if (operator == VRuleSet.ADD) {
+                if (dimensions == 2) {
+                    double[] expression = new double[2];
+                    expression[0] = vectorLeft[0] - vectorRight[0];
+                    expression[1] = vectorLeft[1] - vectorRight[1];
+                    return expression;
+                } else if (dimensions == 3) {
+                    double[] expression = new double[3];
+                    expression[0] = vectorLeft[0] - vectorRight[0];
+                    expression[1] = vectorLeft[1] - vectorRight[1];
+                    expression[2] = vectorLeft[2] - vectorRight[2];
+                    return expression;
+                }
+            }
+        }
+        return null;
+    }
+
     /**
      * The parameter vectors should be set up so that each vector is in it's own column
      * for example if the vectors are 2D vectors the first vector's x co-ordinate should be stored in vectors[0][0]
      * the y co-ordinate should be stored in vectors[0][1]
      * for the second vector the x co-ordinate should be stored in vectors[1][0]
      * the y co-ordinate for the second vector should be stored in vectors[1][1]
-     * @param vectors     is a 2D array that holds the 2 vectors that we are trying to find the dot product of
-     * @return            will return the answer as a double or if it can't calculate it returns null
+     *
+     * @param vectors is a 2D array that holds the 2 vectors that we are trying to find the dot product of
+     * @return will return the answer as a double or if it can't calculate it returns null
      */
-    public static double calculateDotProduct (double[] vectorLeft, double[] vectorRight){
+    public static double calculateDotProduct(double[] vectorLeft, double[] vectorRight) {
 
 /*        //first solution
         //can handle 1D, 2D and 3D vectors
@@ -268,8 +307,6 @@ public class Utility {
         }*/
 
 
-
-
         //second solution
         // can handle vectors no matter how many dimensions the vector has
         // this if is to make sure both vectors will be the same type basically to make sure you are finding the dot product between a 2D vector and another
@@ -291,32 +328,31 @@ public class Utility {
             }
             //return the answer
             return dotProduct;
-        }
-        else {
+        } else {
             return 0;
         }
 
     }
 
     /**
-     *the parameter vectors should be set up the same way as it is for dot product
+     * the parameter vectors should be set up the same way as it is for dot product
      * each of the two vectors is in it's own column
      * the co-ordinates for the first vector should be as such x is in vectors[0][0]
      * y is in vectors[0][1]  z is in vectors[0][2]
      * for the second vector x is in vectors[1][0]  y is in vectors[1][1]
      * z is in vectors[1][2]
-     * @param vectors  is a 2D array that holds the 2 vectors that we are trying to find the dot product of
-     * @return         returns the answer as a 1D array of doubles or if it can't calculate it will return null
+     *
+     * @param vectors is a 2D array that holds the 2 vectors that we are trying to find the dot product of
+     * @return returns the answer as a 1D array of doubles or if it can't calculate it will return null
      */
-    public static double[] calculateCrossProduct (double[] vectorLeft, double[] vectorRight ){
+    public static double[] calculateCrossProduct(double[] vectorLeft, double[] vectorRight) {
         if (vectorRight.length == 3 && vectorRight.length == 3) {
             double[] crossProduct = new double[3];
             crossProduct[0] = vectorLeft[1] * vectorRight[2] - vectorLeft[2] * vectorRight[1];
             crossProduct[1] = vectorLeft[2] * vectorRight[0] - vectorLeft[0] * vectorRight[2];
-            crossProduct[2] = vectorLeft[0] *vectorRight[1] - vectorLeft[1] * vectorRight[2];
+            crossProduct[2] = vectorLeft[0] * vectorRight[1] - vectorLeft[1] * vectorRight[2];
             return crossProduct;
-        }
-        else {
+        } else {
             return null;
         }
     }

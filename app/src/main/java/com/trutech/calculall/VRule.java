@@ -8,15 +8,17 @@ public class VRule {
     private int operation;
     private int dimension;
     private int firstOccurPosition;
+    private VRuleSet vRuleSet;
 
     /**
      * @param pattern   String pattern to be replaced
      * @param operation Operation number
      */
-    public VRule(String pattern, int operation, int dimension) {
+    public VRule(String pattern, int operation, int dimension, VRuleSet vRuleSet) {
         this.pattern = pattern;
         this.operation = operation;
         this.dimension = dimension;
+        this.vRuleSet = vRuleSet;
     }
 
     /**
@@ -32,6 +34,7 @@ public class VRule {
         firstOccurPosition = bm.search(stringExpression);
         //Base case for recursive implementation or no further rule can be applied
         if (firstOccurPosition == -1) {
+            vRuleSet.setAppliedRule();
             return expression;
         } else {
             return applyVectorOperation(expression);
@@ -81,8 +84,7 @@ public class VRule {
         for (int i = firstOccurPosition; i < firstOccurPosition + pattern.length(); i++) {
             if (expression.get(i) instanceof Number) {
                 numbers.add(expression.get(i));
-            }
-            else if (expression.get(i) instanceof Operator) {
+            } else if (expression.get(i) instanceof Operator) {
                 operators.add(expression.get(i));
             }
         }
@@ -103,23 +105,28 @@ public class VRule {
         }
 
 
-
         // Add the new vector or number to the expression
         if (operation == VRuleSet.DOT) {
             tempExpression.add(new Number(Utility.calculateDotProduct(leftVector, rightVector)));
         } else if (operation == VRuleSet.CROSS) {
             ArrayList<Token> newVector = Utility.convertDoublesToVector(Utility.calculateCrossProduct(leftVector, rightVector));
-            for (Token v: newVector) {
+            for (Token v : newVector) {
                 tempExpression.add(v);
             }
-/*        } else if (operation == VRuleSet.ADD) {
-            tempExpression.add(Utility.convertDoublesToVector(calculateAdd(leftVector, rightVector)));
+        } else if (operation == VRuleSet.ADD) {
+            ArrayList<Token> newVector = Utility.convertDoublesToVector(Utility.calculateAddOrSubtract(leftVector, rightVector, VRuleSet.ADD));
+            for (Token v : newVector) {
+                tempExpression.add(v);
+            }
         } else if (operation == VRuleSet.SUBTRACT) {
-            tempExpression.add(Utility.convertDoublesToVector(calculateSubtract(leftVector, rightVector)));
-        }*/
+            ArrayList<Token> newVector = Utility.convertDoublesToVector(Utility.calculateAddOrSubtract(leftVector, rightVector, VRuleSet.SUBTRACT));
+            for (Token v : newVector) {
+                tempExpression.add(v);
+            }
+
             //Add the last bit of the expression to tempExpression
             for (int i = 0; i < expression.size() - pattern.length() - firstOccurPosition; i++) {
-                tempExpression.add(expression.get(i + firstOccurPosition + pattern.length()-1));
+                tempExpression.add(expression.get(i + firstOccurPosition + pattern.length() - 1));
             }
         }
         return applyRule(tempExpression);
