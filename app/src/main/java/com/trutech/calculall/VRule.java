@@ -104,21 +104,22 @@ public class VRule {
 
 
 
-        // Add the new vector to the expression
+        // Add the new vector or number to the expression
         if (operation == VRuleSet.DOT) {
             tempExpression.add(new Number(Utility.calculateDotProduct(leftVector, rightVector)));
- /*       } else if (operation == VRuleSet.CROSS) {
-            tempExpression.add(Utility.convertDoublesToVector(calculateCrossProduct(leftVector, rightVector)));
-        } else if (operation == VRuleSet.ADD) {
+        } else if (operation == VRuleSet.CROSS) {
+            ArrayList<Token> newVector = Utility.convertDoublesToVector(Utility.calculateCrossProduct(leftVector, rightVector));
+            for (Token v: newVector) {
+                tempExpression.add(v);
+            }
+/*        } else if (operation == VRuleSet.ADD) {
             tempExpression.add(Utility.convertDoublesToVector(calculateAdd(leftVector, rightVector)));
         } else if (operation == VRuleSet.SUBTRACT) {
             tempExpression.add(Utility.convertDoublesToVector(calculateSubtract(leftVector, rightVector)));
         }*/
-
-            int tempExpressionSizeBefore = tempExpression.size();
             //Add the last bit of the expression to tempExpression
-            for (int i = 0; i < expression.size() - tempExpressionSizeBefore + 1; i++) {
-                tempExpression.add(expression.get(i + firstOccurPosition + pattern.length()));
+            for (int i = 0; i < expression.size() - pattern.length() - firstOccurPosition; i++) {
+                tempExpression.add(expression.get(i + firstOccurPosition + pattern.length()-1));
             }
         }
         return applyRule(tempExpression);

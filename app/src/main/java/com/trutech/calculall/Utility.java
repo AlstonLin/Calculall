@@ -206,15 +206,11 @@ public class Utility {
         ArrayList<Token> newVector = new ArrayList<Token>();
         newVector.add(BracketFactory.createOpenSquareBracket());
         newVector.add(new Number(vector[0]));
-        newVector.add(new Token(",") {
-        });
-        newVector.add(new Number(vector[1]));
-        newVector.add(new Token(",") {
-        });
+        newVector.add(new Token(",") {});
+        newVector.add(new Number(vector[1]));;
         if (vector.length > 2) {
-            newVector.add(new Number(vector[3]));
-            newVector.add(new Token(",") {
-            });
+            newVector.add(new Token(",") {});
+            newVector.add(new Number(vector[2]));
         }
         newVector.add(BracketFactory.createCloseSquareBracket());
         return newVector;
@@ -224,7 +220,7 @@ public class Utility {
         String stringExpression = new String ("");
         for (int i = 0; i < expression.size(); i++) {
             if (expression.get(i) instanceof Number) {
-                stringExpression = stringExpression + (expression.get(i)).getSymbol();
+                stringExpression = stringExpression + String.valueOf(((Number)expression.get(i)).getValue());
             } else if (expression.get(i) instanceof Bracket) {
                 if (((Bracket) (expression.get(i))).getType() == Bracket.SQUAREOPEN) {
                     stringExpression = stringExpression + (expression.get(i)).getSymbol();
@@ -232,7 +228,7 @@ public class Utility {
                     stringExpression = stringExpression + (expression.get(i)).getSymbol();
                 }
             } else if (expression.get(i).getSymbol() == ",") {
-                stringExpression = stringExpression + (expression.get(i)).getSymbol();
+                stringExpression = stringExpression + ",";
             }
         }
         return stringExpression;
@@ -312,12 +308,12 @@ public class Utility {
      * @param vectors  is a 2D array that holds the 2 vectors that we are trying to find the dot product of
      * @return         returns the answer as a 1D array of doubles or if it can't calculate it will return null
      */
-    public static double[] calculateCrossProduct (double[][] vectors){
-        if (vectors[0].length == 3 && vectors[1].length == 3) {
+    public static double[] calculateCrossProduct (double[] vectorLeft, double[] vectorRight ){
+        if (vectorRight.length == 3 && vectorRight.length == 3) {
             double[] crossProduct = new double[3];
-            crossProduct[0] = vectors[0][1] * vectors[1][2] - vectors[0][2] * vectors[1][1];
-            crossProduct[1] = vectors[0][2] * vectors[1][0] - vectors[0][0] * vectors[1][2];
-            crossProduct[2] = vectors[0][0] * vectors[1][1] - vectors[0][1] * vectors[1][2];
+            crossProduct[0] = vectorLeft[1] * vectorRight[2] - vectorLeft[2] * vectorRight[1];
+            crossProduct[1] = vectorLeft[2] * vectorRight[0] - vectorLeft[0] * vectorRight[2];
+            crossProduct[2] = vectorLeft[0] *vectorRight[1] - vectorLeft[1] * vectorRight[2];
             return crossProduct;
         }
         else {
