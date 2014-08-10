@@ -34,10 +34,20 @@
                 qualifiers=""
                 type="layout" />
             <file
-                name="activity_graphing"
-                path="C:\Users\Alston\Calculall\app\src\main\res\layout\activity_graphing.xml"
+                name="activity_function"
+                path="C:\Users\Alston\Calculall\app\src\main\res\layout\activity_function.xml"
                 qualifiers=""
                 type="layout" />
+            <file
+                name="activity_vector"
+                path="C:\Users\Alston\Calculall\app\src\main\res\layout\activity_vector.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="vector"
+                path="C:\Users\Alston\Calculall\app\src\main\res\menu\vector.xml"
+                qualifiers=""
+                type="menu" />
             <file
                 path="C:\Users\Alston\Calculall\app\src\main\res\values\dimens.xml"
                 qualifiers="" >
@@ -60,6 +70,8 @@
                 <string name="log_b" >log_b
                 </string>
                 <string name="Divide" >/
+                </string>
+                <string name="integrate" >∫
                 </string>
                 <string name="base10" >DEC
                 </string>
@@ -87,6 +99,8 @@
                 <string name="Seven" >7
                 </string>
                 <string name="base2" >BIN
+                </string>
+                <string name="derivative" >dy/dx
                 </string>
                 <string name="Three" >3
                 </string>
@@ -151,15 +165,21 @@ P
                 </string>
                 <string name="tan" >tan
                 </string>
+                <string name="graph" >Graph
+                </string>
                 <string name="Multiply" >x
                 </string>
                 <string name="Zero" >0
+                </string>
+                <string name="title_activity_vector" >Vector
                 </string>
                 <string name="radix" >K.IJK
                 </string>
                 <string name="store" >STO
                 </string>
                 <string name="exponent" ><![CDATA[<p>x<sup><small><small><i>y</i></small></small></sup></p>]]></string>
+                <string name="hello_world" >Hello world!
+                </string>
                 <string name="Basic" >Basic
                 </string>
                 <string name="title_activity_advanced" >Advanced
@@ -170,9 +190,11 @@ P
                 </string>
                 <string name="cbrt" >³√
                 </string>
+                <string name="vector" >Vector
+                </string>
                 <string name="impFrac" >d/e
                 </string>
-                <string name="C" >CLR
+                <string name="C" >AC
                 </string>
                 <string name="varRoot" ><![CDATA[<p><sup><small><small><i>y</i></small></small></sup>√x</p>]]></string>
                 <string name="Plus" >+
@@ -185,9 +207,13 @@ P
                 </string>
                 <string name="radians" >Radians
                 </string>
+                <string name="findRoots" >Solve
+                </string>
                 <string name="openBracket" >(
                 </string>
                 <string name="cube" >x³
+                </string>
+                <string name="function" >Function
                 </string>
                 <string name="rad" >RAD
                 </string>

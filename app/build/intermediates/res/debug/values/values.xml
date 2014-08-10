@@ -12,7 +12,7 @@
     <string name="AC">AC</string>
     <string name="Advanced">Advanced</string>
     <string name="Basic">Basic</string>
-    <string name="C">CLR</string>
+    <string name="C">AC</string>
     <string name="Decimal">.</string>
     <string name="Divide">/</string>
     <string name="Eight">8</string>
@@ -45,13 +45,19 @@
     <string name="cube">x³</string>
     <string name="deg">DEG</string>
     <string name="degrees">Degrees</string>
+    <string name="derivative">dy/dx</string>
     <string name="e">e</string>
     <string name="exponent"><![CDATA[<p>x<sup><small><small><i>y</i></small></small></sup></p>]]></string>
     <string name="factorial">n!</string>
+    <string name="findRoots">Solve</string>
+    <string name="function">Function</string>
     <string name="grad">GRAD</string>
     <string name="gradians">Gradians</string>
+    <string name="graph">Graph</string>
+    <string name="hello_world">Hello world!</string>
     <string name="hyp">hyp</string>
     <string name="impFrac">d/e</string>
+    <string name="integrate">∫</string>
     <string name="ln">ln</string>
     <string name="log10">log</string>
     <string name="log_b">log_b</string>
@@ -77,6 +83,7 @@
     <string name="title_activity_advanced">Advanced</string>
     <string name="title_activity_basic">Basic</string>
     <string name="title_activity_graphing">Graphing</string>
+    <string name="title_activity_vector">Vector</string>
     <string name="varA">A</string>
     <string name="varB">B</string>
     <string name="varC">C</string>
@@ -84,5 +91,6 @@
     <string name="varX">X</string>
     <string name="varY">Y</string>
     <string name="varZ">Z</string>
+    <string name="vector">Vector</string>
 
 </resources>
