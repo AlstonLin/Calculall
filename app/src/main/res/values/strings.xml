@@ -9,26 +9,26 @@
     <string name="AC">AC</string>
     <string name="C">CLR</string>
     <string name="plusminus">±</string>
-    <string name="Seven">7</string>
-    <string name="Six">6</string>
-    <string name="Five">5</string>
-    <string name="Four">4</string>
-    <string name="Three">3</string>
-    <string name="Two">2</string>
-    <string name="One">1</string>
-    <string name="Zero">0</string>
-    <string name="Nine">9</string>
-    <string name="Eight">8</string>
-    <string name="Decimal">.</string>
-    <string name="Equals">=</string>
-    <string name="Minus">-</string>
-    <string name="Plus">+</string>
-    <string name="Multiply">x</string>
-    <string name="Divide">/</string>
-    <string name="Basic">Basic</string>
-    <string name="Advanced">Advanced</string>
-    <string name="Graphing">Graphing</string>
-    <string name="More">More</string>
+    <string name="seven">7</string>
+    <string name="six">6</string>
+    <string name="five">5</string>
+    <string name="four">4</string>
+    <string name="three">3</string>
+    <string name="two">2</string>
+    <string name="one">1</string>
+    <string name="zero">0</string>
+    <string name="nine">9</string>
+    <string name="eight">8</string>
+    <string name="decimal">.</string>
+    <string name="equals">=</string>
+    <string name="minus">-</string>
+    <string name="plus">+</string>
+    <string name="multiply">x</string>
+    <string name="divide">/</string>
+    <string name="basic">Basic</string>
+    <string name="advanced">Advanced</string>
+    <string name="graphing">Graphing</string>
+    <string name="more">More</string>
     <string name="openBracket">(</string>
     <string name="closedBracket">)</string>
     <string name="openSquareBracket">[</string>
@@ -82,7 +82,11 @@
     <string name="combination">n<b><b>C</b></b>r</string>
     <string name="permutation">n<b><b>P</b></b>r</string>
     <string name="title_activity_vector">Vector</string>
-    <string name="Function">Function</string>
-    <string name="Vector">Vector</string>
+    <string name="function">Function</string>
+    <string name="vector">Vector</string>
+    <string name="findRoots">Roots</string>
+    <string name="derivative">dy/dx</string>
+    <string name="graph">Graph</string>
+    <string name="integrate">∫</string>
 
 </resources>

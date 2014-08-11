@@ -88,47 +88,6 @@ public class VectorMode extends Basic {
         scrollView.pageScroll(ScrollView.FOCUS_DOWN);
     }
 
-
-    /**
-     * Transforms all the digits into numbers as well as replacing Variables with numbers.
-     *
-     * @return The tokens with the digits condensed and variables substituted
-     */
-    private ArrayList<Token> condenseDigits(){
-        ArrayList<Token> newTokens = new ArrayList<Token>();
-        ArrayList<Digit> digits = new ArrayList<Digit>();
-        boolean atDigits = false; //Tracks if it's currently tracking digits
-        for (Token token : tokens){
-            if (atDigits){ //Going through digits
-                if (token instanceof Digit){ //Number keeps going
-                    digits.add((Digit) token);
-                }else { //Number ended
-                    atDigits = false;
-                    newTokens.add(new Number(Utility.valueOf(digits))); //Adds the sum of all the digits
-                    digits.clear();
-                    if (token instanceof Variable){ //Substitutes Variables
-                        newTokens.add(new Number(((Variable)token).getValue()));
-                    }else {
-                        newTokens.add(token);
-                    }
-                }
-            }else{ //Not going through digits
-                if (token instanceof Digit) { //Start of a number
-                    atDigits = true;
-                    digits.add((Digit) token);
-                } else if (token instanceof Variable){ //Substitutes Variables
-                    newTokens.add(new Number(((Variable)token).getValue()));
-                } else{ //Not a digit; adds to the new list
-                    newTokens.add(token);
-                }
-            }
-        }
-        if (!digits.isEmpty() && atDigits){ //Digits left
-            newTokens.add(new Number (Utility.valueOf(digits)));
-        }
-        return newTokens;
-    }
-
     /**
      * When the user presses the MEM button; toggles memory storage
      *
