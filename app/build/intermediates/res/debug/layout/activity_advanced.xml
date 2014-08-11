@@ -65,7 +65,7 @@
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:onClick="clickBasic"
-                android:text="@string/Basic"
+                android:text="@string/basic"
                 android:textSize="16sp" />
 
             <Button
@@ -75,7 +75,7 @@
                 android:layout_height="fill_parent"
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
-                android:text="@string/Advanced"
+                android:text="@string/advanced"
                 android:textSize="13sp" />
 
             <Button
@@ -86,7 +86,7 @@
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:onClick="clickFunction"
-                android:text="@string/Function"
+                android:text="@string/function"
                 android:textSize="14sp" />
 
             <Button
@@ -97,7 +97,7 @@
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:onClick="clickVector"
-                android:text="@string/Vector"
+                android:text="@string/vector"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -490,7 +490,7 @@
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:onClick="clickSeven"
-                android:text="@string/Seven"
+                android:text="@string/seven"
                 android:textSize="30sp" />
 
             <Button
@@ -501,7 +501,7 @@
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:onClick="clickEight"
-                android:text="@string/Eight"
+                android:text="@string/eight"
                 android:textSize="30sp" />
 
             <Button
@@ -512,7 +512,7 @@
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:onClick="clickNine"
-                android:text="@string/Nine"
+                android:text="@string/nine"
                 android:textSize="30sp" />
 
             <Button
@@ -555,7 +555,7 @@
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:onClick="clickFour"
-                android:text="@string/Four"
+                android:text="@string/four"
                 android:textSize="30sp" />
 
             <Button
@@ -566,7 +566,7 @@
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:onClick="clickFive"
-                android:text="@string/Five"
+                android:text="@string/five"
                 android:textSize="30sp" />
 
             <Button
@@ -577,7 +577,7 @@
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:onClick="clickSix"
-                android:text="@string/Six"
+                android:text="@string/six"
                 android:textSize="30sp" />
 
             <Button
@@ -588,7 +588,7 @@
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:onClick="clickMultiply"
-                android:text="@string/Multiply"
+                android:text="@string/multiply"
                 android:textSize="30sp" />
 
             <Button
@@ -599,7 +599,7 @@
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:onClick="clickDivide"
-                android:text="@string/Divide"
+                android:text="@string/divide"
                 android:textSize="30sp" />
         </LinearLayout>
 
@@ -620,7 +620,7 @@
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:onClick="clickOne"
-                android:text="@string/One"
+                android:text="@string/one"
                 android:textSize="30sp" />
 
             <Button
@@ -631,7 +631,7 @@
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:onClick="clickTwo"
-                android:text="@string/Two"
+                android:text="@string/two"
                 android:textSize="30sp" />
 
             <Button
@@ -642,7 +642,7 @@
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:onClick="clickThree"
-                android:text="@string/Three"
+                android:text="@string/three"
                 android:textSize="30sp" />
 
             <Button
@@ -653,7 +653,7 @@
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:onClick="clickAdd"
-                android:text="@string/Plus"
+                android:text="@string/plus"
                 android:textSize="30sp" />
 
             <Button
@@ -664,7 +664,7 @@
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:onClick="clickSubtract"
-                android:text="@string/Minus"
+                android:text="@string/minus"
                 android:textSize="30sp" />
         </LinearLayout>
 
@@ -675,18 +675,18 @@
             android:layout_weight="3"
             android:baselineAligned="true"
             android:orientation="horizontal"
-            android:weightSum="4.9" >
+            android:weightSum="5" >
 
             <Button
                 android:id="@+id/zeroButton"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginLeft="-6dp"
+                android:layout_marginLeft="-7dp"
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:onClick="clickZero"
-                android:text="@string/Zero"
+                android:text="@string/zero"
                 android:textSize="30sp" />
 
             <Button
@@ -697,7 +697,7 @@
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:onClick="clickDecimal"
-                android:text="@string/Decimal"
+                android:text="@string/decimal"
                 android:textSize="30sp" />
 
             <Button
@@ -716,12 +716,12 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
+                android:layout_marginRight="-14dp"
                 android:layout_weight="2"
                 android:onClick="clickEquals"
-                android:text="@string/Equals"
+                android:text="@string/equals"
                 android:textSize="30sp" />
         </LinearLayout>
     </LinearLayout>
 
-</LinearLayout><!-- From: file:/C:/Users/Ahsen/Documents/GitHub/Calculall/app/src/main/res/layout/activity_advanced.xml -->
+</LinearLayout><!-- From: file:/C:/Users/Alston/Calculall/app/src/main/res/layout/activity_advanced.xml -->

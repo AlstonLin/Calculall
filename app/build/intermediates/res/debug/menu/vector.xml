@@ -6,8 +6,4 @@
         android:orderInCategory="100"
         android:showAsAction="never" />
 </menu>
-<<<<<<< HEAD
-<!-- From: file:/C:/Users/Jason/AndroidStudioProjects/Calculall/app/src/main/res/menu/vector.xml -->
-=======
-<!-- From: file:/C:/Users/Ahsen/Documents/GitHub/Calculall/app/src/main/res/menu/vector.xml -->
->>>>>>> origin/vector
+<!-- From: file:/C:/Users/Alston/Calculall/app/src/main/res/menu/vector.xml -->
