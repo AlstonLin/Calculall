@@ -20,6 +20,6 @@ public class BracketFactory {
     }
 
     public static Bracket createCloseSquareBracket(){
-        return new Bracket("]", Bracket.SQUARECLOSE);
+        return new Bracket("]", Bracket.SQUARECLOSED);
     }
 }

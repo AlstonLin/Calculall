@@ -8,7 +8,7 @@ package com.trutech.calculall;
  */
 public class Bracket extends Token {
 	
-    public static final int OPEN = 1, CLOSE = 2, SQUAREOPEN = 3, SQUARECLOSE = 4;
+    public static final int OPEN = 1, CLOSE = 2, SQUAREOPEN = 3, SQUARECLOSED = 4;
     private int type;
 
     /**
