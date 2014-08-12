@@ -4,7 +4,7 @@ package com.trutech.calculall;
  * Represents either a user-defined value or a variable for a function, represented by
  * english letters (ex. x, y, z). It also includes constants as well (such as Pi and e)
  * 
- * @version 0.3.0
+ * @version 0.4.0
  * @author Alston
  *
  */

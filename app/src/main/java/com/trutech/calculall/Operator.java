@@ -3,12 +3,12 @@ package com.trutech.calculall;
 /**
  * Receives input from the digits surrounding the operation piece and results in a new number.
  *
- * @version 0.3.0
+ * @version 0.4.0
  */
 public abstract class Operator extends Token {
 
     public static int ADD = 1, SUBTRACT = 2, MULTIPLY = 3, DIVIDE = 4, EXPONENT = 5, PERMUTATION = 6, 
-    		COMBINATION = 7, FACTORIAL = 8, VARROOT = 9;
+    		COMBINATION = 7, FACTORIAL = 8, VARROOT = 9, DOT = 10, CROSS = 11;
     private int type;
     private int precedence;
     private boolean leftAssociative;

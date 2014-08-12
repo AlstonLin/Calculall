@@ -34,10 +34,20 @@
                 qualifiers=""
                 type="layout" />
             <file
-                name="activity_graphing"
-                path="C:\Users\Alston\Calculall\app\src\main\res\layout\activity_graphing.xml"
+                name="activity_function"
+                path="C:\Users\Alston\Calculall\app\src\main\res\layout\activity_function.xml"
                 qualifiers=""
                 type="layout" />
+            <file
+                name="activity_vector"
+                path="C:\Users\Alston\Calculall\app\src\main\res\layout\activity_vector.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="vector"
+                path="C:\Users\Alston\Calculall\app\src\main\res\menu\vector.xml"
+                qualifiers=""
+                type="menu" />
             <file
                 path="C:\Users\Alston\Calculall\app\src\main\res\values\dimens.xml"
                 qualifiers="" >
@@ -61,11 +71,17 @@
                 </string>
                 <string name="Divide" >/
                 </string>
+                <string name="dot" >•
+                </string>
                 <string name="base10" >DEC
+                </string>
+                <string name="comma" >,
                 </string>
                 <string name="Minus" >-
                 </string>
                 <string name="shift" >2nd
+                </string>
+                <string name="Vector" >Vector
                 </string>
                 <string name="varA" >A
                 </string>
@@ -106,6 +122,8 @@
                 </string>
                 <string name="Two" >2
                 </string>
+                <string name="openSquareBracket" >[
+                </string>
                 <string name="grad" >GRAD
                 </string>
                 <string name="Nine" >9
@@ -142,6 +160,8 @@ C
                 </string>
                 <string name="closedBracket" >)
                 </string>
+                <string name="Function" >Function
+                </string>
                 <string name="permutation" >n
 <b>
                         <b>
@@ -154,6 +174,8 @@ P
                 <string name="Multiply" >x
                 </string>
                 <string name="Zero" >0
+                </string>
+                <string name="title_activity_vector" >Vector
                 </string>
                 <string name="radix" >K.IJK
                 </string>
@@ -181,6 +203,8 @@ P
                 </string>
                 <string name="Decimal" >.
                 </string>
+                <string name="cross" >×
+                </string>
                 <string name="sin" >sin
                 </string>
                 <string name="radians" >Radians
@@ -188,6 +212,8 @@ P
                 <string name="openBracket" >(
                 </string>
                 <string name="cube" >x³
+                </string>
+                <string name="closedSquareBracket" >]
                 </string>
                 <string name="rad" >RAD
                 </string>
