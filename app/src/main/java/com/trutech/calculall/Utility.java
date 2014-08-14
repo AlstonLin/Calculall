@@ -206,7 +206,8 @@ public class Utility {
     }
 
     public static ArrayList<Token> simplifyVector(ArrayList<Token> expression) {
-        return VRuleSet.reduce(expression);
+        VRuleSet vRuleSet = new VRuleSet();
+        return vRuleSet.reduce(expression);
     }
 
     public static ArrayList<Token> convertDoublesToVector(double[] vector) {
@@ -237,7 +238,7 @@ public class Utility {
         for (int i = 0; i < expression.size(); i++) {
             if (expression.get(i) instanceof Number) {
                 String s = String.valueOf(((Number) expression.get(i)).getValue());
-                s = s.indexOf(".") < 0 ? s : (s.indexOf("E") > 0 ? s.substring(0, s.indexOf("E")).replaceAll("0*$", "")
+                s = s.indexOf(".") < 0  ? s : (s.indexOf("E")>0 ? s.substring(0,s.indexOf("E")).replaceAll("0*$", "")
                         .replaceAll("\\.$", "").concat(s.substring(s.indexOf("E"))) : s.replaceAll("0*$", "")
                         .replaceAll("\\.$", "")); //Removes trailing zeroes
                 stringExpression = stringExpression + s;
@@ -259,7 +260,6 @@ public class Utility {
 
     public static double[] calculateAddOrSubtract(double[] vectorLeft, double[] vectorRight, int operator) {
         if (vectorLeft.length == vectorRight.length) {
-            //are we dealing with 2D vectors?, 3D vectors?, 4D vectors? so on
             int dimensions = vectorLeft.length;
             if (operator == VRuleSet.ADD) {
                 if (dimensions == 2) {

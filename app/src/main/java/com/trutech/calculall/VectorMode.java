@@ -19,31 +19,13 @@ public class VectorMode extends Basic {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vector);
+        memButton = (ToggleButton)findViewById(R.id.memButton);
+        output = (TextView) findViewById(R.id.txtStack);
     }
+
 
     private ArrayList<Token> processVectors () {
         return Utility.simplifyVector(condenseDigits());
-    }
-
-
-    /**
-     * When the user presses the + Button.
-     *
-     * @param v Not Used
-     */
-    public void clickAdd(View v){
-        tokens.add(OperatorFactory.makeAdd());
-        updateInput();
-    }
-
-    /**
-     * When the user presses the - Button.
-     *
-     * @param v Not Used
-     */
-    public void clickSubtract(View v){
-        tokens.add(OperatorFactory.makeSubtract());
-        updateInput();
     }
 
 
@@ -53,15 +35,59 @@ public class VectorMode extends Basic {
      * @param v Not Used
      */
     public void clickVectorEquals(View v){
-         TextView output = (TextView) findViewById(R.id.txtStack);
+        TextView output = (TextView) findViewById(R.id.txtStack);
         try{
             String s = Utility.convertTokensToString(processVectors());
+            s = s.indexOf(".") < 0  ? s : (s.indexOf("E")>0 ? s.substring(0,s.indexOf("E")).replaceAll("0*$", "")
+                    .replaceAll("\\.$", "").concat(s.substring(s.indexOf("E"))) : s.replaceAll("0*$", "")
+                    .replaceAll("\\.$", "")); //Removes trailing zeroes
             output.setText(s);
         }catch (Exception e){ //User did a mistake
             Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
         }
         ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
         scrollView.pageScroll(ScrollView.FOCUS_DOWN);
+    }
+
+
+    /**
+     * Transforms all the digits into numbers as well as replacing Variables with numbers.
+     *
+     * @return The tokens with the digits condensed and variables substituted
+     */
+    public ArrayList<Token> condenseDigits(){
+        ArrayList<Token> newTokens = new ArrayList<Token>();
+        ArrayList<Digit> digits = new ArrayList<Digit>();
+        boolean atDigits = false; //Tracks if it's currently tracking digits
+        for (Token token : tokens){
+            if (atDigits){ //Going through digits
+                if (token instanceof Digit){ //Number keeps going
+                    digits.add((Digit) token);
+                }else { //Number ended
+                    atDigits = false;
+                    newTokens.add(new Number(Utility.valueOf(digits))); //Adds the sum of all the digits
+                    digits.clear();
+                    if (token instanceof Variable){ //Substitutes Variables
+                        newTokens.add(new Number(((Variable)token).getValue()));
+                    }else {
+                        newTokens.add(token);
+                    }
+                }
+            }else{ //Not going through digits
+                if (token instanceof Digit) { //Start of a number
+                    atDigits = true;
+                    digits.add((Digit) token);
+                } else if (token instanceof Variable){ //Substitutes Variables
+                    newTokens.add(new Number(((Variable)token).getValue()));
+                } else{ //Not a digit; adds to the new list
+                    newTokens.add(token);
+                }
+            }
+        }
+        if (!digits.isEmpty() && atDigits){ //Digits left
+            newTokens.add(new Number (Utility.valueOf(digits)));
+        }
+        return newTokens;
     }
 
     /**
@@ -87,7 +113,7 @@ public class VectorMode extends Basic {
         double val = process();
         if(mem){
             tokens.clear();
-            output.setText(val + "→ A");
+            output.setText(val + "â†’ A");
             Variable.a_value = val;
             mem = false;
         }else{
@@ -106,7 +132,7 @@ public class VectorMode extends Basic {
         double val = process();
         if(mem){
             tokens.clear();
-            output.setText(val + "→B");
+            output.setText(val + "â†’B");
             Variable.b_value = val;
             mem = false;
         }else{
@@ -125,7 +151,7 @@ public class VectorMode extends Basic {
         double val = process();
         if(mem){
             tokens.clear();
-            output.setText(val + "→C");
+            output.setText(val + "â†’C");
             Variable.c_value = val;
             mem = false;
         }else{
@@ -144,7 +170,7 @@ public class VectorMode extends Basic {
         double val = process();
         if(mem){
             tokens.clear();
-            output.setText(val + "→X");
+            output.setText(val + "â†’X");
             Variable.x_value = val;
             mem = false;
         }else{
@@ -163,7 +189,7 @@ public class VectorMode extends Basic {
         double val = process();
         if(mem){
             tokens.clear();
-            output.setText(val + "→Y");
+            output.setText(val + "â†’Y");
             Variable.y_value = val;
             mem = false;
         }else{
@@ -182,7 +208,7 @@ public class VectorMode extends Basic {
         double val = process();
         if(mem){
             tokens.clear();
-            output.setText(val + "→Z");
+            output.setText(val + "â†’Z");
             Variable.z_value = val;
             mem = false;
         }else{
@@ -213,7 +239,7 @@ public class VectorMode extends Basic {
     }
 
     /**
-     * When the user presses the • Button.
+     * When the user presses the â€¢ Button.
      *
      * @param v Not Used
      */
@@ -223,7 +249,7 @@ public class VectorMode extends Basic {
     }
 
     /**
-     * When the user presses the × Button.
+     * When the user presses the Ã— Button.
      *
      * @param v Not Used
      */
