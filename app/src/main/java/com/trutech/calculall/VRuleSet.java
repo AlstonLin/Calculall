@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class VRuleSet {
 
-    public static int ADD = 1, SUBTRACT = 2, DOT = 3, CROSS = 4;
+    public static int ADD = 1, SUBTRACT = 2, DOT = 3, CROSS = 4, MAGNITUDE = 5;
 
     ArrayList<VRule> VRules = new ArrayList<VRule>();
     ArrayList<Token> newExpression = new ArrayList<Token>();
@@ -17,6 +17,8 @@ public class VRuleSet {
         VRules.add(new VRule (("[N,N,N]S[N,N,N]"), VRuleSet.SUBTRACT, 3, this));
         VRules.add(new VRule (("[N,N]D[N,N]"), VRuleSet.DOT, 2, this));
         VRules.add(new VRule (("[N,N,N]D[N,N,N]"), VRuleSet.DOT, 3, this));
+        VRules.add(new VRule (("|N,N|"), VRuleSet.MAGNITUDE, 2, this));
+        VRules.add(new VRule (("|N,N,N|"), VRuleSet.MAGNITUDE, 3, this));
     }
 
     public ArrayList<Token> reduce(ArrayList<Token> expression) {

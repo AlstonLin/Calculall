@@ -70,7 +70,8 @@ public class VRule {
                     stringExpression = stringExpression + "[";
                 } else if (((Bracket) (expression.get(i))).getType() == Bracket.SQUARECLOSED) {
                     stringExpression = stringExpression + "]";
-                }
+                } else if (((Bracket) (expression.get(i))).getType() == Bracket.MAGNITUDEBAR) {
+                    stringExpression = stringExpression + "|"; }
             } else if (expression.get(i).getSymbol() == ",") {
                 stringExpression = stringExpression + ",";
             }
@@ -125,6 +126,8 @@ public class VRule {
             for (Token v : newVector) {
                 tempExpression.add(v);
             }
+        } else if (operation == VRuleSet.MAGNITUDE) {
+            tempExpression.add(new Number(Utility.calculateMagnitude(leftVector)));
         }
         //Add the last bit of the expression to tempExpression
         for (int i = 0; i < expression.size() - pattern.length() - firstOccurPosition; i++) {
