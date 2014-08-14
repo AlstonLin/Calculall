@@ -5,9 +5,9 @@ public class VRuleSet {
 
     public static int ADD = 1, SUBTRACT = 2, DOT = 3, CROSS = 4;
 
-    ArrayList<VRule> VRules = new ArrayList<VRule>();
-    ArrayList<Token> newExpression = new ArrayList<Token>();
-    private boolean appliedRule = false;
+    private static ArrayList<VRule> VRules = new ArrayList<VRule>();
+    private static ArrayList<Token> newExpression = new ArrayList<Token>();
+    private static boolean appliedRule = false;
 
     public VRuleSet () {
         VRules.add(new VRule (("[N,N,N]C[N,N,N]"), VRuleSet.CROSS, 3, this));
@@ -19,7 +19,7 @@ public class VRuleSet {
         VRules.add(new VRule (("[N,N,N]D[N,N,N]"), VRuleSet.DOT, 3, this));
     }
 
-    public ArrayList<Token> reduce(ArrayList<Token> expression) {
+    public static ArrayList<Token> reduce(ArrayList<Token> expression) {
         newExpression = expression;
         for (VRule v : VRules) {
             newExpression = v.applyRule(newExpression);

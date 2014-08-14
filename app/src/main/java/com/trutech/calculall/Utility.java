@@ -206,8 +206,7 @@ public class Utility {
     }
 
     public static ArrayList<Token> simplifyVector(ArrayList<Token> expression) {
-        VRuleSet vRuleSet = new VRuleSet();
-        return vRuleSet.reduce(expression);
+        return VRuleSet.reduce(expression);
     }
 
     public static ArrayList<Token> convertDoublesToVector(double[] vector) {
@@ -227,23 +226,36 @@ public class Utility {
         return newVector;
     }
 
+    /**
+     * Converts an expression of Tokens into an expression represented by a String
+     *
+     * @param expression Expression being converted to a string
+     * @return String String representation of the expression
+     */
     public static String convertTokensToString(ArrayList<Token> expression) {
         String stringExpression = new String("");
         for (int i = 0; i < expression.size(); i++) {
             if (expression.get(i) instanceof Number) {
-                stringExpression = stringExpression + String.valueOf(((Number) expression.get(i)).getValue());
+                String s = String.valueOf(((Number) expression.get(i)).getValue());
+                s = s.indexOf(".") < 0 ? s : (s.indexOf("E") > 0 ? s.substring(0, s.indexOf("E")).replaceAll("0*$", "")
+                        .replaceAll("\\.$", "").concat(s.substring(s.indexOf("E"))) : s.replaceAll("0*$", "")
+                        .replaceAll("\\.$", "")); //Removes trailing zeroes
+                stringExpression = stringExpression + s;
             } else if (expression.get(i) instanceof Bracket) {
                 if (((Bracket) (expression.get(i))).getType() == Bracket.SQUAREOPEN) {
                     stringExpression = stringExpression + (expression.get(i)).getSymbol();
                 } else if (((Bracket) (expression.get(i))).getType() == Bracket.SQUARECLOSED) {
                     stringExpression = stringExpression + (expression.get(i)).getSymbol();
                 }
+            } else if (expression.get(i) instanceof Operator) {
+                stringExpression = stringExpression + expression.get(i).getSymbol();
             } else if (expression.get(i).getSymbol() == ",") {
                 stringExpression = stringExpression + ",";
             }
         }
         return stringExpression;
     }
+
 
     public static double[] calculateAddOrSubtract(double[] vectorLeft, double[] vectorRight, int operator) {
         if (vectorLeft.length == vectorRight.length) {
@@ -262,7 +274,7 @@ public class Utility {
                     expression[2] = vectorLeft[2] + vectorRight[2];
                     return expression;
                 }
-            } else if (operator == VRuleSet.ADD) {
+            } else if (operator == VRuleSet.SUBTRACT) {
                 if (dimensions == 2) {
                     double[] expression = new double[2];
                     expression[0] = vectorLeft[0] - vectorRight[0];
@@ -280,6 +292,8 @@ public class Utility {
         return null;
     }
 
+
+
     /**
      * The parameter vectors should be set up so that each vector is in it's own column
      * for example if the vectors are 2D vectors the first vector's x co-ordinate should be stored in vectors[0][0]
@@ -287,7 +301,8 @@ public class Utility {
      * for the second vector the x co-ordinate should be stored in vectors[1][0]
      * the y co-ordinate for the second vector should be stored in vectors[1][1]
      *
-     * @param vectors is a 2D array that holds the 2 vectors that we are trying to find the dot product of
+     * @param vectorLeft  is a 2D array that holds the 1 vector that we are trying to find the dot product of
+     * @param vectorRight is a 2D array that holds the 2 vectors that we are trying to find the dot product of
      * @return will return the answer as a double or if it can't calculate it returns null
      */
     public static double calculateDotProduct(double[] vectorLeft, double[] vectorRight) {
@@ -350,7 +365,8 @@ public class Utility {
      * for the second vector x is in vectors[1][0]  y is in vectors[1][1]
      * z is in vectors[1][2]
      *
-     * @param vectors is a 2D array that holds the 2 vectors that we are trying to find the dot product of
+     * @param vectorLeft  is an array that holds 1 vector that we are trying to find the dot product of
+     * @param vectorRight is an array that holds 1 vector that we are trying to find the dot product of
      * @return returns the answer as a 1D array of doubles or if it can't calculate it will return null
      */
     public static double[] calculateCrossProduct(double[] vectorLeft, double[] vectorRight) {
@@ -361,7 +377,7 @@ public class Utility {
             crossProduct[2] = vectorLeft[0] * vectorRight[1] - vectorLeft[1] * vectorRight[2];
             return crossProduct;
         } else {
-            return null;
+            throw new IllegalArgumentException();
         }
     }
 

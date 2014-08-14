@@ -34,9 +34,10 @@ public class VRule {
         firstOccurPosition = bm.search(stringExpression);
         //Base case for recursive implementation or no further rule can be applied
         if (firstOccurPosition == -1) {
-            vRuleSet.setAppliedRule();
             return expression;
         } else {
+            //Keeps track to see if at least one rule is applied
+            vRuleSet.setAppliedRule();
             return applyVectorOperation(expression);
         }
     }
@@ -123,11 +124,10 @@ public class VRule {
             for (Token v : newVector) {
                 tempExpression.add(v);
             }
-
-            //Add the last bit of the expression to tempExpression
-            for (int i = 0; i < expression.size() - pattern.length() - firstOccurPosition; i++) {
-                tempExpression.add(expression.get(i + firstOccurPosition + pattern.length() - 1));
-            }
+        }
+        //Add the last bit of the expression to tempExpression
+        for (int i = 0; i < expression.size() - pattern.length() - firstOccurPosition; i++) {
+            tempExpression.add(expression.get(i + firstOccurPosition + pattern.length()));
         }
         return applyRule(tempExpression);
     }
