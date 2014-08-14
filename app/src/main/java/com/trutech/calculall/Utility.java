@@ -382,6 +382,15 @@ public class Utility {
     }
 
     /**
+     *
+     * @param vector
+     * @return
+     */
+    public static double calculateMagnitude (double[] vector) {
+        return 0;
+    }
+
+    /**
      * Finds the roots of any given function, if any
      *
      * @param function The function to finds the roots of

@@ -17,6 +17,7 @@ public class VRuleSet {
         VRules.add(new VRule (("[N,N,N]S[N,N,N]"), VRuleSet.SUBTRACT, 3, this));
         VRules.add(new VRule (("[N,N]D[N,N]"), VRuleSet.DOT, 2, this));
         VRules.add(new VRule (("[N,N,N]D[N,N,N]"), VRuleSet.DOT, 3, this));
+
     }
 
     public static ArrayList<Token> reduce(ArrayList<Token> expression) {

@@ -22,13 +22,9 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: com.trutech.calculall" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="377a07f7-27dc-473a-a96c-fb1ac73664cb" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/model_data.bin" afterPath="$PROJECT_DIR$/build/intermediates/model_data.bin" />
+    <list default="true" id="377a07f7-27dc-473a-a96c-fb1ac73664cb" name="Default" comment="0.5.1 - Fixed all bugs">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/Utility.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/Utility.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/VRule.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/VRule.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/VRuleSet.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/VRuleSet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/VectorMode.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/VectorMode.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/local.properties" afterPath="$PROJECT_DIR$/local.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="CalculallE.iws" />
@@ -75,8 +71,8 @@
       <file leaf-file-name="Utility.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/Utility.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-18.928572" vertical-offset="4162" max-vertical-offset="9044">
-              <caret line="276" column="52" selection-start-line="276" selection-start-column="52" selection-end-line="276" selection-end-column="52" />
+            <state vertical-scroll-proportion="-31.25" vertical-offset="5806" max-vertical-offset="9197">
+              <caret line="393" column="38" selection-start-line="393" selection-start-column="38" selection-end-line="393" selection-end-column="38" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#2539#2546#0" expanded="true" />
@@ -86,22 +82,37 @@
                 <element signature="e#8519#8526#0" expanded="true" />
                 <element signature="e#8574#8581#0" expanded="true" />
                 <element signature="e#9679#9686#0" expanded="true" />
-                <element signature="e#18377#18378#0" expanded="true" />
-                <element signature="e#18404#18405#0" expanded="true" />
-                <element signature="e#20484#20492#0" expanded="true" />
-                <element signature="e#21353#21362#0" expanded="true" />
-                <element signature="e#22807#22815#0" expanded="true" />
+                <element signature="e#18243#18244#0" expanded="true" />
+                <element signature="e#18267#18268#0" expanded="true" />
+                <element signature="e#18525#18526#0" expanded="true" />
+                <element signature="e#18552#18553#0" expanded="true" />
+                <element signature="e#20632#20640#0" expanded="true" />
+                <element signature="e#21501#21510#0" expanded="true" />
+                <element signature="e#22955#22963#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="VectorMode.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="VectorMode.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/VectorMode.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.26651737" vertical-offset="0" max-vertical-offset="4114">
-              <caret line="23" column="5" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4114">
+              <caret line="21" column="5" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="VRuleSet.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/VRuleSet.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.34266517" vertical-offset="0" max-vertical-offset="893">
+              <caret line="18" column="75" selection-start-line="18" selection-start-column="75" selection-end-line="18" selection-end-column="75" />
+              <folding>
+                <element signature="e#209#216#0" expanded="true" />
+                <element signature="e#285#292#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -802,9 +813,9 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/Basic.java" />
         <option value="$PROJECT_DIR$/local.properties" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/VRule.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/VRuleSet.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/VectorMode.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/Utility.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/VRuleSet.java" />
       </list>
     </option>
   </component>
@@ -1206,7 +1217,11 @@
       <created>1406610585572</created>
       <updated>1406610585572</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="0.5.1 - Fixed all bugs">
+      <created>1407984123003</created>
+      <updated>1407984123003</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1291,7 +1306,8 @@
     <MESSAGE value="First Build with GitHub!" />
     <MESSAGE value="0.3.1 - Setup for the next version" />
     <MESSAGE value="0.3.2 - Github Test" />
-    <option name="LAST_COMMIT_MESSAGE" value="0.3.2 - Github Test" />
+    <MESSAGE value="0.5.1 - Fixed all bugs" />
+    <option name="LAST_COMMIT_MESSAGE" value="0.5.1 - Fixed all bugs" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1614,17 +1630,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/VRuleSet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="765">
-          <caret line="9" column="19" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
-          <folding>
-            <element signature="e#209#216#0" expanded="true" />
-            <element signature="e#285#292#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/VRule.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1790" max-vertical-offset="2380">
@@ -1660,28 +1665,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/Utility.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-18.928572" vertical-offset="4162" max-vertical-offset="9044">
-          <caret line="276" column="52" selection-start-line="276" selection-start-column="52" selection-end-line="276" selection-end-column="52" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2539#2546#0" expanded="true" />
-            <element signature="e#4389#4396#0" expanded="true" />
-            <element signature="e#4438#4445#0" expanded="true" />
-            <element signature="e#7068#7076#0" expanded="true" />
-            <element signature="e#8519#8526#0" expanded="true" />
-            <element signature="e#8574#8581#0" expanded="true" />
-            <element signature="e#9679#9686#0" expanded="true" />
-            <element signature="e#18377#18378#0" expanded="true" />
-            <element signature="e#18404#18405#0" expanded="true" />
-            <element signature="e#20484#20492#0" expanded="true" />
-            <element signature="e#21353#21362#0" expanded="true" />
-            <element signature="e#22807#22815#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_advanced.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5300231" vertical-offset="969" max-vertical-offset="12444">
@@ -1695,9 +1678,44 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/VectorMode.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.26651737" vertical-offset="0" max-vertical-offset="4114">
-          <caret line="23" column="5" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4114">
+          <caret line="21" column="5" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/Utility.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-31.25" vertical-offset="5806" max-vertical-offset="9197">
+          <caret line="393" column="38" selection-start-line="393" selection-start-column="38" selection-end-line="393" selection-end-column="38" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2539#2546#0" expanded="true" />
+            <element signature="e#4389#4396#0" expanded="true" />
+            <element signature="e#4438#4445#0" expanded="true" />
+            <element signature="e#7068#7076#0" expanded="true" />
+            <element signature="e#8519#8526#0" expanded="true" />
+            <element signature="e#8574#8581#0" expanded="true" />
+            <element signature="e#9679#9686#0" expanded="true" />
+            <element signature="e#18243#18244#0" expanded="true" />
+            <element signature="e#18267#18268#0" expanded="true" />
+            <element signature="e#18525#18526#0" expanded="true" />
+            <element signature="e#18552#18553#0" expanded="true" />
+            <element signature="e#20632#20640#0" expanded="true" />
+            <element signature="e#21501#21510#0" expanded="true" />
+            <element signature="e#22955#22963#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/VRuleSet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.34266517" vertical-offset="0" max-vertical-offset="893">
+          <caret line="18" column="75" selection-start-line="18" selection-start-column="75" selection-end-line="18" selection-end-column="75" />
+          <folding>
+            <element signature="e#209#216#0" expanded="true" />
+            <element signature="e#285#292#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
