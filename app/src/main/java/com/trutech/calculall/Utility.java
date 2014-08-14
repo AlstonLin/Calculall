@@ -394,7 +394,7 @@ public class Utility {
             return Math.sqrt(Math.pow(vector[0], 2) + Math.pow(vector[1], 2) + Math.pow(vector[2], 2));
         }
         else {
-        throw new IllegalArgumentException();
+            throw new IllegalArgumentException();
         }
     }
 
