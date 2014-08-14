@@ -387,7 +387,15 @@ public class Utility {
      * @return
      */
     public static double calculateMagnitude (double[] vector) {
-        return 0;
+        if (vector.length == 2) {
+            return Math.sqrt(Math.pow(vector[0], 2) + Math.pow(vector[1], 2));
+        }
+        else if (vector.length == 3){
+            return Math.sqrt(Math.pow(vector[0], 2) + Math.pow(vector[1], 2) + Math.pow(vector[2], 2));
+        }
+        else {
+        throw new IllegalArgumentException();
+        }
     }
 
     /**
