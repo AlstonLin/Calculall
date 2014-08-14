@@ -2,10 +2,10 @@
 <merger version="2" >
 
     <dataSet config="main" >
-        <source path="C:\Users\Alston\Calculall\app\src\main\assets" />
+        <source path="C:\Users\Keith\Desktop\Stuff\TruTech\Calculall\app\src\main\assets" />
     </dataSet>
     <dataSet config="debug" >
-        <source path="C:\Users\Alston\Calculall\app\src\debug\assets" />
+        <source path="C:\Users\Keith\Desktop\Stuff\TruTech\Calculall\app\src\debug\assets" />
     </dataSet>
 
 </merger>
