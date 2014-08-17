@@ -446,6 +446,33 @@ public class Utility {
     }
 
     /**
+     *Finds the angle between 2 vectors represent
+     *
+     * @param leftVector
+     * @param rightVector
+     * @return double Angle between 2 vectors
+     */
+    public static double findAngleBetweenVector (double[] leftVector, double[] rightVector) {
+        return Math.acos((calculateDotProduct(leftVector, rightVector))
+                /(calculateMagnitude(leftVector)*calculateMagnitude(rightVector))) * 180/Math.PI;
+
+    }
+
+    /**
+     *
+     * @param leftVector
+     * @param rightVector
+     * @return ArrayList<Token>
+     */
+    public static ArrayList<Token> findProjection (double[] leftVector, double[] rightVector) {
+        ArrayList<Token> tempTokens = new ArrayList<Token>();
+        ArrayList<Token> tempVector = new ArrayList<Token>();
+        tempTokens.add(new Number ((calculateDotProduct(rightVector, leftVector)/Math.pow(calculateMagnitude(leftVector),2))));
+        tempTokens.addAll(convertDoublesToVector(leftVector));
+        return tempTokens;
+    }
+
+    /**
      * Finds the roots of any given function, if any
      *
      * @param function The function to finds the roots of
