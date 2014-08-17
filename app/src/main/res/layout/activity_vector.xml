@@ -75,6 +75,7 @@
                 android:layout_height="fill_parent"
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
+                android:onClick="clickAdvanced"
                 android:text="@string/advanced"
                 android:textSize="13sp" />
 
@@ -96,7 +97,6 @@
                 android:layout_height="fill_parent"
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
-                android:onClick="clickVector"
                 android:text="@string/vector"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -144,6 +144,17 @@
                 android:onClick="clickClear"
                 android:text="@string/C"
                 android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/magnitudeButton"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_marginRight="-7dp"
+                android:layout_weight="1"
+                android:onClick="clickMagnitude"
+                android:text="@string/magnitude"
+                android:textSize="20sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -163,7 +174,7 @@
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:checked="false"
-                android:onClick="clickA"
+                android:onClick="clickVA"
                 android:text="@string/varA"
                 android:textSize="16sp" />
 
@@ -175,7 +186,7 @@
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:checked="false"
-                android:onClick="clickB"
+                android:onClick="clickVB"
                 android:text="@string/varB"
                 android:textSize="16sp" />
 
@@ -187,7 +198,7 @@
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:checked="false"
-                android:onClick="clickC"
+                android:onClick="clickVC"
                 android:text="@string/varC"
                 android:textSize="16sp" />
 
@@ -199,7 +210,7 @@
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:checked="false"
-                android:onClick="clickX"
+                android:onClick="clickVX"
                 android:text="@string/varX"
                 android:textSize="16sp" />
 
@@ -211,7 +222,7 @@
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:checked="false"
-                android:onClick="clickY"
+                android:onClick="clickVY"
                 android:text="@string/varY"
                 android:textSize="16sp" />
 
@@ -223,7 +234,7 @@
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:checked="false"
-                android:onClick="clickZ"
+                android:onClick="clickVZ"
                 android:text="@string/varZ"
                 android:textSize="16sp" />
         </LinearLayout>

@@ -8,18 +8,18 @@ public class VRule {
     private int operation;
     private int dimension;
     private int firstOccurPosition;
-    private VRuleSet vRuleSet;
+    //private VRuleSet vRuleSet;
 
 
     /**
      * @param pattern   String pattern to be replaced
      * @param operation Operation number
      */
-    public VRule(String pattern, int operation, int dimension, VRuleSet vRuleSet) {
+    public VRule(String pattern, int operation, int dimension) {
         this.pattern = pattern;
         this.operation = operation;
         this.dimension = dimension;
-        this.vRuleSet = vRuleSet;
+        //this.vRuleSet = vRuleSet;
     }
 
     /**
@@ -38,13 +38,13 @@ public class VRule {
             return expression;
         } else {
             //Keeps track to see if at least one rule is applied
-            vRuleSet.setAppliedRule();
+            VRuleSet.setAppliedRule();
             return applyVectorOperation(expression);
         }
     }
 
     /**
-     * N = Number, A = add, S = subtract, D = dot, C = cross, [ = open bracket, ] = closed bracket, , = comma
+     * N = Number, A = add, S = subtract, D = dot, C = cross, [ = open bracket, ] = closed bracket, | = magnitude bar, , = comma
      *
      * @param expression An expression represented in a ArrayList of Token
      * @return String The given expression represented in a ArrayList of Token
@@ -71,7 +71,8 @@ public class VRule {
                 } else if (((Bracket) (expression.get(i))).getType() == Bracket.SQUARECLOSED) {
                     stringExpression = stringExpression + "]";
                 } else if (((Bracket) (expression.get(i))).getType() == Bracket.MAGNITUDEBAR) {
-                    stringExpression = stringExpression + "|"; }
+                    stringExpression = stringExpression + "|";
+                }
             } else if (expression.get(i).getSymbol() == ",") {
                 stringExpression = stringExpression + ",";
             }
@@ -79,7 +80,7 @@ public class VRule {
         return stringExpression;
     }
 
-    private ArrayList<Token> applyVectorOperation(ArrayList<Token> expression) {
+    public ArrayList<Token> applyVectorOperation(ArrayList<Token> expression) {
         ArrayList<Token> tempExpression = new ArrayList<Token>();
         ArrayList<Token> numbers = new ArrayList<Token>();
         ArrayList<Token> operators = new ArrayList<Token>();
@@ -91,16 +92,19 @@ public class VRule {
                 operators.add(expression.get(i));
             }
         }
-        double[] leftVector = new double[dimension], rightVector = new double[dimension];
 
-        //Load all Numbers of each vector into an array of doubles to send for calculations
-        for (Token n : numbers) {
-            if (numbers.indexOf(n) < dimension) {
-                leftVector[numbers.indexOf(n)] = ((Number) n).getValue();
-            } else {
-                rightVector[numbers.indexOf(n) - dimension] = ((Number) n).getValue();
+
+            double[] leftVector = new double[dimension], rightVector = new double[dimension];
+
+            //Load all Numbers of each vector into an array of doubles to send for calculations
+            for (Token n : numbers) {
+                if (numbers.indexOf(n) < dimension) {
+                    leftVector[numbers.indexOf(n)] = ((Number) n).getValue();
+                } else {
+                    rightVector[numbers.indexOf(n) - dimension] = ((Number) n).getValue();
+                }
             }
-        }
+
 
         //Load Tokens that are before the pattern into tempExpression
         for (int i = 0; i < firstOccurPosition; i++) {
@@ -128,7 +132,23 @@ public class VRule {
             }
         } else if (operation == VRuleSet.MAGNITUDE) {
             tempExpression.add(new Number(Utility.calculateMagnitude(leftVector)));
+        } else if (operation == VRuleSet.MULTIPLY) {
+            double multiplier = 0;
+            double[] vector = new double [dimension];
+            //Load all Numbers of each vector into an array of doubles and a double for the multiplier to send for calculations
+            for (Token n : numbers) {
+                if (numbers.indexOf(n) == 0) {
+                    multiplier = ((Number) n).getValue();
+                } else {
+                    vector[numbers.indexOf(n)-1] = ((Number) n).getValue();
+                }
+            }
+            ArrayList<Token> newVector = Utility.convertDoublesToVector(Utility.multiplyVector(multiplier, vector));
+            for (Token v : newVector) {
+                tempExpression.add(v);
+            }
         }
+
         //Add the last bit of the expression to tempExpression
         for (int i = 0; i < expression.size() - pattern.length() - firstOccurPosition; i++) {
             tempExpression.add(expression.get(i + firstOccurPosition + pattern.length()));

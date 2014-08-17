@@ -33,6 +33,7 @@
     <string name="closedBracket">)</string>
     <string name="openSquareBracket">[</string>
     <string name="closedSquareBracket">]</string>
+    <string name="magnitude">|</string>
     <string name="dot">•</string>
     <string name="cross">×</string>
     <string name="comma">,</string>

@@ -63,24 +63,24 @@ public class Utility {
      * @param toSetup The expression to set up
      * @return The expression with the added Tokens to make the
      */
-    public static ArrayList<Token> setupExpression(ArrayList<Token> toSetup){
+    public static ArrayList<Token> setupExpression(ArrayList<Token> toSetup) {
         ArrayList<Token> newExpression = new ArrayList<Token>();
-        for (Token t : toSetup){
+        for (Token t : toSetup) {
             Token last = newExpression.isEmpty() ? null : newExpression.get(newExpression.size() - 1); //Last token in the new expression
-            if (t instanceof Bracket){
-                Bracket b = (Bracket)t;
-                if (b.getType() == Bracket.OPEN && last instanceof Bracket && ((Bracket)last).getType() == Bracket.CLOSE){ //Ex. (2 + 1)(3 + 4)
+            if (t instanceof Bracket) {
+                Bracket b = (Bracket) t;
+                if (b.getType() == Bracket.OPEN && last instanceof Bracket && ((Bracket) last).getType() == Bracket.CLOSE) { //Ex. (2 + 1)(3 + 4)
                     newExpression.add(OperatorFactory.makeMultiply()); //Implies multiplication between the two expressions in the brackets
-                } else if (last instanceof Number && b.getType() == Bracket.OPEN){ //Ex. 3(2 + 1)
+                } else if (last instanceof Number && b.getType() == Bracket.OPEN) { //Ex. 3(2 + 1)
                     newExpression.add(OperatorFactory.makeMultiply());
                 }
-            } else if (t instanceof Number || t instanceof Variable){ //So it works with Function mode too
-                if (last instanceof Number){ //Ex. 5A
+            } else if (t instanceof Number || t instanceof Variable) { //So it works with Function mode too
+                if (last instanceof Number) { //Ex. 5A
                     newExpression.add(OperatorFactory.makeMultiply());
                 }
-            } else if (t instanceof Function){
+            } else if (t instanceof Function) {
                 if (last instanceof Number || last instanceof Function
-                        || (last instanceof Bracket && ((Bracket)last).getType() == Bracket.CLOSE)){ //Ex. 2f(x) or f(x)g(x) or (1 + 2)f(x)
+                        || (last instanceof Bracket && ((Bracket) last).getType() == Bracket.CLOSE)) { //Ex. 2f(x) or f(x)g(x) or (1 + 2)f(x)
                     newExpression.add(OperatorFactory.makeMultiply());
                 }
             }
@@ -100,30 +100,30 @@ public class Utility {
     public static ArrayList<Token> convertToReversePolish(ArrayList<Token> infix) {
         ArrayList<Token> reversePolish = new ArrayList<Token>();
         Stack<Token> stack = new Stack<Token>();
-        for (Token token : infix){
-            if (token instanceof Number){ //Adds directly to the queue if it's a token
+        for (Token token : infix) {
+            if (token instanceof Number) { //Adds directly to the queue if it's a token
                 reversePolish.add(token);
-            } else if (token instanceof Function){ //Adds to the stack if it's a function
+            } else if (token instanceof Function) { //Adds to the stack if it's a function
                 stack.push(token);
-            } else if (token instanceof Operator){
-                if (!stack.empty()){ //Make sure it's not empty to prevent bugs
+            } else if (token instanceof Operator) {
+                if (!stack.empty()) { //Make sure it's not empty to prevent bugs
                     Token top = stack.lastElement();
-                    while (top != null && ((top instanceof Operator && ((Operator)token).isLeftAssociative()
-                            && ((Operator)top).getPrecedence() >= ((Operator)token).getPrecedence()) || top instanceof Function)){ //Operator is left associative and higher precendence / is a function
+                    while (top != null && ((top instanceof Operator && ((Operator) token).isLeftAssociative()
+                            && ((Operator) top).getPrecedence() >= ((Operator) token).getPrecedence()) || top instanceof Function)) { //Operator is left associative and higher precendence / is a function
                         reversePolish.add(stack.pop()); //Pops top element to the queue
                         top = stack.isEmpty() ? null : stack.lastElement(); //Assigns the top element of the stack if it exists
                     }
                 }
                 stack.push(token);
-            } else if (token instanceof Bracket){
-                Bracket bracket = (Bracket)token;
-                if (bracket.getType() == Bracket.OPEN){ //Pushes the bracket to the stack if it's open
+            } else if (token instanceof Bracket) {
+                Bracket bracket = (Bracket) token;
+                if (bracket.getType() == Bracket.OPEN) { //Pushes the bracket to the stack if it's open
                     stack.push(bracket);
-                } else{ //For close brackets, pop operators onto the list until a open bracket is found
+                } else { //For close brackets, pop operators onto the list until a open bracket is found
                     Token top = stack.lastElement();
-                    while (!(top instanceof Bracket)){ //While it has not found an open bracket
+                    while (!(top instanceof Bracket)) { //While it has not found an open bracket
                         reversePolish.add(stack.pop()); //Pops the top element
-                        if (stack.isEmpty()){ //Mismatched brackets
+                        if (stack.isEmpty()) { //Mismatched brackets
                             throw new IllegalArgumentException();
                         }
                         top = stack.lastElement();
@@ -133,7 +133,7 @@ public class Utility {
             }
         }
         //All tokens read at this point
-        while (!stack.isEmpty()){ //Puts the remaining tokens in the stack to the queue
+        while (!stack.isEmpty()) { //Puts the remaining tokens in the stack to the queue
             reversePolish.add(stack.pop());
         }
         return reversePolish;
@@ -146,26 +146,26 @@ public class Utility {
      * @return The value of the expression
      * @throws java.lang.IllegalArgumentException The user has inputted an invalid expression
      */
-    public static double evaluateExpression (ArrayList<Token> tokens){
+    public static double evaluateExpression(ArrayList<Token> tokens) {
         Stack<Number> stack = new Stack<Number>();
-        for (Token token : tokens){
-            if (token instanceof Number){ //Adds all numbers directly to the stack
-                stack.push((Number)token);
-            } else if (token instanceof Operator){
+        for (Token token : tokens) {
+            if (token instanceof Number) { //Adds all numbers directly to the stack
+                stack.push((Number) token);
+            } else if (token instanceof Operator) {
                 //Operates the first and second top operators
                 Number right = stack.pop();
                 Number left = stack.pop();
-                stack.push (new Number (((Operator)token).operate(left.getValue(), right.getValue()))); //Adds the result back to the stack
-            } else if (token instanceof Function){ //Function uses the top number on the stack
+                stack.push(new Number(((Operator) token).operate(left.getValue(), right.getValue()))); //Adds the result back to the stack
+            } else if (token instanceof Function) { //Function uses the top number on the stack
                 Number top = stack.pop(); //Function performs on the first number
-                stack.push(new Number(((Function)token).perform(top.getValue()))); //Adds the result back to the stack
-            } else{ //This should never bee reached
+                stack.push(new Number(((Function) token).perform(top.getValue()))); //Adds the result back to the stack
+            } else { //This should never bee reached
                 throw new IllegalArgumentException();
             }
         }
-        if (stack.size() != 1){
+        if (stack.size() != 1) {
             throw new IllegalArgumentException(); //There should only be 1 token left on the stack
-        } else{
+        } else {
             return stack.pop().getValue();
         }
     }
@@ -176,15 +176,15 @@ public class Utility {
      * @param expression The un-simplified expression
      * @return The simplified expression
      */
-    public static ArrayList<Token> simplifyExpression (ArrayList<Token> expression){
+    public static ArrayList<Token> simplifyExpression(ArrayList<Token> expression) {
         ArrayList<Token> num = new ArrayList<Token>();
         ArrayList<Token> den = new ArrayList<Token>();
         int intNum = 0;
         int intDen = 0;
         int divisionIndex;
-        for (Token token: expression){
+        for (Token token : expression) {
             if (token instanceof Operator) {
-                if ((((Operator)(token)).getType() == 4)) {
+                if ((((Operator) (token)).getType() == 4)) {
                     divisionIndex = expression.indexOf(token);
                     for (int i = 0; i < divisionIndex; i++) {
                         num.add(expression.get(i));
@@ -195,19 +195,18 @@ public class Utility {
                 }
             }
         }
-        if (num.size() == 1){
-            intNum = ((Digit)(num.get(0))).getValue();
+        if (num.size() == 1) {
+            intNum = ((Digit) (num.get(0))).getValue();
         }
-        if (den.size() == 1){
-            intDen = ((Digit)(den.get(0))).getValue();
+        if (den.size() == 1) {
+            intDen = ((Digit) (den.get(0))).getValue();
         }
 
         return null;
     }
 
     public static ArrayList<Token> simplifyVector(ArrayList<Token> expression) {
-        VRuleSet vRuleSet = new VRuleSet();
-        return vRuleSet.reduce(expression);
+        return VRuleSet.reduce(expression);
     }
 
     public static ArrayList<Token> convertDoublesToVector(double[] vector) {
@@ -238,7 +237,7 @@ public class Utility {
         for (int i = 0; i < expression.size(); i++) {
             if (expression.get(i) instanceof Number) {
                 String s = String.valueOf(((Number) expression.get(i)).getValue());
-                s = s.indexOf(".") < 0  ? s : (s.indexOf("E")>0 ? s.substring(0,s.indexOf("E")).replaceAll("0*$", "")
+                s = s.indexOf(".") < 0 ? s : (s.indexOf("E") > 0 ? s.substring(0, s.indexOf("E")).replaceAll("0*$", "")
                         .replaceAll("\\.$", "").concat(s.substring(s.indexOf("E"))) : s.replaceAll("0*$", "")
                         .replaceAll("\\.$", "")); //Removes trailing zeroes
                 stringExpression = stringExpression + s;
@@ -246,6 +245,8 @@ public class Utility {
                 if (((Bracket) (expression.get(i))).getType() == Bracket.SQUAREOPEN) {
                     stringExpression = stringExpression + (expression.get(i)).getSymbol();
                 } else if (((Bracket) (expression.get(i))).getType() == Bracket.SQUARECLOSED) {
+                    stringExpression = stringExpression + (expression.get(i)).getSymbol();
+                } else if (((Bracket) (expression.get(i))).getType() == Bracket.MAGNITUDEBAR) {
                     stringExpression = stringExpression + (expression.get(i)).getSymbol();
                 }
             } else if (expression.get(i) instanceof Operator) {
@@ -255,6 +256,29 @@ public class Utility {
             }
         }
         return stringExpression;
+    }
+
+    /**
+     * Gets the tokens of all stored vectors from variables and creates a new expression for calculations
+     *
+     * @param expression Expression of Tokens
+     * @return ArrayList<Token> New expression of Tokens
+     */
+    public static ArrayList<Token> convertVariablesToTokens (ArrayList<Token> expression) {
+        ArrayList<Token> tempExpression = new ArrayList<Token>();
+        for (Token t : expression) {
+            if (t instanceof Vector) {
+                ArrayList<Token> tempVector = ((Vector)t).getVector();
+                for (Token v : tempVector) {
+                    tempExpression.add(v);
+                }
+            }
+            else {
+                tempExpression.add(t);
+            }
+        }
+        return tempExpression;
+
     }
 
 
@@ -291,7 +315,6 @@ public class Utility {
         }
         return null;
     }
-
 
 
     /**
@@ -382,20 +405,44 @@ public class Utility {
     }
 
     /**
+     * Returns the magnitude of a vector given a vector represented as an array of doubles
      *
-     * @param vector
-     * @return
+     * @param vector Vector as an array of doubles
+     * @return double Magnitude of the vector
      */
-    public static double calculateMagnitude (double[] vector) {
+    public static double calculateMagnitude(double[] vector) {
         if (vector.length == 2) {
             return Math.sqrt(Math.pow(vector[0], 2) + Math.pow(vector[1], 2));
-        }
-        else if (vector.length == 3){
+        } else if (vector.length == 3) {
             return Math.sqrt(Math.pow(vector[0], 2) + Math.pow(vector[1], 2) + Math.pow(vector[2], 2));
-        }
-        else {
+        } else {
             throw new IllegalArgumentException();
         }
+    }
+
+    /**
+     * Returns a new vector represented as an array of doubles by multipliying the old vector by a
+     * multiplier
+     *
+     * @param multiplier Multiplier to be multiplied into a vector
+     * @param vector Vector represented as an array of doubles
+     * @return double[] New vector
+     */
+    public static double[] multiplyVector (double multiplier, double[] vector) {
+        int dimensions = 0;
+        if (vector.length == 2) {
+            dimensions = 2;
+        }
+        else if (vector.length == 3) {
+        dimensions = 3;
+        }
+        double[] newVector = new double [dimensions];
+        newVector[0] = multiplier * vector[0];
+        newVector[1] = multiplier * vector[1];
+        if (dimensions > 2) {
+            newVector[2] = multiplier * vector[2];
+        }
+        return newVector;
     }
 
     /**
@@ -424,120 +471,122 @@ public class Utility {
     }
 
 
+    /**
+     * Rounds the given double to the given amount of significant digits.
+     *
+     * @param unrounded The unrounded value
+     * @param sigDigs   The amount of significant digits to round to
+     * @return The rounded value
+     */
+    public static double round(double unrounded, int sigDigs) {
+        BigDecimal rounded = new BigDecimal(unrounded);
+        return rounded.round(new MathContext(sigDigs)).doubleValue();
+    }
 
-        /**
-         * Rounds the given double to the given amount of significant digits.
-         * @param unrounded The unrounded value
-         * @param sigDigs The amount of significant digits to round to
-         * @return The rounded value
-         */
-        public static double round (double unrounded, int sigDigs){
-            BigDecimal rounded = new BigDecimal(unrounded);
-            return rounded.round(new MathContext(sigDigs)).doubleValue();
+
+    /**
+     * Finds the derivative of a given function
+     *
+     * @param function The function that will be differentiated
+     * @return The differentiated function
+     */
+    public ArrayList<Token> differentiate(ArrayList<Token> function) {
+        for (int i = 0; i < function.size(); i++) {
+
+        }
+        return null;
+    }
+
+    /**
+     * Finds the integral of a given function
+     *
+     * @param function The function that will be integrated
+     * @return The integrated function
+     */
+    public ArrayList<Token> integrate(ArrayList<Token> function) {
+        for (int i = 0; i < function.size(); i++) {
+
+        }
+        return null;
+    }
+
+    /**
+     * Finds all the REAL roots of a quadratic function
+     *
+     * @param a the coefficient of the 2nd degree x value of the cubic function
+     * @param b the coefficient of the 1st degree x value of the cubic function
+     * @param c the constant value of the cubic function
+     * @return An ArrayList (of Double objects) containing the real roots of the function
+     */
+    public static ArrayList<Double> solveQuadratic(double a, double b, double c) {
+        ArrayList<Double> roots = new ArrayList<Double>();
+        if ((b * b - 4 * a * c) < 0) {
+        } else if ((b * b - 4 * a * c) == 0) {
+            roots.add(-b / (2 * a));
+        } else {
+            roots.add((-b + Math.sqrt((b * b - 4 * a * c))) / (2 * a));
+            roots.add((-b - Math.sqrt((b * b - 4 * a * c))) / (2 * a));
+        }
+        return roots;
+    }
+
+
+    /**
+     * Finds all the roots of a quadratic function
+     *
+     * @param a the coefficient of the 2nd degree x value of the cubic function
+     * @param b the coefficient of the 1st degree x value of the cubic function
+     * @param c the constant value of the cubic function
+     * @return An ArrayList (of Complex objects) containing the roots of the function
+     */
+    public static ArrayList<Complex> solveQuadraticC(double a, double b, double c) {
+        ArrayList<Complex> roots = new ArrayList<Complex>();
+        if ((b * b - 4 * a * c) < 0) {
+            roots.add((Complex.sqrt((b * b - 4 * a * c))).add(-b).times(1 / (2 * a)));
+            roots.add(new Complex(-b, 0).subtract(Complex.sqrt((b * b - 4 * a * c))).times(1 / (2 * a)));
+        } else if ((b * b - 4 * a * c) == 0) {
+            roots.add(new Complex((-b / (2 * a)), 0));
+        } else {
+            roots.add(new Complex((-b + Math.sqrt((b * b - 4 * a * c))) / (2 * a), 0));
+            roots.add(new Complex((-b - Math.sqrt((b * b - 4 * a * c))) / (2 * a), 0));
+        }
+        return roots;
+    }
+
+    /**
+     * Finds all the REAL roots of a cubic function
+     * using the method found here: http://www.1728.org/cubic2.htm
+     *
+     * @param a the coefficient of the 3rd degree x value of the cubic function
+     * @param b the coefficient of the 2nd degree x value of the cubic function
+     * @param c the coefficient of the 1st degree x value of the cubic function
+     * @param d the constant value of the cubic function
+     * @return An ArrayList (of Double objects) containing the real roots of the function
+     */
+    public static ArrayList<Double> solveCubic(double a, double b, double c, double d) {
+        double f = ((3 * c / a) - ((b * b) / (a * a))) / 3;
+        double g = ((2 * Math.pow(b, 3) / Math.pow(a, 3)) - (9 * b * c / (a * a)) + (27 * d / a)) / 27;
+        double h = ((g * g / 4) + (f * f * f / 27));
+        ArrayList<Double> roots = new ArrayList<Double>();
+        if (h > 0) { //only one real root exists
+            double s = Math.cbrt((-g / 2) + Math.sqrt(h));
+            double u = Math.cbrt((-g / 2) - Math.sqrt(h));
+            roots.add((s + u) - (b / (3 * a)));
+        } else if (f == 0 && g == 0 && h == 0) {//all 3 roots are real and equal
+            roots.add((-1) * Math.cbrt(d / a));
+        } else if (h <= 0) {//all 3 roots are real
+            double i = Math.sqrt((g * g / 4) - h);
+            double j = Math.cbrt(i);
+            double k = Math.acos(-1 * (g / (2 * i)));
+            double m = Math.cos(k / 3);
+            double n = Math.sqrt(3) * Math.sin(k / 3);
+            double p = (b / (3 * a)) * (-1);
+            roots.add((2 * j * m) + p);
+            roots.add(((-1) * j * (m + n)) + p);
+            roots.add(((-1) * j * (m - n)) + p);
         }
 
-
-        /**
-         * Finds the derivative of a given function
-         *
-         * @param function The function that will be differentiated
-         * @return The differentiated function
-         */
-        public ArrayList<Token> differentiate (ArrayList<Token> function) {
-            for(int i=0;i<function.size();i++) {
-
-            }
-            return null;
-        }
-
-        /**
-         * Finds the integral of a given function
-         *
-         * @param function The function that will be integrated
-         * @return The integrated function
-         */
-        public ArrayList<Token> integrate (ArrayList<Token> function) {
-            for(int i=0;i<function.size();i++) {
-
-            }
-            return null;
-        }
-
-        /**
-         * Finds all the REAL roots of a quadratic function
-         * @param a the coefficient of the 2nd degree x value of the cubic function
-         * @param b the coefficient of the 1st degree x value of the cubic function
-         * @param c the constant value of the cubic function
-         * @return An ArrayList (of Double objects) containing the real roots of the function
-         **/
-        public static ArrayList<Double> solveQuadratic(double a, double b, double c){
-            ArrayList<Double> roots = new ArrayList<Double>();
-            if((b*b - 4*a*c) < 0){
-            }else if((b*b - 4*a*c) == 0){
-                roots.add( -b/(2*a));
-            }else{
-                roots.add((-b + Math.sqrt((b*b - 4*a*c)))/(2*a));
-                roots.add((-b - Math.sqrt((b*b - 4*a*c)))/(2*a));
-            }
-            return roots;
-        }
-
-
-        /**
-         * Finds all the roots of a quadratic function
-         * @param a the coefficient of the 2nd degree x value of the cubic function
-         * @param b the coefficient of the 1st degree x value of the cubic function
-         * @param c the constant value of the cubic function
-         * @return An ArrayList (of Complex objects) containing the roots of the function
-         **/
-        public static ArrayList<Complex> solveQuadraticC(double a, double b, double c){
-            ArrayList<Complex> roots = new ArrayList<Complex>();
-            if((b*b - 4*a*c) < 0){
-                roots.add((Complex.sqrt((b*b - 4*a*c))).add(-b).times(1/(2*a)));
-                roots.add(new Complex(-b,0).subtract(Complex.sqrt((b*b - 4*a*c))).times(1/(2*a)));
-            }else if((b*b - 4*a*c) == 0){
-                roots.add(new Complex((-b/(2*a)),0));
-            }else{
-                roots.add(new Complex((-b + Math.sqrt((b*b - 4*a*c)))/(2*a),0));
-                roots.add(new Complex((-b - Math.sqrt((b*b - 4*a*c)))/(2*a),0));
-            }
-            return roots;
-        }
-
-        /**
-         * Finds all the REAL roots of a cubic function
-         * using the method found here: http://www.1728.org/cubic2.htm
-         *
-         * @param a the coefficient of the 3rd degree x value of the cubic function
-         * @param b the coefficient of the 2nd degree x value of the cubic function
-         * @param c the coefficient of the 1st degree x value of the cubic function
-         * @param d the constant value of the cubic function
-         * @return An ArrayList (of Double objects) containing the real roots of the function
-         **/
-        public static ArrayList<Double> solveCubic(double a, double b, double c, double d){
-            double f = ((3*c/a)-((b*b)/(a*a)))/3;
-            double g = ((2*Math.pow(b,3)/Math.pow(a,3)) - (9*b*c/(a*a)) + (27*d/a))/27;
-            double h = ((g*g/4) + (f*f*f/27));
-            ArrayList<Double> roots = new ArrayList<Double>();
-            if(h > 0){ //only one real root exists
-                double s = Math.cbrt((-g/2) + Math.sqrt(h));
-                double u = Math.cbrt((-g/2) - Math.sqrt(h));
-                roots.add( (s+u) - (b/(3*a)) );
-            }else if(f==0 && g==0 && h==0){//all 3 roots are real and equal
-                roots.add( (-1)*Math.cbrt(d/a) );
-            }else if(h <=0){//all 3 roots are real
-                double i = Math.sqrt((g*g/4) - h);
-                double j = Math.cbrt(i);
-                double k = Math.acos( -1*(g/(2*i)));
-                double m = Math.cos(k/3);
-                double n = Math.sqrt(3)*Math.sin(k/3);
-                double p = (b/(3*a)) * (-1);
-                roots.add( (2*j*m) + p);
-                roots.add( ((-1)*j*(m+n)) + p);
-                roots.add( ((-1)*j*(m-n)) + p);
-            }
-
-            return roots;
-        }
+        return roots;
+    }
 
 }
