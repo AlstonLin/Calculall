@@ -10,6 +10,7 @@ public class VRule {
     private int firstOccurPosition;
     private VRuleSet vRuleSet;
 
+
     /**
      * @param pattern   String pattern to be replaced
      * @param operation Operation number
