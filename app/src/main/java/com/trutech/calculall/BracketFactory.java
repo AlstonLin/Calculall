@@ -22,4 +22,8 @@ public class BracketFactory {
     public static Bracket createCloseSquareBracket(){
         return new Bracket("]", Bracket.SQUARECLOSED);
     }
+
+    public static Bracket createMagnitudeBar(){
+        return new Bracket("|", Bracket.MAGNITUDEBAR);
+    }
 }

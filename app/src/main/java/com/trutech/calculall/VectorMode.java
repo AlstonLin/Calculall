@@ -12,20 +12,18 @@ import java.util.ArrayList;
 public class VectorMode extends Basic {
 
     private boolean mem = false;
-    private ToggleButton memButton;
-    private TextView output;
+    //private ToggleButton vMemButton;
+    //private TextView output;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vector);
-        memButton = (ToggleButton)findViewById(R.id.memButton);
-        output = (TextView) findViewById(R.id.txtStack);
     }
 
 
-    private ArrayList<Token> processVectors () {
-        return Utility.simplifyVector(condenseDigits());
+    public ArrayList<Token> processVectors () {
+        return Utility.simplifyVector(Utility.convertVariablesToTokens(condenseDigits()));
     }
 
 
@@ -51,57 +49,14 @@ public class VectorMode extends Basic {
 
 
     /**
-     * Transforms all the digits into numbers as well as replacing Variables with numbers.
-     *
-     * @return The tokens with the digits condensed and variables substituted
-     */
-    public ArrayList<Token> condenseDigits(){
-        ArrayList<Token> newTokens = new ArrayList<Token>();
-        ArrayList<Digit> digits = new ArrayList<Digit>();
-        boolean atDigits = false; //Tracks if it's currently tracking digits
-        for (Token token : tokens){
-            if (atDigits){ //Going through digits
-                if (token instanceof Digit){ //Number keeps going
-                    digits.add((Digit) token);
-                }else { //Number ended
-                    atDigits = false;
-                    newTokens.add(new Number(Utility.valueOf(digits))); //Adds the sum of all the digits
-                    digits.clear();
-                    if (token instanceof Variable){ //Substitutes Variables
-                        newTokens.add(new Number(((Variable)token).getValue()));
-                    }else {
-                        newTokens.add(token);
-                    }
-                }
-            }else{ //Not going through digits
-                if (token instanceof Digit) { //Start of a number
-                    atDigits = true;
-                    digits.add((Digit) token);
-                } else if (token instanceof Variable){ //Substitutes Variables
-                    newTokens.add(new Number(((Variable)token).getValue()));
-                } else{ //Not a digit; adds to the new list
-                    newTokens.add(token);
-                }
-            }
-        }
-        if (!digits.isEmpty() && atDigits){ //Digits left
-            newTokens.add(new Number (Utility.valueOf(digits)));
-        }
-        return newTokens;
-    }
-
-    /**
      * When the user presses the MEM button; toggles memory storage
      *
      * @param v Not Used
      */
-    public void clickMem(View v){
-        if(mem){
-            mem = false;
-        }else{
-            mem = true;
-        }
-        memButton.setChecked(mem);
+    public void clickMem(View v) {
+        ToggleButton vMemButton = (ToggleButton) findViewById(R.id.memButton);
+        mem = !mem;
+        vMemButton.setChecked(mem);
     }
 
     /**
@@ -109,18 +64,25 @@ public class VectorMode extends Basic {
      *
      * @param v Not Used
      */
-    public void clickA(View v){
-        double val = process();
-        if(mem){
-            tokens.clear();
-            output.setText(val + "â†’ A");
-            Variable.a_value = val;
-            mem = false;
-        }else{
-            tokens.add(VariableFactory.makeA());
+    public void clickVA(View v) {
+        TextView output = (TextView) findViewById(R.id.txtStack);
+        ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
+        try {
+            if (mem) {
+                VRuleSet.setAppliedRule();
+                ArrayList<Token> val = processVectors();
+                tokens.clear();
+                output.setText(Utility.convertTokensToString(val) + "→ A");
+                Vector.a_value = val;
+                mem = false;
+                memButton.setChecked(mem);
+            } else {
+                tokens.add(VectorFactory.makeA());
+            }
+            updateInput();
+        } catch (Exception e) { //User did a mistake
+            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
         }
-        memButton.setChecked(mem);
-        updateInput();
     }
 
     /**
@@ -128,18 +90,25 @@ public class VectorMode extends Basic {
      *
      * @param v Not Used
      */
-    public void clickB(View v){
-        double val = process();
-        if(mem){
-            tokens.clear();
-            output.setText(val + "â†’B");
-            Variable.b_value = val;
-            mem = false;
-        }else{
-            tokens.add(VariableFactory.makeB());
+    public void clickVB(View v) {
+        TextView output = (TextView) findViewById(R.id.txtStack);
+        ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
+        try {
+            if (mem) {
+                VRuleSet.setAppliedRule();
+                ArrayList<Token> val = processVectors();
+                tokens.clear();
+                output.setText(Utility.convertTokensToString(val) + "→ B");
+                Vector.b_value = val;
+                mem = false;
+                memButton.setChecked(mem);
+            } else {
+                tokens.add(VectorFactory.makeB());
+            }
+            updateInput();
+        } catch (Exception e) { //User did a mistake
+            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
         }
-        memButton.setChecked(mem);
-        updateInput();
     }
 
     /**
@@ -147,37 +116,51 @@ public class VectorMode extends Basic {
      *
      * @param v Not Used
      */
-    public void clickC(View v){
-        double val = process();
-        if(mem){
-            tokens.clear();
-            output.setText(val + "â†’C");
-            Variable.c_value = val;
-            mem = false;
-        }else{
-            tokens.add(VariableFactory.makeC());
+    public void clickVC(View v) {
+        TextView output = (TextView) findViewById(R.id.txtStack);
+        ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
+        try {
+            if (mem) {
+                VRuleSet.setAppliedRule();
+                ArrayList<Token> val = processVectors();
+                tokens.clear();
+                output.setText(Utility.convertTokensToString(val) + "→ C");
+                Vector.c_value = val;
+                mem = false;
+                memButton.setChecked(mem);
+            } else {
+                tokens.add(VectorFactory.makeC());
+            }
+            updateInput();
+        } catch (Exception e) { //User did a mistake
+            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
         }
-        memButton.setChecked(mem);
-        updateInput();
     }
 
     /**
-     * When the user presses the X button
+     * When the user presses the A button
      *
      * @param v Not Used
      */
-    public void clickX(View v){
-        double val = process();
-        if(mem){
-            tokens.clear();
-            output.setText(val + "â†’X");
-            Variable.x_value = val;
-            mem = false;
-        }else{
-            tokens.add(VariableFactory.makeX());
+    public void clickVX(View v) {
+        TextView output = (TextView) findViewById(R.id.txtStack);
+        ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
+        try {
+            if (mem) {
+                VRuleSet.setAppliedRule();
+                ArrayList<Token> val = processVectors();
+                tokens.clear();
+                output.setText(Utility.convertTokensToString(val) + "→ X");
+                Vector.x_value = val;
+                mem = false;
+                memButton.setChecked(mem);
+            } else {
+                tokens.add(VectorFactory.makeX());
+            }
+            updateInput();
+        } catch (Exception e) { //User did a mistake
+            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
         }
-        memButton.setChecked(mem);
-        updateInput();
     }
 
     /**
@@ -185,38 +168,54 @@ public class VectorMode extends Basic {
      *
      * @param v Not Used
      */
-    public void clickY(View v){
-        double val = process();
-        if(mem){
-            tokens.clear();
-            output.setText(val + "â†’Y");
-            Variable.y_value = val;
-            mem = false;
-        }else{
-            tokens.add(VariableFactory.makeY());
+    public void clickVY(View v) {
+        TextView output = (TextView) findViewById(R.id.txtStack);
+        ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
+        try {
+            if (mem) {
+                VRuleSet.setAppliedRule();
+                ArrayList<Token> val = processVectors();
+                tokens.clear();
+                output.setText(Utility.convertTokensToString(val) + "→ Y");
+                Vector.y_value = val;
+                mem = false;
+                memButton.setChecked(mem);
+            } else {
+                tokens.add(VectorFactory.makeY());
+            }
+            updateInput();
+        } catch (Exception e) { //User did a mistake
+            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
         }
-        memButton.setChecked(mem);
-        updateInput();
     }
 
     /**
-     * When the user presses the Z button
+     * When the user presses the A button
      *
      * @param v Not Used
      */
-    public void clickZ(View v){
-        double val = process();
-        if(mem){
-            tokens.clear();
-            output.setText(val + "â†’Z");
-            Variable.z_value = val;
-            mem = false;
-        }else{
-            tokens.add(VariableFactory.makeZ());
+    public void clickVZ(View v) {
+        TextView output = (TextView) findViewById(R.id.txtStack);
+        ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
+        try {
+            if (mem) {
+                VRuleSet.setAppliedRule();
+                ArrayList<Token> val = processVectors();
+                tokens.clear();
+                output.setText(Utility.convertTokensToString(val) + "→ Z");
+                Vector.z_value = val;
+                mem = false;
+                memButton.setChecked(mem);
+            } else {
+                tokens.add(VectorFactory.makeZ());
+            }
+            updateInput();
+        } catch (Exception e) { //User did a mistake
+            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
         }
-        memButton.setChecked(mem);
-        updateInput();
     }
+
+
 
     /**
      * When the user presses the [ Button.
@@ -235,6 +234,16 @@ public class VectorMode extends Basic {
      */
     public void clickCloseSquareBracket(View v){
         tokens.add(BracketFactory.createCloseSquareBracket());
+        updateInput();
+    }
+
+    /**
+     * When the user presses the | Button.
+     *
+     * @param v Not Used
+     */
+    public void clickMagnitude (View v) {
+        tokens.add(BracketFactory.createMagnitudeBar());
         updateInput();
     }
 
@@ -259,7 +268,7 @@ public class VectorMode extends Basic {
     }
 
     /**
-     * When the user presses the 2 Button.
+     * When the user presses the , Button.
      *
      * @param v Not Used
      */
