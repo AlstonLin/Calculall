@@ -2,6 +2,7 @@ package com.trutech.calculall;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -10,7 +11,8 @@ import android.widget.ToggleButton;
 import java.util.ArrayList;
 
 public class VectorMode extends Basic {
-
+    private int directionMode = 1;
+    public static final int STANDARD = 1, TRUEBEARING = 2, BEARING = 3; //directionmode options
     private boolean mem = false;
     //private ToggleButton vMemButton;
     //private TextView output;
@@ -275,6 +277,96 @@ public class VectorMode extends Basic {
     public void clickComma(View v){
         tokens.add(new Token (","){});
         updateInput();
+    }
+
+    /**
+     * @return the angleMode
+     */
+    public int getDirectionMode() {
+        return directionMode;
+    }
+
+    public void clickDirectionMode(View v) {
+        Button angleModeButton = (Button) findViewById(R.id.directionMode);
+        if (directionMode == BEARING) {
+            convBtoS();
+            directionMode = STANDARD;
+            angleModeButton.setText(getString(R.string.standard));
+        } else if (directionMode == TRUEBEARING) {
+            convTtoB();
+            directionMode = BEARING;
+            angleModeButton.setText(getString(R.string.bear));
+        } else if (directionMode == STANDARD) {
+            convStoT();
+            directionMode = TRUEBEARING;
+            angleModeButton.setText(getString(R.string.trueB));
+        }
+        updateInput();
+    }
+
+    public boolean switchedDirectionMode = false;
+    public void convBtoS() {
+        //Converts the number displayed from gradians into degrees ie multiplies the number by 9/10
+
+        TextView input = (TextView) findViewById(R.id.txtInput);
+        TextView output = (TextView) findViewById(R.id.txtStack);
+        try {
+            ArrayList<Token> val = processVectors();
+            if(switchedDirectionMode){
+                tokens.set(tokens.size()-1, new Token(" → STANDARD"){});
+            }else {
+                tokens.add(new Token(" → STANDARD"){});
+            }
+            updateInput();
+            output.setText(val*9/10+"");
+            ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
+            scrollView.pageScroll(ScrollView.FOCUS_DOWN);
+            switchedDirectionMode = true;
+        } catch (Exception e) { //User made a mistake
+            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void convTtoB() {
+        //Converts the number displayed from radians into gradians ie multiplies the number by 100/pi
+        TextView input = (TextView) findViewById(R.id.txtInput);
+        TextView output = (TextView) findViewById(R.id.txtStack);
+        try {
+            double val = process();
+            if(switchedDirectionMode){
+                tokens.set(tokens.size()-1, new Token(" → GRAD"){});
+            }else {
+                tokens.add(new Token(" → GRAD"){});
+            }
+            updateInput();
+            output.setText(val*100/Math.PI+"");
+            ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
+            scrollView.pageScroll(ScrollView.FOCUS_DOWN);
+            switchedDirectionMode = true;
+        } catch (Exception e) { //User made a mistake
+            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void convStoT() {
+        //Converts the number displayed from degrees into radians ie multiplies the number by pi/180
+        TextView input = (TextView) findViewById(R.id.txtInput);
+        TextView output = (TextView) findViewById(R.id.txtStack);
+        try {
+            double val = process();
+            if(switchedDirectionMode){
+                tokens.set(tokens.size()-1, new Token(" → RAD"){});
+            }else {
+                tokens.add(new Token(" → RAD"){});
+            }
+            updateInput();
+            output.setText(val*Math.PI/180+"");
+            ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
+            scrollView.pageScroll(ScrollView.FOCUS_DOWN);
+            switchedDirectionMode = true;
+        } catch (Exception e) { //User made a mistake
+            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
+        }
     }
 
 }

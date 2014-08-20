@@ -53,7 +53,7 @@
             android:layout_height="0dp"
             android:layout_marginBottom="-7dp"
             android:layout_marginTop="-7dp"
-            android:layout_weight="3"
+            android:layout_weight="1.8"
             android:orientation="horizontal" >
 
             <Button
@@ -106,7 +106,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginBottom="-7dp"
-            android:layout_weight="3"
+            android:layout_weight="2"
             android:orientation="horizontal" >
 
             <ToggleButton
@@ -144,17 +144,6 @@
                 android:onClick="clickClear"
                 android:text="@string/C"
                 android:textSize="20sp" />
-
-            <Button
-                android:id="@+id/magnitudeButton"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
-                android:layout_weight="1"
-                android:onClick="clickMagnitude"
-                android:text="@string/magnitude"
-                android:textSize="20sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -175,7 +164,7 @@
                 android:layout_weight="1"
                 android:checked="false"
                 android:onClick="clickVA"
-                android:text="@string/varA"
+                android:text="@string/vectA"
                 android:textSize="16sp" />
 
             <Button
@@ -187,7 +176,7 @@
                 android:layout_weight="1"
                 android:checked="false"
                 android:onClick="clickVB"
-                android:text="@string/varB"
+                android:text="@string/vectB"
                 android:textSize="16sp" />
 
             <Button
@@ -199,11 +188,11 @@
                 android:layout_weight="1"
                 android:checked="false"
                 android:onClick="clickVC"
-                android:text="@string/varC"
+                android:text="@string/vectC"
                 android:textSize="16sp" />
 
             <Button
-                android:id="@+id/VarX"
+                android:id="@+id/VarU"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
@@ -211,11 +200,11 @@
                 android:layout_weight="1"
                 android:checked="false"
                 android:onClick="clickVX"
-                android:text="@string/varX"
+                android:text="@string/vectU"
                 android:textSize="16sp" />
 
             <Button
-                android:id="@+id/VarY"
+                android:id="@+id/s"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
@@ -223,11 +212,11 @@
                 android:layout_weight="1"
                 android:checked="false"
                 android:onClick="clickVY"
-                android:text="@string/varY"
+                android:text="@string/s"
                 android:textSize="16sp" />
 
             <Button
-                android:id="@+id/VarZ"
+                android:id="@+id/t"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
@@ -235,8 +224,89 @@
                 android:layout_weight="1"
                 android:checked="false"
                 android:onClick="clickVZ"
-                android:text="@string/varZ"
+                android:text="@string/t"
                 android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/vectorRow"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="-7dp"
+            android:layout_weight="3"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/directionMode"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_marginRight="-7dp"
+                android:layout_weight="1"
+                android:onClick="clickVB"
+                android:text="@string/standard"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/unitVector"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="-7dp"
+                android:layout_marginRight="-7dp"
+                android:layout_weight="1"
+                android:checked="false"
+                android:onClick="clickUnitVector"
+                android:text="@string/unitVector"
+                android:textSize="16sp" />
+
+
+            <Button
+                android:id="@+id/projection"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_marginRight="-7dp"
+                android:layout_weight="1"
+                android:checked="false"
+                android:onClick="clickVC"
+                android:text="@string/projection"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/scalarEquation"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_marginRight="-7dp"
+                android:layout_weight="1"
+                android:checked="false"
+                android:onClick="clickVX"
+                android:text="@string/scalarEquationOfALine"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/angleBetweenVectors"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_marginRight="-7dp"
+                android:layout_weight="1"
+                android:checked="false"
+                android:onClick="clickVY"
+                android:text="@string/angleBetweenVectors"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/magnitudeButton"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_marginRight="-7dp"
+                android:layout_weight="1"
+                android:onClick="clickMagnitude"
+                android:text="@string/magnitude"
+                android:textSize="20sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -244,7 +314,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginBottom="-7dp"
-            android:layout_weight="3.5"
+            android:layout_weight="3"
             android:orientation="horizontal" >
 
             <Button
@@ -309,7 +379,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginBottom="-7dp"
-            android:layout_weight="3.5"
+            android:layout_weight="3"
             android:orientation="horizontal" >
 
             <Button
@@ -374,7 +444,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginBottom="-7dp"
-            android:layout_weight="3.5"
+            android:layout_weight="3"
             android:orientation="horizontal" >
 
             <Button
@@ -439,7 +509,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginBottom="-7dp"
-            android:layout_weight="3.5"
+            android:layout_weight="3"
             android:orientation="horizontal" >
 
 
