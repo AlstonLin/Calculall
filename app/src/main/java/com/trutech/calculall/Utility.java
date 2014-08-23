@@ -413,8 +413,119 @@ public class Utility {
         } else if (vector.length == 3) {
             return Math.sqrt(Math.pow(vector[0], 2) + Math.pow(vector[1], 2) + Math.pow(vector[2], 2));
         } else {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Error: This calculator only supports 2D and 3D vectors.");
         }
+    }
+
+    /**
+     * STILL NEEDS TO BE TESTED
+     * Calculates the scalar equation of a line in vector form in 2D and outputs it to the user
+     * @ param point The point on the line
+     * @ param direction The direction vector of the line
+     * @ return ArrayList<Token> The scalar equation to be output on the screen
+     */
+    public static ArrayList<Token> calculateScalarEquation (double[] point, double[] direction){
+        ArrayList<Token> output = new ArrayList<Token>();
+        //line is in the form [a,b] + t[c,d] where [a,b] is the point and [c,d] is the direction vector
+        double a = point[0];
+        double b = point[1];
+        double c = direction[0];
+        double d = direction[1];
+        double z = -1*c*b + d*a
+
+        if (c == 0 && d == 0){
+            throw new IllegalArgumentException("Error: Not a line!");
+        }
+
+        //special case if c = 0
+        if (c == 0) {
+            output.add(VariableFactory.makeX());
+            output.add(new Token("="){});
+            output.add(new Number (a));
+            return output;
+        }
+
+        //special case if d = 0
+        if (d == 0) {
+            output.add(VariableFactory.makeY());
+            output.add(new Token("="){});
+            output.add(new Number (b));
+            return output;
+        }
+
+        //Scalar equation is in the form cy - dx + z = 0 , where z = -cb + da
+
+        //for first term
+        if (c !=0){
+            output.add(new Number(c));
+            output.add(VariableFactory.makeY());
+        }
+
+        //for second term
+        if (d > 0){
+            output.add(OperatorFactory.makeSubtract());
+            output.add(new Number(Math.abs(d)));
+        } else if (d < 0){
+            if (c != 0) {
+                output.add(OperatorFactory.makeAdd());
+            }
+            output.add(new Number(Math.abs(d)));
+        }
+        if (d != 0){
+            output.add(VariableFactory.makeX());
+        }
+
+        //for third term
+        output.add(new Number(z));
+
+        // = 0
+        output.add(new Token("="){});
+        output.add(new Number(0));
+        return output;
+
+    }
+
+    /**
+     * Determines the unit vector of a given vector
+     *
+     * @param vector The vector.
+     * @return double[] The unit vector.
+     */
+    public static double[] calculateUnitVector (double[] vector){
+        double magnitude = calculateMagnitude(vector);
+        if (vector.length == 2){
+            double[] unitVector = new double[2];
+            unitVector[0] = vector[0]/magnitude;
+            unitVector[1] = vector[1]/magnitude;
+        } else if (vector.length == 3) {
+            double[] unitVector = new double[3];
+            unitVector[0] = vector[0]/magnitude;
+            unitVector[1] = vector[1]/magnitude;
+            unitVector[2] = vector[2]/magnitude;
+        } else {
+            throw new IllegalArgumentException("Error: This calculator only supports 2D and 3D vectors.");
+        }
+        return unitVector;
+    }
+
+    /**
+     * Returns the argument of a vector. (angle to the X axis)
+     *
+     * @param vector The vector.
+     * @return argument The angle of the vector to the X axis.
+     */
+
+    public static double calculateArgument(double[] vector){
+        if (vector.length != 2){
+            throw new IllegalArgumentException("Error: This feature is only usable with 2D vectors.");
+        }
+        double x = vector[0];
+        double y = vector[1];
+
+        if (x == 0){
+            return 90;
+        }
+        double argument = Math.toDegrees(Math.atan2(x, y));
     }
 
     /**
