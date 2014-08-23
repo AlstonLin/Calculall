@@ -8,8 +8,6 @@ public class VRule {
     private int operation;
     private int dimension;
     private int firstOccurPosition;
-    //private VRuleSet vRuleSet;
-
 
     /**
      * @param pattern   String pattern to be replaced
@@ -19,7 +17,6 @@ public class VRule {
         this.pattern = pattern;
         this.operation = operation;
         this.dimension = dimension;
-        //this.vRuleSet = vRuleSet;
     }
 
     /**
@@ -31,15 +28,19 @@ public class VRule {
         String stringExpression = buildString(expression);
         //Searches for a pattern in the expression
         BoyerMoore bm = new BoyerMoore(pattern);
-        //Index of the first time the pattern happens is set to firstOccurPosition and is -1 if no pattern was found
+        //Index of the first time the pattern happens is set to firstOccurPosition and is -1 if
+        //no pattern was found
         firstOccurPosition = bm.search(stringExpression);
         //Base case for recursive implementation or no further rule can be applied
-        if (firstOccurPosition == -1) {
+        if (firstOccurPosition == -1 || VRuleSet.getValidOutput()) {
+            //Valid output would be used to escape the recursive implementation for patterns that
+            //have no operations performed on them but is still used to check if the output is valid
+            if (operation != VRuleSet.CHECK) {
+                VRuleSet.setValidOutput(false);
+            }
             return expression;
         } else {
-            //Keeps track to see if at least one rule is applied
-            VRuleSet.setAppliedRule();
-            return applyVectorOperation(expression);
+             return applyVectorOperation(expression);
         }
     }
 
@@ -143,9 +144,19 @@ public class VRule {
                     vector[numbers.indexOf(n)-1] = ((Number) n).getValue();
                 }
             }
-            ArrayList<Token> newVector = Utility.convertDoublesToVector(Utility.multiplyVector(multiplier, vector));
-            for (Token v : newVector) {
-                tempExpression.add(v);
+            //Store the new vector into tempExpression
+            tempExpression.addAll(Utility.convertDoublesToVector(Utility.multiplyVector(multiplier, vector)));
+        } else if (operation == VRuleSet.UNITVECTOR && VRuleSet.getPressedUnitVButton()) {
+            tempExpression.addAll(Utility.findUnitVector(leftVector));
+            VRuleSet.setPressedUnitVButton(false);
+        } else if (operation == VRuleSet.CHECK && (expression.size() == 5 || expression.size() == 7)) {
+            VRuleSet.setValidOutput(true); //Method to make make sure output is valid
+            tempExpression = expression;
+        } else {
+            VRuleSet.setValidOutput(true); //Method to make make sure output is valid
+            //This is applied when no operation can be performed such as the ones for the vector calculations
+            for (int i = firstOccurPosition; i < firstOccurPosition + pattern.length(); i++) {
+                tempExpression.add(expression.get(i));
             }
         }
 

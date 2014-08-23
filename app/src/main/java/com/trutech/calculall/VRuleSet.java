@@ -3,11 +3,12 @@ import java.util.ArrayList;
 
 public class VRuleSet {
 
-    public static int ADD = 1, SUBTRACT = 2, DOT = 3, CROSS = 4, MAGNITUDE = 5, MULTIPLY = 6;
+    public static int ADD = 1, SUBTRACT = 2, DOT = 3, CROSS = 4, MAGNITUDE = 5, MULTIPLY = 6,
+            UNITVECTOR = 7, CHECK = 0;
 
     private static ArrayList<VRule> VRules = new ArrayList<VRule>();
     private static ArrayList<Token> newExpression = new ArrayList<Token>();
-    private static boolean appliedRule = false;
+    private static boolean validOutput = false, pressedUnitVButton = false;
 
      static {
         VRules.add(new VRule (("N[N,N]"), VRuleSet.MULTIPLY, 2));
@@ -21,6 +22,12 @@ public class VRuleSet {
         VRules.add(new VRule (("[N,N,N]D[N,N,N]"), VRuleSet.DOT, 3));
         VRules.add(new VRule (("|[N,N]|"), VRuleSet.MAGNITUDE, 2));
         VRules.add(new VRule (("|[N,N,N]|"), VRuleSet.MAGNITUDE, 3));
+        VRules.add(new VRule (("[N,N]"), VRuleSet.UNITVECTOR, 2)); //Used to check if the user pressed the unitVectorButton
+        VRules.add(new VRule (("[N,N,N]"), VRuleSet.UNITVECTOR, 3)); //Used to check if the user pressed the unitVectorButton
+        VRules.add(new VRule (("N[N,N]"), VRuleSet.MULTIPLY, 2)); //Checked for again for unit vector calculation
+        VRules.add(new VRule (("N[N,N,N]"), VRuleSet.MULTIPLY, 3)); //Checked for again for unit vector calculation
+        VRules.add(new VRule (("[N,N]"), VRuleSet.CHECK, 2)); //Used to check if the output is valid
+        VRules.add(new VRule (("[N,N,N]"), VRuleSet.CHECK, 3)); //Used to check if the output is valid
     }
 
     public static ArrayList<Token> reduce(ArrayList<Token> expression) {
@@ -28,10 +35,14 @@ public class VRuleSet {
         for (VRule v : VRules) {
             newExpression = v.applyRule(newExpression);
         }
+        //Old
         //If a rule is applied and the size of newExpression is 1, which means it's a number or 5 or 7
-        // with brackets at both ends, then return newExpression
-        if (appliedRule && (newExpression.size() == 1 || ((newExpression.size() == 5 || newExpression.size() == 7 )
-                && newExpression.get(0) instanceof Bracket && newExpression.get(newExpression.size() - 1) instanceof Bracket))) {
+        // with brackets at both ends, then return newExpression "&& (newExpression.size() == 1 || ((newExpression.size() == 5 || newExpression.size() == 7 )
+        //&& newExpression.get(0) instanceof Bracket && newExpression.get(newExpression.size() - 1) instanceof Bracket)))""
+
+        //New
+        //If the output is valid or the output is a single number, then return newExpression
+        if (validOutput  || (newExpression.size() == 1 && newExpression.get(0) instanceof Number)) {
             return newExpression;
         }
         else {
@@ -39,9 +50,24 @@ public class VRuleSet {
         }
     }
 
-    public static void setAppliedRule () {
-        appliedRule = true;
+    //Used to confirm the output is valid
+    public static void setValidOutput (boolean inValidOutput) {
+        validOutput = inValidOutput;
     }
 
+    //Used to see if output is valid
+    public static boolean getValidOutput () {
+        return validOutput;
+    }
+
+    //Used to confirm the output is valid
+    public static void setPressedUnitVButton (boolean inPressedUnitVButton) {
+        pressedUnitVButton = inPressedUnitVButton;
+    }
+
+    //Used to see if output is valid
+    public static boolean getPressedUnitVButton () {
+        return pressedUnitVButton;
+    }
 
 }

@@ -237,22 +237,23 @@
             android:orientation="horizontal" >
 
             <Button
-                android:id="@+id/directionMode"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
-                android:layout_weight="1"
-                android:onClick="clickVB"
-                android:text="@string/standard"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/unitVector"
+                android:id="@+id/directionModeButton"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_marginLeft="-7dp"
+                android:layout_marginRight="-7dp"
+                android:layout_weight="1"
+                android:onClick=""
+                android:checked="false"
+                android:text="@string/standard"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/unitVectorButton"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:checked="false"
@@ -262,43 +263,43 @@
 
 
             <Button
-                android:id="@+id/projection"
+                android:id="@+id/projectionButton"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:checked="false"
-                android:onClick="clickVC"
+                android:onClick=""
                 android:text="@string/projection"
                 android:textSize="16sp" />
 
             <Button
-                android:id="@+id/scalarEquation"
+                android:id="@+id/scalarEquationButton"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:checked="false"
-                android:onClick="clickVX"
+                android:onClick=""
                 android:text="@string/scalarEquationOfALine"
                 android:textSize="16sp" />
 
             <Button
-                android:id="@+id/angleBetweenVectors"
+                android:id="@+id/angleBetweenVectorsButton"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:checked="false"
-                android:onClick="clickVY"
+                android:onClick=""
                 android:text="@string/angleBetweenVectors"
                 android:textSize="16sp" />
 
             <Button
-                android:id="@+id/magnitudeButton"
+                android:id="@+id/magnitudeButtonButton"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"

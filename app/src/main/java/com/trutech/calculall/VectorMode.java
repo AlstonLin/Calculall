@@ -71,7 +71,6 @@ public class VectorMode extends Basic {
         ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
         try {
             if (mem) {
-                VRuleSet.setAppliedRule();
                 ArrayList<Token> val = processVectors();
                 tokens.clear();
                 output.setText(Utility.convertTokensToString(val) + "→ A");
@@ -97,7 +96,6 @@ public class VectorMode extends Basic {
         ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
         try {
             if (mem) {
-                VRuleSet.setAppliedRule();
                 ArrayList<Token> val = processVectors();
                 tokens.clear();
                 output.setText(Utility.convertTokensToString(val) + "→ B");
@@ -123,7 +121,6 @@ public class VectorMode extends Basic {
         ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
         try {
             if (mem) {
-                VRuleSet.setAppliedRule();
                 ArrayList<Token> val = processVectors();
                 tokens.clear();
                 output.setText(Utility.convertTokensToString(val) + "→ C");
@@ -149,7 +146,6 @@ public class VectorMode extends Basic {
         ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
         try {
             if (mem) {
-                VRuleSet.setAppliedRule();
                 ArrayList<Token> val = processVectors();
                 tokens.clear();
                 output.setText(Utility.convertTokensToString(val) + "→ X");
@@ -175,7 +171,6 @@ public class VectorMode extends Basic {
         ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
         try {
             if (mem) {
-                VRuleSet.setAppliedRule();
                 ArrayList<Token> val = processVectors();
                 tokens.clear();
                 output.setText(Utility.convertTokensToString(val) + "→ Y");
@@ -201,7 +196,6 @@ public class VectorMode extends Basic {
         ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
         try {
             if (mem) {
-                VRuleSet.setAppliedRule();
                 ArrayList<Token> val = processVectors();
                 tokens.clear();
                 output.setText(Utility.convertTokensToString(val) + "→ Z");
@@ -287,19 +281,19 @@ public class VectorMode extends Basic {
     }
 
     public void clickDirectionMode(View v) {
-        Button angleModeButton = (Button) findViewById(R.id.directionMode);
+        Button directionModeButton = (Button) findViewById(R.id.directionModeButton);
         if (directionMode == BEARING) {
             convBtoS();
             directionMode = STANDARD;
-            angleModeButton.setText(getString(R.string.standard));
+            directionModeButton.setText(getString(R.string.standard));
         } else if (directionMode == TRUEBEARING) {
             convTtoB();
             directionMode = BEARING;
-            angleModeButton.setText(getString(R.string.bear));
+            directionModeButton.setText(getString(R.string.bear));
         } else if (directionMode == STANDARD) {
             convStoT();
             directionMode = TRUEBEARING;
-            angleModeButton.setText(getString(R.string.trueB));
+            directionModeButton.setText(getString(R.string.trueB));
         }
         updateInput();
     }
@@ -318,7 +312,7 @@ public class VectorMode extends Basic {
                 tokens.add(new Token(" → STANDARD"){});
             }
             updateInput();
-            output.setText(val*9/10+"");
+            //output.setText(val*9/10+"");
             ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
             scrollView.pageScroll(ScrollView.FOCUS_DOWN);
             switchedDirectionMode = true;
@@ -367,6 +361,27 @@ public class VectorMode extends Basic {
         } catch (Exception e) { //User made a mistake
             Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
         }
+    }
+
+    /**
+     * When the user presses the , Button.
+     *
+     * @param v Not Used
+     */
+    public void clickUnitVector(View v){
+        TextView output = (TextView) findViewById(R.id.txtStack);
+        VRuleSet.setPressedUnitVButton(true);
+        try {
+            String s = Utility.convertTokensToString(processVectors());
+            s = s.indexOf(".") < 0  ? s : (s.indexOf("E")>0 ? s.substring(0,s.indexOf("E")).replaceAll("0*$", "")
+                    .replaceAll("\\.$", "").concat(s.substring(s.indexOf("E"))) : s.replaceAll("0*$", "")
+                    .replaceAll("\\.$", "")); //Removes trailing zeroes
+            output.setText(s);
+        }catch (Exception e){ //User did a mistake
+            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
+        }
+        ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
+        scrollView.pageScroll(ScrollView.FOCUS_DOWN);
     }
 
 }
