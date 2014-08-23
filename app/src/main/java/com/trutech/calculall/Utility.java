@@ -269,9 +269,7 @@ public class Utility {
         for (Token t : expression) {
             if (t instanceof Vector) {
                 ArrayList<Token> tempVector = ((Vector)t).getVector();
-                for (Token v : tempVector) {
-                    tempExpression.add(v);
-                }
+                tempExpression.addAll(tempVector);
             }
             else {
                 tempExpression.add(t);
@@ -280,7 +278,6 @@ public class Utility {
         return tempExpression;
 
     }
-
 
     public static double[] calculateAddOrSubtract(double[] vectorLeft, double[] vectorRight, int operator) {
         if (vectorLeft.length == vectorRight.length) {
@@ -443,6 +440,18 @@ public class Utility {
             newVector[2] = multiplier * vector[2];
         }
         return newVector;
+    }
+
+    /**
+     *
+     * @param vector Vector in an array of doubles who's unit vector is being found
+     * @return ArrayList<Token> The unit vector
+     */
+    public static ArrayList<Token> findUnitVector (double[] vector) {
+        ArrayList<Token> tempExpression = new ArrayList<Token>();
+        tempExpression.add(new Number (1/Utility.calculateMagnitude(vector)));
+        tempExpression.addAll(Utility.convertDoublesToVector(vector));
+        return tempExpression;
     }
 
     /**
