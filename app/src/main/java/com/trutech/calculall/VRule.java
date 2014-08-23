@@ -65,6 +65,8 @@ public class VRule {
                     stringExpression = stringExpression + "D";
                 } else if (((Operator) (expression.get(i))).getType() == Operator.CROSS) {
                     stringExpression = stringExpression + "C";
+                } else if (((Operator) (expression.get(i))).getType() == Operator.ANGLE) {
+                    stringExpression = stringExpression + "a";
                 }
             } else if (expression.get(i) instanceof Bracket) {
                 if (((Bracket) (expression.get(i))).getType() == Bracket.SQUAREOPEN) {
@@ -84,13 +86,10 @@ public class VRule {
     public ArrayList<Token> applyVectorOperation(ArrayList<Token> expression) {
         ArrayList<Token> tempExpression = new ArrayList<Token>();
         ArrayList<Token> numbers = new ArrayList<Token>();
-        ArrayList<Token> operators = new ArrayList<Token>();
         //Load all the numbers in the pattern into numbers and the operator tokens in the pattern into operators
         for (int i = firstOccurPosition; i < firstOccurPosition + pattern.length(); i++) {
             if (expression.get(i) instanceof Number) {
                 numbers.add(expression.get(i));
-            } else if (expression.get(i) instanceof Operator) {
-                operators.add(expression.get(i));
             }
         }
 
@@ -149,10 +148,12 @@ public class VRule {
         } else if (operation == VRuleSet.UNITVECTOR && VRuleSet.getPressedUnitVButton()) {
             tempExpression.addAll(Utility.findUnitVector(leftVector));
             VRuleSet.setPressedUnitVButton(false);
+        } else if (operation == VRuleSet.ANGLE) {
+            tempExpression.add(new Number(Utility.findAngleBetweenVector(leftVector, rightVector)));
         } else if (operation == VRuleSet.CHECK && (expression.size() == 5 || expression.size() == 7)) {
             VRuleSet.setValidOutput(true); //Method to make make sure output is valid
             tempExpression = expression;
-        } else {
+        } else if (operation == VRuleSet.UNITVECTOR || operation == VRuleSet.ANGLE){
             VRuleSet.setValidOutput(true); //Method to make make sure output is valid
             //This is applied when no operation can be performed such as the ones for the vector calculations
             for (int i = firstOccurPosition; i < firstOccurPosition + pattern.length(); i++) {

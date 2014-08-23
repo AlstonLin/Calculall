@@ -294,7 +294,7 @@
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:checked="false"
-                android:onClick=""
+                android:onClick="clickAngle"
                 android:text="@string/angleBetweenVectors"
                 android:textSize="16sp" />
 

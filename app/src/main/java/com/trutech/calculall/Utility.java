@@ -462,8 +462,8 @@ public class Utility {
      * @return double Angle between 2 vectors
      */
     public static double findAngleBetweenVector (double[] leftVector, double[] rightVector) {
-        return Math.acos((calculateDotProduct(leftVector, rightVector))
-                /(calculateMagnitude(leftVector)*calculateMagnitude(rightVector))) * 180/Math.PI;
+        return (Math.acos((Utility.calculateDotProduct(leftVector, rightVector))
+                /(Utility.calculateMagnitude(leftVector)*Utility.calculateMagnitude(rightVector)))) * (180/Math.PI);
 
     }
 

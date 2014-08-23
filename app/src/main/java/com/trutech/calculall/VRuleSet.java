@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class VRuleSet {
 
     public static int ADD = 1, SUBTRACT = 2, DOT = 3, CROSS = 4, MAGNITUDE = 5, MULTIPLY = 6,
-            UNITVECTOR = 7, CHECK = 0;
+            UNITVECTOR = 7, ANGLE = 8, CHECK = 0;
 
     private static ArrayList<VRule> VRules = new ArrayList<VRule>();
     private static ArrayList<Token> newExpression = new ArrayList<Token>();
@@ -26,6 +26,7 @@ public class VRuleSet {
         VRules.add(new VRule (("[N,N,N]"), VRuleSet.UNITVECTOR, 3)); //Used to check if the user pressed the unitVectorButton
         VRules.add(new VRule (("N[N,N]"), VRuleSet.MULTIPLY, 2)); //Checked for again for unit vector calculation
         VRules.add(new VRule (("N[N,N,N]"), VRuleSet.MULTIPLY, 3)); //Checked for again for unit vector calculation
+        VRules.add(new VRule (("[N,N]a[N,N]"), VRuleSet.ANGLE, 2)); //Used to find angle between 2 vectors
         VRules.add(new VRule (("[N,N]"), VRuleSet.CHECK, 2)); //Used to check if the output is valid
         VRules.add(new VRule (("[N,N,N]"), VRuleSet.CHECK, 3)); //Used to check if the output is valid
     }
@@ -42,7 +43,8 @@ public class VRuleSet {
 
         //New
         //If the output is valid or the output is a single number, then return newExpression
-        if (validOutput  || (newExpression.size() == 1 && newExpression.get(0) instanceof Number)) {
+        if (validOutput  || (newExpression.size() == 1 && newExpression.get(0) instanceof Number) ||
+                (newExpression.size() == 2 && (newExpression.get(0) instanceof Number && newExpression.get(1).getSymbol() == "d"))) {
             return newExpression;
         }
         else {
@@ -60,14 +62,16 @@ public class VRuleSet {
         return validOutput;
     }
 
-    //Used to confirm the output is valid
+    //Used to confirm the user pressed the unit vector button
     public static void setPressedUnitVButton (boolean inPressedUnitVButton) {
         pressedUnitVButton = inPressedUnitVButton;
     }
 
-    //Used to see if output is valid
+    //Used to confirm the user pressed the unit vector button
     public static boolean getPressedUnitVButton () {
         return pressedUnitVButton;
     }
+
+
 
 }

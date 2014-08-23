@@ -274,6 +274,16 @@ public class VectorMode extends Basic {
     }
 
     /**
+     * When the user presses the ∠ Button.
+     *
+     * @param v Not Used
+     */
+    public void clickAngle(View v){
+        tokens.add(OperatorFactory.makeAngle());
+        updateInput();
+    }
+
+    /**
      * @return the angleMode
      */
     public int getDirectionMode() {
@@ -383,5 +393,7 @@ public class VectorMode extends Basic {
         ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
         scrollView.pageScroll(ScrollView.FOCUS_DOWN);
     }
+
+
 
 }
