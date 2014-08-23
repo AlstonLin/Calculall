@@ -2,54 +2,54 @@
 <merger version="2" >
 
     <dataSet config="main" >
-        <source path="C:\Users\Alston\Calculall\app\src\main\res" >
+        <source path="C:\Users\Keith\Desktop\Stuff\TruTech\Calculall\app\src\main\res" >
             <file
                 name="ic_launcher"
-                path="C:\Users\Alston\Calculall\app\src\main\res\drawable-hdpi\ic_launcher.png"
+                path="C:\Users\Keith\Desktop\Stuff\TruTech\Calculall\app\src\main\res\drawable-hdpi\ic_launcher.png"
                 qualifiers="hdpi-v4"
                 type="drawable" />
             <file
                 name="ic_launcher"
-                path="C:\Users\Alston\Calculall\app\src\main\res\drawable-mdpi\ic_launcher.png"
+                path="C:\Users\Keith\Desktop\Stuff\TruTech\Calculall\app\src\main\res\drawable-mdpi\ic_launcher.png"
                 qualifiers="mdpi-v4"
                 type="drawable" />
             <file
                 name="ic_launcher"
-                path="C:\Users\Alston\Calculall\app\src\main\res\drawable-xhdpi\ic_launcher.png"
+                path="C:\Users\Keith\Desktop\Stuff\TruTech\Calculall\app\src\main\res\drawable-xhdpi\ic_launcher.png"
                 qualifiers="xhdpi-v4"
                 type="drawable" />
             <file
                 name="ic_launcher"
-                path="C:\Users\Alston\Calculall\app\src\main\res\drawable-xxhdpi\ic_launcher.png"
+                path="C:\Users\Keith\Desktop\Stuff\TruTech\Calculall\app\src\main\res\drawable-xxhdpi\ic_launcher.png"
                 qualifiers="xxhdpi-v4"
                 type="drawable" />
             <file
                 name="activity_advanced"
-                path="C:\Users\Alston\Calculall\app\src\main\res\layout\activity_advanced.xml"
+                path="C:\Users\Keith\Desktop\Stuff\TruTech\Calculall\app\src\main\res\layout\activity_advanced.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="activity_basic"
-                path="C:\Users\Alston\Calculall\app\src\main\res\layout\activity_basic.xml"
+                path="C:\Users\Keith\Desktop\Stuff\TruTech\Calculall\app\src\main\res\layout\activity_basic.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="activity_function"
-                path="C:\Users\Alston\Calculall\app\src\main\res\layout\activity_function.xml"
+                path="C:\Users\Keith\Desktop\Stuff\TruTech\Calculall\app\src\main\res\layout\activity_function.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="activity_vector"
-                path="C:\Users\Alston\Calculall\app\src\main\res\layout\activity_vector.xml"
+                path="C:\Users\Keith\Desktop\Stuff\TruTech\Calculall\app\src\main\res\layout\activity_vector.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="vector"
-                path="C:\Users\Alston\Calculall\app\src\main\res\menu\vector.xml"
+                path="C:\Users\Keith\Desktop\Stuff\TruTech\Calculall\app\src\main\res\menu\vector.xml"
                 qualifiers=""
                 type="menu" />
             <file
-                path="C:\Users\Alston\Calculall\app\src\main\res\values\dimens.xml"
+                path="C:\Users\Keith\Desktop\Stuff\TruTech\Calculall\app\src\main\res\values\dimens.xml"
                 qualifiers="" >
                 <dimen name="activity_horizontal_margin" >0dp
                 </dimen>
@@ -57,11 +57,11 @@
                 </dimen>
             </file>
             <file
-                path="C:\Users\Alston\Calculall\app\src\main\res\values\strings.xml"
+                path="C:\Users\Keith\Desktop\Stuff\TruTech\Calculall\app\src\main\res\values\strings.xml"
                 qualifiers="" >
                 <string name="factorial" >n!
                 </string>
-                <string name="Graphing" >Graphing
+                <string name="three" >3
                 </string>
                 <string name="ln" >ln
                 </string>
@@ -69,42 +69,50 @@
                 </string>
                 <string name="log_b" >log_b
                 </string>
-                <string name="Divide" >/
+                <string name="nine" >9
                 </string>
                 <string name="dot" >•
+                </string>
+                <string name="integrate" >∫
                 </string>
                 <string name="base10" >DEC
                 </string>
                 <string name="comma" >,
                 </string>
-                <string name="Minus" >-
-                </string>
                 <string name="shift" >2nd
-                </string>
-                <string name="Vector" >Vector
                 </string>
                 <string name="varA" >A
                 </string>
                 <string name="varB" >B
+                </string>
+                <string name="plus" >+
+                </string>
+                <string name="minus" >-
                 </string>
                 <string name="varC" >C
                 </string>
                 <string name="sqrt" >√
                 </string>
                 <string name="powOfTen" ><![CDATA[<p>10<sup><small><small><i>x</i></small></small></sup></p>]]></string>
+                <string name="decimal" >.
+                </string>
                 <string name="base16" >HEX
+                </string>
+                <string name="seven" >7
                 </string>
                 <string name="gradians" >Gradians
                 </string>
+                <string name="two" >2
+                </string>
+                <string name="basic" >Basic
+                </string>
                 <string name="AC" >AC
                 </string>
-                <string name="Eight" >8
-                </string>
-                <string name="Seven" >7
+                <string name="multiply" >x
                 </string>
                 <string name="base2" >BIN
                 </string>
-                <string name="Three" >3
+                <string name="derivative" >dy/dx
                 </string>
                 <string name="powerTen" >Exp
                 </string>
@@ -116,27 +124,17 @@
                 </string>
                 <string name="title_activity_graphing" >Graphing
                 </string>
-                <string name="Five" >5
+                <string name="five" >5
                 </string>
                 <string name="degrees" >Degrees
-                </string>
-                <string name="Two" >2
                 </string>
                 <string name="openSquareBracket" >[
                 </string>
                 <string name="grad" >GRAD
                 </string>
-                <string name="Nine" >9
-                </string>
-                <string name="One" >1
-                </string>
-                <string name="Six" >6
-                </string>
                 <string name="square" >x²
                 </string>
                 <string name="cos" >cos
-                </string>
-                <string name="Equals" >=
                 </string>
                 <string name="powOfE" ><![CDATA[<p>e<sup><small><small><i>x</i></small></small></sup></p>]]></string>
                 <string name="rightArrow" >→
@@ -156,11 +154,9 @@ C
                 </string>
                 <string name="e" >e
                 </string>
-                <string name="Four" >4
-                </string>
                 <string name="closedBracket" >)
                 </string>
-                <string name="Function" >Function
+                <string name="equals" >=
                 </string>
                 <string name="permutation" >n
 <b>
@@ -171,9 +167,11 @@ P
                 </string>
                 <string name="tan" >tan
                 </string>
-                <string name="Multiply" >x
+                <string name="graph" >Graph
                 </string>
-                <string name="Zero" >0
+                <string name="advanced" >Advanced
+                </string>
+                <string name="six" >6
                 </string>
                 <string name="title_activity_vector" >Vector
                 </string>
@@ -182,26 +180,24 @@ P
                 <string name="store" >STO
                 </string>
                 <string name="exponent" ><![CDATA[<p>x<sup><small><small><i>y</i></small></small></sup></p>]]></string>
-                <string name="Basic" >Basic
+                <string name="eight" >8
                 </string>
                 <string name="title_activity_advanced" >Advanced
-                </string>
-                <string name="Advanced" >Advanced
                 </string>
                 <string name="varX" >X
                 </string>
                 <string name="cbrt" >³√
                 </string>
+                <string name="vector" >Vector
+                </string>
                 <string name="impFrac" >d/e
                 </string>
                 <string name="C" >CLR
                 </string>
+                <string name="graphing" >Graphing
+                </string>
                 <string name="varRoot" ><![CDATA[<p><sup><small><small><i>y</i></small></small></sup>√x</p>]]></string>
-                <string name="Plus" >+
-                </string>
                 <string name="backspace" >←
-                </string>
-                <string name="Decimal" >.
                 </string>
                 <string name="cross" >×
                 </string>
@@ -209,17 +205,29 @@ P
                 </string>
                 <string name="radians" >Radians
                 </string>
+                <string name="divide" >/
+                </string>
+                <string name="one" >1
+                </string>
+                <string name="findRoots" >Roots
+                </string>
                 <string name="openBracket" >(
                 </string>
                 <string name="cube" >x³
                 </string>
+                <string name="zero" >0
+                </string>
                 <string name="closedSquareBracket" >]
+                </string>
+                <string name="function" >Function
                 </string>
                 <string name="rad" >RAD
                 </string>
-                <string name="More" >More
+                <string name="four" >4
                 </string>
                 <string name="plusminus" >±
+                </string>
+                <string name="more" >More
                 </string>
                 <string name="app_name" >Calculall
                 </string>
@@ -233,17 +241,17 @@ P
                 </string>
             </file>
             <file
-                path="C:\Users\Alston\Calculall\app\src\main\res\values-w820dp\dimens.xml"
+                path="C:\Users\Keith\Desktop\Stuff\TruTech\Calculall\app\src\main\res\values-w820dp\dimens.xml"
                 qualifiers="w820dp-v13" >
                 <dimen name="activity_horizontal_margin" >64dp
                 </dimen>
             </file>
         </source>
-        <source path="C:\Users\Alston\Calculall\app\build\generated\res\rs\debug" />
-        <source path="C:\Users\Alston\Calculall\app\build\generated\res\generated\debug" />
+        <source path="C:\Users\Keith\Desktop\Stuff\TruTech\Calculall\app\build\generated\res\rs\debug" />
+        <source path="C:\Users\Keith\Desktop\Stuff\TruTech\Calculall\app\build\generated\res\generated\debug" />
     </dataSet>
     <dataSet config="debug" >
-        <source path="C:\Users\Alston\Calculall\app\src\debug\res" />
+        <source path="C:\Users\Keith\Desktop\Stuff\TruTech\Calculall\app\src\debug\res" />
     </dataSet>
 
 </merger>

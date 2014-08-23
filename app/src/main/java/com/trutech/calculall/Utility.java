@@ -413,8 +413,267 @@ public class Utility {
         } else if (vector.length == 3) {
             return Math.sqrt(Math.pow(vector[0], 2) + Math.pow(vector[1], 2) + Math.pow(vector[2], 2));
         } else {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Error: This calculator only supports 2D and 3D vectors.");
         }
+    }
+
+    /**
+     * STILL NEEDS TO BE TESTED
+     * Calculates the scalar equation of a line in vector form in 2D and outputs it to the user
+     * @ param point The point on the line
+     * @ param direction The direction vector of the line
+     * @ return ArrayList<Token> The scalar equation to be output on the screen
+     */
+    public static ArrayList<Token> calculateScalarEquation (double[] point, double[] direction){
+        ArrayList<Token> output = new ArrayList<Token>();
+        //line is in the form [a,b] + t[c,d] where [a,b] is the point and [c,d] is the direction vector
+        double a = point[0];
+        double b = point[1];
+        double c = direction[0];
+        double d = direction[1];
+        double z = -1*c*b + d*a;
+
+        if (c == 0 && d == 0){
+            throw new IllegalArgumentException("Error: Not a line!");
+        }
+
+        //special case if c = 0
+        if (c == 0) {
+            output.add(VariableFactory.makeX());
+            output.add(new Token("="){});
+            output.add(new Number (a));
+            return output;
+        }
+
+        //special case if d = 0
+        if (d == 0) {
+            output.add(VariableFactory.makeY());
+            output.add(new Token("="){});
+            output.add(new Number (b));
+            return output;
+        }
+
+        //Scalar equation is in the form cy - dx + z = 0 , where z = -cb + da
+
+        //for first term
+        if (c !=0){
+            output.add(new Number(c));
+            output.add(VariableFactory.makeY());
+        }
+
+        //for second term
+        if (d > 0){
+            output.add(OperatorFactory.makeSubtract());
+            output.add(new Number(Math.abs(d)));
+        } else if (d < 0){
+            if (c != 0) {
+                output.add(OperatorFactory.makeAdd());
+            }
+            output.add(new Number(Math.abs(d)));
+        }
+        if (d != 0){
+            output.add(VariableFactory.makeX());
+        }
+
+        //for third term
+        output.add(new Number(z));
+
+        // = 0
+        output.add(new Token("="){});
+        output.add(new Number(0));
+        return output;
+
+    }
+
+    /**
+     * Determines the unit vector of a given vector
+     *
+     * @param vector The vector.
+     * @return double[] The unit vector.
+     */
+    public static double[] calculateUnitVector (double[] vector){
+        double magnitude = calculateMagnitude(vector);
+        if (vector.length == 2){
+            double[] unitVector = new double[2];
+            unitVector[0] = vector[0]/magnitude;
+            unitVector[1] = vector[1]/magnitude;
+            return unitVector;
+        } else if (vector.length == 3) {
+            double[] unitVector = new double[3];
+            unitVector[0] = vector[0]/magnitude;
+            unitVector[1] = vector[1]/magnitude;
+            unitVector[2] = vector[2]/magnitude;
+            return unitVector;
+        } else {
+            throw new IllegalArgumentException("Error: This calculator only supports 2D and 3D vectors.");
+        }
+
+    }
+
+    /**
+     * Returns the argument of a vector. (angle to the X axis)
+     *
+     * @param vector The vector.
+     * @return argument The angle of the vector to the X axis.
+     */
+
+    public static double calculateArgument(double[] vector){
+        if (vector.length != 2){
+            throw new IllegalArgumentException("Error: This feature is only usable with 2D vectors.");
+        }
+        double x = vector[0];
+        double y = vector[1];
+
+        if (x == 0){
+            return 90;
+        }
+        double argument = Math.abs(Math.toDegrees(Math.atan((double) y / x)));
+        return argument;
+    }
+
+    /**
+     *Calculates the quadrant that the vector is in. Only works in 2D.
+     *
+     * @param vector The vector.
+     * @return int The quadrant.
+     */
+    public static int calculateQuadrant(double[] vector){
+        if (vector.length != 2){
+            throw new IllegalArgumentException("Error: This feature is only usable with 2D vectors.");
+        }
+        double x = vector[0];
+        double y = vector[1];
+
+        //Quadrant 1
+        if (x > 0 && y > 0){
+            return 1;
+        }
+        //Quadrant 2
+        if (x < 0 && y > 0){
+            return 2;
+        }
+        //Quadrant 3
+        if (x < 0 && y < 0){
+            return 3;
+        }
+        //Quadrant 4
+        if (x > 0 && y < 0){
+            return 4;
+        }
+        //vector lies on positive y axis
+        if ( x == 0 && y > 0){
+            return -1;
+        }
+        //vector lies on positive x axis
+        if (x > 0 && y == 0){
+            return -2;
+        }
+        //vector lies on negative y axis
+        if (x == 0 && y < 0){
+            return -3;
+        }
+        //vector lies on negative x axis
+        if (x < 0 && y == 0){
+            return -4;
+        }
+        return -100;
+    }
+
+    /**
+     * Calculates the direction of the vector using true bearings. Only works in 2D.
+     *
+     * @param vector The vector.
+     * @return double The direction in true bearings
+     */
+    public static double calculateTrueBearing (double[] vector) {
+        if (vector.length != 2){
+            throw new IllegalArgumentException("Error: This feature is only usable with 2D vectors.");
+        }
+
+        int quadrant = calculateQuadrant(vector);
+        double trueBearing = -1;
+        //Returns angles when lying on an axis
+        if (quadrant == -1) { //positive y axis
+            trueBearing = 0;
+        } else if (quadrant == -2) { //positive x axis
+            trueBearing = 90;
+        } else if (quadrant == -3) { //negative y axis
+            trueBearing = 180;
+        } else if (quadrant == -4) { //negative x axis
+            trueBearing = 270;
+        }
+
+        //Returns angles that do not lie on an axis
+        if (quadrant == 1){
+            trueBearing = 90 - calculateArgument(vector);
+        }
+        if (quadrant == 2){
+            trueBearing = 270 + calculateArgument(vector);
+        }
+        if (quadrant == 3){
+            trueBearing = 180 + (90 - calculateArgument(vector));
+        }
+        if (quadrant == 4){
+            trueBearing = 90 + calculateArgument(vector);
+        }
+        return trueBearing;
+    }
+
+    /**
+     * Returns the direction of a vector in bearing form. Only works with 2D vectors.
+     *
+     * @param vector The vector.
+     * @return ArrayList<Token> The direction.
+     */
+    public static ArrayList<Token> calculateBearing (double[] vector){
+        double angle = calculateArgument(vector);
+        int quadrant = calculateQuadrant(vector);
+        ArrayList<Token> output = new ArrayList<Token>();
+
+        //returns vectors that lie on an axis
+        if (quadrant == -1){ //positive y axis
+            output.add(new Token("N"){});
+            output.add(new Number(0));
+            output.add(new Token("E"){});
+        }
+        if (quadrant == -2){ //positive x axis
+            output.add(new Token("E"){});
+            output.add(new Number(0));
+            output.add(new Token("N"){});
+        }
+        if (quadrant == -3){ //negative y axis
+            output.add(new Token("S"){});
+            output.add(new Number(0));
+            output.add(new Token("W"){});
+        }
+        if (quadrant == -4){ //negative x axis
+            output.add(new Token("W"){});
+            output.add(new Number(0));
+            output.add(new Token("S"){});
+        }
+
+        //returns vectors that do not lie on an axis
+        if (quadrant == 1){
+            output.add(new Token("E"){});
+            output.add(new Number(angle));
+            output.add(new Token("N"){});
+        }
+        if (quadrant == 2){
+            output.add(new Token("W"){});
+            output.add(new Number(angle));
+            output.add(new Token("N"){});
+        }
+        if (quadrant == 3){
+            output.add(new Token("W"){});
+            output.add(new Number(angle));
+            output.add(new Token("S"){});
+        }
+        if (quadrant == 4){
+            output.add(new Token("E"){});
+            output.add(new Number(angle));
+            output.add(new Token("S"){});
+        }
+        return output;
     }
 
     /**
