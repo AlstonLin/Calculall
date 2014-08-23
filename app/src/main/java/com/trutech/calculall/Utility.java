@@ -525,7 +525,152 @@ public class Utility {
         if (x == 0){
             return 90;
         }
-        double argument = Math.toDegrees(Math.atan2(x, y));
+        double argument = Math.abs(Math.toDegrees(Math.atan((double) y / x)));
+        return argument;
+    }
+
+    /**
+     *Calculates the quadrant that the vector is in. Only works in 2D.
+     *
+     * @param vector The vector.
+     * @return int The quadrant.
+     */
+    public static int calculateQuadrant(double[] vector){
+        if (vector.length != 2){
+            throw new IllegalArgumentException("Error: This feature is only usable with 2D vectors.");
+        }
+        double x = vector[0];
+        double y = vector[1];
+
+        //Quadrant 1
+        if (x > 0 && y > 0){
+            return 1;
+        }
+        //Quadrant 2
+        if (x < 0 && y > 0){
+            return 2;
+        }
+        //Quadrant 3
+        if (x < 0 && y < 0){
+            return 3;
+        }
+        //Quadrant 4
+        if (x > 0 && y < 0){
+            return 4;
+        }
+        //vector lies on positive y axis
+        if ( x == 0 && y > 0){
+            return -1;
+        }
+        //vector lies on positive x axis
+        if (x > 0 && y == 0){
+            return -2;
+        }
+        //vector lies on negative y axis
+        if (x == 0 && y < 0){
+            return -3;
+        }
+        //vector lies on negative x axis
+        if (x < 0 && y == 0){
+            return -4;
+        }
+    }
+
+    /**
+     * Calculates the direction of the vector using true bearings. Only works in 2D.
+     *
+     * @param vector The vector.
+     * @return double The direction in true bearings
+     */
+    public static double calculateTrueBearing (double[] vector) {
+        if (vector.length != 2){
+            throw new IllegalArgumentException("Error: This feature is only usable with 2D vectors.")
+        }
+
+        int quadrant = calculateQuadrant(vector);
+        double trueBearing = -1;
+        //Returns angles when lying on an axis
+        if (quadrant == -1) { //positive y axis
+            trueBearing = 0;
+        } else if (quadrant == -2) { //positive x axis
+            trueBearing = 90;
+        } else if (quadrant == -3) { //negative y axis
+            trueBearing = 180;
+        } else if (quadrant == -4) { //negative x axis
+            trueBearing = 270;
+        }
+
+        //Returns angles that do not lie on an axis
+        if (quadrant == 1){
+            trueBearing = 90 - calculateArgument(vector);
+        }
+        if (quadrant == 2){
+            trueBearing = 270 + calculateArgument(vector);
+        }
+        if (quadrant == 3){
+            trueBearing = 180 + (90 - calculateArgument(vector));
+        }
+        if (quadrant == 4){
+            trueBearing = 90 + calculateArgument(vector);
+        }
+        return trueBearing;
+    }
+
+    /**
+     * Returns the direction of a vector in bearing form. Only works with 2D vectors.
+     *
+     * @param vector The vector.
+     * @return ArrayList<Token> The direction.
+     */
+    public static ArrayList<Token> calculateBearing (double[] vector){
+        double angle = calculateArgument(vector);
+        int quadrant = calculateQuadrant(vector);
+        ArrayList<Token> output = new ArrayList<Token>();
+
+        //returns vectors that lie on an axis
+        if (quadrant == -1){ //positive y axis
+            output.add(new Token("N"){});
+            output.add(new Number(0));
+            output.add(new Token("E"){});
+        }
+        if (quadrant == -2){ //positive x axis
+            output.add(new Token("E"){});
+            output.add(new Number(0));
+            output.add(new Token("N"){});
+        }
+        if (quadrant == -3){ //negative y axis
+            output.add(new Token("S"){});
+            output.add(new Number(0));
+            output.add(new Token("W"){});
+        }
+        if (quadrant == -4){ //negative x axis
+            output.add(new Token("W"){});
+            output.add(new Number(0));
+            output.add(new Token("S"){});
+        }
+
+        //returns vectors that do not lie on an axis
+        if (quadrant == 1){
+            output.add(new Token("E"){});
+            output.add(new Number(angle));
+            output.add(new Token("N"){});
+        }
+        if (quadrant == 2){
+            output.add(new Token("W"){});
+            output.add(new Number(angle));
+            output.add(new Token("N"){});
+        }
+        if (quadrant == 3){
+            output.add(new Token("W"){});
+            output.add(new Number(angle));
+            output.add(new Token("S"){});
+        }
+        if (quadrant == 4){
+            output.add(new Token("E"){});
+            output.add(new Number(angle));
+            output.add(new Token("S"){});
+        }
+        return output;
     }
 
     /**
