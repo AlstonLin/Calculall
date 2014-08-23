@@ -4,13 +4,17 @@ import java.util.ArrayList;
 public class VRuleSet {
 
     public static int ADD = 1, SUBTRACT = 2, DOT = 3, CROSS = 4, MAGNITUDE = 5, MULTIPLY = 6,
-            UNITVECTOR = 7, ANGLE = 8, CHECK = 0;
+            UNITVECTOR = 7, ANGLE = 8, ARGUMENT = 9, TRUEB = 10, BEAR = 11, CHECK = 0;
 
     private static ArrayList<VRule> VRules = new ArrayList<VRule>();
     private static ArrayList<Token> newExpression = new ArrayList<Token>();
-    private static boolean validOutput = false, pressedUnitVButton = false;
+    private static boolean validOutput = false, pressedUnitVButton = false, pressedArgumentButton = false
+            , pressedTrueBButton = false, pressedBearButton = false;
+
+
 
      static {
+         VRules.add(new VRule (("[N,N]"), VRuleSet.TRUEB, 2));
         VRules.add(new VRule (("N[N,N]"), VRuleSet.MULTIPLY, 2));
         VRules.add(new VRule (("N[N,N,N]"), VRuleSet.MULTIPLY, 3));
         VRules.add(new VRule (("[N,N,N]C[N,N,N]"), VRuleSet.CROSS, 3));
@@ -27,6 +31,9 @@ public class VRuleSet {
         VRules.add(new VRule (("N[N,N]"), VRuleSet.MULTIPLY, 2)); //Checked for again for unit vector calculation
         VRules.add(new VRule (("N[N,N,N]"), VRuleSet.MULTIPLY, 3)); //Checked for again for unit vector calculation
         VRules.add(new VRule (("[N,N]a[N,N]"), VRuleSet.ANGLE, 2)); //Used to find angle between 2 vectors
+        VRules.add(new VRule (("[N,N]"), VRuleSet.ARGUMENT, 2));
+        //VRules.add(new VRule (("[N,N]"), VRuleSet.TRUEB, 2));
+        VRules.add(new VRule (("[N,N]"), VRuleSet.BEAR, 2));
         VRules.add(new VRule (("[N,N]"), VRuleSet.CHECK, 2)); //Used to check if the output is valid
         VRules.add(new VRule (("[N,N,N]"), VRuleSet.CHECK, 3)); //Used to check if the output is valid
     }
@@ -53,8 +60,8 @@ public class VRuleSet {
     }
 
     //Used to confirm the output is valid
-    public static void setValidOutput (boolean inValidOutput) {
-        validOutput = inValidOutput;
+    public static void setValidOutput (boolean validOutput) {
+        VRuleSet.validOutput = validOutput;
     }
 
     //Used to see if output is valid
@@ -63,13 +70,43 @@ public class VRuleSet {
     }
 
     //Used to confirm the user pressed the unit vector button
-    public static void setPressedUnitVButton (boolean inPressedUnitVButton) {
-        pressedUnitVButton = inPressedUnitVButton;
+    public static void setPressedUnitVButton (boolean pressedUnitVButton) {
+        VRuleSet.pressedUnitVButton = pressedUnitVButton;
     }
 
     //Used to confirm the user pressed the unit vector button
     public static boolean getPressedUnitVButton () {
         return pressedUnitVButton;
+    }
+
+    //Used to confirm the user pressed the unit vector button
+    public static void setPressedArgumentButton (boolean pressedArgumentButton) {
+        VRuleSet.pressedArgumentButton = pressedArgumentButton;
+    }
+
+    //Used to confirm the user pressed the unit vector button
+    public static boolean getPressedArgumentButton () {
+        return pressedArgumentButton;
+    }
+
+    //Used to confirm the user pressed the unit vector button
+    public static void setPressedTrueBButton (boolean pressedTrueBButton) {
+        VRuleSet.pressedTrueBButton = pressedTrueBButton;
+    }
+
+    //Used to confirm the user pressed the unit vector button
+    public static boolean getPressedTrueBButton () {
+        return pressedTrueBButton;
+    }
+
+    //Used to confirm the user pressed the unit vector button
+    public static void setPressedBearButton (boolean pressedBearButton) {
+        VRuleSet.pressedBearButton = pressedBearButton;
+    }
+
+    //Used to confirm the user pressed the unit vector button
+    public static boolean getPressedBearButton () {
+        return pressedBearButton;
     }
 
 

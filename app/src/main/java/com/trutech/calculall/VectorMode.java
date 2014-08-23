@@ -2,7 +2,6 @@ package com.trutech.calculall;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -283,9 +282,9 @@ public class VectorMode extends Basic {
         updateInput();
     }
 
-    /**
+/*    *//**
      * @return the angleMode
-     */
+     *//*
     public int getDirectionMode() {
         return directionMode;
     }
@@ -371,7 +370,7 @@ public class VectorMode extends Basic {
         } catch (Exception e) { //User made a mistake
             Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
         }
-    }
+    }*/
 
     /**
      * When the user presses the , Button.
@@ -394,6 +393,68 @@ public class VectorMode extends Basic {
         scrollView.pageScroll(ScrollView.FOCUS_DOWN);
     }
 
+    /**
+     * When the user presses the , Button.
+     *
+     * @param v Not Used
+     */
+    public void clickArgument(View v){
+        TextView output = (TextView) findViewById(R.id.txtStack);
+        VRuleSet.setPressedArgumentButton(true);
+        try {
+            String s = Utility.convertTokensToString(processVectors());
+            s = s.indexOf(".") < 0  ? s : (s.indexOf("E")>0 ? s.substring(0,s.indexOf("E")).replaceAll("0*$", "")
+                    .replaceAll("\\.$", "").concat(s.substring(s.indexOf("E"))) : s.replaceAll("0*$", "")
+                    .replaceAll("\\.$", "")); //Removes trailing zeroes
+            output.setText(s);
+        }catch (Exception e){ //User did a mistake
+            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
+        }
+        ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
+        scrollView.pageScroll(ScrollView.FOCUS_DOWN);
+    }
+
+    /**
+     * When the user presses the , Button.
+     *
+     * @param v Not Used
+     */
+    public void clickTrueB(View v){
+        TextView output = (TextView) findViewById(R.id.txtStack);
+        VRuleSet.setPressedTrueBButton(true);
+        try {
+            String s = Utility.convertTokensToString(processVectors());
+            s = s.indexOf(".") < 0  ? s : (s.indexOf("E")>0 ? s.substring(0,s.indexOf("E")).replaceAll("0*$", "")
+                    .replaceAll("\\.$", "").concat(s.substring(s.indexOf("E"))) : s.replaceAll("0*$", "")
+                    .replaceAll("\\.$", "")); //Removes trailing zeroes
+            output.setText(s);
+        }catch (Exception e){ //User did a mistake
+            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
+        }
+        ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
+        scrollView.pageScroll(ScrollView.FOCUS_DOWN);
+    }
+
+    /**
+     * When the user presses the , Button.
+     *
+     * @param v Not Used
+     */
+    public void clickBear(View v){
+        TextView output = (TextView) findViewById(R.id.txtStack);
+        VRuleSet.setPressedBearButton(true);
+        try {
+            String s = Utility.convertTokensToString(processVectors());
+            s = s.indexOf(".") < 0  ? s : (s.indexOf("E")>0 ? s.substring(0,s.indexOf("E")).replaceAll("0*$", "")
+                    .replaceAll("\\.$", "").concat(s.substring(s.indexOf("E"))) : s.replaceAll("0*$", "")
+                    .replaceAll("\\.$", "")); //Removes trailing zeroes
+            output.setText(s);
+        }catch (Exception e){ //User did a mistake
+            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
+        }
+        ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
+        scrollView.pageScroll(ScrollView.FOCUS_DOWN);
+    }
 
 
 }

@@ -148,9 +148,18 @@ public class VRule {
         } else if (operation == VRuleSet.UNITVECTOR && VRuleSet.getPressedUnitVButton()) {
             tempExpression.addAll(Utility.findUnitVector(leftVector));
             VRuleSet.setPressedUnitVButton(false);
-        } else if (operation == VRuleSet.ANGLE) {
+        } else if (operation == VRuleSet.ARGUMENT && VRuleSet.getPressedArgumentButton()) {
+            tempExpression.add(new Number (Utility.calculateArgument(leftVector)));
+            VRuleSet.setPressedArgumentButton(false);
+        } else if (operation == VRuleSet.TRUEB && VRuleSet.getPressedTrueBButton()) {
+            tempExpression.add(new Number (Utility.calculateTrueBearing(leftVector)));
+            VRuleSet.setPressedTrueBButton(false);
+        }else if (operation == VRuleSet.BEAR && VRuleSet.getPressedBearButton()) {
+            tempExpression.addAll(Utility.calculateBearing(leftVector));
+            VRuleSet.setPressedTrueBButton(false);
+        }else if (operation == VRuleSet.ANGLE) {
             tempExpression.add(new Number(Utility.findAngleBetweenVector(leftVector, rightVector)));
-        } else if (operation == VRuleSet.CHECK && (expression.size() == 5 || expression.size() == 7)) {
+        } else if (operation == VRuleSet.CHECK && (expression.size() == 3 || expression.size() == 5 || expression.size() == 7)) {
             VRuleSet.setValidOutput(true); //Method to make make sure output is valid
             tempExpression = expression;
         } else if (operation == VRuleSet.UNITVECTOR || operation == VRuleSet.ANGLE){

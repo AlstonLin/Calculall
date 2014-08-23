@@ -545,7 +545,7 @@ public class Utility {
         double y = vector[1];
 
         //Quadrant 1
-        if (x > 0 && y > 0){
+        if (x > 0d && y > 0d){
             return 1;
         }
         //Quadrant 2
