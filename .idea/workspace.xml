@@ -22,7 +22,7 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: com.trutech.calculall" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="377a07f7-27dc-473a-a96c-fb1ac73664cb" name="Default" comment="0.6.1 - Added all necessary buttons">
+    <list default="true" id="377a07f7-27dc-473a-a96c-fb1ac73664cb" name="Default" comment="0.6.2 - Added methods calculateUnitVector(), calculateQuadrant(), calculateTrueBearing(), calculateBearing(), and calculateScalarEquation().">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/Utility.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/Utility.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -94,11 +94,11 @@
       <file leaf-file-name="Utility.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/Utility.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.556872" vertical-offset="11121" max-vertical-offset="15028">
-              <caret line="672" column="22" selection-start-line="672" selection-start-column="22" selection-end-line="672" selection-end-column="22" />
+            <state vertical-scroll-proportion="0.73459715" vertical-offset="9448" max-vertical-offset="15079">
+              <caret line="578" column="19" selection-start-line="578" selection-start-column="19" selection-end-line="578" selection-end-column="19" />
               <folding>
                 <element signature="e#20137#20144#0" expanded="true" />
-                <element signature="e#26199#26206#0" expanded="true" />
+                <element signature="e#26258#26265#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -1631,7 +1631,11 @@
       <created>1408770742230</created>
       <updated>1408770742230</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="0.6.2 - Added methods calculateUnitVector(), calculateQuadrant(), calculateTrueBearing(), calculateBearing(), and calculateScalarEquation().">
+      <created>1408773383905</created>
+      <updated>1408773383905</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1724,7 +1728,8 @@
     <MESSAGE value="0.6.0-Added methods to calculate projection and calculating angles between vectors" />
     <MESSAGE value="0.6.0 - Added methods to calculate projection and calculating angles between vectors" />
     <MESSAGE value="0.6.1 - Added all necessary buttons" />
-    <option name="LAST_COMMIT_MESSAGE" value="0.6.1 - Added all necessary buttons" />
+    <MESSAGE value="0.6.2 - Added methods calculateUnitVector(), calculateQuadrant(), calculateTrueBearing(), calculateBearing(), and calculateScalarEquation()." />
+    <option name="LAST_COMMIT_MESSAGE" value="0.6.2 - Added methods calculateUnitVector(), calculateQuadrant(), calculateTrueBearing(), calculateBearing(), and calculateScalarEquation()." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1755,7 +1760,7 @@
           <caret line="208" column="0" selection-start-line="208" selection-start-column="0" selection-end-line="208" selection-end-column="0" />
           <folding>
             <element signature="e#20137#20144#0" expanded="true" />
-            <element signature="e#26199#26206#0" expanded="true" />
+            <element signature="e#26258#26265#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2125,11 +2130,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/Utility.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.556872" vertical-offset="11121" max-vertical-offset="15028">
-          <caret line="672" column="22" selection-start-line="672" selection-start-column="22" selection-end-line="672" selection-end-column="22" />
+        <state vertical-scroll-proportion="0.73459715" vertical-offset="9448" max-vertical-offset="15079">
+          <caret line="578" column="19" selection-start-line="578" selection-start-column="19" selection-end-line="578" selection-end-column="19" />
           <folding>
             <element signature="e#20137#20144#0" expanded="true" />
-            <element signature="e#26199#26206#0" expanded="true" />
+            <element signature="e#26258#26265#0" expanded="true" />
           </folding>
         </state>
       </provider>

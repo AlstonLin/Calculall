@@ -431,7 +431,7 @@ public class Utility {
         double b = point[1];
         double c = direction[0];
         double d = direction[1];
-        double z = -1*c*b + d*a
+        double z = -1*c*b + d*a;
 
         if (c == 0 && d == 0){
             throw new IllegalArgumentException("Error: Not a line!");
@@ -497,15 +497,17 @@ public class Utility {
             double[] unitVector = new double[2];
             unitVector[0] = vector[0]/magnitude;
             unitVector[1] = vector[1]/magnitude;
+            return unitVector;
         } else if (vector.length == 3) {
             double[] unitVector = new double[3];
             unitVector[0] = vector[0]/magnitude;
             unitVector[1] = vector[1]/magnitude;
             unitVector[2] = vector[2]/magnitude;
+            return unitVector;
         } else {
             throw new IllegalArgumentException("Error: This calculator only supports 2D and 3D vectors.");
         }
-        return unitVector;
+
     }
 
     /**
@@ -574,6 +576,7 @@ public class Utility {
         if (x < 0 && y == 0){
             return -4;
         }
+        return -100;
     }
 
     /**
@@ -584,7 +587,7 @@ public class Utility {
      */
     public static double calculateTrueBearing (double[] vector) {
         if (vector.length != 2){
-            throw new IllegalArgumentException("Error: This feature is only usable with 2D vectors.")
+            throw new IllegalArgumentException("Error: This feature is only usable with 2D vectors.");
         }
 
         int quadrant = calculateQuadrant(vector);
