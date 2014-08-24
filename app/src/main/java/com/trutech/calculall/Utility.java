@@ -253,6 +253,10 @@ public class Utility {
                 stringExpression = stringExpression + expression.get(i).getSymbol();
             } else if (expression.get(i).getSymbol() == ",") {
                 stringExpression = stringExpression + ",";
+            } else if (expression.get(i).getSymbol() == "E") {
+                stringExpression = stringExpression + "E";
+            } else if (expression.get(i).getSymbol() == "N") {
+                stringExpression = stringExpression + "N";
             }
         }
         return stringExpression;

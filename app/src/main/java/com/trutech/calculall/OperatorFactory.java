@@ -66,7 +66,7 @@ public class OperatorFactory {
     }
 
     public static Operator makeAngle() {
-        return new Operator("a", Operator.ANGLE, 6, true) {
+        return new Operator("∠", Operator.ANGLE, 6, true) {
             @Override
             public double operate(double left, double right) {
                 return 1;

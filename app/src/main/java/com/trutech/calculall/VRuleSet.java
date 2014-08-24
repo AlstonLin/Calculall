@@ -14,7 +14,6 @@ public class VRuleSet {
 
 
      static {
-         VRules.add(new VRule (("[N,N]"), VRuleSet.TRUEB, 2));
         VRules.add(new VRule (("N[N,N]"), VRuleSet.MULTIPLY, 2));
         VRules.add(new VRule (("N[N,N,N]"), VRuleSet.MULTIPLY, 3));
         VRules.add(new VRule (("[N,N,N]C[N,N,N]"), VRuleSet.CROSS, 3));
@@ -32,7 +31,7 @@ public class VRuleSet {
         VRules.add(new VRule (("N[N,N,N]"), VRuleSet.MULTIPLY, 3)); //Checked for again for unit vector calculation
         VRules.add(new VRule (("[N,N]a[N,N]"), VRuleSet.ANGLE, 2)); //Used to find angle between 2 vectors
         VRules.add(new VRule (("[N,N]"), VRuleSet.ARGUMENT, 2));
-        //VRules.add(new VRule (("[N,N]"), VRuleSet.TRUEB, 2));
+        VRules.add(new VRule (("[N,N]"), VRuleSet.TRUEB, 2));
         VRules.add(new VRule (("[N,N]"), VRuleSet.BEAR, 2));
         VRules.add(new VRule (("[N,N]"), VRuleSet.CHECK, 2)); //Used to check if the output is valid
         VRules.add(new VRule (("[N,N,N]"), VRuleSet.CHECK, 3)); //Used to check if the output is valid
@@ -50,7 +49,7 @@ public class VRuleSet {
 
         //New
         //If the output is valid or the output is a single number, then return newExpression
-        if (validOutput  || (newExpression.size() == 1 && newExpression.get(0) instanceof Number) ||
+        if (validOutput  || newExpression.size() == 3 || (newExpression.size() == 1 && newExpression.get(0) instanceof Number) ||
                 (newExpression.size() == 2 && (newExpression.get(0) instanceof Number && newExpression.get(1).getSymbol() == "d"))) {
             return newExpression;
         }

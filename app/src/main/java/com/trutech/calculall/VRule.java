@@ -156,13 +156,14 @@ public class VRule {
             VRuleSet.setPressedTrueBButton(false);
         }else if (operation == VRuleSet.BEAR && VRuleSet.getPressedBearButton()) {
             tempExpression.addAll(Utility.calculateBearing(leftVector));
-            VRuleSet.setPressedTrueBButton(false);
+            VRuleSet.setPressedBearButton(false);
         }else if (operation == VRuleSet.ANGLE) {
             tempExpression.add(new Number(Utility.findAngleBetweenVector(leftVector, rightVector)));
         } else if (operation == VRuleSet.CHECK && (expression.size() == 3 || expression.size() == 5 || expression.size() == 7)) {
             VRuleSet.setValidOutput(true); //Method to make make sure output is valid
             tempExpression = expression;
-        } else if (operation == VRuleSet.UNITVECTOR || operation == VRuleSet.ANGLE){
+        } else if (operation == VRuleSet.UNITVECTOR || operation == VRuleSet.ANGLE ||
+                operation == VRuleSet.ARGUMENT || operation == VRuleSet.TRUEB || operation == VRuleSet.BEAR){
             VRuleSet.setValidOutput(true); //Method to make make sure output is valid
             //This is applied when no operation can be performed such as the ones for the vector calculations
             for (int i = firstOccurPosition; i < firstOccurPosition + pattern.length(); i++) {
