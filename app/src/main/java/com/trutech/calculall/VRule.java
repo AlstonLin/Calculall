@@ -78,6 +78,16 @@ public class VRule {
                 }
             } else if (expression.get(i).getSymbol() == ",") {
                 stringExpression = stringExpression + ",";
+            }  else if (expression.get(i).getSymbol() == "N") {
+                stringExpression = stringExpression + "N";
+            } else if (expression.get(i).getSymbol() == "E") {
+                stringExpression = stringExpression + "E";
+            } else if (expression.get(i).getSymbol() == "S") {
+                stringExpression = stringExpression + "S";
+            } else if (expression.get(i).getSymbol() == "W") {
+                stringExpression = stringExpression + "W";
+            } else if (expression.get(i).getSymbol() == "°") {
+                stringExpression = stringExpression + "°";
             }
         }
         return stringExpression;
@@ -150,16 +160,19 @@ public class VRule {
             VRuleSet.setPressedUnitVButton(false);
         } else if (operation == VRuleSet.ARGUMENT && VRuleSet.getPressedArgumentButton()) {
             tempExpression.add(new Number (Utility.calculateArgument(leftVector)));
+            tempExpression.add(new Token ("°"){});
             VRuleSet.setPressedArgumentButton(false);
         } else if (operation == VRuleSet.TRUEB && VRuleSet.getPressedTrueBButton()) {
             tempExpression.add(new Number (Utility.calculateTrueBearing(leftVector)));
+            tempExpression.add(new Token ("°"){});
             VRuleSet.setPressedTrueBButton(false);
         }else if (operation == VRuleSet.BEAR && VRuleSet.getPressedBearButton()) {
             tempExpression.addAll(Utility.calculateBearing(leftVector));
             VRuleSet.setPressedBearButton(false);
         }else if (operation == VRuleSet.ANGLE) {
             tempExpression.add(new Number(Utility.findAngleBetweenVector(leftVector, rightVector)));
-        } else if (operation == VRuleSet.CHECK && (expression.size() == 3 || expression.size() == 5 || expression.size() == 7)) {
+            tempExpression.add(new Token ("°"){});
+        } else if (operation == VRuleSet.CHECK && (expression.size() == 3 || expression.size() == 2 || expression.size() == 5 || expression.size() == 7)) {
             VRuleSet.setValidOutput(true); //Method to make make sure output is valid
             tempExpression = expression;
         } else if (operation == VRuleSet.UNITVECTOR || operation == VRuleSet.ANGLE ||

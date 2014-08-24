@@ -253,10 +253,18 @@ public class Utility {
                 stringExpression = stringExpression + expression.get(i).getSymbol();
             } else if (expression.get(i).getSymbol() == ",") {
                 stringExpression = stringExpression + ",";
-            } else if (expression.get(i).getSymbol() == "E") {
-                stringExpression = stringExpression + "E";
+            } else if (expression.get(i).getSymbol() == "∠") {
+                stringExpression = stringExpression + "∠";
             } else if (expression.get(i).getSymbol() == "N") {
                 stringExpression = stringExpression + "N";
+            } else if (expression.get(i).getSymbol() == "E") {
+                stringExpression = stringExpression + "E";
+            } else if (expression.get(i).getSymbol() == "S") {
+                stringExpression = stringExpression + "S";
+            } else if (expression.get(i).getSymbol() == "W") {
+                stringExpression = stringExpression + "W";
+            } else if (expression.get(i).getSymbol() == "°") {
+                stringExpression = stringExpression + "°";
             }
         }
         return stringExpression;

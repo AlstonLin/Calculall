@@ -33,6 +33,7 @@ public class VRuleSet {
         VRules.add(new VRule (("[N,N]"), VRuleSet.ARGUMENT, 2));
         VRules.add(new VRule (("[N,N]"), VRuleSet.TRUEB, 2));
         VRules.add(new VRule (("[N,N]"), VRuleSet.BEAR, 2));
+        VRules.add(new VRule (("N°"), VRuleSet.CHECK, 1)); //Used to check if the output is valid
         VRules.add(new VRule (("[N,N]"), VRuleSet.CHECK, 2)); //Used to check if the output is valid
         VRules.add(new VRule (("[N,N,N]"), VRuleSet.CHECK, 3)); //Used to check if the output is valid
     }

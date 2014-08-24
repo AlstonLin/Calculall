@@ -36,8 +36,8 @@
     <string name="magnitude">|v|</string>
     <string name="unitVector">u</string>
     <string name="argument">Arg</string>
-    <string name="bear">Bear</string>
-    <string name="trueB">True</string>
+    <string name="bear">Bea</string>
+    <string name="trueB">Tru</string>
     <string name="projection">proj</string>
     <string name="scalarEquationOfALine">Scalar</string>
     <string name="angleBetweenVectors">∠</string>
