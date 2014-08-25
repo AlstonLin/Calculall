@@ -241,30 +241,8 @@ public class Utility {
                         .replaceAll("\\.$", "").concat(s.substring(s.indexOf("E"))) : s.replaceAll("0*$", "")
                         .replaceAll("\\.$", "")); //Removes trailing zeroes
                 stringExpression = stringExpression + s;
-            } else if (expression.get(i) instanceof Bracket) {
-                if (((Bracket) (expression.get(i))).getType() == Bracket.SQUAREOPEN) {
-                    stringExpression = stringExpression + (expression.get(i)).getSymbol();
-                } else if (((Bracket) (expression.get(i))).getType() == Bracket.SQUARECLOSED) {
-                    stringExpression = stringExpression + (expression.get(i)).getSymbol();
-                } else if (((Bracket) (expression.get(i))).getType() == Bracket.MAGNITUDEBAR) {
-                    stringExpression = stringExpression + (expression.get(i)).getSymbol();
-                }
-            } else if (expression.get(i) instanceof Operator) {
-                stringExpression = stringExpression + expression.get(i).getSymbol();
-            } else if (expression.get(i).getSymbol() == ",") {
-                stringExpression = stringExpression + ",";
-            } else if (expression.get(i).getSymbol() == "∠") {
-                stringExpression = stringExpression + "∠";
-            } else if (expression.get(i).getSymbol() == "N") {
-                stringExpression = stringExpression + "N";
-            } else if (expression.get(i).getSymbol() == "E") {
-                stringExpression = stringExpression + "E";
-            } else if (expression.get(i).getSymbol() == "S") {
-                stringExpression = stringExpression + "S";
-            } else if (expression.get(i).getSymbol() == "W") {
-                stringExpression = stringExpression + "W";
-            } else if (expression.get(i).getSymbol() == "°") {
-                stringExpression = stringExpression + "°";
+            } else {
+                stringExpression = stringExpression + (expression.get(i)).getSymbol();
             }
         }
         return stringExpression;

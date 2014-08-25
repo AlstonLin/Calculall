@@ -244,33 +244,9 @@
                 android:layout_marginLeft="-7dp"
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
-                android:onClick="clickArgument"
+                android:onClick="clickDirectionMode"
                 android:checked="false"
                 android:text="@string/argument"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/trueBearingButton"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
-                android:layout_weight="1"
-                android:onClick="clickTrueB"
-                android:checked="false"
-                android:text="@string/trueB"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/bearingButton"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
-                android:layout_weight="1"
-                android:onClick="clickBear"
-                android:checked="false"
-                android:text="@string/bear"
                 android:textSize="16sp" />
 
             <Button

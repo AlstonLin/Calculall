@@ -30,9 +30,9 @@ public class VRuleSet {
         VRules.add(new VRule (("N[N,N]"), VRuleSet.MULTIPLY, 2)); //Checked for again for unit vector calculation
         VRules.add(new VRule (("N[N,N,N]"), VRuleSet.MULTIPLY, 3)); //Checked for again for unit vector calculation
         VRules.add(new VRule (("[N,N]a[N,N]"), VRuleSet.ANGLE, 2)); //Used to find angle between 2 vectors
-        VRules.add(new VRule (("[N,N]"), VRuleSet.ARGUMENT, 2));
-        VRules.add(new VRule (("[N,N]"), VRuleSet.TRUEB, 2));
-        VRules.add(new VRule (("[N,N]"), VRuleSet.BEAR, 2));
+        VRules.add(new VRule (("a[N,N]"), VRuleSet.ARGUMENT, 2));
+        VRules.add(new VRule (("a[N,N]"), VRuleSet.TRUEB, 2));
+        VRules.add(new VRule (("a[N,N]"), VRuleSet.BEAR, 2));
         VRules.add(new VRule (("N°"), VRuleSet.CHECK, 1)); //Used to check if the output is valid
         VRules.add(new VRule (("[N,N]"), VRuleSet.CHECK, 2)); //Used to check if the output is valid
         VRules.add(new VRule (("[N,N,N]"), VRuleSet.CHECK, 3)); //Used to check if the output is valid
