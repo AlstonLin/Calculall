@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class VRuleSet {
 
     public static int ADD = 1, SUBTRACT = 2, DOT = 3, CROSS = 4, MAGNITUDE = 5, MULTIPLY = 6,
-            UNITVECTOR = 7, ANGLE = 8, ARGUMENT = 9, TRUEB = 10, BEAR = 11, CHECK = 0;
+            UNITVECTOR = 7, ANGLE = 8, ARGUMENT = 9, TRUEB = 10, BEAR = 11, PROJ = 12, CHECK = 0;
 
     private static ArrayList<VRule> VRules = new ArrayList<VRule>();
     private static ArrayList<Token> newExpression = new ArrayList<Token>();
@@ -22,7 +22,8 @@ public class VRuleSet {
         VRules.add(new VRule (("[N,N,N]A[N,N,N]"), VRuleSet.ADD, 3));
         VRules.add(new VRule (("[N,N,N]S[N,N,N]"), VRuleSet.SUBTRACT, 3));
         VRules.add(new VRule (("[N,N]D[N,N]"), VRuleSet.DOT, 2));
-        VRules.add(new VRule (("[N,N,N]D[N,N,N]"), VRuleSet.DOT, 3));
+        VRules.add(new VRule (("p[N,N][N,N]"), VRuleSet.PROJ, 2));
+        VRules.add(new VRule (("p[N,N,N][N,N,N]"), VRuleSet.PROJ, 3));
         VRules.add(new VRule (("|[N,N]|"), VRuleSet.MAGNITUDE, 2));
         VRules.add(new VRule (("|[N,N,N]|"), VRuleSet.MAGNITUDE, 3));
         VRules.add(new VRule (("[N,N]"), VRuleSet.UNITVECTOR, 2)); //Used to check if the user pressed the unitVectorButton

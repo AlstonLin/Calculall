@@ -307,6 +307,16 @@ public class VectorMode extends Basic {
     }
 
     /**
+     * When the user presses the proj Button.
+     *
+     * @param v Not Used
+     */
+    public void clickProjection(View v){
+        tokens.add(new Token ("proj"){});
+        updateInput();
+    }
+
+    /**
      * @return the angleMode
      */
     public int getDirectionMode() {
