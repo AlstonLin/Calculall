@@ -185,23 +185,23 @@ public class VectorMode extends Basic {
     }
 
     /**
-     * When the user presses the Y button
+     * When the user presses the V button
      *
      * @param v Not Used
      */
-    public void clickVY(View v) {
+    public void clickVV(View v) {
         TextView output = (TextView) findViewById(R.id.txtStack);
         ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
         try {
             if (mem) {
                 ArrayList<Token> val = processVectors();
                 tokens.clear();
-                output.setText(Utility.convertTokensToString(val) + "→ Y");
-                Vector.y_value = val;
+                output.setText(Utility.convertTokensToString(val) + "→ V");
+                Vector.x_value = val;
                 mem = false;
                 memButton.setChecked(mem);
             } else {
-                tokens.add(VectorFactory.makeY());
+                tokens.add(VectorFactory.makeX());
             }
             updateInput();
         } catch (Exception e) { //User did a mistake
@@ -210,28 +210,13 @@ public class VectorMode extends Basic {
     }
 
     /**
-     * When the user presses the A button
+     * When the user presses the T button
      *
      * @param v Not Used
      */
-    public void clickVZ(View v) {
-        TextView output = (TextView) findViewById(R.id.txtStack);
-        ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
-        try {
-            if (mem) {
-                ArrayList<Token> val = processVectors();
-                tokens.clear();
-                output.setText(Utility.convertTokensToString(val) + "→ Z");
-                Vector.z_value = val;
-                mem = false;
-                memButton.setChecked(mem);
-            } else {
-                tokens.add(VectorFactory.makeZ());
-            }
-            updateInput();
-        } catch (Exception e) { //User did a mistake
-            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
-        }
+    public void clickVT(View v) {
+        tokens.add(new Token ("t"){});
+        updateInput();
     }
 
 
@@ -450,6 +435,26 @@ public class VectorMode extends Basic {
         scrollView.pageScroll(ScrollView.FOCUS_DOWN);
     }
 
+    /**
+     * When the user presses the Scalar Button.
+     *
+     * @param v Not Used
+     */
+    public void clickScalar(View v){
+        TextView output = (TextView) findViewById(R.id.txtStack);
+        VRuleSet.setPressedScalarEqnButton(true);
+        try {
+            String s = Utility.convertTokensToString(processVectors());
+            s = s.indexOf(".") < 0  ? s : (s.indexOf("E")>0 ? s.substring(0,s.indexOf("E")).replaceAll("0*$", "")
+                    .replaceAll("\\.$", "").concat(s.substring(s.indexOf("E"))) : s.replaceAll("0*$", "")
+                    .replaceAll("\\.$", "")); //Removes trailing zeroes
+            output.setText(s);
+        }catch (Exception e){ //User did a mistake
+            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
+        }
+        ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
+        scrollView.pageScroll(ScrollView.FOCUS_DOWN);
+    }
   /*  *//**
      * When the user presses the , Button.
      *

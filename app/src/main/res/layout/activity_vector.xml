@@ -204,14 +204,14 @@
                 android:textSize="16sp" />
 
             <Button
-                android:id="@+id/s"
+                android:id="@+id/v"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:checked="false"
-                android:onClick="clickVY"
+                android:onClick="clickVV"
                 android:text="@string/s"
                 android:textSize="16sp" />
 
@@ -223,7 +223,7 @@
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:checked="false"
-                android:onClick="clickVZ"
+                android:onClick="clickVT"
                 android:text="@string/t"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -282,7 +282,7 @@
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:checked="false"
-                android:onClick=""
+                android:onClick="clickScalar"
                 android:text="@string/scalarEquationOfALine"
                 android:textSize="16sp" />
 

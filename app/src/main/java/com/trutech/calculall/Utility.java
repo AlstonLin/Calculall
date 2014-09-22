@@ -479,21 +479,21 @@ public class Utility {
      * Determines the unit vector of a given vector
      *
      * @param vector The vector.
-     * @return double[] The unit vector.
+     * @return ArrayList<Token></Token> The unit vector.
      */
-    public static double[] calculateUnitVector (double[] vector){
+    public static ArrayList<Token> findUnitVector (double[] vector){
         double magnitude = calculateMagnitude(vector);
         if (vector.length == 2){
             double[] unitVector = new double[2];
             unitVector[0] = vector[0]/magnitude;
             unitVector[1] = vector[1]/magnitude;
-            return unitVector;
+            return Utility.convertDoublesToVector(unitVector);
         } else if (vector.length == 3) {
             double[] unitVector = new double[3];
             unitVector[0] = vector[0]/magnitude;
             unitVector[1] = vector[1]/magnitude;
             unitVector[2] = vector[2]/magnitude;
-            return unitVector;
+            return Utility.convertDoublesToVector(unitVector);
         } else {
             throw new IllegalArgumentException("Error: This calculator only supports 2D and 3D vectors.");
         }
@@ -691,17 +691,17 @@ public class Utility {
         return newVector;
     }
 
-    /**
+/*    *//**
      *
      * @param vector Vector in an array of doubles who's unit vector is being found
      * @return ArrayList<Token> The unit vector
-     */
+     *//*
     public static ArrayList<Token> findUnitVector (double[] vector) {
         ArrayList<Token> tempExpression = new ArrayList<Token>();
         tempExpression.add(new Number (1/Utility.calculateMagnitude(vector)));
         tempExpression.addAll(Utility.convertDoublesToVector(vector));
         return tempExpression;
-    }
+    }*/
 
     /**
      *Finds the angle between 2 vectors represent

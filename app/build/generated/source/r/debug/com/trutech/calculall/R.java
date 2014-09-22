@@ -112,7 +112,6 @@ public final class R {
         public static final int row3=0x7f07004f;
         public static final int row4=0x7f070054;
         public static final int row5=0x7f070059;
-        public static final int s=0x7f070064;
         public static final int scalarEquationButton=0x7f07006a;
         public static final int scrollView=0x7f070000;
         public static final int settingsRow1=0x7f07000a;
@@ -129,6 +128,7 @@ public final class R {
         public static final int txtInput=0x7f070002;
         public static final int txtStack=0x7f070003;
         public static final int unitVectorButton=0x7f070068;
+        public static final int v=0x7f070064;
         public static final int varRow=0x7f070010;
         public static final int vectorButton=0x7f070009;
         public static final int vectorRow=0x7f070066;

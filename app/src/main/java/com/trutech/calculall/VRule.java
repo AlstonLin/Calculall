@@ -77,7 +77,7 @@ public class VRule {
                     stringExpression = stringExpression + "|";
                 }
 
-            }  else if (expression.get(i).getSymbol() == "proj") {
+            } else if (expression.get(i).getSymbol() == "proj") {
                 stringExpression = stringExpression + "p";
             }
             else {
@@ -185,7 +185,11 @@ public class VRule {
             tempExpression.add(new Token ("°"){});
         } else if (operation == VRuleSet.PROJ) {
             tempExpression.addAll(Utility.findProjection(leftVector,rightVector));
-        } else if (operation == VRuleSet.CHECK && (expression.size() == 3 || expression.size() == 2 || expression.size() == 5 || expression.size() == 7)) {
+        } else if (operation == VRuleSet.SCALAR&& VRuleSet.getPressedScalarEqnButton()) {
+            tempExpression.addAll(Utility.calculateScalarEquation(leftVector,rightVector));
+            VRuleSet.setScalarEqnOutput(true);
+            VRuleSet.setPressedScalarEqnButton(false);
+        }else if (operation == VRuleSet.CHECK && (expression.size() == 3 || expression.size() == 2 || VRuleSet.getScalarEqnOutput() || expression.size() == 5 || expression.size() == 7)) {
             VRuleSet.setValidOutput(true); //Method to make make sure output is valid
             tempExpression = expression;
         } else if (operation == VRuleSet.UNITVECTOR || operation == VRuleSet.ANGLE ||
