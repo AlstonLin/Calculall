@@ -65,6 +65,15 @@ public class OperatorFactory {
         };
     }
 
+    public static Operator makeAngle() {
+        return new Operator("∠", Operator.ANGLE, 6, true) {
+            @Override
+            public double operate(double left, double right) {
+                return 1;
+            }
+        };
+    }
+
     public static Operator makeExponent() {
         return new Operator("^", Operator.EXPONENT, 5, false) { //TODO: Make it so the next number is a superscript
             @Override

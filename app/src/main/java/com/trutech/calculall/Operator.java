@@ -8,7 +8,7 @@ package com.trutech.calculall;
 public abstract class Operator extends Token {
 
     public static int ADD = 1, SUBTRACT = 2, MULTIPLY = 3, DIVIDE = 4, EXPONENT = 5, PERMUTATION = 6, 
-    		COMBINATION = 7, FACTORIAL = 8, VARROOT = 9, DOT = 10, CROSS = 11;
+    		COMBINATION = 7, FACTORIAL = 8, VARROOT = 9, DOT = 10, CROSS = 11, ANGLE = 12;
     private int type;
     private int precedence;
     private boolean leftAssociative;

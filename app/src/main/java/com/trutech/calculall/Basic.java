@@ -9,9 +9,6 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.lang.reflect.Array;
-import java.math.BigDecimal;
-import java.math.MathContext;
 import java.util.ArrayList;
 
 /**
@@ -25,6 +22,7 @@ public class Basic extends Activity {
 	public static final int DEGREE = 1, RADIAN = 2, GRADIAN = 3; //Modes for angles
 	protected ArrayList<Token> tokens = new ArrayList<Token>(); //Tokens shown on screen
 	protected boolean clearOnClick = false;
+    protected boolean changedTokens = false;
 
 	//GridView mKeypadGrid;
 	//KeypadAdapter mKeypadAdapter;
@@ -268,6 +266,7 @@ public class Basic extends Activity {
 	public void clickClear(View v){
 		tokens.clear();
 		updateInput();
+        changedTokens = true; //used to know if the button has been used
 		TextView output = (TextView) findViewById(R.id.txtStack);
 		output.setText(""); //Clears stack
 	}
@@ -283,6 +282,7 @@ public class Basic extends Activity {
 		}
 		tokens.remove(tokens.size() - 1); //Removes last token
 		updateInput();
+        changedTokens = true; //used to know if the button has been used
 	}
 
 	/**
