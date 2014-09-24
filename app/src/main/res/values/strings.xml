@@ -87,6 +87,7 @@
     <string name="base16">HEX</string>
     <string name="base10">DEC</string>
     <string name="base8">OCT</string>
+    <string name="matrix">Matrix</string>
     <string name="base2">BIN</string>
     <string name="radix">K.IJK</string>
     <string name="mixedFrac">A b/c</string>
@@ -102,5 +103,7 @@
     <string name="derivative">dy/dx</string>
     <string name="graph">Graph</string>
     <string name="integrate">∫</string>
+    <string name="title_activity_matrix_mode">MatrixMode</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

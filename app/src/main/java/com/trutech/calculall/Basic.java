@@ -368,6 +368,17 @@ public class Basic extends Activity {
         startActivity(intent);
 	}
 
+    /**
+     * When the user wants to change to Vector Mode.
+     *
+     * @param v Not Used
+     */
+    public void clickMatrix(View v){
+        //Goes to the VectorMode activity
+        Intent intent = new Intent(this, MatrixMode.class);
+        startActivity(intent);
+    }
+
 	/**
 	 * Updates the text on the input screen.
 	 */

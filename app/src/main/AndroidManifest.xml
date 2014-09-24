@@ -37,6 +37,10 @@
             android:name=".VectorMode"
             android:label="@string/title_activity_vector" >
         </activity>
+        <activity
+            android:name=".MatrixMode"
+            android:label="@string/title_activity_matrix_mode" >
+        </activity>
     </application>
 
 </manifest>

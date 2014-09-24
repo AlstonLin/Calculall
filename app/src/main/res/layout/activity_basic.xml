@@ -52,51 +52,62 @@
             android:layout_height="0dp"
             android:layout_marginBottom="-7dp"
             android:layout_marginTop="-7dp"
-            android:layout_weight="2"
+            android:layout_weight="1.8"
             android:orientation="horizontal" >
 
             <Button
-                android:id="@+id/BasicButton"
+                android:id="@+id/basicButton"
                 style="?android:attr/buttonStyleSmall"
-                android:layout_width="fill_parent"
+                android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_marginLeft="-7dp"
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
+                android:onClick="clickBasic"
                 android:text="@string/basic"
                 android:textSize="16sp" />
 
             <Button
-                android:id="@+id/AdvancedButton"
+                android:id="@+id/advancedButton"
                 style="?android:attr/buttonStyleSmall"
-                android:layout_width="fill_parent"
+                android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
-                android:onClick="clickAdvanced"
                 android:text="@string/advanced"
-                android:textSize="13sp" />
+                android:onClick="clickAdvanced"
+                android:textSize="12sp" />
 
             <Button
                 android:id="@+id/functionButton"
                 style="?android:attr/buttonStyleSmall"
-                android:layout_width="fill_parent"
+                android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
-                android:onClick="clickFunction"
                 android:text="@string/function"
                 android:textSize="14sp" />
 
             <Button
                 android:id="@+id/vectorButton"
                 style="?android:attr/buttonStyleSmall"
-                android:layout_width="fill_parent"
+                android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:onClick="clickVector"
                 android:text="@string/vector"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/matrixButton"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_marginRight="-7dp"
+                android:layout_weight="1"
+                android:onClick="clickMatrix"
+                android:text="@string/matrix"
                 android:textSize="16sp" />
         </LinearLayout>
 
