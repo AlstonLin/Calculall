@@ -8,10 +8,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Set;
 
 /**
  * Ability to define functions and perform various actions with them, such as finding
@@ -19,6 +17,7 @@ import java.util.Set;
  *
  * @version 0.4.0
  */
+@SuppressWarnings("ResourceType")
 public class FunctionMode extends Advanced {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +92,12 @@ public class FunctionMode extends Advanced {
     public void clickIntegrate(View view) {
     }
 
+    /**
+     * Graphs the inputted function.
+     * @param view
+     */
     public void clickGraph(View view) {
+        setContentView(new GraphView(this, this));
     }
 
     /**

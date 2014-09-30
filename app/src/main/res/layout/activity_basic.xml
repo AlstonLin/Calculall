@@ -86,6 +86,7 @@
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:text="@string/function"
+                android:onClick="clickFunction"
                 android:textSize="14sp" />
 
             <Button
