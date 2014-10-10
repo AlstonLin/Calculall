@@ -26,13 +26,14 @@ public class GraphView extends View {
     private Paint redPaint;
     private Paint blackPaint;
     private Paint backgroundPaint;
+    private float originX = 0, originY = 0; //The origin of the graph
     private int width;
     private int height;
     //The bounds for the graph
     private int lowerX = -50;
-    private int lowerY = -50;
+    private int lowerY = -30;
     private int upperX = 50;
-    private int upperY = 50;
+    private int upperY = 30;
 
     private OnTouchListener listener = new OnTouchListener() {
 
@@ -95,8 +96,8 @@ public class GraphView extends View {
         //Draws the background
         canvas.drawRect(0, 0, width, height, backgroundPaint);
         drawExit(canvas);
-        drawAxis(canvas);
         drawGraph(canvas);
+        drawAxis(canvas);
     }
 
     /**
@@ -107,7 +108,7 @@ public class GraphView extends View {
      */
     private void drawGraph(Canvas canvas) {
         HashMap<Float, Float> points = new HashMap<Float, Float>();
-        int numOfPoints = 1000;
+        int numOfPoints = 300;
         //Calculates important values that will adjust how the graph would look
         float xRange = upperX - lowerX;
         float xMultiplier = width / xRange;
@@ -127,16 +128,20 @@ public class GraphView extends View {
             Float startY = points.get(startX);
             Float endY = points.get(endX);
             if (startY != null && endY != null) { //If both the start and end points exists
-                if (startY != Integer.MAX_VALUE && endY != Integer.MAX_VALUE && startY > lowerY && endY < upperY) { //Does not graph discontinuities or outside the screen
+                if (startY != Integer.MAX_VALUE && endY != Integer.MAX_VALUE
+                        && startY > lowerY - Math.abs(lowerY * 0.1) && endY < upperY + Math.abs(upperY * 0.1)) { //Does not graph discontinuities or outside the screen
                     //Adjusts the x and y values according to the display
                     startX = (startX - lowerX) * xMultiplier;
                     endX = (endX - lowerX) * xMultiplier;
                     startY = (startY - lowerY) * yMultiplier;
                     endY = (endY - lowerY) * yMultiplier;
-                    canvas.drawLine(startX, startY, endX, endY, blackPaint);
+                    canvas.drawLine(startX, height - startY, endX, height - endY, blackPaint);
                 }
             }
         }
+        //Saves the origin coordinate
+        originX = -lowerX * xMultiplier;
+        originY = -lowerY * yMultiplier;
     }
 
     /**
@@ -184,9 +189,9 @@ public class GraphView extends View {
      */
     private void drawAxis(Canvas canvas) {
         //X axis
-        canvas.drawLine(0, height / 2, width, height / 2, blackPaint);
+        canvas.drawLine(0, height - originY, width, height - originY, redPaint);
         //Y axis
-        canvas.drawLine(width / 2, 0, width / 2, height, blackPaint);
+        canvas.drawLine(originX, 0, originX, height, redPaint);
     }
 
     /**

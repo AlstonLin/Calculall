@@ -293,15 +293,15 @@
             android:orientation="horizontal" >
 
             <Button
-                android:id="@+id/factorial"
+                android:id="@+id/ln"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_marginLeft="-7dp"
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
-                android:onClick="clickFactorial"
-                android:text="@string/factorial"
+                android:onClick="clickLn"
+                android:text="@string/ln"
                 android:textSize="16sp" />
 
             <Button
