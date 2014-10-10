@@ -33,7 +33,7 @@ public class FunctionMode extends Advanced {
     }
 
     public void clickRoots(View view) {
-        ArrayList<Token> tokens = condenseDigits();
+        ArrayList<Token> tokens = Utility.condenseDigits(this.tokens);
         tokens = Utility.setupExpression(tokens);
         //Utility.simplifyExpression()
         //At this point, it will be assumed everything is simplified and the function is in decending powers
@@ -97,7 +97,7 @@ public class FunctionMode extends Advanced {
      * @param view
      */
     public void clickGraph(View view) {
-        setContentView(new GraphView(this, this));
+        setContentView(new GraphView(this, this, tokens));
     }
 
     /**

@@ -26,13 +26,15 @@ public class Utility {
         double value = 0;
         int indexOfDecimal = -1;
         boolean negative = false;
-
         //Does negatives first
-        while (digits.get(0).getValue() == DigitFactory.NEGATIVE) { //Only accepts negatives at the beginning
-            digits.remove(0);
-            negative = negative ? false : true; //Allows for multiple negatives
+        try {
+            while (digits.get(0).getValue() == DigitFactory.NEGATIVE) { //Only accepts negatives at the beginning
+                digits.remove(0);
+                negative = negative ? false : true; //Allows for multiple negatives
+            }
+        }catch (IndexOutOfBoundsException e){ //The digits only contains negatives (occurs during adding a neg to variables)
+            return negative ? -1 : 1;
         }
-
         //Finds what index the decimal is in
         for (int i = 0; i < digits.size(); i++) {
             if (digits.get(i).getValue() == -1) {
@@ -54,6 +56,41 @@ public class Utility {
         ;
 
         return negative ? value * -1 : value;
+    }
+
+    /**
+     * Transforms all the digits into numbers as well as replacing Variables with numbers.
+     *
+     * @param tokens The expression to condense digits
+     * @return The expression with the digits condensed
+     */
+    public static ArrayList<Token> condenseDigits(ArrayList<Token> tokens){
+        ArrayList<Token> newTokens = new ArrayList<Token>();
+        ArrayList<Digit> digits = new ArrayList<Digit>();
+        boolean atDigits = false; //Tracks if it's currently tracking digits
+        for (Token token : tokens){
+            if (atDigits){ //Going through digits
+                if (token instanceof Digit){ //Number keeps going
+                    digits.add((Digit) token);
+                }else { //Number ended
+                    atDigits = false;
+                    newTokens.add(new Number(Utility.valueOf(digits))); //Adds the sum of all the digits
+                    digits.clear();
+                    newTokens.add(token);
+                }
+            }else{ //Not going through digits
+                if (token instanceof Digit) { //Start of a number
+                    atDigits = true;
+                    digits.add((Digit) token);
+                } else{ //Not a digit; adds to the new list
+                    newTokens.add(token);
+                }
+            }
+        }
+        if (!digits.isEmpty() && atDigits){ //Digits left
+            newTokens.add(new Number (Utility.valueOf(digits)));
+        }
+        return newTokens;
     }
 
     /**

@@ -43,44 +43,10 @@ public class Basic extends Activity {
 	 * @throws IllegalArgumentException If the user has input a invalid expression
 	 */
 	protected double process (){
-        ArrayList<Token> tokens = condenseDigits();
+        ArrayList<Token> tokens = Utility.condenseDigits(this.tokens);
         subVariables();
         double unrounded = Utility.evaluateExpression(Utility.convertToReversePolish(tokens));
 		return Utility.round(unrounded, 9);
-	} 
-
-
-
-	/**
-	 * Transforms all the digits into numbers as well as replacing Variables with numbers.
-	 */
-	protected ArrayList condenseDigits(){
-		ArrayList<Token> newTokens = new ArrayList<Token>();
-		ArrayList<Digit> digits = new ArrayList<Digit>();
-		boolean atDigits = false; //Tracks if it's currently tracking digits
-		for (Token token : tokens){
-			if (atDigits){ //Going through digits
-				if (token instanceof Digit){ //Number keeps going
-					digits.add((Digit) token);
-				}else { //Number ended
-					atDigits = false;
-					newTokens.add(new Number(Utility.valueOf(digits))); //Adds the sum of all the digits
-					digits.clear();
-					newTokens.add(token);
-				}
-			}else{ //Not going through digits
-				if (token instanceof Digit) { //Start of a number
-					atDigits = true;
-					digits.add((Digit) token);
-				} else{ //Not a digit; adds to the new list
-					newTokens.add(token);
-				}
-			}
-		}
-		if (!digits.isEmpty() && atDigits){ //Digits left
-			newTokens.add(new Number (Utility.valueOf(digits)));
-		}
-		return newTokens;
 	}
 
     /**

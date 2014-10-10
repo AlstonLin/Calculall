@@ -26,7 +26,7 @@ public class VectorMode extends Basic {
 
 
     public ArrayList<Token> processVectors () {
-        return Utility.simplifyVector(Utility.convertVariablesToTokens(condenseDigits()));
+        return Utility.simplifyVector(Utility.convertVariablesToTokens(Utility.condenseDigits(tokens)));
     }
 
 
