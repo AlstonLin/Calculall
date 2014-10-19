@@ -58,6 +58,7 @@ public class Utility {
         return negative ? value * -1 : value;
     }
 
+
     /**
      * Transforms all the digits into numbers as well as replacing Variables with numbers.
      *
@@ -201,7 +202,7 @@ public class Utility {
             }
         }
         if (stack.size() != 1) {
-            throw new IllegalArgumentException(); //There should only be 1 token left on the stack
+            throw new IllegalArgumentException("Stack size is empty"); //There should only be 1 token left on the stack
         } else {
             return stack.pop().getValue();
         }
@@ -805,6 +806,34 @@ public class Utility {
         return rounded.round(new MathContext(sigDigs)).doubleValue();
     }
 
+
+    /**
+     * Adds any missing end brackets to the expression.
+     *
+     * @param expression The expression that may have missing brackets
+     * @return The expression with all the missing brackets added to the end
+     */
+    public static ArrayList<Token> addMissingBrackets (ArrayList<Token> expression){
+        int bracketCount = 0;
+        ArrayList<Token> newExpression = new ArrayList<Token>();
+        //Counts brackets
+        for (Token t : expression){
+            newExpression.add(t);
+            if (t instanceof Bracket){
+                Bracket b = (Bracket)t;
+                if (b.getType() == Bracket.OPEN){
+                    bracketCount++;
+                }else if (b.getType() == Bracket.CLOSE){
+                    bracketCount--;
+                }
+            }
+        }
+        //Adds missing brackets
+        for (int i = bracketCount; i > 0; i--){
+            newExpression.add(BracketFactory.createCloseBracket());
+        }
+        return newExpression;
+    }
 
     /**
      * Finds the derivative of a given function

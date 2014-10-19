@@ -30,10 +30,7 @@ public abstract class Variable extends Token{
 	public int getType(){
 		return type;
 	}
-	
-	public Number getNum(Variable v){
-		return new Number(v.getValue());
-	}
+
 	
 	/**
 	 * @return The value of the variable/constant 

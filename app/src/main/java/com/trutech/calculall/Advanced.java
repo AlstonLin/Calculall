@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ScrollView;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -85,8 +83,7 @@ public class Advanced extends Basic {
                 }
             }
         }*/
-        TextView input = (TextView) findViewById(R.id.txtInput);
-        TextView output = (TextView) findViewById(R.id.txtStack);
+        DisplayView display = (DisplayView) findViewById(R.id.display);
         try {
             double val = process();
             if(switchedAngleMode){
@@ -95,9 +92,8 @@ public class Advanced extends Basic {
                 tokens.add(new Token(" → DEG"){});
             }
             updateInput();
-            output.setText(val*9/10+"");
-            ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
-            scrollView.pageScroll(ScrollView.FOCUS_DOWN);
+            display.displayOutput(val * 9 / 10 + "");
+            scrollDown();
             switchedAngleMode = true;
         } catch (Exception e) { //User made a mistake
             Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
@@ -106,8 +102,7 @@ public class Advanced extends Basic {
 
     public void convRtoG() {
         //Converts the number displayed from radians into gradians ie multiplies the number by 100/pi
-        TextView input = (TextView) findViewById(R.id.txtInput);
-        TextView output = (TextView) findViewById(R.id.txtStack);
+        DisplayView display = (DisplayView)findViewById(R.id.display);
         try {
             double val = process();
             if(switchedAngleMode){
@@ -116,9 +111,8 @@ public class Advanced extends Basic {
                 tokens.add(new Token(" → GRAD"){});
             }
             updateInput();
-            output.setText(val*100/Math.PI+"");
-            ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
-            scrollView.pageScroll(ScrollView.FOCUS_DOWN);
+            display.displayOutput(val * 100 / Math.PI + "");
+            scrollDown();
             switchedAngleMode = true;
         } catch (Exception e) { //User made a mistake
             Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
@@ -127,8 +121,7 @@ public class Advanced extends Basic {
 
     public void convDtoR() {
         //Converts the number displayed from degrees into radians ie multiplies the number by pi/180
-        TextView input = (TextView) findViewById(R.id.txtInput);
-        TextView output = (TextView) findViewById(R.id.txtStack);
+        DisplayView display = (DisplayView)findViewById(R.id.display);
         try {
             double val = process();
             if(switchedAngleMode){
@@ -137,9 +130,8 @@ public class Advanced extends Basic {
                 tokens.add(new Token(" → RAD"){});
             }
             updateInput();
-            output.setText(val*Math.PI/180+"");
-            ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
-            scrollView.pageScroll(ScrollView.FOCUS_DOWN);
+            display.displayOutput(val * Math.PI / 180 + "");
+            scrollDown();
             switchedAngleMode = true;
         } catch (Exception e) { //User made a mistake
             Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
@@ -376,13 +368,13 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickA(View v) {
-        TextView output = (TextView) findViewById(R.id.txtStack);
+        DisplayView display = (DisplayView)findViewById(R.id.display);
         ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
         try {
             if (mem) {
                 double val = process();
                 tokens.clear();
-                output.setText(val + "→ A");
+                display.displayOutput(val + "→ A");
                 Variable.a_value = val;
                 mem = false;
                 memButton.setChecked(mem);
@@ -401,13 +393,13 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickB(View v) {
-        TextView output = (TextView) findViewById(R.id.txtStack);
+        DisplayView display = (DisplayView)findViewById(R.id.display);
         ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
         try {
             if (mem) {
                 double val = process();
                 tokens.clear();
-                output.setText(val + "→B");
+                display.displayOutput(val + "→B");
                 Variable.b_value = val;
                 mem = false;
                 memButton.setChecked(mem);
@@ -426,13 +418,13 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickC(View v) {
-        TextView output = (TextView) findViewById(R.id.txtStack);
+        DisplayView display = (DisplayView)findViewById(R.id.display);
         ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
         try {
             if (mem) {
                 double val = process();
                 tokens.clear();
-                output.setText(val + "→C");
+                display.displayOutput(val + "→C");
                 Variable.c_value = val;
                 mem = false;
                 memButton.setChecked(mem);
@@ -451,13 +443,13 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickX(View v) {
-        TextView output = (TextView) findViewById(R.id.txtStack);
+        DisplayView display = (DisplayView)findViewById(R.id.display);
         ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
         try {
             if (mem) {
                 double val = process();
                 tokens.clear();
-                output.setText(val + "→X");
+                display.displayOutput(val + "→X");
                 Variable.x_value = val;
                 mem = false;
                 memButton.setChecked(mem);
@@ -476,13 +468,13 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickY(View v) {
-        TextView output = (TextView) findViewById(R.id.txtStack);
+        DisplayView display = (DisplayView)findViewById(R.id.display);
         ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
         try {
             if (mem) {
                 double val = process();
                 tokens.clear();
-                output.setText(val + "→Y");
+                display.displayOutput(val + "→Y");
                 Variable.y_value = val;
                 mem = false;
                 memButton.setChecked(mem);
@@ -501,13 +493,13 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickZ(View v) {
-        TextView output = (TextView) findViewById(R.id.txtStack);
+        DisplayView display = (DisplayView)findViewById(R.id.display);
         ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
         try {
             if (mem) {
                 double val = process();
                 tokens.clear();
-                output.setText(val + "→Z");
+                display.displayOutput(val + "→Z");
                 Variable.z_value = val;
                 mem = false;
                 memButton.setChecked(mem);
@@ -612,6 +604,7 @@ public class Advanced extends Basic {
 
     public void clickExponent(View v) {
         tokens.add(OperatorFactory.makeExponent());
+        tokens.add(BracketFactory.createOpenBracket());
         updateInput();
     }
 

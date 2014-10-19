@@ -8,7 +8,7 @@ package com.trutech.calculall;
 public class OperatorFactory {
 
     public static Operator makeAdd() {
-        return new Operator("+", Operator.ADD, 2, true) {
+        return new Operator("+", Operator.ADD, 2, true, 1, true) {
             @Override
             public double operate(double left, double right) {
                 return left + right;
@@ -17,7 +17,7 @@ public class OperatorFactory {
     }
 
     public static Operator makeSubtract() {
-        return new Operator("−", Operator.SUBTRACT, 2, true) {
+        return new Operator("−", Operator.SUBTRACT, 2, true, -1, false) {
             @Override
             public double operate(double left, double right) {
                 return left - right;
@@ -26,7 +26,7 @@ public class OperatorFactory {
     }
 
     public static Operator makeMultiply() {
-        return new Operator("*", Operator.MULTIPLY, 3, true) {
+        return new Operator("*", Operator.MULTIPLY, 3, true, 1, true) {
             @Override
             public double operate(double left, double right) {
                 return left * right;
@@ -35,7 +35,7 @@ public class OperatorFactory {
     }
 
     public static Operator makeDivide() {
-        return new Operator("/", Operator.DIVIDE, 3, true) {
+        return new Operator("/", Operator.DIVIDE, 3, true, 0, false) {
             @Override
             public double operate(double left, double right) {
                 if (right == 0) {
@@ -48,7 +48,7 @@ public class OperatorFactory {
     }
 
     public static Operator makeDot() {
-        return new Operator("•", Operator.DOT, 6, true) {
+        return new Operator("•", Operator.DOT, 6, true, 1, false) {
             @Override
             public double operate(double left, double right) {
                 return 1;
@@ -57,16 +57,7 @@ public class OperatorFactory {
     }
 
     public static Operator makeCross() {
-        return new Operator("×", Operator.CROSS, 6, true) {
-            @Override
-            public double operate(double left, double right) {
-                return 1;
-            }
-        };
-    }
-
-    public static Operator makeAngle() {
-        return new Operator("∠", Operator.ANGLE, 6, true) {
+        return new Operator("×", Operator.CROSS, 6, true, -1, false) {
             @Override
             public double operate(double left, double right) {
                 return 1;
@@ -75,7 +66,7 @@ public class OperatorFactory {
     }
 
     public static Operator makeExponent() {
-        return new Operator("^", Operator.EXPONENT, 5, false) { //TODO: Make it so the next number is a superscript
+        return new Operator("^", Operator.EXPONENT, 5, false, 0, false) { //TODO: Make it so the next number is a superscript
             @Override
             public double operate(double left, double right) {
                 return Math.pow(left, right);
@@ -84,7 +75,7 @@ public class OperatorFactory {
     }
 
     public static Operator makeFactorial() {
-        return new Operator("!", Operator.FACTORIAL, 5, false) {
+        return new Operator("!", Operator.FACTORIAL, 5, false, 0, false) {
             @Override
             public double operate(double left, double right) {
                 if (left % 1 != 0) { // Makes sure this is an integer
@@ -96,7 +87,7 @@ public class OperatorFactory {
     }
 
     public static Operator makeVariableRoot() {
-        return new Operator("^√", Operator.VARROOT, 5, false) {
+        return new Operator("^√", Operator.VARROOT, 5, false, 0, false) {
             @Override
             public double operate(double left, double right) {
                 return Math.pow(right, 1 / left);
@@ -105,7 +96,7 @@ public class OperatorFactory {
     }
 
     public static Operator makePermutation() {
-        return new Operator("P", Operator.PERMUTATION, 5, false) {  //TODO: make it so that the previous and next numbers are subscript
+        return new Operator("P", Operator.PERMUTATION, 5, false, 0, false) {  //TODO: make it so that the previous and next numbers are subscript
             @Override
             public double operate(double left, double right) {
                 if (left % 1 != 0 || right % 1 != 0 || right > left) {
@@ -118,7 +109,7 @@ public class OperatorFactory {
     }
 
     public static Operator makeCombination() {
-        return new Operator("C", Operator.COMBINATION, 5, false) { //TODO: make it so that the previous and next numbers are subscript
+        return new Operator("C", Operator.COMBINATION, 5, false, 0, false) { //TODO: make it so that the previous and next numbers are subscript
             @Override
             public double operate(double left, double right) {
                 if (left % 1 != 0 || right % 1 != 0) {
@@ -133,6 +124,16 @@ public class OperatorFactory {
             }
         };
     }
+
+    public static Operator makeAngle() {
+        return new Operator("∠", Operator.ANGLE, 6, true, -1, false) {
+            @Override
+            public double operate(double left, double right) {
+                return 1;
+            }
+        };
+    }
+
 
 
 }

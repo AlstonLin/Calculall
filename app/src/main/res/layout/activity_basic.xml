@@ -7,36 +7,23 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin" >
+    android:paddingTop="@dimen/activity_vertical_margin">
 
-    <ScrollView
+
+    <LinearLayout
+        android:id="@+id/Container"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="18" >
+        android:layout_weight="18"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <view
             android:id="@+id/display"
+            class="com.trutech.calculall.DisplayView"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/txtInput"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="#ff948C75"
-                android:gravity="right"
-                android:textSize="48sp" />
-
-            <TextView
-                android:id="@+id/txtStack"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="#ff948C75"
-                android:gravity="right"
-                android:textSize="48sp" />
-        </LinearLayout>
-    </ScrollView>
+            android:layout_height="fill_parent"
+            android:longClickable="false" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/Grid"
@@ -44,7 +31,7 @@
         android:layout_height="0dp"
         android:layout_weight="60"
         android:orientation="vertical"
-        android:weightSum="15.5" >
+        android:weightSum="15.5">
 
         <LinearLayout
             android:id="@+id/modes"
@@ -53,7 +40,7 @@
             android:layout_marginBottom="-7dp"
             android:layout_marginTop="-7dp"
             android:layout_weight="1.8"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/basicButton"
@@ -74,8 +61,8 @@
                 android:layout_height="fill_parent"
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
-                android:text="@string/advanced"
                 android:onClick="clickAdvanced"
+                android:text="@string/advanced"
                 android:textSize="12sp" />
 
             <Button
@@ -85,8 +72,8 @@
                 android:layout_height="fill_parent"
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
-                android:text="@string/function"
                 android:onClick="clickFunction"
+                android:text="@string/function"
                 android:textSize="14sp" />
 
             <Button
@@ -118,7 +105,7 @@
             android:layout_height="0dp"
             android:layout_marginBottom="-7dp"
             android:layout_weight="3"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/NegativeButton"
@@ -172,7 +159,7 @@
             android:layout_height="0dp"
             android:layout_marginBottom="-7dp"
             android:layout_weight="3"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/SevenButton"
@@ -226,7 +213,7 @@
             android:layout_height="0dp"
             android:layout_marginBottom="-7dp"
             android:layout_weight="3"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/FourButton"
@@ -280,7 +267,7 @@
             android:layout_height="0dp"
             android:layout_marginBottom="-7dp"
             android:layout_weight="3"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/OneButton"
@@ -334,7 +321,7 @@
             android:layout_height="0dp"
             android:layout_marginBottom="-7dp"
             android:layout_weight="3"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/ZeroButton"
