@@ -10,6 +10,7 @@
         android:targetSdkVersion="21" />
 
     <application
+        android:theme="@style/Main"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher" >
         <activity
