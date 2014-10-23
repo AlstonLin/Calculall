@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Main"
+        parent="android:Theme.Holo">
+        <item name="android:buttonStyle">@style/button</item>
+        <item name="android:buttonStyleSmall">@style/button</item>
+    </style>
+    <style name = "button" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name ="android:background">@drawable/mybutton</item>
+<item name="android:textColor">#ffffff</item>
+    </style>
+    <style name = "button2" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name ="android:background">@drawable/mybutton2</item>
+        <item name="android:textColor">#ffffff</item>
+    </style>
+    <style name = "button3" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name ="android:background">@drawable/mybutton3</item>
+        <item name="android:textColor">#F64B55</item>
+    </style>
+    <style name = "button4" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name ="android:background">@drawable/mybutton3</item>
+        <item name="android:textColor">#ffffff</item>
+    </style>
+</resources>

@@ -76,7 +76,7 @@
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:text="@string/advanced"
-                android:textSize="13sp" />
+                android:textSize="12sp" />
 
             <Button
                 android:id="@+id/functionButton"
@@ -98,6 +98,17 @@
                 android:layout_weight="1"
                 android:onClick="clickVector"
                 android:text="@string/vector"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/matrixButton"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_marginRight="-7dp"
+                android:layout_weight="1"
+                android:onClick="clickMatrix"
+                android:text="@string/matrix"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -724,4 +735,4 @@
         </LinearLayout>
     </LinearLayout>
 
-</LinearLayout><!-- From: file:/C:/Users/Keith/Desktop/Stuff/TruTech/Calculall/app/src/main/res/layout/activity_advanced.xml -->
+</LinearLayout><!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/layout/activity_advanced.xml -->
