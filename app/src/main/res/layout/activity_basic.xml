@@ -15,14 +15,34 @@
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="18"
-        android:orientation="vertical">
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/leftScroll"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:onClick="scrollLeft"
+            android:text="@string/leftscroll" />
 
         <view
             android:id="@+id/display"
             class="com.trutech.calculall.DisplayView"
-            android:layout_width="fill_parent"
+            android:layout_width="0dp"
             android:layout_height="fill_parent"
+            android:layout_weight="50"
             android:longClickable="false" />
+
+        <Button
+            android:id="@+id/rightScroll"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:layout_weight="5"
+            android:onClick="scrollRight"
+            android:text="@string/rightscroll" />
+
+
     </LinearLayout>
 
 
@@ -68,10 +88,10 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:onClick="clickBack"
                 android:text="@string/backspace"
-                android:textSize="36sp"
-                android:gravity="center" />
+                android:textSize="36sp" />
 
             <Button
                 android:id="@+id/ClearButton"
@@ -303,13 +323,13 @@
 
             <Button
                 android:id="@+id/advancedButton"
+                style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:text="@string/advanced"
                 android:onClick="clickAdvanced"
-                android:textSize="12sp"
-                style="?android:attr/buttonStyleSmall" />
+                android:text="@string/advanced"
+                android:textSize="12sp" />
 
             <Button
                 android:id="@+id/functionButton"

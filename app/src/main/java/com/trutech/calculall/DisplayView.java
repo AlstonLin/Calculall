@@ -19,9 +19,11 @@ public class DisplayView extends ScrollView {
     private final int FONT_SIZE = 96;
     private float startX = 0; //Tracks the starting x position at which the canvas will start drawing (allows side scrolling)
     private float maxX = 0; //Max start X that the user can scroll to
+    private int cursorIndex = 0; //The index where the cursor is
     private boolean functionMode = false; //If this display is for function mode
     private Paint textPaint;
     private Paint smallPaint; //For superscripts and subscripts
+    private Paint cursorPaint;
     private ArrayList<Token> expression = new ArrayList<Token>();
     private ArrayList<Token> output = new ArrayList<Token>();
     private String outputString = ""; //TEMPORARY
@@ -35,7 +37,11 @@ public class DisplayView extends ScrollView {
 
         smallPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         smallPaint.setColor(Color.BLACK);
-        smallPaint.setTextSize(FONT_SIZE / 3);
+        smallPaint.setTextSize(FONT_SIZE / 2);
+
+        cursorPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        cursorPaint.setColor(Color.GREEN);
+        cursorPaint.setTextSize(FONT_SIZE);
         setWillNotDraw(false);
     }
 
@@ -163,6 +169,11 @@ public class DisplayView extends ScrollView {
                 }
 
                 canvas.drawText(token.getSymbol(), x, y, paint);
+                //Draws cursor if needed
+                if (i == cursorIndex) {
+                    canvas.drawText("|", x + textPaint.getTextSize() / 2, y, cursorPaint);
+                    //TODO: Find a better way to do this
+                }
 
                 if (x + xPadding > maxX) { //Re-determines the maximum x value
                     maxX = x + xPadding;
@@ -208,18 +219,34 @@ public class DisplayView extends ScrollView {
      * Scrolls the display left if possible.
      */
     public void scrollLeft() {
-        if (startX > 0) {
-            startX--;
+        if (cursorIndex > 0) {
+            setCursorIndex(cursorIndex - 1);
         }
+    }
+
+    /**
+     * Resets the scrolling (to the initial position)
+     */
+    public void reset() {
+        startX = 0;
+        cursorIndex = 0;
     }
 
     /**
      * Scrolls the display right if possible.
      */
     public void scrollRight() {
-        if (startX < maxX) {
-            startX++;
+        if (cursorIndex < expression.size() - 1) {
+            setCursorIndex(cursorIndex + 1);
         }
+    }
+
+    public void setCursorIndex(int index) {
+        cursorIndex = index;
+        //TODO: READ COMMENTS
+        //Determines if the cursor will go off the screen
+        //Scrolls appropriately if required
+        invalidate();
     }
 
 }

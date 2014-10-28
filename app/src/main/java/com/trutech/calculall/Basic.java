@@ -236,7 +236,8 @@ public class Basic extends Activity {
         changedTokens = true; //used to know if the button has been used
         DisplayView display = (DisplayView) findViewById(R.id.display);
         display.displayOutput("");
-	}
+        display.reset();
+    }
 
 
 	/**
@@ -298,6 +299,26 @@ public class Basic extends Activity {
         ScrollView scrollView = (DisplayView) findViewById(R.id.display);
         if (scrollView != null) {
             scrollView.pageScroll(ScrollView.FOCUS_DOWN);
+        }
+    }
+
+    /**
+     * Moves the cursor on the display left if possible.
+     */
+    public void scrollLeft(View v) {
+        DisplayView display = (DisplayView) findViewById(R.id.display);
+        if (display != null) {
+            display.scrollLeft();
+        }
+    }
+
+    /**
+     * SMoves the cursor on the display right if possible.
+     */
+    public void scrollRight(View v) {
+        DisplayView display = (DisplayView) findViewById(R.id.display);
+        if (display != null) {
+            display.scrollRight();
         }
     }
 
