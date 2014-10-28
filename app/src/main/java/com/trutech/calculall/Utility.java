@@ -384,7 +384,7 @@ public class Utility {
             double[] crossProduct = new double[3];
             crossProduct[0] = vectorLeft[1] * vectorRight[2] - vectorLeft[2] * vectorRight[1];
             crossProduct[1] = vectorLeft[2] * vectorRight[0] - vectorLeft[0] * vectorRight[2];
-            crossProduct[2] = vectorLeft[0] * vectorRight[1] - vectorLeft[1] * vectorRight[2];
+            crossProduct[2] = vectorLeft[0] * vectorRight[1] - vectorLeft[1] * vectorRight[0];
             return crossProduct;
         } else {
             throw new IllegalArgumentException();
