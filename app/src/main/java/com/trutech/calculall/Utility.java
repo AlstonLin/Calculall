@@ -26,13 +26,15 @@ public class Utility {
         double value = 0;
         int indexOfDecimal = -1;
         boolean negative = false;
-
         //Does negatives first
-        while (digits.get(0).getValue() == DigitFactory.NEGATIVE) { //Only accepts negatives at the beginning
-            digits.remove(0);
-            negative = negative ? false : true; //Allows for multiple negatives
+        try {
+            while (digits.get(0).getValue() == DigitFactory.NEGATIVE) { //Only accepts negatives at the beginning
+                digits.remove(0);
+                negative = negative ? false : true; //Allows for multiple negatives
+            }
+        }catch (IndexOutOfBoundsException e){ //The digits only contains negatives (occurs during adding a neg to variables)
+            return negative ? -1 : 1;
         }
-
         //Finds what index the decimal is in
         for (int i = 0; i < digits.size(); i++) {
             if (digits.get(i).getValue() == -1) {
@@ -54,6 +56,42 @@ public class Utility {
         ;
 
         return negative ? value * -1 : value;
+    }
+
+
+    /**
+     * Transforms all the digits into numbers as well as replacing Variables with numbers.
+     *
+     * @param tokens The expression to condense digits
+     * @return The expression with the digits condensed
+     */
+    public static ArrayList<Token> condenseDigits(ArrayList<Token> tokens){
+        ArrayList<Token> newTokens = new ArrayList<Token>();
+        ArrayList<Digit> digits = new ArrayList<Digit>();
+        boolean atDigits = false; //Tracks if it's currently tracking digits
+        for (Token token : tokens){
+            if (atDigits){ //Going through digits
+                if (token instanceof Digit){ //Number keeps going
+                    digits.add((Digit) token);
+                }else { //Number ended
+                    atDigits = false;
+                    newTokens.add(new Number(Utility.valueOf(digits))); //Adds the sum of all the digits
+                    digits.clear();
+                    newTokens.add(token);
+                }
+            }else{ //Not going through digits
+                if (token instanceof Digit) { //Start of a number
+                    atDigits = true;
+                    digits.add((Digit) token);
+                } else{ //Not a digit; adds to the new list
+                    newTokens.add(token);
+                }
+            }
+        }
+        if (!digits.isEmpty() && atDigits){ //Digits left
+            newTokens.add(new Number (Utility.valueOf(digits)));
+        }
+        return newTokens;
     }
 
     /**
@@ -164,7 +202,7 @@ public class Utility {
             }
         }
         if (stack.size() != 1) {
-            throw new IllegalArgumentException(); //There should only be 1 token left on the stack
+            throw new IllegalArgumentException("Stack size is empty"); //There should only be 1 token left on the stack
         } else {
             return stack.pop().getValue();
         }
@@ -778,6 +816,34 @@ public class Utility {
         return rounded.round(new MathContext(sigDigs)).doubleValue();
     }
 
+
+    /**
+     * Adds any missing end brackets to the expression.
+     *
+     * @param expression The expression that may have missing brackets
+     * @return The expression with all the missing brackets added to the end
+     */
+    public static ArrayList<Token> addMissingBrackets (ArrayList<Token> expression){
+        int bracketCount = 0;
+        ArrayList<Token> newExpression = new ArrayList<Token>();
+        //Counts brackets
+        for (Token t : expression){
+            newExpression.add(t);
+            if (t instanceof Bracket){
+                Bracket b = (Bracket)t;
+                if (b.getType() == Bracket.OPEN){
+                    bracketCount++;
+                }else if (b.getType() == Bracket.CLOSE){
+                    bracketCount--;
+                }
+            }
+        }
+        //Adds missing brackets
+        for (int i = bracketCount; i > 0; i--){
+            newExpression.add(BracketFactory.createCloseBracket());
+        }
+        return newExpression;
+    }
 
     /**
      * Finds the derivative of a given function

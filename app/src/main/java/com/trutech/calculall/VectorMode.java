@@ -3,8 +3,6 @@ package com.trutech.calculall;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ScrollView;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -26,7 +24,7 @@ public class VectorMode extends Basic {
 
 
     public ArrayList<Token> processVectors () {
-        return Utility.simplifyVector(Utility.convertVariablesToTokens(condenseDigits()));
+        return Utility.simplifyVector(Utility.convertVariablesToTokens(Utility.setupExpression(Utility.addMissingBrackets(Utility.condenseDigits(tokens)))));
     }
 
 
@@ -36,7 +34,7 @@ public class VectorMode extends Basic {
      * @param v Not Used
      */
     public void clickVectorEquals(View v){
-        TextView output = (TextView) findViewById(R.id.txtStack);
+        DisplayView display = (DisplayView)findViewById(R.id.display);
 
         //Used to check if the user added extra tokens after clicking the direction mode button at least once
         //and change switchedDirectionMode and changedTokens accordingly
@@ -64,12 +62,11 @@ public class VectorMode extends Basic {
             s = s.indexOf(".") < 0  ? s : (s.indexOf("E")>0 ? s.substring(0,s.indexOf("E")).replaceAll("0*$", "")
                     .replaceAll("\\.$", "").concat(s.substring(s.indexOf("E"))) : s.replaceAll("0*$", "")
                     .replaceAll("\\.$", "")); //Removes trailing zeroes
-            output.setText(s);
+            display.displayOutput(s);
         }catch (Exception e){ //User did a mistake
             Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
         }
-        ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
-        scrollView.pageScroll(ScrollView.FOCUS_DOWN);
+        scrollDown();
     }
 
 
@@ -90,13 +87,13 @@ public class VectorMode extends Basic {
      * @param v Not Used
      */
     public void clickVA(View v) {
-        TextView output = (TextView) findViewById(R.id.txtStack);
+        DisplayView display = (DisplayView)findViewById(R.id.display);
         ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
         try {
             if (mem) {
                 ArrayList<Token> val = processVectors();
                 tokens.clear();
-                output.setText(Utility.convertTokensToString(val) + "→ A");
+                display.displayOutput(Utility.convertTokensToString(val) + "→ A");
                 Vector.a_value = val;
                 mem = false;
                 memButton.setChecked(mem);
@@ -115,13 +112,13 @@ public class VectorMode extends Basic {
      * @param v Not Used
      */
     public void clickVB(View v) {
-        TextView output = (TextView) findViewById(R.id.txtStack);
+        DisplayView display = (DisplayView)findViewById(R.id.display);
         ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
         try {
             if (mem) {
                 ArrayList<Token> val = processVectors();
                 tokens.clear();
-                output.setText(Utility.convertTokensToString(val) + "→ B");
+                display.displayOutput(Utility.convertTokensToString(val) + "→ B");
                 Vector.b_value = val;
                 mem = false;
                 memButton.setChecked(mem);
@@ -140,13 +137,13 @@ public class VectorMode extends Basic {
      * @param v Not Used
      */
     public void clickVC(View v) {
-        TextView output = (TextView) findViewById(R.id.txtStack);
+        DisplayView display = (DisplayView)findViewById(R.id.display);
         ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
         try {
             if (mem) {
                 ArrayList<Token> val = processVectors();
                 tokens.clear();
-                output.setText(Utility.convertTokensToString(val) + "→ C");
+                display.displayOutput(Utility.convertTokensToString(val) + "→ C");
                 Vector.c_value = val;
                 mem = false;
                 memButton.setChecked(mem);
@@ -165,13 +162,13 @@ public class VectorMode extends Basic {
      * @param v Not Used
      */
     public void clickVX(View v) {
-        TextView output = (TextView) findViewById(R.id.txtStack);
+        DisplayView display = (DisplayView)findViewById(R.id.display);
         ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
         try {
             if (mem) {
                 ArrayList<Token> val = processVectors();
                 tokens.clear();
-                output.setText(Utility.convertTokensToString(val) + "→ X");
+                display.displayOutput(Utility.convertTokensToString(val) + "→ X");
                 Vector.x_value = val;
                 mem = false;
                 memButton.setChecked(mem);
@@ -190,13 +187,13 @@ public class VectorMode extends Basic {
      * @param v Not Used
      */
     public void clickVV(View v) {
-        TextView output = (TextView) findViewById(R.id.txtStack);
+        DisplayView display = (DisplayView)findViewById(R.id.display);
         ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
         try {
             if (mem) {
                 ArrayList<Token> val = processVectors();
                 tokens.clear();
-                output.setText(Utility.convertTokensToString(val) + "→ V");
+                display.displayOutput(Utility.convertTokensToString(val) + "→ V");
                 Vector.x_value = val;
                 mem = false;
                 memButton.setChecked(mem);
@@ -338,7 +335,7 @@ public class VectorMode extends Basic {
     public boolean switchedDirectionMode = false;
     public void convBtoA() {
         //Converts the number displayed from bearing into argument
-        TextView output = (TextView) findViewById(R.id.txtStack);
+        DisplayView display = (DisplayView)findViewById(R.id.display);
         try {
             VRuleSet.setPressedArgumentButton(true);
             String s = Utility.convertTokensToString(processVectors());
@@ -352,9 +349,8 @@ public class VectorMode extends Basic {
                 tokens.add(new Token(" → ARG"){});
             }*/
             updateInput();
-            output.setText(s);
-            ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
-            scrollView.pageScroll(ScrollView.FOCUS_DOWN);
+            display.displayOutput(s);
+            scrollDown();
             switchedDirectionMode = true;
         } catch (Exception e) { //User made a mistake
             VRuleSet.setPressedArgumentButton(false);
@@ -364,7 +360,7 @@ public class VectorMode extends Basic {
 
     public void convTtoB() {
         //Converts the number displayed from bearing into argument ie multiplies the number by 9/10
-        TextView output = (TextView) findViewById(R.id.txtStack);
+        DisplayView display = (DisplayView)findViewById(R.id.display);
         try {
             VRuleSet.setPressedBearButton(true);
             String s = Utility.convertTokensToString(processVectors());
@@ -378,9 +374,8 @@ public class VectorMode extends Basic {
                 tokens.add(new Token(" → BEA "){});
             }*/
             updateInput();
-            output.setText(s);
-            ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
-            scrollView.pageScroll(ScrollView.FOCUS_DOWN);
+            display.displayOutput(s);
+            scrollDown();
             switchedDirectionMode = true;
         } catch (Exception e) { //User made a mistake
             VRuleSet.setPressedBearButton(false);
@@ -390,7 +385,7 @@ public class VectorMode extends Basic {
 
     public void convAtoT() {
         //Converts the number displayed from bearing into argument ie multiplies the number by 9/10
-        TextView output = (TextView) findViewById(R.id.txtStack);
+        DisplayView display = (DisplayView)findViewById(R.id.display);
         try {
             VRuleSet.setPressedTrueBButton(true);
             String s = Utility.convertTokensToString(processVectors());
@@ -404,9 +399,8 @@ public class VectorMode extends Basic {
                 tokens.add(new Token(" → TRU"){});
             }*/
             updateInput();
-            output.setText(s);
-            ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
-            scrollView.pageScroll(ScrollView.FOCUS_DOWN);
+            display.displayOutput(s);
+            scrollDown();
             switchedDirectionMode = true;
         } catch (Exception e) { //User made a mistake
             VRuleSet.setPressedTrueBButton(false);
@@ -420,19 +414,18 @@ public class VectorMode extends Basic {
      * @param v Not Used
      */
     public void clickUnitVector(View v){
-        TextView output = (TextView) findViewById(R.id.txtStack);
+        DisplayView display = (DisplayView)findViewById(R.id.display);
         VRuleSet.setPressedUnitVButton(true);
         try {
             String s = Utility.convertTokensToString(processVectors());
             s = s.indexOf(".") < 0  ? s : (s.indexOf("E")>0 ? s.substring(0,s.indexOf("E")).replaceAll("0*$", "")
                     .replaceAll("\\.$", "").concat(s.substring(s.indexOf("E"))) : s.replaceAll("0*$", "")
                     .replaceAll("\\.$", "")); //Removes trailing zeroes
-            output.setText(s);
+            display.displayOutput(s);
         }catch (Exception e){ //User did a mistake
             Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
         }
-        ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
-        scrollView.pageScroll(ScrollView.FOCUS_DOWN);
+        scrollDown();
     }
 
     /**
@@ -441,19 +434,18 @@ public class VectorMode extends Basic {
      * @param v Not Used
      */
     public void clickScalar(View v){
-        TextView output = (TextView) findViewById(R.id.txtStack);
+        DisplayView display = (DisplayView)findViewById(R.id.display);
         VRuleSet.setPressedScalarEqnButton(true);
         try {
             String s = Utility.convertTokensToString(processVectors());
             s = s.indexOf(".") < 0  ? s : (s.indexOf("E")>0 ? s.substring(0,s.indexOf("E")).replaceAll("0*$", "")
                     .replaceAll("\\.$", "").concat(s.substring(s.indexOf("E"))) : s.replaceAll("0*$", "")
                     .replaceAll("\\.$", "")); //Removes trailing zeroes
-            output.setText(s);
+            display.displayOutput(s);
         }catch (Exception e){ //User did a mistake
             Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
         }
-        ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
-        scrollView.pageScroll(ScrollView.FOCUS_DOWN);
+        scrollDown();
     }
   /*  *//**
      * When the user presses the , Button.

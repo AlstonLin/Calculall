@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.ScrollView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -19,9 +18,7 @@ import java.util.ArrayList;
  */
 public class Basic extends Activity {
 
-	public static final int DEGREE = 1, RADIAN = 2, GRADIAN = 3; //Modes for angles
 	protected ArrayList<Token> tokens = new ArrayList<Token>(); //Tokens shown on screen
-	protected boolean clearOnClick = false;
     protected boolean changedTokens = false;
 
 	//GridView mKeypadGrid;
@@ -43,58 +40,28 @@ public class Basic extends Activity {
 	 * @throws IllegalArgumentException If the user has input a invalid expression
 	 */
 	protected double process (){
-        ArrayList<Token> tokens = condenseDigits();
-        subVariables();
+        ArrayList<Token> tokens = Utility.setupExpression(Utility.condenseDigits(Utility.addMissingBrackets(subVariables())));
         double unrounded = Utility.evaluateExpression(Utility.convertToReversePolish(tokens));
 		return Utility.round(unrounded, 9);
-	} 
-
-
-
-	/**
-	 * Transforms all the digits into numbers as well as replacing Variables with numbers.
-	 */
-	protected ArrayList condenseDigits(){
-		ArrayList<Token> newTokens = new ArrayList<Token>();
-		ArrayList<Digit> digits = new ArrayList<Digit>();
-		boolean atDigits = false; //Tracks if it's currently tracking digits
-		for (Token token : tokens){
-			if (atDigits){ //Going through digits
-				if (token instanceof Digit){ //Number keeps going
-					digits.add((Digit) token);
-				}else { //Number ended
-					atDigits = false;
-					newTokens.add(new Number(Utility.valueOf(digits))); //Adds the sum of all the digits
-					digits.clear();
-					newTokens.add(token);
-				}
-			}else{ //Not going through digits
-				if (token instanceof Digit) { //Start of a number
-					atDigits = true;
-					digits.add((Digit) token);
-				} else{ //Not a digit; adds to the new list
-					newTokens.add(token);
-				}
-			}
-		}
-		if (!digits.isEmpty() && atDigits){ //Digits left
-			newTokens.add(new Number (Utility.valueOf(digits)));
-		}
-		return newTokens;
 	}
 
     /**
      * Substitutes all the variables on the tokens list with the defined values
+     *
+     * @return The list of tokens with the variables substituted
      */
-    protected void subVariables(){
+    protected ArrayList<Token> subVariables(){
+        ArrayList<Token> newTokens = new ArrayList<Token>();
         for (Token token : tokens){
             if (token instanceof Variable){
                 int index = tokens.indexOf(token);
                 Variable v = (Variable)token;
-                tokens.remove(token);
-                tokens.add(index, new Number(v.getValue()));
+                newTokens.add(index, new Number(v.getValue()));
+            }else{
+                newTokens.add(token);
             }
         }
+        return newTokens;
     }
 
 	/**
@@ -267,9 +234,10 @@ public class Basic extends Activity {
 		tokens.clear();
 		updateInput();
         changedTokens = true; //used to know if the button has been used
-		TextView output = (TextView) findViewById(R.id.txtStack);
-		output.setText(""); //Clears stack
+        DisplayView display = (DisplayView) findViewById(R.id.display);
+        display.displayOutput("");
 	}
+
 
 	/**
 	 * When the user presses the back Button.
@@ -280,6 +248,14 @@ public class Basic extends Activity {
 		if (tokens.isEmpty()){
 			return; //Prevents a bug
 		}
+        //SPECIAL CASE: exponents
+        if (tokens.size() > 1) {
+            Token beforePrevious = tokens.get(tokens.size() - 2);
+            if (beforePrevious instanceof Operator && ((Operator) beforePrevious).getType() == Operator.EXPONENT) {
+                //Removes the bracket and the exponent
+                tokens.remove(tokens.size() - 1);
+            }
+        }
 		tokens.remove(tokens.size() - 1); //Removes last token
 		updateInput();
         changedTokens = true; //used to know if the button has been used
@@ -301,13 +277,14 @@ public class Basic extends Activity {
 	 * @param v Not Used
 	 */
 	public void clickEquals(View v){
-		TextView output = (TextView) findViewById(R.id.txtStack);
+        DisplayView display = (DisplayView) findViewById(R.id.display);
 		try{
 			String s = Double.toString(process());
+            //TODO: Find a new way to display to output
 			s = s.indexOf(".") < 0  ? s : (s.indexOf("E")>0 ? s.substring(0,s.indexOf("E")).replaceAll("0*$", "")
 					.replaceAll("\\.$", "").concat(s.substring(s.indexOf("E"))) : s.replaceAll("0*$", "")
 					.replaceAll("\\.$", "")); //Removes trailing zeroes
-			output.setText(s);
+            display.displayOutput(s);
 		}catch (Exception e){ //User did a mistake
 			Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
 		}
@@ -318,7 +295,7 @@ public class Basic extends Activity {
      * Scrolls down the display (if possible).
      */
     protected void scrollDown() {
-        ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
+        ScrollView scrollView = (DisplayView) findViewById(R.id.display);
         if (scrollView != null) {
             scrollView.pageScroll(ScrollView.FOCUS_DOWN);
         }
@@ -383,17 +360,11 @@ public class Basic extends Activity {
 	 * Updates the text on the input screen.
 	 */
 	protected void updateInput(){
-		String inputText = "";
-		TextView input = (TextView) findViewById(R.id.txtInput);
-		for (Token token : tokens){
-			inputText += token.getSymbol();
-		}
-		input.setText(inputText);
+
+        DisplayView display = (DisplayView) findViewById(R.id.display);
+        display.displayInput(tokens);
 		//Shows bottom
-        if (this instanceof Advanced) {
-            ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
-            scrollView.pageScroll(ScrollView.FOCUS_DOWN);
-        }
+        display.pageScroll(ScrollView.FOCUS_DOWN);
 	}
 
 

@@ -5,38 +5,20 @@
     android:background="#ff7A6A53"
     android:orientation="vertical" >
 
-    <ScrollView
-        android:id="@+id/scrollView"
+    <LinearLayout
+        android:id="@+id/Container"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="18" >
+        android:layout_weight="18"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <view
             android:id="@+id/display"
+            class="com.trutech.calculall.DisplayView"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/txtInput"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="#ff948C75"
-                android:gravity="right"
-                android:textSize="48sp" />
-
-            <TextView
-                android:id="@+id/txtStack"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="#ff948C75"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:gravity="right"
-                android:textSize="48sp" />
-
-        </LinearLayout>
-    </ScrollView>
+            android:layout_height="fill_parent"
+            android:longClickable="false" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/grid"

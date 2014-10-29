@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ScrollView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,19 +26,18 @@ public class FunctionMode extends Advanced {
         Button expButton = (Button) findViewById(R.id.powerButton);
         powButton.setText(Html.fromHtml(getString(R.string.powOfTen)));
         expButton.setText(Html.fromHtml(getString(R.string.exponent)));
-        TextView input = (TextView) findViewById(R.id.txtInput);
-        input.setText("f(x)=");
+        updateInput();
     }
 
     public void clickRoots(View view) {
-        ArrayList<Token> tokens = condenseDigits();
+        ArrayList<Token> tokens = Utility.condenseDigits(this.tokens);
         tokens = Utility.setupExpression(tokens);
         //Utility.simplifyExpression()
         //At this point, it will be assumed everything is simplified and the function is in decending powers
         HashMap<Double, Double> coefficients = mapCoefficients(tokens); //Degree -> key, coefficient -> value
         double highestDegree = coefficients.get(Double.POSITIVE_INFINITY);
         boolean allIntegers = coefficients.get(Double.NEGATIVE_INFINITY) == 1;
-        TextView output = (TextView) findViewById(R.id.txtStack);
+        DisplayView display = (DisplayView)findViewById(R.id.display);
         String toOutput = "";
         if (allIntegers){ //Might be able to use the quadradic and cubic solvers
             ArrayList<Double> roots;
@@ -82,7 +79,7 @@ public class FunctionMode extends Advanced {
         }else {
             //TODO: Complete this using the general root finder
         }
-        output.setText(toOutput);
+        display.displayOutput(toOutput);
         scrollDown();
     }
 
@@ -97,7 +94,7 @@ public class FunctionMode extends Advanced {
      * @param view
      */
     public void clickGraph(View view) {
-        setContentView(new GraphView(this, this));
+        setContentView(new GraphView(this, this, tokens));
     }
 
     /**
@@ -223,15 +220,11 @@ public class FunctionMode extends Advanced {
     @Override
     protected void updateInput(){
         String inputText = "f(x)=";
-        TextView input = (TextView) findViewById(R.id.txtInput);
-        for (Token token : tokens){
-            inputText += token.getSymbol();
-        }
-        input.setText(inputText);
+        DisplayView display = (DisplayView)findViewById(R.id.display);
+        display.displayInputFunction(tokens);
         //Shows bottom
         if (this instanceof Advanced) {
-            ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
-            scrollView.pageScroll(ScrollView.FOCUS_DOWN);
+            scrollDown();
         }
     }
 }

@@ -1,29 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- From: file:/C:/Users/Keith/Desktop/Stuff/TruTech/Calculall/app/src/main/res/values/dimens.xml -->
+    <!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/values/dimens.xml -->
     <eat-comment />
 
     <dimen name="activity_horizontal_margin">0dp</dimen>
     <dimen name="activity_vertical_margin">0dp</dimen>
-    <!-- From: file:/C:/Users/Keith/Desktop/Stuff/TruTech/Calculall/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/values/strings.xml -->
     <eat-comment />
 
     <string name="AC">AC</string>
     <string name="C">CLR</string>
     <string name="action_settings">Settings</string>
     <string name="advanced">Advanced</string>
+    <string name="angleBetweenVectors">∠</string>
     <string name="app_name">Calculall</string>
+    <string name="argument">Arg</string>
     <string name="backspace">←</string>
     <string name="base10">DEC</string>
     <string name="base16">HEX</string>
     <string name="base2">BIN</string>
     <string name="base8">OCT</string>
     <string name="basic">Basic</string>
+    <string name="bear">Bea</string>
     <string name="cbrt">³√</string>
     <string name="closedBracket">)</string>
     <string name="closedSquareBracket">]</string>
-    <string name="combination">n<b><b>C</b></b>r</string>
+    <string name="combination">n <b><b>C</b></b>r</string>
     <string name="comma">,</string>
     <string name="cos">cos</string>
     <string name="cross">×</string>
@@ -47,12 +50,15 @@
     <string name="gradians">Gradians</string>
     <string name="graph">Graph</string>
     <string name="graphing">Graphing</string>
+    <string name="hello_world">Hello world!</string>
     <string name="hyp">hyp</string>
     <string name="impFrac">d/e</string>
     <string name="integrate">∫</string>
     <string name="ln">ln</string>
     <string name="log10">log</string>
     <string name="log_b">log_b</string>
+    <string name="magnitude">|v|</string>
+    <string name="matrix">Matrix</string>
     <string name="minus">-</string>
     <string name="mixedFrac">A b/c</string>
     <string name="more">More</string>
@@ -61,18 +67,21 @@
     <string name="one">1</string>
     <string name="openBracket">(</string>
     <string name="openSquareBracket">[</string>
-    <string name="permutation">n<b><b>P</b></b>r</string>
+    <string name="permutation">n <b><b>P</b></b>r</string>
     <string name="pi">"π"</string>
     <string name="plus">+</string>
     <string name="plusminus">±</string>
     <string name="powOfE"><![CDATA[<p>e<sup><small><small><i>x</i></small></small></sup></p>]]></string>
     <string name="powOfTen"><![CDATA[<p>10<sup><small><small><i>x</i></small></small></sup></p>]]></string>
     <string name="powerTen">Exp</string>
+    <string name="projection">proj</string>
     <string name="rad">RAD</string>
     <string name="radians">Radians</string>
     <string name="radix">K.IJK</string>
     <string name="reciprocal">x^-1</string>
     <string name="rightArrow">→</string>
+    <string name="s">s</string>
+    <string name="scalarEquationOfALine">Scalar</string>
     <string name="seven">7</string>
     <string name="shift">2nd</string>
     <string name="sin">sin</string>
@@ -80,13 +89,17 @@
     <string name="sqrt">√</string>
     <string name="square">x²</string>
     <string name="store">STO</string>
+    <string name="t">t</string>
     <string name="tan">tan</string>
     <string name="three">3</string>
     <string name="title_activity_advanced">Advanced</string>
     <string name="title_activity_basic">Basic</string>
     <string name="title_activity_graphing">Graphing</string>
+    <string name="title_activity_matrix_mode">MatrixMode</string>
     <string name="title_activity_vector">Vector</string>
+    <string name="trueB">Tru</string>
     <string name="two">2</string>
+    <string name="unitVector">u</string>
     <string name="varA">A</string>
     <string name="varB">B</string>
     <string name="varC">C</string>
@@ -94,7 +107,38 @@
     <string name="varX">X</string>
     <string name="varY">Y</string>
     <string name="varZ">Z</string>
+    <string name="vectA">a</string>
+    <string name="vectB">b</string>
+    <string name="vectC">c</string>
+    <string name="vectU">u</string>
     <string name="vector">Vector</string>
     <string name="zero">0</string>
+    <!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/values/values.xml -->
+    <eat-comment />
+
+    <style name="Main" parent="android:Theme.Holo">
+        <item name="android:buttonStyle">@style/button</item>
+        <item name="android:buttonStyleSmall">@style/button</item>
+    </style>
+
+    <style name="button" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/mybutton</item>
+        <item name="android:textColor">#ffffff</item>
+    </style>
+
+    <style name="button2" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/mybutton2</item>
+        <item name="android:textColor">#ffffff</item>
+    </style>
+
+    <style name="button3" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/mybutton3</item>
+        <item name="android:textColor">#F64B55</item>
+    </style>
+
+    <style name="button4" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/mybutton3</item>
+        <item name="android:textColor">#ffffff</item>
+    </style>
 
 </resources>
