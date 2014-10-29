@@ -466,7 +466,9 @@ public class Utility {
         }
 
         //for third term
-        output.add(new Number(z));
+        if (z != 0) {
+            output.add(new Number(z));
+        }
 
         // = 0
         output.add(new Token("="){});
@@ -476,29 +478,29 @@ public class Utility {
     }
 
     /**
-     * Determines the unit vector of a given vector
-     *
-     * @param vector The vector.
-     * @return ArrayList<Token></Token> The unit vector.
-     */
-    public static ArrayList<Token> findUnitVector (double[] vector){
-        double magnitude = calculateMagnitude(vector);
-        if (vector.length == 2){
-            double[] unitVector = new double[2];
-            unitVector[0] = vector[0]/magnitude;
-            unitVector[1] = vector[1]/magnitude;
-            return Utility.convertDoublesToVector(unitVector);
-        } else if (vector.length == 3) {
-            double[] unitVector = new double[3];
-            unitVector[0] = vector[0]/magnitude;
-            unitVector[1] = vector[1]/magnitude;
-            unitVector[2] = vector[2]/magnitude;
-            return Utility.convertDoublesToVector(unitVector);
-        } else {
-            throw new IllegalArgumentException("Error: This calculator only supports 2D and 3D vectors.");
-        }
+          * Determines the unit vector of a given vector
+          *
+          * @param vector The vector.
+          * @return ArrayList<Token></Token> The unit vector.
+          */
+         public static ArrayList<Token> findUnitVector (double[] vector){
+             double magnitude = calculateMagnitude(vector);
+             if (vector.length == 2){
+                 double[] unitVector = new double[2];
+                 unitVector[0] = vector[0]/magnitude;
+                 unitVector[1] = vector[1]/magnitude;
+                 return Utility.convertDoublesToVector(unitVector);
+             } else if (vector.length == 3) {
+                 double[] unitVector = new double[3];
+                 unitVector[0] = vector[0]/magnitude;
+                 unitVector[1] = vector[1]/magnitude;
+                 unitVector[2] = vector[2]/magnitude;
+                 return Utility.convertDoublesToVector(unitVector);
+             } else {
+                 throw new IllegalArgumentException("Error: This calculator only supports 2D and 3D vectors.");
+             }
 
-    }
+         }
 
     /**
      * Returns the argument of a vector. (angle to the X axis)
@@ -624,21 +626,25 @@ public class Utility {
         if (quadrant == -1){ //positive y axis
             output.add(new Token("N"){});
             output.add(new Number(0));
+            output.add(new Token ("°"){});
             output.add(new Token("E"){});
         }
         if (quadrant == -2){ //positive x axis
             output.add(new Token("E"){});
             output.add(new Number(0));
+            output.add(new Token ("°"){});
             output.add(new Token("N"){});
         }
         if (quadrant == -3){ //negative y axis
             output.add(new Token("S"){});
             output.add(new Number(0));
+            output.add(new Token ("°"){});
             output.add(new Token("W"){});
         }
         if (quadrant == -4){ //negative x axis
             output.add(new Token("W"){});
             output.add(new Number(0));
+            output.add(new Token ("°"){});
             output.add(new Token("S"){});
         }
 
@@ -646,21 +652,25 @@ public class Utility {
         if (quadrant == 1){
             output.add(new Token("E"){});
             output.add(new Number(angle));
+            output.add(new Token ("°"){});
             output.add(new Token("N"){});
         }
         if (quadrant == 2){
             output.add(new Token("W"){});
             output.add(new Number(angle));
+            output.add(new Token ("°"){});
             output.add(new Token("N"){});
         }
         if (quadrant == 3){
             output.add(new Token("W"){});
             output.add(new Number(angle));
+            output.add(new Token ("°"){});
             output.add(new Token("S"){});
         }
         if (quadrant == 4){
             output.add(new Token("E"){});
             output.add(new Number(angle));
+            output.add(new Token ("°"){});
             output.add(new Token("S"){});
         }
         return output;
