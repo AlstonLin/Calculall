@@ -27,6 +27,7 @@ public class FunctionMode extends Advanced {
         powButton.setText(Html.fromHtml(getString(R.string.powOfTen)));
         expButton.setText(Html.fromHtml(getString(R.string.exponent)));
         updateInput();
+        display = (DisplayView) findViewById(R.id.display);
     }
 
     public void clickRoots(View view) {
@@ -37,46 +38,46 @@ public class FunctionMode extends Advanced {
         HashMap<Double, Double> coefficients = mapCoefficients(tokens); //Degree -> key, coefficient -> value
         double highestDegree = coefficients.get(Double.POSITIVE_INFINITY);
         boolean allIntegers = coefficients.get(Double.NEGATIVE_INFINITY) == 1;
-        DisplayView display = (DisplayView)findViewById(R.id.display);
+        DisplayView display = (DisplayView) findViewById(R.id.display);
         String toOutput = "";
-        if (allIntegers){ //Might be able to use the quadradic and cubic solvers
+        if (allIntegers) { //Might be able to use the quadradic and cubic solvers
             ArrayList<Double> roots;
-            if (highestDegree == 2){
+            if (highestDegree == 2) {
                 double a = coefficients.get(2d);
                 double b = coefficients.containsKey(1d) ? coefficients.get(1d) : 0;
                 double c = coefficients.get(0d);
                 roots = Utility.solveQuadratic(a, b, c);
-            }else if (highestDegree == 3){
+            } else if (highestDegree == 3) {
                 double a = coefficients.get(3d);
                 double b = coefficients.containsKey(2d) ? coefficients.get(2d) : 0;
                 double c = coefficients.containsKey(1d) ? coefficients.get(1d) : 0;
                 double d = coefficients.get(0d);
                 roots = Utility.solveCubic(a, b, c, d);
-            }else if(highestDegree==1){
+            } else if (highestDegree == 1) {
                 double a = coefficients.get(1d);
                 double b = coefficients.containsKey(0d) ? coefficients.get(0d) : 0;
                 //0=ax+b
                 //-b=ax
                 //x=-b/a
                 roots = new ArrayList<Double>();
-                roots.add(-b/a);
-            }else{
+                roots.add(-b / a);
+            } else {
                 roots = new ArrayList<Double>(); //Will only contain 1 root
                 //TODO: Complete this using the general root finder
             }
             //Outputs the result
             int counter = 0;
-            for (double root : roots){
-                if (counter != 0){
+            for (double root : roots) {
+                if (counter != 0) {
                     toOutput += " OR ";
                 }
                 toOutput += "X = " + Utility.round(root, 6);
                 counter++;
             }
-            if (counter == 0){ //No roots
+            if (counter == 0) { //No roots
                 toOutput += "No real roots";
             }
-        }else {
+        } else {
             //TODO: Complete this using the general root finder
         }
         display.displayOutput(toOutput);
@@ -91,6 +92,7 @@ public class FunctionMode extends Advanced {
 
     /**
      * Graphs the inputted function.
+     *
      * @param view
      */
     public void clickGraph(View view) {
@@ -124,14 +126,14 @@ public class FunctionMode extends Advanced {
                 //Looks for the coefficient first if any
                 if (beforePrevious != null && previous instanceof Operator && ((Operator) previous).getType() == Operator.MULTIPLY) { //It has a coefficient as the previous number
                     if (beforePrevious instanceof Number) {
-                            coefficient = ((Number) beforePrevious).getValue();
+                        coefficient = ((Number) beforePrevious).getValue();
                     } else {
                         throw new IllegalArgumentException(); //The user inputted a invalid function
                     }
                 }
-                if(negative) {
+                if (negative) {
                     coefficient *= -1;
-                }else{
+                } else {
                     coefficient *= 1;
                 }
                 //Now it looks for the term if any
@@ -152,17 +154,17 @@ public class FunctionMode extends Advanced {
                 }
                 //Now maps the coefficient to the term
                 map.put(degree, coefficient);
-            }else if(token instanceof Operator){
-                if( ((Operator) token).getType() == Operator.ADD){
+            } else if (token instanceof Operator) {
+                if (((Operator) token).getType() == Operator.ADD) {
                     negative = false;
-                }else if( ((Operator) token).getType() == Operator.SUBTRACT){
+                } else if (((Operator) token).getType() == Operator.SUBTRACT) {
                     negative = true;
                 }
 
-            }else if (token instanceof Number && previous instanceof Operator){
+            } else if (token instanceof Number && previous instanceof Operator) {
                 Operator o = (Operator) previous;
-                if ((o.getType() == Operator.ADD || o.getType() == Operator.SUBTRACT) && i == tokens.size() - 1){ //Constant
-                    double value = ((Number)token).getValue();
+                if ((o.getType() == Operator.ADD || o.getType() == Operator.SUBTRACT) && i == tokens.size() - 1) { //Constant
+                    double value = ((Number) token).getValue();
                     value *= o.getType() == Operator.SUBTRACT ? -1 : 1; //Accounts the Subtraction as a negative
                     map.put(0d, value);
                 }
@@ -172,59 +174,22 @@ public class FunctionMode extends Advanced {
         Iterator<Double> keySetIterator = map.keySet().iterator();
         double hd = 0;
         double temp;
-        while(keySetIterator.hasNext()){
+        while (keySetIterator.hasNext()) {
             temp = keySetIterator.next();
-            if(temp > hd){
+            if (temp > hd) {
                 hd = temp;
             }
         }
-        if(highestDegree < hd){
+        if (highestDegree < hd) {
             highestDegree = hd;
         }
         //Maps if the metadata
         map.put(Double.POSITIVE_INFINITY, highestDegree);
-        map.put(Double.NEGATIVE_INFINITY, (double)allIntegers);
-        if (!map.containsKey(0d)){
+        map.put(Double.NEGATIVE_INFINITY, (double) allIntegers);
+        if (!map.containsKey(0d)) {
             map.put(0d, 0d);
         }
         return map;
     }
 
-    /**
-     * When the user presses the x^2 Button.
-     *
-     * @param v Not Used
-     */
-    @Override
-    public void clickSquare(View v) {
-        tokens.add(OperatorFactory.makeExponent());
-        tokens.add(DigitFactory.makeTwo());
-        updateInput();
-    }
-
-    /**
-     * When the user presses the x^3 Button.
-     *
-     * @param v Not Used
-     */
-    @Override
-    public void clickCube(View v) {
-        tokens.add(OperatorFactory.makeExponent());
-        tokens.add(DigitFactory.makeThree());
-        updateInput();
-    }
-
-    /**
-     * Updates the text on the input screen.
-     */
-    @Override
-    protected void updateInput(){
-        String inputText = "f(x)=";
-        DisplayView display = (DisplayView)findViewById(R.id.display);
-        display.displayInputFunction(tokens);
-        //Shows bottom
-        if (this instanceof Advanced) {
-            scrollDown();
-        }
-    }
 }

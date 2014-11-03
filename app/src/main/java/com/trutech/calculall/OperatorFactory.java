@@ -26,7 +26,7 @@ public class OperatorFactory {
     }
 
     public static Operator makeMultiply() {
-        return new Operator("*", Operator.MULTIPLY, 3, true, 1, true) {
+        return new Operator("×", Operator.MULTIPLY, 3, true, 1, true) {
             @Override
             public double operate(double left, double right) {
                 return left * right;
@@ -43,6 +43,15 @@ public class OperatorFactory {
                 } else {
                     return left / right;
                 }
+            }
+        };
+    }
+
+    public static Operator makePowOfTen() {
+        return new Operator("×10", Operator.POW_OF_TEN, 3, true, 1, true) {
+            @Override
+            public double operate(double left, double right) {
+                return left * Math.pow(10, right);
             }
         };
     }
@@ -66,7 +75,7 @@ public class OperatorFactory {
     }
 
     public static Operator makeExponent() {
-        return new Operator("^", Operator.EXPONENT, 5, false, 0, false) { //TODO: Make it so the next number is a superscript
+        return new Operator("", Operator.EXPONENT, 5, false, 0, false) {
             @Override
             public double operate(double left, double right) {
                 return Math.pow(left, right);
@@ -87,7 +96,7 @@ public class OperatorFactory {
     }
 
     public static Operator makeVariableRoot() {
-        return new Operator("^√", Operator.VARROOT, 5, false, 0, false) {
+        return new Operator("√", Operator.VARROOT, 5, false, 0, false) {
             @Override
             public double operate(double left, double right) {
                 return Math.pow(right, 1 / left);

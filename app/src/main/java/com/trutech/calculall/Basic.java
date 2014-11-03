@@ -20,6 +20,7 @@ public class Basic extends Activity {
 
 	protected ArrayList<Token> tokens = new ArrayList<Token>(); //Tokens shown on screen
     protected boolean changedTokens = false;
+    protected DisplayView display;
 
 	//GridView mKeypadGrid;
 	//KeypadAdapter mKeypadAdapter;
@@ -30,7 +31,8 @@ public class Basic extends Activity {
 		//Remove fullscreen
 		requestWindowFeature(Window.FEATURE_NO_TITLE); 
 		setContentView(R.layout.activity_basic);
-	}
+        display = (DisplayView) findViewById(R.id.display);
+    }
 
 	/**
 	 * Processes the expression and returns the result using the Shunting Yard Algorithm to convert
@@ -70,8 +72,9 @@ public class Basic extends Activity {
 	 * @param v Not Used
 	 */
 	public void clickOne(View v){
-		tokens.add(DigitFactory.makeOne());
-		updateInput();
+        tokens.add(display.getRealCursorIndex(), DigitFactory.makeOne());
+        display.setCursorIndex(display.getCursorIndex() + 1);
+        updateInput();
 	}
 
 	/**
@@ -80,8 +83,9 @@ public class Basic extends Activity {
 	 * @param v Not Used
 	 */
 	public void clickTwo(View v){
-		tokens.add(DigitFactory.makeTwo());
-		updateInput();
+        tokens.add(display.getRealCursorIndex(), DigitFactory.makeTwo());
+        display.setCursorIndex(display.getCursorIndex() + 1);
+        updateInput();
 	}
 
 	/**
@@ -90,8 +94,9 @@ public class Basic extends Activity {
 	 * @param v Not Used
 	 */
 	public void clickThree(View v){
-		tokens.add(DigitFactory.makeThree());
-		updateInput();
+        tokens.add(display.getRealCursorIndex(), DigitFactory.makeThree());
+        display.setCursorIndex(display.getCursorIndex() + 1);
+        updateInput();
 	}
 
 	/**
@@ -100,8 +105,9 @@ public class Basic extends Activity {
 	 * @param v Not Used
 	 */
 	public void clickFour(View v){
-		tokens.add(DigitFactory.makeFour());
-		updateInput();
+        tokens.add(display.getRealCursorIndex(), DigitFactory.makeFour());
+        display.setCursorIndex(display.getCursorIndex() + 1);
+        updateInput();
 	}
 
 	/**
@@ -110,8 +116,9 @@ public class Basic extends Activity {
 	 * @param v Not Used
 	 */
 	public void clickFive(View v){
-		tokens.add(DigitFactory.makeFive());
-		updateInput();
+        tokens.add(display.getRealCursorIndex(), DigitFactory.makeFive());
+        display.setCursorIndex(display.getCursorIndex() + 1);
+        updateInput();
 	}
 
 	/**
@@ -120,8 +127,9 @@ public class Basic extends Activity {
 	 * @param v Not Used
 	 */
 	public void clickSix(View v){
-		tokens.add(DigitFactory.makeSix());
-		updateInput();
+        tokens.add(display.getRealCursorIndex(), DigitFactory.makeSix());
+        display.setCursorIndex(display.getCursorIndex() + 1);
+        updateInput();
 	}
 
 	/**
@@ -130,8 +138,9 @@ public class Basic extends Activity {
 	 * @param v Not Used
 	 */
 	public void clickSeven(View v){
-		tokens.add(DigitFactory.makeSeven());
-		updateInput();
+        tokens.add(display.getRealCursorIndex(), DigitFactory.makeSeven());
+        display.setCursorIndex(display.getCursorIndex() + 1);
+        updateInput();
 	}
 
 	/**
@@ -140,8 +149,9 @@ public class Basic extends Activity {
 	 * @param v Not Used
 	 */
 	public void clickEight(View v){
-		tokens.add(DigitFactory.makeEight());
-		updateInput();
+        tokens.add(display.getRealCursorIndex(), DigitFactory.makeEight());
+        display.setCursorIndex(display.getCursorIndex() + 1);
+        updateInput();
 	}
 
 	/**
@@ -150,8 +160,9 @@ public class Basic extends Activity {
 	 * @param v Not Used
 	 */
 	public void clickNine(View v){
-		tokens.add(DigitFactory.makeNine());
-		updateInput();
+        tokens.add(display.getRealCursorIndex(), DigitFactory.makeNine());
+        display.setCursorIndex(display.getCursorIndex() + 1);
+        updateInput();
 	}
 
 	/**
@@ -160,8 +171,9 @@ public class Basic extends Activity {
 	 * @param v Not Used
 	 */
 	public void clickZero(View v){
-		tokens.add(DigitFactory.makeZero());
-		updateInput();
+        tokens.add(display.getRealCursorIndex(), DigitFactory.makeZero());
+        display.setCursorIndex(display.getCursorIndex() + 1);
+        updateInput();
 	}
 
 	/**
@@ -170,8 +182,9 @@ public class Basic extends Activity {
 	 * @param v Not Used
 	 */
 	public void clickDecimal(View v){
-		tokens.add(DigitFactory.makeDecimal());
-		updateInput();
+        tokens.add(display.getRealCursorIndex(), DigitFactory.makeDecimal());
+        display.setCursorIndex(display.getCursorIndex() + 1);
+        updateInput();
 	}
 
 	/**
@@ -180,8 +193,9 @@ public class Basic extends Activity {
 	 * @param v Not Used
 	 */
 	public void clickMultiply(View v){
-		tokens.add(OperatorFactory.makeMultiply());
-		updateInput();
+        tokens.add(display.getRealCursorIndex(), OperatorFactory.makeMultiply());
+        display.setCursorIndex(display.getCursorIndex() + 1);
+        updateInput();
 	}
 
 	/**
@@ -190,8 +204,9 @@ public class Basic extends Activity {
 	 * @param v Not Used
 	 */
 	public void clickDivide(View v){
-		tokens.add(OperatorFactory.makeDivide());
-		updateInput();
+        tokens.add(display.getRealCursorIndex(), OperatorFactory.makeDivide());
+        display.setCursorIndex(display.getCursorIndex() + 1);
+        updateInput();
 	}
 
 	/**
@@ -200,8 +215,9 @@ public class Basic extends Activity {
 	 * @param v Not Used
 	 */
 	public void clickAdd(View v){
-		tokens.add(OperatorFactory.makeAdd());
-		updateInput();
+        tokens.add(display.getRealCursorIndex(), OperatorFactory.makeAdd());
+        display.setCursorIndex(display.getCursorIndex() + 1);
+        updateInput();
 	}
 
 	/**
@@ -210,8 +226,9 @@ public class Basic extends Activity {
 	 * @param v Not Used
 	 */
 	public void clickSubtract(View v){
-		tokens.add(OperatorFactory.makeSubtract());
-		updateInput();
+        tokens.add(display.getRealCursorIndex(), OperatorFactory.makeSubtract());
+        display.setCursorIndex(display.getCursorIndex() + 1);
+        updateInput();
 	}
 
 	/**
@@ -220,8 +237,9 @@ public class Basic extends Activity {
 	 * @param v Not Used
 	 */
 	public void clickSqrt(View v){
-		tokens.add(FunctionFactory.makeSqrt());
-		updateInput();
+        tokens.add(display.getRealCursorIndex(), FunctionFactory.makeSqrt());
+        display.setCursorIndex(display.getCursorIndex() + 1);
+        updateInput();
 	}
 
 
@@ -249,18 +267,32 @@ public class Basic extends Activity {
 		if (tokens.isEmpty()){
 			return; //Prevents a bug
 		}
-        //SPECIAL CASE: exponents
-        if (tokens.size() > 1) {
-            Token beforePrevious = tokens.get(tokens.size() - 2);
-            if (beforePrevious instanceof Operator && ((Operator) beforePrevious).getType() == Operator.EXPONENT) {
-                //Removes the bracket and the exponent
-                tokens.remove(tokens.size() - 1);
-            }
+
+        if (display.getCursorIndex() - 1 < 0) {
+            return;
         }
-		tokens.remove(tokens.size() - 1); //Removes last token
-		updateInput();
+
+        Token toRemove = tokens.get(display.getRealCursorIndex() - 1);
+
+        //Can not remove superscript close Brackets
+        if (toRemove instanceof Bracket && ((Bracket) toRemove).getType() == Bracket.SUPERSCRIPT_CLOSE) {
+            display.setCursorIndex(display.getCursorIndex() - 1);
+            return;
+        } else if (toRemove instanceof Bracket && ((Bracket) toRemove).getType() == Bracket.SUPERSCRIPT_OPEN) { //Removes whatever was before it instead
+            toRemove = tokens.get(display.getRealCursorIndex() - 2);
+        }
+
+        tokens.remove(toRemove);
+
+        //Removes any dependencies
+        for (Token t : toRemove.getDependencies()) {
+            tokens.remove(t);
+        }
+
+        display.setCursorIndex(display.getCursorIndex() - 1);
         changedTokens = true; //used to know if the button has been used
-	}
+        updateInput();
+    }
 
 	/**
 	 * When the user presses the negative Button.
@@ -268,8 +300,9 @@ public class Basic extends Activity {
 	 * @param v Not Used
 	 */
 	public void clickNegative(View v){
-		tokens.add(DigitFactory.makeNegative());
-		updateInput();
+        tokens.add(display.getRealCursorIndex(), DigitFactory.makeNegative());
+        display.setCursorIndex(display.getCursorIndex() + 1);
+        updateInput();
 	}
 
 	/**
@@ -366,27 +399,38 @@ public class Basic extends Activity {
         startActivity(intent);
 	}
 
-    /**
-     * When the user wants to change to Vector Mode.
-     *
-     * @param v Not Used
-     */
-    public void clickMatrix(View v){
-        //Goes to the VectorMode activity
-        Intent intent = new Intent(this, MatrixMode.class);
-        startActivity(intent);
-    }
-
 	/**
 	 * Updates the text on the input screen.
 	 */
 	protected void updateInput(){
-
-        DisplayView display = (DisplayView) findViewById(R.id.display);
+        updatePlaceHolders();
         display.displayInput(tokens);
 		//Shows bottom
         display.pageScroll(ScrollView.FOCUS_DOWN);
 	}
 
+    /**
+     * Removes any placeholders that are no longer neccesary, or adds them
+     * if they are.
+     */
+    private void updatePlaceHolders() {
+        for (int i = 0; i < tokens.size(); i++) {
+            Token token = tokens.get(i);
+            Token previous = i - 1 < 0 ? null : tokens.get(i - 1);
+
+            //Adds the block if necessary; looks for ^() (superscripted brackets)
+            if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.SUPERSCRIPT_CLOSE && previous != null && previous instanceof Bracket
+                    && ((Bracket) previous).getType() == Bracket.SUPERSCRIPT_OPEN) {
+                //Adds the placeholder before the close bracket
+                tokens.add(i, PlaceholderFactory.makeBlock());
+            }
+
+            //Removes Placeholder if it is not needed - Checks to see if it is not next to a superscript (
+            if (token instanceof Placeholder && ((Placeholder) token).getType() == Placeholder.BLOCK && !(previous != null && previous instanceof Bracket
+                    && ((Bracket) previous).getType() == Bracket.SUPERSCRIPT_OPEN)) {
+                tokens.remove(token);
+            }
+        }
+    }
 
 }

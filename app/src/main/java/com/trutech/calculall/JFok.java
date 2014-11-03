@@ -1,4 +1,5 @@
 package com.trutech.calculall;
+
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -289,9 +290,9 @@ public class JFok {
      * Evaluate any constants such that any numerical expressions, as well as
      * functions, would be calculated.
      *
-     * @param root The root of the subtree
+     * @param root       The root of the subtree
      * @param exactValue If true, this will not evaluate division and square
-     * roots
+     *                   roots
      * @return The new root of the subtree
      * @throws IllegalArgumentException Invalid Expression
      */
@@ -451,14 +452,14 @@ public class JFok {
         if (root.getNumOfChildren() == 2) { //Tree not empty
             if (root.getContent() instanceof Operator) { //Beginning of a sub-expression
                 if (root.getChildren().get(0).getContent() instanceof Operator && ((Operator) root.getContent()).getPrecedence() > ((Operator) root.getChildren().get(0).getContent()).getPrecedence()) {
-                    toReturn.add(BracketFactory.createOpenBracket());
+                    toReturn.add(BracketFactory.makeOpenBracket());
                     toReturn.addAll(traverseTree(root.getChildren().get(0)));
-                    toReturn.add(BracketFactory.createCloseBracket());
+                    toReturn.add(BracketFactory.makeCloseBracket());
                 } else if (root.getChildren().get(0).getContent() instanceof Operator && ((Operator) root.getContent()).getPrecedence() == ((Operator) root.getChildren().get(0).getContent()).getPrecedence()) {
                     if (((Operator) root.getContent()).getType() == Operator.DIVIDE && ((Operator) root.getChildren().get(0).getContent()).getType() == Operator.MULTIPLY) {
-                        toReturn.add(BracketFactory.createOpenBracket());
+                        toReturn.add(BracketFactory.makeOpenBracket());
                         toReturn.addAll(traverseTree(root.getChildren().get(0)));
-                        toReturn.add(BracketFactory.createCloseBracket());
+                        toReturn.add(BracketFactory.makeCloseBracket());
                     } else {
                         toReturn.addAll(traverseTree(root.getChildren().get(0)));
                     }
@@ -467,14 +468,14 @@ public class JFok {
                 }
                 toReturn.add(root.getContent());
                 if (root.getChildren().get(1).getContent() instanceof Operator && ((Operator) root.getContent()).getPrecedence() > ((Operator) root.getChildren().get(1).getContent()).getPrecedence()) {
-                    toReturn.add(BracketFactory.createOpenBracket());
+                    toReturn.add(BracketFactory.makeOpenBracket());
                     toReturn.addAll(traverseTree(root.getChildren().get(1)));
-                    toReturn.add(BracketFactory.createCloseBracket());
+                    toReturn.add(BracketFactory.makeCloseBracket());
                 } else if (root.getChildren().get(1).getContent() instanceof Operator && ((Operator) root.getContent()).getPrecedence() == ((Operator) root.getChildren().get(1).getContent()).getPrecedence()) {
                     if (((Operator) root.getContent()).getType() == Operator.DIVIDE && ((Operator) root.getChildren().get(1).getContent()).getType() == Operator.MULTIPLY) {
-                        toReturn.add(BracketFactory.createOpenBracket());
+                        toReturn.add(BracketFactory.makeOpenBracket());
                         toReturn.addAll(traverseTree(root.getChildren().get(1)));
-                        toReturn.add(BracketFactory.createCloseBracket());
+                        toReturn.add(BracketFactory.makeCloseBracket());
                     } else {
                         toReturn.addAll(traverseTree(root.getChildren().get(1)));
                     }
@@ -485,9 +486,9 @@ public class JFok {
             return toReturn;
         } else if (root.getNumOfChildren() == 1) { //Function
             toReturn.add(root.getContent());
-            toReturn.add(BracketFactory.createOpenBracket());
+            toReturn.add(BracketFactory.makeOpenBracket());
             toReturn.addAll(traverseTree(root.getChildren().get(0)));
-            toReturn.add(BracketFactory.createCloseBracket());
+            toReturn.add(BracketFactory.makeCloseBracket());
             return toReturn;
         } else if (root.getNumOfChildren() == 0) {
             toReturn.add(root.getContent());
@@ -502,7 +503,6 @@ public class JFok {
      *
      * @param root The original binary tree
      * @return An equivalent multibranch tree
-     *
      */
     public static Node<Token> convToMultiBranch(Node<Token> root) {
         Node<Token> newRoot = new Node<Token>(root.getContent());
@@ -728,7 +728,7 @@ public class JFok {
     /**
      * Determines the greatest common factor of two integers
      *
-     * @param num The numerator of a fraction
+     * @param num   The numerator of a fraction
      * @param denom The denominator of a fraction
      * @return The greatest common factor of num and denom
      */
@@ -1224,7 +1224,7 @@ public class JFok {
                         newRoot.addChild(add2LikeTerms(root.getChildren().get(i), root.getChildren().get(j)));
                         added.add(i);
                     } else {
-                        if (!added.contains(i)){
+                        if (!added.contains(i)) {
                             newRoot.addChild(root.getChildren().get(i));
                             added.add(i);
                         }

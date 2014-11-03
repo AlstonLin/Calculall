@@ -7,23 +7,31 @@ package com.trutech.calculall;
  */
 public class BracketFactory {
 
-    public static Bracket createOpenBracket(){
+    public static Bracket makeOpenBracket() {
         return new Bracket("(", Bracket.OPEN);
     }
 
-    public static Bracket createCloseBracket(){
+    public static Bracket makeCloseBracket() {
         return new Bracket(")", Bracket.CLOSE);
     }
 
-    public static Bracket createOpenSquareBracket(){
+    public static Bracket makeOpenSquareBracket() {
         return new Bracket("[", Bracket.SQUAREOPEN);
     }
 
-    public static Bracket createCloseSquareBracket(){
+    public static Bracket makeCloseSquareBracket() {
         return new Bracket("]", Bracket.SQUARECLOSED);
     }
 
-    public static Bracket createMagnitudeBar(){
+    public static Bracket makeMagnitudeBar() {
         return new Bracket("|", Bracket.MAGNITUDEBAR);
+    }
+
+    public static Bracket makeSuperscriptOpen() {
+        return new Bracket("", Bracket.SUPERSCRIPT_OPEN);
+    }
+
+    public static Bracket makeSuperscriptClose() {
+        return new Bracket("", Bracket.SUPERSCRIPT_CLOSE);
     }
 }

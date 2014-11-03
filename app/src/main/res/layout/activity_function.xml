@@ -3,21 +3,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ff7A6A53"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/Container"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="18"
-        android:orientation="vertical">
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/leftScroll"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:onClick="scrollLeft"
+            android:text="@string/leftscroll" />
 
         <view
             android:id="@+id/display"
             class="com.trutech.calculall.DisplayView"
-            android:layout_width="fill_parent"
+            android:layout_width="0dp"
             android:layout_height="fill_parent"
+            android:layout_weight="50"
             android:longClickable="false" />
+
+        <Button
+            android:id="@+id/rightScroll"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:layout_weight="5"
+            android:onClick="scrollRight"
+            android:text="@string/rightscroll" />
+
+
     </LinearLayout>
 
     <LinearLayout
@@ -27,7 +47,7 @@
         android:layout_marginBottom="5dp"
         android:layout_weight="60"
         android:orientation="vertical"
-        android:weightSum="21.5" >
+        android:weightSum="21.5">
 
         <LinearLayout
             android:id="@+id/modes"
@@ -36,7 +56,7 @@
             android:layout_marginBottom="-7dp"
             android:layout_marginTop="-7dp"
             android:layout_weight="1.8"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/basicButton"
@@ -57,8 +77,8 @@
                 android:layout_height="fill_parent"
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
-                android:text="@string/advanced"
                 android:onClick="clickAdvanced"
+                android:text="@string/advanced"
                 android:textSize="12sp" />
 
             <Button
@@ -82,16 +102,6 @@
                 android:text="@string/vector"
                 android:textSize="16sp" />
 
-            <Button
-                android:id="@+id/matrixButton"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
-                android:layout_weight="1"
-                android:onClick="clickMatrix"
-                android:text="@string/matrix"
-                android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -100,7 +110,7 @@
             android:layout_height="0dp"
             android:layout_marginBottom="-7dp"
             android:layout_weight="2"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <ToggleButton
                 android:id="@+id/shiftButton"
@@ -148,7 +158,7 @@
             android:layout_height="0dp"
             android:layout_marginBottom="-7dp"
             android:layout_weight="2"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/VarX"
@@ -171,9 +181,9 @@
                 android:layout_height="fill_parent"
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
+                android:checked="false"
                 android:onClick="clickReciprocal"
                 android:text="@string/reciprocal"
-                android:checked="false"
                 android:textSize="16sp" />
 
             <Button
@@ -206,7 +216,7 @@
             android:layout_height="0dp"
             android:layout_marginBottom="-7dp"
             android:layout_weight="2"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/sinButton"
@@ -272,7 +282,7 @@
             android:layout_height="0dp"
             android:layout_marginBottom="-7dp"
             android:layout_weight="2"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/ln"
@@ -327,7 +337,7 @@
             android:layout_height="0dp"
             android:layout_marginBottom="-7dp"
             android:layout_weight="3"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/sevenButton"
@@ -393,7 +403,7 @@
             android:layout_height="0dp"
             android:layout_marginBottom="-7dp"
             android:layout_weight="3"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/fourButton"
@@ -459,7 +469,7 @@
             android:layout_height="0dp"
             android:layout_marginBottom="-7dp"
             android:layout_weight="3"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/oneButton"
@@ -523,10 +533,10 @@
             android:id="@+id/numRow5"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginBottom="-7dp"
             android:layout_weight="3"
             android:baselineAligned="true"
-            android:orientation="horizontal"
-            android:layout_marginBottom="-7dp" >
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/zeroButton"
@@ -593,7 +603,7 @@
             android:layout_weight="3"
             android:baselineAligned="true"
             android:orientation="horizontal"
-            android:weightSum="4" >
+            android:weightSum="4">
 
             <Button
                 android:id="@+id/rootsButton"

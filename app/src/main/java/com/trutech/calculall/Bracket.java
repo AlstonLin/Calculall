@@ -7,8 +7,8 @@ package com.trutech.calculall;
  * @version 0.4.0
  */
 public class Bracket extends Token {
-	
-    public static final int OPEN = 1, CLOSE = 2, SQUAREOPEN = 3, SQUARECLOSED = 4, MAGNITUDEBAR = 5;
+
+    public static final int OPEN = 1, CLOSE = 2, SQUAREOPEN = 3, SQUARECLOSED = 4, MAGNITUDEBAR = 5, SUPERSCRIPT_OPEN = 6, SUPERSCRIPT_CLOSE = 7;
     private int type;
 
     /**
@@ -16,9 +16,9 @@ public class Bracket extends Token {
      * see class BracketFactory.
      *
      * @param symbol The symbol of the bracket.
-     * @param type The type of bracket it is
+     * @param type   The type of bracket it is
      */
-    public Bracket(String symbol, int type){
+    public Bracket(String symbol, int type) {
         super(symbol);
         this.type = type;
     }
@@ -26,7 +26,7 @@ public class Bracket extends Token {
     /**
      * @return The type of Bracket (open or closed) this is (see class constants).
      */
-    public int getType (){
+    public int getType() {
         return type;
     }
 }

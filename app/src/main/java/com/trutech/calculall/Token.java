@@ -1,6 +1,6 @@
 package com.trutech.calculall;
 
-import android.view.View;
+import java.util.ArrayList;
 
 /**
  * Represents a digit, operation, brackets, or a function on the calculator screen; cannot be used by itself
@@ -10,6 +10,7 @@ import android.view.View;
  */
 public abstract class Token {
 
+    private ArrayList<Token> dependencies = new ArrayList<Token>(); //Tokens that are dependent with this token
     private String symbol;
 
     /**
@@ -29,11 +30,20 @@ public abstract class Token {
     }
 
     /**
+     * Adds a dependent token to the list; if this token is removed so would the dependencies.
      *
-     * @param v
+     * @param t The token that is dependent on this one
      */
-    public void clickRoots(View v) {
-
+    public void addDependency(Token t) {
+        dependencies.add(t);
     }
+
+    /**
+     * @return The Tokens that are dependent on this one
+     */
+    public ArrayList<Token> getDependencies() {
+        return dependencies;
+    }
+
 }
 

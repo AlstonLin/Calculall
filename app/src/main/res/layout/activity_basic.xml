@@ -60,7 +60,7 @@
             android:layout_height="0dp"
             android:layout_marginBottom="-7dp"
             android:layout_weight="3"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/NegativeButton"
@@ -302,6 +302,7 @@
 
 
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/modes"
             android:layout_width="match_parent"
@@ -309,7 +310,7 @@
             android:layout_marginBottom="-7dp"
             android:layout_marginTop="-7dp"
             android:layout_weight="1.8"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/basicButton"
@@ -350,15 +351,6 @@
                 android:text="@string/vector"
                 android:textSize="16sp" />
 
-            <Button
-                android:id="@+id/matrixButton"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:onClick="clickMatrix"
-                android:text="@string/matrix"
-                android:textSize="16sp" />
         </LinearLayout>
     </LinearLayout>
 

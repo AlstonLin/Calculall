@@ -15,12 +15,13 @@ import android.widget.ToggleButton;
  * @version 0.4.0
  */
 public class Advanced extends Basic {
-    private int angleMode = 1;
     public static final int DEGREE = 1, RADIAN = 2, GRADIAN = 3; //angleMode options
-    private int base = 1;
     public static final int DEC = 1, BIN = 2, OCT = 3, HEX = 4;//number bases
     private int fracMode = DEC;
     public static final int MIXED = 2, IMP = 3;
+    public boolean switchedAngleMode = false;
+    private int angleMode = 1;
+    private int base = 1;
     private boolean hyperbolic = false;
     private boolean shift = false;
     private boolean mem = false;
@@ -34,6 +35,7 @@ public class Advanced extends Basic {
         Button expButton = (Button) findViewById(R.id.powerButton);
         powButton.setText(Html.fromHtml(getString(R.string.powOfTen)));
         expButton.setText(Html.fromHtml(getString(R.string.exponent)));
+        display = (DisplayView) findViewById(R.id.display);
     }
 
     /**
@@ -61,7 +63,6 @@ public class Advanced extends Basic {
         updateInput();
     }
 
-    public boolean switchedAngleMode = false;
     public void convGtoD() {
         //Converts the number displayed from gradians into degrees ie multiplies the number by 9/10
 
@@ -379,7 +380,8 @@ public class Advanced extends Basic {
                 mem = false;
                 memButton.setChecked(mem);
             } else {
-                tokens.add(VariableFactory.makeA());
+                tokens.add(display.getRealCursorIndex(), VariableFactory.makeA());
+                display.setCursorIndex(display.getCursorIndex() + 1);
             }
             updateInput();
         } catch (Exception e) { //User did a mistake
@@ -404,7 +406,8 @@ public class Advanced extends Basic {
                 mem = false;
                 memButton.setChecked(mem);
             } else {
-                tokens.add(VariableFactory.makeB());
+                tokens.add(display.getRealCursorIndex(), VariableFactory.makeB());
+                display.setCursorIndex(display.getCursorIndex() + 1);
             }
             updateInput();
         } catch (Exception e) { //User did a mistake
@@ -429,7 +432,8 @@ public class Advanced extends Basic {
                 mem = false;
                 memButton.setChecked(mem);
             } else {
-                tokens.add(VariableFactory.makeC());
+                tokens.add(display.getRealCursorIndex(), VariableFactory.makeC());
+                display.setCursorIndex(display.getCursorIndex() + 1);
             }
             updateInput();
         } catch (Exception e) { //User did a mistake
@@ -454,7 +458,8 @@ public class Advanced extends Basic {
                 mem = false;
                 memButton.setChecked(mem);
             } else {
-                tokens.add(VariableFactory.makeX());
+                tokens.add(display.getRealCursorIndex(), VariableFactory.makeX());
+                display.setCursorIndex(display.getCursorIndex() + 1);
             }
             updateInput();
         } catch (Exception e) { //User did a mistake
@@ -479,7 +484,8 @@ public class Advanced extends Basic {
                 mem = false;
                 memButton.setChecked(mem);
             } else {
-                tokens.add(VariableFactory.makeY());
+                tokens.add(display.getRealCursorIndex(), VariableFactory.makeY());
+                display.setCursorIndex(display.getCursorIndex() + 1);
             }
             updateInput();
         } catch (Exception e) { //User did a mistake
@@ -504,7 +510,8 @@ public class Advanced extends Basic {
                 mem = false;
                 memButton.setChecked(mem);
             } else {
-                tokens.add(VariableFactory.makeZ());
+                tokens.add(display.getRealCursorIndex(), VariableFactory.makeZ());
+                display.setCursorIndex(display.getCursorIndex() + 1);
             }
             updateInput();
         } catch (Exception e) { //User did a mistake
@@ -518,7 +525,8 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickOpenBracket(View v) {
-        tokens.add(BracketFactory.createOpenBracket());
+        tokens.add(display.getRealCursorIndex(), BracketFactory.makeOpenBracket());
+        display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
     }
 
@@ -528,7 +536,8 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickCloseBracket(View v) {
-        tokens.add(BracketFactory.createCloseBracket());
+        tokens.add(display.getRealCursorIndex(), BracketFactory.makeCloseBracket());
+        display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
     }
 
@@ -538,7 +547,18 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickPowerOfTen(View v) {
-        tokens.add(FunctionFactory.makePowOfTen());
+        Token powTen = OperatorFactory.makePowOfTen();
+        Token openBracket = BracketFactory.makeSuperscriptOpen();
+        Token closeBracket = BracketFactory.makeSuperscriptClose();
+
+        tokens.add(display.getRealCursorIndex(), powTen);
+        tokens.add(display.getRealCursorIndex() + 1, openBracket);
+        tokens.add(display.getRealCursorIndex() + 2, PlaceholderFactory.makeBlock());
+        tokens.add(display.getRealCursorIndex() + 3, closeBracket);
+
+        powTen.addDependency(openBracket);
+        powTen.addDependency(closeBracket);
+        display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
     }
 
@@ -549,7 +569,8 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickExp(View v) {
-        tokens.add(FunctionFactory.makeExp());
+        tokens.add(display.getRealCursorIndex(), FunctionFactory.makeExp());
+        display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
     }
 
@@ -573,7 +594,8 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickLn(View v) {
-        tokens.add(FunctionFactory.makeLn());
+        tokens.add(display.getRealCursorIndex(), FunctionFactory.makeLn());
+        display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
     }
 
@@ -583,7 +605,8 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickLog_10(View v) {
-        tokens.add(FunctionFactory.makeLog_10());
+        tokens.add(display.getRealCursorIndex(), FunctionFactory.makeLog_10());
+        display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
     }
 
@@ -603,13 +626,35 @@ public class Advanced extends Basic {
     }
 
     public void clickExponent(View v) {
-        tokens.add(OperatorFactory.makeExponent());
-        tokens.add(BracketFactory.createOpenBracket());
+        Token exponent = OperatorFactory.makeExponent();
+        Token openBracket = BracketFactory.makeSuperscriptOpen();
+        Token closeBracket = BracketFactory.makeSuperscriptClose();
+
+        tokens.add(display.getRealCursorIndex(), exponent);
+        tokens.add(display.getRealCursorIndex() + 1, openBracket);
+        tokens.add(display.getRealCursorIndex() + 2, PlaceholderFactory.makeBlock());
+        tokens.add(display.getRealCursorIndex() + 3, closeBracket);
+
+        exponent.addDependency(openBracket);
+        exponent.addDependency(closeBracket);
+
+        display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
     }
 
     public void clickVarRoot(View v) {
-        tokens.add(OperatorFactory.makeVariableRoot());
+        Token root = OperatorFactory.makeVariableRoot();
+        Token openBracket = BracketFactory.makeSuperscriptOpen();
+        Token closeBracket = BracketFactory.makeSuperscriptClose();
+
+        tokens.add(display.getRealCursorIndex(), openBracket);
+        tokens.add(display.getRealCursorIndex() + 1, PlaceholderFactory.makeBlock());
+        tokens.add(display.getRealCursorIndex() + 2, closeBracket);
+        tokens.add(display.getRealCursorIndex() + 3, root);
+
+        root.addDependency(openBracket);
+        root.addDependency(closeBracket);
+
         updateInput();
     }
 
@@ -628,7 +673,19 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickSquare(View v) {
-        tokens.add(FunctionFactory.makeSquare());
+        Token exponent = OperatorFactory.makeExponent();
+        Token openBracket = BracketFactory.makeSuperscriptOpen();
+        Token closeBracket = BracketFactory.makeSuperscriptClose();
+
+        tokens.add(display.getRealCursorIndex(), exponent);
+        tokens.add(display.getRealCursorIndex() + 1, openBracket);
+        tokens.add(display.getRealCursorIndex() + 2, DigitFactory.makeTwo());
+        tokens.add(display.getRealCursorIndex() + 3, closeBracket);
+
+        exponent.addDependency(openBracket);
+        exponent.addDependency(closeBracket);
+
+        display.setCursorIndex(display.getCursorIndex() + 3);
         updateInput();
     }
 
@@ -638,7 +695,19 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickCube(View v) {
-        tokens.add(FunctionFactory.makeCube());
+        Token exponent = OperatorFactory.makeExponent();
+        Token openBracket = BracketFactory.makeSuperscriptOpen();
+        Token closeBracket = BracketFactory.makeSuperscriptClose();
+
+        tokens.add(display.getRealCursorIndex(), exponent);
+        tokens.add(display.getRealCursorIndex() + 1, openBracket);
+        tokens.add(display.getRealCursorIndex() + 2, DigitFactory.makeThree());
+        tokens.add(display.getRealCursorIndex() + 3, closeBracket);
+
+        exponent.addDependency(openBracket);
+        exponent.addDependency(closeBracket);
+
+        display.setCursorIndex(display.getCursorIndex() + 3);
         updateInput();
     }
 
@@ -662,7 +731,8 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickCbrt(View v) {
-        tokens.add(FunctionFactory.makeCbrt());
+        tokens.add(display.getRealCursorIndex(), FunctionFactory.makeCbrt());
+        display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
     }
 
@@ -686,7 +756,8 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickCeiling(View v) {
-        tokens.add(FunctionFactory.makeCeiling());
+        tokens.add(display.getRealCursorIndex(), FunctionFactory.makeCeiling());
+        display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
     }
 
@@ -696,7 +767,8 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickFloor(View v) {
-        tokens.add(FunctionFactory.makeFloor());
+        tokens.add(display.getRealCursorIndex(), FunctionFactory.makeFloor());
+        display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
     }
 
@@ -706,7 +778,8 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickAbs(View v) {
-        tokens.add(FunctionFactory.makeAbs());
+        tokens.add(display.getRealCursorIndex(), FunctionFactory.makeAbs());
+        display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
     }
 
@@ -716,7 +789,21 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickReciprocal(View v) {
-        tokens.add(FunctionFactory.makeReciprocal());
+        Token exponent = OperatorFactory.makeExponent();
+        Token openBracket = BracketFactory.makeSuperscriptOpen();
+        Token closeBracket = BracketFactory.makeSuperscriptClose();
+
+        tokens.add(display.getRealCursorIndex(), exponent);
+        tokens.add(display.getRealCursorIndex() + 1, openBracket);
+        tokens.add(display.getRealCursorIndex() + 2, DigitFactory.makeNegative());
+        tokens.add(display.getRealCursorIndex() + 3, DigitFactory.makeOne());
+        tokens.add(display.getRealCursorIndex() + 4, closeBracket);
+
+        exponent.addDependency(openBracket);
+        exponent.addDependency(closeBracket);
+
+        display.setCursorIndex(display.getCursorIndex() + 4);
+        updateInput();
         updateInput();
     }
 
@@ -726,7 +813,8 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickFactorial(View v) {
-        tokens.add(OperatorFactory.makeFactorial());
+        tokens.add(display.getRealCursorIndex(), OperatorFactory.makeFactorial());
+        display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
     }
 
@@ -736,7 +824,9 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickCombination(View v) {
-        tokens.add(OperatorFactory.makeCombination());
+        tokens.add(display.getRealCursorIndex(), OperatorFactory.makeCombination());
+        display.setCursorIndex(display.getCursorIndex() + 1);
+
         updateInput();
     }
 
@@ -746,7 +836,8 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickPermutation(View v) {
-        tokens.add(OperatorFactory.makePermutation());
+        tokens.add(display.getRealCursorIndex(), OperatorFactory.makePermutation());
+        display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
     }
 
@@ -756,7 +847,8 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickE(View v) {
-        tokens.add(VariableFactory.makeE());
+        tokens.add(display.getRealCursorIndex(), VariableFactory.makeE());
+        display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
     }
 
@@ -766,7 +858,8 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickPi(View v) {
-        tokens.add(VariableFactory.makePI());
+        tokens.add(display.getRealCursorIndex(), VariableFactory.makePI());
+        display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
     }
 
@@ -798,12 +891,13 @@ public class Advanced extends Basic {
      */
     public void clickSin1(View v) {
         if (angleMode == DEGREE) {
-            tokens.add(FunctionFactory.makeSinD());
+            tokens.add(display.getRealCursorIndex(), FunctionFactory.makeSinD());
         } else if (angleMode == RADIAN) {
-            tokens.add(FunctionFactory.makeSinR());
+            tokens.add(display.getRealCursorIndex(), FunctionFactory.makeSinR());
         } else if (angleMode == GRADIAN) {
-            tokens.add(FunctionFactory.makeSinG());
+            tokens.add(display.getRealCursorIndex(), FunctionFactory.makeSinG());
         }
+        display.setCursorIndex(display.getCursorIndex() + 1);
     }
 
     /**
@@ -813,12 +907,13 @@ public class Advanced extends Basic {
      */
     public void clickASin(View v) {
         if (angleMode == DEGREE) {
-            tokens.add(FunctionFactory.makeASinD());
+            tokens.add(display.getRealCursorIndex(), FunctionFactory.makeASinD());
         } else if (angleMode == RADIAN) {
-            tokens.add(FunctionFactory.makeASinR());
+            tokens.add(display.getRealCursorIndex(), FunctionFactory.makeASinR());
         } else if (angleMode == GRADIAN) {
-            tokens.add(FunctionFactory.makeASinG());
+            tokens.add(display.getRealCursorIndex(), FunctionFactory.makeASinG());
         }
+        display.setCursorIndex(display.getCursorIndex() + 1);
     }
 
     /**
@@ -848,12 +943,13 @@ public class Advanced extends Basic {
      */
     public void clickCos1(View v) {
         if (angleMode == DEGREE) {
-            tokens.add(FunctionFactory.makeCosD());
+            tokens.add(display.getRealCursorIndex(), FunctionFactory.makeCosD());
         } else if (angleMode == RADIAN) {
-            tokens.add(FunctionFactory.makeCosR());
+            tokens.add(display.getRealCursorIndex(), FunctionFactory.makeCosR());
         } else if (angleMode == GRADIAN) {
-            tokens.add(FunctionFactory.makeCosG());
+            tokens.add(display.getRealCursorIndex(), FunctionFactory.makeCosG());
         }
+        display.setCursorIndex(display.getCursorIndex() + 1);
     }
 
     /**
@@ -863,12 +959,13 @@ public class Advanced extends Basic {
      */
     public void clickACos(View v) {
         if (angleMode == DEGREE) {
-            tokens.add(FunctionFactory.makeACosD());
+            tokens.add(display.getRealCursorIndex(), FunctionFactory.makeACosD());
         } else if (angleMode == RADIAN) {
-            tokens.add(FunctionFactory.makeACosR());
+            tokens.add(display.getRealCursorIndex(), FunctionFactory.makeACosR());
         } else if (angleMode == GRADIAN) {
-            tokens.add(FunctionFactory.makeACosG());
+            tokens.add(display.getRealCursorIndex(), FunctionFactory.makeACosG());
         }
+        display.setCursorIndex(display.getCursorIndex() + 1);
     }
 
     /**
@@ -898,12 +995,13 @@ public class Advanced extends Basic {
      */
     public void clickTan1(View v) {
         if (angleMode == DEGREE) {
-            tokens.add(FunctionFactory.makeTanD());
+            tokens.add(display.getRealCursorIndex(), FunctionFactory.makeTanD());
         } else if (angleMode == RADIAN) {
-            tokens.add(FunctionFactory.makeTanR());
+            tokens.add(display.getRealCursorIndex(), FunctionFactory.makeTanR());
         } else if (angleMode == GRADIAN) {
-            tokens.add(FunctionFactory.makeTanG());
+            tokens.add(display.getRealCursorIndex(), FunctionFactory.makeTanG());
         }
+        display.setCursorIndex(display.getCursorIndex() + 1);
     }
 
     /**
@@ -913,12 +1011,13 @@ public class Advanced extends Basic {
      */
     public void clickATan(View v) {
         if (angleMode == DEGREE) {
-            tokens.add(FunctionFactory.makeATanD());
+            tokens.add(display.getRealCursorIndex(), FunctionFactory.makeATanD());
         } else if (angleMode == RADIAN) {
-            tokens.add(FunctionFactory.makeATanR());
+            tokens.add(display.getRealCursorIndex(), FunctionFactory.makeATanR());
         } else if (angleMode == GRADIAN) {
-            tokens.add(FunctionFactory.makeATanG());
+            tokens.add(display.getRealCursorIndex(), FunctionFactory.makeATanG());
         }
+        display.setCursorIndex(display.getCursorIndex() + 1);
     }
 
     /**
@@ -927,7 +1026,8 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickSinh(View v) {
-        tokens.add(FunctionFactory.makeSinh());
+        tokens.add(display.getRealCursorIndex(), FunctionFactory.makeSinh());
+        display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
     }
 
@@ -937,7 +1037,8 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickASinh(View v) {
-        tokens.add(FunctionFactory.makeASinh());
+        tokens.add(display.getRealCursorIndex(), FunctionFactory.makeASinh());
+        display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
     }
 
@@ -947,7 +1048,8 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickCosh(View v) {
-        tokens.add(FunctionFactory.makeCosh());
+        tokens.add(display.getRealCursorIndex(), FunctionFactory.makeCosh());
+        display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
     }
 
@@ -957,7 +1059,8 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickACosh(View v) {
-        tokens.add(FunctionFactory.makeACosh());
+        tokens.add(display.getRealCursorIndex(), FunctionFactory.makeACosh());
+        display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
     }
 
@@ -967,7 +1070,8 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickTanh(View v) {
-        tokens.add(FunctionFactory.makeTanh());
+        tokens.add(display.getRealCursorIndex(), FunctionFactory.makeTanh());
+        display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
     }
 
@@ -977,7 +1081,8 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickATanh(View v) {
-        tokens.add(FunctionFactory.makeATanh());
+        tokens.add(display.getRealCursorIndex(), FunctionFactory.makeATanh());
+        display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
     }
 }
