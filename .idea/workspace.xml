@@ -31,37 +31,16 @@
     <bookmark url="file://$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/DisplayView.java" line="100" />
   </component>
   <component name="ChangeListManager">
-<<<<<<< HEAD
-    <list default="true" id="377a07f7-27dc-473a-a96c-fb1ac73664cb" name="Default" comment="0.9.0 - Initial commit for this 0.9.x" />
-=======
-    <list default="true" id="377a07f7-27dc-473a-a96c-fb1ac73664cb" name="Default" comment="0.10.1 - Added cursors and side scrolling architecture">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/Placeholder.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/PlaceholderFactory.java" />
-      <change type="DELETED" beforePath="C:\Users\Alston\Calculall\app\src\main\java\com\trutech\calculall\MatrixMode.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Alston\Calculall\app\src\main\res\layout\activity_matrix_mode.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/Advanced.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/Advanced.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/Basic.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/Basic.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/Bracket.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/Bracket.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/BracketFactory.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/BracketFactory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/DisplayView.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/DisplayView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/Function.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/Function.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/FunctionFactory.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/FunctionFactory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/FunctionMode.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/FunctionMode.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/JFok.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/JFok.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/Operator.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/Operator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/OperatorFactory.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/OperatorFactory.java" />
+    <list default="true" id="377a07f7-27dc-473a-a96c-fb1ac73664cb" name="Default" comment="0.11.0 - Initial commmit for this version">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/ic_launcher.png" />
+      <change type="DELETED" beforePath="C:\Users\Alston\Calculall\app\src\main\res\drawable-xxxhdpi\ic-launcher.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Alston\Calculall\app\src\main\res\drawable\ic-launcher.png" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/model_data.bin" afterPath="$PROJECT_DIR$/build/intermediates/model_data.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/trutech/calculall/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/trutech/calculall/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/Token.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/Token.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/Utility.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/Utility.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/VectorMode.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/VectorMode.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_advanced.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_advanced.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_basic.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_basic.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_function.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_function.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_vector.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_vector.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/local.properties" afterPath="$PROJECT_DIR$/local.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
->>>>>>> origin/master
     <ignored path="CalculallE.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -86,8 +65,8 @@
       <file leaf-file-name="Basic.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/Basic.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="4184" max-vertical-offset="7378">
-              <caret line="287" column="29" selection-start-line="287" selection-start-column="29" selection-end-line="287" selection-end-column="29" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="782" max-vertical-offset="7514">
+              <caret line="46" column="43" selection-start-line="46" selection-start-column="43" selection-end-line="46" selection-end-column="43" />
               <folding />
             </state>
           </provider>
@@ -96,8 +75,28 @@
       <file leaf-file-name="OperatorFactory.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/OperatorFactory.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="988" max-vertical-offset="2312">
+            <state vertical-scroll-proportion="0.0" vertical-offset="1447" max-vertical-offset="2312">
               <caret line="98" column="29" selection-start-line="98" selection-start-column="29" selection-end-line="98" selection-end-column="29" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="VectorMode.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/VectorMode.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="8891">
+              <caret line="95" column="42" selection-start-line="95" selection-start-column="42" selection-end-line="95" selection-end-column="42" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Utility.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/Utility.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-2.4741783" vertical-offset="4743" max-vertical-offset="16269">
+              <caret line="159" column="111" selection-start-line="159" selection-start-column="111" selection-end-line="159" selection-end-column="111" />
               <folding />
             </state>
           </provider>
@@ -106,18 +105,8 @@
       <file leaf-file-name="Operator.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/Operator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1700">
+            <state vertical-scroll-proportion="0.0" vertical-offset="187" max-vertical-offset="1700">
               <caret line="11" column="107" selection-start-line="11" selection-start-column="107" selection-end-line="11" selection-end-column="107" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Advanced.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/Advanced.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.96069366" vertical-offset="10100" max-vertical-offset="18326">
-              <caret line="658" column="8" selection-start-line="658" selection-start-column="8" selection-end-line="658" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -126,8 +115,8 @@
       <file leaf-file-name="DisplayView.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/DisplayView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1972" max-vertical-offset="5950">
-              <caret line="148" column="34" selection-start-line="148" selection-start-column="34" selection-end-line="148" selection-end-column="34" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="5085" max-vertical-offset="5950">
+              <caret line="117" column="0" selection-start-line="117" selection-start-column="0" selection-end-line="117" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -568,7 +557,7 @@
     </option>
     <option name="modificationStamps">
       <map>
-        <entry key="$PROJECT_DIR$" value="4224871816533" />
+        <entry key="$PROJECT_DIR$" value="4219541656033" />
       </map>
     </option>
     <option name="projectBuildClasspath">
@@ -844,7 +833,6 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_function.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_vector.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/DigitFactory.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/VectorMode.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/Placeholder.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/PlaceholderFactory.java" />
@@ -858,8 +846,9 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/Basic.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/Operator.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/OperatorFactory.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/DisplayView.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/Advanced.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/VectorMode.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/DisplayView.java" />
       </list>
     </option>
   </component>
@@ -895,39 +884,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Calculall" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.packageview.AndroidModuleNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Calculall" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.packageview.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.packageview.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com.trutech.calculall" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -1066,6 +1022,39 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="calculall" />
               <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Calculall" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.packageview.AndroidModuleNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Calculall" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.packageview.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.packageview.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com.trutech.calculall" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -1334,7 +1323,11 @@
       <created>1414465191293</created>
       <updated>1414465191293</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="0.10.2 - Finished cursor and superscripting">
+      <created>1415044212272</created>
+      <updated>1415044212272</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1352,7 +1345,6 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31772575" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3351893" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1365,9 +1357,10 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32916668" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32916668" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31737193" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3997773" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -1428,7 +1421,8 @@
     <MESSAGE value="0.9.3 - Previous version with bug fixes" />
     <MESSAGE value="0.10.0 - Initial commit for this version" />
     <MESSAGE value="0.10.1 - Added cursors and side scrolling architecture" />
-    <option name="LAST_COMMIT_MESSAGE" value="0.10.1 - Added cursors and side scrolling architecture" />
+    <MESSAGE value="0.10.2 - Finished cursor and superscripting" />
+    <option name="LAST_COMMIT_MESSAGE" value="0.10.2 - Finished cursor and superscripting" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -1439,27 +1433,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/import-summary.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="100">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/mybutton.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.45202312" vertical-offset="0" max-vertical-offset="865">
-          <caret line="23" column="11" selection-start-line="23" selection-start-column="11" selection-end-line="23" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/build/generated/source/buildConfig/debug/com/trutech/calculall/BuildConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.060714286" vertical-offset="0" max-vertical-offset="840">
-          <caret line="5" column="19" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5699422" vertical-offset="1020" max-vertical-offset="1955">
@@ -1614,17 +1587,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_vector.xml">
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1666" max-vertical-offset="9911">
-          <caret line="103" column="0" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_basic.xml">
       <provider selected="true" editor-type-id="android-designer">
         <state />
@@ -1632,17 +1594,6 @@
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="5045" max-vertical-offset="6137">
           <caret line="351" column="0" selection-start-line="351" selection-start-column="0" selection-end-line="351" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_function.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1751" max-vertical-offset="11220">
-          <caret line="103" column="0" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1687,14 +1638,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/VectorMode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="4.4" vertical-offset="4524" max-vertical-offset="8959">
-          <caret line="498" column="30" selection-start-line="498" selection-start-column="30" selection-end-line="498" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/BoyerMoore.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.13757226" vertical-offset="0" max-vertical-offset="865">
@@ -1713,10 +1656,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.2947977" vertical-offset="0" max-vertical-offset="865">
           <caret line="15" column="31" selection-start-line="15" selection-start-column="31" selection-end-line="15" selection-end-column="31" />
-          <folding>
-            <element signature="e#608#609#0" expanded="true" />
-            <element signature="e#635#636#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1727,19 +1666,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/Utility.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.75821596" vertical-offset="1989" max-vertical-offset="16031">
-          <caret line="159" column="111" selection-start-line="159" selection-start-column="111" selection-end-line="159" selection-end-column="111" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/Function.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.15722543" vertical-offset="51" max-vertical-offset="1207">
           <caret line="11" column="118" selection-start-line="11" selection-start-column="118" selection-end-line="11" selection-end-column="118" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1747,7 +1677,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="2382" max-vertical-offset="3247">
           <caret line="158" column="29" selection-start-line="158" selection-start-column="29" selection-end-line="158" selection-end-column="29" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1755,7 +1684,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="612">
           <caret line="10" column="113" selection-start-line="10" selection-start-column="113" selection-end-line="10" selection-end-column="113" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1763,7 +1691,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.019653179" vertical-offset="0" max-vertical-offset="865">
           <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1771,7 +1698,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.2962963" vertical-offset="63716" max-vertical-offset="328542">
           <caret line="3853" column="24" selection-start-line="3853" selection-start-column="24" selection-end-line="3853" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1779,6 +1705,80 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.25938967" vertical-offset="8415" max-vertical-offset="25959">
           <caret line="509" column="37" selection-start-line="509" selection-start-column="36" selection-end-line="509" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/FunctionFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="4286" max-vertical-offset="6273">
+          <caret line="393" column="0" selection-start-line="393" selection-start-column="0" selection-end-line="393" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_function.xml">
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1751" max-vertical-offset="11220">
+          <caret line="103" column="0" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/VectorFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="765">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_vector.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3877551" vertical-offset="2567" max-vertical-offset="9724">
+          <caret line="170" column="42" selection-start-line="170" selection-start-column="42" selection-end-line="170" selection-end-column="42" />
+          <folding>
+            <element signature="e#4552#4567#0" expanded="true" />
+            <element signature="e#4599#4614#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/Vector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.13757226" vertical-offset="0" max-vertical-offset="865">
+          <caret line="7" column="22" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/Basic.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="7378">
+          <caret line="46" column="43" selection-start-line="46" selection-start-column="43" selection-end-line="46" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/Advanced.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="13651" max-vertical-offset="18326">
+          <caret line="834" column="6" selection-start-line="834" selection-start-column="6" selection-end-line="834" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/DisplayView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="5085" max-vertical-offset="5950">
+          <caret line="117" column="0" selection-start-line="117" selection-start-column="0" selection-end-line="117" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1791,14 +1791,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/FunctionFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="4286" max-vertical-offset="6273">
-          <caret line="393" column="0" selection-start-line="393" selection-start-column="0" selection-end-line="393" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/OperatorFactory.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="988" max-vertical-offset="2312">
@@ -1807,26 +1799,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/DisplayView.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/VectorMode.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1972" max-vertical-offset="5950">
-          <caret line="148" column="34" selection-start-line="148" selection-start-column="34" selection-end-line="148" selection-end-column="34" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="8891">
+          <caret line="95" column="42" selection-start-line="95" selection-start-column="42" selection-end-line="95" selection-end-column="42" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/Basic.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/Utility.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="4235" max-vertical-offset="7378">
-          <caret line="287" column="29" selection-start-line="287" selection-start-column="29" selection-end-line="287" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutech/calculall/Advanced.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.96069366" vertical-offset="10100" max-vertical-offset="18326">
-          <caret line="658" column="8" selection-start-line="658" selection-start-column="8" selection-end-line="658" selection-end-column="8" />
+        <state vertical-scroll-proportion="-2.4741783" vertical-offset="4743" max-vertical-offset="16269">
+          <caret line="159" column="111" selection-start-line="159" selection-start-column="111" selection-end-line="159" selection-end-column="111" />
           <folding />
         </state>
       </provider>
