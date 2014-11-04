@@ -158,7 +158,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/VarA"
+                android:id="@+id/VarU"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
@@ -167,11 +167,11 @@
                 android:layout_weight="1"
                 android:checked="false"
                 android:onClick="clickVA"
-                android:text="@string/vectA"
+                android:text="@string/vectU"
                 android:textSize="16sp" />
 
             <Button
-                android:id="@+id/VarB"
+                android:id="@+id/VarV"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
@@ -179,11 +179,11 @@
                 android:layout_weight="1"
                 android:checked="false"
                 android:onClick="clickVB"
-                android:text="@string/vectB"
+                android:text="@string/vectV"
                 android:textSize="16sp" />
 
             <Button
-                android:id="@+id/VarC"
+                android:id="@+id/VarW"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
@@ -191,20 +191,9 @@
                 android:layout_weight="1"
                 android:checked="false"
                 android:onClick="clickVC"
-                android:text="@string/vectC"
+                android:text="@string/vectW"
                 android:textSize="16sp" />
 
-            <Button
-                android:id="@+id/VarU"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
-                android:layout_weight="1"
-                android:checked="false"
-                android:onClick="clickVX"
-                android:text="@string/vectU"
-                android:textSize="16sp" />
 
             <Button
                 android:id="@+id/v"

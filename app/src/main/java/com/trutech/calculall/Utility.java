@@ -312,27 +312,27 @@ public class Utility {
             if (operator == VRuleSet.ADD) {
                 if (dimensions == 2) {
                     double[] expression = new double[2];
-                    expression[0] = vectorLeft[0] + vectorRight[0];
-                    expression[1] = vectorLeft[1] + vectorRight[1];
+                    expression[0] = Utility.round(vectorLeft[0] + vectorRight[0],9);
+                    expression[1] = Utility.round(vectorLeft[1] + vectorRight[1],9);
                     return expression;
                 } else if (dimensions == 3) {
                     double[] expression = new double[3];
-                    expression[0] = vectorLeft[0] + vectorRight[0];
-                    expression[1] = vectorLeft[1] + vectorRight[1];
-                    expression[2] = vectorLeft[2] + vectorRight[2];
+                    expression[0] = Utility.round(vectorLeft[0] + vectorRight[0],9);
+                    expression[1] = Utility.round(vectorLeft[1] + vectorRight[1],9);
+                    expression[2] = Utility.round(vectorLeft[2] + vectorRight[2],9);
                     return expression;
                 }
             } else if (operator == VRuleSet.SUBTRACT) {
                 if (dimensions == 2) {
                     double[] expression = new double[2];
-                    expression[0] = vectorLeft[0] - vectorRight[0];
-                    expression[1] = vectorLeft[1] - vectorRight[1];
+                    expression[0] = Utility.round(vectorLeft[0] - vectorRight[0],9);
+                    expression[1] = Utility.round(vectorLeft[1] - vectorRight[1],9);
                     return expression;
                 } else if (dimensions == 3) {
                     double[] expression = new double[3];
-                    expression[0] = vectorLeft[0] - vectorRight[0];
-                    expression[1] = vectorLeft[1] - vectorRight[1];
-                    expression[2] = vectorLeft[2] - vectorRight[2];
+                    expression[0] = Utility.round(vectorLeft[0] - vectorRight[0],9);
+                    expression[1] = Utility.round(vectorLeft[1] - vectorRight[1],9);
+                    expression[2] = Utility.round(vectorLeft[2] - vectorRight[2],9);
                     return expression;
                 }
             }
@@ -468,45 +468,45 @@ public class Utility {
         //special case if c = 0
         if (c == 0) {
             output.add(VariableFactory.makeX());
-            output.add(new Token("=") {
-            });
-            output.add(new Number(a));
+            output.add(new Token("="){});
+            output.add(new Number (Utility.round(a,9)));
             return output;
         }
 
         //special case if d = 0
         if (d == 0) {
             output.add(VariableFactory.makeY());
-            output.add(new Token("=") {
-            });
-            output.add(new Number(b));
+            output.add(new Token("="){});
+            output.add(new Number (Utility.round(b,9)));
             return output;
         }
 
         //Scalar equation is in the form cy - dx + z = 0 , where z = -cb + da
 
         //for first term
-        if (c != 0) {
-            output.add(new Number(c));
+        if (c !=0){
+            output.add(new Number (Utility.round(c,9)));
             output.add(VariableFactory.makeY());
         }
 
         //for second term
         if (d > 0) {
             output.add(OperatorFactory.makeSubtract());
-            output.add(new Number(Math.abs(d)));
+            output.add(new Number(Utility.round(Math.abs(d),9)));
         } else if (d < 0) {
             if (c != 0) {
                 output.add(OperatorFactory.makeAdd());
             }
-            output.add(new Number(Math.abs(d)));
+            output.add(new Number(Utility.round(Math.abs(d),9)));
         }
         if (d != 0) {
             output.add(VariableFactory.makeX());
         }
 
         //for third term
-        output.add(new Number(z));
+        if (z != 0) {
+            output.add(new Number (Utility.round(z,9)));
+        }
 
         // = 0
         output.add(new Token("=") {
@@ -517,29 +517,29 @@ public class Utility {
     }
 
     /**
-     * Determines the unit vector of a given vector
-     *
-     * @param vector The vector.
-     * @return ArrayList<Token></Token> The unit vector.
-     */
-    public static ArrayList<Token> findUnitVector(double[] vector) {
-        double magnitude = calculateMagnitude(vector);
-        if (vector.length == 2) {
-            double[] unitVector = new double[2];
-            unitVector[0] = vector[0] / magnitude;
-            unitVector[1] = vector[1] / magnitude;
-            return Utility.convertDoublesToVector(unitVector);
-        } else if (vector.length == 3) {
-            double[] unitVector = new double[3];
-            unitVector[0] = vector[0] / magnitude;
-            unitVector[1] = vector[1] / magnitude;
-            unitVector[2] = vector[2] / magnitude;
-            return Utility.convertDoublesToVector(unitVector);
-        } else {
-            throw new IllegalArgumentException("Error: This calculator only supports 2D and 3D vectors.");
-        }
+          * Determines the unit vector of a given vector
+          *
+          * @param vector The vector.
+          * @return ArrayList<Token></Token> The unit vector.
+          */
+         public static ArrayList<Token> findUnitVector (double[] vector){
+             double magnitude = calculateMagnitude(vector);
+             if (vector.length == 2){
+                 double[] unitVector = new double[2];
+                 unitVector[0] = Utility.round(vector[0]/magnitude,9);
+                 unitVector[1] = Utility.round(vector[1]/magnitude,9);
+                 return Utility.convertDoublesToVector(unitVector);
+             } else if (vector.length == 3) {
+                 double[] unitVector = new double[3];
+                 unitVector[0] = Utility.round(vector[0]/magnitude,9);
+                 unitVector[1] = Utility.round(vector[1]/magnitude,9);
+                 unitVector[2] = Utility.round(vector[2]/magnitude,9);
+                 return Utility.convertDoublesToVector(unitVector);
+             } else {
+                 throw new IllegalArgumentException("Error: This calculator only supports 2D and 3D vectors.");
+             }
 
-    }
+         }
 
     /**
      * Returns the argument of a vector. (angle to the X axis)
@@ -558,7 +558,7 @@ public class Utility {
         if (x == 0) {
             return 90;
         }
-        double argument = Math.abs(Math.toDegrees(Math.atan((double) y / x)));
+        double argument = Utility.round(Math.abs(Math.toDegrees(Math.atan(y / x))),9);
         return argument;
     }
 
@@ -588,7 +588,7 @@ public class Utility {
             return 3;
         }
         //Quadrant 4
-        if (x > 0 && y < 0) {
+        if (x > 0 && y < 0){
             return 4;
         }
         //vector lies on positive y axis
@@ -666,59 +666,55 @@ public class Utility {
             output.add(new Token("N") {
             });
             output.add(new Number(0));
-            output.add(new Token("E") {
-            });
+            output.add(new Token ("°"){});
+            output.add(new Token("E"){});
         }
         if (quadrant == -2) { //positive x axis
             output.add(new Token("E") {
             });
             output.add(new Number(0));
-            output.add(new Token("N") {
-            });
+            output.add(new Token ("°"){});
+            output.add(new Token("N"){});
         }
         if (quadrant == -3) { //negative y axis
             output.add(new Token("S") {
             });
             output.add(new Number(0));
-            output.add(new Token("W") {
-            });
+            output.add(new Token ("°"){});
+            output.add(new Token("W"){});
         }
         if (quadrant == -4) { //negative x axis
             output.add(new Token("W") {
             });
             output.add(new Number(0));
-            output.add(new Token("S") {
-            });
+            output.add(new Token ("°"){});
+            output.add(new Token("S"){});
         }
 
         //returns vectors that do not lie on an axis
-        if (quadrant == 1) {
-            output.add(new Token("E") {
-            });
-            output.add(new Number(angle));
-            output.add(new Token("N") {
-            });
+        if (quadrant == 1){
+            output.add(new Token("E"){});
+            output.add(new Number(Utility.round(angle,9)));
+            output.add(new Token ("°"){});
+            output.add(new Token("N"){});
         }
-        if (quadrant == 2) {
-            output.add(new Token("W") {
-            });
-            output.add(new Number(angle));
-            output.add(new Token("N") {
-            });
+        if (quadrant == 2){
+            output.add(new Token("W"){});
+            output.add(new Number(Utility.round(angle,9)));
+            output.add(new Token ("°"){});
+            output.add(new Token("N"){});
         }
-        if (quadrant == 3) {
-            output.add(new Token("W") {
-            });
-            output.add(new Number(angle));
-            output.add(new Token("S") {
-            });
+        if (quadrant == 3){
+            output.add(new Token("W"){});
+            output.add(new Number(Utility.round(angle,9)));
+            output.add(new Token ("°"){});
+            output.add(new Token("S"){});
         }
-        if (quadrant == 4) {
-            output.add(new Token("E") {
-            });
-            output.add(new Number(angle));
-            output.add(new Token("S") {
-            });
+        if (quadrant == 4){
+            output.add(new Token("E"){});
+            output.add(new Number(Utility.round(angle,9)));
+            output.add(new Token ("°"){});
+            output.add(new Token("S"){});
         }
         return output;
     }
@@ -738,11 +734,11 @@ public class Utility {
         } else if (vector.length == 3) {
             dimensions = 3;
         }
-        double[] newVector = new double[dimensions];
-        newVector[0] = multiplier * vector[0];
-        newVector[1] = multiplier * vector[1];
+        double[] newVector = new double [dimensions];
+        newVector[0] = Utility.round(multiplier * vector[0],9);
+        newVector[1] = Utility.round(multiplier * vector[1],9);
         if (dimensions > 2) {
-            newVector[2] = multiplier * vector[2];
+            newVector[2] = Utility.round(multiplier * vector[2],9);
         }
         return newVector;
     }
@@ -773,6 +769,7 @@ public class Utility {
     }
 
     /**
+     *
      * @param leftVector
      * @param rightVector
      * @return ArrayList<Token>
@@ -780,7 +777,7 @@ public class Utility {
     public static ArrayList<Token> findProjection(double[] leftVector, double[] rightVector) {
         ArrayList<Token> tempTokens = new ArrayList<Token>();
         ArrayList<Token> tempVector = new ArrayList<Token>();
-        tempTokens.add(new Number((calculateDotProduct(rightVector, leftVector) / Math.pow(calculateMagnitude(leftVector), 2))));
+        tempTokens.add(new Number (Utility.round((calculateDotProduct(rightVector, leftVector)/Math.pow(calculateMagnitude(leftVector),2)),9)));
         tempTokens.addAll(convertDoublesToVector(leftVector));
         return tempTokens;
     }
@@ -853,6 +850,32 @@ public class Utility {
     }
 
     /**
+     * Finds the derivative of a given function
+     *
+     * @param function The function that will be differentiated
+     * @return The differentiated function
+     */
+    public ArrayList<Token> differentiate(ArrayList<Token> function) {
+        for (int i = 0; i < function.size(); i++) {
+
+        }
+        return null;
+    }
+
+    /**
+     * Finds the integral of a given function
+     *
+     * @param function The function that will be integrated
+     * @return The integrated function
+     */
+    public ArrayList<Token> integrate(ArrayList<Token> function) {
+        for (int i = 0; i < function.size(); i++) {
+
+        }
+        return null;
+    }
+
+    /**
      * Finds all the REAL roots of a quadratic function
      *
      * @param a the coefficient of the 2nd degree x value of the cubic function
@@ -871,6 +894,7 @@ public class Utility {
         }
         return roots;
     }
+
 
     /**
      * Finds all the roots of a quadratic function
@@ -928,32 +952,6 @@ public class Utility {
         }
 
         return roots;
-    }
-
-    /**
-     * Finds the derivative of a given function
-     *
-     * @param function The function that will be differentiated
-     * @return The differentiated function
-     */
-    public ArrayList<Token> differentiate(ArrayList<Token> function) {
-        for (int i = 0; i < function.size(); i++) {
-
-        }
-        return null;
-    }
-
-    /**
-     * Finds the integral of a given function
-     *
-     * @param function The function that will be integrated
-     * @return The integrated function
-     */
-    public ArrayList<Token> integrate(ArrayList<Token> function) {
-        for (int i = 0; i < function.size(); i++) {
-
-        }
-        return null;
     }
 
 }
