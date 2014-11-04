@@ -3,40 +3,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ff7A6A53"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
-    <ScrollView
-        android:id="@+id/scrollView"
+    <LinearLayout
+        android:id="@+id/Container"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="18" >
+        android:layout_weight="18"
+        android:orientation="horizontal">
 
-        <LinearLayout
+        <Button
+            android:id="@+id/leftScroll"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:onClick="scrollLeft"
+            android:text="@string/leftscroll" />
+
+        <view
             android:id="@+id/display"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            class="com.trutech.calculall.DisplayView"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="50"
+            android:longClickable="false" />
 
-            <TextView
-                android:id="@+id/txtInput"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="#ff948C75"
-                android:gravity="right"
-                android:textSize="48sp" />
+        <Button
+            android:id="@+id/rightScroll"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:layout_weight="5"
+            android:onClick="scrollRight"
+            android:text="@string/rightscroll" />
 
-            <TextView
-                android:id="@+id/txtStack"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="#ff948C75"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:gravity="right"
-                android:textSize="48sp" />
 
-        </LinearLayout>
-    </ScrollView>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/grid"
@@ -45,7 +47,7 @@
         android:layout_marginBottom="5dp"
         android:layout_weight="60"
         android:orientation="vertical"
-        android:weightSum="20.5" >
+        android:weightSum="20.5">
 
         <LinearLayout
             android:id="@+id/modes"
@@ -54,7 +56,7 @@
             android:layout_marginBottom="-7dp"
             android:layout_marginTop="-7dp"
             android:layout_weight="1.8"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/basicButton"
@@ -100,16 +102,6 @@
                 android:text="@string/vector"
                 android:textSize="16sp" />
 
-            <Button
-                android:id="@+id/matrixButton"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
-                android:layout_weight="1"
-                android:onClick="clickMatrix"
-                android:text="@string/matrix"
-                android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -118,7 +110,7 @@
             android:layout_height="0dp"
             android:layout_marginBottom="-7dp"
             android:layout_weight="2"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <ToggleButton
                 android:id="@+id/memButton"
@@ -163,7 +155,7 @@
             android:layout_height="0dp"
             android:layout_marginBottom="-7dp"
             android:layout_weight="3"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/VarA"
@@ -245,7 +237,7 @@
             android:layout_height="0dp"
             android:layout_marginBottom="-7dp"
             android:layout_weight="3"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/argumentButton"
@@ -255,8 +247,8 @@
                 android:layout_marginLeft="-7dp"
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
-                android:onClick="clickDirectionMode"
                 android:checked="false"
+                android:onClick="clickDirectionMode"
                 android:text="@string/argument"
                 android:textSize="16sp" />
 
@@ -327,7 +319,7 @@
             android:layout_height="0dp"
             android:layout_marginBottom="-7dp"
             android:layout_weight="3"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/sevenButton"
@@ -392,7 +384,7 @@
             android:layout_height="0dp"
             android:layout_marginBottom="-7dp"
             android:layout_weight="3"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/fourButton"
@@ -457,7 +449,7 @@
             android:layout_height="0dp"
             android:layout_marginBottom="-7dp"
             android:layout_weight="3"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/oneButton"
@@ -522,7 +514,7 @@
             android:layout_height="0dp"
             android:layout_marginBottom="-7dp"
             android:layout_weight="3"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
 
             <Button

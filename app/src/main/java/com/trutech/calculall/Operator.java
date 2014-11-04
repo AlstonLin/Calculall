@@ -1,3 +1,4 @@
+
 package com.trutech.calculall;
 
 /**
@@ -7,11 +8,11 @@ package com.trutech.calculall;
  */
 public abstract class Operator extends Token {
 
-    public static int ADD = 1, SUBTRACT = 2, MULTIPLY = 3, DIVIDE = 4, EXPONENT = 5, PERMUTATION = 6, 
-    		COMBINATION = 7, FACTORIAL = 8, VARROOT = 9, DOT = 10, CROSS = 11, ANGLE = 12;
+    public static int ADD = 1, SUBTRACT = 2, MULTIPLY = 3, DIVIDE = 4, EXPONENT = 5, PERMUTATION = 6,
+            COMBINATION = 7, FACTORIAL = 8, VARROOT = 9, DOT = 10, CROSS = 11, ANGLE = 12, POW_OF_TEN = 13;
     private int type;
     private int precedence;
-    private boolean leftAssociative;
+    private boolean leftAssociative, commutative, anticommutative, associative;
 
     /**
      * Should not be used outside of a factory; to create a type of operation,
@@ -21,12 +22,16 @@ public abstract class Operator extends Token {
      * @param type The type of Operator (defined by the class constants)
      * @param precedence Defines the order the operator is used (bigger = higher priority)
      * @param leftAssociative If the operator is left or right associative
+     * @param c If the operator is commutative, anticommutative, or noncommutative
+     * @param a If the operator is associative
      */
-    protected Operator(String symbol, int type, int precedence, boolean leftAssociative) {
+    protected Operator(String symbol, int type, int precedence, boolean leftAssociative, int c, boolean a) {
         super(symbol);
         this.leftAssociative = leftAssociative;
         this.type = type;
         this.precedence = precedence;
+        this.setCommutativity(c);
+        this.associative = a;
     }
 
     /**
@@ -47,11 +52,48 @@ public abstract class Operator extends Token {
     }
 
     /**
-     *
      * @return true if the operator is left associative, false if it's right
      */
     public boolean isLeftAssociative() {
         return leftAssociative;
+    }
+
+    /**
+     * @return true if the operator is associative, false if it's right
+     */
+    public boolean isAssociative() {
+        return associative;
+    }
+
+    /**
+     * @return true if the operator is commutative, false if it is not
+     */
+    public boolean isCommutative() {
+        return commutative;
+    }
+
+    /**
+     * @return true if the operator is anticommutative, false if it is not
+     */
+    public boolean isAntiCommutative() {
+        return anticommutative;
+    }
+
+    /**
+     *
+     * @param c if it is 1 the operator is commutative, 0:  noncommutative, -1: anticommutative
+     */
+    private void setCommutativity(int c) {
+        if(c > 0){
+            commutative = true;
+            anticommutative = false;
+        }else if(c == 0){
+            commutative = false;
+            anticommutative = false;
+        }else{
+            commutative = false;
+            anticommutative = true;
+        }
     }
 
     /**

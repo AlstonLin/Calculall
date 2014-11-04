@@ -26,13 +26,15 @@ public class Utility {
         double value = 0;
         int indexOfDecimal = -1;
         boolean negative = false;
-
         //Does negatives first
-        while (digits.get(0).getValue() == DigitFactory.NEGATIVE) { //Only accepts negatives at the beginning
-            digits.remove(0);
-            negative = negative ? false : true; //Allows for multiple negatives
+        try {
+            while (digits.get(0).getValue() == DigitFactory.NEGATIVE) { //Only accepts negatives at the beginning
+                digits.remove(0);
+                negative = negative ? false : true; //Allows for multiple negatives
+            }
+        } catch (IndexOutOfBoundsException e) { //The digits only contains negatives (occurs during adding a neg to variables)
+            return negative ? -1 : 1;
         }
-
         //Finds what index the decimal is in
         for (int i = 0; i < digits.size(); i++) {
             if (digits.get(i).getValue() == -1) {
@@ -54,6 +56,42 @@ public class Utility {
         ;
 
         return negative ? value * -1 : value;
+    }
+
+
+    /**
+     * Transforms all the digits into numbers as well as replacing Variables with numbers.
+     *
+     * @param tokens The expression to condense digits
+     * @return The expression with the digits condensed
+     */
+    public static ArrayList<Token> condenseDigits(ArrayList<Token> tokens) {
+        ArrayList<Token> newTokens = new ArrayList<Token>();
+        ArrayList<Digit> digits = new ArrayList<Digit>();
+        boolean atDigits = false; //Tracks if it's currently tracking digits
+        for (Token token : tokens) {
+            if (atDigits) { //Going through digits
+                if (token instanceof Digit) { //Number keeps going
+                    digits.add((Digit) token);
+                } else { //Number ended
+                    atDigits = false;
+                    newTokens.add(new Number(Utility.valueOf(digits))); //Adds the sum of all the digits
+                    digits.clear();
+                    newTokens.add(token);
+                }
+            } else { //Not going through digits
+                if (token instanceof Digit) { //Start of a number
+                    atDigits = true;
+                    digits.add((Digit) token);
+                } else { //Not a digit; adds to the new list
+                    newTokens.add(token);
+                }
+            }
+        }
+        if (!digits.isEmpty() && atDigits) { //Digits left
+            newTokens.add(new Number(Utility.valueOf(digits)));
+        }
+        return newTokens;
     }
 
     /**
@@ -117,9 +155,9 @@ public class Utility {
                 stack.push(token);
             } else if (token instanceof Bracket) {
                 Bracket bracket = (Bracket) token;
-                if (bracket.getType() == Bracket.OPEN) { //Pushes the bracket to the stack if it's open
+                if (bracket.getType() == Bracket.OPEN || bracket.getType() == Bracket.SUPERSCRIPT_OPEN) { //Pushes the bracket to the stack if it's open
                     stack.push(bracket);
-                } else { //For close brackets, pop operators onto the list until a open bracket is found
+                } else if (bracket.getType() == Bracket.CLOSE || bracket.getType() == Bracket.SUPERSCRIPT_CLOSE) { //For close brackets, pop operators onto the list until a open bracket is found
                     Token top = stack.lastElement();
                     while (!(top instanceof Bracket)) { //While it has not found an open bracket
                         reversePolish.add(stack.pop()); //Pops the top element
@@ -164,7 +202,7 @@ public class Utility {
             }
         }
         if (stack.size() != 1) {
-            throw new IllegalArgumentException(); //There should only be 1 token left on the stack
+            throw new IllegalArgumentException("Stack size is empty"); //There should only be 1 token left on the stack
         } else {
             return stack.pop().getValue();
         }
@@ -211,7 +249,7 @@ public class Utility {
 
     public static ArrayList<Token> convertDoublesToVector(double[] vector) {
         ArrayList<Token> newVector = new ArrayList<Token>();
-        newVector.add(BracketFactory.createOpenSquareBracket());
+        newVector.add(BracketFactory.makeOpenSquareBracket());
         newVector.add(new Number(vector[0]));
         newVector.add(new Token(",") {
         });
@@ -222,7 +260,7 @@ public class Utility {
             });
             newVector.add(new Number(vector[2]));
         }
-        newVector.add(BracketFactory.createCloseSquareBracket());
+        newVector.add(BracketFactory.makeCloseSquareBracket());
         return newVector;
     }
 
@@ -254,14 +292,13 @@ public class Utility {
      * @param expression Expression of Tokens
      * @return ArrayList<Token> New expression of Tokens
      */
-    public static ArrayList<Token> convertVariablesToTokens (ArrayList<Token> expression) {
+    public static ArrayList<Token> convertVariablesToTokens(ArrayList<Token> expression) {
         ArrayList<Token> tempExpression = new ArrayList<Token>();
         for (Token t : expression) {
             if (t instanceof Vector) {
-                ArrayList<Token> tempVector = ((Vector)t).getVector();
+                ArrayList<Token> tempVector = ((Vector) t).getVector();
                 tempExpression.addAll(tempVector);
-            }
-            else {
+            } else {
                 tempExpression.add(t);
             }
         }
@@ -384,7 +421,7 @@ public class Utility {
             double[] crossProduct = new double[3];
             crossProduct[0] = vectorLeft[1] * vectorRight[2] - vectorLeft[2] * vectorRight[1];
             crossProduct[1] = vectorLeft[2] * vectorRight[0] - vectorLeft[0] * vectorRight[2];
-            crossProduct[2] = vectorLeft[0] * vectorRight[1] - vectorLeft[1] * vectorRight[2];
+            crossProduct[2] = vectorLeft[0] * vectorRight[1] - vectorLeft[1] * vectorRight[0];
             return crossProduct;
         } else {
             throw new IllegalArgumentException();
@@ -410,58 +447,61 @@ public class Utility {
     /**
      * STILL NEEDS TO BE TESTED
      * Calculates the scalar equation of a line in vector form in 2D and outputs it to the user
+     *
      * @ param point The point on the line
      * @ param direction The direction vector of the line
      * @ return ArrayList<Token> The scalar equation to be output on the screen
      */
-    public static ArrayList<Token> calculateScalarEquation (double[] point, double[] direction){
+    public static ArrayList<Token> calculateScalarEquation(double[] point, double[] direction) {
         ArrayList<Token> output = new ArrayList<Token>();
         //line is in the form [a,b] + t[c,d] where [a,b] is the point and [c,d] is the direction vector
         double a = point[0];
         double b = point[1];
         double c = direction[0];
         double d = direction[1];
-        double z = -1*c*b + d*a;
+        double z = -1 * c * b + d * a;
 
-        if (c == 0 && d == 0){
+        if (c == 0 && d == 0) {
             throw new IllegalArgumentException("Error: Not a line!");
         }
 
         //special case if c = 0
         if (c == 0) {
             output.add(VariableFactory.makeX());
-            output.add(new Token("="){});
-            output.add(new Number (a));
+            output.add(new Token("=") {
+            });
+            output.add(new Number(a));
             return output;
         }
 
         //special case if d = 0
         if (d == 0) {
             output.add(VariableFactory.makeY());
-            output.add(new Token("="){});
-            output.add(new Number (b));
+            output.add(new Token("=") {
+            });
+            output.add(new Number(b));
             return output;
         }
 
         //Scalar equation is in the form cy - dx + z = 0 , where z = -cb + da
 
         //for first term
-        if (c !=0){
+        if (c != 0) {
             output.add(new Number(c));
             output.add(VariableFactory.makeY());
         }
 
         //for second term
-        if (d > 0){
+        if (d > 0) {
             output.add(OperatorFactory.makeSubtract());
             output.add(new Number(Math.abs(d)));
-        } else if (d < 0){
+        } else if (d < 0) {
             if (c != 0) {
                 output.add(OperatorFactory.makeAdd());
             }
             output.add(new Number(Math.abs(d)));
         }
-        if (d != 0){
+        if (d != 0) {
             output.add(VariableFactory.makeX());
         }
 
@@ -469,7 +509,8 @@ public class Utility {
         output.add(new Number(z));
 
         // = 0
-        output.add(new Token("="){});
+        output.add(new Token("=") {
+        });
         output.add(new Number(0));
         return output;
 
@@ -481,18 +522,18 @@ public class Utility {
      * @param vector The vector.
      * @return ArrayList<Token></Token> The unit vector.
      */
-    public static ArrayList<Token> findUnitVector (double[] vector){
+    public static ArrayList<Token> findUnitVector(double[] vector) {
         double magnitude = calculateMagnitude(vector);
-        if (vector.length == 2){
+        if (vector.length == 2) {
             double[] unitVector = new double[2];
-            unitVector[0] = vector[0]/magnitude;
-            unitVector[1] = vector[1]/magnitude;
+            unitVector[0] = vector[0] / magnitude;
+            unitVector[1] = vector[1] / magnitude;
             return Utility.convertDoublesToVector(unitVector);
         } else if (vector.length == 3) {
             double[] unitVector = new double[3];
-            unitVector[0] = vector[0]/magnitude;
-            unitVector[1] = vector[1]/magnitude;
-            unitVector[2] = vector[2]/magnitude;
+            unitVector[0] = vector[0] / magnitude;
+            unitVector[1] = vector[1] / magnitude;
+            unitVector[2] = vector[2] / magnitude;
             return Utility.convertDoublesToVector(unitVector);
         } else {
             throw new IllegalArgumentException("Error: This calculator only supports 2D and 3D vectors.");
@@ -507,14 +548,14 @@ public class Utility {
      * @return argument The angle of the vector to the X axis.
      */
 
-    public static double calculateArgument(double[] vector){
-        if (vector.length != 2){
+    public static double calculateArgument(double[] vector) {
+        if (vector.length != 2) {
             throw new IllegalArgumentException("Error: This feature is only usable with 2D vectors.");
         }
         double x = vector[0];
         double y = vector[1];
 
-        if (x == 0){
+        if (x == 0) {
             return 90;
         }
         double argument = Math.abs(Math.toDegrees(Math.atan((double) y / x)));
@@ -522,48 +563,48 @@ public class Utility {
     }
 
     /**
-     *Calculates the quadrant that the vector is in. Only works in 2D.
+     * Calculates the quadrant that the vector is in. Only works in 2D.
      *
      * @param vector The vector.
      * @return int The quadrant.
      */
-    public static int calculateQuadrant(double[] vector){
-        if (vector.length != 2){
+    public static int calculateQuadrant(double[] vector) {
+        if (vector.length != 2) {
             throw new IllegalArgumentException("Error: This feature is only usable with 2D vectors.");
         }
         double x = vector[0];
         double y = vector[1];
 
         //Quadrant 1
-        if (x > 0d && y > 0d){
+        if (x > 0d && y > 0d) {
             return 1;
         }
         //Quadrant 2
-        if (x < 0 && y > 0){
+        if (x < 0 && y > 0) {
             return 2;
         }
         //Quadrant 3
-        if (x < 0 && y < 0){
+        if (x < 0 && y < 0) {
             return 3;
         }
         //Quadrant 4
-        if (x > 0 && y < 0){
+        if (x > 0 && y < 0) {
             return 4;
         }
         //vector lies on positive y axis
-        if ( x == 0 && y > 0){
+        if (x == 0 && y > 0) {
             return -1;
         }
         //vector lies on positive x axis
-        if (x > 0 && y == 0){
+        if (x > 0 && y == 0) {
             return -2;
         }
         //vector lies on negative y axis
-        if (x == 0 && y < 0){
+        if (x == 0 && y < 0) {
             return -3;
         }
         //vector lies on negative x axis
-        if (x < 0 && y == 0){
+        if (x < 0 && y == 0) {
             return -4;
         }
         return -100;
@@ -575,8 +616,8 @@ public class Utility {
      * @param vector The vector.
      * @return double The direction in true bearings
      */
-    public static double calculateTrueBearing (double[] vector) {
-        if (vector.length != 2){
+    public static double calculateTrueBearing(double[] vector) {
+        if (vector.length != 2) {
             throw new IllegalArgumentException("Error: This feature is only usable with 2D vectors.");
         }
 
@@ -594,16 +635,16 @@ public class Utility {
         }
 
         //Returns angles that do not lie on an axis
-        if (quadrant == 1){
+        if (quadrant == 1) {
             trueBearing = 90 - calculateArgument(vector);
         }
-        if (quadrant == 2){
+        if (quadrant == 2) {
             trueBearing = 270 + calculateArgument(vector);
         }
-        if (quadrant == 3){
+        if (quadrant == 3) {
             trueBearing = 180 + (90 - calculateArgument(vector));
         }
-        if (quadrant == 4){
+        if (quadrant == 4) {
             trueBearing = 90 + calculateArgument(vector);
         }
         return trueBearing;
@@ -615,53 +656,69 @@ public class Utility {
      * @param vector The vector.
      * @return ArrayList<Token> The direction.
      */
-    public static ArrayList<Token> calculateBearing (double[] vector){
+    public static ArrayList<Token> calculateBearing(double[] vector) {
         double angle = calculateArgument(vector);
         int quadrant = calculateQuadrant(vector);
         ArrayList<Token> output = new ArrayList<Token>();
 
         //returns vectors that lie on an axis
-        if (quadrant == -1){ //positive y axis
-            output.add(new Token("N"){});
+        if (quadrant == -1) { //positive y axis
+            output.add(new Token("N") {
+            });
             output.add(new Number(0));
-            output.add(new Token("E"){});
+            output.add(new Token("E") {
+            });
         }
-        if (quadrant == -2){ //positive x axis
-            output.add(new Token("E"){});
+        if (quadrant == -2) { //positive x axis
+            output.add(new Token("E") {
+            });
             output.add(new Number(0));
-            output.add(new Token("N"){});
+            output.add(new Token("N") {
+            });
         }
-        if (quadrant == -3){ //negative y axis
-            output.add(new Token("S"){});
+        if (quadrant == -3) { //negative y axis
+            output.add(new Token("S") {
+            });
             output.add(new Number(0));
-            output.add(new Token("W"){});
+            output.add(new Token("W") {
+            });
         }
-        if (quadrant == -4){ //negative x axis
-            output.add(new Token("W"){});
+        if (quadrant == -4) { //negative x axis
+            output.add(new Token("W") {
+            });
             output.add(new Number(0));
-            output.add(new Token("S"){});
+            output.add(new Token("S") {
+            });
         }
 
         //returns vectors that do not lie on an axis
-        if (quadrant == 1){
-            output.add(new Token("E"){});
+        if (quadrant == 1) {
+            output.add(new Token("E") {
+            });
             output.add(new Number(angle));
-            output.add(new Token("N"){});
+            output.add(new Token("N") {
+            });
         }
-        if (quadrant == 2){
-            output.add(new Token("W"){});
+        if (quadrant == 2) {
+            output.add(new Token("W") {
+            });
             output.add(new Number(angle));
-            output.add(new Token("N"){});
+            output.add(new Token("N") {
+            });
         }
-        if (quadrant == 3){
-            output.add(new Token("W"){});
+        if (quadrant == 3) {
+            output.add(new Token("W") {
+            });
             output.add(new Number(angle));
-            output.add(new Token("S"){});
+            output.add(new Token("S") {
+            });
         }
-        if (quadrant == 4){
-            output.add(new Token("E"){});
+        if (quadrant == 4) {
+            output.add(new Token("E") {
+            });
             output.add(new Number(angle));
-            output.add(new Token("S"){});
+            output.add(new Token("S") {
+            });
         }
         return output;
     }
@@ -671,18 +728,17 @@ public class Utility {
      * multiplier
      *
      * @param multiplier Multiplier to be multiplied into a vector
-     * @param vector Vector represented as an array of doubles
+     * @param vector     Vector represented as an array of doubles
      * @return double[] New vector
      */
-    public static double[] multiplyVector (double multiplier, double[] vector) {
+    public static double[] multiplyVector(double multiplier, double[] vector) {
         int dimensions = 0;
         if (vector.length == 2) {
             dimensions = 2;
+        } else if (vector.length == 3) {
+            dimensions = 3;
         }
-        else if (vector.length == 3) {
-        dimensions = 3;
-        }
-        double[] newVector = new double [dimensions];
+        double[] newVector = new double[dimensions];
         newVector[0] = multiplier * vector[0];
         newVector[1] = multiplier * vector[1];
         if (dimensions > 2) {
@@ -704,28 +760,27 @@ public class Utility {
     }*/
 
     /**
-     *Finds the angle between 2 vectors represent
+     * Finds the angle between 2 vectors represent
      *
      * @param leftVector
      * @param rightVector
      * @return double Angle between 2 vectors
      */
-    public static double findAngleBetweenVector (double[] leftVector, double[] rightVector) {
+    public static double findAngleBetweenVector(double[] leftVector, double[] rightVector) {
         return (Math.acos((Utility.calculateDotProduct(leftVector, rightVector))
-                /(Utility.calculateMagnitude(leftVector)*Utility.calculateMagnitude(rightVector)))) * (180/Math.PI);
+                / (Utility.calculateMagnitude(leftVector) * Utility.calculateMagnitude(rightVector)))) * (180 / Math.PI);
 
     }
 
     /**
-     *
      * @param leftVector
      * @param rightVector
      * @return ArrayList<Token>
      */
-    public static ArrayList<Token> findProjection (double[] leftVector, double[] rightVector) {
+    public static ArrayList<Token> findProjection(double[] leftVector, double[] rightVector) {
         ArrayList<Token> tempTokens = new ArrayList<Token>();
         ArrayList<Token> tempVector = new ArrayList<Token>();
-        tempTokens.add(new Number ((calculateDotProduct(rightVector, leftVector)/Math.pow(calculateMagnitude(leftVector),2))));
+        tempTokens.add(new Number((calculateDotProduct(rightVector, leftVector) / Math.pow(calculateMagnitude(leftVector), 2))));
         tempTokens.addAll(convertDoublesToVector(leftVector));
         return tempTokens;
     }
@@ -770,29 +825,31 @@ public class Utility {
 
 
     /**
-     * Finds the derivative of a given function
+     * Adds any missing end brackets to the expression.
      *
-     * @param function The function that will be differentiated
-     * @return The differentiated function
+     * @param expression The expression that may have missing brackets
+     * @return The expression with all the missing brackets added to the end
      */
-    public ArrayList<Token> differentiate(ArrayList<Token> function) {
-        for (int i = 0; i < function.size(); i++) {
-
+    public static ArrayList<Token> addMissingBrackets(ArrayList<Token> expression) {
+        int bracketCount = 0;
+        ArrayList<Token> newExpression = new ArrayList<Token>();
+        //Counts brackets
+        for (Token t : expression) {
+            newExpression.add(t);
+            if (t instanceof Bracket) {
+                Bracket b = (Bracket) t;
+                if (b.getType() == Bracket.OPEN) {
+                    bracketCount++;
+                } else if (b.getType() == Bracket.CLOSE) {
+                    bracketCount--;
+                }
+            }
         }
-        return null;
-    }
-
-    /**
-     * Finds the integral of a given function
-     *
-     * @param function The function that will be integrated
-     * @return The integrated function
-     */
-    public ArrayList<Token> integrate(ArrayList<Token> function) {
-        for (int i = 0; i < function.size(); i++) {
-
+        //Adds missing brackets
+        for (int i = bracketCount; i > 0; i--) {
+            newExpression.add(BracketFactory.makeCloseBracket());
         }
-        return null;
+        return newExpression;
     }
 
     /**
@@ -814,7 +871,6 @@ public class Utility {
         }
         return roots;
     }
-
 
     /**
      * Finds all the roots of a quadratic function
@@ -872,6 +928,32 @@ public class Utility {
         }
 
         return roots;
+    }
+
+    /**
+     * Finds the derivative of a given function
+     *
+     * @param function The function that will be differentiated
+     * @return The differentiated function
+     */
+    public ArrayList<Token> differentiate(ArrayList<Token> function) {
+        for (int i = 0; i < function.size(); i++) {
+
+        }
+        return null;
+    }
+
+    /**
+     * Finds the integral of a given function
+     *
+     * @param function The function that will be integrated
+     * @return The integrated function
+     */
+    public ArrayList<Token> integrate(ArrayList<Token> function) {
+        for (int i = 0; i < function.size(); i++) {
+
+        }
+        return null;
     }
 
 }

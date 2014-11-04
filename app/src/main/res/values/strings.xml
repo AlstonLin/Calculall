@@ -105,5 +105,7 @@
     <string name="integrate">∫</string>
     <string name="title_activity_matrix_mode">MatrixMode</string>
     <string name="hello_world">Hello world!</string>
+    <string name="leftscroll"><![CDATA[<-]]></string>
+    <string name="rightscroll"><![CDATA[->]]></string>
 
 </resources>

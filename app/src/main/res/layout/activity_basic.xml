@@ -7,37 +7,44 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin" >
+    android:paddingTop="@dimen/activity_vertical_margin">
 
-    <ScrollView
+
+    <LinearLayout
+        android:id="@+id/Container"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="18" >
+        android:layout_weight="18"
+        android:orientation="horizontal">
 
-        <LinearLayout
+        <Button
+            android:id="@+id/leftScroll"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:onClick="scrollLeft"
+            android:text="@string/leftscroll" />
+
+        <view
             android:id="@+id/display"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="#ff093e53">
+            class="com.trutech.calculall.DisplayView"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="50"
+            android:longClickable="false" />
 
-            <TextView
-                android:id="@+id/txtInput"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="#ff093E53"
-                android:gravity="right"
-                android:textSize="48sp" />
+        <Button
+            android:id="@+id/rightScroll"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:layout_weight="5"
+            android:onClick="scrollRight"
+            android:text="@string/rightscroll" />
 
-            <TextView
-                android:id="@+id/txtStack"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="#ff093E53"
-                android:gravity="right"
-                android:textSize="48sp" />
-        </LinearLayout>
-    </ScrollView>
+
+    </LinearLayout>
+
 
     <LinearLayout
         android:id="@+id/Grid"
@@ -45,7 +52,7 @@
         android:layout_height="0dp"
         android:layout_weight="60"
         android:orientation="vertical"
-        android:weightSum="15.5" >
+        android:weightSum="15.5">
 
         <LinearLayout
             android:id="@+id/row1"
@@ -53,7 +60,7 @@
             android:layout_height="0dp"
             android:layout_marginBottom="-7dp"
             android:layout_weight="3"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/NegativeButton"
@@ -81,10 +88,10 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:onClick="clickBack"
                 android:text="@string/backspace"
-                android:textSize="36sp"
-                android:gravity="center" />
+                android:textSize="36sp" />
 
             <Button
                 android:id="@+id/ClearButton"
@@ -103,7 +110,7 @@
             android:layout_height="0dp"
             android:layout_marginBottom="-7dp"
             android:layout_weight="3"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/SevenButton"
@@ -152,7 +159,7 @@
             android:layout_height="0dp"
             android:layout_marginBottom="-7dp"
             android:layout_weight="3"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/FourButton"
@@ -201,7 +208,7 @@
             android:layout_height="0dp"
             android:layout_marginBottom="-7dp"
             android:layout_weight="3"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/OneButton"
@@ -250,7 +257,7 @@
             android:layout_height="0dp"
             android:layout_marginBottom="-7dp"
             android:layout_weight="3"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/ZeroButton"
@@ -287,6 +294,7 @@
                 style="@style/button4"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
+                android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:onClick="clickAdd"
                 android:text="@string/plus"
@@ -294,6 +302,7 @@
 
 
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/modes"
             android:layout_width="match_parent"
@@ -301,7 +310,7 @@
             android:layout_marginBottom="-7dp"
             android:layout_marginTop="-7dp"
             android:layout_weight="1.8"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/basicButton"
@@ -315,13 +324,13 @@
 
             <Button
                 android:id="@+id/advancedButton"
+                style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:text="@string/advanced"
                 android:onClick="clickAdvanced"
-                android:textSize="12sp"
-                style="?android:attr/buttonStyleSmall" />
+                android:text="@string/advanced"
+                android:textSize="12sp" />
 
             <Button
                 android:id="@+id/functionButton"
@@ -342,15 +351,6 @@
                 android:text="@string/vector"
                 android:textSize="16sp" />
 
-            <Button
-                android:id="@+id/matrixButton"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:onClick="clickMatrix"
-                android:text="@string/matrix"
-                android:textSize="16sp" />
         </LinearLayout>
     </LinearLayout>
 

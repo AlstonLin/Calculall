@@ -22,6 +22,7 @@ public class VRuleSet {
         VRules.add(new VRule (("[N,N,N]A[N,N,N]"), VRuleSet.ADD, 3));
         VRules.add(new VRule (("[N,N,N]S[N,N,N]"), VRuleSet.SUBTRACT, 3));
         VRules.add(new VRule (("[N,N]D[N,N]"), VRuleSet.DOT, 2));
+        VRules.add(new VRule (("[N,N,N]D[N,N,N]"), VRuleSet.DOT, 3));
         VRules.add(new VRule (("p[N,N][N,N]"), VRuleSet.PROJ, 2));
         VRules.add(new VRule (("p[N,N,N][N,N,N]"), VRuleSet.PROJ, 3));
         VRules.add(new VRule (("|[N,N]|"), VRuleSet.MAGNITUDE, 2));
