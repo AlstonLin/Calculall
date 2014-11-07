@@ -157,7 +157,7 @@
                 android:layout_weight="1"
                 android:checked="false"
                 android:onClick="clickVA"
-                android:text="@string/vectA"
+                android:text="@string/vectU"
                 android:textSize="16sp" />
 
             <Button
@@ -169,7 +169,7 @@
                 android:layout_weight="1"
                 android:checked="false"
                 android:onClick="clickVB"
-                android:text="@string/vectB"
+                android:text="@string/vectW"
                 android:textSize="16sp" />
 
             <Button
@@ -181,19 +181,7 @@
                 android:layout_weight="1"
                 android:checked="false"
                 android:onClick="clickVC"
-                android:text="@string/vectC"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/VarU"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
-                android:layout_weight="1"
-                android:checked="false"
-                android:onClick="clickVX"
-                android:text="@string/vectU"
+                android:text="@string/vectV"
                 android:textSize="16sp" />
 
             <Button

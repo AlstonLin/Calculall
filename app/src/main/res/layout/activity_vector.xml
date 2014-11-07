@@ -102,6 +102,21 @@
             android:layout_weight="2"
             android:orientation="horizontal" >
 
+             <ToggleButton
+                android:id="@+id/shiftButton"
+                style="?android:attr/buttonStyleToggle"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="-7dp"
+                android:layout_marginRight="-7dp"
+                android:layout_weight="1"
+                android:checked="false"
+                android:longClickable="false"
+                android:onClick="clickShift"
+                android:textOff="@string/shift"
+                android:textOn="@string/shift"
+                android:textSize="16sp" />
+
             <ToggleButton
                 android:id="@+id/memButton"
                 style="?android:attr/buttonStyleToggle"
@@ -144,7 +159,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginBottom="-7dp"
-            android:layout_weight="3"
+            android:layout_weight="2"
             android:orientation="horizontal" >
 
             <Button
@@ -156,7 +171,7 @@
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:checked="false"
-                android:onClick="clickVA"
+                android:onClick="clickVU"
                 android:text="@string/vectU"
                 android:textSize="16sp" />
 
@@ -168,7 +183,7 @@
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:checked="false"
-                android:onClick="clickVB"
+                android:onClick="clickVV"
                 android:text="@string/vectV"
                 android:textSize="16sp" />
 
@@ -180,20 +195,20 @@
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:checked="false"
-                android:onClick="clickVC"
+                android:onClick="clickVW"
                 android:text="@string/vectW"
                 android:textSize="16sp" />
 
 
             <Button
-                android:id="@+id/v"
+                android:id="@+id/s"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:checked="false"
-                android:onClick="clickVV"
+                android:onClick="clickVS"
                 android:text="@string/s"
                 android:textSize="16sp" />
 
@@ -211,11 +226,153 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/functionRow1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="-7dp"
+            android:layout_weight="2"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/sinButton"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="-7dp"
+                android:layout_marginRight="-7dp"
+                android:layout_weight="1"
+                android:onClick="clickSin"
+                android:text="@string/sin"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/cosButton"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_marginRight="-7dp"
+                android:layout_weight="1"
+                android:onClick="clickCos"
+                android:text="@string/cos"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/tanButton"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_marginRight="-7dp"
+                android:layout_weight="1"
+                android:onClick="clickTan"
+                android:text="@string/tan"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/piButton"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_marginRight="-7dp"
+                android:layout_weight="1"
+                android:onClick="clickPi"
+                android:text="@string/pi"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/eButton"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_marginRight="-7dp"
+                android:layout_weight="1"
+                android:onClick="clickE"
+                android:text="@string/e"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/angleMode"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_marginRight="-7dp"
+                android:layout_weight="1"
+                android:onClick="clickAngleMode"
+                android:text="@string/deg"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/functionRow2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="-7dp"
+            android:layout_weight="2"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/rootButton"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="-7dp"
+                android:layout_marginRight="-7dp"
+                android:layout_weight="1"
+                android:onClick="clickRoot"
+                android:text="@string/sqrt"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/squareButton"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_marginRight="-7dp"
+                android:layout_weight="1"
+                android:onClick="clickSmallExp"
+                android:text="@string/square"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/powerButton"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_marginRight="-7dp"
+                android:layout_weight="1"
+                android:onClick="clickPow"
+                android:text="@string/exponent"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/powButton"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_marginRight="-7dp"
+                android:layout_weight="1"
+                android:onClick="clickPower"
+                android:text="@string/powOfTen"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/logButton"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_marginRight="-7dp"
+                android:layout_weight="1"
+                android:onClick="clickLog"
+                android:text="@string/log10"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/vectorRow"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginBottom="-7dp"
-            android:layout_weight="3"
+            android:layout_weight="2"
             android:orientation="horizontal" >
 
             <Button

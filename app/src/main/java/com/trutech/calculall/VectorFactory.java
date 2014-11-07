@@ -6,46 +6,33 @@ import java.util.ArrayList;
  * Created by Jason on 2014-08-14.
  */
 public class VectorFactory {
-    public static Vector makeA(){
-        return new Vector(Vector.A, "A"){
+    public static Vector makeU(){
+        return new Vector(Vector.U, "U"){
             public ArrayList<Token> getVector(){
-                return Vector.a_value;
+                return Vector.u_value;
             }
         };
     }
-    public static Vector makeB(){
-        return new Vector(Vector.B, "B"){
+    public static Vector makeV(){
+        return new Vector(Vector.V, "V"){
             public ArrayList<Token> getVector(){
-                return Vector.b_value;
+                return Vector.v_value;
             }
         };
     }
-    public static Vector makeC(){
-        return new Vector(Vector.C, "C"){
+    public static Vector makeW(){
+        return new Vector(Vector.W, "W"){
             public ArrayList<Token> getVector(){
-                return Vector.c_value;
+                return Vector.w_value;
             }
         };
     }
-    public static Vector makeX(){
-        return new Vector(Vector.X, "X"){
+    public static Vector makeS(){
+        return new Vector(Vector.S, "X"){
             public ArrayList<Token> getVector(){
-                return Vector.x_value;
+                return Vector.s_value;
             }
         };
-    }
-    public static Vector makeY(){
-        return new Vector(Vector.Y, "Y"){
-            public ArrayList<Token> getVector(){
-                return Vector.y_value;
-            }
-        };
-    }
-    public static Vector makeZ(){
-        return new Vector(Vector.Z, "Z"){
-            public ArrayList<Token> getVector(){
-                return Vector.z_value;
-            }
-        };
+
     }
 }

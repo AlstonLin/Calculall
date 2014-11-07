@@ -6,8 +6,8 @@ import java.util.ArrayList;
  * Created by Jason on 2014-08-14.
  */
 public abstract class Vector extends Token {
-    public static final int A = 1, B = 2, C = 3, X = 4, Y = 5, Z = 6;
-    public static ArrayList<Token> a_value=null, b_value=null, c_value=null, x_value=null, y_value=null, z_value=null; //Values of the variables
+    public static final int U = 1, V = 2, W = 3, S = 4;
+    public static ArrayList<Token> u_value=null, v_value=null, w_value=null, s_value=null; //Values of the variables
 
     private int type;
     private String symbol;

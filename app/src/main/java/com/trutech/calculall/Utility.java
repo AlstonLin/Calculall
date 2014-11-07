@@ -664,25 +664,25 @@ public class Utility {
         if (quadrant == -1){ //positive y axis
             output.add(new Token("N"){});
             output.add(new Number(0));
-            output.add(new Token ("°"){});
+            //output.add(new Token ("°"){});
             output.add(new Token("E"){});
         }
         if (quadrant == -2){ //positive x axis
             output.add(new Token("E"){});
             output.add(new Number(0));
-            output.add(new Token ("°"){});
+            //output.add(new Token ("°"){});
             output.add(new Token("N"){});
         }
         if (quadrant == -3){ //negative y axis
             output.add(new Token("S"){});
             output.add(new Number(0));
-            output.add(new Token ("°"){});
+            //output.add(new Token ("°"){});
             output.add(new Token("W"){});
         }
         if (quadrant == -4){ //negative x axis
             output.add(new Token("W"){});
             output.add(new Number(0));
-            output.add(new Token ("°"){});
+            //output.add(new Token ("°"){});
             output.add(new Token("S"){});
         }
 
@@ -690,25 +690,25 @@ public class Utility {
         if (quadrant == 1){
             output.add(new Token("E"){});
             output.add(new Number(Utility.round(angle,9)));
-            output.add(new Token ("°"){});
+            //output.add(new Token ("°"){});
             output.add(new Token("N"){});
         }
         if (quadrant == 2){
             output.add(new Token("W"){});
             output.add(new Number(Utility.round(angle,9)));
-            output.add(new Token ("°"){});
+            //output.add(new Token ("°"){});
             output.add(new Token("N"){});
         }
         if (quadrant == 3){
             output.add(new Token("W"){});
             output.add(new Number(Utility.round(angle,9)));
-            output.add(new Token ("°"){});
+            //output.add(new Token ("°"){});
             output.add(new Token("S"){});
         }
         if (quadrant == 4){
             output.add(new Token("E"){});
             output.add(new Number(Utility.round(angle,9)));
-            output.add(new Token ("°"){});
+            //output.add(new Token ("°"){});
             output.add(new Token("S"){});
         }
         return output;

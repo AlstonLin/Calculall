@@ -194,6 +194,7 @@ public class VRule {
                 tempExpression.add(expression.get(i));
             }
         }
+        //TODO: Find a way to output bearing with angles
 
         //Add the last bit of the expression to tempExpression
         for (int i = 0; i < expression.size() - pattern.length() - firstOccurPosition; i++) {

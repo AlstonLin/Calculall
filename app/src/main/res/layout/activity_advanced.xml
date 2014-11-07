@@ -117,18 +117,7 @@
                 android:textOn="@string/shift"
                 android:textSize="16sp" />
 
-            <ToggleButton
-                android:id="@+id/hypButton"
-                style="?android:attr/buttonStyleToggle"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
-                android:layout_weight="1"
-                android:checked="false"
-                android:onClick="clickHyp"
-                android:textOff="@string/hyp"
-                android:textOn="@string/hyp"
-                android:textSize="16sp" />
+
 
             <ToggleButton
                 android:id="@+id/memButton"
@@ -257,7 +246,7 @@
             android:orientation="horizontal" >
 
             <Button
-                android:id="@+id/sinButton"
+               android:id="@+id/sinButton"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
