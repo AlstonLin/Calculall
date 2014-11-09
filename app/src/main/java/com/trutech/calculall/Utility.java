@@ -247,6 +247,47 @@ public class Utility {
         return VRuleSet.reduce(expression);
     }
 
+    public static Token evaluateTokenExpression (ArrayList<Token> expression) {
+        ArrayList<Token> tokens = Utility.setupExpression(Utility.condenseDigits(Utility.addMissingBrackets(expression)));
+        double unrounded = Utility.evaluateExpression(Utility.convertToReversePolish(tokens));
+        return new Number (Utility.round(unrounded, 9));
+    }
+
+    public static ArrayList<Token> evaluateExpressionsInVector (ArrayList<Token> vector) {
+        ArrayList<Token> expression = null, simplifiedExpression = null;
+        boolean foundFirst = false, readyToEvaluate = false;
+        int firstIndex = -1, lastIndex = -1;
+
+        for (int i = 0; i < vector.size(); i++) {
+            if (vector.get(i) instanceof Bracket || vector.get(i).getSymbol() == ","){
+                if (!foundFirst) {
+                    firstIndex = i + 1;
+                }
+                else {
+                    lastIndex = i - 1;
+                    readyToEvaluate = true;
+                }
+            }
+
+            //Evaluate expressions between commas and brackets
+            if (readyToEvaluate){
+                for (int j = firstIndex; j <= lastIndex; j++) {
+                    expression.add(vector.get(j));
+                }
+                 simplifiedExpression.add(Utility.evaluateTokenExpression(expression));
+            }
+
+        }
+
+        return tokens;
+    }
+
+
+    /**
+     *
+     * @param vector An array of doubles that represents the x, y, z coordinates of a vector respectively represented from index 0 to 2
+     * @return ArrayList<Token> The vector represented in an ArrayList of Tokens
+     */
     public static ArrayList<Token> convertDoublesToVector(double[] vector) {
         ArrayList<Token> newVector = new ArrayList<Token>();
         newVector.add(BracketFactory.createOpenSquareBracket());
