@@ -155,9 +155,11 @@ public class Utility {
                 stack.push(token);
             } else if (token instanceof Bracket) {
                 Bracket bracket = (Bracket) token;
-                if (bracket.getType() == Bracket.OPEN || bracket.getType() == Bracket.SUPERSCRIPT_OPEN) { //Pushes the bracket to the stack if it's open
+                if (bracket.getType() == Bracket.OPEN || bracket.getType() == Bracket.SUPERSCRIPT_OPEN
+                        || bracket.getType() == Bracket.NUM_OPEN || bracket.getType() == Bracket.DENOM_OPEN) { //Pushes the bracket to the stack if it's open
                     stack.push(bracket);
-                } else if (bracket.getType() == Bracket.CLOSE || bracket.getType() == Bracket.SUPERSCRIPT_CLOSE) { //For close brackets, pop operators onto the list until a open bracket is found
+                } else if (bracket.getType() == Bracket.CLOSE || bracket.getType() == Bracket.SUPERSCRIPT_CLOSE
+                        || bracket.getType() == Bracket.NUM_CLOSE || bracket.getType() == Bracket.DENOM_CLOSE) { //For close brackets, pop operators onto the list until a open bracket is found
                     Token top = stack.lastElement();
                     while (!(top instanceof Bracket)) { //While it has not found an open bracket
                         reversePolish.add(stack.pop()); //Pops the top element
@@ -850,32 +852,6 @@ public class Utility {
     }
 
     /**
-     * Finds the derivative of a given function
-     *
-     * @param function The function that will be differentiated
-     * @return The differentiated function
-     */
-    public ArrayList<Token> differentiate(ArrayList<Token> function) {
-        for (int i = 0; i < function.size(); i++) {
-
-        }
-        return null;
-    }
-
-    /**
-     * Finds the integral of a given function
-     *
-     * @param function The function that will be integrated
-     * @return The integrated function
-     */
-    public ArrayList<Token> integrate(ArrayList<Token> function) {
-        for (int i = 0; i < function.size(); i++) {
-
-        }
-        return null;
-    }
-
-    /**
      * Finds all the REAL roots of a quadratic function
      *
      * @param a the coefficient of the 2nd degree x value of the cubic function
@@ -894,7 +870,6 @@ public class Utility {
         }
         return roots;
     }
-
 
     /**
      * Finds all the roots of a quadratic function
@@ -952,6 +927,32 @@ public class Utility {
         }
 
         return roots;
+    }
+
+    /**
+     * Finds the derivative of a given function
+     *
+     * @param function The function that will be differentiated
+     * @return The differentiated function
+     */
+    public ArrayList<Token> differentiate(ArrayList<Token> function) {
+        for (int i = 0; i < function.size(); i++) {
+
+        }
+        return null;
+    }
+
+    /**
+     * Finds the integral of a given function
+     *
+     * @param function The function that will be integrated
+     * @return The integrated function
+     */
+    public ArrayList<Token> integrate(ArrayList<Token> function) {
+        for (int i = 0; i < function.size(); i++) {
+
+        }
+        return null;
     }
 
 }

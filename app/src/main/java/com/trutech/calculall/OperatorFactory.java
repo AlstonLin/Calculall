@@ -47,6 +47,19 @@ public class OperatorFactory {
         };
     }
 
+    public static Operator makeFraction() {
+        return new Operator("", Operator.FRACTION, 3, true, 0, false) {
+            @Override
+            public double operate(double left, double right) {
+                if (right == 0) {
+                    throw new IllegalArgumentException();
+                } else {
+                    return left / right;
+                }
+            }
+        };
+    }
+
     public static Operator makePowOfTen() {
         return new Operator("×10", Operator.POW_OF_TEN, 3, true, 1, true) {
             @Override
@@ -142,7 +155,6 @@ public class OperatorFactory {
             }
         };
     }
-
 
 
 }

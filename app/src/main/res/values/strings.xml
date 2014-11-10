@@ -88,7 +88,7 @@
     <string name="base8">OCT</string>
     <string name="matrix">Matrix</string>
     <string name="base2">BIN</string>
-    <string name="radix">K.IJK</string>
+    <string name="radix">CHANGE</string>
     <string name="mixedFrac">A b/c</string>
     <string name="impFrac">d/e</string>
     <string name="factorial">n!</string>
