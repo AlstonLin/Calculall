@@ -300,6 +300,7 @@
                 android:layout_marginRight="0dp"
                 android:layout_weight="1"
                 android:onClick="clickPow"
+                android:gravity="center"
                 android:text="@string/exponent"
                 android:textSize="16sp" />
 

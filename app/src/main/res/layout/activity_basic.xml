@@ -30,7 +30,8 @@
             android:layout_height="match_parent"
             android:layout_weight="10"
             android:longClickable="false"
-            android:textColor="#ffffffff"/>
+            android:textColor="#ffffffff"
+            style="@style/button4" />
 
         <Button
             style="@style/button4"
