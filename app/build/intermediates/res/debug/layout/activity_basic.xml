@@ -331,6 +331,7 @@
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
+                android:onClick="clickFunction"
                 android:text="@string/function"
                 android:textSize="14sp" />
 
@@ -347,4 +348,4 @@
         </LinearLayout>
     </LinearLayout>
 
-</LinearLayout><!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/layout/activity_basic.xml -->
+</LinearLayout><!-- From: file:/C:/Users/Alston/Calculall/app/src/main/res/layout/activity_basic.xml -->

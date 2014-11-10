@@ -106,7 +106,7 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:checked="false"
-                android:onClick="clickVA"
+                android:onClick="clickVU"
                 android:text="@string/vectU"
                 android:textSize="16sp" />
 
@@ -117,7 +117,7 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:checked="false"
-                android:onClick="clickVB"
+                android:onClick="clickVV"
                 android:text="@string/vectV"
                 android:textSize="16sp" />
 
@@ -128,19 +128,19 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:checked="false"
-                android:onClick="clickVC"
+                android:onClick="clickVW"
                 android:text="@string/vectW"
                 android:textSize="16sp" />
 
 
             <Button
-                android:id="@+id/v"
+                android:id="@+id/s"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:checked="false"
-                android:onClick="clickVV"
+                android:onClick="clickVS"
                 android:text="@string/s"
                 android:textSize="16sp" />
 
@@ -457,6 +457,7 @@
                 style="@style/button4"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
+                android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:onClick="clickComma"
                 android:text="@string/comma"

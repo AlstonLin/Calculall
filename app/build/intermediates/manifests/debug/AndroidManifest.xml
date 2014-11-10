@@ -36,12 +36,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.trutech.calculall.VectorMode"
-            android:label="@string/title_activity_vector" >
-        </activity>
-        <activity
-            android:name="com.trutech.calculall.MatrixMode"
-            android:label="@string/title_activity_matrix_mode" >
-        </activity>
+            android:label="@string/title_activity_vector" />
     </application>
 
 </manifest>

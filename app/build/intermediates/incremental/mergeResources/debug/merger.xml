@@ -2,69 +2,89 @@
 <merger version="2" >
 
     <dataSet config="main" >
-        <source path="D:\App dev\Calculall\app\src\main\res" >
+        <source path="C:\Users\Alston\Calculall\app\src\main\res" >
+            <file
+                name="ic_launcher"
+                path="C:\Users\Alston\Calculall\app\src\main\res\drawable\ic_launcher.png"
+                qualifiers=""
+                type="drawable" />
             <file
                 name="mybutton"
-                path="D:\App dev\Calculall\app\src\main\res\drawable\mybutton.xml"
+                path="C:\Users\Alston\Calculall\app\src\main\res\drawable\mybutton.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="mybutton2"
+                path="C:\Users\Alston\Calculall\app\src\main\res\drawable\mybutton2.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="mybutton3"
+                path="C:\Users\Alston\Calculall\app\src\main\res\drawable\mybutton3.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="toggle"
+                path="C:\Users\Alston\Calculall\app\src\main\res\drawable\toggle.xml"
                 qualifiers=""
                 type="drawable" />
             <file
                 name="ic_launcher"
-                path="D:\App dev\Calculall\app\src\main\res\drawable-hdpi\ic_launcher.png"
+                path="C:\Users\Alston\Calculall\app\src\main\res\drawable-hdpi\ic_launcher.png"
                 qualifiers="hdpi-v4"
                 type="drawable" />
             <file
                 name="ic_launcher"
-                path="D:\App dev\Calculall\app\src\main\res\drawable-mdpi\ic_launcher.png"
+                path="C:\Users\Alston\Calculall\app\src\main\res\drawable-mdpi\ic_launcher.png"
                 qualifiers="mdpi-v4"
                 type="drawable" />
             <file
                 name="ic_launcher"
-                path="D:\App dev\Calculall\app\src\main\res\drawable-xhdpi\ic_launcher.png"
+                path="C:\Users\Alston\Calculall\app\src\main\res\drawable-xhdpi\ic_launcher.png"
                 qualifiers="xhdpi-v4"
                 type="drawable" />
             <file
                 name="ic_launcher"
-                path="D:\App dev\Calculall\app\src\main\res\drawable-xxhdpi\ic_launcher.png"
+                path="C:\Users\Alston\Calculall\app\src\main\res\drawable-xxhdpi\ic_launcher.png"
                 qualifiers="xxhdpi-v4"
                 type="drawable" />
             <file
+                name="ic_launcher"
+                path="C:\Users\Alston\Calculall\app\src\main\res\drawable-xxxhdpi\ic_launcher.png"
+                qualifiers="xxxhdpi-v4"
+                type="drawable" />
+            <file
                 name="activity_advanced"
-                path="D:\App dev\Calculall\app\src\main\res\layout\activity_advanced.xml"
+                path="C:\Users\Alston\Calculall\app\src\main\res\layout\activity_advanced.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="activity_basic"
-                path="D:\App dev\Calculall\app\src\main\res\layout\activity_basic.xml"
+                path="C:\Users\Alston\Calculall\app\src\main\res\layout\activity_basic.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="activity_function"
-                path="D:\App dev\Calculall\app\src\main\res\layout\activity_function.xml"
-                qualifiers=""
-                type="layout" />
-            <file
-                name="activity_matrix_mode"
-                path="D:\App dev\Calculall\app\src\main\res\layout\activity_matrix_mode.xml"
+                path="C:\Users\Alston\Calculall\app\src\main\res\layout\activity_function.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="activity_vector"
-                path="D:\App dev\Calculall\app\src\main\res\layout\activity_vector.xml"
+                path="C:\Users\Alston\Calculall\app\src\main\res\layout\activity_vector.xml"
                 qualifiers=""
                 type="layout" />
             <file
                 name="matrix_mode"
-                path="D:\App dev\Calculall\app\src\main\res\menu\matrix_mode.xml"
+                path="C:\Users\Alston\Calculall\app\src\main\res\menu\matrix_mode.xml"
                 qualifiers=""
                 type="menu" />
             <file
                 name="vector"
-                path="D:\App dev\Calculall\app\src\main\res\menu\vector.xml"
+                path="C:\Users\Alston\Calculall\app\src\main\res\menu\vector.xml"
                 qualifiers=""
                 type="menu" />
             <file
-                path="D:\App dev\Calculall\app\src\main\res\values\dimens.xml"
+                path="C:\Users\Alston\Calculall\app\src\main\res\values\dimens.xml"
                 qualifiers="" >
                 <dimen name="activity_horizontal_margin" >0dp
                 </dimen>
@@ -72,7 +92,7 @@
                 </dimen>
             </file>
             <file
-                path="D:\App dev\Calculall\app\src\main\res\values\strings.xml"
+                path="C:\Users\Alston\Calculall\app\src\main\res\values\strings.xml"
                 qualifiers="" >
                 <string name="factorial" >n!
                 </string>
@@ -82,7 +102,7 @@
                 </string>
                 <string name="reciprocal" >x^-1
                 </string>
-                <string name="unitVector" >u
+                <string name="unitVector" >û
                 </string>
                 <string name="log_b" >log_b
                 </string>
@@ -123,13 +143,11 @@
                 </string>
                 <string name="scalarEquationOfALine" >Scalar
                 </string>
+                <string name="vectV" >v
+                </string>
+                <string name="vectW" >w
+                </string>
                 <string name="openSquareBracket" >[
-                </string>
-                <string name="vectC" >c
-                </string>
-                <string name="vectB" >b
-                </string>
-                <string name="vectA" >a
                 </string>
                 <string name="projection" >proj
                 </string>
@@ -206,9 +224,9 @@ P
                 </string>
                 <string name="closedSquareBracket" >]
                 </string>
-                <string name="function" >Function
-                </string>
                 <string name="rad" >RAD
+                </string>
+                <string name="function" >Function
                 </string>
                 <string name="plusminus" >±
                 </string>
@@ -234,6 +252,7 @@ P
                 </string>
                 <string name="plus" >+
                 </string>
+                <string name="leftscroll" ><![CDATA[<-]]></string>
                 <string name="seven" >7
                 </string>
                 <string name="base16" >HEX
@@ -244,6 +263,7 @@ P
                 </string>
                 <string name="derivative" >dy/dx
                 </string>
+                <string name="rightscroll" ><![CDATA[->]]></string>
                 <string name="base8" >OCT
                 </string>
                 <string name="title_activity_graphing" >Graphing
@@ -268,7 +288,7 @@ P
                 <string name="exponent" ><![CDATA[<p>x<sup><small><small><i>y</i></small></small></sup></p>]]></string>
                 <string name="store" >STO
                 </string>
-                <string name="radix" >K.IJK
+                <string name="radix" >CHANGE
                 </string>
                 <string name="cbrt" >³√
                 </string>
@@ -290,14 +310,16 @@ P
                 </string>
             </file>
             <file
-                path="D:\App dev\Calculall\app\src\main\res\values-w820dp\dimens.xml"
-                qualifiers="w820dp-v13" >
-                <dimen name="activity_horizontal_margin" >64dp
-                </dimen>
-            </file>
-            <file
-                path="D:\App dev\Calculall\app\src\main\res\values\values.xml"
+                path="C:\Users\Alston\Calculall\app\src\main\res\values\values.xml"
                 qualifiers="" >
+
+                <style
+                    name="toggle"
+                    parent="android:Widget.Holo.Button.Toggle" >
+                    <item name="android:background">
+@drawable/toggle
+                    </item>
+                </style>
 
                 <style
                     name="Main"
@@ -307,6 +329,9 @@ P
                     </item>
                     <item name="android:buttonStyleSmall">
 @style/button
+                    </item>
+                    <item name="android:buttonStyleToggle">
+@style/toggle
                     </item>
                 </style>
 
@@ -322,10 +347,10 @@ P
                 </style>
 
                 <style
-                    name="button2"
+                    name="button"
                     parent="android:Widget.Holo.Button.Borderless.Small" >
                     <item name="android:background">
-@drawable/mybutton2
+@drawable/mybutton
                     </item>
                     <item name="android:textColor">
 #ffffff
@@ -333,10 +358,10 @@ P
                 </style>
 
                 <style
-                    name="button"
+                    name="button2"
                     parent="android:Widget.Holo.Button.Borderless.Small" >
                     <item name="android:background">
-@drawable/mybutton
+@drawable/mybutton2
                     </item>
                     <item name="android:textColor">
 #ffffff
@@ -355,21 +380,17 @@ P
                 </style>
             </file>
             <file
-                name="mybutton3"
-                path="D:\App dev\Calculall\app\src\main\res\drawable\mybutton3.xml"
-                qualifiers=""
-                type="drawable" />
-            <file
-                name="mybutton2"
-                path="D:\App dev\Calculall\app\src\main\res\drawable\mybutton2.xml"
-                qualifiers=""
-                type="drawable" />
+                path="C:\Users\Alston\Calculall\app\src\main\res\values-w820dp\dimens.xml"
+                qualifiers="w820dp-v13" >
+                <dimen name="activity_horizontal_margin" >64dp
+                </dimen>
+            </file>
         </source>
-        <source path="D:\App dev\Calculall\app\build\generated\res\rs\debug" />
-        <source path="D:\App dev\Calculall\app\build\generated\res\generated\debug" />
+        <source path="C:\Users\Alston\Calculall\app\build\generated\res\rs\debug" />
+        <source path="C:\Users\Alston\Calculall\app\build\generated\res\generated\debug" />
     </dataSet>
     <dataSet config="debug" >
-        <source path="D:\App dev\Calculall\app\src\debug\res" />
+        <source path="C:\Users\Alston\Calculall\app\src\debug\res" />
     </dataSet>
 
 </merger>
