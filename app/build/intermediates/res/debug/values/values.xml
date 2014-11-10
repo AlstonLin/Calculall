@@ -26,7 +26,7 @@
     <string name="cbrt">³√</string>
     <string name="closedBracket">)</string>
     <string name="closedSquareBracket">]</string>
-    <string name="combination">n <b><b>C</b></b>r</string>
+    <string name="combination">n<b><b>C</b></b>r</string>
     <string name="comma">,</string>
     <string name="cos">cos</string>
     <string name="cross">×</string>
@@ -54,6 +54,7 @@
     <string name="hyp">hyp</string>
     <string name="impFrac">d/e</string>
     <string name="integrate">∫</string>
+    <string name="leftscroll"><![CDATA[<-]]></string>
     <string name="ln">ln</string>
     <string name="log10">log</string>
     <string name="log_b">log_b</string>
@@ -67,7 +68,7 @@
     <string name="one">1</string>
     <string name="openBracket">(</string>
     <string name="openSquareBracket">[</string>
-    <string name="permutation">n <b><b>P</b></b>r</string>
+    <string name="permutation">n<b><b>P</b></b>r</string>
     <string name="pi">"π"</string>
     <string name="plus">+</string>
     <string name="plusminus">±</string>
@@ -80,6 +81,7 @@
     <string name="radix">K.IJK</string>
     <string name="reciprocal">x^-1</string>
     <string name="rightArrow">→</string>
+    <string name="rightscroll"><![CDATA[->]]></string>
     <string name="s">s</string>
     <string name="scalarEquationOfALine">Scalar</string>
     <string name="seven">7</string>
@@ -99,7 +101,7 @@
     <string name="title_activity_vector">Vector</string>
     <string name="trueB">Tru</string>
     <string name="two">2</string>
-    <string name="unitVector">u</string>
+    <string name="unitVector">û</string>
     <string name="varA">A</string>
     <string name="varB">B</string>
     <string name="varC">C</string>
@@ -107,10 +109,9 @@
     <string name="varX">X</string>
     <string name="varY">Y</string>
     <string name="varZ">Z</string>
-    <string name="vectA">a</string>
-    <string name="vectB">b</string>
-    <string name="vectC">c</string>
     <string name="vectU">u</string>
+    <string name="vectV">v</string>
+    <string name="vectW">w</string>
     <string name="vector">Vector</string>
     <string name="zero">0</string>
     <!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/values/values.xml -->

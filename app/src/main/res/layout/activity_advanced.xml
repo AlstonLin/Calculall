@@ -2,18 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ff7A6A53"
-    android:orientation="vertical">
+    android:background="#ff093E53"
+    android:orientation="vertical"
+    android:weightSum="100">
 
     <LinearLayout
         android:id="@+id/Container"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="18"
+        android:layout_weight="20"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/leftScroll"
+            style="@style/button4"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="5"
@@ -26,9 +28,11 @@
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="50"
-            android:longClickable="false" />
+            android:longClickable="false"
+            />
 
         <Button
+            style="@style/button4"
             android:id="@+id/rightScroll"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -44,71 +48,14 @@
         android:id="@+id/grid"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="5dp"
-        android:layout_weight="60"
-        android:orientation="vertical"
-        android:weightSum="20.5">
-
-        <LinearLayout
-            android:id="@+id/modes"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginBottom="-7dp"
-            android:layout_marginTop="-7dp"
-            android:layout_weight="1.8"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/basicButton"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginLeft="-7dp"
-                android:layout_marginRight="-7dp"
-                android:layout_weight="1"
-                android:onClick="clickBasic"
-                android:text="@string/basic"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/advancedButton"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
-                android:layout_weight="1"
-                android:text="@string/advanced"
-                android:textSize="12sp" />
-
-            <Button
-                android:id="@+id/functionButton"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
-                android:layout_weight="1"
-                android:onClick="clickFunction"
-                android:text="@string/function"
-                android:textSize="14sp" />
-
-            <Button
-                android:id="@+id/vectorButton"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
-                android:layout_weight="1"
-                android:onClick="clickVector"
-                android:text="@string/vector"
-                android:textSize="16sp" />
-
-        </LinearLayout>
+        android:layout_weight="80"
+        android:weightSum="24"
+        android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/settingsRow1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginBottom="-7dp"
             android:layout_weight="2"
             android:orientation="horizontal">
 
@@ -117,8 +64,6 @@
                 style="?android:attr/buttonStyleToggle"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginLeft="-7dp"
-                android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:checked="false"
                 android:longClickable="false"
@@ -132,7 +77,6 @@
                 style="?android:attr/buttonStyleToggle"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:checked="false"
                 android:onClick="clickHyp"
@@ -145,7 +89,6 @@
                 style="?android:attr/buttonStyleToggle"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:checked="false"
                 android:onClick="clickMem"
@@ -158,7 +101,6 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:onClick="clickBack"
                 android:text="@string/backspace"
@@ -169,7 +111,6 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:onClick="clickClear"
                 android:text="@string/C"
@@ -180,7 +121,6 @@
             android:id="@+id/varRow"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginBottom="-7dp"
             android:layout_weight="2"
             android:orientation="horizontal">
 
@@ -189,8 +129,6 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginLeft="-7dp"
-                android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:checked="false"
                 android:onClick="clickA"
@@ -202,7 +140,6 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:checked="false"
                 android:onClick="clickB"
@@ -214,7 +151,6 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:checked="false"
                 android:onClick="clickC"
@@ -226,7 +162,6 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:checked="false"
                 android:onClick="clickX"
@@ -238,7 +173,6 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:checked="false"
                 android:onClick="clickY"
@@ -250,7 +184,6 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:checked="false"
                 android:onClick="clickZ"
@@ -262,7 +195,6 @@
             android:id="@+id/functionRow1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginBottom="-7dp"
             android:layout_weight="2"
             android:orientation="horizontal">
 
@@ -271,8 +203,6 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginLeft="-7dp"
-                android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:onClick="clickSin"
                 android:text="@string/sin"
@@ -283,7 +213,7 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
+                android:layout_marginRight="0dp"
                 android:layout_weight="1"
                 android:onClick="clickCos"
                 android:text="@string/cos"
@@ -294,7 +224,7 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
+                android:layout_marginRight="0dp"
                 android:layout_weight="1"
                 android:onClick="clickTan"
                 android:text="@string/tan"
@@ -305,7 +235,7 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
+                android:layout_marginRight="0dp"
                 android:layout_weight="1"
                 android:onClick="clickPi"
                 android:text="@string/pi"
@@ -316,7 +246,7 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
+                android:layout_marginRight="0dp"
                 android:layout_weight="1"
                 android:onClick="clickE"
                 android:text="@string/e"
@@ -327,7 +257,7 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
+                android:layout_marginRight="0dp"
                 android:layout_weight="1"
                 android:onClick="clickAngleMode"
                 android:text="@string/deg"
@@ -338,7 +268,6 @@
             android:id="@+id/functionRow2"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginBottom="-7dp"
             android:layout_weight="2"
             android:orientation="horizontal">
 
@@ -347,8 +276,6 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginLeft="-7dp"
-                android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:onClick="clickRoot"
                 android:text="@string/sqrt"
@@ -359,7 +286,7 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
+                android:layout_marginRight="0dp"
                 android:layout_weight="1"
                 android:onClick="clickSmallExp"
                 android:text="@string/square"
@@ -370,7 +297,7 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
+                android:layout_marginRight="0dp"
                 android:layout_weight="1"
                 android:onClick="clickPow"
                 android:text="@string/exponent"
@@ -381,7 +308,6 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:onClick="clickPower"
                 android:text="@string/powOfTen"
@@ -392,7 +318,7 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
+                
                 android:layout_weight="1"
                 android:onClick="clickLog"
                 android:text="@string/log10"
@@ -403,7 +329,6 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:onClick="clickBase"
                 android:text="@string/base10"
@@ -414,7 +339,6 @@
             android:id="@+id/functionRow3"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginBottom="-7dp"
             android:layout_weight="2"
             android:orientation="horizontal">
 
@@ -423,8 +347,6 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginLeft="-7dp"
-                android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:onClick="clickFactorial"
                 android:text="@string/factorial"
@@ -435,7 +357,7 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
+                android:layout_marginRight="0dp"
                 android:layout_weight="1"
                 android:onClick="clickPermutation"
                 android:text="@string/permutation"
@@ -446,7 +368,7 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
+                android:layout_marginRight="0dp"
                 android:layout_weight="1"
                 android:onClick="clickCombination"
                 android:text="@string/combination"
@@ -457,7 +379,7 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
+                android:layout_marginRight="0dp"
                 android:layout_weight="1"
                 android:onClick="clickReciprocal"
                 android:text="@string/reciprocal"
@@ -469,7 +391,7 @@
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_gravity="bottom"
-                android:layout_marginRight="-7dp"
+                android:layout_marginRight="0dp"
                 android:layout_weight="1"
                 android:onClick="clickFracMode"
                 android:text="@string/radix"
@@ -480,17 +402,14 @@
             android:id="@+id/numRow2"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginBottom="-7dp"
             android:layout_weight="3"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/sevenButton"
-                style="?android:attr/buttonStyleSmall"
+                style="@style/button3"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginLeft="-7dp"
-                android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:onClick="clickSeven"
                 android:text="@string/seven"
@@ -498,10 +417,10 @@
 
             <Button
                 android:id="@+id/eightButton"
-                style="?android:attr/buttonStyleSmall"
+                style="@style/button3"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
+                android:layout_marginRight="0dp"
                 android:layout_weight="1"
                 android:onClick="clickEight"
                 android:text="@string/eight"
@@ -509,10 +428,10 @@
 
             <Button
                 android:id="@+id/nineButton"
-                style="?android:attr/buttonStyleSmall"
+                style="@style/button3"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
+                android:layout_marginRight="0dp"
                 android:layout_weight="1"
                 android:onClick="clickNine"
                 android:text="@string/nine"
@@ -520,10 +439,10 @@
 
             <Button
                 android:id="@+id/openBracketButton"
-                style="?android:attr/buttonStyleSmall"
+                style="@style/button4"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
+                android:layout_marginRight="0dp"
                 android:layout_weight="1"
                 android:onClick="clickOpenBracket"
                 android:text="@string/openBracket"
@@ -531,10 +450,10 @@
 
             <Button
                 android:id="@+id/closedBracketButton"
-                style="?android:attr/buttonStyleSmall"
+                style="@style/button4"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
+                android:layout_marginRight="0dp"
                 android:layout_weight="1"
                 android:onClick="clickCloseBracket"
                 android:text="@string/closedBracket"
@@ -545,17 +464,14 @@
             android:id="@+id/numRow3"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginBottom="-7dp"
             android:layout_weight="3"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/fourButton"
-                style="?android:attr/buttonStyleSmall"
+                style="@style/button3"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginLeft="-7dp"
-                android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:onClick="clickFour"
                 android:text="@string/four"
@@ -563,10 +479,10 @@
 
             <Button
                 android:id="@+id/fiveButton"
-                style="?android:attr/buttonStyleSmall"
+                style="@style/button3"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
+                android:layout_marginRight="0dp"
                 android:layout_weight="1"
                 android:onClick="clickFive"
                 android:text="@string/five"
@@ -574,10 +490,10 @@
 
             <Button
                 android:id="@+id/sixButton"
-                style="?android:attr/buttonStyleSmall"
+                style="@style/button3"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
+                android:layout_marginRight="0dp"
                 android:layout_weight="1"
                 android:onClick="clickSix"
                 android:text="@string/six"
@@ -585,10 +501,10 @@
 
             <Button
                 android:id="@+id/multiplyButton"
-                style="?android:attr/buttonStyleSmall"
+                style="@style/button4"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
+                android:layout_marginRight="0dp"
                 android:layout_weight="1"
                 android:onClick="clickMultiply"
                 android:text="@string/multiply"
@@ -596,10 +512,10 @@
 
             <Button
                 android:id="@+id/divideButton"
-                style="?android:attr/buttonStyleSmall"
+                style="@style/button4"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
+                android:layout_marginRight="0dp"
                 android:layout_weight="1"
                 android:onClick="clickDivide"
                 android:text="@string/divide"
@@ -610,17 +526,14 @@
             android:id="@+id/numRow4"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginBottom="-7dp"
             android:layout_weight="3"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/oneButton"
-                style="?android:attr/buttonStyleSmall"
+                style="@style/button3"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginLeft="-7dp"
-                android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:onClick="clickOne"
                 android:text="@string/one"
@@ -628,10 +541,10 @@
 
             <Button
                 android:id="@+id/twoButton"
-                style="?android:attr/buttonStyleSmall"
+                style="@style/button3"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
+                android:layout_marginRight="0dp"
                 android:layout_weight="1"
                 android:onClick="clickTwo"
                 android:text="@string/two"
@@ -639,10 +552,10 @@
 
             <Button
                 android:id="@+id/threeButton"
-                style="?android:attr/buttonStyleSmall"
+                style="@style/button3"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
+                android:layout_marginRight="0dp"
                 android:layout_weight="1"
                 android:onClick="clickThree"
                 android:text="@string/three"
@@ -650,10 +563,10 @@
 
             <Button
                 android:id="@+id/addButton"
-                style="?android:attr/buttonStyleSmall"
+                style="@style/button4"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
+                android:layout_marginRight="0dp"
                 android:layout_weight="1"
                 android:onClick="clickAdd"
                 android:text="@string/plus"
@@ -661,10 +574,10 @@
 
             <Button
                 android:id="@+id/subtractButton"
-                style="?android:attr/buttonStyleSmall"
+                style="@style/button4"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
+                android:layout_marginRight="0dp"
                 android:layout_weight="1"
                 android:onClick="clickSubtract"
                 android:text="@string/minus"
@@ -682,11 +595,9 @@
 
             <Button
                 android:id="@+id/zeroButton"
-                style="?android:attr/buttonStyleSmall"
+                style="@style/button3"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginLeft="-7dp"
-                android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:onClick="clickZero"
                 android:text="@string/zero"
@@ -694,10 +605,10 @@
 
             <Button
                 android:id="@+id/decimalButton"
-                style="?android:attr/buttonStyleSmall"
+                style="@style/button4"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
+                android:layout_marginRight="0dp"
                 android:layout_weight="1"
                 android:onClick="clickDecimal"
                 android:text="@string/decimal"
@@ -705,10 +616,10 @@
 
             <Button
                 android:id="@+id/negativeButton"
-                style="?android:attr/buttonStyleSmall"
+                style="@style/button4"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
+                android:layout_marginRight="0dp"
                 android:layout_weight="1"
                 android:onClick="clickNegative"
                 android:text="@string/plusminus"
@@ -716,15 +627,62 @@
 
             <Button
                 android:id="@+id/equalsButton"
-                style="?android:attr/buttonStyleSmall"
+                style="@style/button4"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="-14dp"
                 android:layout_weight="2"
                 android:onClick="clickEquals"
                 android:text="@string/equals"
                 android:textSize="30sp" />
         </LinearLayout>
+    <LinearLayout
+        android:id="@+id/modes"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/basicButton"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:onClick="clickBasic"
+            android:text="@string/basic"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/advancedButton"
+            style="@style/button4"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="@string/advanced"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/functionButton"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_marginRight="0dp"
+            android:layout_weight="1"
+            android:onClick="clickFunction"
+            android:text="@string/function"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/vectorButton"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_marginRight="0dp"
+            android:layout_weight="1"
+            android:onClick="clickVector"
+            android:text="@string/vector"
+            android:textSize="16sp" />
     </LinearLayout>
 
+    </LinearLayout>
 </LinearLayout>

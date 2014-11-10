@@ -4,6 +4,7 @@
         parent="android:Theme.Holo">
         <item name="android:buttonStyle">@style/button</item>
         <item name="android:buttonStyleSmall">@style/button</item>
+        <item name="android:buttonStyleToggle">@style/toggle</item>
     </style>
     <style name = "button" parent="android:Widget.Holo.Button.Borderless.Small">
         <item name ="android:background">@drawable/mybutton</item>
@@ -20,5 +21,8 @@
     <style name = "button4" parent="android:Widget.Holo.Button.Borderless.Small">
         <item name ="android:background">@drawable/mybutton3</item>
         <item name="android:textColor">#ffffff</item>
+    </style>
+    <style name = "toggle" parent="android:Widget.Holo.Button.Toggle">
+        <item name ="android:background">@drawable/toggle</item>
     </style>
 </resources>
