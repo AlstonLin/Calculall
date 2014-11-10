@@ -253,6 +253,7 @@ public class Utility {
         return new Number (Utility.round(unrounded, 9));
     }
 
+    //TODO
     public static ArrayList<Token> evaluateExpressionsInVector (ArrayList<Token> vector) {
         ArrayList<Token> expression = null, simplifiedExpression = null;
         boolean foundFirst = false, readyToEvaluate = false;
@@ -279,7 +280,7 @@ public class Utility {
 
         }
 
-        return tokens;
+        return null;
     }
 
 

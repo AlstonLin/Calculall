@@ -196,6 +196,16 @@ public class VRule {
         }
         //TODO: Find a way to output bearing with angles
 
+        //Throw errors when there is unnessary tokens after a angle calculation
+        if ((operation == VRuleSet.BEAR || operation == VRuleSet.ANGLE || operation == VRuleSet.TRUEB)) {
+            if (!(expression.get(expression.size()).getSymbol() == "°" || expression.get(expression.size()).getSymbol() == "N"
+                    || expression.get(expression.size()).getSymbol() == "E" || expression.get(expression.size()).getSymbol() == "W"
+                    || expression.get(expression.size()).getSymbol() == "S")) {
+                throw new IllegalArgumentException();
+            }
+        }
+
+
         //Add the last bit of the expression to tempExpression
         for (int i = 0; i < expression.size() - pattern.length() - firstOccurPosition; i++) {
             tempExpression.add(expression.get(i + firstOccurPosition + pattern.length()));
