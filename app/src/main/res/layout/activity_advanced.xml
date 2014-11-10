@@ -343,6 +343,18 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/fracButton"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="-7dp"
+                android:layout_marginRight="-7dp"
+                android:layout_weight="1"
+                android:onClick="clickFrac"
+                android:text="FRAC"
+                android:textSize="16sp" />
+
+            <Button
                 android:id="@+id/rootButton"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"

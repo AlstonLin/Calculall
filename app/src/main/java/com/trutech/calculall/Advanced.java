@@ -7,6 +7,8 @@ import android.widget.Button;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import java.util.LinkedList;
+
 @SuppressWarnings("unused")
 /**
  * The activity for the advanced calculator mode. The advanced mode will be able to
@@ -747,6 +749,93 @@ public class Advanced extends Basic {
         } else {
             clickCbrt(v);
         }
+        updateInput();
+    }
+
+    /**
+     * When the user presses the FRAC Button.
+     *
+     * @param v Not Used
+     */
+    public void clickFrac(View v) {
+        Token frac = OperatorFactory.makeFraction();
+        Token numOpenBracket = BracketFactory.makeNumOpen();
+        Token numCloseBracket = BracketFactory.makeNumClose();
+        Token denomOpenBracket = BracketFactory.makeDenomOpen();
+        Token denomCloseBracket = BracketFactory.makeDenomClose();
+
+        frac.addDependency(numOpenBracket);
+        frac.addDependency(numCloseBracket);
+        frac.addDependency(denomOpenBracket);
+        frac.addDependency(denomCloseBracket);
+
+
+        if (display.getRealCursorIndex() == 0) {
+            tokens.add(display.getRealCursorIndex(), numOpenBracket);
+            tokens.add(display.getRealCursorIndex() + 1, PlaceholderFactory.makeBlock());
+            display.setCursorIndex(display.getCursorIndex() + 1);
+        } else {
+            //Whats on the numerator depends on the token before
+            Token tokenBefore = tokens.get(display.getRealCursorIndex() - 1);
+            if (tokenBefore instanceof Digit) {
+                LinkedList<Digit> digits = new LinkedList<Digit>();
+                int i = display.getRealCursorIndex() - 1;
+                while (i >= 0 && tokens.get(i) instanceof Digit) {
+                    Token t = tokens.get(i);
+                    digits.addFirst((Digit) t);
+                    tokens.remove(t);
+                    i--;
+                }
+                tokens.add(display.getRealCursorIndex() - digits.size(), numOpenBracket);
+                tokens.addAll(display.getRealCursorIndex() - digits.size() + 1, digits);
+
+                tokens.add(display.getRealCursorIndex() + 1, numCloseBracket);
+                tokens.add(display.getRealCursorIndex() + 2, frac);
+                tokens.add(display.getRealCursorIndex() + 3, denomOpenBracket);
+                tokens.add(display.getRealCursorIndex() + 4, PlaceholderFactory.makeBlock());
+                tokens.add(display.getRealCursorIndex() + 5, denomCloseBracket);
+
+                display.setCursorIndex(display.getCursorIndex() + 2);
+                return;
+            } else if (tokenBefore instanceof Bracket && ((Bracket) tokenBefore).getType() == Bracket.CLOSE) {
+                LinkedList<Token> expression = new LinkedList<Token>();
+                int i = display.getRealCursorIndex() - 1;
+                int bracketCount = 1;
+                while (i >= 0 && bracketCount != 0) {
+                    Token t = tokens.remove(i);
+                    if (t instanceof Bracket) {
+                        Bracket b = (Bracket) t;
+                        if (b.getType() == Bracket.OPEN) {
+                            bracketCount--;
+                        } else if (b.getType() == Bracket.CLOSE) {
+                            bracketCount++;
+                        }
+                    }
+                    expression.addFirst(t);
+                    i--;
+                }
+                tokens.add(display.getRealCursorIndex() - expression.size(), numOpenBracket);
+                tokens.addAll(display.getRealCursorIndex() - expression.size() + 1, expression);
+
+                tokens.add(display.getRealCursorIndex() + 1, numCloseBracket);
+                tokens.add(display.getRealCursorIndex() + 2, frac);
+                tokens.add(display.getRealCursorIndex() + 3, denomOpenBracket);
+                tokens.add(display.getRealCursorIndex() + 4, PlaceholderFactory.makeBlock());
+                tokens.add(display.getRealCursorIndex() + 5, denomCloseBracket);
+                display.setCursorIndex(display.getCursorIndex() + 2);
+                return;
+
+            } else {
+                tokens.add(display.getRealCursorIndex(), numOpenBracket);
+                tokens.add(display.getRealCursorIndex() + 1, PlaceholderFactory.makeBlock());
+            }
+        }
+        tokens.add(display.getRealCursorIndex() + 2, numCloseBracket);
+        tokens.add(display.getRealCursorIndex() + 3, frac);
+        tokens.add(display.getRealCursorIndex() + 4, denomOpenBracket);
+        tokens.add(display.getRealCursorIndex() + 5, PlaceholderFactory.makeBlock());
+        tokens.add(display.getRealCursorIndex() + 6, denomCloseBracket);
+        display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
     }
 
