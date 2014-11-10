@@ -7,7 +7,7 @@ import java.util.ArrayList;
  */
 public abstract class Vector extends Token {
     public static final int U = 1, V = 2, W = 3, S = 4;
-    public static ArrayList<Token> u_value=null, v_value=null, w_value=null, s_value=null; //Values of the variables
+    public static ArrayList<Token> u_value = null, v_value = null, w_value = null, s_value = null; //Values of the variables
 
     private int type;
     private String symbol;
@@ -15,7 +15,7 @@ public abstract class Vector extends Token {
     /**
      * Constructor for a Token that represents a user-defined value (algebraic variable)
      *
-     * @param type The type of variable as defined by the class constants
+     * @param type   The type of variable as defined by the class constants
      * @param symbol The symbol as it will be shown as on the display
      */
     protected Vector(int type, String symbol) {
@@ -24,10 +24,11 @@ public abstract class Vector extends Token {
         this.type = type;
     }
 
-    public String getSymbol () {
+    public String getSymbol() {
         return symbol;
     }
-    public int getType(){
+
+    public int getType() {
         return type;
     }
 

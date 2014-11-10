@@ -1,6 +1,7 @@
 package com.trutech.calculall;
 
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -8,32 +9,27 @@ import android.widget.ToggleButton;
 
 import java.util.ArrayList;
 
-public class VectorMode extends Basic {
+public class VectorMode extends Advanced {
     public static final int ARGUMENT = 1, TRUEBEARING = 2, BEARING = 3; //directionmode options
+    public static final int DEGREE = 1, RADIAN = 2, GRADIAN = 3; //angleMode options
     public boolean switchedDirectionMode = false;
+    public boolean switchedAngleMode = false;
     private int directionMode = 1;
     private int tokenSize = -1;
-    public static final int ARGUMENT = 1, TRUEBEARING = 2, BEARING = 3; //directionmode options
     private boolean mem = false;
-
     private int angleMode = 1;
-    public static final int DEGREE = 1, RADIAN = 2, GRADIAN = 3; //angleMode options
     private boolean shift = false;
-    //private ToggleButton vMemButton;
-    //private TextView output;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vector);
+        display = (DisplayView) findViewById(R.id.display);
     }
 
     public ArrayList<Token> processVectors() {
         return Utility.simplifyVector(Utility.convertVariablesToTokens(Utility.setupExpression(Utility.addMissingBrackets(Utility.condenseDigits(tokens)))));
     }
-
 
     /**
      * When the user presses the equals Button.
@@ -116,14 +112,13 @@ public class VectorMode extends Basic {
             squareButton.setText(getString(R.string.square));
             expButton.setText(Html.fromHtml(getString(R.string.exponent)));
 
-             sinButton.setText("sin");
-             sinButton.setTextSize(16);
-             cosButton.setText("cos");
-             cosButton.setTextSize(16);
-             tanButton.setText("tan");
-             tanButton.setTextSize(16);
-        }
-        else {
+            sinButton.setText("sin");
+            sinButton.setTextSize(16);
+            cosButton.setText("cos");
+            cosButton.setTextSize(16);
+            tanButton.setText("tan");
+            tanButton.setTextSize(16);
+        } else {
             shift = true;
             powButton.setText(Html.fromHtml(getString(R.string.powOfE)));
             logButton.setText(getString(R.string.ln));
@@ -168,16 +163,18 @@ public class VectorMode extends Basic {
         updateInput();
     }
 
-    public boolean switchedAngleMode = false;
     public void convGtoD() {
         DisplayView display = (DisplayView) findViewById(R.id.display);
         try {
             double val = process();
-            if(switchedAngleMode){
-                tokens.set(tokens.size()-1, new Token(" → DEG"){});
-            }else {
-                tokens.add(new Token(" → DEG"){});
+            if (switchedAngleMode) {
+                tokens.set(tokens.size() - 1, new Token(" → DEG") {
+                });
+            } else {
+                tokens.add(new Token(" → DEG") {
+                });
             }
+            display.setCursorIndex(display.getCursorIndex() + 1);
             updateInput();
             display.displayOutput(val * 9 / 10 + "");
             scrollDown();
@@ -189,14 +186,17 @@ public class VectorMode extends Basic {
 
     public void convRtoG() {
         //Converts the number displayed from radians into gradians ie multiplies the number by 100/pi
-        DisplayView display = (DisplayView)findViewById(R.id.display);
+        DisplayView display = (DisplayView) findViewById(R.id.display);
         try {
             double val = process();
-            if(switchedAngleMode){
-                tokens.set(tokens.size()-1, new Token(" → GRAD"){});
-            }else {
-                tokens.add(new Token(" → GRAD"){});
+            if (switchedAngleMode) {
+                tokens.set(tokens.size() - 1, new Token(" → GRAD") {
+                });
+            } else {
+                tokens.add(new Token(" → GRAD") {
+                });
             }
+            display.setCursorIndex(display.getCursorIndex() + 1);
             updateInput();
             display.displayOutput(val * 100 / Math.PI + "");
             scrollDown();
@@ -208,14 +208,18 @@ public class VectorMode extends Basic {
 
     public void convDtoR() {
         //Converts the number displayed from degrees into radians ie multiplies the number by pi/180
-        DisplayView display = (DisplayView)findViewById(R.id.display);
+        DisplayView display = (DisplayView) findViewById(R.id.display);
         try {
             double val = process();
-            if(switchedAngleMode){
-                tokens.set(tokens.size()-1, new Token(" → RAD"){});
-            }else {
-                tokens.add(new Token(" → RAD"){});
+            if (switchedAngleMode) {
+                tokens.set(tokens.size() - 1, new Token(" → RAD") {
+                });
+            } else {
+                tokens.add(new Token(" → RAD") {
+                });
+
             }
+            display.setCursorIndex(display.getCursorIndex() + 1);
             updateInput();
             display.displayOutput(val * Math.PI / 180 + "");
             scrollDown();
@@ -226,380 +230,12 @@ public class VectorMode extends Basic {
     }
 
     /**
-     * When the user presses the ( Button.
-     *
-     * @param v Not Used
-     */
-    public void clickOpenBracket(View v) {
-        tokens.add(BracketFactory.createOpenBracket());
-        updateInput();
-    }
-
-    /**
-     * When the user presses the ) Button.
-     *
-     * @param v Not Used
-     */
-    public void clickCloseBracket(View v) {
-        tokens.add(BracketFactory.createCloseBracket());
-        updateInput();
-    }
-
-    /**
-     * When the user presses the 10^x Button.
-     *
-     * @param v Not Used
-     */
-    public void clickPowerOfTen(View v) {
-        tokens.add(FunctionFactory.makePowOfTen());
-        updateInput();
-    }
-
-
-    /**
-     * When the user presses the e^x Button.
-     *
-     * @param v Not Used
-     */
-    public void clickExp(View v) {
-        tokens.add(FunctionFactory.makeExp());
-        updateInput();
-    }
-
-    /**
-     * When the user presses the C^x button. Where C is either 10 or e
-     *
-     * @param v Not Used
-     */
-    public void clickPower(View v) {
-        if (!shift) {
-            clickPowerOfTen(v);
-        } else {
-            clickExp(v);
-        }
-        updateInput();
-    }
-
-    /**
-     * When the user presses the ln(x) Button.
-     *
-     * @param v Not Used
-     */
-    public void clickLn(View v) {
-        tokens.add(FunctionFactory.makeLn());
-        updateInput();
-    }
-
-    /**
-     * When the user presses the log(x) or log_10(x)Button.
-     *
-     * @param v Not Used
-     */
-    public void clickLog_10(View v) {
-        tokens.add(FunctionFactory.makeLog_10());
-        updateInput();
-    }
-
-
-    /**
-     * When the user presses the log/ln button.
-     *
-     * @param v Not Used
-     */
-    public void clickLog(View v) {
-        if (!shift) {
-            clickLog_10(v);
-        } else {
-            clickLn(v);
-        }
-        updateInput();
-    }
-
-    public void clickExponent(View v) {
-        tokens.add(OperatorFactory.makeExponent());
-        tokens.add(BracketFactory.createOpenBracket());
-        updateInput();
-    }
-
-    public void clickVarRoot(View v) {
-        tokens.add(OperatorFactory.makeVariableRoot());
-        updateInput();
-    }
-
-    public void clickPow(View v) {
-        if (!shift) {
-            clickExponent(v);
-        } else {
-            clickVarRoot(v);
-        }
-        updateInput();
-    }
-
-    /**
-     * When the user presses the x^2 Button.
-     *
-     * @param v Not Used
-     */
-    public void clickSquare(View v) {
-        tokens.add(FunctionFactory.makeSquare());
-        updateInput();
-    }
-
-    /**
-     * When the user presses the x^3 Button.
-     *
-     * @param v Not Used
-     */
-    public void clickCube(View v) {
-        tokens.add(FunctionFactory.makeCube());
-        updateInput();
-    }
-
-    /**
-     * When the user presses the square or cube button.
-     *
-     * @param v Not Used
-     */
-    public void clickSmallExp(View v) {
-        if (!shift) {
-            clickSquare(v);
-        } else {
-            clickCube(v);
-        }
-        updateInput();
-    }
-
-    /**
-     * When the user presses the cuberoot Button.
-     *
-     * @param v Not Used
-     */
-    public void clickCbrt(View v) {
-        tokens.add(FunctionFactory.makeCbrt());
-        updateInput();
-    }
-
-    /**
-     * When the user presses the root button.
-     *
-     * @param v Not Used
-     */
-    public void clickRoot(View v) {
-        if (!shift) {
-            clickSqrt(v);
-        } else {
-            clickCbrt(v);
-        }
-        updateInput();
-    }
-
-    /**
-     * When the user presses the x^-1 button.
-     *
-     * @param v Not Used
-     */
-    public void clickReciprocal(View v) {
-        tokens.add(FunctionFactory.makeReciprocal());
-        updateInput();
-    }
-
-    /**
-     * When the user presses the n! Button.
-     *
-     * @param v Not Used
-     */
-    public void clickFactorial(View v) {
-        tokens.add(OperatorFactory.makeFactorial());
-        updateInput();
-    }
-
-    /**
-     * When the user presses the nCk Button.
-     *
-     * @param v Not Used
-     */
-    public void clickCombination(View v) {
-        tokens.add(OperatorFactory.makeCombination());
-        updateInput();
-    }
-
-    /**
-     * When the user presses the nPk Button.
-     *
-     * @param v Not Used
-     */
-    public void clickPermutation(View v) {
-        tokens.add(OperatorFactory.makePermutation());
-        updateInput();
-    }
-
-    /**
-     * When the user presses the e Button.
-     *
-     * @param v Not Used
-     */
-    public void clickE(View v) {
-        tokens.add(VariableFactory.makeE());
-        updateInput();
-    }
-
-    /**
-     * When the user presses the pi Button.
-     *
-     * @param v Not Used
-     */
-    public void clickPi(View v) {
-        tokens.add(VariableFactory.makePI());
-        updateInput();
-    }
-
-
-    /**
-     * When the user presses the sin(x) button.
-     * Picks the correct function based
-     * on the modifiers which are currently enabled
-     *
-     * @param v Not Used
-     */
-    public void clickSin(View v) {
-
-        if (shift) {
-            clickASin(v);
-        } else {
-            clickSin1(v);
-        }
-        updateInput();
-    }
-
-    /**
-     * When the user presses the sin(x) Button.
-     *
-     * @param v Not Used
-     */
-    public void clickSin1(View v) {
-        if (angleMode == DEGREE) {
-            tokens.add(FunctionFactory.makeSinD());
-        } else if (angleMode == RADIAN) {
-            tokens.add(FunctionFactory.makeSinR());
-        } else if (angleMode == GRADIAN) {
-            tokens.add(FunctionFactory.makeSinG());
-        }
-    }
-
-    /**
-     * When the user presses the arcsin(x) or sin^-1(x) Button.
-     *
-     * @param v Not Used
-     */
-    public void clickASin(View v) {
-        if (angleMode == DEGREE) {
-            tokens.add(FunctionFactory.makeASinD());
-        } else if (angleMode == RADIAN) {
-            tokens.add(FunctionFactory.makeASinR());
-        } else if (angleMode == GRADIAN) {
-            tokens.add(FunctionFactory.makeASinG());
-        }
-    }
-
-    /**
-     * When the user presses the cos(x) button.
-     * Picks the correct function based
-     * on the modifiers which are currently enabled
-     *
-     * @param v Not Used
-     */
-    public void clickCos(View v) {
-        if (shift) {
-            clickACos(v);
-        } else {
-            clickCos1(v);
-        }
-        updateInput();
-    }
-
-    /**
-     * When the user presses the cos(x) Button.
-     *
-     * @param v Not Used
-     */
-    public void clickCos1(View v) {
-        if (angleMode == DEGREE) {
-            tokens.add(FunctionFactory.makeCosD());
-        } else if (angleMode == RADIAN) {
-            tokens.add(FunctionFactory.makeCosR());
-        } else if (angleMode == GRADIAN) {
-            tokens.add(FunctionFactory.makeCosG());
-        }
-    }
-
-    /**
-     * When the user presses the arccos(x) or cos^-1(x) Button.
-     *
-     * @param v Not Used
-     */
-    public void clickACos(View v) {
-        if (angleMode == DEGREE) {
-            tokens.add(FunctionFactory.makeACosD());
-        } else if (angleMode == RADIAN) {
-            tokens.add(FunctionFactory.makeACosR());
-        } else if (angleMode == GRADIAN) {
-            tokens.add(FunctionFactory.makeACosG());
-        }
-    }
-
-    /**
-     * When the user presses the cos(x) button.
-     * Picks the correct function based
-     * on the modifiers which are currently enabled
-     *
-     * @param v Not Used
-     */
-    public void clickTan(View v) {
-         if (shift) {
-            clickATan(v);
-        } else {
-            clickTan1(v);
-        }
-        updateInput();
-    }
-
-    /**
-     * When the user presses the tan(x) Button.
-     *
-     * @param v Not Used
-     */
-    public void clickTan1(View v) {
-        if (angleMode == DEGREE) {
-            tokens.add(FunctionFactory.makeTanD());
-        } else if (angleMode == RADIAN) {
-            tokens.add(FunctionFactory.makeTanR());
-        } else if (angleMode == GRADIAN) {
-            tokens.add(FunctionFactory.makeTanG());
-        }
-    }
-
-    /**
-     * When the user presses the arctan(x) or tan^-1(x) Button.
-     *
-     * @param v Not Used
-     */
-    public void clickATan(View v) {
-        if (angleMode == DEGREE) {
-            tokens.add(FunctionFactory.makeATanD());
-        } else if (angleMode == RADIAN) {
-            tokens.add(FunctionFactory.makeATanR());
-        } else if (angleMode == GRADIAN) {
-            tokens.add(FunctionFactory.makeATanG());
-        }
-    }
-
-    /**
      * When the user presses the U button
      *
      * @param v Not Used
      */
     public void clickVU(View v) {
-        DisplayView display = (DisplayView)findViewById(R.id.display);
+        DisplayView display = (DisplayView) findViewById(R.id.display);
         ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
         try {
             if (mem) {
@@ -610,7 +246,8 @@ public class VectorMode extends Basic {
                 mem = false;
                 memButton.setChecked(mem);
             } else {
-                tokens.add(VectorFactory.makeU());
+                tokens.add(display.getRealCursorIndex(), VectorFactory.makeU());
+                display.setCursorIndex(display.getCursorIndex() + 1);
             }
             updateInput();
         } catch (Exception e) { //User did a mistake
@@ -624,7 +261,7 @@ public class VectorMode extends Basic {
      * @param v Not Used
      */
     public void clickVV(View v) {
-        DisplayView display = (DisplayView)findViewById(R.id.display);
+        DisplayView display = (DisplayView) findViewById(R.id.display);
         ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
         try {
             if (mem) {
@@ -635,7 +272,8 @@ public class VectorMode extends Basic {
                 mem = false;
                 memButton.setChecked(mem);
             } else {
-                tokens.add(VectorFactory.makeV());
+                tokens.add(display.getRealCursorIndex(), VectorFactory.makeV());
+                display.setCursorIndex(display.getCursorIndex() + 1);
             }
             updateInput();
         } catch (Exception e) { //User did a mistake
@@ -649,7 +287,7 @@ public class VectorMode extends Basic {
      * @param v Not Used
      */
     public void clickVW(View v) {
-        DisplayView display = (DisplayView)findViewById(R.id.display);
+        DisplayView display = (DisplayView) findViewById(R.id.display);
         ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
         try {
             if (mem) {
@@ -660,7 +298,8 @@ public class VectorMode extends Basic {
                 mem = false;
                 memButton.setChecked(mem);
             } else {
-                tokens.add(VectorFactory.makeW());
+                tokens.add(display.getRealCursorIndex(), VectorFactory.makeW());
+                display.setCursorIndex(display.getCursorIndex() + 1);
             }
             updateInput();
         } catch (Exception e) { //User did a mistake
@@ -674,7 +313,7 @@ public class VectorMode extends Basic {
      * @param v Not Used
      */
     public void clickVS(View v) {
-        DisplayView display = (DisplayView)findViewById(R.id.display);
+        DisplayView display = (DisplayView) findViewById(R.id.display);
         ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
         try {
             if (mem) {
@@ -685,7 +324,8 @@ public class VectorMode extends Basic {
                 mem = false;
                 memButton.setChecked(mem);
             } else {
-                tokens.add(VectorFactory.makeS());
+                tokens.add(display.getRealCursorIndex(), VectorFactory.makeS());
+                display.setCursorIndex(display.getCursorIndex() + 1);
             }
             updateInput();
         } catch (Exception e) { //User did a mistake
@@ -704,8 +344,7 @@ public class VectorMode extends Basic {
         });
         display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
-}
-
+    }
 
 
     /**
@@ -859,11 +498,11 @@ public class VectorMode extends Basic {
 
     public void convTtoB() {
         //Converts the number displayed from bearing into argument ie multiplies the number by 9/10
-        DisplayView display = (DisplayView)findViewById(R.id.display);
+        DisplayView display = (DisplayView) findViewById(R.id.display);
         try {
             VRuleSet.setPressedBearButton(true);
             String s = Utility.convertTokensToString(processVectors());
-            s = s.indexOf(".") < 0  ? s : (s.indexOf("E")>0 ? s.substring(0,s.indexOf("E")).replaceAll("0*$", "")
+            s = s.indexOf(".") < 0 ? s : (s.indexOf("E") > 0 ? s.substring(0, s.indexOf("E")).replaceAll("0*$", "")
                     .replaceAll("\\.$", "").concat(s.substring(s.indexOf("E"))) : s.replaceAll("0*$", "")
                     .replaceAll("\\.$", "")); //Removes trailing zeroes
 
@@ -884,11 +523,11 @@ public class VectorMode extends Basic {
 
     public void convAtoT() {
         //Converts the number displayed from bearing into argument ie multiplies the number by 9/10
-        DisplayView display = (DisplayView)findViewById(R.id.display);
+        DisplayView display = (DisplayView) findViewById(R.id.display);
         try {
             VRuleSet.setPressedTrueBButton(true);
             String s = Utility.convertTokensToString(processVectors());
-            s = s.indexOf(".") < 0  ? s : (s.indexOf("E")>0 ? s.substring(0,s.indexOf("E")).replaceAll("0*$", "")
+            s = s.indexOf(".") < 0 ? s : (s.indexOf("E") > 0 ? s.substring(0, s.indexOf("E")).replaceAll("0*$", "")
                     .replaceAll("\\.$", "").concat(s.substring(s.indexOf("E"))) : s.replaceAll("0*$", "")
                     .replaceAll("\\.$", "")); //Removes trailing zeroes
 
@@ -912,16 +551,16 @@ public class VectorMode extends Basic {
      *
      * @param v Not Used
      */
-    public void clickUnitVector(View v){
-        DisplayView display = (DisplayView)findViewById(R.id.display);
+    public void clickUnitVector(View v) {
+        DisplayView display = (DisplayView) findViewById(R.id.display);
         VRuleSet.setPressedUnitVButton(true);
         try {
             String s = Utility.convertTokensToString(processVectors());
-            s = s.indexOf(".") < 0  ? s : (s.indexOf("E")>0 ? s.substring(0,s.indexOf("E")).replaceAll("0*$", "")
+            s = s.indexOf(".") < 0 ? s : (s.indexOf("E") > 0 ? s.substring(0, s.indexOf("E")).replaceAll("0*$", "")
                     .replaceAll("\\.$", "").concat(s.substring(s.indexOf("E"))) : s.replaceAll("0*$", "")
                     .replaceAll("\\.$", "")); //Removes trailing zeroes
             display.displayOutput(s);
-        }catch (Exception e){ //User did a mistake
+        } catch (Exception e) { //User did a mistake
             Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
         }
         scrollDown();

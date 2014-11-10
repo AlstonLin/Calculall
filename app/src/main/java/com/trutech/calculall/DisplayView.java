@@ -38,19 +38,19 @@ public class DisplayView extends ScrollView {
         super(context, attr);
         //Setup the paints
         textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        textPaint.setColor(Color.BLACK);
+        textPaint.setColor(Color.parseColor("#F64B55"));
         textPaint.setTextSize(FONT_SIZE);
 
         smallPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        smallPaint.setColor(Color.BLACK);
+        smallPaint.setColor(Color.parseColor("#F64B55"));
         smallPaint.setTextSize(FONT_SIZE / 2);
 
         cursorPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        cursorPaint.setColor(Color.GREEN);
+        cursorPaint.setColor(Color.parseColor("#F64B55"));
         cursorPaint.setTextSize(FONT_SIZE);
 
         fracPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        fracPaint.setColor(Color.BLACK);
+        fracPaint.setColor(Color.parseColor("#F64B55"));
         fracPaint.setTextSize(FONT_SIZE);
         fracPaint.setStrokeWidth(10);
 
@@ -288,7 +288,7 @@ public class DisplayView extends ScrollView {
             for (int i = 0; i < outputWidths.length; i++) {
                 outputWidth += outputWidths[i];
             }
-            canvas.drawText(outputString, getWidth() - outputWidth - xPadding, yPaddingBetweenLines * (heightMultiplier + 3), textPaint);
+            canvas.drawText(outputString, getWidth() - outputWidth - xPadding, yPaddingBetweenLines * 3, textPaint);
         }
     }
 

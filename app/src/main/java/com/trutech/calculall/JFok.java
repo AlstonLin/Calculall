@@ -451,14 +451,14 @@ public class JFok {
         if (root.getNumOfChildren() == 2) { //Tree not empty
             if (root.getContent() instanceof Operator) { //Beginning of a sub-expression
                 if (root.getChildren().get(0).getContent() instanceof Operator && ((Operator) root.getContent()).getPrecedence() > ((Operator) root.getChildren().get(0).getContent()).getPrecedence()) {
-                    toReturn.add(BracketFactory.createOpenBracket());
+                    toReturn.add(BracketFactory.makeOpenBracket());
                     toReturn.addAll(traverseTree(root.getChildren().get(0)));
-                    toReturn.add(BracketFactory.createCloseBracket());
+                    toReturn.add(BracketFactory.makeCloseBracket());
                 } else if (root.getChildren().get(0).getContent() instanceof Operator && ((Operator) root.getContent()).getPrecedence() == ((Operator) root.getChildren().get(0).getContent()).getPrecedence()) {
                     if (((Operator) root.getContent()).getType() == Operator.DIVIDE && ((Operator) root.getChildren().get(0).getContent()).getType() == Operator.MULTIPLY) {
-                        toReturn.add(BracketFactory.createOpenBracket());
+                        toReturn.add(BracketFactory.makeOpenBracket());
                         toReturn.addAll(traverseTree(root.getChildren().get(0)));
-                        toReturn.add(BracketFactory.createCloseBracket());
+                        toReturn.add(BracketFactory.makeCloseBracket());
                     } else {
                         toReturn.addAll(traverseTree(root.getChildren().get(0)));
                     }
@@ -467,14 +467,14 @@ public class JFok {
                 }
                 toReturn.add(root.getContent());
                 if (root.getChildren().get(1).getContent() instanceof Operator && ((Operator) root.getContent()).getPrecedence() > ((Operator) root.getChildren().get(1).getContent()).getPrecedence()) {
-                    toReturn.add(BracketFactory.createOpenBracket());
+                    toReturn.add(BracketFactory.makeOpenBracket());
                     toReturn.addAll(traverseTree(root.getChildren().get(1)));
-                    toReturn.add(BracketFactory.createCloseBracket());
+                    toReturn.add(BracketFactory.makeCloseBracket());
                 } else if (root.getChildren().get(1).getContent() instanceof Operator && ((Operator) root.getContent()).getPrecedence() == ((Operator) root.getChildren().get(1).getContent()).getPrecedence()) {
                     if (((Operator) root.getContent()).getType() == Operator.DIVIDE && ((Operator) root.getChildren().get(1).getContent()).getType() == Operator.MULTIPLY) {
-                        toReturn.add(BracketFactory.createOpenBracket());
+                        toReturn.add(BracketFactory.makeOpenBracket());
                         toReturn.addAll(traverseTree(root.getChildren().get(1)));
-                        toReturn.add(BracketFactory.createCloseBracket());
+                        toReturn.add(BracketFactory.makeCloseBracket());
                     } else {
                         toReturn.addAll(traverseTree(root.getChildren().get(1)));
                     }
@@ -485,9 +485,9 @@ public class JFok {
             return toReturn;
         } else if (root.getNumOfChildren() == 1) { //Function
             toReturn.add(root.getContent());
-            toReturn.add(BracketFactory.createOpenBracket());
+            toReturn.add(BracketFactory.makeOpenBracket());
             toReturn.addAll(traverseTree(root.getChildren().get(0)));
-            toReturn.add(BracketFactory.createCloseBracket());
+            toReturn.add(BracketFactory.makeCloseBracket());
             return toReturn;
         } else if (root.getNumOfChildren() == 0) {
             toReturn.add(root.getContent());

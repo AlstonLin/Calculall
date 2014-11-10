@@ -40,7 +40,7 @@ public class VRule {
             }
             return expression;
         } else {
-             return applyVectorOperation(expression);
+            return applyVectorOperation(expression);
         }
     }
 
@@ -79,8 +79,7 @@ public class VRule {
 
             } else if (expression.get(i).getSymbol() == "proj") {
                 stringExpression = stringExpression + "p";
-            }
-            else {
+            } else {
                 stringExpression = stringExpression + expression.get(i).getSymbol();
             }
 
@@ -115,16 +114,16 @@ public class VRule {
         }
 
 
-            double[] leftVector = new double[dimension], rightVector = new double[dimension];
+        double[] leftVector = new double[dimension], rightVector = new double[dimension];
 
-            //Load all Numbers of each vector into an array of doubles to send for calculations
-            for (Token n : numbers) {
-                if (numbers.indexOf(n) < dimension) {
-                    leftVector[numbers.indexOf(n)] = ((Number) n).getValue();
-                } else {
-                    rightVector[numbers.indexOf(n) - dimension] = ((Number) n).getValue();
-                }
+        //Load all Numbers of each vector into an array of doubles to send for calculations
+        for (Token n : numbers) {
+            if (numbers.indexOf(n) < dimension) {
+                leftVector[numbers.indexOf(n)] = ((Number) n).getValue();
+            } else {
+                rightVector[numbers.indexOf(n) - dimension] = ((Number) n).getValue();
             }
+        }
 
 
         //Load Tokens that are before the pattern into tempExpression
@@ -146,16 +145,16 @@ public class VRule {
             ArrayList<Token> newVector = Utility.convertDoublesToVector(Utility.calculateAddOrSubtract(leftVector, rightVector, VRuleSet.SUBTRACT));
             tempExpression.addAll(newVector);
         } else if (operation == VRuleSet.MAGNITUDE) {
-            tempExpression.add(new Number(Utility.round(Utility.calculateMagnitude(leftVector),4)));
+            tempExpression.add(new Number(Utility.round(Utility.calculateMagnitude(leftVector), 4)));
         } else if (operation == VRuleSet.MULTIPLY) {
             double multiplier = 0;
-            double[] vector = new double [dimension];
+            double[] vector = new double[dimension];
             //Load all Numbers of each vector into an array of doubles and a double for the multiplier to send for calculations
             for (Token n : numbers) {
                 if (numbers.indexOf(n) == 0) {
                     multiplier = ((Number) n).getValue();
                 } else {
-                    vector[numbers.indexOf(n)-1] = ((Number) n).getValue();
+                    vector[numbers.indexOf(n) - 1] = ((Number) n).getValue();
                 }
             }
             //Store the new vector into tempExpression
@@ -164,30 +163,33 @@ public class VRule {
             tempExpression.addAll(Utility.findUnitVector(leftVector));
             VRuleSet.setPressedUnitVButton(false);
         } else if (operation == VRuleSet.ARGUMENT && VRuleSet.getPressedArgumentButton()) {
-            tempExpression.add(new Number (Utility.round(Utility.calculateArgument(leftVector),4)));
-            tempExpression.add(new Token ("°"){});
+            tempExpression.add(new Number(Utility.round(Utility.calculateArgument(leftVector), 4)));
+            tempExpression.add(new Token("°") {
+            });
             VRuleSet.setPressedArgumentButton(false);
         } else if (operation == VRuleSet.TRUEB && VRuleSet.getPressedTrueBButton()) {
-            tempExpression.add(new Number (Utility.round(Utility.calculateTrueBearing(leftVector),4)));
-            tempExpression.add(new Token ("°"){});
+            tempExpression.add(new Number(Utility.round(Utility.calculateTrueBearing(leftVector), 4)));
+            tempExpression.add(new Token("°") {
+            });
             VRuleSet.setPressedTrueBButton(false);
-        }else if (operation == VRuleSet.BEAR && VRuleSet.getPressedBearButton()) {
+        } else if (operation == VRuleSet.BEAR && VRuleSet.getPressedBearButton()) {
             tempExpression.addAll(Utility.calculateBearing(leftVector));
             VRuleSet.setPressedBearButton(false);
-        }else if (operation == VRuleSet.ANGLE) {
-            tempExpression.add(new Number(Utility.round(Utility.findAngleBetweenVector(leftVector, rightVector),4)));
-            tempExpression.add(new Token ("°"){});
+        } else if (operation == VRuleSet.ANGLE) {
+            tempExpression.add(new Number(Utility.round(Utility.findAngleBetweenVector(leftVector, rightVector), 4)));
+            tempExpression.add(new Token("°") {
+            });
         } else if (operation == VRuleSet.PROJ) {
-            tempExpression.addAll(Utility.findProjection(leftVector,rightVector));
-        } else if (operation == VRuleSet.SCALAR&& VRuleSet.getPressedScalarEqnButton()) {
-            tempExpression.addAll(Utility.calculateScalarEquation(leftVector,rightVector));
+            tempExpression.addAll(Utility.findProjection(leftVector, rightVector));
+        } else if (operation == VRuleSet.SCALAR && VRuleSet.getPressedScalarEqnButton()) {
+            tempExpression.addAll(Utility.calculateScalarEquation(leftVector, rightVector));
             VRuleSet.setScalarEqnOutput(true);
             VRuleSet.setPressedScalarEqnButton(false);
-        }else if (operation == VRuleSet.CHECK && (expression.size() == 3 || expression.size() == 2 || VRuleSet.getScalarEqnOutput() || expression.size() == 5 || expression.size() == 7)) {
+        } else if (operation == VRuleSet.CHECK && (expression.size() == 3 || expression.size() == 2 || VRuleSet.getScalarEqnOutput() || expression.size() == 5 || expression.size() == 7)) {
             VRuleSet.setValidOutput(true); //Method to make make sure output is valid
             tempExpression = expression;
         } else if (operation == VRuleSet.UNITVECTOR || operation == VRuleSet.ANGLE ||
-                operation == VRuleSet.ARGUMENT || operation == VRuleSet.TRUEB || operation == VRuleSet.BEAR){
+                operation == VRuleSet.ARGUMENT || operation == VRuleSet.TRUEB || operation == VRuleSet.BEAR) {
             VRuleSet.setValidOutput(true); //Method to make make sure output is valid
             //This is applied when no operation can be performed such as the ones for the vector calculations
             for (int i = firstOccurPosition; i < firstOccurPosition + pattern.length(); i++) {
@@ -198,7 +200,7 @@ public class VRule {
 
         //Throw errors when there is unnessary tokens after a angle calculation
         if ((operation == VRuleSet.BEAR || operation == VRuleSet.ANGLE || operation == VRuleSet.TRUEB)) {
-            if (!(expression.get(expression.size()-1).getSymbol() == "°" || expression.get(expression.size()).getSymbol() == "N"
+            if (!(expression.get(expression.size() - 1).getSymbol() == "°" || expression.get(expression.size()).getSymbol() == "N"
                     || expression.get(expression.size()).getSymbol() == "E" || expression.get(expression.size()).getSymbol() == "W"
                     || expression.get(expression.size()).getSymbol() == "S")) {
                 throw new IllegalArgumentException();
