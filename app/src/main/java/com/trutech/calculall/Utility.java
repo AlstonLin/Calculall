@@ -139,7 +139,7 @@ public class Utility {
         ArrayList<Token> reversePolish = new ArrayList<Token>();
         Stack<Token> stack = new Stack<Token>();
         for (Token token : infix) {
-            if (token instanceof Number) { //Adds directly to the queue if it's a token
+            if (token instanceof Number || token instanceof Variable) { //Adds directly to the queue if it's a token
                 reversePolish.add(token);
             } else if (token instanceof Function) { //Adds to the stack if it's a function
                 stack.push(token);
