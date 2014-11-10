@@ -47,6 +47,27 @@ public class Node<E> {
     }
 
     /**
+     * Deletes the nth child
+     *
+     * @param n the index of the child Node to be deleted
+     */
+    public void delChild(int n) {
+        children.remove(n);
+    }
+
+    /**
+     * Creates a copy this node
+     *
+     */
+    public Node<Token> copy() {
+        Node<Token> newRoot = new Node(this.getContent());
+        for (int i = 0; i < this.getNumOfChildren(); i++) {
+            newRoot.addChild(this.getChildren().get(i).copy());
+        }
+        return newRoot;
+    }
+
+    /**
      *
      * @return The children of this Node
      */

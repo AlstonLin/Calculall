@@ -103,6 +103,7 @@
     <string name="derivative">dy/dx</string>
     <string name="graph">Graph</string>
     <string name="integrate">∫</string>
+    <string name="simplify">Simplify</string>
     <string name="title_activity_matrix_mode">MatrixMode</string>
     <string name="hello_world">Hello world!</string>
 

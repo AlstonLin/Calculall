@@ -65,31 +65,31 @@ public class Utility {
      * @param tokens The expression to condense digits
      * @return The expression with the digits condensed
      */
-    public static ArrayList<Token> condenseDigits(ArrayList<Token> tokens){
+    public static ArrayList<Token> condenseDigits(ArrayList<Token> tokens) {
         ArrayList<Token> newTokens = new ArrayList<Token>();
         ArrayList<Digit> digits = new ArrayList<Digit>();
         boolean atDigits = false; //Tracks if it's currently tracking digits
-        for (Token token : tokens){
-            if (atDigits){ //Going through digits
-                if (token instanceof Digit){ //Number keeps going
+        for (Token token : tokens) {
+            if (atDigits) { //Going through digits
+                if (token instanceof Digit) { //Number keeps going
                     digits.add((Digit) token);
-                }else { //Number ended
+                } else { //Number ended
                     atDigits = false;
                     newTokens.add(new Number(Utility.valueOf(digits))); //Adds the sum of all the digits
                     digits.clear();
                     newTokens.add(token);
                 }
-            }else{ //Not going through digits
+            } else { //Not going through digits
                 if (token instanceof Digit) { //Start of a number
                     atDigits = true;
                     digits.add((Digit) token);
-                } else{ //Not a digit; adds to the new list
+                } else { //Not a digit; adds to the new list
                     newTokens.add(token);
                 }
             }
         }
-        if (!digits.isEmpty() && atDigits){ //Digits left
-            newTokens.add(new Number (Utility.valueOf(digits)));
+        if (!digits.isEmpty() && atDigits) { //Digits left
+            newTokens.add(new Number(Utility.valueOf(digits)));
         }
         return newTokens;
     }
@@ -139,7 +139,7 @@ public class Utility {
         ArrayList<Token> reversePolish = new ArrayList<Token>();
         Stack<Token> stack = new Stack<Token>();
         for (Token token : infix) {
-            if (token instanceof Number) { //Adds directly to the queue if it's a token
+            if (token instanceof Number || token instanceof Variable) { //Adds directly to the queue if it's a token
                 reversePolish.add(token);
             } else if (token instanceof Function) { //Adds to the stack if it's a function
                 stack.push(token);

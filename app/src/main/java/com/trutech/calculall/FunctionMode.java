@@ -215,6 +215,16 @@ public class FunctionMode extends Advanced {
     }
 
     /**
+     * When the user presses the simplify button
+     *
+     * @param v Not Used
+     */
+    public void clickSimplify(View v){
+        tokens = JFok.simplifyExpression(tokens);
+        updateInput();
+    }
+
+    /**
      * Updates the text on the input screen.
      */
     @Override
