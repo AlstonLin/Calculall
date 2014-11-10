@@ -263,6 +263,7 @@ public class Utility {
             if (vector.get(i) instanceof Bracket || vector.get(i).getSymbol() == ","){
                 if (!foundFirst) {
                     firstIndex = i + 1;
+                    foundFirst = true;
                 }
                 else {
                     lastIndex = i - 1;
@@ -276,13 +277,15 @@ public class Utility {
                     expression.add(vector.get(j));
                 }
                  simplifiedExpression.add(Utility.evaluateTokenExpression(expression));
+                foundFirst = false;
                 readyToEvaluate = false;
                 expression.clear();
 
             }
 
-            if
-            simplifiedExpression.add(vector.get(i));
+            if (!foundFirst) {
+                simplifiedExpression.add(vector.get(i));
+            }
 
         }
 
