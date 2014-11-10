@@ -13,15 +13,16 @@
     <LinearLayout
         android:id="@+id/Container"
         android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="18"
-        android:orientation="horizontal">
+        android:layout_weight="25"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
 
         <Button
+            style="@style/button4"
             android:id="@+id/leftScroll"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="5"
+            android:layout_weight="1"
             android:onClick="scrollLeft"
             android:text="@string/leftscroll" />
 
@@ -30,15 +31,16 @@
             class="com.trutech.calculall.DisplayView"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:layout_weight="50"
+            android:layout_weight="10"
             android:longClickable="false" />
 
         <Button
+            style="@style/button4"
             android:id="@+id/rightScroll"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="right"
-            android:layout_weight="5"
+            android:layout_weight="1"
             android:onClick="scrollRight"
             android:text="@string/rightscroll" />
 
@@ -50,17 +52,16 @@
         android:id="@+id/Grid"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="60"
-        android:orientation="vertical"
-        android:weightSum="15.5">
+        android:layout_weight="75"
+        android:weightSum="10"
+        android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/row1"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginBottom="-7dp"
-            android:layout_weight="3"
-            android:orientation="horizontal">
+            android:layout_weight="2"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
 
             <Button
                 android:id="@+id/NegativeButton"
@@ -107,9 +108,8 @@
         <LinearLayout
             android:id="@+id/row2"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginBottom="-7dp"
-            android:layout_weight="3"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
             android:orientation="horizontal">
 
             <Button
@@ -156,9 +156,8 @@
         <LinearLayout
             android:id="@+id/row3"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginBottom="-7dp"
-            android:layout_weight="3"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
             android:orientation="horizontal">
 
             <Button
@@ -205,9 +204,8 @@
         <LinearLayout
             android:id="@+id/row4"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginBottom="-7dp"
-            android:layout_weight="3"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
             android:orientation="horizontal">
 
             <Button
@@ -254,9 +252,8 @@
         <LinearLayout
             android:id="@+id/row5"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginBottom="-7dp"
-            android:layout_weight="3"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
             android:orientation="horizontal">
 
             <Button
@@ -294,7 +291,6 @@
                 style="@style/button4"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:onClick="clickAdd"
                 android:text="@string/plus"
@@ -306,11 +302,9 @@
         <LinearLayout
             android:id="@+id/modes"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginBottom="-7dp"
-            android:layout_marginTop="-7dp"
-            android:layout_weight="1.8"
-            android:orientation="horizontal">
+            android:layout_weight="0.1"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
 
             <Button
                 android:id="@+id/basicButton"
