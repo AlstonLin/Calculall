@@ -250,7 +250,7 @@ public class Utility {
     public static Token evaluateTokenExpression (ArrayList<Token> expression) {
         ArrayList<Token> tokens = Utility.setupExpression(Utility.condenseDigits(Utility.addMissingBrackets(expression)));
         double unrounded = Utility.evaluateExpression(Utility.convertToReversePolish(tokens));
-        return new Number (Utility.round(unrounded, 9));
+        return new Number (Utility.round(unrounded, 4));
     }
 
     //TODO
@@ -276,11 +276,17 @@ public class Utility {
                     expression.add(vector.get(j));
                 }
                  simplifiedExpression.add(Utility.evaluateTokenExpression(expression));
+                readyToEvaluate = false;
+                expression.clear();
+
             }
+
+            if
+            simplifiedExpression.add(vector.get(i));
 
         }
 
-        return null;
+        return simplifiedExpression;
     }
 
 
@@ -355,27 +361,27 @@ public class Utility {
             if (operator == VRuleSet.ADD) {
                 if (dimensions == 2) {
                     double[] expression = new double[2];
-                    expression[0] = Utility.round(vectorLeft[0] + vectorRight[0],9);
-                    expression[1] = Utility.round(vectorLeft[1] + vectorRight[1],9);
+                    expression[0] = Utility.round(vectorLeft[0] + vectorRight[0],4);
+                    expression[1] = Utility.round(vectorLeft[1] + vectorRight[1],4);
                     return expression;
                 } else if (dimensions == 3) {
                     double[] expression = new double[3];
-                    expression[0] = Utility.round(vectorLeft[0] + vectorRight[0],9);
-                    expression[1] = Utility.round(vectorLeft[1] + vectorRight[1],9);
-                    expression[2] = Utility.round(vectorLeft[2] + vectorRight[2],9);
+                    expression[0] = Utility.round(vectorLeft[0] + vectorRight[0],4);
+                    expression[1] = Utility.round(vectorLeft[1] + vectorRight[1],4);
+                    expression[2] = Utility.round(vectorLeft[2] + vectorRight[2],4);
                     return expression;
                 }
             } else if (operator == VRuleSet.SUBTRACT) {
                 if (dimensions == 2) {
                     double[] expression = new double[2];
-                    expression[0] = Utility.round(vectorLeft[0] - vectorRight[0],9);
-                    expression[1] = Utility.round(vectorLeft[1] - vectorRight[1],9);
+                    expression[0] = Utility.round(vectorLeft[0] - vectorRight[0],4);
+                    expression[1] = Utility.round(vectorLeft[1] - vectorRight[1],4);
                     return expression;
                 } else if (dimensions == 3) {
                     double[] expression = new double[3];
-                    expression[0] = Utility.round(vectorLeft[0] - vectorRight[0],9);
-                    expression[1] = Utility.round(vectorLeft[1] - vectorRight[1],9);
-                    expression[2] = Utility.round(vectorLeft[2] - vectorRight[2],9);
+                    expression[0] = Utility.round(vectorLeft[0] - vectorRight[0],4);
+                    expression[1] = Utility.round(vectorLeft[1] - vectorRight[1],4);
+                    expression[2] = Utility.round(vectorLeft[2] - vectorRight[2],4);
                     return expression;
                 }
             }
@@ -511,7 +517,7 @@ public class Utility {
         if (c == 0) {
             output.add(VariableFactory.makeX());
             output.add(new Token("="){});
-            output.add(new Number (Utility.round(a,9)));
+            output.add(new Number (Utility.round(a,4)));
             return output;
         }
 
@@ -519,7 +525,7 @@ public class Utility {
         if (d == 0) {
             output.add(VariableFactory.makeY());
             output.add(new Token("="){});
-            output.add(new Number (Utility.round(b,9)));
+            output.add(new Number (Utility.round(b,4)));
             return output;
         }
 
@@ -527,19 +533,19 @@ public class Utility {
 
         //for first term
         if (c !=0){
-            output.add(new Number (Utility.round(c,9)));;
+            output.add(new Number (Utility.round(c,4)));;
             output.add(VariableFactory.makeY());
         }
 
         //for second term
         if (d > 0){
             output.add(OperatorFactory.makeSubtract());
-            output.add(new Number(Utility.round(Math.abs(d),9)));
+            output.add(new Number(Utility.round(Math.abs(d),4)));
         } else if (d < 0){
             if (c != 0) {
                 output.add(OperatorFactory.makeAdd());
             }
-            output.add(new Number(Utility.round(Math.abs(d),9)));
+            output.add(new Number(Utility.round(Math.abs(d),4)));
         }
         if (d != 0){
             output.add(VariableFactory.makeX());
@@ -567,14 +573,14 @@ public class Utility {
              double magnitude = calculateMagnitude(vector);
              if (vector.length == 2){
                  double[] unitVector = new double[2];
-                 unitVector[0] = Utility.round(vector[0]/magnitude,9);
-                 unitVector[1] = Utility.round(vector[1]/magnitude,9);
+                 unitVector[0] = Utility.round(vector[0]/magnitude,4);
+                 unitVector[1] = Utility.round(vector[1]/magnitude,4);
                  return Utility.convertDoublesToVector(unitVector);
              } else if (vector.length == 3) {
                  double[] unitVector = new double[3];
-                 unitVector[0] = Utility.round(vector[0]/magnitude,9);
-                 unitVector[1] = Utility.round(vector[1]/magnitude,9);
-                 unitVector[2] = Utility.round(vector[2]/magnitude,9);
+                 unitVector[0] = Utility.round(vector[0]/magnitude,4);
+                 unitVector[1] = Utility.round(vector[1]/magnitude,4);
+                 unitVector[2] = Utility.round(vector[2]/magnitude,4);
                  return Utility.convertDoublesToVector(unitVector);
              } else {
                  throw new IllegalArgumentException("Error: This calculator only supports 2D and 3D vectors.");
@@ -599,7 +605,7 @@ public class Utility {
         if (x == 0){
             return 90;
         }
-        double argument = Utility.round(Math.abs(Math.toDegrees(Math.atan(y / x))),9);
+        double argument = Utility.round(Math.abs(Math.toDegrees(Math.atan(y / x))),4);
         return argument;
     }
 
@@ -731,25 +737,25 @@ public class Utility {
         //returns vectors that do not lie on an axis
         if (quadrant == 1){
             output.add(new Token("E"){});
-            output.add(new Number(Utility.round(angle,9)));
+            output.add(new Number(Utility.round(angle,4)));
             //output.add(new Token ("°"){});
             output.add(new Token("N"){});
         }
         if (quadrant == 2){
             output.add(new Token("W"){});
-            output.add(new Number(Utility.round(angle,9)));
+            output.add(new Number(Utility.round(angle,4)));
             //output.add(new Token ("°"){});
             output.add(new Token("N"){});
         }
         if (quadrant == 3){
             output.add(new Token("W"){});
-            output.add(new Number(Utility.round(angle,9)));
+            output.add(new Number(Utility.round(angle,4)));
             //output.add(new Token ("°"){});
             output.add(new Token("S"){});
         }
         if (quadrant == 4){
             output.add(new Token("E"){});
-            output.add(new Number(Utility.round(angle,9)));
+            output.add(new Number(Utility.round(angle,4)));
             //output.add(new Token ("°"){});
             output.add(new Token("S"){});
         }
@@ -773,10 +779,10 @@ public class Utility {
         dimensions = 3;
         }
         double[] newVector = new double [dimensions];
-        newVector[0] = Utility.round(multiplier * vector[0],9);
-        newVector[1] = Utility.round(multiplier * vector[1],9);
+        newVector[0] = Utility.round(multiplier * vector[0],4);
+        newVector[1] = Utility.round(multiplier * vector[1],4);
         if (dimensions > 2) {
-            newVector[2] = Utility.round(multiplier * vector[2],9);
+            newVector[2] = Utility.round(multiplier * vector[2],4);
         }
         return newVector;
     }
@@ -815,7 +821,7 @@ public class Utility {
     public static ArrayList<Token> findProjection (double[] leftVector, double[] rightVector) {
         ArrayList<Token> tempTokens = new ArrayList<Token>();
         ArrayList<Token> tempVector = new ArrayList<Token>();
-        tempTokens.add(new Number (Utility.round((calculateDotProduct(rightVector, leftVector)/Math.pow(calculateMagnitude(leftVector),2)),9)));
+        tempTokens.add(new Number (Utility.round((calculateDotProduct(rightVector, leftVector)/Math.pow(calculateMagnitude(leftVector),2)),4)));
         tempTokens.addAll(convertDoublesToVector(leftVector));
         return tempTokens;
     }

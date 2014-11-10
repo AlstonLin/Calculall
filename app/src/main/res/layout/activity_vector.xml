@@ -301,71 +301,7 @@
                 android:textSize="16sp" />
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/functionRow2"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginBottom="-7dp"
-            android:layout_weight="2"
-            android:orientation="horizontal" >
 
-            <Button
-                android:id="@+id/rootButton"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginLeft="-7dp"
-                android:layout_marginRight="-7dp"
-                android:layout_weight="1"
-                android:onClick="clickRoot"
-                android:text="@string/sqrt"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/squareButton"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
-                android:layout_weight="1"
-                android:onClick="clickSmallExp"
-                android:text="@string/square"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/powerButton"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
-                android:layout_weight="1"
-                android:onClick="clickPow"
-                android:text="@string/exponent"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/powButton"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
-                android:layout_weight="1"
-                android:onClick="clickPower"
-                android:text="@string/powOfTen"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/logButton"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
-                android:layout_weight="1"
-                android:onClick="clickLog"
-                android:text="@string/log10"
-                android:textSize="16sp" />
-
-        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/vectorRow"

@@ -135,7 +135,7 @@ public class VRule {
 
         // Add the new vector or number to the expression
         if (operation == VRuleSet.DOT) {
-            tempExpression.add(new Number(Utility.round(Utility.calculateDotProduct(leftVector, rightVector), 9)));
+            tempExpression.add(new Number(Utility.round(Utility.calculateDotProduct(leftVector, rightVector), 4)));
         } else if (operation == VRuleSet.CROSS) {
             ArrayList<Token> newVector = Utility.convertDoublesToVector(Utility.calculateCrossProduct(leftVector, rightVector));
             tempExpression.addAll(newVector);
@@ -146,7 +146,7 @@ public class VRule {
             ArrayList<Token> newVector = Utility.convertDoublesToVector(Utility.calculateAddOrSubtract(leftVector, rightVector, VRuleSet.SUBTRACT));
             tempExpression.addAll(newVector);
         } else if (operation == VRuleSet.MAGNITUDE) {
-            tempExpression.add(new Number(Utility.round(Utility.calculateMagnitude(leftVector),9)));
+            tempExpression.add(new Number(Utility.round(Utility.calculateMagnitude(leftVector),4)));
         } else if (operation == VRuleSet.MULTIPLY) {
             double multiplier = 0;
             double[] vector = new double [dimension];
@@ -164,18 +164,18 @@ public class VRule {
             tempExpression.addAll(Utility.findUnitVector(leftVector));
             VRuleSet.setPressedUnitVButton(false);
         } else if (operation == VRuleSet.ARGUMENT && VRuleSet.getPressedArgumentButton()) {
-            tempExpression.add(new Number (Utility.round(Utility.calculateArgument(leftVector),9)));
+            tempExpression.add(new Number (Utility.round(Utility.calculateArgument(leftVector),4)));
             tempExpression.add(new Token ("°"){});
             VRuleSet.setPressedArgumentButton(false);
         } else if (operation == VRuleSet.TRUEB && VRuleSet.getPressedTrueBButton()) {
-            tempExpression.add(new Number (Utility.round(Utility.calculateTrueBearing(leftVector),9)));
+            tempExpression.add(new Number (Utility.round(Utility.calculateTrueBearing(leftVector),4)));
             tempExpression.add(new Token ("°"){});
             VRuleSet.setPressedTrueBButton(false);
         }else if (operation == VRuleSet.BEAR && VRuleSet.getPressedBearButton()) {
             tempExpression.addAll(Utility.calculateBearing(leftVector));
             VRuleSet.setPressedBearButton(false);
         }else if (operation == VRuleSet.ANGLE) {
-            tempExpression.add(new Number(Utility.round(Utility.findAngleBetweenVector(leftVector, rightVector),9)));
+            tempExpression.add(new Number(Utility.round(Utility.findAngleBetweenVector(leftVector, rightVector),4)));
             tempExpression.add(new Token ("°"){});
         } else if (operation == VRuleSet.PROJ) {
             tempExpression.addAll(Utility.findProjection(leftVector,rightVector));
@@ -198,7 +198,7 @@ public class VRule {
 
         //Throw errors when there is unnessary tokens after a angle calculation
         if ((operation == VRuleSet.BEAR || operation == VRuleSet.ANGLE || operation == VRuleSet.TRUEB)) {
-            if (!(expression.get(expression.size()).getSymbol() == "°" || expression.get(expression.size()).getSymbol() == "N"
+            if (!(expression.get(expression.size()-1).getSymbol() == "°" || expression.get(expression.size()).getSymbol() == "N"
                     || expression.get(expression.size()).getSymbol() == "E" || expression.get(expression.size()).getSymbol() == "W"
                     || expression.get(expression.size()).getSymbol() == "S")) {
                 throw new IllegalArgumentException();
