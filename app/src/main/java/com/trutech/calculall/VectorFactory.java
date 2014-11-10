@@ -28,7 +28,7 @@ public class VectorFactory {
         };
     }
     public static Vector makeS(){
-        return new Vector(Vector.S, "X"){
+        return new Vector(Vector.S, "S"){
             public ArrayList<Token> getVector(){
                 return Vector.s_value;
             }

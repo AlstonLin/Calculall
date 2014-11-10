@@ -705,7 +705,7 @@ public class VectorMode extends Basic {
     public void clickVT(View v) {
         tokens.add(new Token ("t"){});
         updateInput();
-    }
+}
 
 
 

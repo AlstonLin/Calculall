@@ -81,17 +81,6 @@
                 android:layout_weight="1"
                 android:text="@string/vector"
                 android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/matrixButton"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
-                android:layout_weight="1"
-                android:onClick="clickMatrix"
-                android:text="@string/matrix"
-                android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -102,7 +91,7 @@
             android:layout_weight="2"
             android:orientation="horizontal" >
 
-             <ToggleButton
+<!--             <ToggleButton
                 android:id="@+id/shiftButton"
                 style="?android:attr/buttonStyleToggle"
                 android:layout_width="0dp"
@@ -115,7 +104,7 @@
                 android:onClick="clickShift"
                 android:textOff="@string/shift"
                 android:textOn="@string/shift"
-                android:textSize="16sp" />
+                android:textSize="16sp" />-->
 
             <ToggleButton
                 android:id="@+id/memButton"
@@ -225,7 +214,7 @@
                 android:textSize="16sp" />
         </LinearLayout>
 
-        <LinearLayout
+       <!-- <LinearLayout
             android:id="@+id/functionRow1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -299,7 +288,7 @@
                 android:onClick="clickAngleMode"
                 android:text="@string/deg"
                 android:textSize="16sp" />
-        </LinearLayout>
+        </LinearLayout>-->
 
 
 
