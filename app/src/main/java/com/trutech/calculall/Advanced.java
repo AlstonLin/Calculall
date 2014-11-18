@@ -89,10 +89,12 @@ public class Advanced extends Basic {
         DisplayView display = (DisplayView) findViewById(R.id.display);
         try {
             double val = process();
-            if(switchedAngleMode){
-                tokens.set(tokens.size()-1, new Token(" → DEG"){});
-            }else {
-                tokens.add(new Token(" → DEG"){});
+            if (switchedAngleMode) {
+                tokens.set(tokens.size() - 1, new Token(" → DEG") {
+                });
+            } else {
+                tokens.add(new Token(" → DEG") {
+                });
             }
             updateInput();
             display.displayOutput(val * 9 / 10 + "");
@@ -105,13 +107,15 @@ public class Advanced extends Basic {
 
     public void convRtoG() {
         //Converts the number displayed from radians into gradians ie multiplies the number by 100/pi
-        DisplayView display = (DisplayView)findViewById(R.id.display);
+        DisplayView display = (DisplayView) findViewById(R.id.display);
         try {
             double val = process();
-            if(switchedAngleMode){
-                tokens.set(tokens.size()-1, new Token(" → GRAD"){});
-            }else {
-                tokens.add(new Token(" → GRAD"){});
+            if (switchedAngleMode) {
+                tokens.set(tokens.size() - 1, new Token(" → GRAD") {
+                });
+            } else {
+                tokens.add(new Token(" → GRAD") {
+                });
             }
             updateInput();
             display.displayOutput(val * 100 / Math.PI + "");
@@ -124,13 +128,15 @@ public class Advanced extends Basic {
 
     public void convDtoR() {
         //Converts the number displayed from degrees into radians ie multiplies the number by pi/180
-        DisplayView display = (DisplayView)findViewById(R.id.display);
+        DisplayView display = (DisplayView) findViewById(R.id.display);
         try {
             double val = process();
-            if(switchedAngleMode){
-                tokens.set(tokens.size()-1, new Token(" → RAD"){});
-            }else {
-                tokens.add(new Token(" → RAD"){});
+            if (switchedAngleMode) {
+                tokens.set(tokens.size() - 1, new Token(" → RAD") {
+                });
+            } else {
+                tokens.add(new Token(" → RAD") {
+                });
             }
             updateInput();
             display.displayOutput(val * Math.PI / 180 + "");
@@ -371,7 +377,7 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickA(View v) {
-        DisplayView display = (DisplayView)findViewById(R.id.display);
+        DisplayView display = (DisplayView) findViewById(R.id.display);
         ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
         try {
             if (mem) {
@@ -397,7 +403,7 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickB(View v) {
-        DisplayView display = (DisplayView)findViewById(R.id.display);
+        DisplayView display = (DisplayView) findViewById(R.id.display);
         ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
         try {
             if (mem) {
@@ -423,7 +429,7 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickC(View v) {
-        DisplayView display = (DisplayView)findViewById(R.id.display);
+        DisplayView display = (DisplayView) findViewById(R.id.display);
         ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
         try {
             if (mem) {
@@ -449,7 +455,7 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickX(View v) {
-        DisplayView display = (DisplayView)findViewById(R.id.display);
+        DisplayView display = (DisplayView) findViewById(R.id.display);
         ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
         try {
             if (mem) {
@@ -475,7 +481,7 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickY(View v) {
-        DisplayView display = (DisplayView)findViewById(R.id.display);
+        DisplayView display = (DisplayView) findViewById(R.id.display);
         ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
         try {
             if (mem) {
@@ -501,7 +507,7 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickZ(View v) {
-        DisplayView display = (DisplayView)findViewById(R.id.display);
+        DisplayView display = (DisplayView) findViewById(R.id.display);
         ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
         try {
             if (mem) {
@@ -792,15 +798,17 @@ public class Advanced extends Basic {
                 tokens.add(display.getRealCursorIndex() + 1, numCloseBracket);
                 tokens.add(display.getRealCursorIndex() + 2, frac);
                 tokens.add(display.getRealCursorIndex() + 3, denomOpenBracket);
-                tokens.add(display.getRealCursorIndex() + 4, PlaceholderFactory.makeBlock());
+                Placeholder p = PlaceholderFactory.makeBlock();
+                tokens.add(display.getRealCursorIndex() + 4, p);
                 tokens.add(display.getRealCursorIndex() + 5, denomCloseBracket);
-
+                frac.addDependency(p);
                 display.setCursorIndex(display.getCursorIndex() + 2);
                 return;
             } else if (tokenBefore instanceof Bracket && ((Bracket) tokenBefore).getType() == Bracket.CLOSE) {
                 LinkedList<Token> expression = new LinkedList<Token>();
-                int i = display.getRealCursorIndex() - 1;
+                int i = display.getRealCursorIndex() - 2;
                 int bracketCount = 1;
+                expression.add(tokens.remove(display.getRealCursorIndex() - 1));
                 while (i >= 0 && bracketCount != 0) {
                     Token t = tokens.remove(i);
                     if (t instanceof Bracket) {
@@ -814,28 +822,34 @@ public class Advanced extends Basic {
                     expression.addFirst(t);
                     i--;
                 }
-                tokens.add(display.getRealCursorIndex() - expression.size(), numOpenBracket);
-                tokens.addAll(display.getRealCursorIndex() - expression.size() + 1, expression);
+                tokens.add(i + 1, numOpenBracket);
+                tokens.addAll(i + 2, expression);
 
                 tokens.add(display.getRealCursorIndex() + 1, numCloseBracket);
                 tokens.add(display.getRealCursorIndex() + 2, frac);
                 tokens.add(display.getRealCursorIndex() + 3, denomOpenBracket);
-                tokens.add(display.getRealCursorIndex() + 4, PlaceholderFactory.makeBlock());
+                Placeholder p = PlaceholderFactory.makeBlock();
+                tokens.add(display.getRealCursorIndex() + 4, p);
                 tokens.add(display.getRealCursorIndex() + 5, denomCloseBracket);
+                frac.addDependency(p);
                 display.setCursorIndex(display.getCursorIndex() + 2);
                 return;
 
             } else {
                 tokens.add(display.getRealCursorIndex(), numOpenBracket);
-                tokens.add(display.getRealCursorIndex() + 1, PlaceholderFactory.makeBlock());
+                Placeholder p = PlaceholderFactory.makeBlock();
+                tokens.add(display.getRealCursorIndex() + 1, p);
+                frac.addDependency(p);
             }
         }
         tokens.add(display.getRealCursorIndex() + 2, numCloseBracket);
         tokens.add(display.getRealCursorIndex() + 3, frac);
         tokens.add(display.getRealCursorIndex() + 4, denomOpenBracket);
-        tokens.add(display.getRealCursorIndex() + 5, PlaceholderFactory.makeBlock());
+        Placeholder p = PlaceholderFactory.makeBlock();
+        tokens.add(display.getRealCursorIndex() + 5, p);
         tokens.add(display.getRealCursorIndex() + 6, denomCloseBracket);
         display.setCursorIndex(display.getCursorIndex() + 1);
+        frac.addDependency(p);
         updateInput();
     }
 

@@ -4,9 +4,10 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.view.View;
 import android.view.WindowManager;
-import android.widget.ScrollView;
 
 import java.util.ArrayList;
 import java.util.Stack;
@@ -15,15 +16,24 @@ import java.util.Stack;
  * A custom View that displays the given mathematical expression with superscripts, subscripts
  * and fraction support.
  */
-public class DisplayView extends ScrollView {
+public class DisplayView extends View {
 
+    //CONSTANTS
+    private final float TEXT_HEIGHT;
+    private final float SMALL_HEIGHT;
+    private final float Y_PADDING_BETWEEN_LINES;
+    private final float CURSOR_PADDING;
+    private final float fracPadding;
     private final int FONT_SIZE = 96;
-    private final float xPadding; //The padding at the start and end    of the display (x)
+    private final float X_PADDING; //The padding at the start and end    of the display (x)
     private float startX = 0; //Tracks the starting x position at which the canvas will start drawing (allows side scrolling)
     private float maxX = 0; //Max start X that the user can scroll to
     private int cursorIndex = 0; //The index where the cursor is when shown on screen
     private int drawCount = 0;
+    private float maxY = 0;
+    private float cursorY = 0;
     private ArrayList<Float> drawX = new ArrayList<Float>(); //Stores the width of each counted symbol
+    private ArrayList<Float> heights = new ArrayList<Float>();
     private int realCursorIndex = 0; //The index of the cursor in the list of tokens
     private boolean functionMode = false; //If this display is for function mode
     private Paint textPaint;
@@ -54,8 +64,19 @@ public class DisplayView extends ScrollView {
         fracPaint.setTextSize(FONT_SIZE);
         fracPaint.setStrokeWidth(10);
 
-        xPadding = textPaint.getTextSize() / 3;
+        //Sets constant values
+        //Calculates the height of the texts
+        Rect textRect = new Rect();
+        Rect smallRect = new Rect();
+        textPaint.getTextBounds("1", 0, 1, textRect);
+        smallPaint.getTextBounds("1", 0, 1, smallRect);
+        TEXT_HEIGHT = textRect.height() * 1.25f;
+        SMALL_HEIGHT = smallRect.height();
 
+        X_PADDING = TEXT_HEIGHT / 3;
+        Y_PADDING_BETWEEN_LINES = TEXT_HEIGHT;
+        CURSOR_PADDING = TEXT_HEIGHT / 10;
+        fracPadding = TEXT_HEIGHT / 8;
         setWillNotDraw(false);
     }
 
@@ -66,6 +87,8 @@ public class DisplayView extends ScrollView {
      */
     public void displayInput(ArrayList<Token> expression) {
         this.expression = expression;
+        calculateMaxY();
+        requestLayout();
         invalidate();
     }
 
@@ -76,6 +99,8 @@ public class DisplayView extends ScrollView {
      */
     public void displayOutput(ArrayList<Token> tokens) {
         output = tokens;
+        calculateMaxY();
+        requestLayout();
         invalidate();
     }
 
@@ -87,6 +112,8 @@ public class DisplayView extends ScrollView {
      */
     public void displayOutput(String str) {
         outputString = str;
+        calculateMaxY();
+        requestLayout();
         invalidate();
     }
 
@@ -98,6 +125,8 @@ public class DisplayView extends ScrollView {
     public void displayInputFunction(ArrayList<Token> tokens) {
         displayInput(tokens);
         functionMode = true;
+        calculateMaxY();
+        requestLayout();
         invalidate();
     }
 
@@ -110,11 +139,11 @@ public class DisplayView extends ScrollView {
     @Override
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        heights.clear();
         //TODO: Use canvas.drawLine() to make fractions, and implement a algorithm to do this
-        final float yPaddingBetweenLines = textPaint.getTextSize();
-        final float cursorPadding = textPaint.getTextSize() / 10;
-        final float fracPadding = textPaint.getTextSize() / 8;
-        final float yFracModifier = (yPaddingBetweenLines * (getMaxFracHeight(expression) - 1)) / 2f;
+        final float maxHeight = getMaxFracHeight(expression);
+        final float yFracModifier = Y_PADDING_BETWEEN_LINES * (1 + maxHeight) / 2f;
+        final float yScriptModifier = SMALL_HEIGHT * getMaxScriptLevel() / 3;
 
         calculateDrawX();
         calculateRealCursorIndex();
@@ -126,9 +155,9 @@ public class DisplayView extends ScrollView {
         float cursorX = getCursorX();
 
         if (cursorX < startX) {
-            startX = cursorX - cursorPadding;
+            startX = cursorX - CURSOR_PADDING;
         } else if (cursorX > startX + getWidth()) {
-            startX = cursorX - getWidth() + cursorPadding;
+            startX = cursorX - getWidth() + CURSOR_PADDING;
         }
 
 
@@ -136,7 +165,7 @@ public class DisplayView extends ScrollView {
 
         if (functionMode) { //Adds a f(x)= at the start
             final String s = "f(x)=";
-            canvas.drawText(s, xPadding, yPaddingBetweenLines, textPaint);
+            canvas.drawText(s, X_PADDING, Y_PADDING_BETWEEN_LINES, textPaint);
             float[] widths = new float[s.length()];
             textPaint.getTextWidths(s, widths);
             xModifier += sum(widths);
@@ -147,7 +176,7 @@ public class DisplayView extends ScrollView {
         //Counter and state variables
         int scriptLevel = 0; //superscript = 1, any additional levels would +1
         int scriptBracketCount = 0; //Counts the brackets for any exponents
-        float heightMultiplier = 1f; //Determines at what height the text would be drawn at
+        float heightMultiplier = 0; //Determines at what height the text would be drawn at
         for (int i = 0; i < expression.size(); i++) {
             Token token = expression.get(i);
             Paint paint = textPaint;
@@ -174,15 +203,22 @@ public class DisplayView extends ScrollView {
                 }
 
                 int height = getMaxFracHeight(num);
-                heightMultiplier -= 0.5 * height;
+                heightMultiplier -= 1 / 2d;
+            } else if (token instanceof Operator && ((Operator) token).getType() == Operator.FRACTION) {
+                //Finds the max height in the numerator
+                ArrayList<Token> numerator = getNumerator(expression, i);
+                float maxHeightMultiplier = Float.NEGATIVE_INFINITY;
+                for (Token t : numerator) {
+                    float height = heights.get(expression.indexOf(t));
+                    if (height > maxHeightMultiplier) {
+                        maxHeightMultiplier = height;
+                    }
+                }
+                heightMultiplier = maxHeightMultiplier;
             } else if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.DENOM_OPEN) {
-                //For the numerator close
-                int numHeight = getMaxFracHeight(getNumerator(expression, i - 1));
-                heightMultiplier += 0.5 * numHeight;
-
                 //For the denom open
                 int denomHeight = getMaxFracHeight(getDenominator(expression, i - 1));
-                heightMultiplier += 0.5 * denomHeight;
+                heightMultiplier += (denomHeight + 1) / 2d;
             } else if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.DENOM_CLOSE) {
                 //Finds the denom
                 ArrayList<Token> denom = new ArrayList<Token>();
@@ -195,12 +231,22 @@ public class DisplayView extends ScrollView {
                     } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.DENOM_CLOSE) {
                         bracketCount++;
                     }
-                    denom.add(t);
                     j--;
                 }
-                //Calculates adjustment
-                int height = getMaxFracHeight(denom);
-                heightMultiplier -= 0.5 * height;
+                //Now j is at the index of the fraction. Looking for the height of the NUM_OPEN bracket
+                bracketCount = 1;
+                j -= 2;
+                while (bracketCount > 0) {
+                    Token t = expression.get(j);
+                    if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.NUM_OPEN) {
+                        bracketCount--;
+                    } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.NUM_CLOSE) {
+                        bracketCount++;
+                    }
+                    j--;
+                }
+                //Changes height to the height of the NUM_OPEN bracket + 0.5
+                heightMultiplier = heights.get(j + 1) + 0.5f;
             } else if (scriptLevel > 0) { //Counts brackets if its writing in superscript
                 if (token instanceof Bracket) {
                     Bracket b = (Bracket) token;
@@ -217,16 +263,22 @@ public class DisplayView extends ScrollView {
 
             //Calculates the x and y position of the draw position (modified later)
             float x = drawX.get(i) + xModifier;
-            float y = yPaddingBetweenLines * heightMultiplier + yFracModifier;
+            float y = Y_PADDING_BETWEEN_LINES * heightMultiplier + yFracModifier + yScriptModifier;
+            heights.add(i, heightMultiplier);
 
             //Changes paint for superscript
             if (scriptLevel > 0) {
                 paint = smallPaint;
-                y += (2 - scriptLevel) * paint.getTextSize() / 4 - textPaint.getTextSize() / 2;
+                y += (2 - scriptLevel) * paint.getTextSize() / 4 - TEXT_HEIGHT / 2;
             }
 
             //Draws the text
             canvas.drawText(token.getSymbol(), x, y, paint);
+
+            //Updates maxY
+            if (y > maxY) {
+                maxY = y;
+            }
 
             //Draws fraction sign
             if (token instanceof Operator && ((Operator) token).getType() == Operator.FRACTION) {
@@ -248,13 +300,13 @@ public class DisplayView extends ScrollView {
             //Draws cursor
             if (i == realCursorIndex) {
                 //Superscripts the cursor if needed
-                float cursorY = yPaddingBetweenLines * heightMultiplier + yFracModifier;
-                cursorX = x - cursorPadding;
+                cursorY = Y_PADDING_BETWEEN_LINES * heightMultiplier + yFracModifier + yScriptModifier;
+                cursorX = x - CURSOR_PADDING;
                 if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.SUPERSCRIPT_CLOSE) {
-                    cursorY += (1 - scriptLevel) * smallPaint.getTextSize() / 4 - textPaint.getTextSize() / 2;
+                    cursorY += (1 - scriptLevel) * SMALL_HEIGHT / 4 - TEXT_HEIGHT / 2;
                     canvas.drawText("|", cursorX, cursorY, cursorPaint);
                 } else if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.DENOM_CLOSE) {
-                    cursorY = yPaddingBetweenLines * (heightMultiplier + 0.5f) + yFracModifier;
+                    cursorY = Y_PADDING_BETWEEN_LINES * (heightMultiplier + 0.5f) + yFracModifier + yScriptModifier;
                     canvas.drawText("|", cursorX, cursorY, cursorPaint);
                 } else {
                     canvas.drawText("|", cursorX, y, cursorPaint);
@@ -264,14 +316,14 @@ public class DisplayView extends ScrollView {
 
         //Draws cursor in special cases
         if (expression.size() == 0) { //No expression
-            canvas.drawText("|", xPadding, yPaddingBetweenLines * heightMultiplier + yFracModifier, cursorPaint);
+            canvas.drawText("|", X_PADDING, Y_PADDING_BETWEEN_LINES * heightMultiplier + yFracModifier + yScriptModifier, cursorPaint);
         } else if (realCursorIndex == expression.size()) { //Last index (or the cursor index is larger than the draw count
             //Moves the cursor up if its superscript
-            float cursorY = yPaddingBetweenLines * heightMultiplier + yFracModifier;
+            cursorY = Y_PADDING_BETWEEN_LINES * heightMultiplier + yFracModifier + yScriptModifier;
             if (scriptLevel > 0) {
-                cursorY += (1 - scriptLevel) * smallPaint.getTextSize() / 4 - textPaint.getTextSize() / 2;
+                cursorY += (1 - scriptLevel) * SMALL_HEIGHT / 4 - TEXT_HEIGHT / 2;
             }
-            cursorX = maxX + xModifier - cursorPadding;
+            cursorX = maxX + xModifier - CURSOR_PADDING;
             canvas.drawText("|", cursorX, cursorY, cursorPaint);
             realCursorIndex = expression.size();
         }
@@ -288,7 +340,7 @@ public class DisplayView extends ScrollView {
             for (int i = 0; i < outputWidths.length; i++) {
                 outputWidth += outputWidths[i];
             }
-            canvas.drawText(outputString, getWidth() - outputWidth - xPadding, yPaddingBetweenLines * 3, textPaint);
+            canvas.drawText(outputString, getWidth() - outputWidth - X_PADDING, maxY + Y_PADDING_BETWEEN_LINES, textPaint);
         }
     }
 
@@ -300,15 +352,29 @@ public class DisplayView extends ScrollView {
      */
     private int getMaxFracHeight(ArrayList<Token> expression) {
         int maxFracHeight = 1;
+        int numBracketCount = 0;
+        int denomBracketCount = 0;
         for (int i = 0; i < expression.size(); i++) {
             Token t = expression.get(i);
-            if (t instanceof Operator && ((Operator) t).getType() == Operator.FRACTION) {
-                ArrayList<Token> num = getNumerator(expression, i);
-                ArrayList<Token> denom = getDenominator(expression, i);
-                //And adds the height of both + 1
-                int height = getMaxFracHeight(num) + getMaxFracHeight(denom);
-                if (height > maxFracHeight) {
-                    maxFracHeight = height;
+            if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.NUM_OPEN) {
+                numBracketCount++;
+            } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.NUM_CLOSE) {
+                numBracketCount--;
+            } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.DENOM_OPEN) {
+                denomBracketCount++;
+            } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.DENOM_CLOSE) {
+                denomBracketCount--;
+            }
+
+            if (numBracketCount == 0 && denomBracketCount == 0) { //Cannot be in a numerator or denom
+                if (t instanceof Operator && ((Operator) t).getType() == Operator.FRACTION) {
+                    ArrayList<Token> num = getNumerator(expression, i);
+                    ArrayList<Token> denom = getDenominator(expression, i);
+                    //And adds the height of both + 1
+                    int height = getMaxFracHeight(num) + getMaxFracHeight(denom);
+                    if (height > maxFracHeight) {
+                        maxFracHeight = height;
+                    }
                 }
             }
         }
@@ -332,7 +398,8 @@ public class DisplayView extends ScrollView {
         int j = i - 2;
         while (bracketCount > 0) {
             if (j < 0) {
-                i = 1;
+                String s = printExpression(expression);
+                s = "";
             }
             Token token = expression.get(j);
             if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.NUM_OPEN) {
@@ -343,7 +410,31 @@ public class DisplayView extends ScrollView {
             num.add(0, token);
             j--;
         }
+        num.remove(0); //Takes out the open bracket
         return num;
+    }
+
+    private String printExpression(ArrayList<Token> e) {
+        String s = "";
+        for (Token t : e) {
+            s += t.getSymbol();
+            if (t instanceof Bracket) {
+                Bracket b = (Bracket) t;
+                if (b.getType() == Bracket.NUM_OPEN) {
+                    s += "[";
+                } else if (b.getType() == Bracket.NUM_CLOSE) {
+                    s += "]";
+                } else if (b.getType() == Bracket.DENOM_OPEN) {
+                    s += "{";
+                } else if (b.getType() == Bracket.DENOM_CLOSE) {
+                    s += "}";
+                }
+            } else if (t instanceof Operator && ((Operator) t).getType() == Operator.FRACTION) {
+                s += "F";
+            }
+
+        }
+        return s;
     }
 
     /**
@@ -362,6 +453,10 @@ public class DisplayView extends ScrollView {
         int bracketCount = 1;
         int j = i + 2;
         while (bracketCount > 0) {
+            if (j >= expression.size()) {
+                String s = printExpression(expression);
+                s = "";
+            }
             Token token = expression.get(j);
             if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.DENOM_OPEN) {
                 bracketCount++;
@@ -371,6 +466,7 @@ public class DisplayView extends ScrollView {
             denom.add(token);
             j++;
         }
+        denom.remove(denom.size() - 1); //Takes out the close bracket
         return denom;
     }
 
@@ -429,7 +525,7 @@ public class DisplayView extends ScrollView {
         int scriptLevel = 0; //superscript = 1, any additional levels would +1
         int scriptBracketCount = 0; //Counts the brackets for any exponents
         Stack<Float> fracStarts = new Stack<Float>(); //The indices where fractions start
-        float x = xPadding;
+        float x = X_PADDING;
 
         for (int i = 0; i < expression.size(); i++) {
             Token token = expression.get(i);
@@ -492,6 +588,16 @@ public class DisplayView extends ScrollView {
             x += widthSum;
         }
         drawX.add(x);
+    }
+
+    /**
+     * Calculates the maximum height of the expression
+     */
+    private void calculateMaxY() {
+        final float maxHeight = getMaxFracHeight(expression) - 1;
+        final float yMaxFrac = Y_PADDING_BETWEEN_LINES * (maxHeight + 2);
+        final float yMaxScript = SMALL_HEIGHT * getMaxScriptLevel() / 3;
+        maxY = yMaxFrac + yMaxScript;
     }
 
     /**
@@ -577,7 +683,7 @@ public class DisplayView extends ScrollView {
         int parentWidth = MeasureSpec.getSize(widthMeasureSpec);
         int parentHeight = MeasureSpec.getSize(heightMeasureSpec);
         WindowManager wm = (WindowManager) this.getContext().getSystemService(Context.WINDOW_SERVICE);
-        this.setMeasuredDimension(parentWidth, parentHeight);
+        this.setMeasuredDimension(parentWidth, (int) (parentHeight > maxY ? parentHeight : maxY * 1.5));
     }
 
     /**

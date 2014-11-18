@@ -280,6 +280,18 @@ public class Basic extends Activity {
             return;
         } else if (toRemove instanceof Bracket && ((Bracket) toRemove).getType() == Bracket.SUPERSCRIPT_OPEN) { //Removes whatever was before it instead
             toRemove = tokens.get(display.getRealCursorIndex() - 2);
+        } else if (toRemove instanceof Bracket && ((Bracket) toRemove).getType() == Bracket.NUM_OPEN) {
+            display.setCursorIndex(display.getCursorIndex() - 1);
+            return;
+        } else if (toRemove instanceof Bracket && ((Bracket) toRemove).getType() == Bracket.DENOM_OPEN) {
+            toRemove = tokens.get(display.getRealCursorIndex() - 2);
+        } else if (toRemove instanceof Bracket && ((Bracket) toRemove).getType() == Bracket.DENOM_CLOSE) {
+            Token bracket = toRemove;
+            for (Token t : tokens) {
+                if (t.getDependencies().contains(bracket)) {
+                    toRemove = t;
+                }
+            }
         }
 
         tokens.remove(toRemove);
@@ -329,8 +341,9 @@ public class Basic extends Activity {
      * Scrolls down the display (if possible).
      */
     protected void scrollDown() {
-        ScrollView scrollView = (DisplayView) findViewById(R.id.display);
+        ScrollView scrollView = (ScrollView) findViewById(R.id.scroll);
         if (scrollView != null) {
+            //Shows bottom
             scrollView.pageScroll(ScrollView.FOCUS_DOWN);
         }
     }
@@ -404,9 +417,9 @@ public class Basic extends Activity {
      */
     protected void updateInput() {
         updatePlaceHolders();
+        display.displayOutput(""); //Clears output
         display.displayInput(tokens);
-        //Shows bottom
-        display.pageScroll(ScrollView.FOCUS_DOWN);
+        scrollDown();
     }
 
     /**

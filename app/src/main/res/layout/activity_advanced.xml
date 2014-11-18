@@ -22,26 +22,35 @@
             android:onClick="scrollLeft"
             android:text="@string/leftscroll" />
 
-        <view
-            android:id="@+id/display"
-            class="com.trutech.calculall.DisplayView"
+        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/scroll"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:layout_weight="50"
-            android:longClickable="false"
-            />
+            android:layout_weight="50">
+
+            <view xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/display"
+                class="com.trutech.calculall.DisplayView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:fadingEdge="vertical"
+                android:scrollbars="vertical">
+
+                <requestFocus />
+            </view>
+
+        </ScrollView>
 
         <Button
-            style="@style/button4"
             android:id="@+id/rightScroll"
+            style="@style/button4"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="right"
             android:layout_weight="5"
             android:onClick="scrollRight"
             android:text="@string/rightscroll" />
-
-
     </LinearLayout>
 
     <LinearLayout
@@ -49,8 +58,8 @@
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="80"
-        android:weightSum="24"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="24">
 
         <LinearLayout
             android:id="@+id/settingsRow1"
@@ -311,8 +320,8 @@
                 android:layout_height="fill_parent"
                 android:layout_marginRight="0dp"
                 android:layout_weight="1"
-                android:onClick="clickPow"
                 android:gravity="center"
+                android:onClick="clickPow"
                 android:text="@string/exponent"
                 android:textSize="16sp" />
 
@@ -331,7 +340,7 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                
+
                 android:layout_weight="1"
                 android:onClick="clickLog"
                 android:text="@string/log10"
@@ -648,54 +657,55 @@
                 android:text="@string/equals"
                 android:textSize="30sp" />
         </LinearLayout>
-    <LinearLayout
-        android:id="@+id/modes"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/basicButton"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:onClick="clickBasic"
-            android:text="@string/basic"
-            android:textSize="16sp" />
+        <LinearLayout
+            android:id="@+id/modes"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/advancedButton"
-            style="@style/button4"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:text="@string/advanced"
-            android:textSize="12sp" />
+            <Button
+                android:id="@+id/basicButton"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:onClick="clickBasic"
+                android:text="@string/basic"
+                android:textSize="16sp" />
 
-        <Button
-            android:id="@+id/functionButton"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_marginRight="0dp"
-            android:layout_weight="1"
-            android:onClick="clickFunction"
-            android:text="@string/function"
-            android:textSize="14sp" />
+            <Button
+                android:id="@+id/advancedButton"
+                style="@style/button4"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="@string/advanced"
+                android:textSize="12sp" />
 
-        <Button
-            android:id="@+id/vectorButton"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_marginRight="0dp"
-            android:layout_weight="1"
-            android:onClick="clickVector"
-            android:text="@string/vector"
-            android:textSize="16sp" />
-    </LinearLayout>
+            <Button
+                android:id="@+id/functionButton"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_marginRight="0dp"
+                android:layout_weight="1"
+                android:onClick="clickFunction"
+                android:text="@string/function"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/vectorButton"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_marginRight="0dp"
+                android:layout_weight="1"
+                android:onClick="clickVector"
+                android:text="@string/vector"
+                android:textSize="16sp" />
+        </LinearLayout>
 
     </LinearLayout>
 </LinearLayout>
