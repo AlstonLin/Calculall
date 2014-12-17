@@ -24,7 +24,9 @@ public class VectorMode extends Advanced {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vector);
+        output = (OutputView) findViewById(R.id.output);
         display = (DisplayView) findViewById(R.id.display);
+        display.setOutput(output);
     }
 
     public ArrayList<Token> processVectors() {

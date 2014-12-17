@@ -16,6 +16,114 @@ public class Utility {
     //ID of the Buttons (nowhere else to put them)
     public static final int MC = 0, MR = 1, MS = 2, M_ADD = 3, M_REMOVE = 4, BACKSPACE = 5, CE = 6, C = 7, ZERO = 8, ONE = 9, TWO = 10, THREE = 11, FOUR = 12, FIVE = 13, SIX = 14, SEVEN = 15, EIGHT = 16, NINE = 17, PLUS = 18, MINUS = 19, MULTIPLY = 20, DIV = 21, RECIPROC = 22, DECIMAL_SEP = 23, SIGN = 24, SQRT = 25, PERCENT = 26, CALCULATE = 27, DUMMY = 28;
 
+
+    /**
+     *
+     * @param expression The expression to print
+     * @return The string representation of the given expression
+     */
+    public static String printExpression(ArrayList<Token> expression) {
+        String s = "";
+        for (Token token : expression) {
+            if (token instanceof Number) {
+                if (((Number) token).getValue() % 1 != 0) {
+                    s += ((Number) token).getValue();
+                } else {
+                    s += (((Number) token).getValue());
+                }
+            } else if (token instanceof Operator) {
+                switch (((Operator) token).getType()) {
+                    case Operator.FRACTION:
+                        s += "/";
+                        break;
+                    case Operator.MULTIPLY:
+                        s += "*";
+                        break;
+                    case Operator.EXPONENT:
+                        s += "^";
+                        break;
+                    case Operator.SUBTRACT:
+                        s += "-";
+                        break;
+                    default:
+                        s += token.getSymbol();
+                }
+            } else if (token instanceof Variable) {
+                switch (((Variable) token).getType()) {
+                    case Variable.PI:
+                        s += "Pi";
+                        break;
+                    case Variable.X:
+                        s += "x";
+                        break;
+                    default:
+                        s += token.getSymbol();
+                        break;
+                }
+            } else if (token instanceof Function) {
+                switch (((Function) token).getType()) {
+                    case Function.SIN:
+                        s += "Sin";
+                        break;
+                    case Function.COS:
+                        s += "Cos";
+                        break;
+                    case Function.TAN:
+                        s += "Tan";
+                        break;
+                    case Function.ARCSIN:
+                        s += "ArcSin";
+                        break;
+                    case Function.ARCCOS:
+                        s += "ArcCos";
+                        break;
+                    case Function.ARCTAN:
+                        s += "ArcTan";
+                        break;
+                    case Function.LN:
+                        s += "Ln";
+                        break;
+                    default:
+                        throw new IllegalArgumentException("NOT SUPPORTED YET");
+                        //TODO: IMPLEMENT OTHERS
+                }
+            } else if (token instanceof Bracket) {
+                switch (((Bracket) token).getType()) {
+                    case Bracket.DENOM_OPEN:
+                        s += "(";
+                        break;
+                    case Bracket.NUM_OPEN:
+                        s += "(";
+                        break;
+                    case Bracket.SUPERSCRIPT_OPEN:
+                        s += "(";
+                        break;
+                    case Bracket.OPEN:
+                        s += "(";
+                        break;
+                    case Bracket.SUPERSCRIPT_CLOSE:
+                        s += ")";
+                        break;
+                    case Bracket.DENOM_CLOSE:
+                        s += ")";
+                        break;
+                    case Bracket.NUM_CLOSE:
+                        s += ")";
+                        break;
+
+                    case Bracket.CLOSE:
+                        s += ")";
+                        break;
+                    default:
+                        throw new IllegalArgumentException(); //This should not happen
+                }
+            } else {
+                s += token.getSymbol();
+            }
+        }
+        return s;
+    }
+
     /**
      * Returns the numerical value of a given set of digits.
      *
@@ -406,6 +514,20 @@ public class Utility {
 
     }
 
+
+    /**
+     * Cleans up the given expression to render it more human-readable.
+     * @param expression The expression the clean up
+     * @return The human readable version (note: not machine readable)
+     */
+    public static ArrayList<Token> cleanupExpressionForReading(ArrayList<Token> expression) {
+        ArrayList<Token> newExpression = new ArrayList<Token>();
+        for (Token t : expression) {
+            newExpression.add(t);
+        }
+        return newExpression;
+    }
+
     /**
      * the parameter vectors should be set up the same way as it is for dot product
      * each of the two vectors is in it's own column
@@ -569,6 +691,31 @@ public class Utility {
         }
         double argument = Utility.round(Math.abs(Math.toDegrees(Math.atan(y / x))), 3);
         return argument;
+    }
+
+    /**
+     * Finds the value of the function at the given x value.
+     *
+     * @param function The function to evaluate
+     * @param x        The x value to find the function at
+     * @return The y value, or -1 if non-existant
+     */
+    public static double valueAt(ArrayList<Token> function, double x) {
+        ArrayList<Token> expression = new ArrayList<Token>();
+        //Substitutes all variables with the given x value
+        for (Token token : function) {
+            if (token instanceof Variable && ((Variable) token).getType() == Variable.X) {
+                expression.add(new Number(x));
+            } else {
+                expression.add(token);
+            }
+        }
+        try {
+            double y = Utility.evaluateExpression(Utility.convertToReversePolish(expression));
+            return y;
+        } catch (Exception e) {
+            return Integer.MAX_VALUE;
+        }
     }
 
     /**

@@ -20,7 +20,7 @@ public class Advanced extends Basic {
     public static final int DEGREE = 1, RADIAN = 2, GRADIAN = 3; //angleMode options
     public static final int DEC = 1, BIN = 2, OCT = 3, HEX = 4;//number bases
     private int fracMode = DEC;
-    public static final int MIXED = 2, IMP = 3;
+    public static final int FRAC = 2;
     public boolean switchedAngleMode = false;
     private int angleMode = 1;
     private int base = 1;
@@ -37,7 +37,34 @@ public class Advanced extends Basic {
         Button expButton = (Button) findViewById(R.id.powerButton);
         powButton.setText(Html.fromHtml(getString(R.string.powOfTen)));
         expButton.setText(Html.fromHtml(getString(R.string.exponent)));
+        output = (OutputView) findViewById(R.id.output);
         display = (DisplayView) findViewById(R.id.display);
+        display.setOutput(output);
+    }
+
+    /**
+     * When the user presses the equals Button.
+     *
+     * @param v Not Used
+     */
+    public void clickEquals(View v) {
+        DisplayView display = (DisplayView) findViewById(R.id.display);
+        try {
+            if (fracMode == DEC) {
+                String s = Double.toString(process());
+                //TODO: Find a new way to display to output
+                s = s.indexOf(".") < 0 ? s : (s.indexOf("E") > 0 ? s.substring(0, s.indexOf("E")).replaceAll("0*$", "")
+                        .replaceAll("\\.$", "").concat(s.substring(s.indexOf("E"))) : s.replaceAll("0*$", "")
+                        .replaceAll("\\.$", "")); //Removes trailing zeroes
+                display.displayOutput(s);
+            } else if (fracMode == FRAC) {
+                display.displayOutput(JFok.simplifyExpression(tokens));
+            }
+        } catch (Exception e) { //User did a mistake
+            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
+        }
+
+        scrollDown();
     }
 
     /**
@@ -158,18 +185,15 @@ public class Advanced extends Basic {
         Button fracModeButton = (Button) findViewById(R.id.fracMode);
         if (fracMode == DEC) {
             convDtoM();
-            fracMode = MIXED;
-            fracModeButton.setText(getString(R.string.mixedFrac));
-        } else if (fracMode == IMP) {
+            fracMode = FRAC;
+            fracModeButton.setText(getString(R.string.impFrac));
+        } else if (fracMode == FRAC) {
             convItoD();
             fracMode = DEC;
             fracModeButton.setText(getString(R.string.radix));
-        } else if (fracMode == MIXED) {
-            convMtoI();
-            fracMode = IMP;
-            fracModeButton.setText(getString(R.string.impFrac));
         }
         updateInput();
+        clickEquals(null);
     }
 
     public void convMtoI() {
@@ -993,14 +1017,19 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickSin1(View v) {
+        Token t = null;
         if (angleMode == DEGREE) {
-            tokens.add(display.getRealCursorIndex(), FunctionFactory.makeSinD());
+            t = FunctionFactory.makeSinD();
         } else if (angleMode == RADIAN) {
-            tokens.add(display.getRealCursorIndex(), FunctionFactory.makeSinR());
+            t = FunctionFactory.makeSinR();
         } else if (angleMode == GRADIAN) {
-            tokens.add(display.getRealCursorIndex(), FunctionFactory.makeSinG());
+            t = FunctionFactory.makeSinG();
         }
-        display.setCursorIndex(display.getCursorIndex() + 1);
+        Bracket b = BracketFactory.makeOpenBracket();
+        t.addDependency(b);
+        tokens.add(display.getRealCursorIndex(), t);
+        tokens.add(display.getRealCursorIndex() + 1, b);
+        display.setCursorIndex(display.getCursorIndex() + 2);
     }
 
     /**
@@ -1009,14 +1038,19 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickASin(View v) {
+        Token t = null;
         if (angleMode == DEGREE) {
-            tokens.add(display.getRealCursorIndex(), FunctionFactory.makeASinD());
+            t = FunctionFactory.makeASinD();
         } else if (angleMode == RADIAN) {
-            tokens.add(display.getRealCursorIndex(), FunctionFactory.makeASinR());
+            t = FunctionFactory.makeASinR();
         } else if (angleMode == GRADIAN) {
-            tokens.add(display.getRealCursorIndex(), FunctionFactory.makeASinG());
+            t = FunctionFactory.makeASinG();
         }
-        display.setCursorIndex(display.getCursorIndex() + 1);
+        Bracket b = BracketFactory.makeOpenBracket();
+        t.addDependency(b);
+        tokens.add(display.getRealCursorIndex(), t);
+        tokens.add(display.getRealCursorIndex() + 1, b);
+        display.setCursorIndex(display.getCursorIndex() + 2);
     }
 
     /**
@@ -1045,14 +1079,19 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickCos1(View v) {
+        Token t = null;
         if (angleMode == DEGREE) {
-            tokens.add(display.getRealCursorIndex(), FunctionFactory.makeCosD());
+            t = FunctionFactory.makeCosD();
         } else if (angleMode == RADIAN) {
-            tokens.add(display.getRealCursorIndex(), FunctionFactory.makeCosR());
+            t = FunctionFactory.makeCosR();
         } else if (angleMode == GRADIAN) {
-            tokens.add(display.getRealCursorIndex(), FunctionFactory.makeCosG());
+            t = FunctionFactory.makeCosG();
         }
-        display.setCursorIndex(display.getCursorIndex() + 1);
+        Bracket b = BracketFactory.makeOpenBracket();
+        t.addDependency(b);
+        tokens.add(display.getRealCursorIndex(), t);
+        tokens.add(display.getRealCursorIndex() + 1, b);
+        display.setCursorIndex(display.getCursorIndex() + 2);
     }
 
     /**
@@ -1061,14 +1100,19 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickACos(View v) {
+        Token t = null;
         if (angleMode == DEGREE) {
-            tokens.add(display.getRealCursorIndex(), FunctionFactory.makeACosD());
+            t = FunctionFactory.makeACosD();
         } else if (angleMode == RADIAN) {
-            tokens.add(display.getRealCursorIndex(), FunctionFactory.makeACosR());
+            t = FunctionFactory.makeACosR();
         } else if (angleMode == GRADIAN) {
-            tokens.add(display.getRealCursorIndex(), FunctionFactory.makeACosG());
+            t = FunctionFactory.makeACosG();
         }
-        display.setCursorIndex(display.getCursorIndex() + 1);
+        Bracket b = BracketFactory.makeOpenBracket();
+        t.addDependency(b);
+        tokens.add(display.getRealCursorIndex(), t);
+        tokens.add(display.getRealCursorIndex() + 1, b);
+        display.setCursorIndex(display.getCursorIndex() + 2);
     }
 
     /**
@@ -1097,14 +1141,19 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickTan1(View v) {
+        Token t = null;
         if (angleMode == DEGREE) {
-            tokens.add(display.getRealCursorIndex(), FunctionFactory.makeTanD());
+            t = FunctionFactory.makeTanD();
         } else if (angleMode == RADIAN) {
-            tokens.add(display.getRealCursorIndex(), FunctionFactory.makeTanR());
+            t = FunctionFactory.makeTanR();
         } else if (angleMode == GRADIAN) {
-            tokens.add(display.getRealCursorIndex(), FunctionFactory.makeTanG());
+            t = FunctionFactory.makeTanG();
         }
-        display.setCursorIndex(display.getCursorIndex() + 1);
+        Bracket b = BracketFactory.makeOpenBracket();
+        t.addDependency(b);
+        tokens.add(display.getRealCursorIndex(), t);
+        tokens.add(display.getRealCursorIndex() + 1, b);
+        display.setCursorIndex(display.getCursorIndex() + 2);
     }
 
     /**
@@ -1113,14 +1162,19 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickATan(View v) {
+        Token t = null;
         if (angleMode == DEGREE) {
-            tokens.add(display.getRealCursorIndex(), FunctionFactory.makeATanD());
+            t = FunctionFactory.makeATanD();
         } else if (angleMode == RADIAN) {
-            tokens.add(display.getRealCursorIndex(), FunctionFactory.makeATanR());
+            t = FunctionFactory.makeATanR();
         } else if (angleMode == GRADIAN) {
-            tokens.add(display.getRealCursorIndex(), FunctionFactory.makeATanG());
+            t = FunctionFactory.makeATanG();
         }
-        display.setCursorIndex(display.getCursorIndex() + 1);
+        Bracket b = BracketFactory.makeOpenBracket();
+        t.addDependency(b);
+        tokens.add(display.getRealCursorIndex(), t);
+        tokens.add(display.getRealCursorIndex() + 1, b);
+        display.setCursorIndex(display.getCursorIndex() + 2);
     }
 
     /**
@@ -1130,7 +1184,8 @@ public class Advanced extends Basic {
      */
     public void clickSinh(View v) {
         tokens.add(display.getRealCursorIndex(), FunctionFactory.makeSinh());
-        display.setCursorIndex(display.getCursorIndex() + 1);
+        tokens.add(display.getRealCursorIndex() + 1, BracketFactory.makeOpenBracket());
+        display.setCursorIndex(display.getCursorIndex() + 2);
         updateInput();
     }
 
@@ -1141,7 +1196,8 @@ public class Advanced extends Basic {
      */
     public void clickASinh(View v) {
         tokens.add(display.getRealCursorIndex(), FunctionFactory.makeASinh());
-        display.setCursorIndex(display.getCursorIndex() + 1);
+        tokens.add(display.getRealCursorIndex() + 1, BracketFactory.makeOpenBracket());
+        display.setCursorIndex(display.getCursorIndex() + 2);
         updateInput();
     }
 
@@ -1152,7 +1208,8 @@ public class Advanced extends Basic {
      */
     public void clickCosh(View v) {
         tokens.add(display.getRealCursorIndex(), FunctionFactory.makeCosh());
-        display.setCursorIndex(display.getCursorIndex() + 1);
+        tokens.add(display.getRealCursorIndex() + 1, BracketFactory.makeOpenBracket());
+        display.setCursorIndex(display.getCursorIndex() + 2);
         updateInput();
     }
 
@@ -1163,7 +1220,8 @@ public class Advanced extends Basic {
      */
     public void clickACosh(View v) {
         tokens.add(display.getRealCursorIndex(), FunctionFactory.makeACosh());
-        display.setCursorIndex(display.getCursorIndex() + 1);
+        tokens.add(display.getRealCursorIndex() + 1, BracketFactory.makeOpenBracket());
+        display.setCursorIndex(display.getCursorIndex() + 2);
         updateInput();
     }
 
@@ -1174,7 +1232,8 @@ public class Advanced extends Basic {
      */
     public void clickTanh(View v) {
         tokens.add(display.getRealCursorIndex(), FunctionFactory.makeTanh());
-        display.setCursorIndex(display.getCursorIndex() + 1);
+        tokens.add(display.getRealCursorIndex() + 1, BracketFactory.makeOpenBracket());
+        display.setCursorIndex(display.getCursorIndex() + 2);
         updateInput();
     }
 
@@ -1185,7 +1244,8 @@ public class Advanced extends Basic {
      */
     public void clickATanh(View v) {
         tokens.add(display.getRealCursorIndex(), FunctionFactory.makeATanh());
-        display.setCursorIndex(display.getCursorIndex() + 1);
+        tokens.add(display.getRealCursorIndex() + 1, BracketFactory.makeOpenBracket());
+        display.setCursorIndex(display.getCursorIndex() + 2);
         updateInput();
     }
 }

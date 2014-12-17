@@ -13,10 +13,10 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 /**
- * A custom View that displays the given mathematical expression with superscripts, subscripts
- * and fraction support.
+ * Modified DisplayView to display outputs.
+ * Created by Alston on 11/28/2014.
  */
-public class DisplayView extends View {
+public class OutputView extends View {
 
     //CONSTANTS
     private final float TEXT_HEIGHT;
@@ -25,46 +25,20 @@ public class DisplayView extends View {
     private final float CURSOR_PADDING;
     private final float fracPadding;
     private final int FONT_SIZE = 96;
-    private final float X_PADDING; //The padding at the start and end    of the display (x)
+    private final float X_PADDING; //The padding at the start and end of the display (x)
 
-    private float startX = 0; //Tracks the starting x position at which the canvas will start drawing (allows side scrolling)
     private float maxX = 0; //Max start X that the user can scroll to
-    private int cursorIndex = 0; //The index where the cursor is when shown on screen
-    private int drawCount = 0;
     private float maxY = 0;
-    private float cursorY = 0;
     private ArrayList<Float> drawX = new ArrayList<Float>(); //Stores the width of each counted symbol
     private ArrayList<Float> heights = new ArrayList<Float>();
-    private int realCursorIndex = 0; //The index of the cursor in the list of tokens
-    private boolean functionMode = false; //If this display is for function mode
     private Paint textPaint;
     private Paint smallPaint; //For superscripts and subscripts
     private Paint fracPaint;
-    private Paint cursorPaint;
     private ArrayList<Token> expression = new ArrayList<Token>();
-    private String outputString = ""; //TEMPORARY
-    private OutputView output;
 
-    public DisplayView(Context context, AttributeSet attr) {
+    public OutputView(Context context, AttributeSet attr) {
         super(context, attr);
-        //Setup the paints
-        textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        textPaint.setColor(Color.parseColor("#F64B55"));
-        textPaint.setTextSize(FONT_SIZE);
-
-        smallPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        smallPaint.setColor(Color.parseColor("#F64B55"));
-        smallPaint.setTextSize(FONT_SIZE / 2);
-
-        cursorPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        cursorPaint.setColor(Color.parseColor("#F64B55"));
-        cursorPaint.setTextSize(FONT_SIZE);
-
-        fracPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        fracPaint.setColor(Color.parseColor("#F64B55"));
-        fracPaint.setTextSize(FONT_SIZE);
-        fracPaint.setStrokeWidth(10);
-
+        init();
         //Sets constant values
         //Calculates the height of the texts
         Rect textRect = new Rect();
@@ -78,11 +52,44 @@ public class DisplayView extends View {
         Y_PADDING_BETWEEN_LINES = TEXT_HEIGHT;
         CURSOR_PADDING = TEXT_HEIGHT / 10;
         fracPadding = TEXT_HEIGHT / 8;
-        setWillNotDraw(false);
     }
 
-    public void setOutput(OutputView o) {
-        output = o;
+    public OutputView(Context context) {
+        super(context);
+        init();
+        //Sets constant values
+        //Calculates the height of the texts
+        Rect textRect = new Rect();
+        Rect smallRect = new Rect();
+        textPaint.getTextBounds("1", 0, 1, textRect);
+        smallPaint.getTextBounds("1", 0, 1, smallRect);
+        TEXT_HEIGHT = textRect.height() * 1.25f;
+        SMALL_HEIGHT = smallRect.height();
+
+        X_PADDING = TEXT_HEIGHT / 3;
+        Y_PADDING_BETWEEN_LINES = TEXT_HEIGHT;
+        CURSOR_PADDING = TEXT_HEIGHT / 10;
+        fracPadding = TEXT_HEIGHT / 8;
+    }
+
+    /**
+     * Common variable assignments for all the constructors.
+     */
+    private void init() {
+        //Setup the paints
+        textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        textPaint.setColor(Color.parseColor("#F64B55"));
+        textPaint.setTextSize(FONT_SIZE);
+
+        smallPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        smallPaint.setColor(Color.parseColor("#F64B55"));
+        smallPaint.setTextSize(FONT_SIZE / 2);
+
+        fracPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        fracPaint.setColor(Color.parseColor("#F64B55"));
+        fracPaint.setTextSize(FONT_SIZE);
+        fracPaint.setStrokeWidth(10);
+        setWillNotDraw(false);
     }
 
     /**
@@ -90,33 +97,11 @@ public class DisplayView extends View {
      *
      * @param expression The expression to display
      */
-    public void displayInput(ArrayList<Token> expression) {
-        this.expression = expression;
+    public void display(ArrayList<Token> expression) {
+        this.expression = Utility.cleanupExpressionForReading(expression);
         calculateMaxY();
         requestLayout();
         invalidate();
-    }
-
-    /**
-     * Displays the given output to the display.
-     *
-     * @param tokens The tokens to display
-     */
-    public void displayOutput(ArrayList<Token> tokens) {
-        output.display(tokens);
-    }
-
-    /**
-     * Displays the given output to the string (TEMPORARY METHOD, WILL
-     * BE DEPRECATED BY displayOutput(ArrayList<Token>).
-     *
-     * @param str String to display
-     */
-    public void displayOutput(String str) {
-        Token t = new StringToken(str);
-        ArrayList<Token> tokens = new ArrayList<Token>();
-        tokens.add(t);
-        output.display(tokens);
     }
 
     /**
@@ -129,42 +114,21 @@ public class DisplayView extends View {
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         heights.clear();
+
         //TODO: Use canvas.drawLine() to make fractions, and implement a algorithm to do this
         final float yFracModifier = Y_PADDING_BETWEEN_LINES * (1 + -getMostNegHeightChange(expression));
         final float yScriptModifier = SMALL_HEIGHT * getMaxScriptLevel() / 3;
 
         calculateDrawX();
-        calculateRealCursorIndex();
         if (drawX.size() > 1) {
             maxX = drawX.get(drawX.size() - 1);
         }
-
-        //Determines the starting X position
-        float cursorX = getCursorX();
-
-        if (cursorX < startX) {
-            startX = cursorX - CURSOR_PADDING;
-        } else if (cursorX > startX + getWidth()) {
-            startX = cursorX - getWidth() + CURSOR_PADDING;
-        }
-
-
-        float xModifier = -startX;
-
-        if (functionMode) { //Adds a f(x)= at the start
-            final String s = "f(x)=";
-            canvas.drawText(s, X_PADDING, Y_PADDING_BETWEEN_LINES, textPaint);
-            float[] widths = new float[s.length()];
-            textPaint.getTextWidths(s, widths);
-            xModifier += sum(widths);
-        }
-        checkCursorIndex();
-
 
         //Counter and state variables
         int scriptLevel = 0; //superscript = 1, any additional levels would +1
         int scriptBracketCount = 0; //Counts the brackets for any exponents
         float heightMultiplier = 0; //Determines at what height the text would be drawn at
+
         for (int i = 0; i < expression.size(); i++) {
             Token token = expression.get(i);
             Paint paint = textPaint;
@@ -238,7 +202,7 @@ public class DisplayView extends View {
             }
 
             //Calculates the x and y position of the draw position (modified later)
-            float x = drawX.get(i) + xModifier;
+            float x = drawX.get(i);
             float y = Y_PADDING_BETWEEN_LINES * heightMultiplier + yFracModifier + yScriptModifier;
             heights.add(i, heightMultiplier);
 
@@ -272,45 +236,6 @@ public class DisplayView extends View {
                 }
                 canvas.drawLine(x, y + fracPadding, drawX.get(j), y + fracPadding, fracPaint);
             }
-
-            //Draws cursor
-            if (i == realCursorIndex) {
-                //Superscripts the cursor if needed
-                cursorY = Y_PADDING_BETWEEN_LINES * heightMultiplier + yFracModifier + yScriptModifier;
-                cursorX = x - CURSOR_PADDING;
-                if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.SUPERSCRIPT_CLOSE) {
-                    cursorY += (1 - scriptLevel) * SMALL_HEIGHT / 4 - TEXT_HEIGHT / 2;
-                    canvas.drawText("|", cursorX, cursorY, cursorPaint);
-                } else if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.DENOM_CLOSE) {
-                    cursorY = Y_PADDING_BETWEEN_LINES * (heightMultiplier + 0.5f) + yFracModifier + yScriptModifier;
-                    canvas.drawText("|", cursorX, cursorY, cursorPaint);
-                } else {
-                    canvas.drawText("|", cursorX, y, cursorPaint);
-                }
-            }
-        }
-
-        //Draws cursor in special cases
-        if (expression.size() == 0) { //No expression
-            canvas.drawText("|", X_PADDING, Y_PADDING_BETWEEN_LINES * heightMultiplier + yFracModifier + yScriptModifier, cursorPaint);
-        } else if (realCursorIndex == expression.size()) { //Last index (or the cursor index is larger than the draw count
-            //Moves the cursor up if its superscript
-            cursorY = Y_PADDING_BETWEEN_LINES * heightMultiplier + yFracModifier + yScriptModifier;
-            if (scriptLevel > 0) {
-                cursorY += (1 - scriptLevel) * SMALL_HEIGHT / 4 - TEXT_HEIGHT / 2;
-            }
-            cursorX = maxX + xModifier - CURSOR_PADDING;
-            canvas.drawText("|", cursorX, cursorY, cursorPaint);
-            realCursorIndex = expression.size();
-        }
-
-        //Displays output if there is any
-        //TODO: Make this work with tokens, and make sure to account for multiple lines (find the height of the lowest line and display it under)
-        //TEMPORARY CODE (Will use a list of tokens in the future)
-        if (outputString.length() != 0) {
-            //Determines width of the output string
-            float[] outputWidths = new float[outputString.length()];
-            textPaint.getTextWidths(outputString, outputWidths);
         }
     }
 
@@ -507,51 +432,6 @@ public class DisplayView extends View {
         return denom;
     }
 
-    /**
-     * Calculates the value of realCursorX based on cursorX.
-     */
-    private void calculateRealCursorIndex() {
-        boolean doNotCountNext = false;
-        drawCount = 0;
-        for (int i = 0; i < expression.size(); i++) {
-            Token token = expression.get(i);
-
-            //If the cursor should count the current token
-            boolean doNotCount = false;
-
-            //Handle do not counts
-            if (doNotCountNext) {
-                doNotCountNext = false;
-                doNotCount = true;
-            }
-
-
-            //SPECIAL CASES FOR DO NOT COUNTS
-            if (token instanceof Placeholder && ((Placeholder) token).getType() == Placeholder.BLOCK) {
-                doNotCountNext = true;
-            } else if ((token instanceof Operator && ((Operator) token).getType() == Operator.VARROOT) ||
-                    (token instanceof Bracket && ((Bracket) token).getType() == Bracket.SUPERSCRIPT_OPEN) ||
-                    (token instanceof Bracket && ((Bracket) token).getType() == Bracket.DENOM_OPEN) ||
-                    (token instanceof Operator && ((Operator) token).getType() == Operator.FRACTION)) {
-                doNotCount = true;
-            }
-
-            //Draws cursor
-            if (!doNotCount) {
-                if (drawCount == cursorIndex) {
-                    realCursorIndex = i;
-                }
-                drawCount++;
-            }
-        }
-        //Draws cursor in special cases
-        if (expression.size() == 0) { //Nothing there
-            realCursorIndex = 0;
-        } else if (cursorIndex >= drawCount) { //Last index (or the cursor index is larger than the draw count
-            cursorIndex = drawCount;
-            realCursorIndex = expression.size();
-        }
-    }
 
     /**
      * Fills the drawWidth arrays with the width values.
@@ -638,20 +518,6 @@ public class DisplayView extends View {
     }
 
     /**
-     * Checks if the cursor is shown on the screen. If not, it will redraw the entire canvas through
-     * onDraw() again.
-     */
-    private float getCursorX() {
-        float cursorX;
-        if (realCursorIndex > expression.size()) {
-            cursorX = drawX.get(drawX.size() - 1); //Last index
-        } else {
-            cursorX = drawX.get(realCursorIndex);
-        }
-        return cursorX;
-    }
-
-    /**
      * Finds the sum of the given array of widths
      *
      * @param widths The array to sum
@@ -663,17 +529,6 @@ public class DisplayView extends View {
             widthSum += widths[j];
         }
         return widthSum;
-    }
-
-    /**
-     * Checks the index of the cursor to make sure it is valid.
-     */
-    private void checkCursorIndex() {
-        if (expression.size() == 0) {
-            cursorIndex = 0;
-        } else if (cursorIndex > expression.size()) {
-            cursorIndex = expression.size();
-        }
     }
 
     /**
@@ -717,54 +572,19 @@ public class DisplayView extends View {
      */
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int parentWidth = MeasureSpec.getSize(widthMeasureSpec);
-        int parentHeight = MeasureSpec.getSize(heightMeasureSpec);
+        int parentWidth = View.MeasureSpec.getSize(widthMeasureSpec);
+        int parentHeight = View.MeasureSpec.getSize(heightMeasureSpec);
         WindowManager wm = (WindowManager) this.getContext().getSystemService(Context.WINDOW_SERVICE);
-        this.setMeasuredDimension(parentWidth, (int) (parentHeight > maxY ? parentHeight : maxY + Y_PADDING_BETWEEN_LINES));
-    }
 
-    /**
-     * Scrolls the display left if possible.
-     */
-    public void scrollLeft() {
-        if (cursorIndex > 0) {
-            setCursorIndex(cursorIndex - 1);
+        //Finds max X
+        calculateDrawX();
+        if (drawX.size() > 1) {
+            maxX = drawX.get(drawX.size() - 1);
         }
+
+        int width = (int) maxX;
+        int height = expression.size() == 0 ? 0 : (int) (maxY);
+        this.setMeasuredDimension(width, height);
     }
 
-    /**
-     * Resets the scrolling (to the initial position)
-     */
-    public void reset() {
-        startX = 0;
-        cursorIndex = 0;
-    }
-
-    /**
-     * Scrolls the display right if possible.
-     */
-    public void scrollRight() {
-        if (cursorIndex < drawCount) {
-            setCursorIndex(cursorIndex + 1);
-        }
-    }
-
-    /**
-     * @return The index of the cursor
-     */
-    public int getRealCursorIndex() {
-        return realCursorIndex;
-    }
-
-    public int getCursorIndex() {
-        return cursorIndex;
-    }
-
-    public void setCursorIndex(int index) {
-        cursorIndex = index;
-        //TODO: READ COMMENTS
-        //Determines if the cursor will go off the screen
-        //Scrolls appropriately if required
-        invalidate();
-    }
 }

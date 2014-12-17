@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,6 +18,8 @@ import java.util.Iterator;
  */
 @SuppressWarnings("ResourceType")
 public class FunctionMode extends Advanced {
+    public static final int ROUND_TO = 9;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,67 +30,53 @@ public class FunctionMode extends Advanced {
         powButton.setText(Html.fromHtml(getString(R.string.powOfTen)));
         expButton.setText(Html.fromHtml(getString(R.string.exponent)));
         updateInput();
+        output = (OutputView) findViewById(R.id.output);
         display = (DisplayView) findViewById(R.id.display);
+        display.setOutput(output);
     }
 
     public void clickRoots(View view) {
         ArrayList<Token> tokens = Utility.condenseDigits(this.tokens);
         tokens = Utility.setupExpression(tokens);
-        //Utility.simplifyExpression()
-        //At this point, it will be assumed everything is simplified and the function is in decending powers
-        HashMap<Double, Double> coefficients = mapCoefficients(tokens); //Degree -> key, coefficient -> value
-        double highestDegree = coefficients.get(Double.POSITIVE_INFINITY);
-        boolean allIntegers = coefficients.get(Double.NEGATIVE_INFINITY) == 1;
-        DisplayView display = (DisplayView) findViewById(R.id.display);
+        double[] roots = ApacheUtility.findRoots(tokens);
         String toOutput = "";
-        if (allIntegers) { //Might be able to use the quadradic and cubic solvers
-            ArrayList<Double> roots;
-            if (highestDegree == 2) {
-                double a = coefficients.get(2d);
-                double b = coefficients.containsKey(1d) ? coefficients.get(1d) : 0;
-                double c = coefficients.get(0d);
-                roots = Utility.solveQuadratic(a, b, c);
-            } else if (highestDegree == 3) {
-                double a = coefficients.get(3d);
-                double b = coefficients.containsKey(2d) ? coefficients.get(2d) : 0;
-                double c = coefficients.containsKey(1d) ? coefficients.get(1d) : 0;
-                double d = coefficients.get(0d);
-                roots = Utility.solveCubic(a, b, c, d);
-            } else if (highestDegree == 1) {
-                double a = coefficients.get(1d);
-                double b = coefficients.containsKey(0d) ? coefficients.get(0d) : 0;
-                //0=ax+b
-                //-b=ax
-                //x=-b/a
-                roots = new ArrayList<Double>();
-                roots.add(-b / a);
-            } else {
-                roots = new ArrayList<Double>(); //Will only contain 1 root
-                //TODO: Complete this using the general root finder
-            }
             //Outputs the result
             int counter = 0;
-            for (double root : roots) {
+        while (counter < roots.length) {
+            double root = roots[counter];
                 if (counter != 0) {
                     toOutput += " OR ";
                 }
-                toOutput += "X = " + Utility.round(root, 6);
+            toOutput += "X = " + Utility.round(root, ROUND_TO);
                 counter++;
             }
             if (counter == 0) { //No roots
                 toOutput += "No real roots";
             }
-        } else {
-            //TODO: Complete this using the general root finder
-        }
         display.displayOutput(toOutput);
         scrollDown();
     }
 
     public void clickDerivative(View view) {
+        ArrayList<Token> derivative = CalculusUtilities.differentiate(tokens);
+        if (derivative == null) {
+            Toast.makeText(this, "Invalid Expression", Toast.LENGTH_SHORT).show();
+        } else {
+            display.displayOutput(derivative);
+        }
     }
 
     public void clickIntegrate(View view) {
+        try {
+            ArrayList<Token> integral = CalculusUtilities.integrate(tokens);
+            if (integral == null) {
+                Toast.makeText(this, "Invalid Expression", Toast.LENGTH_SHORT).show();
+            } else {
+                display.displayOutput(integral);
+            }
+        } catch (ClassNotFoundException e) {
+            Toast.makeText(this, "The integral cannot be expressed as an elementary function", Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**

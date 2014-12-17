@@ -10,40 +10,70 @@
     <LinearLayout
         android:id="@+id/Container"
         android:layout_width="fill_parent"
+        android:layout_height="0dp"
         android:layout_weight="30"
-        android:orientation="horizontal"
-        android:layout_height="0dp">
+        android:orientation="horizontal">
 
         <Button
-            style="@style/button4"
             android:id="@+id/leftScroll"
+            style="@style/button4"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="5"
             android:onClick="scrollLeft"
             android:text="@string/leftscroll" />
 
-        <view
-            android:id="@+id/display"
-            class="com.trutech.calculall.DisplayView"
+        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/scroll"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="10"
-            android:longClickable="false"
-            android:textColor="#ffffffff"
-            style="@style/button4" />
+            android:layout_height="fill_parent"
+            android:layout_weight="50">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical">
+
+                <view xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/display"
+                    class="com.trutech.calculall.DisplayView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:fadingEdge="vertical"
+                    android:scrollbars="vertical"></view>
+
+                <HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/outputScroll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="horizontal">
+
+                    <view xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/output"
+                        class="com.trutech.calculall.OutputView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:fadingEdge="vertical"
+                        android:scrollbars="vertical"></view>
+                </HorizontalScrollView>
+
+                <requestFocus />
+
+            </LinearLayout>
+
+        </ScrollView>
 
         <Button
-            style="@style/button4"
             android:id="@+id/rightScroll"
+            style="@style/button4"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="right"
-            android:layout_weight="1"
+            android:layout_weight="5"
             android:onClick="scrollRight"
             android:text="@string/rightscroll" />
-
-
     </LinearLayout>
 
 
@@ -52,15 +82,15 @@
         android:layout_width="fill_parent"
         android:layout_height="0sp"
         android:layout_weight="70"
-        android:weightSum="11"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="11">
 
         <LinearLayout
             android:id="@+id/row1"
             android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="2"
-            android:orientation="horizontal"
-            android:layout_height="0dp">
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/NegativeButton"
@@ -301,9 +331,9 @@
         <LinearLayout
             android:id="@+id/modes"
             android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
-            android:orientation="horizontal"
-            android:layout_height="0dp">
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/basicButton"

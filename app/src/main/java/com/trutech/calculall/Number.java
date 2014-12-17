@@ -20,10 +20,18 @@ public class Number extends Token {
     }
 
     /**
-     *
      * @return The value of the number
      */
     public double getValue() {
         return value;
+    }
+
+    public String getSymbol() {
+        //Removes trailing zeroes
+        String s = Double.toString(value);
+        s = s.indexOf(".") < 0 ? s : (s.indexOf("E") > 0 ? s.substring(0, s.indexOf("E")).replaceAll("0*$", "")
+                .replaceAll("\\.$", "").concat(s.substring(s.indexOf("E"))) : s.replaceAll("0*$", "")
+                .replaceAll("\\.$", ""));
+        return s;
     }
 }

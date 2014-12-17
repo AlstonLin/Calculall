@@ -18,9 +18,11 @@ import java.util.ArrayList;
  */
 public class Basic extends Activity {
 
+    public static final int ROUND_TO = 9;
     protected ArrayList<Token> tokens = new ArrayList<Token>(); //Tokens shown on screen
     protected boolean changedTokens = false;
     protected DisplayView display;
+    protected OutputView output;
 
     //GridView mKeypadGrid;
     //KeypadAdapter mKeypadAdapter;
@@ -31,7 +33,9 @@ public class Basic extends Activity {
         //Remove fullscreen
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_basic);
+        output = (OutputView) findViewById(R.id.output);
         display = (DisplayView) findViewById(R.id.display);
+        display.setOutput(output);
     }
 
     /**
@@ -44,7 +48,7 @@ public class Basic extends Activity {
     protected double process() {
         ArrayList<Token> tokens = Utility.setupExpression(Utility.condenseDigits(Utility.addMissingBrackets(subVariables())));
         double unrounded = Utility.evaluateExpression(Utility.convertToReversePolish(tokens));
-        return Utility.round(unrounded, 9);
+        return Utility.round(unrounded, ROUND_TO);
     }
 
     /**
@@ -419,7 +423,6 @@ public class Basic extends Activity {
         updatePlaceHolders();
         display.displayOutput(""); //Clears output
         display.displayInput(tokens);
-        scrollDown();
     }
 
     /**

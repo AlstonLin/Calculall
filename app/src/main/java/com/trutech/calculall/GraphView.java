@@ -116,14 +116,14 @@ public class GraphView extends View {
 
         //Plots the 100 points across the screen
         for (int i = 0; i < numOfPoints; i++) {
-            float x = lowerX + i *(xRange / numOfPoints);
-            float y = (float) valueAt(x);
+            float x = lowerX + i * (xRange / numOfPoints);
+            float y = (float) Utility.valueAt(function, x);
             points.put(x, y);
         }
 
         //Now draws a line in between each point
         for (int i = 0; i < numOfPoints; i++) {
-            float startX = lowerX + i *(xRange / numOfPoints);
+            float startX = lowerX + i * (xRange / numOfPoints);
             float endX = lowerX + (i + 1) * (xRange / numOfPoints);
             Float startY = points.get(startX);
             Float endY = points.get(endX);
@@ -144,29 +144,6 @@ public class GraphView extends View {
         originY = -lowerY * yMultiplier;
     }
 
-    /**
-     * Finds the value of the function at the given x value.
-     *
-     * @param x The x value to find the function at
-     * @return The y value, or -1 if non-existant
-     */
-    private double valueAt(double x) {
-        ArrayList<Token> expression = new ArrayList<Token>();
-        //Substitutes all variables with the given x value
-        for (Token token : function) {
-            if (token instanceof Variable && ((Variable)token).getType() == Variable.X) {
-                expression.add(new Number(x));
-            }else{
-                expression.add(token);
-            }
-        }
-        try {
-            double y = Utility.evaluateExpression(Utility.convertToReversePolish(expression));
-            return y;
-        } catch (Exception e) {
-            return Integer.MAX_VALUE;
-        }
-    }
 
     /**
      * Finds the x values in the functions in which there will be
@@ -177,7 +154,7 @@ public class GraphView extends View {
      *
      * @return A list of points where discontinuities are found
      */
-    private ArrayList<float[][]> findDiscontinuities(ArrayList<Token> function){
+    private ArrayList<float[][]> findDiscontinuities(ArrayList<Token> function) {
         return null;
     }
 
