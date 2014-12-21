@@ -183,8 +183,16 @@ public class Utility {
                     digits.add((Digit) token);
                 } else { //Number ended
                     atDigits = false;
-                    newTokens.add(new Number(Utility.valueOf(digits))); //Adds the sum of all the digits
+                    Number num = new Number(Utility.valueOf(digits));
                     digits.clear();
+                    //Special case of //-1 * Variable
+                    if (num.getValue() == -1 && token instanceof Variable) {
+                        ((Variable) token).setNegative(true);
+                    } else if (num.getValue() == 1 && token instanceof Variable) { // 1 * Variable
+                        ((Variable) token).setNegative(false);
+                    } else {
+                        newTokens.add(num); //Adds the sum of all the digits
+                    }
                     newTokens.add(token);
                 }
             } else { //Not going through digits
@@ -219,14 +227,26 @@ public class Utility {
                     newExpression.add(OperatorFactory.makeMultiply()); //Implies multiplication between the two expressions in the brackets
                 } else if (last instanceof Number && b.getType() == Bracket.OPEN) { //Ex. 3(2 + 1)
                     newExpression.add(OperatorFactory.makeMultiply());
+                } else if (last instanceof Operator && ((Operator) last).getType() == Operator.SUBTRACT) { //Ex. -(X + 1) -> -1 * (X + 1)
+                    newExpression.remove(last);
+                    newExpression.add(new Number(-1));
+                    newExpression.add(OperatorFactory.makeMultiply());
                 }
             } else if (t instanceof Number || t instanceof Variable) { //So it works with Function mode too
                 if (last instanceof Number) { //Ex. 5A
+                    newExpression.add(OperatorFactory.makeMultiply());
+                } else if (t instanceof Variable && last instanceof Operator && ((Operator) last).getType() == Operator.SUBTRACT) { //Ex. -X -> -1 * X
+                    newExpression.remove(last);
+                    newExpression.add(new Number(-1));
                     newExpression.add(OperatorFactory.makeMultiply());
                 }
             } else if (t instanceof Function) {
                 if (last instanceof Number || last instanceof Function
                         || (last instanceof Bracket && ((Bracket) last).getType() == Bracket.CLOSE)) { //Ex. 2f(x) or f(x)g(x) or (1 + 2)f(x)
+                    newExpression.add(OperatorFactory.makeMultiply());
+                } else if (last instanceof Operator && ((Operator) last).getType() == Operator.SUBTRACT) { //Ex. -sinX -> -1 * sinX
+                    newExpression.remove(last);
+                    newExpression.add(new Number(-1));
                     newExpression.add(OperatorFactory.makeMultiply());
                 }
             }

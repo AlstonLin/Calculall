@@ -74,7 +74,7 @@ public class FunctionMode extends Advanced {
             } else {
                 display.displayOutput(integral);
             }
-        } catch (ClassNotFoundException e) {
+        } catch (UnsupportedOperationException e) {
             Toast.makeText(this, "The integral cannot be expressed as an elementary function", Toast.LENGTH_SHORT).show();
         }
     }
