@@ -22,7 +22,7 @@ public class CalculusUtilities {
         try {
             String derivativeStr = differentiateStr(expr);
             ArrayList<Token> derivative = convertStringToTokens(derivativeStr);
-            derivative = JFok.traverseTree(JFok.setupAndConvertToTree(derivative));
+            derivative = JFok.simplifyExpression(derivative);
             return derivative;
         } catch (SyntaxError e) {
             e.printStackTrace();
@@ -37,14 +37,24 @@ public class CalculusUtilities {
      * @return The differentiated function
      * @throws java.lang.ClassNotFoundException The integral cannot be stated as an elementary function
      */
-    public static ArrayList<Token> integrate(ArrayList<Token> function) throws ClassNotFoundException {
+    public static ArrayList<Token> integrate(ArrayList<Token> function) throws UnsupportedOperationException {
         String expr = Utility.printExpression(function);
         try {
             String integralStr = integrateStr(expr);
-            ArrayList<Token> integral = convertStringToTokens(integralStr);
-            integral = JFok.traverseTree(JFok.setupAndConvertToTree(integral));
-            return integral;
-        } catch (SyntaxError e) {
+            try {
+                ArrayList<Token> integral = convertStringToTokens(integralStr);
+                integral = JFok.simplifyExpression(integral);
+                //Constant of Integration
+                integral.add(OperatorFactory.makeAdd());
+                integral.add(VariableFactory.makeC());
+                return integral;
+            } catch (NumberFormatException e) { //Special function, shows String for now
+                ArrayList<Token> tokens = new ArrayList<Token>();
+                tokens.add(new StringToken(integralStr));
+                //TODO: Add special functions
+                return tokens;
+            }
+        } catch (SyntaxError e) { //Malformed expression
             e.printStackTrace();
             return null;
         }
@@ -58,8 +68,19 @@ public class CalculusUtilities {
      */
     public static String integrateStr(String function) {
         EvalUtilities util = new EvalUtilities(false, true);
+        /*
+        try {
+        */
         IExpr integral = util.evaluate("integrate(" + function + ",x)");
+        if (integral.toString().equals(function.toString())) { //Could not integrate into an elementary function
+            throw new UnsupportedOperationException();
+        }
         return integral.toString();
+            /*
+        } catch (NoClassDefFoundError e){ //Not elementary function
+            throw new UnsupportedOperationException();
+        }
+        */
     }
 
     /**
@@ -94,7 +115,7 @@ public class CalculusUtilities {
                 //Looks at negatives (turns all consecutive subtractions before it into negatives)
                 int tempIndex = tokens.size() - 1;
                 while (tempIndex >= 0 && tokens.get(tempIndex) instanceof Operator && ((Operator) tokens.get(tempIndex)).getType() == Operator.SUBTRACT
-                        && tokens.get(tempIndex - 1) instanceof Operator) { //If the previous token is a - AND there is an operator before the -
+                        && operatorBefore(tokens, tempIndex)) { //If the previous token is a - AND there is an operator before the -
                     tokens.remove(tempIndex);
                     tokens.add(DigitFactory.makeNegative());
                     tempIndex--;
@@ -103,12 +124,14 @@ public class CalculusUtilities {
             }
 
             //FILTERS ALPHABETIC CHARACTERS
-            if (!handled && Character.isAlphabetic(c)) {
+            if (!handled && Character.isLetter(c)) {
                 if (c == 'x' && temp.isEmpty()) {
-                    tokens.add(VariableFactory.makeX());
+                    Variable x = VariableFactory.makeX();
+                    tokens.add(x);
                     handled = true;
                 } else if (c == 'e' && temp.isEmpty()) {
-                    tokens.add(VariableFactory.makeE());
+                    Variable e = VariableFactory.makeE();
+                    tokens.add(e);
                     handled = true;
                 } else {
                     temp += c;
@@ -202,6 +225,20 @@ public class CalculusUtilities {
             tokens.add(new Number(Integer.parseInt(temp)));
         }
         return tokens;
+    }
+
+    /**
+     * Checks if the Token before the given index is an Operator.
+     *
+     * @param tokens    The list of Tokens
+     * @param tempIndex the index to check
+     * @return If there is an Operator before or not
+     */
+    private static boolean operatorBefore(ArrayList<Token> tokens, int tempIndex) {
+        while (tempIndex > 0 && tokens.get(tempIndex - 1) instanceof Bracket) { //Deos not count brackets
+            tempIndex--;
+        }
+        return tokens.get(tempIndex - 1) instanceof Operator;
     }
 
     /**

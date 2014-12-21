@@ -21,7 +21,8 @@ public class DisplayView extends View {
     //CONSTANTS
     private final float TEXT_HEIGHT;
     private final float SMALL_HEIGHT;
-    private final float Y_PADDING_BETWEEN_LINES;
+    private final float LINE_HEIGHT_NORMAL;
+    private final float LINE_HEIGHT_SUPERSCRIPT;
     private final float CURSOR_PADDING;
     private final float fracPadding;
     private final int FONT_SIZE = 96;
@@ -75,7 +76,8 @@ public class DisplayView extends View {
         SMALL_HEIGHT = smallRect.height();
 
         X_PADDING = TEXT_HEIGHT / 3;
-        Y_PADDING_BETWEEN_LINES = TEXT_HEIGHT;
+        LINE_HEIGHT_NORMAL = TEXT_HEIGHT;
+        LINE_HEIGHT_SUPERSCRIPT = SMALL_HEIGHT;
         CURSOR_PADDING = TEXT_HEIGHT / 10;
         fracPadding = TEXT_HEIGHT / 8;
         setWillNotDraw(false);
@@ -130,7 +132,7 @@ public class DisplayView extends View {
         super.onDraw(canvas);
         heights.clear();
         //TODO: Use canvas.drawLine() to make fractions, and implement a algorithm to do this
-        final float yFracModifier = Y_PADDING_BETWEEN_LINES * (1 + -getMostNegHeightChange(expression));
+        final float yFracModifier = LINE_HEIGHT_NORMAL * (1 + -getMostNegHeightChange(expression));
         final float yScriptModifier = SMALL_HEIGHT * getMaxScriptLevel() / 3;
 
         calculateDrawX();
@@ -153,7 +155,7 @@ public class DisplayView extends View {
 
         if (functionMode) { //Adds a f(x)= at the start
             final String s = "f(x)=";
-            canvas.drawText(s, X_PADDING, Y_PADDING_BETWEEN_LINES, textPaint);
+            canvas.drawText(s, X_PADDING, LINE_HEIGHT_NORMAL, textPaint);
             float[] widths = new float[s.length()];
             textPaint.getTextWidths(s, widths);
             xModifier += sum(widths);
@@ -165,6 +167,7 @@ public class DisplayView extends View {
         int scriptLevel = 0; //superscript = 1, any additional levels would +1
         int scriptBracketCount = 0; //Counts the brackets for any exponents
         float heightMultiplier = 0; //Determines at what height the text would be drawn at
+        float scriptHeightMultiplier = 0; //Height on the superscript level
         for (int i = 0; i < expression.size(); i++) {
             Token token = expression.get(i);
             Paint paint = textPaint;
@@ -174,7 +177,11 @@ public class DisplayView extends View {
                 scriptLevel++;
                 scriptBracketCount++;
             } else if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.NUM_OPEN) {
-                heightMultiplier -= 1 / 2d;
+                if (scriptLevel == 0) {
+                    heightMultiplier -= 1 / 2d;
+                } else {
+                    scriptHeightMultiplier -= 1 / 2d;
+                }
             } else if (token instanceof Operator && ((Operator) token).getType() == Operator.FRACTION) {
 
                 //Finds the max height in the numerator
@@ -187,11 +194,20 @@ public class DisplayView extends View {
                     }
                 }
 
-                heightMultiplier = maxHeightMultiplier;
+                if (scriptLevel == 0) {
+                    heightMultiplier = maxHeightMultiplier;
+                } else {
+                    scriptHeightMultiplier = maxHeightMultiplier;
+                }
             } else if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.DENOM_OPEN) {
                 ArrayList<Token> denom = getDenominator(expression, i - 1);
                 float negChange = getMostNegHeightChange(denom) - 1;
-                heightMultiplier -= negChange;
+
+                if (scriptLevel == 0) {
+                    heightMultiplier -= negChange;
+                } else {
+                    scriptHeightMultiplier -= negChange;
+                }
             } else if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.DENOM_CLOSE) {
 
                 //Finds the denom
@@ -222,7 +238,11 @@ public class DisplayView extends View {
                 }
 
                 //Changes height to the height of the NUM_OPEN bracket + 0.5
-                heightMultiplier = heights.get(j + 1) + 0.5f;
+                if (scriptLevel == 0) {
+                    heightMultiplier -= heights.get(j + 1) + 0.5f;
+                } else {
+                    scriptHeightMultiplier -= heights.get(j + 1) + 0.5f;
+                }
             } else if (scriptLevel > 0) { //Counts brackets if its writing in superscript
                 if (token instanceof Bracket) {
                     Bracket b = (Bracket) token;
@@ -239,7 +259,10 @@ public class DisplayView extends View {
 
             //Calculates the x and y position of the draw position (modified later)
             float x = drawX.get(i) + xModifier;
-            float y = Y_PADDING_BETWEEN_LINES * heightMultiplier + yFracModifier + yScriptModifier;
+            float y = LINE_HEIGHT_NORMAL * heightMultiplier + yFracModifier + yScriptModifier;
+            if (scriptLevel > 0) {
+                y = LINE_HEIGHT_SUPERSCRIPT * scriptHeightMultiplier + yFracModifier + yScriptModifier;
+            }
             heights.add(i, heightMultiplier);
 
             //Changes paint for superscript
@@ -276,13 +299,13 @@ public class DisplayView extends View {
             //Draws cursor
             if (i == realCursorIndex) {
                 //Superscripts the cursor if needed
-                cursorY = Y_PADDING_BETWEEN_LINES * heightMultiplier + yFracModifier + yScriptModifier;
+                cursorY = LINE_HEIGHT_NORMAL * heightMultiplier + yFracModifier + yScriptModifier;
                 cursorX = x - CURSOR_PADDING;
                 if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.SUPERSCRIPT_CLOSE) {
                     cursorY += (1 - scriptLevel) * SMALL_HEIGHT / 4 - TEXT_HEIGHT / 2;
                     canvas.drawText("|", cursorX, cursorY, cursorPaint);
                 } else if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.DENOM_CLOSE) {
-                    cursorY = Y_PADDING_BETWEEN_LINES * (heightMultiplier + 0.5f) + yFracModifier + yScriptModifier;
+                    cursorY = LINE_HEIGHT_NORMAL * (heightMultiplier + 0.5f) + yFracModifier + yScriptModifier;
                     canvas.drawText("|", cursorX, cursorY, cursorPaint);
                 } else {
                     canvas.drawText("|", cursorX, y, cursorPaint);
@@ -292,10 +315,10 @@ public class DisplayView extends View {
 
         //Draws cursor in special cases
         if (expression.size() == 0) { //No expression
-            canvas.drawText("|", X_PADDING, Y_PADDING_BETWEEN_LINES * heightMultiplier + yFracModifier + yScriptModifier, cursorPaint);
+            canvas.drawText("|", X_PADDING, LINE_HEIGHT_NORMAL * heightMultiplier + yFracModifier + yScriptModifier, cursorPaint);
         } else if (realCursorIndex == expression.size()) { //Last index (or the cursor index is larger than the draw count
             //Moves the cursor up if its superscript
-            cursorY = Y_PADDING_BETWEEN_LINES * heightMultiplier + yFracModifier + yScriptModifier;
+            cursorY = LINE_HEIGHT_NORMAL * heightMultiplier + yFracModifier + yScriptModifier;
             if (scriptLevel > 0) {
                 cursorY += (1 - scriptLevel) * SMALL_HEIGHT / 4 - TEXT_HEIGHT / 2;
             }
@@ -632,7 +655,7 @@ public class DisplayView extends View {
      */
     private void calculateMaxY() {
         final float maxHeight = getMaxFracHeight(expression) - 1;
-        final float yMaxFrac = Y_PADDING_BETWEEN_LINES * (maxHeight + 2);
+        final float yMaxFrac = LINE_HEIGHT_NORMAL * (maxHeight + 2);
         final float yMaxScript = SMALL_HEIGHT * getMaxScriptLevel() / 3;
         maxY = yMaxFrac + yMaxScript;
     }
@@ -720,7 +743,7 @@ public class DisplayView extends View {
         int parentWidth = MeasureSpec.getSize(widthMeasureSpec);
         int parentHeight = MeasureSpec.getSize(heightMeasureSpec);
         WindowManager wm = (WindowManager) this.getContext().getSystemService(Context.WINDOW_SERVICE);
-        this.setMeasuredDimension(parentWidth, (int) (parentHeight > maxY ? parentHeight : maxY + Y_PADDING_BETWEEN_LINES));
+        this.setMeasuredDimension(parentWidth, (int) (parentHeight > maxY ? parentHeight : maxY + LINE_HEIGHT_NORMAL));
     }
 
     /**

@@ -1352,9 +1352,16 @@ public class JFok {
             Token after = i + 1 > expression.size() - 1 ? null : expression.get(i + 1);
             Token current = expression.get(i);
             if (current instanceof Operator && ((Operator) current).getType() == Operator.MULTIPLY) { //Multiplication token found
-                if (before instanceof Number && ((Number) before).getValue() == 1 && (after instanceof Variable || after instanceof Function)) { //The rule applies
-                    newExpression.remove(before);
-                    //Removes the 1 Token and deos not add the * Token to the new expression
+                if (before instanceof Number && (after instanceof Variable || after instanceof Function)) { //The rule applies
+                    if (((Number) before).getValue() == 1) {
+                        newExpression.remove(before);
+                        //Removes the 1 Token and deos not add the * Token to the new expression
+                    } else if (((Number) before).getValue() == -1) {
+                        newExpression.remove(before); //Replaces * with -
+                        newExpression.add(DigitFactory.makeNegative());
+                    } else {
+                        newExpression.add(current);
+                    }
                 } else {
                     newExpression.add(current);
                 }
