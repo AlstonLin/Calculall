@@ -18,7 +18,6 @@ public class Utility {
 
 
     /**
-     *
      * @param expression The expression to print
      * @return The string representation of the given expression
      */
@@ -537,6 +536,7 @@ public class Utility {
 
     /**
      * Cleans up the given expression to render it more human-readable.
+     *
      * @param expression The expression the clean up
      * @return The human readable version (note: not machine readable)
      */
@@ -612,7 +612,8 @@ public class Utility {
         //special case if c = 0
         if (c == 0) {
             output.add(VariableFactory.makeX());
-            output.add(new Token("="){});
+            output.add(new Token("=") {
+            });
             output.add(new Number(Utility.round(a, 3)));
             return output;
         }
@@ -620,7 +621,8 @@ public class Utility {
         //special case if d = 0
         if (d == 0) {
             output.add(VariableFactory.makeY());
-            output.add(new Token("="){});
+            output.add(new Token("=") {
+            });
             output.add(new Number(Utility.round(b, 3)));
             return output;
         }
@@ -628,7 +630,7 @@ public class Utility {
         //Scalar equation is in the form cy - dx + z = 0 , where z = -cb + da
 
         //for first term
-        if (c !=0){
+        if (c != 0) {
             output.add(new Number(Utility.round(c, 3)));
             output.add(VariableFactory.makeY());
         }
@@ -668,29 +670,29 @@ public class Utility {
     }
 
     /**
-          * Determines the unit vector of a given vector
-          *
-          * @param vector The vector.
-          * @return ArrayList<Token></Token> The unit vector.
-          */
-         public static ArrayList<Token> findUnitVector (double[] vector){
-             double magnitude = calculateMagnitude(vector);
-             if (vector.length == 2){
-                 double[] unitVector = new double[2];
-                 unitVector[0] = Utility.round(vector[0] / magnitude, 3);
-                 unitVector[1] = Utility.round(vector[1] / magnitude, 3);
-                 return Utility.convertDoublesToVector(unitVector);
-             } else if (vector.length == 3) {
-                 double[] unitVector = new double[3];
-                 unitVector[0] = Utility.round(vector[0] / magnitude, 3);
-                 unitVector[1] = Utility.round(vector[1] / magnitude, 3);
-                 unitVector[2] = Utility.round(vector[2] / magnitude, 3);
-                 return Utility.convertDoublesToVector(unitVector);
-             } else {
-                 throw new IllegalArgumentException("Error: This calculator only supports 2D and 3D vectors.");
-             }
+     * Determines the unit vector of a given vector
+     *
+     * @param vector The vector.
+     * @return ArrayList<Token></Token> The unit vector.
+     */
+    public static ArrayList<Token> findUnitVector(double[] vector) {
+        double magnitude = calculateMagnitude(vector);
+        if (vector.length == 2) {
+            double[] unitVector = new double[2];
+            unitVector[0] = Utility.round(vector[0] / magnitude, 3);
+            unitVector[1] = Utility.round(vector[1] / magnitude, 3);
+            return Utility.convertDoublesToVector(unitVector);
+        } else if (vector.length == 3) {
+            double[] unitVector = new double[3];
+            unitVector[0] = Utility.round(vector[0] / magnitude, 3);
+            unitVector[1] = Utility.round(vector[1] / magnitude, 3);
+            unitVector[2] = Utility.round(vector[2] / magnitude, 3);
+            return Utility.convertDoublesToVector(unitVector);
+        } else {
+            throw new IllegalArgumentException("Error: This calculator only supports 2D and 3D vectors.");
+        }
 
-         }
+    }
 
     /**
      * Returns the argument of a vector. (angle to the X axis)
@@ -764,7 +766,7 @@ public class Utility {
             return 3;
         }
         //Quadrant 4
-        if (x > 0 && y < 0){
+        if (x > 0 && y < 0) {
             return 4;
         }
         //vector lies on positive y axis
@@ -842,55 +844,75 @@ public class Utility {
             output.add(new Token("N") {
             });
             output.add(new Number(0));
-            output.add(new Token ("°"){});
-            output.add(new Token("E"){});
+            output.add(new Token("°") {
+            });
+            output.add(new Token("E") {
+            });
         }
         if (quadrant == -2) { //positive x axis
             output.add(new Token("E") {
             });
             output.add(new Number(0));
-            output.add(new Token ("°"){});
-            output.add(new Token("N"){});
+            output.add(new Token("°") {
+            });
+            output.add(new Token("N") {
+            });
         }
         if (quadrant == -3) { //negative y axis
             output.add(new Token("S") {
             });
             output.add(new Number(0));
-            output.add(new Token ("°"){});
-            output.add(new Token("W"){});
+            output.add(new Token("°") {
+            });
+            output.add(new Token("W") {
+            });
         }
         if (quadrant == -4) { //negative x axis
             output.add(new Token("W") {
             });
             output.add(new Number(0));
-            output.add(new Token ("°"){});
-            output.add(new Token("S"){});
+            output.add(new Token("°") {
+            });
+            output.add(new Token("S") {
+            });
         }
 
         //returns vectors that do not lie on an axis
-        if (quadrant == 1){
-            output.add(new Token("E"){});
+        if (quadrant == 1) {
+            output.add(new Token("E") {
+            });
             output.add(new Number(Utility.round(angle, 3)));
-            output.add(new Token ("°"){});
-            output.add(new Token("N"){});
+            output.add(new Token("°") {
+            });
+            output.add(new Token("N") {
+            });
         }
-        if (quadrant == 2){
-            output.add(new Token("W"){});
+        if (quadrant == 2) {
+            output.add(new Token("W") {
+            });
             output.add(new Number(Utility.round(angle, 3)));
-            output.add(new Token ("°"){});
-            output.add(new Token("N"){});
+            output.add(new Token("°") {
+            });
+            output.add(new Token("N") {
+            });
         }
-        if (quadrant == 3){
-            output.add(new Token("W"){});
+        if (quadrant == 3) {
+            output.add(new Token("W") {
+            });
             output.add(new Number(Utility.round(angle, 3)));
-            output.add(new Token ("°"){});
-            output.add(new Token("S"){});
+            output.add(new Token("°") {
+            });
+            output.add(new Token("S") {
+            });
         }
-        if (quadrant == 4){
-            output.add(new Token("E"){});
+        if (quadrant == 4) {
+            output.add(new Token("E") {
+            });
             output.add(new Number(Utility.round(angle, 3)));
-            output.add(new Token ("°"){});
-            output.add(new Token("S"){});
+            output.add(new Token("°") {
+            });
+            output.add(new Token("S") {
+            });
         }
         return output;
     }
@@ -910,7 +932,7 @@ public class Utility {
         } else if (vector.length == 3) {
             dimensions = 3;
         }
-        double[] newVector = new double [dimensions];
+        double[] newVector = new double[dimensions];
         newVector[0] = Utility.round(multiplier * vector[0], 3);
         newVector[1] = Utility.round(multiplier * vector[1], 3);
         if (dimensions > 2) {
@@ -945,7 +967,6 @@ public class Utility {
     }
 
     /**
-     *
      * @param leftVector
      * @param rightVector
      * @return ArrayList<Token>
@@ -974,9 +995,8 @@ public class Utility {
      * @param n The base of the factorial
      * @return The value of the factorial
      */
-
     public static int factorial(int n) {
-        if (n == 1) {
+        if (n == 1 || n == 0) {
             return 1;
         } else {
             return n * factorial(n - 1);

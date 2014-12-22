@@ -1,0 +1,78 @@
+package com.trutech.calculall;
+
+import java.util.ArrayList;
+
+/**
+ * Created by Ejaaz on 22/12/2014.
+ */
+
+@SuppressWarnings("unused")
+public class MatrixOperatorFactory {
+
+    public static MatrixOperator makeMatrixAdd() {
+        return new MatrixOperator("+", MatrixOperator.ADD, 2, true, 1, true) {
+            @Override
+            public Matrix operate(Matrix left, Matrix right) {
+                if (left.getNumOfCols() == right.getNumOfCols()
+                        && left.getNumOfRows() == right.getNumOfRows()) {
+                    ArrayList[][] newMatrix = new ArrayList[left.getNumOfRows()][left.getNumOfCols()];
+                    for (int i = 0; i < newMatrix.length; i++) {
+                        for (int j = 0; j < newMatrix.length; j++) {
+                            newMatrix[i][j] = new ArrayList<Token>();
+                            newMatrix[i][j].addAll(left.getEntry(i, j));
+                            newMatrix[i][j].add(OperatorFactory.makeAdd());
+                            newMatrix[i][j].addAll(right.getEntry(i, j));
+                        }
+                    }
+                    return new Matrix(newMatrix);
+                } else {
+                    throw new IllegalArgumentException("Matrices are not the same size");
+                }
+            }
+        };
+    }
+
+    public static MatrixOperator makeMatrixSubtract() {
+        return new MatrixOperator("−", MatrixOperator.SUBTRACT, 2, true, -1, false) {
+            @Override
+            public Matrix operate(Matrix left, Matrix right) {
+                if (left.getNumOfCols() == right.getNumOfCols()
+                        && left.getNumOfRows() == right.getNumOfRows()) {
+                    ArrayList[][] newMatrix = new ArrayList[left.getNumOfRows()][left.getNumOfCols()];
+                    for (int i = 0; i < newMatrix.length; i++) {
+                        for (int j = 0; j < newMatrix.length; j++) {
+                            newMatrix[i][j] = new ArrayList<Token>();
+                            newMatrix[i][j].addAll(left.getEntry(i, j));
+                            newMatrix[i][j].add(OperatorFactory.makeSubtract());
+                            newMatrix[i][j].addAll(right.getEntry(i, j));
+                        }
+                    }
+                    return new Matrix(newMatrix);
+                } else {
+                    throw new IllegalArgumentException("Matrices are not the same size");
+                }
+            }
+        };
+    }
+
+    public static MatrixOperator makeMatrixMultiply() {
+        return new MatrixOperator("×", MatrixOperator.MULTIPLY, 3, true, 1, true) {
+            @Override
+            public Matrix operate(Matrix left, Matrix right) {
+                if (left.getNumOfCols() == right.getNumOfRows()) {
+                    for (int i = 0; i < left.getNumOfRows(); i++) {
+                        for (int j = 0; j < right.getNumOfCols(); j++) {
+
+                        }
+                    }
+                    return null;
+                } else {
+                    throw new IllegalArgumentException("Number of columns of left matrix is not " +
+                            "equal to the number of row of the right matrix");
+                }
+            }
+        };
+    }
+
+
+}

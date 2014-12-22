@@ -377,7 +377,7 @@ public class FunctionFactory {
         return new Function("ln", Function.LN) {
             @Override
             public double perform(double input) {
-                return Math.log(input);
+                return (input == Math.E) ? 1 : Math.log(input);
             }
         };
     }

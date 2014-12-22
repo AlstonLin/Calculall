@@ -19,25 +19,9 @@ public class JFok {
         //Sets up the tree
         Node<Token> root = setupAndConvertToTree(expression);
         //This is where the magic happens
+        root = expand(root);
         root = simplify(root);
         //Converts it back to human-readable form and cleans it up
-        expression = traverseTree(root);
-        expression = cleanupExpression(expression);
-        return expression;
-    }
-
-    /**
-     * Converts the expression into standard form.
-     *
-     * @param expression The expression to convert
-     * @return The expression in standard form
-     */
-    public static ArrayList<Token> convertToStandardForm(ArrayList<Token> expression) {
-        //Sets up the tree
-        Node<Token> root = setupAndConvertToTree(expression);
-        //This is where the magic happens
-        root = expand(root);
-        //Converts it back to human-readable form
         expression = traverseTree(root);
         expression = cleanupExpression(expression);
         return expression;
@@ -356,9 +340,9 @@ public class JFok {
      * Evaluate any constants such that any numerical expressions, as well as
      * functions, would be calculated.
      *
-     * @param root The root of the subtree
+     * @param root       The root of the subtree
      * @param exactValue If true, this will not evaluate division and square
-     * roots
+     *                   roots
      * @return The new root of the subtree
      * @throws IllegalArgumentException Invalid Expression
      */
@@ -677,7 +661,9 @@ public class JFok {
                 return root;
             }
         } else {
-            if (root.getContent() instanceof Operator && (((Operator) root.getContent()).getType() == Operator.ADD || ((Operator) root.getContent()).getType() == Operator.MULTIPLY)) {
+            if (root.getContent() instanceof Operator &&
+                    (((Operator) root.getContent()).getType() == Operator.ADD ||
+                            ((Operator) root.getContent()).getType() == Operator.MULTIPLY)) {
                 Node<Token> temp;
                 if (root.getNumOfChildren() % 2 == 0) {
                     temp = new Node<Token>(root.getContent());
@@ -900,7 +886,7 @@ public class JFok {
     /**
      * Determines the greatest common factor of two integers
      *
-     * @param num The numerator of a fraction
+     * @param num   The numerator of a fraction
      * @param denom The denominator of a fraction
      * @return The greatest common factor of num and denom
      */
@@ -1382,6 +1368,7 @@ public class JFok {
     public static Node<Token> groupLikeTerms(Node<Token> root) {
         Node<Token> newRoot = new Node<Token>(root.getContent());
         Node<Token> temp = new Node<Token>(root.getContent());
+        Node<Token> commonFact = new Node<Token>(new Number(1));
         Node<Token> first;
         for (int i = 0; i < root.getNumOfChildren(); i++) {
             first = root.getChildren().get(i).copy();
@@ -1500,7 +1487,7 @@ public class JFok {
      * 2 * x ^ 3 + 3 * x ^ 3 -> 5 * x ^ 3.
      *
      * @param root The root of a multi-branch/general tree representing the
-     * expression
+     *             expression
      * @return The root of the expression with the like terms added
      */
     public static Node<Token> addLikeTerms(Node<Token> root) {//TODO: rewrite -> just add adjacent terms recursively

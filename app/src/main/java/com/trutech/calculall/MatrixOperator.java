@@ -1,22 +1,20 @@
-
 package com.trutech.calculall;
 
 /**
- * Receives input from the digits surrounding the operation piece and results in a new number.
- *
- * @version 0.4.0
+ * Created by Ejaaz on 22/12/2014.
  */
-public abstract class Operator extends Token {
 
-    public static final int ADD = 1, SUBTRACT = 2, MULTIPLY = 3, DIVIDE = 4, EXPONENT = 5, PERMUTATION = 6,
-            COMBINATION = 7, FACTORIAL = 8, VARROOT = 9, DOT = 10, CROSS = 11, ANGLE = 12, POW_OF_TEN = 13, FRACTION = 14;
+@SuppressWarnings("unused")
+
+public abstract class MatrixOperator extends Token {
+    public static final int ADD = 1, SUBTRACT = 2, MULTIPLY = 3, EXPONENT = 4, VARROOT = 5, AUGMENT = 6;
     private int type;
     private int precedence;
     private boolean leftAssociative, commutative, anticommutative, associative;
 
     /**
      * Should not be used outside of a factory; to create a type of operation,
-     * see class OperatorFactory.
+     * see class MatrixOperatorFactory.
      *
      * @param symbol          The symbol of the Token to be shown on the calculator screen
      * @param type            The type of Operator (defined by the class constants)
@@ -25,7 +23,7 @@ public abstract class Operator extends Token {
      * @param c               If the operator is commutative, anticommutative, or noncommutative
      * @param a               If the operator is associative
      */
-    protected Operator(String symbol, int type, int precedence, boolean leftAssociative, int c, boolean a) {
+    protected MatrixOperator(String symbol, int type, int precedence, boolean leftAssociative, int c, boolean a) {
         super(symbol);
         this.leftAssociative = leftAssociative;
         this.type = type;
@@ -34,14 +32,15 @@ public abstract class Operator extends Token {
         this.associative = a;
     }
 
+
     /**
      * Performs the operation with the given surrounding values.
      *
-     * @param left  The value left of the operation
-     * @param right The value right of the operation
+     * @param left  The matrix left of the operation
+     * @param right The matrix right of the operation
      * @return The result of the operation
      */
-    public abstract double operate(double left, double right);
+    public abstract Matrix operate(Matrix left, Matrix right);
 
 
     /**
@@ -102,3 +101,5 @@ public abstract class Operator extends Token {
         return precedence;
     }
 }
+
+
