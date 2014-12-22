@@ -1,16 +1,12 @@
 package com.trutech.calculall;
 
 /**
- * A piece that receives a collection of pieces as an input, and then outputs a resulting number.
- *
- * @version 0.4.0
+ * Created by Ejaaz on 22/12/2014.
  */
+public abstract class MatrixFunction extends Token {
 
-public abstract class Function extends Token {
-
-    public static final int SIN = 1, COS = 2, TAN = 3, SINH = 4, COSH = 5, TANH = 6, ARCSIN = 7, ARCCOS = 8, ARCTAN = 9,
-            ARCSINH = 10, ARCCOSH = 11, ARCTANH = 12, FACTORIAL = 13, ABS = 14, FLOOR = 15, CEILING = 16, LOG10 = 17,
-            LN = 19, EXP = 20, SQUARE = 21, CUBE = 22, SQRT = 23, CBRT = 24, RECIP = 25;
+    public static final int REF = 1, RREF = 2, DET = 3, TRANSPOSE = 4, INVERSE = 5, DIAG = 6,
+            EIGENVECT = 7, EIGENVAL = 8;
 
     private int type;
 
@@ -21,7 +17,7 @@ public abstract class Function extends Token {
      * @param symbol The symbol of the Token to be shown on the calculator screen
      * @param type   The type of Function this is, as defined by the class constants
      */
-    protected Function(String symbol, int type) {
+    protected MatrixFunction(String symbol, int type) {
         super(symbol);
         this.type = type;
     }
@@ -32,7 +28,7 @@ public abstract class Function extends Token {
      * @param input The input that is given for the function
      * @return The output of the performed function
      */
-    public abstract double perform(double input);
+    public abstract Matrix perform(Matrix input);
 
     /**
      * @return The type of Function this is, as defined by the class constants
