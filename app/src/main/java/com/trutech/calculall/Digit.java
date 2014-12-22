@@ -1,12 +1,14 @@
 package com.trutech.calculall;
 
+import java.io.Serializable;
+
 /**
  * Represents a single digit of a number.
  *
  * @version 0.4.0
  */
-public class Digit extends Token {
-
+public class Digit extends Token implements Serializable {
+    private static final long serialVersionUID = 752647221;
     private int value;
 
     /**

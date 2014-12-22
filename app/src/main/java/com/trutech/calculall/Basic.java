@@ -1,6 +1,7 @@
 package com.trutech.calculall;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +9,11 @@ import android.view.Window;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 /**
@@ -19,6 +25,9 @@ import java.util.ArrayList;
 public class Basic extends Activity {
 
     public static final int ROUND_TO = 9;
+    private static final String FILENAME = "history_basic";
+    private static final String FILENAME = "history_basic";
+    public static final int HISTORY_SIZE = 10;
     protected ArrayList<Token> tokens = new ArrayList<Token>(); //Tokens shown on screen
     protected boolean changedTokens = false;
     protected DisplayView display;
@@ -335,10 +344,58 @@ public class Basic extends Activity {
                     .replaceAll("\\.$", "").concat(s.substring(s.indexOf("E"))) : s.replaceAll("0*$", "")
                     .replaceAll("\\.$", "")); //Removes trailing zeroes
             display.displayOutput(s);
+            ArrayList<Token> list = new ArrayList<Token>();
+            list.add(new StringToken(s));
+            saveEquation(tokens, list, FILENAME);
         } catch (Exception e) { //User did a mistake
             Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
         }
         scrollDown();
+    }
+
+    /**
+     * Saves the equation into the calculation history.
+     *
+     * @param input  The expression that the user inputted into the calculator
+     * @param output The result of the calculation
+     */
+    public void saveEquation(ArrayList<Token> input, ArrayList<Token> output, String filepath) throws IOException, ClassNotFoundException {
+        ArrayList<Object[]> history = new ArrayList<Object[]>();
+        try {
+            FileInputStream inStream = openFileInput(filepath);
+            ObjectInputStream objectStreamIn = new ObjectInputStream(inStream);
+            history = (ArrayList<Object[]>) objectStreamIn.readObject();
+        } catch (Exception e) {
+        }
+
+        FileOutputStream outStream = openFileOutput(filepath, Context.MODE_PRIVATE);
+        Object[] toWrite = new Object[2];
+        toWrite[0] = input;
+        toWrite[1] = output;
+        history.add(toWrite);
+
+        while (history.size() > HISTORY_SIZE) {
+            history.remove(0);
+        }
+
+        ObjectOutputStream objectStreamOut = new ObjectOutputStream(outStream);
+        objectStreamOut.writeObject(history);
+        objectStreamOut.flush();
+        objectStreamOut.close();
+        outStream.close();
+    }
+
+    /**
+     * Opens the calculation history.
+     *
+     * @param v Not Used
+     */
+    public void openHistory(View v) throws IOException, ClassNotFoundException {
+        setContentView(R.layout.history_view);
+        HistoryView hv = (HistoryView) findViewById(R.id.history);
+        FileInputStream stream = openFileInput(FILENAME);
+        ObjectInputStream objectStream = new ObjectInputStream(stream);
+        hv.setHistory((ArrayList<Object[]>) objectStream.readObject());
     }
 
     /**

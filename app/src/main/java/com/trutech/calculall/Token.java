@@ -1,5 +1,6 @@
 package com.trutech.calculall;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -8,9 +9,9 @@ import java.util.ArrayList;
  *
  * @version 0.4.0
  */
-public abstract class Token {
+public abstract class Token implements Serializable {
 
-    private ArrayList<Token> dependencies = new ArrayList<Token>(); //Tokens that are dependent with this token
+    private transient ArrayList<Token> dependencies = new ArrayList<Token>(); //Tokens that are dependent with this token
     private String symbol;
 
     /**

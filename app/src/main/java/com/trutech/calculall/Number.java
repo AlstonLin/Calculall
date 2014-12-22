@@ -1,13 +1,16 @@
 package com.trutech.calculall;
 
+import java.io.Serializable;
+
 /**
  * This is the class for the main activity (entry-point to the app). It will simply configure
  * the setting then go to the basic activity.
  *
  * @version 0.4.0
  */
-public class Number extends Token {
+public class Number extends Token implements Serializable {
 
+    private static final long serialVersionUID = 752647223;
     private double value;
 
     /**

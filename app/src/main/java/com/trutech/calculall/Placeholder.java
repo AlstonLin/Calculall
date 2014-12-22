@@ -1,9 +1,11 @@
 package com.trutech.calculall;
 
+import java.io.Serializable;
+
 /**
  * Tokens that have no function at all, simply used to mark a point and add a visual.
  */
-public class Placeholder extends Token {
+public class Placeholder extends Token implements Serializable {
 
     public static final int BLOCK = 0;
     private int type;

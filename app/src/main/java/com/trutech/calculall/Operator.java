@@ -1,12 +1,14 @@
 
 package com.trutech.calculall;
 
+import java.io.Serializable;
+
 /**
  * Receives input from the digits surrounding the operation piece and results in a new number.
  *
  * @version 0.4.0
  */
-public abstract class Operator extends Token {
+public abstract class Operator extends Token implements Serializable {
 
     public static final int ADD = 1, SUBTRACT = 2, MULTIPLY = 3, DIVIDE = 4, EXPONENT = 5, PERMUTATION = 6,
             COMBINATION = 7, FACTORIAL = 8, VARROOT = 9, DOT = 10, CROSS = 11, ANGLE = 12, POW_OF_TEN = 13, FRACTION = 14;

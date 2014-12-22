@@ -1,14 +1,14 @@
 package com.trutech.calculall;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Jason on 2014-08-14.
  */
-public abstract class Vector extends Token {
+public abstract class Vector extends Token implements Serializable {
     public static final int U = 1, V = 2, W = 3, S = 4;
-    public static ArrayList<Token> u_value = null, v_value = null, w_value = null, s_value = null; //Values of the variables
-
+    public static transient ArrayList<Token> u_value = null, v_value = null, w_value = null, s_value = null; //Values of the variables
     private int type;
     private String symbol;
 

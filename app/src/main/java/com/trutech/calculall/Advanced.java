@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 @SuppressWarnings("unused")
@@ -21,6 +22,7 @@ public class Advanced extends Basic {
     public static final int DEC = 1, BIN = 2, OCT = 3, HEX = 4;//number bases
     private int fracMode = DEC;
     public static final int FRAC = 2;
+    private static final String FILENAME = "history_advanced";
     public boolean switchedAngleMode = false;
     private int angleMode = 1;
     private int base = 1;
@@ -57,8 +59,13 @@ public class Advanced extends Basic {
                         .replaceAll("\\.$", "").concat(s.substring(s.indexOf("E"))) : s.replaceAll("0*$", "")
                         .replaceAll("\\.$", "")); //Removes trailing zeroes
                 display.displayOutput(s);
+                ArrayList<Token> list = new ArrayList<Token>();
+                list.add(new StringToken(s));
+                saveEquation(tokens, list, FILENAME);
             } else if (fracMode == FRAC) {
-                display.displayOutput(JFok.simplifyExpression(tokens));
+                ArrayList<Token> output = JFok.simplifyExpression(tokens);
+                display.displayOutput(output);
+                saveEquation(tokens, output, FILENAME);
             }
         } catch (Exception e) { //User did a mistake
             Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();

@@ -7,11 +7,13 @@ import android.widget.Button;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class VectorMode extends Advanced {
     public static final int ARGUMENT = 1, TRUEBEARING = 2, BEARING = 3; //directionmode options
     public static final int DEGREE = 1, RADIAN = 2, GRADIAN = 3; //angleMode options
+    private static final String FILENAME = "history_vector";
     public boolean switchedDirectionMode = false;
     public boolean switchedAngleMode = false;
     private int directionMode = 1;
@@ -38,7 +40,7 @@ public class VectorMode extends Advanced {
      *
      * @param v Not Used
      */
-    public void clickVectorEquals(View v) {
+    public void clickVectorEquals(View v) throws IOException, ClassNotFoundException {
         DisplayView display = (DisplayView) findViewById(R.id.display);
 
         //Used to check if the user added extra tokens after clicking the direction mode button at least once
@@ -66,10 +68,14 @@ public class VectorMode extends Advanced {
                     .replaceAll("\\.$", "").concat(s.substring(s.indexOf("E"))) : s.replaceAll("0*$", "")
                     .replaceAll("\\.$", "")); //Removes trailing zeroes
             display.displayOutput(s);
+            ArrayList<Token> list = new ArrayList<Token>();
+            list.add(new StringToken(s));
+            saveEquation(tokens, list, FILENAME);
         } catch (Exception e) { //User did a mistake
             Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
         }
         scrollDown();
+
     }
 
     /**
@@ -439,13 +445,6 @@ public class VectorMode extends Advanced {
         updateInput();
     }
 
-    /**
-     * @return the angleMode
-     */
-    public int getDirectionMode() {
-        return directionMode;
-    }
-
     public void clickDirectionMode(View v) {
         Button directionModeButton = (Button) findViewById(R.id.argumentButton);
 
@@ -587,68 +586,6 @@ public class VectorMode extends Advanced {
         }
         scrollDown();
     }
-  /*  *//**
-     * When the user presses the , Button.
-     *
-     * @param v Not Used
-     *//*
-    public void clickArgument(View v){
-        TextView output = (TextView) findViewById(R.id.txtStack);
-        VRuleSet.setPressedArgumentButton(true);
-        try {
-            String s = Utility.convertTokensToString(processVectors());
-            s = s.indexOf(".") < 0  ? s : (s.indexOf("E")>0 ? s.substring(0,s.indexOf("E")).replaceAll("0*$", "")
-                    .replaceAll("\\.$", "").concat(s.substring(s.indexOf("E"))) : s.replaceAll("0*$", "")
-                    .replaceAll("\\.$", "")); //Removes trailing zeroes
-            output.setText(s);
-        }catch (Exception e){ //User did a mistake
-            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
-        }
-        ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
-        scrollView.pageScroll(ScrollView.FOCUS_DOWN);
-    }
-
-    *//**
-     * When the user presses the , Button.
-     *
-     * @param v Not Used
-     *//*
-    public void clickTrueB(View v){
-        TextView output = (TextView) findViewById(R.id.txtStack);
-        VRuleSet.setPressedTrueBButton(true);
-        try {
-            String s = Utility.convertTokensToString(processVectors());
-            s = s.indexOf(".") < 0  ? s : (s.indexOf("E")>0 ? s.substring(0,s.indexOf("E")).replaceAll("0*$", "")
-                    .replaceAll("\\.$", "").concat(s.substring(s.indexOf("E"))) : s.replaceAll("0*$", "")
-                    .replaceAll("\\.$", "")); //Removes trailing zeroes
-            output.setText(s);
-        }catch (Exception e){ //User did a mistake
-            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
-        }
-        ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
-        scrollView.pageScroll(ScrollView.FOCUS_DOWN);
-    }
-
-    *//**
-     * When the user presses the , Button.
-     *
-     * @param v Not Used
-     *//*
-    public void clickBear(View v){
-        TextView output = (TextView) findViewById(R.id.txtStack);
-        VRuleSet.setPressedBearButton(true);
-        try {
-            String s = Utility.convertTokensToString(processVectors());
-            s = s.indexOf(".") < 0  ? s : (s.indexOf("E")>0 ? s.substring(0,s.indexOf("E")).replaceAll("0*$", "")
-                    .replaceAll("\\.$", "").concat(s.substring(s.indexOf("E"))) : s.replaceAll("0*$", "")
-                    .replaceAll("\\.$", "")); //Removes trailing zeroes
-            output.setText(s);
-        }catch (Exception e){ //User did a mistake
-            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
-        }
-        ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
-        scrollView.pageScroll(ScrollView.FOCUS_DOWN);
-    }*/
 
 
 }

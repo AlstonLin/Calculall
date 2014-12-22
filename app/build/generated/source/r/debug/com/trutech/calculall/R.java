@@ -55,7 +55,7 @@ public final class R {
         public static final int VarY=0x7f080013;
         public static final int VarZ=0x7f080014;
         public static final int ZeroButton=0x7f08005c;
-        public static final int action_settings=0x7f080078;
+        public static final int action_settings=0x7f080079;
         public static final int actionsRow=0x7f080061;
         public static final int addButton=0x7f08003a;
         public static final int advancedButton=0x7f080043;
@@ -90,6 +90,7 @@ public final class R {
         public static final int functionRow3=0x7f080024;
         public static final int graph=0x7f080066;
         public static final int grid=0x7f080007;
+        public static final int history=0x7f080078;
         public static final int hypButton=0x7f08000a;
         public static final int integralButton=0x7f080065;
         public static final int leftScroll=0x7f080001;
@@ -149,6 +150,7 @@ public final class R {
         public static final int activity_basic=0x7f030001;
         public static final int activity_function=0x7f030002;
         public static final int activity_vector=0x7f030003;
+        public static final int history_view=0x7f030004;
     }
     public static final class menu {
         public static final int matrix_mode=0x7f070000;
