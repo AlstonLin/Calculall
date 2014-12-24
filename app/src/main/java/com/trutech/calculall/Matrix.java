@@ -1,6 +1,7 @@
 package com.trutech.calculall;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by Ejaaz on 22/12/2014.
@@ -10,8 +11,6 @@ import java.util.ArrayList;
 public class Matrix extends Token {
 
     private int numOfCols, numOfRows;
-    private int augmentation;
-    private int[] augmentBars;
     private ArrayList<Token>[][] entries;
 
     protected Matrix(ArrayList<Token>[][] entries) {
@@ -21,14 +20,7 @@ public class Matrix extends Token {
         this.numOfCols = entries[0].length;
     }
 
-    protected Matrix(ArrayList<Token>[][] entries, int[] augmentBars) {
-        super(null);
-        this.entries = entries;
-        this.numOfRows = entries.length;
-        this.numOfCols = entries[0].length;
-        this.augmentBars = augmentBars;
-        this.augmentation = augmentBars.length;
-    }
+    public AugmentedMatrix makeNewAM(Matrix[] matrices){ return new AugmentedMatrix(matrices); }
 
     public int getNumOfCols() {
         return numOfCols;
@@ -38,13 +30,7 @@ public class Matrix extends Token {
         return numOfRows;
     }
 
-    public int getAugmentation() {
-        return augmentation;
-    }
-
-    public int[] getAugmentBars() {
-        return augmentBars;
-    }
+    public ArrayList<Token>[][] getEntries(){ return entries; }
 
     public ArrayList<Token> getEntry(int i, int j) {
         if (i >= 0 && i < numOfRows && j >= 0 && j < numOfCols) {
@@ -71,6 +57,71 @@ public class Matrix extends Token {
             return col;
         } else {
             throw new IllegalArgumentException("Not enough columns");
+        }
+    }
+
+    public class AugmentedMatrix extends Matrix {
+        private int augmentation;
+        private int[] augmentBars;
+        private Matrix[] matrices;
+        private int numOfCols, numOfRows;
+
+        protected AugmentedMatrix(Matrix[] matrices) {
+            super(null);
+            this.augmentation = matrices.length;
+            for (int i = 0; i < this.augmentation; i++) {
+                if (i == 0) {
+                    this.augmentBars[i] = matrices[i].getNumOfCols();
+                } else {
+                    this.augmentBars[i] = this.augmentBars[i - 1] + matrices[i].getNumOfCols() - 1;
+                }
+                this.numOfCols += matrices[i].getNumOfCols();
+            }
+            this.numOfRows = matrices[0].getNumOfRows();
+        }
+
+        public int getAugmentation() {
+            return augmentation;
+        }
+
+        public int[] getAugmentBars() {
+            return augmentBars;
+        }
+
+        public Matrix[] getMatrices() {
+            return matrices;
+        }
+
+        public ArrayList<Token>[] getRow(int i) {
+            if (i >= 0 && i < numOfRows) {
+                ArrayList<Token>[] row = new ArrayList[numOfCols];
+                for (int k = 0; k < augmentation; k++) {
+                    for (int j = 0; j < numOfCols; j++) {
+                        row[j] = (matrices[k].getRow(i))[j];
+                    }
+                }
+                return row;
+            } else {
+                throw new IllegalArgumentException("Invalid row index");
+            }
+        }
+
+        private ArrayList<Token>[] getMatrixCol(AugmentedMatrix aug, int k) {
+            if (k >= 0 && k < aug.getMatrices()[0].getNumOfCols()) {
+                return aug.getMatrices()[0].getColumn(k);
+            } else {
+                return getMatrixCol(new AugmentedMatrix(Arrays.copyOfRange(aug.getMatrices(), 1, aug.getMatrices().length)),
+                        k - (aug.getMatrices()[0].getNumOfCols() - 1));
+            }
+        }
+
+        public ArrayList<Token>[] getColumn(int j) {
+            if (j >= 0 && j < numOfCols) {
+                ArrayList<Token>[] col = new ArrayList[numOfRows];
+                return getMatrixCol(this, j);
+            } else {
+                throw new IllegalArgumentException("Invalid column index");
+            }
         }
     }
 }

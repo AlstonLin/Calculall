@@ -337,6 +337,26 @@ public class Utility {
         }
     }
 
+
+    /**
+     * Evaluates every entry of the given matrix
+     *
+     * @param matrix The unsimplified matrix
+     * @return The simplified matrix
+     */
+    public static Matrix evaluateMatrix(Matrix matrix) {
+        ArrayList[][] newMatrix = new ArrayList[matrix.getNumOfRows()][matrix.getNumOfCols()];
+        ArrayList<Token> temp = new ArrayList<>();
+        for (int i = 0; i < matrix.getNumOfRows(); i++) {
+            for (int j = 0; j < matrix.getNumOfCols(); j++) {
+                temp.add(new Number(Utility.evaluateExpression(convertToReversePolish(matrix.getEntry(i, j)))));
+                newMatrix[i][j] = temp;
+                temp.clear();
+            }
+        }
+        return new Matrix(newMatrix);
+    }
+
     /**
      * Simplifies and Rationalizes the given expression.
      *
