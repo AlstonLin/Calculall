@@ -23,10 +23,11 @@ public class MatrixFunctionFactory {
         };
     }
 
+    //need a wrapper function to convert this into a double
     public static MatrixFunction determinant() {
         return new MatrixFunction("det", MatrixFunction.DET) {
             @Override
-            public double perform(Matrix input) {
+            public Matrix perform(Matrix input) {
                 if (input.getNumOfCols() != input.getNumOfRows()) {
                     throw new IllegalArgumentException("Determinant can only be applied to square matrices.");
                 }
@@ -37,15 +38,28 @@ public class MatrixFunctionFactory {
                     double ele21 = ((Number) (input.getEntry(1, 0).get(0))).getValue();
                     double ele22 = ((Number) (input.getEntry(1, 1).get(0))).getValue();
 
-                    return ele11 * ele22 - ele12 * ele21;
+                    ArrayList<Token> det_2by2 = new ArrayList<Token>();
+                    det_2by2.add(new Number(ele11 * ele22 - ele12 * ele21));
+
+                    ArrayList[][] temp = new ArrayList[1][1];
+                    temp[0][0] = det_2by2;
+
+                    return new Matrix(temp);
                 } else {
                     double output = 0;
                     for (int i = 0; i < input.getNumOfRows(); i++) {
                         for (int j = 0; j < input.getNumOfCols(); j++) {
-                            output += ((Number) input.getEntry(i, j).get(0)).getValue() * (Math.pow(-1, i + j) * perform(minorMatrix(input, i, j)));
+                            output += ((Number) input.getEntry(i, j).get(0)).getValue() * (Math.pow(-1, i + j) * (((Number) (perform(minorMatrix(input, i, j)).getEntry(0, 0)).get(0)).getValue()));
                         }
                     }
-                    return output;
+
+                    ArrayList<Token> det = new ArrayList<>();
+                    det.add(new Number(output));
+
+                    ArrayList[][] temp = new ArrayList[1][1];
+                    temp[0][0] = det;
+
+                    return new Matrix(temp);
                 }
             }
         };
