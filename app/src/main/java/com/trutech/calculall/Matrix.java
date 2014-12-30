@@ -20,6 +20,20 @@ public class Matrix extends Token {
         this.numOfCols = entries[0].length;
     }
 
+    protected Matrix(double[][] entries) {
+        super(null);
+        this.numOfRows = entries.length;
+        this.numOfCols = entries[0].length;
+        ArrayList<Token>[][] newMatrix = new ArrayList[numOfRows][numOfCols];
+        for (int i = 0; i < numOfRows; i++) {
+            for (int j = 0; j < numOfCols; j++) {
+                newMatrix[i][j] = new ArrayList<>();
+                newMatrix[i][j].add(new Number(entries[i][j]));
+            }
+        }
+        this.entries = newMatrix;
+    }
+
     public AugmentedMatrix makeNewAM(Matrix[] matrices){ return new AugmentedMatrix(matrices); }
 
     public int getNumOfCols() {
@@ -60,14 +74,14 @@ public class Matrix extends Token {
         }
     }
 
-    public class AugmentedMatrix extends Matrix {
+    public static class AugmentedMatrix extends Matrix {
         private int augmentation;
         private int[] augmentBars;
         private Matrix[] matrices;
         private int numOfCols, numOfRows;
 
         protected AugmentedMatrix(Matrix[] matrices) {
-            super(null);
+            super(super(null));
             this.augmentation = matrices.length;
             for (int i = 0; i < this.augmentation; i++) {
                 if (i == 0) {

@@ -102,11 +102,21 @@ public class MatrixOperatorFactory {
     public static MatrixOperator makeAugment() {
         return new MatrixOperator("", MatrixOperator.AUGMENT, 3, true, 0, true) {
             @Override
-            public Matrix operate(Matrix left, Matrix right) {
+            public Matrix.AugmentedMatrix operate(Matrix left, Matrix right) {
                 if (left.getNumOfRows() == right.getNumOfRows()) {
                     ArrayList[][] newMatrix = new ArrayList[left.getNumOfRows()][left.getNumOfCols() + right.getNumOfCols()];
-
-                    return null;
+                    if (left instanceof Matrix.AugmentedMatrix) {
+                        Matrix[] matrices = new Matrix[((Matrix.AugmentedMatrix) left).getMatrices().length + 1];
+                        for (int k = 0; k < matrices.length - 1; k++) {
+                            matrices[k] = ((Matrix.AugmentedMatrix) left).getMatrices()[k];
+                        }
+                        matrices[matrices.length - 1] = right;
+                        Matrix.AugmentedMatrix finalMatrix = new Matrix.AugmentedMatrix(matrices);
+                        return finalMatrix;
+                    } else {
+                        Matrix[] matrices = {left, right};
+                        return new Matrix.AugmentedMatrix(matrices);
+                    }
                 } else {
                     throw new IllegalArgumentException("Inputs do not have the same number of rows");
                 }

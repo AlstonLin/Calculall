@@ -70,7 +70,7 @@ public class MatrixFunctionFactory {
 
         for (int i = 0; i < minor.length; i++) {
             for (int j = 0; j < minor[0].length; j++) {
-                if (i != row && j != column) {
+                if (i != row || j != column) {
                     minor[i][j] = input.getEntry(i + (i > row ? 1 : 0), j + (j > column ? 1 : 0));
                 }
             }
