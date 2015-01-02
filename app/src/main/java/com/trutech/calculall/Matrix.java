@@ -10,8 +10,8 @@ import java.util.Arrays;
 @SuppressWarnings("unused")
 public class Matrix extends Token {
 
+    protected ArrayList<Token>[][] entries;
     private int numOfCols, numOfRows;
-    private ArrayList<Token>[][] entries;
 
     protected Matrix(ArrayList<Token>[][] entries) {
         super(null);
@@ -78,10 +78,11 @@ public class Matrix extends Token {
         private int augmentation;
         private int[] augmentBars;
         private Matrix[] matrices;
+        //private ArrayList<Token>[][] entries;
         private int numOfCols, numOfRows;
 
         protected AugmentedMatrix(Matrix[] matrices) {
-            super(super(null));
+            super((double[][]) null);
             this.augmentation = matrices.length;
             for (int i = 0; i < this.augmentation; i++) {
                 if (i == 0) {
@@ -92,6 +93,18 @@ public class Matrix extends Token {
                 this.numOfCols += matrices[i].getNumOfCols();
             }
             this.numOfRows = matrices[0].getNumOfRows();
+            this.entries = new ArrayList[numOfRows][numOfCols];
+            for (int i = 0; i < this.numOfRows; i++) {
+                this.entries[i] = this.getRow(i);
+            }
+        }
+
+        public int getNumOfCols() {
+            return numOfCols;
+        }
+
+        public int getNumOfRows() {
+            return numOfRows;
         }
 
         public int getAugmentation() {

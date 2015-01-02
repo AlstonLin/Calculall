@@ -7,7 +7,7 @@ import static com.trutech.calculall.Matrix.AugmentedMatrix;
 
 /**
  * Contains the Row Reduction algorithm
- *
+ * <p/>
  * Created by Ejaaz on 24/12/2014.
  */
 public class RowReducer {
@@ -156,6 +156,16 @@ public class RowReducer {
             }
         }
 
+        for (int i = 0; i < temp.getNumOfRows(); i++) {
+            if (temp.getEntry(i, getFirstNonZero(temp.getRow(i))).get(0) instanceof Number
+                    && ((Number) temp.getEntry(i, getFirstNonZero(temp.getRow(i))).get(0)).getValue() != 1) {
+                double scalar = ((Number) temp.getEntry(i, getFirstNonZero(temp.getRow(i))).get(0)).getValue();
+                scaleRow(temp, i, scalar);
+                Double[] scaleStep = {3d, (double) i, scalar};
+                steps.add(scaleStep);
+            }
+        }
+
         double[][] minorSteps = getRREFSteps(minorMatrix(temp, temp.getNumOfRows() - 1, temp.getNumOfCols() - 1));
         for (int i = 0; i < minorSteps.length; i++) {
             tempStep = new Double[minorSteps[i].length];
@@ -189,7 +199,7 @@ public class RowReducer {
     }
 
     /**
-     * @param m The original Matrix
+     * @param m    The original Matrix
      * @param row1 The index of the first Row
      * @param row2 The index of the second Row
      * @return A Matrix which is similar to the given Matrix but with two Rows having been swapped
@@ -226,13 +236,24 @@ public class RowReducer {
 
     /**
      * Applies the given Row Operations(steps) to the given Matrix(m)
+     * Swap step: 1, Add step: 2, Scale step: 3
      *
      * @param m     The Matrix to apply the given Row Operations to
      * @param steps The Row Operations to be applied
      * @return A Matrix with the given steps applied to the original Matrix
      */
     public static Matrix applySteps(Matrix m, double[][] steps) {
-        return null;
+        if (steps.length == 0) {
+            return m;
+        } else if (steps[0][0] == 1) {
+            return applySteps(swapRows(m, (int) steps[0][1], (int) steps[0][2]), Arrays.copyOfRange(steps, 1, steps.length - 1));
+        } else if (steps[0][0] == 2) {
+            return applySteps(addRows(m, (int) steps[0][1], (int) steps[0][2], (int) steps[0][3]), Arrays.copyOfRange(steps, 1, steps.length - 1));
+        } else if (steps[0][0] == 3) {
+            return applySteps(scaleRow(m, (int) steps[0][1], steps[0][2]), Arrays.copyOfRange(steps, 1, steps.length - 1));
+        } else {
+            throw new IllegalArgumentException("Invalid steps");
+        }
     }
 
 
@@ -249,6 +270,68 @@ public class RowReducer {
         for (int k = 0; k < matrices.length; k++) {
             matrices[k] = applySteps(aug.getMatrices()[k], steps);
         }
-        return null;
+        return new AugmentedMatrix(matrices);
+    }
+
+
+    /**
+     * Finds the Inverse (if it exists) of a Matrix
+     *
+     * @param m A Matrix
+     * @return The Inverse of the given Matrix
+     */
+    public static Matrix findInverse(Matrix m) {
+        if (m.getNumOfRows() != m.getNumOfCols()) {
+            throw new IllegalArgumentException("Non-square matrices are not invertible");
+        } else if (((Number) (MatrixFunctionFactory.makeDeterminant().perform(m)).getEntry(0, 0).get(0)).getValue() != 0) {
+            AugmentedMatrix am = (AugmentedMatrix) MatrixOperatorFactory.makeAugment().operate(m, Utility.makeIdentity(m.getNumOfCols()));
+            am = rowReduce(am);
+            return am.getMatrices()[1];
+        } else {
+            throw new IllegalArgumentException("Matrix is not invertible");
+        }
+    }
+
+
+    /**
+     * Finds the rank of a Matrix
+     *
+     * @param m A Matrix
+     * @return The rank of the given Matrix
+     */
+    public static int findRank(Matrix m) {
+        Matrix rowEquiv = applySteps(m, getRREFSteps(m));
+        int rank = 0;
+        for (int i = 0; i < m.getNumOfRows(); i++) {
+            if (onlyZeroes(rowEquiv.getRow(i))) {
+                rank++;
+            }
+        }
+        return rank;
+    }
+
+    /*********************************************************
+     **************** TRIDIAGONALIZATION *********************
+     *********************************************************/
+
+
+    /**
+     * Produces a constant used to form the Householder matrix
+     *
+     * @param a A Matrix (must already be simplified)
+     * @param k an integer
+     * @return the alpha constant used to make a Householder matrix
+     */
+    private static double alpha(Matrix a, int k) {
+        double sum = 0;
+        for (int i = k; i < a.getNumOfRows(); i++) {
+            sum += Math.pow(((Number) a.getEntry(i, 1).get(0)).getValue(), 2);
+        }
+        return -1 * Math.signum(((Number) a.getEntry(k, 1).get(0)).getValue()) * Math.sqrt(sum);
+    }
+
+    private static double r(Matrix a, int k) {
+        double alpha = alpha(a, k);
+        return Math.sqrt(0.5 * alpha * (alpha - Math.pow(((Number) a.getEntry(k + 1, k).get(0)).getValue(), k)));
     }
 }

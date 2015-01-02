@@ -358,6 +358,20 @@ public class Utility {
     }
 
     /**
+     * Makes an Identity Matrix of the given size
+     *
+     * @param dim the number of rows/columns of the Identity Matrix
+     * @return The Identity Matrix of the specified size
+     */
+    public static Matrix makeIdentity(int dim) {
+        ArrayList<Token>[][] newMatrix = new ArrayList[dim][dim];
+        for (int i = 0; i < dim; i++) {
+            newMatrix[i][i].add(new Number(1));
+        }
+        return new Matrix(newMatrix);
+    }
+
+    /**
      * Simplifies and Rationalizes the given expression.
      *
      * @param expression The un-simplified expression

@@ -7,7 +7,7 @@ import java.util.ArrayList;
  */
 public class MatrixFunctionFactory {
 
-    public static MatrixFunction transpose() {
+    public static MatrixFunction makeTranspose() {
         return new MatrixFunction("transpose", MatrixFunction.TRANSPOSE) {
             @Override
             public Matrix perform(Matrix input) {
@@ -23,8 +23,8 @@ public class MatrixFunctionFactory {
         };
     }
 
-    //need a wrapper function to convert this into a double
-    public static MatrixFunction determinant() {
+    //TODO: make a wrapper function to convert this into a double
+    public static MatrixFunction makeDeterminant() {
         return new MatrixFunction("det", MatrixFunction.DET) {
             @Override
             public Matrix perform(Matrix input) {
@@ -65,6 +65,49 @@ public class MatrixFunctionFactory {
         };
     }
 
+    //TODO: make a wrapper function to convert output into a double (might be able to do this in the matrix mode class)
+    public static MatrixFunction makeTrace() {
+        return new MatrixFunction("tr", MatrixFunction.TRACE) {
+            @Override
+            public Matrix perform(Matrix input) {
+                if (input.getNumOfCols() == input.getNumOfRows()) {
+                    ArrayList<Token> trace = new ArrayList<>();
+                    for (int i = 0; i < input.getNumOfCols() - 1; i++) {
+                        trace.addAll(input.getEntry(i, i));
+                        trace.add(OperatorFactory.makeAdd());
+                    }
+                    trace.addAll(input.getEntry(input.getNumOfCols() - 1, input.getNumOfCols() - 1));
+                    ArrayList[][] temp = new ArrayList[1][1];
+                    temp[0][0] = trace;
+
+                    return new Matrix(temp);
+                } else {
+                    throw new IllegalArgumentException("Trace can only be applied to square matrices.");
+                }
+            }
+        };
+    }
+
+    public static MatrixFunction makeRank() {
+        return new MatrixFunction("rank", MatrixFunction.RANK) {
+            @Override
+            public Matrix perform(Matrix input) {
+                ArrayList<Token>[][] rank = new ArrayList[1][1];
+                rank[0][0].add(new Number(RowReducer.findRank(input)));
+                return new Matrix(rank);
+            }
+        };
+    }
+
+    public static MatrixFunction makeInverse() {
+        return new MatrixFunction("inv", MatrixFunction.INVERSE) {
+            @Override
+            public Matrix perform(Matrix input) {
+                return RowReducer.findInverse(input);
+            }
+        };
+    }
+
     private static Matrix minorMatrix(Matrix input, int row, int column) {
         ArrayList[][] minor = new ArrayList[input.getNumOfRows() - 1][input.getNumOfCols() - 1];
 
@@ -77,5 +120,6 @@ public class MatrixFunctionFactory {
         }
         return new Matrix(minor);
     }
+
 
 }
