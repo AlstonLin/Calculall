@@ -9,7 +9,11 @@ import android.view.Window;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
+import com.mopub.mobileads.MoPubErrorCode;
+import com.mopub.mobileads.MoPubInterstitial;
+
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -22,19 +26,20 @@ import java.util.ArrayList;
  *
  * @version 0.4.0
  */
-public class Basic extends Activity {
+public class Basic extends Activity implements MoPubInterstitial.InterstitialAdListener {
 
+    public static final int HISTORY_SIZE = 10;
+    public static final int AD_RATE = 2; //Ads will show 1 in 2 activity opens
     public static final int ROUND_TO = 9;
     private static final String FILENAME = "history_basic";
-    private static final String FILENAME = "history_basic";
-    public static final int HISTORY_SIZE = 10;
+    private static final String AD_ID = "3ae32e9f72e2402cb01bbbaf1d6ba1f4";
+
     protected ArrayList<Token> tokens = new ArrayList<Token>(); //Tokens shown on screen
     protected boolean changedTokens = false;
     protected DisplayView display;
     protected OutputView output;
-
-    //GridView mKeypadGrid;
-    //KeypadAdapter mKeypadAdapter;
+    private MoPubInterstitial interstitial;
+    private boolean adShown = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +51,39 @@ public class Basic extends Activity {
         display = (DisplayView) findViewById(R.id.display);
         display.setOutput(output);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!(interstitial != null && interstitial.isReady()) && !adShown) {
+            // Create the interstitial.
+            interstitial = new MoPubInterstitial(this, AD_ID);
+            interstitial.setInterstitialAdListener(this);
+            interstitial.load();
+            interstitial.load();
+        }
+        /*
+        final MMInterstitial interstitial = new MMInterstitial(this);
+        MMRequest request = new MMRequest();
+        interstitial.setApid("189152");
+        interstitial.setMMRequest(request);
+        interstitial.setListener(new RequestListener.RequestListenerImpl() {
+            @Override
+            public void requestCompleted(MMAd mmAd) {
+                interstitial.display();
+            }
+        });
+
+        interstitial.fetch();
+        */
+    }
+
+    @Override
+    protected void onPause() {
+        interstitial.destroy(); //Prevents Ads from other activities appearing if it is not loaded before switching between them
+        super.onPause();
+    }
+
 
     /**
      * Processes the expression and returns the result using the Shunting Yard Algorithm to convert
@@ -383,6 +421,7 @@ public class Basic extends Activity {
         objectStreamOut.flush();
         objectStreamOut.close();
         outStream.close();
+        adShown = false;
     }
 
     /**
@@ -393,9 +432,17 @@ public class Basic extends Activity {
     public void openHistory(View v) throws IOException, ClassNotFoundException {
         setContentView(R.layout.history_view);
         HistoryView hv = (HistoryView) findViewById(R.id.history);
-        FileInputStream stream = openFileInput(FILENAME);
-        ObjectInputStream objectStream = new ObjectInputStream(stream);
-        hv.setHistory((ArrayList<Object[]>) objectStream.readObject());
+        try {
+            FileInputStream stream = openFileInput(FILENAME);
+            ObjectInputStream objectStream = new ObjectInputStream(stream);
+            hv.setHistory((ArrayList<Object[]>) objectStream.readObject());
+        } catch (FileNotFoundException e) {
+            ArrayList<Object[]> history = new ArrayList<Object[]>();
+            Object[] message = new Object[2];
+            message[0] = new StringToken("No History to show");
+            message[1] = new StringToken("");
+            hv.setHistory(history);
+        }
     }
 
     /**
@@ -511,4 +558,31 @@ public class Basic extends Activity {
         }
     }
 
+    @Override
+    public void onInterstitialLoaded(MoPubInterstitial interstitial) {
+        adShown = true;
+        if (interstitial.isReady()) {
+            interstitial.show();
+        }
+    }
+
+    @Override
+    public void onInterstitialFailed(MoPubInterstitial interstitial, MoPubErrorCode errorCode) {
+
+    }
+
+    @Override
+    public void onInterstitialShown(MoPubInterstitial interstitial) {
+
+    }
+
+    @Override
+    public void onInterstitialClicked(MoPubInterstitial interstitial) {
+
+    }
+
+    @Override
+    public void onInterstitialDismissed(MoPubInterstitial interstitial) {
+
+    }
 }

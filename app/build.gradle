@@ -1,27 +1,31 @@
 apply plugin: 'com.android.application'
 android {
     compileSdkVersion 21
-    buildToolsVersion '21.1.1'
+    buildToolsVersion '21.1.2'
 
     dexOptions {
         javaMaxHeapSize "4G"
-        preDexLibraries = false
+        preDexLibraries = true
     }
 
     defaultConfig {
         applicationId "com.trutech.calculall"
         minSdkVersion 14
         targetSdkVersion 21
+        multiDexEnabled true
     }
     buildTypes {
         release {
-            runProguard false
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
 }
 
 dependencies {
-    compile files('libs/symja.jar')
+    compile 'com.android.support:multidex:1.0.0'
     compile files('libs/androidplot-core-0.6.1.jar')
+    compile project(':mopub-sdk')
+    compile 'com.google.android.gms:play-services:6.5.87'
+    compile files('libs/symja-2014-12-28.jar')
 }

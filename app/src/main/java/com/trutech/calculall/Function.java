@@ -12,7 +12,7 @@ public abstract class Function extends Token implements Serializable {
 
     public static final int SIN = 1, COS = 2, TAN = 3, SINH = 4, COSH = 5, TANH = 6, ARCSIN = 7, ARCCOS = 8, ARCTAN = 9,
             ARCSINH = 10, ARCCOSH = 11, ARCTANH = 12, FACTORIAL = 13, ABS = 14, FLOOR = 15, CEILING = 16, LOG10 = 17,
-            LN = 19, EXP = 20, SQUARE = 21, CUBE = 22, SQRT = 23, CBRT = 24, RECIP = 25;
+            LN = 19, EXP = 20, SQRT = 21, RECIP = 23, CSC = 24, SEC = 25, COT = 26, ERF = 27, APPELLF1 = 28, ERFI = 29, GAMMA = 30;
     private static final long serialVersionUID = 752647222;
     private int type;
 
@@ -42,27 +42,4 @@ public abstract class Function extends Token implements Serializable {
     public int getType() {
         return type;
     }
-
-//    public abstract class TwoVarFunc extends Token{
-//    	/**
-//         * Should not be used outside of a factory; to create a type of function,
-//         * see class FunctionFactory.
-//         *
-//         * @param image The image of the Token to be shown on the calculator screen
-//         */
-//		protected TwoVarFunc(Bitmap image) {
-//			super(image);
-//		}
-//    	
-//		
-//		/**
-//	     * Performs the function with the given inputs.
-//	     *
-//	     * @param input The input that is given for the function
-//	     * @param input2 The second input that is given for the function
-//	     * @return The output of the performed function
-//	     */
-//		public abstract double perform(double input, double input2);
-//    }
-//    
 }

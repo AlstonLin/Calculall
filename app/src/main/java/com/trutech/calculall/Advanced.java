@@ -29,6 +29,7 @@ public class Advanced extends Basic {
     private boolean hyperbolic = false;
     private boolean shift = false;
     private boolean mem = false;
+    private Token root;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,8 @@ public class Advanced extends Basic {
         //Programmaticly sets the texts that can't be defined with XML
         Button powButton = (Button) findViewById(R.id.powButton);
         Button expButton = (Button) findViewById(R.id.powerButton);
+        Button recipButton = (Button) findViewById(R.id.reciprocal);
+        recipButton.setText(Html.fromHtml(getString(R.string.recip)));
         powButton.setText(Html.fromHtml(getString(R.string.powOfTen)));
         expButton.setText(Html.fromHtml(getString(R.string.exponent)));
         output = (OutputView) findViewById(R.id.output);
@@ -608,9 +611,8 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickExp(View v) {
-        tokens.add(display.getRealCursorIndex(), FunctionFactory.makeExp());
-        display.setCursorIndex(display.getCursorIndex() + 1);
-        updateInput();
+        clickExponent(v);
+        clickE(v);
     }
 
     /**
@@ -633,8 +635,15 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickLn(View v) {
-        tokens.add(display.getRealCursorIndex(), FunctionFactory.makeLn());
-        display.setCursorIndex(display.getCursorIndex() + 1);
+        Token t = FunctionFactory.makeLn();
+        Bracket b = BracketFactory.makeOpenBracket();
+        if (t != null) {
+            t.addDependency(b);
+            b.addDependency(t);
+        }
+        tokens.add(display.getRealCursorIndex(), t);
+        tokens.add(display.getRealCursorIndex() + 1, b);
+        display.setCursorIndex(display.getCursorIndex() + 2);
         updateInput();
     }
 
@@ -644,8 +653,15 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickLog_10(View v) {
-        tokens.add(display.getRealCursorIndex(), FunctionFactory.makeLog_10());
-        display.setCursorIndex(display.getCursorIndex() + 1);
+        Token t = FunctionFactory.makeLog_10();
+        Bracket b = BracketFactory.makeOpenBracket();
+        if (t != null) {
+            t.addDependency(b);
+            b.addDependency(t);
+        }
+        tokens.add(display.getRealCursorIndex(), t);
+        tokens.add(display.getRealCursorIndex() + 1, b);
+        display.setCursorIndex(display.getCursorIndex() + 2);
         updateInput();
     }
 
@@ -685,15 +701,87 @@ public class Advanced extends Basic {
         Token root = OperatorFactory.makeVariableRoot();
         Token openBracket = BracketFactory.makeSuperscriptOpen();
         Token closeBracket = BracketFactory.makeSuperscriptClose();
+        Bracket b = BracketFactory.makeOpenBracket();
+
+        root.addDependency(b);
+        root.addDependency(openBracket);
+        root.addDependency(closeBracket);
+
+        if (display.getRealCursorIndex() != 0) {
+            //Whats on the numerator depends on the token before
+            Token tokenBefore = tokens.get(display.getRealCursorIndex() - 1);
+            if (tokenBefore instanceof Digit) {
+                LinkedList<Digit> digits = new LinkedList<Digit>();
+                int i = display.getRealCursorIndex() - 1;
+                while (i >= 0 && tokens.get(i) instanceof Digit) {
+                    Token t = tokens.get(i);
+                    digits.addFirst((Digit) t);
+                    tokens.remove(t);
+                    i--;
+                }
+                tokens.add(display.getRealCursorIndex() - digits.size(), openBracket);
+                tokens.addAll(display.getRealCursorIndex() - digits.size() + 1, digits);
+                tokens.add(display.getRealCursorIndex() + 1, closeBracket);
+                tokens.add(display.getRealCursorIndex() + 2, root);
+                tokens.add(display.getRealCursorIndex() + 3, b);
+
+                display.setCursorIndex(display.getCursorIndex() + 3);
+                return;
+            } else if (tokenBefore instanceof Bracket && ((Bracket) tokenBefore).getType() == Bracket.CLOSE) {
+                LinkedList<Token> expression = new LinkedList<Token>();
+                int i = display.getRealCursorIndex() - 2;
+                int bracketCount = 1;
+                expression.add(tokens.remove(display.getRealCursorIndex() - 1));
+                while (i >= 0 && bracketCount != 0) {
+                    Token t = tokens.remove(i);
+                    if (t instanceof Bracket) {
+                        Bracket bracket = (Bracket) t;
+                        if (bracket.getType() == Bracket.OPEN) {
+                            bracketCount--;
+                        } else if (bracket.getType() == Bracket.CLOSE) {
+                            bracketCount++;
+                        }
+                    }
+                    expression.addFirst(t);
+                    i--;
+                }
+                tokens.add(i + 1, openBracket);
+                tokens.addAll(i + 2, expression);
+
+                tokens.add(display.getRealCursorIndex() + 1, closeBracket);
+                tokens.add(display.getRealCursorIndex() + 2, root);
+                tokens.add(display.getRealCursorIndex() + 3, b);
+                display.setCursorIndex(display.getCursorIndex() + 3);
+                return;
+            }
+        }
 
         tokens.add(display.getRealCursorIndex(), openBracket);
         tokens.add(display.getRealCursorIndex() + 1, PlaceholderFactory.makeBlock());
         tokens.add(display.getRealCursorIndex() + 2, closeBracket);
         tokens.add(display.getRealCursorIndex() + 3, root);
+        tokens.add(display.getRealCursorIndex() + 4, b);
 
-        root.addDependency(openBracket);
-        root.addDependency(closeBracket);
+        display.setCursorIndex(display.getCursorIndex() + 4);
+        updateInput();
+    }
 
+    /**
+     * When the user presses the sqrt Button.
+     *
+     * @param v Not Used
+     */
+    @Override
+    public void clickSqrt(View v) {
+        Token t = FunctionFactory.makeSqrt();
+        Bracket b = BracketFactory.makeOpenBracket();
+        if (t != null) {
+            t.addDependency(b);
+            b.addDependency(t);
+        }
+        tokens.add(display.getRealCursorIndex(), t);
+        tokens.add(display.getRealCursorIndex() + 1, b);
+        display.setCursorIndex(display.getCursorIndex() + 2);
         updateInput();
     }
 
@@ -770,8 +858,22 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickCbrt(View v) {
-        tokens.add(display.getRealCursorIndex(), FunctionFactory.makeCbrt());
-        display.setCursorIndex(display.getCursorIndex() + 1);
+        root = OperatorFactory.makeVariableRoot();
+        Token openBracket = BracketFactory.makeSuperscriptOpen();
+        Token closeBracket = BracketFactory.makeSuperscriptClose();
+        Bracket b = BracketFactory.makeOpenBracket();
+
+        root.addDependency(b);
+        root.addDependency(openBracket);
+        root.addDependency(closeBracket);
+
+        tokens.add(display.getRealCursorIndex(), openBracket);
+        tokens.add(display.getRealCursorIndex() + 1, DigitFactory.makeThree());
+        tokens.add(display.getRealCursorIndex() + 2, closeBracket);
+        tokens.add(display.getRealCursorIndex() + 3, root);
+        tokens.add(display.getRealCursorIndex() + 4, b);
+
+        display.setCursorIndex(display.getCursorIndex() + 4);
         updateInput();
     }
 
@@ -884,27 +986,6 @@ public class Advanced extends Basic {
         updateInput();
     }
 
-    /**
-     * When the user presses the ceiling(x) Button.
-     *
-     * @param v Not Used
-     */
-    public void clickCeiling(View v) {
-        tokens.add(display.getRealCursorIndex(), FunctionFactory.makeCeiling());
-        display.setCursorIndex(display.getCursorIndex() + 1);
-        updateInput();
-    }
-
-    /**
-     * When the user presses the floor(x) Button.
-     *
-     * @param v Not Used
-     */
-    public void clickFloor(View v) {
-        tokens.add(display.getRealCursorIndex(), FunctionFactory.makeFloor());
-        display.setCursorIndex(display.getCursorIndex() + 1);
-        updateInput();
-    }
 
     /**
      * When the user presses the |x| or abs(x) Button.
@@ -947,6 +1028,7 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickFactorial(View v) {
+        //NOTE: BROKEN
         tokens.add(display.getRealCursorIndex(), OperatorFactory.makeFactorial());
         display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
@@ -960,7 +1042,6 @@ public class Advanced extends Basic {
     public void clickCombination(View v) {
         tokens.add(display.getRealCursorIndex(), OperatorFactory.makeCombination());
         display.setCursorIndex(display.getCursorIndex() + 1);
-
         updateInput();
     }
 
@@ -1033,7 +1114,10 @@ public class Advanced extends Basic {
             t = FunctionFactory.makeSinG();
         }
         Bracket b = BracketFactory.makeOpenBracket();
-        t.addDependency(b);
+        if (t != null) {
+            t.addDependency(b);
+            b.addDependency(t);
+        }
         tokens.add(display.getRealCursorIndex(), t);
         tokens.add(display.getRealCursorIndex() + 1, b);
         display.setCursorIndex(display.getCursorIndex() + 2);
@@ -1054,7 +1138,10 @@ public class Advanced extends Basic {
             t = FunctionFactory.makeASinG();
         }
         Bracket b = BracketFactory.makeOpenBracket();
-        t.addDependency(b);
+        if (t != null) {
+            t.addDependency(b);
+            b.addDependency(t);
+        }
         tokens.add(display.getRealCursorIndex(), t);
         tokens.add(display.getRealCursorIndex() + 1, b);
         display.setCursorIndex(display.getCursorIndex() + 2);
@@ -1095,7 +1182,10 @@ public class Advanced extends Basic {
             t = FunctionFactory.makeCosG();
         }
         Bracket b = BracketFactory.makeOpenBracket();
-        t.addDependency(b);
+        if (t != null) {
+            t.addDependency(b);
+            b.addDependency(t);
+        }
         tokens.add(display.getRealCursorIndex(), t);
         tokens.add(display.getRealCursorIndex() + 1, b);
         display.setCursorIndex(display.getCursorIndex() + 2);
@@ -1116,7 +1206,10 @@ public class Advanced extends Basic {
             t = FunctionFactory.makeACosG();
         }
         Bracket b = BracketFactory.makeOpenBracket();
-        t.addDependency(b);
+        if (t != null) {
+            t.addDependency(b);
+            b.addDependency(t);
+        }
         tokens.add(display.getRealCursorIndex(), t);
         tokens.add(display.getRealCursorIndex() + 1, b);
         display.setCursorIndex(display.getCursorIndex() + 2);
@@ -1157,7 +1250,10 @@ public class Advanced extends Basic {
             t = FunctionFactory.makeTanG();
         }
         Bracket b = BracketFactory.makeOpenBracket();
-        t.addDependency(b);
+        if (t != null) {
+            t.addDependency(b);
+            b.addDependency(t);
+        }
         tokens.add(display.getRealCursorIndex(), t);
         tokens.add(display.getRealCursorIndex() + 1, b);
         display.setCursorIndex(display.getCursorIndex() + 2);
@@ -1178,7 +1274,10 @@ public class Advanced extends Basic {
             t = FunctionFactory.makeATanG();
         }
         Bracket b = BracketFactory.makeOpenBracket();
-        t.addDependency(b);
+        if (t != null) {
+            t.addDependency(b);
+            b.addDependency(t);
+        }
         tokens.add(display.getRealCursorIndex(), t);
         tokens.add(display.getRealCursorIndex() + 1, b);
         display.setCursorIndex(display.getCursorIndex() + 2);
@@ -1190,10 +1289,15 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickSinh(View v) {
-        tokens.add(display.getRealCursorIndex(), FunctionFactory.makeSinh());
-        tokens.add(display.getRealCursorIndex() + 1, BracketFactory.makeOpenBracket());
+        Token t = FunctionFactory.makeSinh();
+        Bracket b = BracketFactory.makeOpenBracket();
+        if (t != null) {
+            t.addDependency(b);
+            b.addDependency(t);
+        }
+        tokens.add(display.getRealCursorIndex(), t);
+        tokens.add(display.getRealCursorIndex() + 1, b);
         display.setCursorIndex(display.getCursorIndex() + 2);
-        updateInput();
     }
 
     /**
@@ -1202,10 +1306,15 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickASinh(View v) {
-        tokens.add(display.getRealCursorIndex(), FunctionFactory.makeASinh());
-        tokens.add(display.getRealCursorIndex() + 1, BracketFactory.makeOpenBracket());
+        Token t = FunctionFactory.makeASinh();
+        Bracket b = BracketFactory.makeOpenBracket();
+        if (t != null) {
+            t.addDependency(b);
+            b.addDependency(t);
+        }
+        tokens.add(display.getRealCursorIndex(), t);
+        tokens.add(display.getRealCursorIndex() + 1, b);
         display.setCursorIndex(display.getCursorIndex() + 2);
-        updateInput();
     }
 
     /**
@@ -1214,10 +1323,15 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickCosh(View v) {
-        tokens.add(display.getRealCursorIndex(), FunctionFactory.makeCosh());
-        tokens.add(display.getRealCursorIndex() + 1, BracketFactory.makeOpenBracket());
+        Token t = FunctionFactory.makeCosh();
+        Bracket b = BracketFactory.makeOpenBracket();
+        if (t != null) {
+            t.addDependency(b);
+            b.addDependency(t);
+        }
+        tokens.add(display.getRealCursorIndex(), t);
+        tokens.add(display.getRealCursorIndex() + 1, b);
         display.setCursorIndex(display.getCursorIndex() + 2);
-        updateInput();
     }
 
     /**
@@ -1226,10 +1340,15 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickACosh(View v) {
-        tokens.add(display.getRealCursorIndex(), FunctionFactory.makeACosh());
-        tokens.add(display.getRealCursorIndex() + 1, BracketFactory.makeOpenBracket());
+        Token t = FunctionFactory.makeACosh();
+        Bracket b = BracketFactory.makeOpenBracket();
+        if (t != null) {
+            t.addDependency(b);
+            b.addDependency(t);
+        }
+        tokens.add(display.getRealCursorIndex(), t);
+        tokens.add(display.getRealCursorIndex() + 1, b);
         display.setCursorIndex(display.getCursorIndex() + 2);
-        updateInput();
     }
 
     /**
@@ -1238,10 +1357,15 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickTanh(View v) {
-        tokens.add(display.getRealCursorIndex(), FunctionFactory.makeTanh());
-        tokens.add(display.getRealCursorIndex() + 1, BracketFactory.makeOpenBracket());
+        Token t = FunctionFactory.makeTanh();
+        Bracket b = BracketFactory.makeOpenBracket();
+        if (t != null) {
+            t.addDependency(b);
+            b.addDependency(t);
+        }
+        tokens.add(display.getRealCursorIndex(), t);
+        tokens.add(display.getRealCursorIndex() + 1, b);
         display.setCursorIndex(display.getCursorIndex() + 2);
-        updateInput();
     }
 
     /**
@@ -1250,9 +1374,14 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickATanh(View v) {
-        tokens.add(display.getRealCursorIndex(), FunctionFactory.makeATanh());
-        tokens.add(display.getRealCursorIndex() + 1, BracketFactory.makeOpenBracket());
+        Token t = FunctionFactory.makeATanh();
+        Bracket b = BracketFactory.makeOpenBracket();
+        if (t != null) {
+            t.addDependency(b);
+            b.addDependency(t);
+        }
+        tokens.add(display.getRealCursorIndex(), t);
+        tokens.add(display.getRealCursorIndex() + 1, b);
         display.setCursorIndex(display.getCursorIndex() + 2);
-        updateInput();
     }
 }

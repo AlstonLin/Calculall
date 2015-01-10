@@ -20,6 +20,7 @@ import java.util.HashMap;
  */
 public class GraphView extends View {
 
+    private static final int NUM_OF_POINTS = 300;
     private ArrayList<Token> function;
     private Activity activity;
     private RectF exitRect; //The rectangle of tne exit button
@@ -108,23 +109,22 @@ public class GraphView extends View {
      */
     private void drawGraph(Canvas canvas) {
         HashMap<Float, Float> points = new HashMap<Float, Float>();
-        int numOfPoints = 300;
         //Calculates important values that will adjust how the graph would look
         float xRange = upperX - lowerX;
         float xMultiplier = width / xRange;
         float yMultiplier = (float) (height / (upperY - lowerY));
 
         //Plots the 100 points across the screen
-        for (int i = 0; i < numOfPoints; i++) {
-            float x = lowerX + i * (xRange / numOfPoints);
+        for (int i = 0; i < NUM_OF_POINTS; i++) {
+            float x = lowerX + i * (xRange / NUM_OF_POINTS);
             float y = (float) Utility.valueAt(function, x);
             points.put(x, y);
         }
 
         //Now draws a line in between each point
-        for (int i = 0; i < numOfPoints; i++) {
-            float startX = lowerX + i * (xRange / numOfPoints);
-            float endX = lowerX + (i + 1) * (xRange / numOfPoints);
+        for (int i = 0; i < NUM_OF_POINTS; i++) {
+            float startX = lowerX + i * (xRange / NUM_OF_POINTS);
+            float endX = lowerX + (i + 1) * (xRange / NUM_OF_POINTS);
             Float startY = points.get(startX);
             Float endY = points.get(endX);
             if (startY != null && endY != null) { //If both the start and end points exists
@@ -202,6 +202,7 @@ public class GraphView extends View {
     private void exit() {
         activity.setContentView(R.layout.activity_function);
         ((FunctionMode) activity).updateInput();
+        ((FunctionMode) activity).setupButtons();
     }
 
 

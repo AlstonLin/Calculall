@@ -1,5 +1,7 @@
 package com.trutech.calculall;
 
+import org.apache.commons.math3.special.Erf;
+
 /**
  * Contains static methods that will create function pieces.
  *
@@ -31,6 +33,70 @@ public class FunctionFactory {
         }
     }
 
+    //Secondary trig functions (perform() should never be called for these)
+    public static Function makeCsc() {
+        return new Function("csc", Function.CSC) {
+            @Override
+            public double perform(double input) {
+                throw new UnsupportedOperationException();
+            }
+        };
+    }
+
+    public static Function makeSec() {
+        return new Function("sec", Function.SEC) {
+            @Override
+            public double perform(double input) {
+                throw new UnsupportedOperationException();
+            }
+        };
+    }
+
+    public static Function makeCot() {
+        return new Function("cot", Function.COT) {
+            @Override
+            public double perform(double input) {
+                throw new UnsupportedOperationException();
+            }
+        };
+    }
+
+    //Special functions
+    public static Function makeErf() {
+        return new Function("erf", Function.ERF) {
+            @Override
+            public double perform(double input) {
+                return Erf.erf(input);
+            }
+        };
+    }
+
+    public static Function makeErfi() { //Do not call perform()
+        return new Function("erfi", Function.ERFI) {
+            @Override
+            public double perform(double input) {
+                throw new UnsupportedOperationException();
+            }
+        };
+    }
+
+    public static Function makeGamma() {
+        return new Function("Γ", Function.GAMMA) {
+            @Override
+            public double perform(double input) {
+                throw new UnsupportedOperationException();
+            }
+        };
+    }
+
+    public static Function makeAppellF1() { //Do not call perform()
+        return new Function("AppellF1", Function.APPELLF1) {
+            @Override
+            public double perform(double input) {
+                throw new UnsupportedOperationException();
+            }
+        };
+    }
     ////////////////////////////////////////////////////
     ////////////////////SIN and ARCSIN//////////////////
     ////////////////////////////////////////////////////
@@ -300,7 +366,7 @@ public class FunctionFactory {
     }
 
     public static Function makeATanh() {
-        return new Function("artanh", Function.ARCTANH) {
+        return new Function("arctanh", Function.ARCTANH) {
             @Override
             public double perform(double input) {
                 if (Math.abs(input) < 1) {
@@ -400,15 +466,6 @@ public class FunctionFactory {
                 } else {
                     return Math.sqrt(input);
                 }
-            }
-        };
-    }
-
-    public static Function makeCbrt() {
-        return new Function("³√", Function.CBRT) {
-            @Override
-            public double perform(double input) {
-                return Math.cbrt(input);
             }
         };
     }

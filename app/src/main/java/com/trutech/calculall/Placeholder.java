@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 public class Placeholder extends Token implements Serializable {
 
-    public static final int BLOCK = 0;
+    public static final int BLOCK = 0, COMMA = 1;
     private int type;
 
     /**

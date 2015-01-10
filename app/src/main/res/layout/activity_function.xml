@@ -317,30 +317,39 @@
             android:layout_weight="3"
             android:baselineAligned="true"
             android:orientation="horizontal"
-            android:weightSum="5">
+            android:weightSum="6">
 
             <Button
                 android:id="@+id/rootsButton"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-
                 android:layout_weight="1"
                 android:onClick="clickRoots"
                 android:text="@string/findRoots"
-                android:textSize="24sp" />
+                android:textSize="16sp" />
 
             <Button
-                android:id="@+id/simplify"
+                android:id="@+id/factor"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="-7dp"
                 android:layout_weight="1"
                 android:clickable="true"
-                android:onClick="clickSimplify"
-                android:text="@string/simplify"
-                android:textSize="18sp" />
+                android:onClick="clickFactor"
+                android:text="@string/factor"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/expand"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:onClick="clickExpand"
+                android:text="@string/expand"
+                android:textSize="15sp" />
 
             <Button
                 android:id="@+id/derivativeButton"
@@ -351,7 +360,7 @@
                 android:layout_weight="1"
                 android:onClick="clickDerivative"
                 android:text="@string/derivative"
-                android:textSize="24sp" />
+                android:textSize="18sp" />
 
             <Button
                 android:id="@+id/integralButton"
@@ -373,7 +382,7 @@
                 android:layout_weight="1"
                 android:onClick="clickGraph"
                 android:text="@string/graph"
-                android:textSize="24sp" />
+                android:textSize="18sp" />
         </LinearLayout>
 
         <LinearLayout

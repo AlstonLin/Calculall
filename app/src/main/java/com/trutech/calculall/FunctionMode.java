@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import org.matheclipse.core.eval.exception.WrongNumberOfArguments;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -24,58 +26,92 @@ public class FunctionMode extends Advanced {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_function);
-        //Programmatically sets the texts that can't be defined with XML
-        Button powButton = (Button) findViewById(R.id.powButton);
-        Button expButton = (Button) findViewById(R.id.powerButton);
-        powButton.setText(Html.fromHtml(getString(R.string.powOfTen)));
-        expButton.setText(Html.fromHtml(getString(R.string.exponent)));
+        setupButtons();
         updateInput();
         output = (OutputView) findViewById(R.id.output);
         display = (DisplayView) findViewById(R.id.display);
         display.setOutput(output);
     }
 
+    /**
+     * Programmatically sets the texts that can't be defined with XML.
+     */
+    public void setupButtons() {
+        Button powButton = (Button) findViewById(R.id.powButton);
+        Button expButton = (Button) findViewById(R.id.powerButton);
+        Button recipButton = (Button) findViewById(R.id.reciprocal);
+        recipButton.setText(Html.fromHtml(getString(R.string.recip)));
+        powButton.setText(Html.fromHtml(getString(R.string.powOfTen)));
+        expButton.setText(Html.fromHtml(getString(R.string.exponent)));
+    }
+
     public void clickRoots(View view) {
+        if (tokens.size() == 0) { //No tokens
+            Toast.makeText(this, "There is no expression. You would need to enter an expression first, then press the roots button.", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         ArrayList<Token> tokens = Utility.condenseDigits(this.tokens);
         tokens = Utility.setupExpression(tokens);
-        double[] roots = ApacheUtility.findRoots(tokens);
-        String toOutput = "";
-            //Outputs the result
-            int counter = 0;
-        while (counter < roots.length) {
-            double root = roots[counter];
-                if (counter != 0) {
-                    toOutput += " OR ";
+        try {
+            ArrayList roots = MathUtilities.findRoots(tokens);
+            if (roots == null) {
+                showMalformedExpressionToast();
+            } else {
+                String toOutput = "";
+                //Outputs the result
+                int counter = 0;
+                while (counter < roots.size()) {
+                    float root = (Float) roots.get(counter);
+                    if (counter != 0) {
+                        toOutput += " OR ";
+                    }
+                    toOutput += "X = " + Utility.round(root, ROUND_TO);
+                    counter++;
                 }
-            toOutput += "X = " + Utility.round(root, ROUND_TO);
-                counter++;
+                if (counter == 0) { //No roots
+                    toOutput += "No real roots";
+                }
+                display.displayOutput(toOutput);
+                scrollDown();
             }
-            if (counter == 0) { //No roots
-                toOutput += "No real roots";
-            }
-        display.displayOutput(toOutput);
-        scrollDown();
+        } catch (UnsupportedOperationException e) {
+            Toast.makeText(this, "Sorry, we're unable to find the root(s) of this function. Root finding for this function may not be supported yet.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void clickDerivative(View view) {
-        ArrayList<Token> derivative = CalculusUtilities.differentiate(tokens);
+        if (tokens.size() == 0) { //No tokens
+            Toast.makeText(this, "There is no expression. You would need to enter an expression first, then press the differentiate button.", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        ArrayList<Token> derivative = MathUtilities.differentiate(tokens);
         if (derivative == null) {
-            Toast.makeText(this, "Invalid Expression", Toast.LENGTH_SHORT).show();
+            showMalformedExpressionToast();
         } else {
             display.displayOutput(derivative);
         }
     }
 
     public void clickIntegrate(View view) {
+        if (tokens.size() == 0) { //No tokens
+            Toast.makeText(this, "There is no expression. You would need to enter an expression first, then press the integrate button.", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         try {
-            ArrayList<Token> integral = CalculusUtilities.integrate(tokens);
+            ArrayList<Token> integral = MathUtilities.integrate(tokens);
             if (integral == null) {
-                Toast.makeText(this, "Invalid Expression", Toast.LENGTH_SHORT).show();
+                showMalformedExpressionToast();
             } else {
                 display.displayOutput(integral);
             }
         } catch (UnsupportedOperationException e) {
-            Toast.makeText(this, "The integral cannot be expressed as an elementary function", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Cannot find the integral. Either the integral cannot be expressed as an elementary function, " +
+                    "or the algorithm needed for this integration is not yet supported.", Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            Toast.makeText(this, "Something weird happened in our system, and we can't find the integral. We'll try to fix this as soon as we can. Sorry! :(", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -84,18 +120,51 @@ public class FunctionMode extends Advanced {
      *
      * @param v Not Used
      */
-    public void clickSimplify(View v) {
-        ArrayList<Token> outputTokens = JFok.convertToStandardForm(tokens);
-        String toOutput = "";
-        for (Token t : outputTokens) {
-            if (t instanceof Number) {
-                toOutput += ((Number) t).getValue();
-            } else {
-                toOutput += t.getSymbol();
-            }
+    public void clickExpand(View v) {
+        if (tokens.size() == 0) { //No tokens
+            Toast.makeText(this, "There is no expression. You would need to enter an expression first, then press the expand button.", Toast.LENGTH_LONG).show();
+            return;
         }
-        display.displayOutput(toOutput);
-        updateInput();
+
+        try {
+            ArrayList<Token> output = MathUtilities.expand(tokens);
+            if (output == null) {
+                showMalformedExpressionToast();
+            } else {
+                display.displayOutput(output);
+            }
+        } catch (WrongNumberOfArguments e) {
+            showMalformedExpressionToast();
+        }
+    }
+
+    /**
+     * When the user presses the simplify button
+     *
+     * @param v Not Used
+     */
+    public void clickFactor(View v) {
+        if (tokens.size() == 0) { //No tokens
+            Toast.makeText(this, "There is no expression. You would need to enter an expression first, then press the factor button.", Toast.LENGTH_LONG).show();
+            return;
+        }
+        try {
+            ArrayList<Token> output = MathUtilities.factor(tokens);
+            if (output == null) {
+                showMalformedExpressionToast();
+            } else {
+                display.displayOutput(output);
+            }
+        } catch (WrongNumberOfArguments e) {
+            showMalformedExpressionToast();
+        }
+    }
+
+    /**
+     * Makes the toast that shows a message saying "Malformed Expression".
+     */
+    private void showMalformedExpressionToast() {
+        Toast.makeText(this, "Malformed Expression", Toast.LENGTH_SHORT).show();
     }
 
     /**

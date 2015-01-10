@@ -41,7 +41,7 @@
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:fadingEdge="vertical"
-                    android:scrollbars="vertical"></view>
+                    android:scrollbars="vertical" />
 
                 <HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
                     android:id="@+id/outputScroll"
@@ -56,7 +56,7 @@
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
                         android:fadingEdge="vertical"
-                        android:scrollbars="vertical"></view>
+                        android:scrollbars="vertical" />
                 </HorizontalScrollView>
 
                 <requestFocus />
@@ -108,7 +108,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:onClick="openHistory"
+                android:onClick="clickSqrt"
                 android:text="@string/sqrt"
                 android:textSize="36sp" />
 

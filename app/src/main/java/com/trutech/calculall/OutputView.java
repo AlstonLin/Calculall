@@ -20,19 +20,15 @@ public class OutputView extends View {
 
     //CONSTANTS
     private final float TEXT_HEIGHT;
-    private final float SMALL_HEIGHT;
-    private final float Y_PADDING_BETWEEN_LINES;
-    private final float CURSOR_PADDING;
-    private final float fracPadding;
+    private final float SUPERSCRIPT_Y_OFFSET;
     private final int FONT_SIZE = 96;
     private final float X_PADDING; //The padding at the start and end of the display (x)
-
+    private final float FRAC_PADDING;
     private float maxX = 0; //Max start X that the user can scroll to
     private float maxY = 0;
     private ArrayList<Float> drawX = new ArrayList<Float>(); //Stores the width of each counted symbol
     private ArrayList<Float> heights = new ArrayList<Float>();
     private Paint textPaint;
-    private Paint smallPaint; //For superscripts and subscripts
     private Paint fracPaint;
     private ArrayList<Token> expression = new ArrayList<Token>();
 
@@ -44,32 +40,11 @@ public class OutputView extends View {
         Rect textRect = new Rect();
         Rect smallRect = new Rect();
         textPaint.getTextBounds("1", 0, 1, textRect);
-        smallPaint.getTextBounds("1", 0, 1, smallRect);
         TEXT_HEIGHT = textRect.height() * 1.25f;
-        SMALL_HEIGHT = smallRect.height();
 
         X_PADDING = TEXT_HEIGHT / 3;
-        Y_PADDING_BETWEEN_LINES = TEXT_HEIGHT;
-        CURSOR_PADDING = TEXT_HEIGHT / 10;
-        fracPadding = TEXT_HEIGHT / 8;
-    }
-
-    public OutputView(Context context) {
-        super(context);
-        init();
-        //Sets constant values
-        //Calculates the height of the texts
-        Rect textRect = new Rect();
-        Rect smallRect = new Rect();
-        textPaint.getTextBounds("1", 0, 1, textRect);
-        smallPaint.getTextBounds("1", 0, 1, smallRect);
-        TEXT_HEIGHT = textRect.height() * 1.25f;
-        SMALL_HEIGHT = smallRect.height();
-
-        X_PADDING = TEXT_HEIGHT / 3;
-        Y_PADDING_BETWEEN_LINES = TEXT_HEIGHT;
-        CURSOR_PADDING = TEXT_HEIGHT / 10;
-        fracPadding = TEXT_HEIGHT / 8;
+        SUPERSCRIPT_Y_OFFSET = TEXT_HEIGHT / 2;
+        FRAC_PADDING = TEXT_HEIGHT / 8;
     }
 
     /**
@@ -80,10 +55,6 @@ public class OutputView extends View {
         textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         textPaint.setColor(Color.parseColor("#F64B55"));
         textPaint.setTextSize(FONT_SIZE);
-
-        smallPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        smallPaint.setColor(Color.parseColor("#F64B55"));
-        smallPaint.setTextSize(FONT_SIZE / 2);
 
         fracPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         fracPaint.setColor(Color.parseColor("#F64B55"));
@@ -115,102 +86,160 @@ public class OutputView extends View {
         super.onDraw(canvas);
         heights.clear();
 
-        //TODO: Use canvas.drawLine() to make fractions, and implement a algorithm to do this
-        final float yFracModifier = Y_PADDING_BETWEEN_LINES * (1 + -getMostNegHeightChange(expression));
-        final float yScriptModifier = SMALL_HEIGHT * getMaxScriptLevel() / 3;
-
         calculateDrawX();
+        centerFractions();
+
         if (drawX.size() > 1) {
             maxX = drawX.get(drawX.size() - 1);
         }
 
         //Counter and state variables
-        int scriptLevel = 0; //superscript = 1, any additional levels would +1
-        int scriptBracketCount = 0; //Counts the brackets for any exponents
-        float heightMultiplier = 0; //Determines at what height the text would be drawn at
-
+        final float INITIAL_MODIFIER = -getMostNeg(expression) + TEXT_HEIGHT;
+        float yModifier = INITIAL_MODIFIER;
+        //float scriptHeightMultiplier = 0; //Height on the superscript level
         for (int i = 0; i < expression.size(); i++) {
             Token token = expression.get(i);
             Paint paint = textPaint;
 
-            //SPECIAL CASE BRACKETS
-            if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.SUPERSCRIPT_OPEN) {
-                scriptLevel++;
-                scriptBracketCount++;
-            } else if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.NUM_OPEN) {
-                heightMultiplier -= 1 / 2d;
+            if (token instanceof Bracket) {
+                switch (((Bracket) token).getType()) {
+                    case Bracket.SUPERSCRIPT_OPEN: {
+                        //Extract the exponent expression
+                        ArrayList<Token> exponent = new ArrayList<Token>();
+                        int j = i + 1;
+                        int scriptCount = 1;
+                        while (scriptCount != 0) {
+                            Token t = expression.get(j);
+                            if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.SUPERSCRIPT_OPEN) {
+                                scriptCount++;
+                            } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.SUPERSCRIPT_CLOSE) {
+                                scriptCount--;
+                            }
+                            exponent.add(t);
+                            j++;
+                        }
+                        exponent.remove(exponent.size() - 1); //Removes the SUPERSCRIPT_CLOSE Bracket
+                        yModifier -= SUPERSCRIPT_Y_OFFSET + (getMaxFracSize(exponent) == 1 ? 0 : getHeight(exponent, false) / 2);
+                        break;
+                    }
+                    case Bracket.SUPERSCRIPT_CLOSE: {
+                        //Finds the corresponding SUPERSCRIPT_OPEN Bracket
+                        int bracketCount = 1;
+                        int j = i - 1;
+                        while (bracketCount > 0) {
+                            Token t = expression.get(j);
+                            if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.SUPERSCRIPT_OPEN) {
+                                bracketCount--;
+                            } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.SUPERSCRIPT_CLOSE) {
+                                bracketCount++;
+                            }
+                            j--;
+                        }
+
+                        //Changes height to the height of the Token before the SUPERSCRIPT_OPEN
+                        if (j >= 0) {
+                            yModifier = heights.get(j);
+                        } else { //Very first token; cannot check token before it
+                            yModifier = INITIAL_MODIFIER;
+                        }
+                        break;
+                    }
+                    case Bracket.NUM_OPEN: {
+                        int j = i + 1;
+                        ArrayList<Token> num = new ArrayList<Token>();
+                        int bracketCount = 1;
+                        while (bracketCount != 0) {
+                            Token t = expression.get(j);
+                            if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.NUM_OPEN) {
+                                bracketCount++;
+                            } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.NUM_CLOSE) {
+                                bracketCount--;
+                            }
+                            num.add(t);
+
+                            j++;
+                        }
+                        num.remove(num.size() - 1); //Removes the NUM_CLOSE Bracket
+
+                        //Generates an expression containing the fraction
+                        ArrayList<Token> fraction = new ArrayList<Token>();
+                        fraction.add(BracketFactory.makeNumOpen());
+                        fraction.addAll(num);
+                        fraction.add(expression.get(j - 1)); //NUM_CLOSE Bracket
+                        fraction.add(expression.get(j)); //FRACTION Operator
+                        fraction.add(BracketFactory.makeDenomOpen());
+                        fraction.addAll(getDenominator(expression, j)); //Adds the entire denom
+                        fraction.add(BracketFactory.makeDenomClose());
+
+                        if (getMaxFracSize(num) == 1) {
+                            yModifier += -getHeight(fraction, true) / 2 + getHeight(num, true);
+                        } else {
+                            yModifier += -getHeight(fraction, true) / 2 + getHeight(num, true) / 2;
+                        }
+                        break;
+                    }
+                    case Bracket.DENOM_OPEN: {
+                        ArrayList<Token> denom = getDenominator(expression, i - 1);
+                        if (getMaxFracSize(denom) == 1) {
+                            yModifier += getHeight(denom, true);
+                        } else {
+                            yModifier += getHeight(denom, true) / 2;
+                        }
+                        break;
+                    }
+                    case Bracket.DENOM_CLOSE: {
+                        int bracketCount = 1;
+                        int j = i - 1;
+                        while (bracketCount > 0) {
+                            Token t = expression.get(j);
+                            if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.DENOM_OPEN) {
+                                bracketCount--;
+                            } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.DENOM_CLOSE) {
+                                bracketCount++;
+                            }
+                            j--;
+                        }
+
+                        //Now j is at the index of the fraction. Looking for the height of the NUM_OPEN bracket
+                        bracketCount = 1;
+                        j -= 2;
+                        while (bracketCount > 0) {
+                            Token t = expression.get(j);
+                            if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.NUM_OPEN) {
+                                bracketCount--;
+                            } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.NUM_CLOSE) {
+                                bracketCount++;
+                            }
+                            j--;
+                        }
+
+                        //Changes height to the height of the Token before the NUM_OPEN
+                        if (j >= 0) {
+                            yModifier = heights.get(j);
+                        } else { //Very first token; cannot check token before it
+                            yModifier = INITIAL_MODIFIER;
+                        }
+                        break;
+                    }
+                }
             } else if (token instanceof Operator && ((Operator) token).getType() == Operator.FRACTION) {
 
                 //Finds the max height in the numerator
                 ArrayList<Token> numerator = getNumerator(expression, i);
-                float maxHeightMultiplier = Float.NEGATIVE_INFINITY;
+                float maxHeight = Float.NEGATIVE_INFINITY;
                 for (Token t : numerator) {
                     float height = heights.get(expression.indexOf(t));
-                    if (height > maxHeightMultiplier) {
-                        maxHeightMultiplier = height;
+                    if (height > maxHeight) {
+                        maxHeight = height;
                     }
                 }
-
-                heightMultiplier = maxHeightMultiplier;
-            } else if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.DENOM_OPEN) {
-                ArrayList<Token> denom = getDenominator(expression, i - 1);
-                float negChange = getMostNegHeightChange(denom) - 1;
-                heightMultiplier -= negChange;
-            } else if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.DENOM_CLOSE) {
-
-                //Finds the denom
-                ArrayList<Token> denom = new ArrayList<Token>();
-                int bracketCount = 1;
-                int j = i - 1;
-                while (bracketCount > 0) {
-                    Token t = expression.get(j);
-                    if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.DENOM_OPEN) {
-                        bracketCount--;
-                    } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.DENOM_CLOSE) {
-                        bracketCount++;
-                    }
-                    j--;
-                }
-
-                //Now j is at the index of the fraction. Looking for the height of the NUM_OPEN bracket
-                bracketCount = 1;
-                j -= 2;
-                while (bracketCount > 0) {
-                    Token t = expression.get(j);
-                    if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.NUM_OPEN) {
-                        bracketCount--;
-                    } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.NUM_CLOSE) {
-                        bracketCount++;
-                    }
-                    j--;
-                }
-
-                //Changes height to the height of the NUM_OPEN bracket + 0.5
-                heightMultiplier = heights.get(j + 1) + 0.5f;
-            } else if (scriptLevel > 0) { //Counts brackets if its writing in superscript
-                if (token instanceof Bracket) {
-                    Bracket b = (Bracket) token;
-                    if (b.getType() == Bracket.SUPERSCRIPT_OPEN) {
-                        scriptBracketCount++;
-                    } else if (b.getType() == Bracket.SUPERSCRIPT_CLOSE) {
-                        scriptBracketCount--;
-                        if (scriptBracketCount == scriptLevel - 1) { //No longer superscript
-                            scriptLevel--;
-                        }
-                    }
-                }
+                yModifier = maxHeight;
             }
 
             //Calculates the x and y position of the draw position (modified later)
             float x = drawX.get(i);
-            float y = Y_PADDING_BETWEEN_LINES * heightMultiplier + yFracModifier + yScriptModifier;
-            heights.add(i, heightMultiplier);
-
-            //Changes paint for superscript
-            if (scriptLevel > 0) {
-                paint = smallPaint;
-                y += (2 - scriptLevel) * paint.getTextSize() / 4 - TEXT_HEIGHT / 2;
-            }
+            float y = yModifier;
+            heights.add(i, yModifier);
 
             //Draws the text
             canvas.drawText(token.getSymbol(), x, y, paint);
@@ -234,77 +263,224 @@ public class OutputView extends View {
                     }
                     j++;
                 }
-                canvas.drawLine(x, y + fracPadding, drawX.get(j), y + fracPadding, fracPaint);
+                canvas.drawLine(x, y + FRAC_PADDING, drawX.get(j), y + FRAC_PADDING, fracPaint);
             }
         }
     }
 
     /**
-     * Finds the maximum change in height (starting at zero) of the expression. NOTE:
-     * ACTUALLY MOST NEGATIVE CHANGE
+     * Determines what would be the most negative pixel drawn, assuming the expression that drawing at zero.
      *
-     * @param expression The expression
-     * @return The max delta in height
+     * @param expression The expression to draw
+     * @return The most negative y coordinate drawn on
      */
-    private float getMostNegHeightChange(ArrayList<Token> expression) {
-        ArrayList<Float> heights = new ArrayList<Float>();
-        float mostNegChange = 0;
-        float heightMultiplier = 0;
+    private float getMostNeg(ArrayList<Token> expression) {
+        float mostNeg = Float.POSITIVE_INFINITY;
+        float yModifier = 0;
         for (int i = 0; i < expression.size(); i++) {
             Token token = expression.get(i);
-            if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.NUM_OPEN) {
-                heightMultiplier -= 1 / 2d;
+            if (token instanceof Bracket) {
+                switch (((Bracket) token).getType()) {
+                    case Bracket.SUPERSCRIPT_OPEN: {
+                        //Extract the exponent expression
+                        ArrayList<Token> exponent = new ArrayList<Token>();
+                        int j = i + 1;
+                        int scriptCount = 1;
+                        while (scriptCount != 0) {
+                            Token t = expression.get(j);
+                            if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.SUPERSCRIPT_OPEN) {
+                                scriptCount++;
+                            } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.SUPERSCRIPT_CLOSE) {
+                                scriptCount--;
+                            }
+                            exponent.add(t);
+                            j++;
+                        }
+                        exponent.remove(exponent.size() - 1); //Removes the SUPERSCRIPT_CLOSE Bracket
+                        yModifier -= SUPERSCRIPT_Y_OFFSET + (getMaxFracSize(exponent) == 1 ? 0 : getHeight(exponent, false) / 2);
+                        break;
+                    }
+                    case Bracket.SUPERSCRIPT_CLOSE: {
+                        yModifier += SUPERSCRIPT_Y_OFFSET;
+                        break;
+                    }
+                    case Bracket.NUM_OPEN: {
+                        int j = i + 1;
+                        ArrayList<Token> num = new ArrayList<Token>();
+                        int bracketCount = 1;
+                        while (bracketCount != 0) {
+                            Token t = expression.get(j);
+                            if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.NUM_OPEN) {
+                                bracketCount++;
+                            } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.NUM_CLOSE) {
+                                bracketCount--;
+                            }
+                            num.add(t);
+
+                            j++;
+                        }
+                        num.remove(num.size() - 1); //Removes the NUM_CLOSE Bracket
+
+                        //Generates an expression containing the fraction
+                        ArrayList<Token> fraction = new ArrayList<Token>();
+                        fraction.add(BracketFactory.makeNumOpen());
+                        fraction.addAll(num);
+                        fraction.add(expression.get(j - 1)); //NUM_CLOSE Bracket
+                        fraction.add(expression.get(j)); //FRACTION Operator
+                        fraction.add(BracketFactory.makeDenomOpen());
+                        fraction.addAll(getDenominator(expression, j)); //Adds the entire denom
+                        fraction.add(BracketFactory.makeDenomClose());
+
+                        if (getMaxFracSize(num) == 1) {
+                            yModifier += -getHeight(fraction, true) / 2 + getHeight(num, true);
+                        } else {
+                            yModifier += -getHeight(fraction, true) / 2 + getHeight(num, true) / 2;
+                        }
+                        break;
+                    }
+                    case Bracket.DENOM_OPEN: {
+                        ArrayList<Token> denom = getDenominator(expression, i - 1);
+                        if (getMaxFracSize(denom) == 1) {
+                            yModifier += getHeight(denom, true);
+                        } else {
+                            yModifier += getHeight(denom, true) / 2;
+                        }
+                        break;
+                    }
+                    case Bracket.DENOM_CLOSE: {
+                        int bracketCount = 1;
+                        int j = i - 1;
+                        while (bracketCount > 0) {
+                            Token t = expression.get(j);
+                            if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.DENOM_OPEN) {
+                                bracketCount--;
+                            } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.DENOM_CLOSE) {
+                                bracketCount++;
+                            }
+                            j--;
+                        }
+
+                        //Now j is at the index of the fraction. Looking for the height of the NUM_OPEN bracket
+                        bracketCount = 1;
+                        j -= 2;
+                        while (bracketCount > 0) {
+                            Token t = expression.get(j);
+                            if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.NUM_OPEN) {
+                                bracketCount--;
+                            } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.NUM_CLOSE) {
+                                bracketCount++;
+                            }
+                            j--;
+                        }
+
+                        //Changes height to the height of the Token before the NUM_OPEN
+                        if (j >= 0) {
+                            yModifier = heights.get(j);
+                        } else { //Very first token; cannot check token before it
+                            yModifier = 0;
+                        }
+                        break;
+                    }
+                }
             } else if (token instanceof Operator && ((Operator) token).getType() == Operator.FRACTION) {
+
                 //Finds the max height in the numerator
                 ArrayList<Token> numerator = getNumerator(expression, i);
-                float maxHeightMultiplier = Float.NEGATIVE_INFINITY;
+                float maxHeight = Float.NEGATIVE_INFINITY;
                 for (Token t : numerator) {
                     float height = heights.get(expression.indexOf(t));
-                    if (height > maxHeightMultiplier) {
-                        maxHeightMultiplier = height;
+                    if (height > maxHeight) {
+                        maxHeight = height;
                     }
                 }
-                heightMultiplier = maxHeightMultiplier;
-            } else if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.DENOM_OPEN) {
-                //Finds the denom
-                ArrayList<Token> denom = getDenominator(expression, i - 1);
-                float negChange = getMostNegHeightChange(denom) - 1;
-                heightMultiplier -= negChange;
-            } else if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.DENOM_CLOSE) {
-                //Finds the denom
-                int bracketCount = 1;
-                int j = i - 1;
-                while (bracketCount > 0) {
-                    Token t = expression.get(j);
-                    if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.DENOM_OPEN) {
-                        bracketCount--;
-                    } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.DENOM_CLOSE) {
-                        bracketCount++;
-                    }
-                    j--;
-                }
-                //Now j is at the index of the fraction. Looking for the height of the NUM_OPEN bracket
-                bracketCount = 1;
-                j -= 2;
-                while (bracketCount > 0) {
-                    Token t = expression.get(j);
-                    if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.NUM_OPEN) {
-                        bracketCount--;
-                    } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.NUM_CLOSE) {
-                        bracketCount++;
-                    }
-                    j--;
-                }
-                //Changes height to the height of the NUM_OPEN bracket + 0.5
-                heightMultiplier = heights.get(j + 1) + 0.5f;
+                yModifier = maxHeight;
             }
-            if (heightMultiplier < mostNegChange) {
-                mostNegChange = heightMultiplier;
+
+            //Sets the most neg if it is lower than current
+            if (yModifier < mostNeg) {
+                mostNeg = yModifier;
             }
-            heights.add(heightMultiplier);
+            heights.add(yModifier);
         }
-        return mostNegChange;
+        heights.clear();
+        return mostNeg;
     }
+
+    /**
+     * Determines the height, in pixels, of the expression
+     *
+     * @param expression        The expression
+     * @param countEndExponents If exponents at the end of the expression should count
+     * @return The height of the given expression, in pixels
+     */
+    private float getHeight(ArrayList<Token> expression, boolean countEndExponents) {
+        float maxHeight = TEXT_HEIGHT;
+        float temp = 0;
+        for (int i = 0; i < expression.size(); i++) {
+            Token t = expression.get(i);
+            //Handles parts of fractions seperately
+            if (t instanceof Bracket) {
+                switch (((Bracket) t).getType()) {
+                    case Bracket.NUM_CLOSE:
+                        ArrayList<Token> numerator = getNumerator(expression, i + 1);
+                        temp += getHeight(numerator, true);
+                        break;
+                    case Bracket.DENOM_OPEN:
+                        ArrayList<Token> denom = getDenominator(expression, i - 1);
+                        temp += getHeight(denom, true);
+                        if (temp > maxHeight) {
+                            maxHeight = temp;
+                        }
+                        temp = 0;
+                        break;
+                }
+            } else if (t instanceof Operator && ((Operator) t).getType() == Operator.EXPONENT) {
+                ArrayList<Token> exponent = new ArrayList<Token>();
+                int j = i + 2;
+                int scriptCount = 1;
+                while (scriptCount != 0) {
+                    if (j >= expression.size()) {
+                        j = 1;
+                    }
+                    Token token = expression.get(j);
+                    if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.SUPERSCRIPT_OPEN) {
+                        scriptCount++;
+                    } else if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.SUPERSCRIPT_CLOSE) {
+                        scriptCount--;
+                    }
+                    exponent.add(token);
+                    j++;
+                }
+                exponent.remove(exponent.size() - 1); //Removes the SUPERSCRIPT_CLOSE Bracket
+                if (!countEndExponents) {
+                    //Takes out all cases where there is a ^(E) and the end
+                    while (exponent.size() > 1 && exponent.get(exponent.size() - 1) instanceof Bracket && ((Bracket) exponent.get(exponent.size() - 1)).getType() == Bracket.SUPERSCRIPT_CLOSE) {
+                        int k = exponent.size() - 2;
+                        exponent.remove(k + 1);
+                        int bracketCount = 1;
+                        while (bracketCount != 0) { //Keeps removing until the end exponents begins
+                            Token token = exponent.get(k);
+                            if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.SUPERSCRIPT_OPEN) {
+                                bracketCount--;
+                            } else if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.SUPERSCRIPT_CLOSE) {
+                                bracketCount++;
+                            }
+                            exponent.remove(k);
+                            k--;
+                        }
+                        exponent.remove(k); //Removes the exponent
+                    }
+                }
+                temp = (countEndExponents ? SUPERSCRIPT_Y_OFFSET : 0) + getHeight(exponent, countEndExponents);
+                if (temp > maxHeight) {
+                    maxHeight = temp;
+                }
+                temp = 0;
+            }
+        }
+        return maxHeight;
+    }
+
 
     /**
      * Finds the max number of continued fractions (height) in a given expression
@@ -312,28 +488,47 @@ public class OutputView extends View {
      * @param expression The expression to find the height
      * @return The maximum height of a fraction in the given expression
      */
-    private int getMaxFracHeight(ArrayList<Token> expression) {
+    private int getMaxFracSize(ArrayList<Token> expression) {
         int maxFracHeight = 1;
         int numBracketCount = 0;
         int denomBracketCount = 0;
+        boolean inExponent = false;
+        int expBracketCount = 0;
         for (int i = 0; i < expression.size(); i++) {
             Token t = expression.get(i);
-            if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.NUM_OPEN) {
-                numBracketCount++;
-            } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.NUM_CLOSE) {
-                numBracketCount--;
-            } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.DENOM_OPEN) {
-                denomBracketCount++;
-            } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.DENOM_CLOSE) {
-                denomBracketCount--;
+            if (t instanceof Bracket) {
+                switch (((Bracket) t).getType()) {
+                    case Bracket.SUPERSCRIPT_OPEN:
+                        expBracketCount++;
+                        inExponent = true;
+                        break;
+                    case Bracket.SUPERSCRIPT_CLOSE:
+                        expBracketCount--;
+                        if (expBracketCount == 0) {
+                            inExponent = false;
+                        }
+                        break;
+                    case Bracket.NUM_OPEN:
+                        numBracketCount++;
+                        break;
+                    case Bracket.NUM_CLOSE:
+                        numBracketCount--;
+                        break;
+                    case Bracket.DENOM_OPEN:
+                        denomBracketCount++;
+                        break;
+                    case Bracket.DENOM_CLOSE:
+                        denomBracketCount--;
+                        break;
+                }
             }
 
-            if (numBracketCount == 0 && denomBracketCount == 0) { //Cannot be in a numerator or denom
+            if (numBracketCount == 0 && denomBracketCount == 0 && !inExponent) { //Cannot be in a numerator or denom or an exponent
                 if (t instanceof Operator && ((Operator) t).getType() == Operator.FRACTION) {
                     ArrayList<Token> num = getNumerator(expression, i);
                     ArrayList<Token> denom = getDenominator(expression, i);
                     //And adds the height of both + 1
-                    int height = getMaxFracHeight(num) + getMaxFracHeight(denom);
+                    int height = getMaxFracSize(num) + getMaxFracSize(denom);
                     if (height > maxFracHeight) {
                         maxFracHeight = height;
                     }
@@ -359,10 +554,6 @@ public class OutputView extends View {
         int bracketCount = 1;
         int j = i - 2;
         while (bracketCount > 0) {
-            if (j < 0) {
-                String s = printExpression(expression);
-                s = "";
-            }
             Token token = expression.get(j);
             if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.NUM_OPEN) {
                 bracketCount--;
@@ -376,28 +567,6 @@ public class OutputView extends View {
         return num;
     }
 
-    private String printExpression(ArrayList<Token> e) {
-        String s = "";
-        for (Token t : e) {
-            s += t.getSymbol();
-            if (t instanceof Bracket) {
-                Bracket b = (Bracket) t;
-                if (b.getType() == Bracket.NUM_OPEN) {
-                    s += "[";
-                } else if (b.getType() == Bracket.NUM_CLOSE) {
-                    s += "]";
-                } else if (b.getType() == Bracket.DENOM_OPEN) {
-                    s += "{";
-                } else if (b.getType() == Bracket.DENOM_CLOSE) {
-                    s += "}";
-                }
-            } else if (t instanceof Operator && ((Operator) t).getType() == Operator.FRACTION) {
-                s += "F";
-            }
-
-        }
-        return s;
-    }
 
     /**
      * Gets the denominator of a specified fraction in the given expression.
@@ -415,10 +584,6 @@ public class OutputView extends View {
         int bracketCount = 1;
         int j = i + 2;
         while (bracketCount > 0) {
-            if (j >= expression.size()) {
-                String s = printExpression(expression);
-                s = "";
-            }
             Token token = expression.get(j);
             if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.DENOM_OPEN) {
                 bracketCount++;
@@ -430,6 +595,50 @@ public class OutputView extends View {
         }
         denom.remove(denom.size() - 1); //Takes out the close bracket
         return denom;
+    }
+
+    /**
+     * Centers the fractions through modification of the drawX list.
+     */
+    private void centerFractions() {
+        for (int i = 0; i < expression.size(); i++) {
+            Token t = expression.get(i);
+            if (t instanceof Operator && ((Operator) t).getType() == Operator.FRACTION) {
+                ArrayList<Token> numerator = getNumerator(expression, i);
+                ArrayList<Token> denom = getDenominator(expression, i);
+                float numWidth = getWidth(i - numerator.size() - 1, i - 1);
+                float denomWidth = getWidth(i + 1, denom.size() + i + 1);
+                if (numWidth > denomWidth) {
+                    float adjust = (numWidth - denomWidth) / 2;
+                    for (int j = i + 1; j <= denom.size() + i + 2; j++) {
+                        drawX.add(j, drawX.remove(j) + adjust);
+                    }
+                } else if (numWidth < denomWidth) {
+                    float adjust = (denomWidth - numWidth) / 2;
+                    for (int j = i - numerator.size() - 2; j < i; j++) {
+                        drawX.add(j, drawX.remove(j) + adjust);
+                    }
+                } else { //Equals
+                    //Nothing happens
+                }
+            }
+        }
+    }
+
+    /**
+     * Determines the width of a given expression from the drawX list.
+     *
+     * @param start The start index on the drawX
+     * @param end   The end index on the drawX
+     * @return The width of the expression
+     */
+    private float getWidth(int start, int end) {
+        //Counts to the END for the expression (last pixel drawn)
+        String symb = expression.get(end).getSymbol();
+        float[] widths = new float[symb.length()];
+        textPaint.getTextWidths(symb, widths);
+
+        return drawX.get(end) + sum(widths) - drawX.get(start);
     }
 
 
@@ -491,13 +700,7 @@ public class OutputView extends View {
                     }
                 }
             }
-
-            //Changes paint for superscript
-            if (scriptLevel > 0) {
-                paint = smallPaint;
-            } else {
-                paint = textPaint;
-            }
+            paint = textPaint;
             //Determines the width of the symbol in text
             float[] widths = new float[token.getSymbol().length()];
             paint.getTextWidths(token.getSymbol(), widths);
@@ -511,9 +714,9 @@ public class OutputView extends View {
      * Calculates the maximum height of the expression
      */
     private void calculateMaxY() {
-        final float maxHeight = getMaxFracHeight(expression) - 1;
-        final float yMaxFrac = Y_PADDING_BETWEEN_LINES * (maxHeight + 2);
-        final float yMaxScript = SMALL_HEIGHT * getMaxScriptLevel() / 3;
+        final float maxHeight = getMaxFracSize(expression) - 1;
+        final float yMaxFrac = TEXT_HEIGHT * (maxHeight + 2);
+        final float yMaxScript = TEXT_HEIGHT * getMaxScriptLevel() / 3;
         maxY = yMaxFrac + yMaxScript;
     }
 
@@ -582,8 +785,12 @@ public class OutputView extends View {
             maxX = drawX.get(drawX.size() - 1);
         }
 
-        int width = (int) maxX;
-        int height = expression.size() == 0 ? 0 : (int) (maxY);
+        Canvas canvas = new Canvas();
+        this.draw(canvas); //Lazy way to calculate maxX and maxY
+
+        int width = (int) (maxX + TEXT_HEIGHT);
+        ;
+        int height = expression.size() == 0 ? (int) TEXT_HEIGHT : (int) (maxY + TEXT_HEIGHT);
         this.setMeasuredDimension(width, height);
     }
 
