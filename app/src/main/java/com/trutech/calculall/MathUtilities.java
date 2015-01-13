@@ -38,7 +38,6 @@ public class MathUtilities {
      *
      * @param function The function to differentiate
      * @return The differentiated function
-     * @throws java.lang.ClassNotFoundException The integral cannot be stated as an elementary function
      */
     public static ArrayList<Token> integrate(ArrayList<Token> function) throws UnsupportedOperationException {
         String expr = Utility.printExpression(Utility.setupExpression(function));
@@ -299,7 +298,7 @@ public class MathUtilities {
         }
         //Handles digits if it is the last token
         if (processingDigits && Character.isDigit(str.charAt(str.length() - 1))) {
-            tokens.add(new Number(Integer.parseInt(temp)));
+            tokens.add(new Number(Double.parseDouble(temp)));
         }
         return tokens;
     }
@@ -374,26 +373,26 @@ public class MathUtilities {
      * Finds the roots of the expression.
      *
      * @param expression The expression to find the roots of
-     * @return The roots of the expression
+     * @return The roots of the expression in a List of expressions
      */
-    public static ArrayList<Float> findRoots(ArrayList<Token> expression) {
+    public static ArrayList<ArrayList<Token>> findRoots(ArrayList<Token> expression) {
         String solveStr = "Solve(" + Utility.printExpression(Utility.setupExpression(expression)) + "==0,x)";
         try {
             //Uses the library to get the result as a String
             IExpr roots = util.evaluate(solveStr);
             String rootsStr = roots.toString();
-
+            rootsStr = rootsStr.replace("\n", "");
             if (rootsStr.contains("Solve")) {
                 throw new UnsupportedOperationException("Cannot find the root");
             }
             //Converts the String into a List of Floats
             String temp = "";
-            ArrayList<Float> rootsList = new ArrayList<>();
+            ArrayList<ArrayList<Token>> rootsList = new ArrayList<>();
             for (int i = 5; i < rootsStr.length() - 2; i++) { //Deos not count the beginning and end {{x-> and }}
                 char c = rootsStr.charAt(i);
                 if (c == '}') { //Solutions seperated by {},
                     if (!temp.contains("I")) { //REAL NUMBERS ONLY
-                        rootsList.add(Float.parseFloat(temp));
+                        rootsList.add(convertStringToTokens(temp));
                     }
                     i += 5; //Skips the },{x->
                     temp = "";
@@ -403,11 +402,14 @@ public class MathUtilities {
             }
             //Real numbers only
             if (!temp.contains("I")) {
-                rootsList.add(Float.parseFloat(temp)); //For the last root
+                rootsList.add(convertStringToTokens(temp)); //For the last root
             }
             //Validates the roots (makes sure that it is actually a root)
-            for (Float root : rootsList) {
-                if (Utility.valueAt(expression, root) != 0) {
+            for (int i = 0; i < rootsList.size(); i++) {
+                ArrayList<Token> root = rootsList.get(i);
+                float value = (float)Utility.valueAt(expression, Utility.evaluateExpression(Utility.convertToReversePolish(Utility.setupExpression(root))));
+                final float ERROR_MARGIN = 1e-6f;
+                if (!(value > -ERROR_MARGIN &&  value < ERROR_MARGIN)) {
                     rootsList.remove(root);
                 }
             }
@@ -415,7 +417,7 @@ public class MathUtilities {
         } catch (SyntaxError e) { //Malformed Expression
             return null;
         } catch (WrongArgumentType e) {
-            return new ArrayList<Float>(); //Expression was in the form of E/E; No real roots
+            return new ArrayList<>(); //Expression was in the form of E/E; No real roots
         }
     }
 }

@@ -1,6 +1,8 @@
 package com.trutech.calculall;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
+import java.util.Locale;
 
 /**
  * This is the class for the main activity (entry-point to the app). It will simply configure
@@ -10,6 +12,7 @@ import java.io.Serializable;
  */
 public class Number extends Token implements Serializable {
 
+    public static int roundTo = 9;
     private static final long serialVersionUID = 752647223;
     private double value;
 
@@ -31,10 +34,8 @@ public class Number extends Token implements Serializable {
 
     public String getSymbol() {
         //Removes trailing zeroes
-        String s = Double.toString(value);
-        s = s.indexOf(".") < 0 ? s : (s.indexOf("E") > 0 ? s.substring(0, s.indexOf("E")).replaceAll("0*$", "")
-                .replaceAll("\\.$", "").concat(s.substring(s.indexOf("E"))) : s.replaceAll("0*$", "")
-                .replaceAll("\\.$", ""));
-        return s;
+        DecimalFormat formatter = (DecimalFormat) DecimalFormat.getInstance(Locale.CANADA);
+        formatter.setMaximumFractionDigits(roundTo);
+        return formatter.format(value);
     }
 }

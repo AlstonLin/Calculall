@@ -1,5 +1,8 @@
 package com.trutech.calculall;
 
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
@@ -11,6 +14,13 @@ import org.matheclipse.core.eval.exception.WrongNumberOfArguments;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.Executor;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Ability to define functions and perform various actions with them, such as finding
@@ -18,9 +28,30 @@ import java.util.Iterator;
  *
  * @version 0.4.0
  */
-@SuppressWarnings("ResourceType")
 public class FunctionMode extends Advanced {
-    public static final int ROUND_TO = 9;
+
+
+    //Some Threading stuff
+    private static final int CPU_COUNT = Runtime.getRuntime().availableProcessors();
+    private static final int CORE_POOL_SIZE = CPU_COUNT + 1;
+    private static final int MAXIMUM_POOL_SIZE = CPU_COUNT * 2 + 1;
+    private static final int KEEP_ALIVE = 1;
+    private static final int STACK_SIZE = 1000000; //1MB STACK SIZE
+
+    private static final ThreadFactory threadFactory = new ThreadFactory() {
+        private final AtomicInteger count = new AtomicInteger(1);
+
+        public Thread newThread(Runnable r) {
+            ThreadGroup group = new ThreadGroup("threadGroup");
+            return new Thread(group, r, "Calculus Thread", STACK_SIZE);
+        }
+    };
+
+    private static final BlockingQueue<Runnable> sPoolWorkQueue = new LinkedBlockingQueue<Runnable>(128);
+    public static final Executor EXECUTOR = new ThreadPoolExecutor(CORE_POOL_SIZE, MAXIMUM_POOL_SIZE, KEEP_ALIVE, TimeUnit.SECONDS, sPoolWorkQueue, threadFactory);
+    //Actual variables used
+    private ProgressDialog pd;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +59,15 @@ public class FunctionMode extends Advanced {
         setContentView(R.layout.activity_function);
         setupButtons();
         updateInput();
+        //IO Setup
         output = (OutputView) findViewById(R.id.output);
         display = (DisplayView) findViewById(R.id.display);
         display.setOutput(output);
+        //Loading dialog
+        pd = new ProgressDialog(this);
+        pd.setTitle("Calculating...");
+        pd.setMessage("This may take a while. ");
+        pd.setCancelable(false);
     }
 
     /**
@@ -46,6 +83,62 @@ public class FunctionMode extends Advanced {
     }
 
     public void clickRoots(View view) {
+        final Context context = this;
+        AsyncTask<ArrayList<Token>, Void, ArrayList<ArrayList<Token>>> task = new AsyncTask<ArrayList<Token>, Void, ArrayList<ArrayList<Token>>> () {
+
+            private Exception error;
+
+            @Override
+            protected void onPreExecute() {
+                pd.show();
+                super.onPreExecute();
+            }
+
+            @Override
+            protected ArrayList<ArrayList<Token>> doInBackground(ArrayList<Token>... params) {
+                try {
+                    return MathUtilities.findRoots(params[0]);
+                }catch (Exception e) {
+                    error = e;
+                    return null;
+                }
+            }
+
+            @Override
+            protected void onPostExecute(ArrayList<ArrayList<Token>> roots) {
+                pd.dismiss();
+
+                if (roots == null) {
+                    if (error == null) {
+                        showMalformedExpressionToast();
+                    } else if (error instanceof UnsupportedOperationException) {
+                        Toast.makeText(context, "Sorry, we're unable to find the root(s) of this function. Root finding for this function may not be supported yet.", Toast.LENGTH_SHORT).show();
+                    } else{
+                        Toast.makeText(context, "Something weird happened in our system, and we can't find the derivative. We'll try to fix this as soon as we can. Sorry! :(", Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    ArrayList<Token> toOutput = new ArrayList<>();
+                    int counter = 0;
+                    toOutput.add(new StringToken("X = "));
+                    while (counter < roots.size()) {
+                        ArrayList<Token> root = roots.get(counter);
+                        if (counter != 0) {
+                            toOutput.add(new StringToken(" OR "));
+                        }
+                        toOutput.addAll(root);
+                        counter++;
+                    }
+                    if (counter == 0) { //No roots
+                        toOutput.add(new StringToken("No Real Roots"));
+                    }
+                    display.displayOutput(toOutput);
+                    scrollDown();
+
+                    super.onPostExecute(roots);
+                }
+            }
+        };
+
         if (tokens.size() == 0) { //No tokens
             Toast.makeText(this, "There is no expression. You would need to enter an expression first, then press the roots button.", Toast.LENGTH_LONG).show();
             return;
@@ -53,66 +146,84 @@ public class FunctionMode extends Advanced {
 
         ArrayList<Token> tokens = Utility.condenseDigits(this.tokens);
         tokens = Utility.setupExpression(tokens);
-        try {
-            ArrayList roots = MathUtilities.findRoots(tokens);
-            if (roots == null) {
-                showMalformedExpressionToast();
-            } else {
-                String toOutput = "";
-                //Outputs the result
-                int counter = 0;
-                while (counter < roots.size()) {
-                    float root = (Float) roots.get(counter);
-                    if (counter != 0) {
-                        toOutput += " OR ";
-                    }
-                    toOutput += "X = " + Utility.round(root, ROUND_TO);
-                    counter++;
-                }
-                if (counter == 0) { //No roots
-                    toOutput += "No real roots";
-                }
-                display.displayOutput(toOutput);
-                scrollDown();
-            }
-        } catch (UnsupportedOperationException e) {
-            Toast.makeText(this, "Sorry, we're unable to find the root(s) of this function. Root finding for this function may not be supported yet.", Toast.LENGTH_SHORT).show();
-        }
+        task.execute(tokens);
     }
 
     public void clickDerivative(View view) {
+        final Context context = this;
+
+        Command<ArrayList<Token>, ArrayList<Token>> task = new Command<ArrayList<Token>, ArrayList<Token>>() {
+            @Override
+            public ArrayList<Token> execute(ArrayList<Token> tokens) {
+                return MathUtilities.differentiate(tokens);
+            }
+        };
+
+        Command<Void, Exception> errorHandler = new Command<Void, Exception>() {
+            @Override
+            public Void execute(Exception error) {
+                if (error == null) {
+                    showMalformedExpressionToast();
+                } else {
+                    Toast.makeText(context, "Something weird happened in our system, and we can't find the derivative. We'll try to fix this as soon as we can. Sorry! :(", Toast.LENGTH_LONG).show();
+                }
+                return null;
+            }
+        };
+
         if (tokens.size() == 0) { //No tokens
             Toast.makeText(this, "There is no expression. You would need to enter an expression first, then press the differentiate button.", Toast.LENGTH_LONG).show();
             return;
         }
 
-        ArrayList<Token> derivative = MathUtilities.differentiate(tokens);
-        if (derivative == null) {
-            showMalformedExpressionToast();
-        } else {
-            display.displayOutput(derivative);
-        }
+        //Sets up the params
+        ArrayList<Token>[] params = new ArrayList[1];
+        params[0] = tokens;
+        //Passes the rest onto the Thread
+        MathThread thread = new MathThread(task, errorHandler);
+        thread.executeOnExecutor(EXECUTOR, params);
+
     }
 
     public void clickIntegrate(View view) {
+        final Context context = this;
+
+        Command<ArrayList<Token>, ArrayList<Token>> task = new Command<ArrayList<Token>, ArrayList<Token>>() {
+            @Override
+            public ArrayList<Token> execute(ArrayList<Token> tokens) {
+                return MathUtilities.integrate(tokens);
+            }
+        };
+
+        Command<Void, Exception> errorHandler = new Command<Void, Exception>() {
+            @Override
+            public Void execute(Exception error) {
+                if (error == null) {
+                    showMalformedExpressionToast();
+                } else {
+                    if (error instanceof UnsupportedOperationException) {
+                        Toast.makeText(context, "Cannot find the integral. Either the integral cannot be expressed as an elementary function, " +
+                                "or the algorithm needed for this integration is not yet supported.", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(context, "Something weird happened in our system, and we can't find the integral. We'll try to fix this as soon as we can. Sorry! :(", Toast.LENGTH_LONG).show();
+                    }
+                }
+                return null;
+            }
+        };
+
+
         if (tokens.size() == 0) { //No tokens
             Toast.makeText(this, "There is no expression. You would need to enter an expression first, then press the integrate button.", Toast.LENGTH_LONG).show();
             return;
         }
 
-        try {
-            ArrayList<Token> integral = MathUtilities.integrate(tokens);
-            if (integral == null) {
-                showMalformedExpressionToast();
-            } else {
-                display.displayOutput(integral);
-            }
-        } catch (UnsupportedOperationException e) {
-            Toast.makeText(this, "Cannot find the integral. Either the integral cannot be expressed as an elementary function, " +
-                    "or the algorithm needed for this integration is not yet supported.", Toast.LENGTH_LONG).show();
-        } catch (Exception e) {
-            Toast.makeText(this, "Something weird happened in our system, and we can't find the integral. We'll try to fix this as soon as we can. Sorry! :(", Toast.LENGTH_LONG).show();
-        }
+        //Sets up the params
+        ArrayList<Token>[] params = new ArrayList[1];
+        params[0] = tokens;
+        //Passes the rest onto the Thread
+        MathThread thread = new MathThread(task, errorHandler);
+        thread.executeOnExecutor(EXECUTOR, params);
     }
 
     /**
@@ -121,21 +232,41 @@ public class FunctionMode extends Advanced {
      * @param v Not Used
      */
     public void clickExpand(View v) {
+        final Context context = this;
+
+        Command<ArrayList<Token>, ArrayList<Token>> task = new Command<ArrayList<Token>, ArrayList<Token>>() {
+            @Override
+            public ArrayList<Token> execute(ArrayList<Token> tokens) {
+                return MathUtilities.expand(tokens);
+            }
+        };
+
+        Command<Void, Exception> errorHandler = new Command<Void, Exception>() {
+            @Override
+            public Void execute(Exception error) {
+                if (error == null) {
+                    showMalformedExpressionToast();
+                } else if (error instanceof WrongNumberOfArguments){
+                    showMalformedExpressionToast();
+                } else {
+                    Toast.makeText(context, "Something weird happened in our system, and we can't find the integral. We'll try to fix this as soon as we can. Sorry! :(", Toast.LENGTH_LONG).show();
+                }
+                return null;
+            }
+        };
+
+
         if (tokens.size() == 0) { //No tokens
             Toast.makeText(this, "There is no expression. You would need to enter an expression first, then press the expand button.", Toast.LENGTH_LONG).show();
             return;
         }
 
-        try {
-            ArrayList<Token> output = MathUtilities.expand(tokens);
-            if (output == null) {
-                showMalformedExpressionToast();
-            } else {
-                display.displayOutput(output);
-            }
-        } catch (WrongNumberOfArguments e) {
-            showMalformedExpressionToast();
-        }
+        //Sets up the params
+        ArrayList<Token>[] params = new ArrayList[1];
+        params[0] = tokens;
+        //Passes the rest onto the Thread
+        MathThread thread = new MathThread(task, errorHandler);
+        thread.executeOnExecutor(EXECUTOR, params);
     }
 
     /**
@@ -144,20 +275,40 @@ public class FunctionMode extends Advanced {
      * @param v Not Used
      */
     public void clickFactor(View v) {
+        final Context context = this;
+
+        Command<ArrayList<Token>, ArrayList<Token>> task = new Command<ArrayList<Token>, ArrayList<Token>>() {
+            @Override
+            public ArrayList<Token> execute(ArrayList<Token> tokens) {
+                return MathUtilities.factor(tokens);
+            }
+        };
+
+        Command<Void, Exception> errorHandler = new Command<Void, Exception>() {
+            @Override
+            public Void execute(Exception error) {
+                if (error == null) {
+                    showMalformedExpressionToast();
+                } else if (error instanceof  WrongNumberOfArguments){
+                    showMalformedExpressionToast();
+                } else{
+                    Toast.makeText(context, "Something weird happened in our system, and we can't find the integral. We'll try to fix this as soon as we can. Sorry! :(", Toast.LENGTH_LONG).show();
+                }
+                return null;
+            }
+        };
+
         if (tokens.size() == 0) { //No tokens
             Toast.makeText(this, "There is no expression. You would need to enter an expression first, then press the factor button.", Toast.LENGTH_LONG).show();
             return;
         }
-        try {
-            ArrayList<Token> output = MathUtilities.factor(tokens);
-            if (output == null) {
-                showMalformedExpressionToast();
-            } else {
-                display.displayOutput(output);
-            }
-        } catch (WrongNumberOfArguments e) {
-            showMalformedExpressionToast();
-        }
+
+        //Sets up the params
+        ArrayList<Token>[] params = new ArrayList[1];
+        params[0] = tokens;
+        //Passes the rest onto the Thread
+        MathThread thread = new MathThread(task, errorHandler);
+        thread.executeOnExecutor(EXECUTOR, params);
     }
 
     /**
@@ -269,4 +420,51 @@ public class FunctionMode extends Advanced {
         return map;
     }
 
+    /**
+     * A generalization of the Thread that all the heavy worload calculus functions will use.
+     */
+    private class MathThread extends AsyncTask<ArrayList<Token>, Void, ArrayList<Token>> {
+        private Exception error; //If any Exception were to occur
+        private Command<ArrayList<Token>, ArrayList<Token>> task;
+        private Command<Void, Exception> errorHandler;
+
+        /**
+         * Constructor for MathThread.
+         *
+         * @param task         The Command to be executed
+         * @param errorHandler The Command that will be called to handle errors
+         */
+        public MathThread(Command<ArrayList<Token>, ArrayList<Token>> task, Command<Void, Exception> errorHandler) {
+            this.task = task;
+            this.errorHandler = errorHandler;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            pd.show();
+            super.onPreExecute();
+        }
+
+        @Override
+        protected final ArrayList<Token> doInBackground(ArrayList<Token>[] params) {
+            try {
+                return task.execute(params[0]);
+            } catch (Exception e) {
+                error = e;
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Token> result) {
+            pd.dismiss();
+            if (result == null) { //Something went Wrong
+                errorHandler.execute(error);
+            } else {
+                //Got the Integral!
+                display.displayOutput(result);
+            }
+            super.onPostExecute(tokens);
+        }
+    }
 }

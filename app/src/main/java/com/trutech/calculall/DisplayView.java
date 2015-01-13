@@ -97,19 +97,6 @@ public class DisplayView extends View {
     }
 
     /**
-     * Displays the given output to the string (TEMPORARY METHOD, WILL
-     * BE DEPRECATED BY displayOutput(ArrayList<Token>).
-     *
-     * @param str String to display
-     */
-    public void displayOutput(String str) {
-        Token t = new StringToken(str);
-        ArrayList<Token> tokens = new ArrayList<Token>();
-        tokens.add(t);
-        output.display(tokens);
-    }
-
-    /**
      * Overrides the default android drawing method for this View.
      * This is where all the drawing for the display is handled.
      *

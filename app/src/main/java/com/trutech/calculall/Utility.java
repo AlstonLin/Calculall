@@ -299,7 +299,7 @@ public class Utility {
                 Bracket b = (Bracket) t;
                 if (b.getType() == Bracket.OPEN && last instanceof Bracket && ((Bracket) last).getType() == Bracket.CLOSE) { //Ex. (2 + 1)(3 + 4)
                     newExpression.add(OperatorFactory.makeMultiply()); //Implies multiplication between the two expressions in the brackets
-                } else if (last instanceof Number && b.getType() == Bracket.OPEN) { //Ex. 3(2 + 1)
+                } else if ((last instanceof Number || last instanceof Variable) && b.getType() == Bracket.OPEN) { //Ex. 3(2 + 1) or X(1+X)
                     newExpression.add(OperatorFactory.makeMultiply());
                 } else if (last instanceof Operator && ((Operator) last).getType() == Operator.SUBTRACT) { //Ex. -(X + 1) -> -1 * (X + 1)
                     newExpression.remove(last);
