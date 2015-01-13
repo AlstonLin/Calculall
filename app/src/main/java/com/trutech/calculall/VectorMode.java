@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import java.io.IOException;
@@ -63,16 +62,11 @@ public class VectorMode extends Advanced {
             }
         }
         try {
-            String s = Utility.convertTokensToString(processVectors());
-            s = s.indexOf(".") < 0 ? s : (s.indexOf("E") > 0 ? s.substring(0, s.indexOf("E")).replaceAll("0*$", "")
-                    .replaceAll("\\.$", "").concat(s.substring(s.indexOf("E"))) : s.replaceAll("0*$", "")
-                    .replaceAll("\\.$", "")); //Removes trailing zeroes
-            display.displayOutput(s);
-            ArrayList<Token> list = new ArrayList<Token>();
-            list.add(new StringToken(s));
-            saveEquation(tokens, list, FILENAME);
+            ArrayList<Token> output = processVectors();
+            display.displayOutput(output);
+            saveEquation(tokens, output, FILENAME);
         } catch (Exception e) { //User did a mistake
-            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
+            handleExceptions(e);
         }
         scrollDown();
 
@@ -171,71 +165,28 @@ public class VectorMode extends Advanced {
         updateInput();
     }
 
-    public void convGtoD() {
+    /**
+     * Stores the a variable into the memory; the assignment itself will occur in the given Command.
+     *
+     * @param addToOutput The String that will be shown in the output along with the value
+     * @param assignment  The assignment command that would be executed
+     */
+    protected void storeVector(String addToOutput, Command<Void, ArrayList<Token>> assignment) {
         DisplayView display = (DisplayView) findViewById(R.id.display);
+        ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
         try {
-            double val = process();
-            if (switchedAngleMode) {
-                tokens.set(tokens.size() - 1, new Token(" → DEG") {
-                });
-            } else {
-                tokens.add(new Token(" → DEG") {
-                });
-            }
-            display.setCursorIndex(display.getCursorIndex() + 1);
-            updateInput();
-            display.displayOutput(val * 9 / 10 + "");
-            scrollDown();
-            switchedAngleMode = true;
-        } catch (Exception e) { //User made a mistake
-            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
+            ArrayList<Token> output = processVectors();
+            assignment.execute(output);
+
+            output.add(new StringToken(addToOutput));
+            display.displayOutput(output);
+            mem = false;
+            memButton.setChecked(false);
+        } catch (Exception e) { //User did a mistake
+            handleExceptions(e);
         }
     }
 
-    public void convRtoG() {
-        //Converts the number displayed from radians into gradians ie multiplies the number by 100/pi
-        DisplayView display = (DisplayView) findViewById(R.id.display);
-        try {
-            double val = process();
-            if (switchedAngleMode) {
-                tokens.set(tokens.size() - 1, new Token(" → GRAD") {
-                });
-            } else {
-                tokens.add(new Token(" → GRAD") {
-                });
-            }
-            display.setCursorIndex(display.getCursorIndex() + 1);
-            updateInput();
-            display.displayOutput(val * 100 / Math.PI + "");
-            scrollDown();
-            switchedAngleMode = true;
-        } catch (Exception e) { //User made a mistake
-            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
-        }
-    }
-
-    public void convDtoR() {
-        //Converts the number displayed from degrees into radians ie multiplies the number by pi/180
-        DisplayView display = (DisplayView) findViewById(R.id.display);
-        try {
-            double val = process();
-            if (switchedAngleMode) {
-                tokens.set(tokens.size() - 1, new Token(" → RAD") {
-                });
-            } else {
-                tokens.add(new Token(" → RAD") {
-                });
-
-            }
-            display.setCursorIndex(display.getCursorIndex() + 1);
-            updateInput();
-            display.displayOutput(val * Math.PI / 180 + "");
-            scrollDown();
-            switchedAngleMode = true;
-        } catch (Exception e) { //User made a mistake
-            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
-        }
-    }
 
     /**
      * When the user presses the U button
@@ -243,23 +194,18 @@ public class VectorMode extends Advanced {
      * @param v Not Used
      */
     public void clickVU(View v) {
-        DisplayView display = (DisplayView) findViewById(R.id.display);
-        ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
-        try {
-            if (mem) {
-                ArrayList<Token> val = processVectors();
-                tokens.clear();
-                display.displayOutput(Utility.convertTokensToString(val) + "→ U");
-                Vector.u_value = val;
-                mem = false;
-                memButton.setChecked(mem);
-            } else {
-                tokens.add(display.getRealCursorIndex(), VectorFactory.makeU());
-                display.setCursorIndex(display.getCursorIndex() + 1);
-            }
+        if (mem) {
+            storeVector("→ U", new Command<Void, ArrayList<Token>>() {
+                @Override
+                public Void execute(ArrayList<Token> val) {
+                    Vector.u_value = val;
+                    return null;
+                }
+            });
+        } else {
+            tokens.add(display.getRealCursorIndex(), VectorFactory.makeU());
+            display.setCursorIndex(display.getCursorIndex() + 1);
             updateInput();
-        } catch (Exception e) { //User did a mistake
-            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -269,23 +215,18 @@ public class VectorMode extends Advanced {
      * @param v Not Used
      */
     public void clickVV(View v) {
-        DisplayView display = (DisplayView) findViewById(R.id.display);
-        ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
-        try {
-            if (mem) {
-                ArrayList<Token> val = processVectors();
-                tokens.clear();
-                display.displayOutput(Utility.convertTokensToString(val) + "→ V");
-                Vector.v_value = val;
-                mem = false;
-                memButton.setChecked(mem);
-            } else {
-                tokens.add(display.getRealCursorIndex(), VectorFactory.makeV());
-                display.setCursorIndex(display.getCursorIndex() + 1);
-            }
+        if (mem) {
+            storeVector("→ V", new Command<Void, ArrayList<Token>>() {
+                @Override
+                public Void execute(ArrayList<Token> val) {
+                    Vector.v_value = val;
+                    return null;
+                }
+            });
+        } else {
+            tokens.add(display.getRealCursorIndex(), VectorFactory.makeV());
+            display.setCursorIndex(display.getCursorIndex() + 1);
             updateInput();
-        } catch (Exception e) { //User did a mistake
-            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -295,52 +236,20 @@ public class VectorMode extends Advanced {
      * @param v Not Used
      */
     public void clickVW(View v) {
-        DisplayView display = (DisplayView) findViewById(R.id.display);
-        ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
-        try {
-            if (mem) {
-                ArrayList<Token> val = processVectors();
-                tokens.clear();
-                display.displayOutput(Utility.convertTokensToString(val) + "→ W");
-                Vector.w_value = val;
-                mem = false;
-                memButton.setChecked(mem);
-            } else {
-                tokens.add(display.getRealCursorIndex(), VectorFactory.makeW());
-                display.setCursorIndex(display.getCursorIndex() + 1);
-            }
+        if (mem) {
+            storeVector("→ W", new Command<Void, ArrayList<Token>>() {
+                @Override
+                public Void execute(ArrayList<Token> val) {
+                    Vector.w_value = val;
+                    return null;
+                }
+            });
+        } else {
+            tokens.add(display.getRealCursorIndex(), VectorFactory.makeW());
+            display.setCursorIndex(display.getCursorIndex() + 1);
             updateInput();
-        } catch (Exception e) { //User did a mistake
-            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
         }
     }
-
-    /**
-     * When the user presses the A button
-     *
-     * @param v Not Used
-     */
-    public void clickVS(View v) {
-        DisplayView display = (DisplayView) findViewById(R.id.display);
-        ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
-        try {
-            if (mem) {
-                ArrayList<Token> val = processVectors();
-                tokens.clear();
-                display.displayOutput(Utility.convertTokensToString(val) + "→ S");
-                Vector.s_value = val;
-                mem = false;
-                memButton.setChecked(mem);
-            } else {
-                tokens.add(display.getRealCursorIndex(), VectorFactory.makeS());
-                display.setCursorIndex(display.getCursorIndex() + 1);
-            }
-            updateInput();
-        } catch (Exception e) { //User did a mistake
-            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
-        }
-    }
-
 
     /**
      * When the user presses the T button
@@ -348,8 +257,7 @@ public class VectorMode extends Advanced {
      * @param v Not Used
      */
     public void clickVT(View v) {
-        tokens.add(display.getRealCursorIndex(), new Token("t") {
-        });
+        tokens.add(display.getRealCursorIndex(), new StringToken("t"));
         display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
     }
@@ -477,23 +385,13 @@ public class VectorMode extends Advanced {
         DisplayView display = (DisplayView) findViewById(R.id.display);
         try {
             VRuleSet.setPressedArgumentButton(true);
-            String s = Utility.convertTokensToString(processVectors());
-            s = s.indexOf(".") < 0 ? s : (s.indexOf("E") > 0 ? s.substring(0, s.indexOf("E")).replaceAll("0*$", "")
-                    .replaceAll("\\.$", "").concat(s.substring(s.indexOf("E"))) : s.replaceAll("0*$", "")
-                    .replaceAll("\\.$", "")); //Removes trailing zeroes
-
-/*            if(switchedDirectionMode){
-                tokens.add(new Token(" → ARG"){});
-            }else {
-                tokens.add(new Token(" → ARG"){});
-            }*/
             updateInput();
-            display.displayOutput(s);
+            display.displayOutput(processVectors());
             scrollDown();
             switchedDirectionMode = true;
         } catch (Exception e) { //User made a mistake
             VRuleSet.setPressedArgumentButton(false);
-            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
+            handleExceptions(e);
         }
     }
 
@@ -502,23 +400,13 @@ public class VectorMode extends Advanced {
         DisplayView display = (DisplayView) findViewById(R.id.display);
         try {
             VRuleSet.setPressedBearButton(true);
-            String s = Utility.convertTokensToString(processVectors());
-            s = s.indexOf(".") < 0 ? s : (s.indexOf("E") > 0 ? s.substring(0, s.indexOf("E")).replaceAll("0*$", "")
-                    .replaceAll("\\.$", "").concat(s.substring(s.indexOf("E"))) : s.replaceAll("0*$", "")
-                    .replaceAll("\\.$", "")); //Removes trailing zeroes
-
-/*            if(switchedDirectionMode){
-                tokens.add(new Token(" → BEA"){});
-            }else {
-                tokens.add(new Token(" → BEA "){});
-            }*/
             updateInput();
-            display.displayOutput(s);
+            display.displayOutput(processVectors());
             scrollDown();
             switchedDirectionMode = true;
         } catch (Exception e) { //User made a mistake
             VRuleSet.setPressedBearButton(false);
-            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
+            handleExceptions(e);
         }
     }
 
@@ -527,23 +415,13 @@ public class VectorMode extends Advanced {
         DisplayView display = (DisplayView) findViewById(R.id.display);
         try {
             VRuleSet.setPressedTrueBButton(true);
-            String s = Utility.convertTokensToString(processVectors());
-            s = s.indexOf(".") < 0 ? s : (s.indexOf("E") > 0 ? s.substring(0, s.indexOf("E")).replaceAll("0*$", "")
-                    .replaceAll("\\.$", "").concat(s.substring(s.indexOf("E"))) : s.replaceAll("0*$", "")
-                    .replaceAll("\\.$", "")); //Removes trailing zeroes
-
-/*            if(switchedDirectionMode){
-                tokens.add(new Token(" → TRU"){});
-            }else {
-                tokens.add(new Token(" → TRU"){});
-            }*/
             updateInput();
-            display.displayOutput(s);
+            display.displayOutput(processVectors());
             scrollDown();
             switchedDirectionMode = true;
         } catch (Exception e) { //User made a mistake
             VRuleSet.setPressedTrueBButton(false);
-            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
+            handleExceptions(e);
         }
     }
 
@@ -556,13 +434,9 @@ public class VectorMode extends Advanced {
         DisplayView display = (DisplayView) findViewById(R.id.display);
         VRuleSet.setPressedUnitVButton(true);
         try {
-            String s = Utility.convertTokensToString(processVectors());
-            s = s.indexOf(".") < 0 ? s : (s.indexOf("E") > 0 ? s.substring(0, s.indexOf("E")).replaceAll("0*$", "")
-                    .replaceAll("\\.$", "").concat(s.substring(s.indexOf("E"))) : s.replaceAll("0*$", "")
-                    .replaceAll("\\.$", "")); //Removes trailing zeroes
-            display.displayOutput(s);
+            display.displayOutput(processVectors());
         } catch (Exception e) { //User did a mistake
-            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
+            handleExceptions(e);
         }
         scrollDown();
     }
@@ -576,13 +450,9 @@ public class VectorMode extends Advanced {
         DisplayView display = (DisplayView) findViewById(R.id.display);
         VRuleSet.setPressedScalarEqnButton(true);
         try {
-            String s = Utility.convertTokensToString(processVectors());
-            s = s.indexOf(".") < 0 ? s : (s.indexOf("E") > 0 ? s.substring(0, s.indexOf("E")).replaceAll("0*$", "")
-                    .replaceAll("\\.$", "").concat(s.substring(s.indexOf("E"))) : s.replaceAll("0*$", "")
-                    .replaceAll("\\.$", "")); //Removes trailing zeroes
-            display.displayOutput(s);
+            display.displayOutput(processVectors());
         } catch (Exception e) { //User did a mistake
-            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
+            handleExceptions(e);
         }
         scrollDown();
     }

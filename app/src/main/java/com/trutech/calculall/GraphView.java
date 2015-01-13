@@ -20,7 +20,7 @@ import java.util.HashMap;
  */
 public class GraphView extends View {
 
-    private static final int NUM_OF_POINTS = 300;
+    private static final int NUM_OF_POINTS = 10000;
     private ArrayList<Token> function;
     private Activity activity;
     private RectF exitRect; //The rectangle of tne exit button

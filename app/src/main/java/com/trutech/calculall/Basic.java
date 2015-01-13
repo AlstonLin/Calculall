@@ -12,6 +12,8 @@ import android.widget.Toast;
 import com.mopub.mobileads.MoPubErrorCode;
 import com.mopub.mobileads.MoPubInterstitial;
 
+import org.apache.commons.math3.exception.NumberIsTooLargeException;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -19,6 +21,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * The activity for the basic calculator mode. The basic mode will only be able to
@@ -28,9 +31,10 @@ import java.util.ArrayList;
  */
 public class Basic extends Activity implements MoPubInterstitial.InterstitialAdListener {
 
+
+    public static final String CLASS_NAME = Basic.class.getName();
     public static final int HISTORY_SIZE = 10;
     public static final int AD_RATE = 2; //Ads will show 1 in 2 activity opens
-    public static final int ROUND_TO = 9;
     private static final String FILENAME = "history_basic";
     private static final String AD_ID = "3ae32e9f72e2402cb01bbbaf1d6ba1f4";
 
@@ -55,32 +59,23 @@ public class Basic extends Activity implements MoPubInterstitial.InterstitialAdL
     @Override
     protected void onResume() {
         super.onResume();
-        if (!(interstitial != null && interstitial.isReady()) && !adShown) {
-            // Create the interstitial.
-            interstitial = new MoPubInterstitial(this, AD_ID);
-            interstitial.setInterstitialAdListener(this);
-            interstitial.load();
-            interstitial.load();
-        }
-        /*
-        final MMInterstitial interstitial = new MMInterstitial(this);
-        MMRequest request = new MMRequest();
-        interstitial.setApid("189152");
-        interstitial.setMMRequest(request);
-        interstitial.setListener(new RequestListener.RequestListenerImpl() {
-            @Override
-            public void requestCompleted(MMAd mmAd) {
-                interstitial.display();
+        if (!(interstitial != null && interstitial.isReady()) && !adShown && !((Object)this).getClass().getName().equals(CLASS_NAME)) {
+            Random random = new Random();
+            if (random.nextInt(AD_RATE) == 0){
+                // Create the interstitial.
+                interstitial = new MoPubInterstitial(this, AD_ID);
+                interstitial.setInterstitialAdListener(this);
+                interstitial.load();
+                interstitial.load();
             }
-        });
-
-        interstitial.fetch();
-        */
+        }
     }
 
     @Override
     protected void onPause() {
-        interstitial.destroy(); //Prevents Ads from other activities appearing if it is not loaded before switching between them
+        if (interstitial != null) {
+            interstitial.destroy(); //Prevents Ads from other activities appearing if it is not loaded before switching between them
+        }
         super.onPause();
     }
 
@@ -94,8 +89,7 @@ public class Basic extends Activity implements MoPubInterstitial.InterstitialAdL
      */
     protected double process() {
         ArrayList<Token> tokens = Utility.setupExpression(Utility.condenseDigits(Utility.addMissingBrackets(subVariables())));
-        double unrounded = Utility.evaluateExpression(Utility.convertToReversePolish(tokens));
-        return Utility.round(unrounded, ROUND_TO);
+        return Utility.evaluateExpression(Utility.convertToReversePolish(tokens));
     }
 
     /**
@@ -304,7 +298,7 @@ public class Basic extends Activity implements MoPubInterstitial.InterstitialAdL
         updateInput();
         changedTokens = true; //used to know if the button has been used
         DisplayView display = (DisplayView) findViewById(R.id.display);
-        display.displayOutput("");
+        display.displayOutput(new ArrayList<Token>());
         display.reset();
     }
 
@@ -376,19 +370,33 @@ public class Basic extends Activity implements MoPubInterstitial.InterstitialAdL
     public void clickEquals(View v) {
         DisplayView display = (DisplayView) findViewById(R.id.display);
         try {
-            String s = Double.toString(process());
-            //TODO: Find a new way to display to output
-            s = s.indexOf(".") < 0 ? s : (s.indexOf("E") > 0 ? s.substring(0, s.indexOf("E")).replaceAll("0*$", "")
-                    .replaceAll("\\.$", "").concat(s.substring(s.indexOf("E"))) : s.replaceAll("0*$", "")
-                    .replaceAll("\\.$", "")); //Removes trailing zeroes
-            display.displayOutput(s);
+            Number num = new Number(process());
+            if (Double.isInfinite(num.getValue())){
+                throw new NumberTooLargeException();
+            }
             ArrayList<Token> list = new ArrayList<Token>();
-            list.add(new StringToken(s));
+            list.add(num);
+            display.displayOutput(list);
             saveEquation(tokens, list, FILENAME);
         } catch (Exception e) { //User did a mistake
-            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
+            handleExceptions(e);
         }
         scrollDown();
+    }
+
+    /**
+     * Called when an exception occurs anywhere during processing.
+     *
+     * @param e The exception that was thrown
+     */
+    protected void handleExceptions(Exception e){
+        String message = "";
+        if (e instanceof NumberTooLargeException){
+            message = "The calculation is to large to perform";
+        }else{
+            message = "Invalid input";
+        }
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
     /**
@@ -525,7 +533,7 @@ public class Basic extends Activity implements MoPubInterstitial.InterstitialAdL
      */
     protected void updateInput() {
         updatePlaceHolders();
-        display.displayOutput(""); //Clears output
+        display.displayOutput(new ArrayList<Token>()); //Clears output
         display.displayInput(tokens);
     }
 

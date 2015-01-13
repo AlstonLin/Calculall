@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import java.util.ArrayList;
@@ -56,22 +55,14 @@ public class Advanced extends Basic {
         DisplayView display = (DisplayView) findViewById(R.id.display);
         try {
             if (fracMode == DEC) {
-                String s = Double.toString(process());
-                //TODO: Find a new way to display to output
-                s = s.indexOf(".") < 0 ? s : (s.indexOf("E") > 0 ? s.substring(0, s.indexOf("E")).replaceAll("0*$", "")
-                        .replaceAll("\\.$", "").concat(s.substring(s.indexOf("E"))) : s.replaceAll("0*$", "")
-                        .replaceAll("\\.$", "")); //Removes trailing zeroes
-                display.displayOutput(s);
-                ArrayList<Token> list = new ArrayList<Token>();
-                list.add(new StringToken(s));
-                saveEquation(tokens, list, FILENAME);
+                super.clickEquals(v);
             } else if (fracMode == FRAC) {
                 ArrayList<Token> output = JFok.simplifyExpression(tokens);
                 display.displayOutput(output);
                 saveEquation(tokens, output, FILENAME);
             }
         } catch (Exception e) { //User did a mistake
-            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
+            handleExceptions(e);
         }
 
         scrollDown();
@@ -103,42 +94,25 @@ public class Advanced extends Basic {
     }
 
     public void convGtoD() {
-        //Converts the number displayed from gradians into degrees ie multiplies the number by 9/10
-
-        //we probably won't convert the functions but if we do we can use this:
-        /*for(int i=0;i<tokens.size();i++){
-            if(tokens.get(i) instanceof Function){
-                if(((Function) tokens.get(i)).getType() == Function.SIN){
-                    tokens.set(i,FunctionFactory.makeSinD());
-                }else if((Function) tokens.get(i)).getType() == Function.COS){
-                    tokens.set(i, FunctionFactory.makeCosD());
-                }else if((Function) tokens.get(i)).getType() == Function.TAN){
-                    tokens.set(i, FunctionFactory.makeTanD());
-                }else if((Function) tokens.get(i)).getType() == Function.ARCSIN){
-                    tokens.set(i, FunctionFactory.makeASinD());
-                }else if((Function) tokens.get(i)).getType() == Function.ARCCOS){
-                    tokens.set(i, FunctionFactory.makeACosD());
-                }else if((Function) tokens.get(i)).getType() == Function.ARCTAN){
-                    tokens.set(i, FunctionFactory.makeATanD());
-                }
-            }
-        }*/
         DisplayView display = (DisplayView) findViewById(R.id.display);
         try {
             double val = process();
             if (switchedAngleMode) {
-                tokens.set(tokens.size() - 1, new Token(" → DEG") {
+                tokens.set(tokens.size() - 1, new StringToken(" → DEG") {
                 });
             } else {
-                tokens.add(new Token(" → DEG") {
+                tokens.add(new StringToken(" → DEG") {
                 });
             }
             updateInput();
-            display.displayOutput(val * 9 / 10 + "");
+            Number num = new Number(val * 9 / 10);
+            ArrayList<Token> list = new ArrayList<>();
+            list.add(num);
+            display.displayOutput(list);
             scrollDown();
             switchedAngleMode = true;
         } catch (Exception e) { //User made a mistake
-            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
+            handleExceptions(e);
         }
     }
 
@@ -155,11 +129,14 @@ public class Advanced extends Basic {
                 });
             }
             updateInput();
-            display.displayOutput(val * 100 / Math.PI + "");
+            Number num = new Number(val * 100 / Math.PI);
+            ArrayList<Token> list = new ArrayList<>();
+            list.add(num);
+            display.displayOutput(list);
             scrollDown();
             switchedAngleMode = true;
         } catch (Exception e) { //User made a mistake
-            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
+            handleExceptions(e);
         }
     }
 
@@ -176,11 +153,14 @@ public class Advanced extends Basic {
                 });
             }
             updateInput();
-            display.displayOutput(val * Math.PI / 180 + "");
+            Number num = new Number(val * Math.PI / 180);
+            ArrayList<Token> list = new ArrayList<>();
+            list.add(num);
+            display.displayOutput(list);
             scrollDown();
             switchedAngleMode = true;
         } catch (Exception e) { //User made a mistake
-            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
+            handleExceptions(e);
         }
     }
 
@@ -406,28 +386,46 @@ public class Advanced extends Basic {
     }
 
     /**
+     * Stores the a variable into the memory; the assignment itself will occur in the given Command.
+     *
+     * @param addToOutput The String that will be shown in the output along with the value
+     * @param assignment  The assignment command that would be executed
+     */
+    protected void storeVariable(String addToOutput, Command<Void, Double> assignment) {
+        DisplayView display = (DisplayView) findViewById(R.id.display);
+        ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
+        try {
+            double val = process();
+            ArrayList<Token> outputList = new ArrayList<>();
+            outputList.add(new Number(val));
+            outputList.add(new StringToken(addToOutput));
+            display.displayOutput(outputList);
+            assignment.execute(val);
+            mem = false;
+            memButton.setChecked(false);
+        } catch (Exception e) { //User did a mistake
+            handleExceptions(e);
+        }
+    }
+
+    /**
      * When the user presses the A button
      *
      * @param v Not Used
      */
     public void clickA(View v) {
-        DisplayView display = (DisplayView) findViewById(R.id.display);
-        ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
-        try {
-            if (mem) {
-                double val = process();
-                tokens.clear();
-                display.displayOutput(val + "→ A");
-                Variable.a_value = val;
-                mem = false;
-                memButton.setChecked(mem);
-            } else {
-                tokens.add(display.getRealCursorIndex(), VariableFactory.makeA());
-                display.setCursorIndex(display.getCursorIndex() + 1);
-            }
+        if (mem) {
+            storeVariable("→ A", new Command<Void, Double>() {
+                @Override
+                public Void execute(Double val) {
+                    Variable.a_value = val;
+                    return null;
+                }
+            });
+        } else {
+            tokens.add(display.getRealCursorIndex(), VariableFactory.makeA());
+            display.setCursorIndex(display.getCursorIndex() + 1);
             updateInput();
-        } catch (Exception e) { //User did a mistake
-            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -437,23 +435,18 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickB(View v) {
-        DisplayView display = (DisplayView) findViewById(R.id.display);
-        ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
-        try {
-            if (mem) {
-                double val = process();
-                tokens.clear();
-                display.displayOutput(val + "→B");
-                Variable.b_value = val;
-                mem = false;
-                memButton.setChecked(mem);
-            } else {
-                tokens.add(display.getRealCursorIndex(), VariableFactory.makeB());
-                display.setCursorIndex(display.getCursorIndex() + 1);
-            }
+        if (mem) {
+            storeVariable("→ B", new Command<Void, Double>() {
+                @Override
+                public Void execute(Double val) {
+                    Variable.b_value = val;
+                    return null;
+                }
+            });
+        } else {
+            tokens.add(display.getRealCursorIndex(), VariableFactory.makeB());
+            display.setCursorIndex(display.getCursorIndex() + 1);
             updateInput();
-        } catch (Exception e) { //User did a mistake
-            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -463,23 +456,18 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickC(View v) {
-        DisplayView display = (DisplayView) findViewById(R.id.display);
-        ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
-        try {
-            if (mem) {
-                double val = process();
-                tokens.clear();
-                display.displayOutput(val + "→C");
-                Variable.c_value = val;
-                mem = false;
-                memButton.setChecked(mem);
-            } else {
-                tokens.add(display.getRealCursorIndex(), VariableFactory.makeC());
-                display.setCursorIndex(display.getCursorIndex() + 1);
-            }
+        if (mem) {
+            storeVariable("→ C", new Command<Void, Double>() {
+                @Override
+                public Void execute(Double val) {
+                    Variable.c_value = val;
+                    return null;
+                }
+            });
+        } else {
+            tokens.add(display.getRealCursorIndex(), VariableFactory.makeC());
+            display.setCursorIndex(display.getCursorIndex() + 1);
             updateInput();
-        } catch (Exception e) { //User did a mistake
-            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -489,23 +477,18 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickX(View v) {
-        DisplayView display = (DisplayView) findViewById(R.id.display);
-        ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
-        try {
-            if (mem) {
-                double val = process();
-                tokens.clear();
-                display.displayOutput(val + "→X");
-                Variable.x_value = val;
-                mem = false;
-                memButton.setChecked(mem);
-            } else {
-                tokens.add(display.getRealCursorIndex(), VariableFactory.makeX());
-                display.setCursorIndex(display.getCursorIndex() + 1);
-            }
+        if (mem) {
+            storeVariable("→ X", new Command<Void, Double>() {
+                @Override
+                public Void execute(Double val) {
+                    Variable.x_value = val;
+                    return null;
+                }
+            });
+        } else {
+            tokens.add(display.getRealCursorIndex(), VariableFactory.makeX());
+            display.setCursorIndex(display.getCursorIndex() + 1);
             updateInput();
-        } catch (Exception e) { //User did a mistake
-            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -515,23 +498,18 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickY(View v) {
-        DisplayView display = (DisplayView) findViewById(R.id.display);
-        ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
-        try {
-            if (mem) {
-                double val = process();
-                tokens.clear();
-                display.displayOutput(val + "→Y");
-                Variable.y_value = val;
-                mem = false;
-                memButton.setChecked(mem);
-            } else {
-                tokens.add(display.getRealCursorIndex(), VariableFactory.makeY());
-                display.setCursorIndex(display.getCursorIndex() + 1);
-            }
+        if (mem) {
+            storeVariable("→ Y", new Command<Void, Double>() {
+                @Override
+                public Void execute(Double val) {
+                    Variable.y_value = val;
+                    return null;
+                }
+            });
+        } else {
+            tokens.add(display.getRealCursorIndex(), VariableFactory.makeY());
+            display.setCursorIndex(display.getCursorIndex() + 1);
             updateInput();
-        } catch (Exception e) { //User did a mistake
-            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -541,23 +519,18 @@ public class Advanced extends Basic {
      * @param v Not Used
      */
     public void clickZ(View v) {
-        DisplayView display = (DisplayView) findViewById(R.id.display);
-        ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
-        try {
-            if (mem) {
-                double val = process();
-                tokens.clear();
-                display.displayOutput(val + "→Z");
-                Variable.z_value = val;
-                mem = false;
-                memButton.setChecked(mem);
-            } else {
-                tokens.add(display.getRealCursorIndex(), VariableFactory.makeZ());
-                display.setCursorIndex(display.getCursorIndex() + 1);
-            }
+        if (mem) {
+            storeVariable("→ Z", new Command<Void, Double>() {
+                @Override
+                public Void execute(Double val) {
+                    Variable.z_value = val;
+                    return null;
+                }
+            });
+        } else {
+            tokens.add(display.getRealCursorIndex(), VariableFactory.makeZ());
+            display.setCursorIndex(display.getCursorIndex() + 1);
             updateInput();
-        } catch (Exception e) { //User did a mistake
-            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
         }
     }
 
