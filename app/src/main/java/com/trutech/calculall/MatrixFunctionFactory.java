@@ -23,6 +23,41 @@ public class MatrixFunctionFactory {
         };
     }
 
+    public static MatrixFunction makeSqrt() {
+        return new MatrixFunction("sqrt", MatrixFunction.SQRT) {
+            @Override
+            public Matrix perform(Matrix input) {
+                return MatrixUtils.getSqrt(input);
+            }
+        };
+    }
+
+    public static MatrixFunction makeREF() {
+        return new MatrixFunction("ref", MatrixFunction.REF) {
+            @Override
+            public Matrix perform(Matrix input) {
+                if (input instanceof Matrix.AugmentedMatrix) {
+                    return MatrixUtils.rowReduceREF((Matrix.AugmentedMatrix) input);
+                } else {
+                    return MatrixUtils.ref(input);
+                }
+            }
+        };
+    }
+
+    public static MatrixFunction makeRREF() {
+        return new MatrixFunction("rref", MatrixFunction.RREF) {
+            @Override
+            public Matrix perform(Matrix input) {
+                if (input instanceof Matrix.AugmentedMatrix) {
+                    return MatrixUtils.rowReduceRREF((Matrix.AugmentedMatrix) input);
+                } else {
+                    return MatrixUtils.rref(input);
+                }
+            }
+        };
+    }
+
     //TODO: make a wrapper function to convert this into a double
     public static MatrixFunction makeDeterminant() {
         return new MatrixFunction("det", MatrixFunction.DET) {
@@ -57,7 +92,7 @@ public class MatrixFunctionFactory {
                     det.add(new Number(output));
 
                     ArrayList[][] temp = new ArrayList[1][1];
-                    temp[0][0] = det;
+                    temp[0][0].add(new Number(Utility.evaluateExpression(det)));
 
                     return new Matrix(temp);
                 }
@@ -78,7 +113,7 @@ public class MatrixFunctionFactory {
                     }
                     trace.addAll(input.getEntry(input.getNumOfCols() - 1, input.getNumOfCols() - 1));
                     ArrayList[][] temp = new ArrayList[1][1];
-                    temp[0][0] = trace;
+                    temp[0][0].add(new Number(Utility.evaluateExpression(trace)));
 
                     return new Matrix(temp);
                 } else {
@@ -93,7 +128,7 @@ public class MatrixFunctionFactory {
             @Override
             public Matrix perform(Matrix input) {
                 ArrayList<Token>[][] rank = new ArrayList[1][1];
-                rank[0][0].add(new Number(RowReducer.findRank(input)));
+                rank[0][0].add(new Number(MatrixUtils.findRank(input)));
                 return new Matrix(rank);
             }
         };
@@ -103,7 +138,64 @@ public class MatrixFunctionFactory {
         return new MatrixFunction("inv", MatrixFunction.INVERSE) {
             @Override
             public Matrix perform(Matrix input) {
-                return RowReducer.findInverse(input);
+                return MatrixUtils.findInverse(input);
+            }
+        };
+    }
+
+    //NOTES:
+    //Outputs a row matrix, make it show up on screen as a set of numbers for ex. λ = {1,2,3,4}
+    //get the entries using m.getRow(0) which will output an ArrayList<Token>[]
+    //alternatively you could output the actual matrix and just display λ = [...]
+    //if the matrix that is returned is empty, output "No real eigenvalues" to screen
+    public static MatrixFunction makeEigenVal() {
+        return new MatrixFunction("λ", MatrixFunction.EIGENVAL) {
+            @Override
+            public Matrix perform(Matrix input) {
+                double[] output = MatrixUtils.getRealEigenValues(input);
+
+                double[][] temp = new double[1][output.length];
+                temp[0] = output;
+
+                return new Matrix(temp);
+            }
+        };
+    }
+
+    //Notes:
+    //Outputs as an Augmented Matrix, extract the matrices contained in it with AM.getMatrices() which will output
+    // an array of Matrices, then show all of those matrices on the screen
+    public static MatrixFunction makeEigenVectors() {
+        return new MatrixFunction("eigenvect", MatrixFunction.EIGENVECT) {
+            @Override
+            public Matrix.AugmentedMatrix perform(Matrix input) {
+                return new Matrix.AugmentedMatrix(MatrixUtils.getEigenVectors(input));
+            }
+        };
+    }
+
+    public static MatrixFunction makeDiagonalize() {
+        return new MatrixFunction("diag", MatrixFunction.DIAG) {
+            @Override
+            public Matrix.AugmentedMatrix perform(Matrix input) {
+                Matrix[] matrices = new Matrix[3];
+                matrices[0] = MatrixUtils.getDiagonalizingMatrix(input);
+                matrices[1] = MatrixUtils.getDiagonalMatrix(input);
+                matrices[2] = MatrixUtils.findInverse(matrices[0]);
+                return new Matrix.AugmentedMatrix(matrices);
+            }
+        };
+    }
+
+    public static MatrixFunction makeLUP() {
+        return new MatrixFunction("LUP", MatrixFunction.LU) {
+            @Override
+            public Matrix.AugmentedMatrix perform(Matrix input) {
+                Matrix[] matrices = new Matrix[3];
+                matrices[0] = makeTranspose().perform(MatrixUtils.getPermutationMatrix(input));
+                matrices[1] = MatrixUtils.getLowerTriangularMatrix(input);
+                matrices[2] = MatrixUtils.getUpperTriangularMatrix(input);
+                return new Matrix.AugmentedMatrix(matrices);
             }
         };
     }

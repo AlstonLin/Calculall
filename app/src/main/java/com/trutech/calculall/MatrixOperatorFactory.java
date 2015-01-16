@@ -13,7 +13,9 @@ public class MatrixOperatorFactory {
         return new MatrixOperator("+", MatrixOperator.ADD, 2, true, 1, true) {
             @Override
             public Matrix operate(Object left, Object right) {
-                if (left instanceof Matrix && right instanceof Matrix) {
+                if (left instanceof Matrix.AugmentedMatrix || right instanceof Matrix.AugmentedMatrix) {
+                    throw new IllegalArgumentException("Addition is not defined for Augmented Matrices");
+                } else if (left instanceof Matrix && right instanceof Matrix) {
                     if (((Matrix) left).getNumOfCols() == ((Matrix) right).getNumOfCols()
                             && ((Matrix) left).getNumOfRows() == ((Matrix) right).getNumOfRows()) {
                         ArrayList[][] newMatrix = new ArrayList[((Matrix) left).getNumOfRows()][((Matrix) left).getNumOfCols()];
@@ -25,7 +27,7 @@ public class MatrixOperatorFactory {
                                 newMatrix[i][j].addAll(((Matrix) right).getEntry(i, j));
                             }
                         }
-                        return Utility.evaluateMatrix(new Matrix(newMatrix));
+                        return MatrixUtils.evaluateMatrixEntries(new Matrix(newMatrix));
                     } else {
                         throw new IllegalArgumentException("Matrices are not the same size");
                     }
@@ -40,7 +42,9 @@ public class MatrixOperatorFactory {
         return new MatrixOperator("−", MatrixOperator.SUBTRACT, 2, true, -1, false) {
             @Override
             public Matrix operate(Object left, Object right) {
-                if (left instanceof Matrix && right instanceof Matrix) {
+                if (left instanceof Matrix.AugmentedMatrix || right instanceof Matrix.AugmentedMatrix) {
+                    throw new IllegalArgumentException("Subtraction is not defined for Augmented Matrices");
+                } else if (left instanceof Matrix && right instanceof Matrix) {
                     if (((Matrix) left).getNumOfCols() == ((Matrix) right).getNumOfCols()
                             && ((Matrix) left).getNumOfRows() == ((Matrix) right).getNumOfRows()) {
                         ArrayList[][] newMatrix = new ArrayList[((Matrix) left).getNumOfRows()][((Matrix) left).getNumOfCols()];
@@ -52,7 +56,7 @@ public class MatrixOperatorFactory {
                                 newMatrix[i][j].addAll(((Matrix) right).getEntry(i, j));
                             }
                         }
-                        return Utility.evaluateMatrix(new Matrix(newMatrix));
+                        return MatrixUtils.evaluateMatrixEntries(new Matrix(newMatrix));
                     } else {
                         throw new IllegalArgumentException("Matrices are not the same size");
                     }
@@ -67,15 +71,17 @@ public class MatrixOperatorFactory {
         return new MatrixOperator("", MatrixOperator.MULTIPLY, 3, true, 0, true) {
             @Override
             public Matrix operate(Object left, Object right) {
-                if (left instanceof Matrix && right instanceof Matrix) {
+                if (left instanceof Matrix.AugmentedMatrix || right instanceof Matrix.AugmentedMatrix) {
+                    throw new IllegalArgumentException("Multiplication is not defined for Augmented Matrices");
+                } else if (left instanceof Matrix && right instanceof Matrix) {
                     if (((Matrix) left).getNumOfCols() == ((Matrix) right).getNumOfRows()) {
                         ArrayList[][] newMatrix = new ArrayList[((Matrix) left).getNumOfRows()][((Matrix) right).getNumOfCols()];
                         for (int i = 0; i < ((Matrix) left).getNumOfRows(); i++) {
                             for (int j = 0; j < ((Matrix) right).getNumOfCols(); j++) {
-                                newMatrix[i][j] = dotProduct(((Matrix) left).getRow(i), ((Matrix) right).getColumn(j));
+                                newMatrix[i][j].add(new Number(dotProduct(((Matrix) left).getRow(i), ((Matrix) right).getColumn(j))));
                             }
                         }
-                        return Utility.evaluateMatrix(new Matrix(newMatrix));
+                        return MatrixUtils.evaluateMatrixEntries(new Matrix(newMatrix));
                     } else {
                         throw new IllegalArgumentException("Number of columns of left matrix is not " +
                                 "equal to the number of rows of the right matrix");
@@ -115,9 +121,11 @@ public class MatrixOperatorFactory {
         return new MatrixOperator("^", MatrixOperator.EXPONENT, 5, false, 0, false) {
             @Override
             public Matrix operate(Object left, Object right) {
-                if (left instanceof Matrix && right instanceof Number && ((Number) right).getValue() % 1 == 0) {
+                if (left instanceof Matrix.AugmentedMatrix || right instanceof Matrix.AugmentedMatrix) {
+                    throw new IllegalArgumentException("Exponentiation is not defined for Augmented Matrices");
+                } else if (left instanceof Matrix && right instanceof Number && ((Number) right).getValue() % 1 == 0) {
                     if (((Matrix) left).getNumOfCols() == ((Matrix) left).getNumOfRows()) {
-                        return matrixExponent((Matrix) left, (int) ((Number) right).getValue());
+                        return MatrixUtils.evaluateMatrixEntries(matrixExponent((Matrix) left, (int) ((Number) right).getValue()));
                     } else {
                         throw new IllegalArgumentException("Cannot raise a non-square Matrix to a power");
                     }
@@ -135,17 +143,17 @@ public class MatrixOperatorFactory {
 
     private static Matrix matrixExponent(Matrix m, int power) {
         if (power > 0) {
-            return matrixExponent(Utility.evaluateMatrix(makeMatrixMultiply().operate(m, m)), power - 1);
+            return matrixExponent(MatrixUtils.evaluateMatrixEntries(makeMatrixMultiply().operate(m, m)), power - 1);
         } else if (power == 0) {
-            return Utility.makeIdentity(m.getNumOfCols());
+            return MatrixUtils.makeIdentity(m.getNumOfCols());
         } else if (power <= 0) {
             Matrix inverse;
             try {
                 inverse = MatrixFunctionFactory.makeInverse().perform(m);
+                return matrixExponent(inverse, -1 * power);
             } catch (Exception e) {
                 throw new IllegalArgumentException("Cannot raise a non-invertible matrix to a negative power");
             }
-            return matrixExponent(inverse, -1 * power);
         } else {
             return null;
         }
@@ -156,7 +164,7 @@ public class MatrixOperatorFactory {
      * @param right
      * @return The dot product of two column vectors
      */
-    private static ArrayList<Token> dotProduct(ArrayList<Token>[] left, ArrayList<Token>[] right) {
+    private static double dotProduct(ArrayList<Token>[] left, ArrayList<Token>[] right) {
         if (left.length == right.length) {
             ArrayList<Token> exp = new ArrayList<Token>();
             for (int i = 0; i < left.length; i++) {
@@ -169,7 +177,7 @@ public class MatrixOperatorFactory {
                     exp.add(OperatorFactory.makeAdd());
                 }
             }
-            return exp;
+            return Utility.evaluateExpression(exp);
         } else {
             throw new IllegalArgumentException("Vectors are not the same length");
         }
@@ -182,12 +190,30 @@ public class MatrixOperatorFactory {
                 if (left instanceof Matrix && right instanceof Matrix) {
                     if (((Matrix) left).getNumOfRows() == ((Matrix) right).getNumOfRows()) {
                         ArrayList[][] newMatrix = new ArrayList[((Matrix) left).getNumOfRows()][((Matrix) left).getNumOfCols() + ((Matrix) right).getNumOfCols()];
-                        if (left instanceof Matrix.AugmentedMatrix) {
+                        if (left instanceof Matrix.AugmentedMatrix && right instanceof Matrix.AugmentedMatrix) {
+                            Matrix[] matrices = new Matrix[((Matrix.AugmentedMatrix) left).getMatrices().length + ((Matrix.AugmentedMatrix) right).getMatrices().length];
+                            for (int k = 0; k < ((Matrix.AugmentedMatrix) left).getMatrices().length; k++) {
+                                matrices[k] = ((Matrix.AugmentedMatrix) left).getMatrices()[k];
+                            }
+                            for (int k = 0; k < ((Matrix.AugmentedMatrix) right).getMatrices().length; k++) {
+                                matrices[k] = ((Matrix.AugmentedMatrix) right).getMatrices()[k];
+                            }
+                            Matrix.AugmentedMatrix finalMatrix = new Matrix.AugmentedMatrix(matrices);
+                            return finalMatrix;
+                        } else if (left instanceof Matrix.AugmentedMatrix) {
                             Matrix[] matrices = new Matrix[((Matrix.AugmentedMatrix) left).getMatrices().length + 1];
                             for (int k = 0; k < matrices.length - 1; k++) {
                                 matrices[k] = ((Matrix.AugmentedMatrix) left).getMatrices()[k];
                             }
                             matrices[matrices.length - 1] = (Matrix) right;
+                            Matrix.AugmentedMatrix finalMatrix = new Matrix.AugmentedMatrix(matrices);
+                            return finalMatrix;
+                        } else if (right instanceof Matrix.AugmentedMatrix) {
+                            Matrix[] matrices = new Matrix[((Matrix.AugmentedMatrix) right).getMatrices().length + 1];
+                            for (int k = 1; k < matrices.length - 1; k++) {
+                                matrices[k] = ((Matrix.AugmentedMatrix) right).getMatrices()[k];
+                            }
+                            matrices[0] = (Matrix) left;
                             Matrix.AugmentedMatrix finalMatrix = new Matrix.AugmentedMatrix(matrices);
                             return finalMatrix;
                         } else {

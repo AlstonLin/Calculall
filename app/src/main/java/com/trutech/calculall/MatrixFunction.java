@@ -6,7 +6,7 @@ package com.trutech.calculall;
 public abstract class MatrixFunction extends Token {
 
     public static final int REF = 1, RREF = 2, DET = 3, TRANSPOSE = 4, INVERSE = 5, DIAG = 6,
-            EIGENVECT = 7, EIGENVAL = 8, TRACE = 9, RANK = 10;
+            EIGENVECT = 7, EIGENVAL = 8, TRACE = 9, RANK = 10, LU = 11, SQRT = 12;
 
     private int type;
 

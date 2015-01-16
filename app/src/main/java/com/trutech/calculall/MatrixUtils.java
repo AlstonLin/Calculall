@@ -1,5 +1,13 @@
 package com.trutech.calculall;
 
+import org.apache.commons.math3.linear.Array2DRowRealMatrix;
+import org.apache.commons.math3.linear.ArrayRealVector;
+import org.apache.commons.math3.linear.DecompositionSolver;
+import org.apache.commons.math3.linear.EigenDecomposition;
+import org.apache.commons.math3.linear.LUDecomposition;
+import org.apache.commons.math3.linear.RealMatrix;
+import org.apache.commons.math3.linear.RealVector;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -10,7 +18,40 @@ import static com.trutech.calculall.Matrix.AugmentedMatrix;
  * <p/>
  * Created by Ejaaz on 24/12/2014.
  */
-public class RowReducer {
+public class MatrixUtils {
+    /**
+     * Evaluates every entry of the given matrix
+     *
+     * @param matrix The unsimplified matrix
+     * @return The simplified matrix
+     */
+    public static Matrix evaluateMatrixEntries(Matrix matrix) {
+        ArrayList[][] newMatrix = new ArrayList[matrix.getNumOfRows()][matrix.getNumOfCols()];
+        ArrayList<Token> temp = new ArrayList<>();
+        for (int i = 0; i < matrix.getNumOfRows(); i++) {
+            for (int j = 0; j < matrix.getNumOfCols(); j++) {
+                temp.add(new Number(Utility.evaluateExpression(Utility.convertToReversePolish(matrix.getEntry(i, j)))));
+                newMatrix[i][j] = temp;
+                temp.clear();
+            }
+        }
+        return new Matrix(newMatrix);
+    }
+
+    /**
+     * Makes an Identity Matrix of the given size
+     *
+     * @param dim the number of rows/columns of the Identity Matrix
+     * @return The Identity Matrix of the specified size
+     */
+    public static Matrix makeIdentity(int dim) {
+        ArrayList<Token>[][] newMatrix = new ArrayList[dim][dim];
+        for (int i = 0; i < dim; i++) {
+            newMatrix[i][i].add(new Number(1));
+        }
+        return new Matrix(newMatrix);
+    }
+
     /**
      * Checks if the given array contains only zeroes, assumes
      * the all the elements of the array have been fully simplified
@@ -79,9 +120,9 @@ public class RowReducer {
      * @param m The Matrix which will be Row Reduced to REF
      * @return the row reduction steps
      */
-    public static double[][] getREFSteps(Matrix m) {
+    private static double[][] getREFSteps(Matrix m) {
         ArrayList<Double[]> steps = new ArrayList<>();
-        Matrix temp = Utility.evaluateMatrix(m);
+        Matrix temp = evaluateMatrixEntries(m);
         if (!onlyZeroes(temp.getColumn(0))) {
             for (int j = 0; j < m.getNumOfCols(); j++) {
                 int pivot = getFirstNonZero(temp.getColumn(j));
@@ -123,7 +164,7 @@ public class RowReducer {
      * @param m The Matrix which will be Row Reduced to RREF
      * @return the row reduction steps
      */
-    public static double[][] getRREFSteps(Matrix m) {
+    private static double[][] getRREFSteps(Matrix m) {
         ArrayList<Double[]> steps = new ArrayList<>();
         double[][] refSteps = getREFSteps(m);
         Double[] tempStep;
@@ -242,7 +283,7 @@ public class RowReducer {
      * @param steps The Row Operations to be applied
      * @return A Matrix with the given steps applied to the original Matrix
      */
-    public static Matrix applySteps(Matrix m, double[][] steps) {
+    private static Matrix applySteps(Matrix m, double[][] steps) {
         if (steps.length == 0) {
             return m;
         } else if (steps[0][0] == 1) {
@@ -258,13 +299,13 @@ public class RowReducer {
 
 
     /**
-     * Row Reduces an AugmentedMatrix(aug)
+     * Row Reduces an AugmentedMatrix(aug) to RREF
      *
      * @param aug the Augmented Matrix to be Row Reduced
      * @return An Augmented Matrix whose primary Matrix(Matrix at index 0) is
      * in RREF
      */
-    public static AugmentedMatrix rowReduce(AugmentedMatrix aug) {
+    public static AugmentedMatrix rowReduceRREF(AugmentedMatrix aug) {
         double[][] steps = getRREFSteps(aug.getMatrices()[0]);
         Matrix[] matrices = new Matrix[aug.getMatrices().length];
         for (int k = 0; k < matrices.length; k++) {
@@ -273,6 +314,80 @@ public class RowReducer {
         return new AugmentedMatrix(matrices);
     }
 
+    /**
+     * Row Reduces an AugmentedMatrix(aug) to REF
+     *
+     * @param aug the Augmented Matrix to be Row Reduced
+     * @return An Augmented Matrix whose primary Matrix(Matrix at index 0) is
+     * in REF
+     */
+    public static AugmentedMatrix rowReduceREF(AugmentedMatrix aug) {
+        double[][] steps = getREFSteps(aug.getMatrices()[0]);
+        Matrix[] matrices = new Matrix[aug.getMatrices().length];
+        for (int k = 0; k < matrices.length; k++) {
+            matrices[k] = applySteps(aug.getMatrices()[k], steps);
+        }
+        return new AugmentedMatrix(matrices);
+    }
+
+    public static Matrix ref(Matrix m) {
+        return applySteps(m, getREFSteps(m));
+    }
+
+    public static Matrix rref(Matrix m) {
+        return applySteps(m, getRREFSteps(m));
+    }
+
+    private static double[][] convMatrixEntriesToDbl(ArrayList<Token>[][] entries) {
+        double[][] tempDbls = new double[entries.length][entries[0].length];
+        for (int i = 0; i < tempDbls.length; i++) {
+            for (int j = 0; j < tempDbls[i].length; j++) {
+                tempDbls[i][j] = ((Number) entries[i][j].get(0)).getValue();
+            }
+        }
+        return tempDbls;
+    }
+
+    public static Matrix getSqrt(Matrix a) {
+        if (a instanceof AugmentedMatrix) {
+            throw new IllegalArgumentException("Squareroots of Augmented Matrices cannot be computed");
+        } else {
+            RealMatrix m = new Array2DRowRealMatrix(convMatrixEntriesToDbl(a.getEntries()));
+            if (!m.isSquare()) {
+                throw new IllegalArgumentException("Matrix must be square in order to compute its squareroot");
+            } else {
+                EigenDecomposition ed = new EigenDecomposition(m);
+                try {
+                    return new Matrix(ed.getSquareRoot().getData());
+                } catch (Exception e) {
+                    throw new IllegalArgumentException("Matrix must be symmetric and positive definite in order to compute its squareroot");
+                }
+            }
+        }
+    }
+
+    public static Matrix solve(Matrix a, Matrix b) {
+        Matrix tempA = evaluateMatrixEntries(a);
+        Matrix tempB = evaluateMatrixEntries(b);
+        RealMatrix matrix = new Array2DRowRealMatrix(convMatrixEntriesToDbl(tempA.getEntries()));
+        RealVector vector = new ArrayRealVector(convMatrixEntriesToDbl(tempB.getEntries())[0]);
+        return solve(matrix, vector);
+    }
+
+    /**
+     * Solves the system [A|b]
+     *
+     * @param a The coefficient Matrix
+     * @param b The constant vector
+     * @return The solution vector
+     */
+    public static Matrix solve(RealMatrix a, RealVector b) {
+        DecompositionSolver solver = new LUDecomposition(a).getSolver();
+        RealVector solution = solver.solve(b);
+        double[][] entries = new double[1][solution.getDimension()];
+        entries[0] = solution.toArray();
+        return new Matrix(entries);
+    }
 
     /**
      * Finds the Inverse (if it exists) of a Matrix
@@ -284,9 +399,9 @@ public class RowReducer {
         if (m.getNumOfRows() != m.getNumOfCols()) {
             throw new IllegalArgumentException("Non-square matrices are not invertible");
         } else if (((Number) (MatrixFunctionFactory.makeDeterminant().perform(m)).getEntry(0, 0).get(0)).getValue() != 0) {
-            AugmentedMatrix am = (AugmentedMatrix) MatrixOperatorFactory.makeAugment().operate(m, Utility.makeIdentity(m.getNumOfCols()));
-            am = rowReduce(am);
-            return am.getMatrices()[1];
+            RealMatrix a = new Array2DRowRealMatrix(convMatrixEntriesToDbl(evaluateMatrixEntries(m).getEntries()));
+            RealMatrix inverse = new LUDecomposition(a).getSolver().getInverse();
+            return new Matrix(inverse.getData());
         } else {
             throw new IllegalArgumentException("Matrix is not invertible");
         }
@@ -311,27 +426,158 @@ public class RowReducer {
     }
 
     /*********************************************************
-     **************** TRIDIAGONALIZATION *********************
+     ************* EIGENVALUES AND EIGENVECTORS **************
      *********************************************************/
 
-
-    /**
-     * Produces a constant used to form the Householder matrix
-     *
-     * @param a A Matrix (must already be simplified)
-     * @param k an integer
-     * @return the alpha constant used to make a Householder matrix
-     */
-    private static double alpha(Matrix a, int k) {
-        double sum = 0;
-        for (int i = k; i < a.getNumOfRows(); i++) {
-            sum += Math.pow(((Number) a.getEntry(i, 1).get(0)).getValue(), 2);
+    public static double[] getRealEigenValues(Matrix a) {
+        if (a instanceof AugmentedMatrix) {
+            throw new IllegalArgumentException("Augmented Matrices do not have eigenvalues");
+        } else {
+            RealMatrix m = new Array2DRowRealMatrix(convMatrixEntriesToDbl(a.getEntries()));
+            return realEigenValues(m);
         }
-        return -1 * Math.signum(((Number) a.getEntry(k, 1).get(0)).getValue()) * Math.sqrt(sum);
     }
 
-    private static double r(Matrix a, int k) {
-        double alpha = alpha(a, k);
-        return Math.sqrt(0.5 * alpha * (alpha - Math.pow(((Number) a.getEntry(k + 1, k).get(0)).getValue(), k)));
+    private static double[] realEigenValues(RealMatrix a) {
+        if (!a.isSquare()) {
+            throw new IllegalArgumentException("Matrix must be square in order to find eigenvalues");
+        } else {
+            Complex[] eigenVals = complexEigenValues(a);
+            ArrayList<Double> realEigenVals = new ArrayList<>();
+            for (int i = 0; i < eigenVals.length; i++) {
+                if (eigenVals[i].isReal()) {
+                    realEigenVals.add(new Double(eigenVals[i].getReal()));
+                }
+            }
+            double[] temp = new double[realEigenVals.toArray().length];
+            for (int i = 0; i < temp.length; i++) {
+                temp[i] = (double) realEigenVals.get(i);
+            }
+            return temp;
+        }
+    }
+
+    public static Complex[] getComplexEigenValues(Matrix a) {
+        if (a instanceof AugmentedMatrix) {
+            throw new IllegalArgumentException("Augmented Matrices do not have eigenvalues");
+        } else {
+            RealMatrix m = new Array2DRowRealMatrix(convMatrixEntriesToDbl(a.getEntries()));
+            return complexEigenValues(m);
+        }
+    }
+
+    private static Complex[] complexEigenValues(RealMatrix a) {
+        if (!a.isSquare()) {
+            throw new IllegalArgumentException("Matrix must be square in order to find eigenvalues");
+        } else {
+            Complex[] eigenVals = new Complex[a.getColumnDimension()];
+            EigenDecomposition ed = new EigenDecomposition(a);
+            for (int i = 0; i < eigenVals.length; i++) {
+                eigenVals[i] = new Complex(ed.getRealEigenvalue(i), ed.getImagEigenvalue(i));
+            }
+            return eigenVals;
+        }
+    }
+
+    public static Matrix[] getEigenVectors(Matrix a) {
+        if (a instanceof AugmentedMatrix) {
+            throw new IllegalArgumentException("Augmented Matrices do not have eigenvalues");
+        } else {
+            RealMatrix m = new Array2DRowRealMatrix(convMatrixEntriesToDbl(a.getEntries()));
+            return eigenVectors(m);
+        }
+    }
+
+    private static Matrix[] eigenVectors(RealMatrix a) {
+        if (!a.isSquare()) {
+            throw new IllegalArgumentException("Matrix must be square in order to find eigenvalues");
+        } else {
+            RealVector ev;
+            Matrix[] vectors = new Matrix[a.getColumnDimension()];
+            double[][] temp = new double[1][a.getColumnDimension()];
+            EigenDecomposition ed = new EigenDecomposition(a);
+            for (int i = 0; i < a.getColumnDimension(); i++) {
+                ev = ed.getEigenvector(i);
+                temp[0] = ev.toArray();
+                vectors[i] = new Matrix(temp);
+            }
+            return vectors;
+        }
+    }
+
+    public static Matrix getDiagonalMatrix(Matrix a) {
+        if (a instanceof AugmentedMatrix) {
+            throw new IllegalArgumentException("Augmented Matrices can not be diagonalized");
+        } else {
+            RealMatrix m = new Array2DRowRealMatrix(convMatrixEntriesToDbl(a.getEntries()));
+            if (!m.isSquare()) {
+                throw new IllegalArgumentException("Matrix must be square in order to be diagonalizable");
+            } else {
+                EigenDecomposition ed = new EigenDecomposition(m);
+                return new Matrix(ed.getD().getData());
+            }
+        }
+    }
+
+    public static Matrix getDiagonalizingMatrix(Matrix a) {
+        if (a instanceof AugmentedMatrix) {
+            throw new IllegalArgumentException("Augmented Matrices can not be diagonalized");
+        } else {
+            RealMatrix m = new Array2DRowRealMatrix(convMatrixEntriesToDbl(a.getEntries()));
+            if (!m.isSquare()) {
+                throw new IllegalArgumentException("Matrix must be square in order to be diagonalizable");
+            } else {
+                EigenDecomposition ed = new EigenDecomposition(m);
+                return new Matrix(ed.getV().getData());
+            }
+        }
+    }
+
+    /**
+     * ******************************************************
+     * ****************** LUP DECOMPOSITION *******************
+     * *******************************************************
+     */
+
+    public static Matrix getLowerTriangularMatrix(Matrix a) {
+        if (a instanceof AugmentedMatrix) {
+            throw new IllegalArgumentException("Augmented Matrices can not be decomposed");
+        } else {
+            RealMatrix m = new Array2DRowRealMatrix(convMatrixEntriesToDbl(a.getEntries()));
+            if (!m.isSquare()) {
+                throw new IllegalArgumentException("Matrix must be square in order to be LUP factorizable");
+            } else {
+                LUDecomposition lu = new LUDecomposition(m);
+                return new Matrix(lu.getL().getData());
+            }
+        }
+    }
+
+    public static Matrix getUpperTriangularMatrix(Matrix a) {
+        if (a instanceof AugmentedMatrix) {
+            throw new IllegalArgumentException("Augmented Matrices can not be decomposed");
+        } else {
+            RealMatrix m = new Array2DRowRealMatrix(convMatrixEntriesToDbl(a.getEntries()));
+            if (!m.isSquare()) {
+                throw new IllegalArgumentException("Matrix must be square in order to be LUP factorizable");
+            } else {
+                LUDecomposition lu = new LUDecomposition(m);
+                return new Matrix(lu.getU().getData());
+            }
+        }
+    }
+
+    public static Matrix getPermutationMatrix(Matrix a) {
+        if (a instanceof AugmentedMatrix) {
+            throw new IllegalArgumentException("Augmented Matrices can not be decomposed");
+        } else {
+            RealMatrix m = new Array2DRowRealMatrix(convMatrixEntriesToDbl(a.getEntries()));
+            if (!m.isSquare()) {
+                throw new IllegalArgumentException("Matrix must be square in order to be LUP factorizable");
+            } else {
+                LUDecomposition lu = new LUDecomposition(m);
+                return new Matrix(lu.getP().getData());
+            }
+        }
     }
 }

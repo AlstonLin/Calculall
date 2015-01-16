@@ -337,38 +337,86 @@ public class Utility {
         }
     }
 
-
     /**
-     * Evaluates every entry of the given matrix
+     * Uses the shunting yard algorithm to change the matrix expression from infix to reverse polish.
      *
-     * @param matrix The unsimplified matrix
-     * @return The simplified matrix
+     * @param infix The infix expression
+     * @return The expression in reverse polish
+     * @throws java.lang.IllegalArgumentException The infix notation is invalid
      */
-    public static Matrix evaluateMatrix(Matrix matrix) {
-        ArrayList[][] newMatrix = new ArrayList[matrix.getNumOfRows()][matrix.getNumOfCols()];
-        ArrayList<Token> temp = new ArrayList<>();
-        for (int i = 0; i < matrix.getNumOfRows(); i++) {
-            for (int j = 0; j < matrix.getNumOfCols(); j++) {
-                temp.add(new Number(Utility.evaluateExpression(convertToReversePolish(matrix.getEntry(i, j)))));
-                newMatrix[i][j] = temp;
-                temp.clear();
+    public static ArrayList<Token> convertToReversePolishMatrix(ArrayList<Token> infix) {
+        ArrayList<Token> reversePolish = new ArrayList<Token>();
+        Stack<Token> stack = new Stack<Token>();
+        for (Token token : infix) {
+            if (token instanceof Number || token instanceof Variable || token instanceof Matrix) { //Adds directly to the queue if it's a token
+                reversePolish.add(token);
+            } else if (token instanceof MatrixFunction) { //Adds to the stack if it's a function
+                stack.push(token);
+            } else if (token instanceof MatrixOperator) {
+                if (!stack.empty()) { //Make sure it's not empty to prevent bugs
+                    Token top = stack.lastElement();
+                    while (top != null && ((top instanceof MatrixOperator && ((MatrixOperator) token).isLeftAssociative()
+                            && ((MatrixOperator) top).getPrecedence() >= ((MatrixOperator) token).getPrecedence()) || top instanceof MatrixFunction)) { //Operator is left associative and has higher precedence / is a function
+                        reversePolish.add(stack.pop()); //Pops top element to the queue
+                        top = stack.isEmpty() ? null : stack.lastElement(); //Assigns the top element of the stack if it exists
+                    }
+                }
+                stack.push(token);
+            } else if (token instanceof Bracket) {
+                Bracket bracket = (Bracket) token;
+                if (bracket.getType() == Bracket.OPEN || bracket.getType() == Bracket.SUPERSCRIPT_OPEN
+                        || bracket.getType() == Bracket.NUM_OPEN || bracket.getType() == Bracket.DENOM_OPEN) { //Pushes the bracket to the stack if it's open
+                    stack.push(bracket);
+                } else if (bracket.getType() == Bracket.CLOSE || bracket.getType() == Bracket.SUPERSCRIPT_CLOSE
+                        || bracket.getType() == Bracket.NUM_CLOSE || bracket.getType() == Bracket.DENOM_CLOSE) { //For close brackets, pop operators onto the list until a open bracket is found
+                    Token top = stack.lastElement();
+                    while (!(top instanceof Bracket)) { //While it has not found an open bracket
+                        reversePolish.add(stack.pop()); //Pops the top element
+                        if (stack.isEmpty()) { //Mismatched brackets
+                            throw new IllegalArgumentException();
+                        }
+                        top = stack.lastElement();
+                    }
+                    stack.pop(); //Removes the bracket
+                }
             }
         }
-        return new Matrix(newMatrix);
+        //All tokens read at this point
+        while (!stack.isEmpty()) { //Puts the remaining tokens in the stack to the queue
+            reversePolish.add(stack.pop());
+        }
+        return reversePolish;
     }
 
     /**
-     * Makes an Identity Matrix of the given size
+     * Takes a given Matrix expression in reverse polish form and returns the resulting value.
      *
-     * @param dim the number of rows/columns of the Identity Matrix
-     * @return The Identity Matrix of the specified size
+     * @param tokens The matrix expression in reverse polish
+     * @return The value of the expression
+     * @throws java.lang.IllegalArgumentException The user entered an invalid expression
      */
-    public static Matrix makeIdentity(int dim) {
-        ArrayList<Token>[][] newMatrix = new ArrayList[dim][dim];
-        for (int i = 0; i < dim; i++) {
-            newMatrix[i][i].add(new Number(1));
+    public static Matrix evaluateMatrixExpression(ArrayList<Token> tokens) {
+        Stack stack = new Stack();
+        for (Token token : tokens) {
+            if (token instanceof Matrix || token instanceof Number) { //Adds all Matrices directly to the stack
+                stack.push(token);
+            } else if (token instanceof MatrixOperator) {
+                //Operates the first and second top operators
+                Object right = stack.pop();
+                Object left = stack.pop();
+                stack.push(((MatrixOperator) token).operate(left, right)); //Adds the result back to the stack
+            } else if (token instanceof MatrixFunction) { //Function uses the top number on the stack
+                Matrix top = (Matrix) stack.pop(); //Function performs on the first number
+                stack.push(((MatrixFunction) token).perform(top)); //Adds the result back to the stack
+            } else { //This should never be reached
+                throw new IllegalArgumentException();
+            }
         }
-        return new Matrix(newMatrix);
+        if (stack.size() != 1) {
+            throw new IllegalArgumentException("Stack size is empty"); //There should only be 1 token left on the stack
+        } else {
+            return (Matrix) stack.pop();
+        }
     }
 
     /**

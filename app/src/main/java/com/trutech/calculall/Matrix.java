@@ -34,7 +34,25 @@ public class Matrix extends Token {
         this.entries = newMatrix;
     }
 
-    public AugmentedMatrix makeNewAM(Matrix[] matrices){ return new AugmentedMatrix(matrices); }
+    public static Matrix add(Matrix a, Matrix b) {
+        return MatrixOperatorFactory.makeMatrixAdd().operate(a, b);
+    }
+
+    public static Matrix subtract(Matrix a, Matrix b) {
+        return MatrixOperatorFactory.makeMatrixSubtract().operate(a, b);
+    }
+
+    public static Matrix multiply(Object a, Object b) {
+        return MatrixOperatorFactory.makeMatrixMultiply().operate(a, b);
+    }
+
+    public static Matrix transpose(Matrix a) {
+        return MatrixFunctionFactory.makeTranspose().perform(a);
+    }
+
+    public AugmentedMatrix makeNewAM(Matrix[] matrices) {
+        return new AugmentedMatrix(matrices);
+    }
 
     public int getNumOfCols() {
         return numOfCols;
@@ -44,7 +62,9 @@ public class Matrix extends Token {
         return numOfRows;
     }
 
-    public ArrayList<Token>[][] getEntries(){ return entries; }
+    public ArrayList<Token>[][] getEntries() {
+        return entries;
+    }
 
     public ArrayList<Token> getEntry(int i, int j) {
         if (i >= 0 && i < numOfRows && j >= 0 && j < numOfCols) {
