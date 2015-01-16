@@ -40,19 +40,19 @@ public class FunctionMode extends Advanced {
         tokens = Utility.setupExpression(tokens);
         double[] roots = ApacheUtility.findRoots(tokens);
         String toOutput = "";
-            //Outputs the result
-            int counter = 0;
+        //Outputs the result
+        int counter = 0;
         while (counter < roots.length) {
             double root = roots[counter];
-                if (counter != 0) {
-                    toOutput += " OR ";
-                }
+            if (counter != 0) {
+                toOutput += " OR ";
+            }
             toOutput += "X = " + Utility.round(root, ROUND_TO);
-                counter++;
-            }
-            if (counter == 0) { //No roots
-                toOutput += "No real roots";
-            }
+            counter++;
+        }
+        if (counter == 0) { //No roots
+            toOutput += "No real roots";
+        }
         display.displayOutput(toOutput);
         scrollDown();
     }
