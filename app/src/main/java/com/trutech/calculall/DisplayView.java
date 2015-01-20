@@ -329,6 +329,7 @@ public class DisplayView extends View {
 
     /**
      * Determines what would be the most negative pixel drawn, assuming the expression that drawing at zero.
+     *
      * @param expression The expression to draw
      * @return The most negative y coordinate drawn on
      */
@@ -467,7 +468,7 @@ public class DisplayView extends View {
     /**
      * Determines the height, in pixels, of the expression
      *
-     * @param expression The expression
+     * @param expression        The expression
      * @param countEndExponents If exponents at the end of the expression should count
      * @return The height of the given expression, in pixels
      */
@@ -799,7 +800,7 @@ public class DisplayView extends View {
      * Determines the width of a given expression from the drawX list.
      *
      * @param start The start index on the drawX
-     * @param end The end index on the drawX
+     * @param end   The end index on the drawX
      * @return The width of the expression
      */
     private float getWidth(int start, int end) {

@@ -69,7 +69,6 @@ public class VectorMode extends Advanced {
             handleExceptions(e);
         }
         scrollDown();
-
     }
 
     /**
@@ -187,69 +186,6 @@ public class VectorMode extends Advanced {
         }
     }
 
-
-    /**
-     * When the user presses the U button
-     *
-     * @param v Not Used
-     */
-    public void clickVU(View v) {
-        if (mem) {
-            storeVector("→ U", new Command<Void, ArrayList<Token>>() {
-                @Override
-                public Void execute(ArrayList<Token> val) {
-                    Vector.u_value = val;
-                    return null;
-                }
-            });
-        } else {
-            tokens.add(display.getRealCursorIndex(), VectorFactory.makeU());
-            display.setCursorIndex(display.getCursorIndex() + 1);
-            updateInput();
-        }
-    }
-
-    /**
-     * When the user presses the V button
-     *
-     * @param v Not Used
-     */
-    public void clickVV(View v) {
-        if (mem) {
-            storeVector("→ V", new Command<Void, ArrayList<Token>>() {
-                @Override
-                public Void execute(ArrayList<Token> val) {
-                    Vector.v_value = val;
-                    return null;
-                }
-            });
-        } else {
-            tokens.add(display.getRealCursorIndex(), VectorFactory.makeV());
-            display.setCursorIndex(display.getCursorIndex() + 1);
-            updateInput();
-        }
-    }
-
-    /**
-     * When the user presses the W button
-     *
-     * @param v Not Used
-     */
-    public void clickVW(View v) {
-        if (mem) {
-            storeVector("→ W", new Command<Void, ArrayList<Token>>() {
-                @Override
-                public Void execute(ArrayList<Token> val) {
-                    Vector.w_value = val;
-                    return null;
-                }
-            });
-        } else {
-            tokens.add(display.getRealCursorIndex(), VectorFactory.makeW());
-            display.setCursorIndex(display.getCursorIndex() + 1);
-            updateInput();
-        }
-    }
 
     /**
      * When the user presses the T button

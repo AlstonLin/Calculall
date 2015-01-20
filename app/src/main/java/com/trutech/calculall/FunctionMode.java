@@ -84,7 +84,7 @@ public class FunctionMode extends Advanced {
 
     public void clickRoots(View view) {
         final Context context = this;
-        AsyncTask<ArrayList<Token>, Void, ArrayList<ArrayList<Token>>> task = new AsyncTask<ArrayList<Token>, Void, ArrayList<ArrayList<Token>>> () {
+        AsyncTask<ArrayList<Token>, Void, ArrayList<ArrayList<Token>>> task = new AsyncTask<ArrayList<Token>, Void, ArrayList<ArrayList<Token>>>() {
 
             private Exception error;
 
@@ -98,7 +98,7 @@ public class FunctionMode extends Advanced {
             protected ArrayList<ArrayList<Token>> doInBackground(ArrayList<Token>... params) {
                 try {
                     return MathUtilities.findRoots(params[0]);
-                }catch (Exception e) {
+                } catch (Exception e) {
                     error = e;
                     return null;
                 }
@@ -113,7 +113,7 @@ public class FunctionMode extends Advanced {
                         showMalformedExpressionToast();
                     } else if (error instanceof UnsupportedOperationException) {
                         Toast.makeText(context, "Sorry, we're unable to find the root(s) of this function. Root finding for this function may not be supported yet.", Toast.LENGTH_SHORT).show();
-                    } else{
+                    } else {
                         Toast.makeText(context, "Something weird happened in our system, and we can't find the derivative. We'll try to fix this as soon as we can. Sorry! :(", Toast.LENGTH_LONG).show();
                     }
                 } else {
@@ -246,7 +246,7 @@ public class FunctionMode extends Advanced {
             public Void execute(Exception error) {
                 if (error == null) {
                     showMalformedExpressionToast();
-                } else if (error instanceof WrongNumberOfArguments){
+                } else if (error instanceof WrongNumberOfArguments) {
                     showMalformedExpressionToast();
                 } else {
                     Toast.makeText(context, "Something weird happened in our system, and we can't find the integral. We'll try to fix this as soon as we can. Sorry! :(", Toast.LENGTH_LONG).show();
@@ -289,9 +289,9 @@ public class FunctionMode extends Advanced {
             public Void execute(Exception error) {
                 if (error == null) {
                     showMalformedExpressionToast();
-                } else if (error instanceof  WrongNumberOfArguments){
+                } else if (error instanceof WrongNumberOfArguments) {
                     showMalformedExpressionToast();
-                } else{
+                } else {
                     Toast.makeText(context, "Something weird happened in our system, and we can't find the integral. We'll try to fix this as soon as we can. Sorry! :(", Toast.LENGTH_LONG).show();
                 }
                 return null;

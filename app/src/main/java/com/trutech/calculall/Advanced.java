@@ -23,11 +23,11 @@ public class Advanced extends Basic {
     public static final int FRAC = 2;
     private static final String FILENAME = "history_advanced";
     public boolean switchedAngleMode = false;
+    protected boolean hyperbolic = false;
+    protected boolean shift = false;
+    protected boolean mem = false;
     private int angleMode = 1;
     private int base = 1;
-    private boolean hyperbolic = false;
-    private boolean shift = false;
-    private boolean mem = false;
     private Token root;
 
     @Override

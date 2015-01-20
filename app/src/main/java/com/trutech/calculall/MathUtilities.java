@@ -407,9 +407,9 @@ public class MathUtilities {
             //Validates the roots (makes sure that it is actually a root)
             for (int i = 0; i < rootsList.size(); i++) {
                 ArrayList<Token> root = rootsList.get(i);
-                float value = (float)Utility.valueAt(expression, Utility.evaluateExpression(Utility.convertToReversePolish(Utility.setupExpression(root))));
+                float value = (float) Utility.valueAt(expression, Utility.evaluateExpression(Utility.convertToReversePolish(Utility.setupExpression(root))));
                 final float ERROR_MARGIN = 1e-6f;
-                if (!(value > -ERROR_MARGIN &&  value < ERROR_MARGIN)) {
+                if (!(value > -ERROR_MARGIN && value < ERROR_MARGIN)) {
                     rootsList.remove(root);
                 }
             }

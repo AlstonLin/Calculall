@@ -45,6 +45,7 @@ public abstract class Operator extends Token implements Serializable {
      */
     public abstract double operate(double left, double right);
 
+
     /**
      * @return The type of operation this is (see class constants for possible values)
      */
