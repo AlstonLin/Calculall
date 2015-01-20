@@ -7,22 +7,21 @@ import java.util.ArrayList;
  * Used as an unit within a tree.
  *
  * @author Alston Lin
- * @param E The type of Object the tree will store
  */
 public class Node<E> {
 
-    private ArrayList<Node> children;
+    private ArrayList<Node<E>> children;
     private E content;
     private Node parent;
 
     /**
-     * Constructs a new Node for a tree.
+     * Constructs a new Node<> for a tree.
      *
      * @param content The contents of the node
      */
     public Node(E content) {
         this.content = content;
-        children = new ArrayList();
+        children = new ArrayList<>();
     }
 
     /**
@@ -30,7 +29,7 @@ public class Node<E> {
      *
      * @param child the child Node
      */
-    public void addChild(Node child) {
+    public void addChild(Node<E> child) {
         children.add(child);
         child.parent = this;
     }
@@ -40,7 +39,7 @@ public class Node<E> {
      *
      * @param newChildren a list of all the children to be added to this Node
      */
-    public void addChildren(ArrayList<Node> newChildren) {
+    public void addChildren(ArrayList<Node<E>> newChildren) {
         for (int i = 0; i < newChildren.size(); i++) {
             this.addChild(newChildren.get(i));
         }
@@ -57,10 +56,9 @@ public class Node<E> {
 
     /**
      * Creates a copy this node
-     *
      */
-    public Node<Token> copy() {
-        Node<Token> newRoot = new Node(this.getContent());
+    public Node<E> copy() {
+        Node<E> newRoot = new Node<>(this.getContent());
         for (int i = 0; i < this.getNumOfChildren(); i++) {
             newRoot.addChild(this.getChildren().get(i).copy());
         }
@@ -68,15 +66,13 @@ public class Node<E> {
     }
 
     /**
-     *
      * @return The children of this Node
      */
-    public ArrayList<Node> getChildren() {
+    public ArrayList<Node<E>> getChildren() {
         return children;
     }
 
     /**
-     *
      * @return The number of children in this Node
      */
     public int getNumOfChildren() {
@@ -93,14 +89,15 @@ public class Node<E> {
     /**
      * @return The parent of this Node
      */
-    public Node getParent() {
+    public Node<E> getParent() {
         return parent;
     }
 
     /**
      * Prints the tree that this node is the root of
+     *
      * @param indent String used to indent the subtrees
-     * @param last Is this the root's last child?
+     * @param last   Is this the root's last child?
      */
     public void printTree(String indent, boolean last) {
         System.out.print(indent);
@@ -114,12 +111,12 @@ public class Node<E> {
         if (this.content instanceof Token) {
             if (this.content instanceof Number) {
                 if (((Number) this.content).getValue() % 1 != 0) {
-                    System.out.println(" "+((Number) this.content).getValue());
+                    System.out.println(" " + ((Number) this.content).getValue());
                 } else {
-                    System.out.println(" "+(int) (((Number) this.content).getValue()));
+                    System.out.println(" " + (int) (((Number) this.content).getValue()));
                 }
             } else {
-                System.out.println(" "+((Token)this.content).getSymbol());
+                System.out.println(" " + ((Token) this.content).getSymbol());
             }
         }
         for (int i = 0; i < children.size(); i++) {

@@ -9,265 +9,1476 @@ package com.trutech.calculall;
 
 public final class R {
     public static final class attr {
+        /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int adSize=0x7f010000;
+        /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int adSizes=0x7f010001;
+        /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int adUnitId=0x7f010002;
+        /** <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>holo_dark</code></td><td>0</td><td></td></tr>
+<tr><td><code>holo_light</code></td><td>1</td><td></td></tr>
+</table>
+         */
+        public static final int appTheme=0x7f010016;
+        /** <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>classic</code></td><td>1</td><td></td></tr>
+<tr><td><code>grayscale</code></td><td>2</td><td></td></tr>
+<tr><td><code>monochrome</code></td><td>3</td><td></td></tr>
+</table>
+         */
+        public static final int buyButtonAppearance=0x7f01001d;
+        /** <p>May be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+<p>May be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>match_parent</code></td><td>-1</td><td></td></tr>
+<tr><td><code>wrap_content</code></td><td>-2</td><td></td></tr>
+</table>
+         */
+        public static final int buyButtonHeight=0x7f01001a;
+        /** <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>buy_with_google</code></td><td>1</td><td></td></tr>
+<tr><td><code>buy_now</code></td><td>2</td><td></td></tr>
+<tr><td><code>book_now</code></td><td>3</td><td></td></tr>
+<tr><td><code>donate_with_google</code></td><td>4</td><td></td></tr>
+</table>
+         */
+        public static final int buyButtonText=0x7f01001c;
+        /** <p>May be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+<p>May be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>match_parent</code></td><td>-1</td><td></td></tr>
+<tr><td><code>wrap_content</code></td><td>-2</td><td></td></tr>
+</table>
+         */
+        public static final int buyButtonWidth=0x7f01001b;
+        /** <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int cameraBearing=0x7f010007;
+        /** <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int cameraTargetLat=0x7f010008;
+        /** <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int cameraTargetLng=0x7f010009;
+        /** <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int cameraTilt=0x7f01000a;
+        /** <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int cameraZoom=0x7f01000b;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int circleCrop=0x7f010005;
+        /** <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>production</code></td><td>1</td><td></td></tr>
+<tr><td><code>sandbox</code></td><td>0</td><td></td></tr>
+<tr><td><code>strict_sandbox</code></td><td>2</td><td></td></tr>
+</table>
+         */
+        public static final int environment=0x7f010017;
+        /** <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>buyButton</code></td><td>1</td><td></td></tr>
+<tr><td><code>selectionDetails</code></td><td>2</td><td></td></tr>
+</table>
+         */
+        public static final int fragmentMode=0x7f010019;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int fragmentStyle=0x7f010018;
+        /** <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int imageAspectRatio=0x7f010004;
+        /** <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>none</code></td><td>0</td><td></td></tr>
+<tr><td><code>adjust_width</code></td><td>1</td><td></td></tr>
+<tr><td><code>adjust_height</code></td><td>2</td><td></td></tr>
+</table>
+         */
+        public static final int imageAspectRatioAdjust=0x7f010003;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int liteMode=0x7f01000c;
+        /** <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>none</code></td><td>0</td><td></td></tr>
+<tr><td><code>normal</code></td><td>1</td><td></td></tr>
+<tr><td><code>satellite</code></td><td>2</td><td></td></tr>
+<tr><td><code>terrain</code></td><td>3</td><td></td></tr>
+<tr><td><code>hybrid</code></td><td>4</td><td></td></tr>
+</table>
+         */
+        public static final int mapType=0x7f010006;
+        /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+         */
+        public static final int maskedWalletDetailsBackground=0x7f010020;
+        /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+         */
+        public static final int maskedWalletDetailsButtonBackground=0x7f010022;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int maskedWalletDetailsButtonTextAppearance=0x7f010021;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int maskedWalletDetailsHeaderTextAppearance=0x7f01001f;
+        /** <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>classic</code></td><td>1</td><td></td></tr>
+<tr><td><code>monochrome</code></td><td>2</td><td></td></tr>
+</table>
+         */
+        public static final int maskedWalletDetailsLogoImageType=0x7f010024;
+        /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int maskedWalletDetailsLogoTextColor=0x7f010023;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int maskedWalletDetailsTextAppearance=0x7f01001e;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int uiCompass=0x7f01000d;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int uiMapToolbar=0x7f010015;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int uiRotateGestures=0x7f01000e;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int uiScrollGestures=0x7f01000f;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int uiTiltGestures=0x7f010010;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int uiZoomControls=0x7f010011;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int uiZoomGestures=0x7f010012;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int useViewLifecycle=0x7f010013;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int zOrderOnTop=0x7f010014;
+    }
+    public static final class color {
+        public static final int common_action_bar_splitter=0x7f050000;
+        public static final int common_signin_btn_dark_text_default=0x7f050001;
+        public static final int common_signin_btn_dark_text_disabled=0x7f050002;
+        public static final int common_signin_btn_dark_text_focused=0x7f050003;
+        public static final int common_signin_btn_dark_text_pressed=0x7f050004;
+        public static final int common_signin_btn_default_background=0x7f050005;
+        public static final int common_signin_btn_light_text_default=0x7f050006;
+        public static final int common_signin_btn_light_text_disabled=0x7f050007;
+        public static final int common_signin_btn_light_text_focused=0x7f050008;
+        public static final int common_signin_btn_light_text_pressed=0x7f050009;
+        public static final int common_signin_btn_text_dark=0x7f050017;
+        public static final int common_signin_btn_text_light=0x7f050018;
+        public static final int wallet_bright_foreground_disabled_holo_light=0x7f05000a;
+        public static final int wallet_bright_foreground_holo_dark=0x7f05000b;
+        public static final int wallet_bright_foreground_holo_light=0x7f05000c;
+        public static final int wallet_dim_foreground_disabled_holo_dark=0x7f05000d;
+        public static final int wallet_dim_foreground_holo_dark=0x7f05000e;
+        public static final int wallet_dim_foreground_inverse_disabled_holo_dark=0x7f05000f;
+        public static final int wallet_dim_foreground_inverse_holo_dark=0x7f050010;
+        public static final int wallet_highlighted_text_holo_dark=0x7f050011;
+        public static final int wallet_highlighted_text_holo_light=0x7f050012;
+        public static final int wallet_hint_foreground_holo_dark=0x7f050013;
+        public static final int wallet_hint_foreground_holo_light=0x7f050014;
+        public static final int wallet_holo_blue_light=0x7f050015;
+        public static final int wallet_link_text_light=0x7f050016;
+        public static final int wallet_primary_text_holo_light=0x7f050019;
+        public static final int wallet_secondary_text_holo_dark=0x7f05001a;
     }
     public static final class dimen {
-        public static final int activity_horizontal_margin=0x7f040000;
-        public static final int activity_vertical_margin=0x7f040001;
+        public static final int activity_horizontal_margin=0x7f060000;
+        public static final int activity_vertical_margin=0x7f060001;
     }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
-        public static final int mybutton=0x7f020001;
-        public static final int mybutton2=0x7f020002;
-        public static final int mybutton3=0x7f020003;
-        public static final int toggle=0x7f020004;
+        public static final int common_full_open_on_phone=0x7f020000;
+        public static final int common_ic_googleplayservices=0x7f020001;
+        public static final int common_signin_btn_icon_dark=0x7f020002;
+        public static final int common_signin_btn_icon_disabled_dark=0x7f020003;
+        public static final int common_signin_btn_icon_disabled_focus_dark=0x7f020004;
+        public static final int common_signin_btn_icon_disabled_focus_light=0x7f020005;
+        public static final int common_signin_btn_icon_disabled_light=0x7f020006;
+        public static final int common_signin_btn_icon_focus_dark=0x7f020007;
+        public static final int common_signin_btn_icon_focus_light=0x7f020008;
+        public static final int common_signin_btn_icon_light=0x7f020009;
+        public static final int common_signin_btn_icon_normal_dark=0x7f02000a;
+        public static final int common_signin_btn_icon_normal_light=0x7f02000b;
+        public static final int common_signin_btn_icon_pressed_dark=0x7f02000c;
+        public static final int common_signin_btn_icon_pressed_light=0x7f02000d;
+        public static final int common_signin_btn_text_dark=0x7f02000e;
+        public static final int common_signin_btn_text_disabled_dark=0x7f02000f;
+        public static final int common_signin_btn_text_disabled_focus_dark=0x7f020010;
+        public static final int common_signin_btn_text_disabled_focus_light=0x7f020011;
+        public static final int common_signin_btn_text_disabled_light=0x7f020012;
+        public static final int common_signin_btn_text_focus_dark=0x7f020013;
+        public static final int common_signin_btn_text_focus_light=0x7f020014;
+        public static final int common_signin_btn_text_light=0x7f020015;
+        public static final int common_signin_btn_text_normal_dark=0x7f020016;
+        public static final int common_signin_btn_text_normal_light=0x7f020017;
+        public static final int common_signin_btn_text_pressed_dark=0x7f020018;
+        public static final int common_signin_btn_text_pressed_light=0x7f020019;
+        public static final int ic_launcher=0x7f02001a;
+        public static final int ic_plusone_medium_off_client=0x7f02001b;
+        public static final int ic_plusone_small_off_client=0x7f02001c;
+        public static final int ic_plusone_standard_off_client=0x7f02001d;
+        public static final int ic_plusone_tall_off_client=0x7f02001e;
+        public static final int mybutton=0x7f02001f;
+        public static final int mybutton2=0x7f020020;
+        public static final int mybutton3=0x7f020021;
+        public static final int powered_by_google_dark=0x7f020022;
+        public static final int powered_by_google_light=0x7f020023;
+        public static final int toggle=0x7f020024;
     }
     public static final class id {
-        public static final int AddButton=0x7f08005f;
-        public static final int BackButton=0x7f08004a;
-        public static final int ClearButton=0x7f08004b;
-        public static final int Combination=0x7f080027;
-        public static final int Container=0x7f080000;
-        public static final int DecimalButton=0x7f08005d;
-        public static final int DivideButton=0x7f080050;
-        public static final int EightButton=0x7f08004e;
-        public static final int EqualsButton=0x7f08005e;
-        public static final int FiveButton=0x7f080053;
-        public static final int FourButton=0x7f080052;
-        public static final int Grid=0x7f080046;
-        public static final int MultiplyButton=0x7f080055;
-        public static final int NegativeButton=0x7f080048;
-        public static final int NineButton=0x7f08004f;
-        public static final int OneButton=0x7f080057;
-        public static final int Permutation=0x7f080026;
-        public static final int SevenButton=0x7f08004d;
-        public static final int SixButton=0x7f080054;
-        public static final int SqrtButton=0x7f080049;
-        public static final int SubtractButton=0x7f08005a;
-        public static final int ThreeButton=0x7f080059;
-        public static final int TwoButton=0x7f080058;
-        public static final int VarA=0x7f08000f;
-        public static final int VarB=0x7f080010;
-        public static final int VarC=0x7f080011;
-        public static final int VarU=0x7f080067;
-        public static final int VarV=0x7f080068;
-        public static final int VarW=0x7f080069;
-        public static final int VarX=0x7f080012;
-        public static final int VarY=0x7f080013;
-        public static final int VarZ=0x7f080014;
-        public static final int ZeroButton=0x7f08005c;
-        public static final int action_settings=0x7f080078;
-        public static final int actionsRow=0x7f080061;
-        public static final int addButton=0x7f08003a;
-        public static final int advancedButton=0x7f080043;
-        public static final int angleBetweenVectorsButton=0x7f080071;
-        public static final int angleMode=0x7f08001b;
-        public static final int argumentButton=0x7f08006d;
-        public static final int backButton=0x7f08000c;
-        public static final int baseButton=0x7f080023;
-        public static final int basicButton=0x7f080042;
-        public static final int clearButton=0x7f08000d;
-        public static final int closedBracketButton=0x7f08002f;
-        public static final int closedSquareBracketButton=0x7f080074;
-        public static final int commaButton=0x7f080077;
-        public static final int cosButton=0x7f080017;
-        public static final int crossButton=0x7f080076;
-        public static final int decimalButton=0x7f08003e;
-        public static final int derivativeButton=0x7f080064;
-        public static final int display=0x7f080003;
-        public static final int divideButton=0x7f080035;
-        public static final int dotButton=0x7f080075;
-        public static final int eButton=0x7f08001a;
-        public static final int eightButton=0x7f08002c;
-        public static final int equalsButton=0x7f080040;
-        public static final int factorial=0x7f080025;
-        public static final int fiveButton=0x7f080032;
-        public static final int fourButton=0x7f080031;
-        public static final int fracButton=0x7f08001d;
-        public static final int fracMode=0x7f080029;
-        public static final int functionButton=0x7f080044;
-        public static final int functionRow1=0x7f080015;
-        public static final int functionRow2=0x7f08001c;
-        public static final int functionRow3=0x7f080024;
-        public static final int graph=0x7f080066;
-        public static final int grid=0x7f080007;
-        public static final int hypButton=0x7f08000a;
-        public static final int integralButton=0x7f080065;
-        public static final int leftScroll=0x7f080001;
-        public static final int ln=0x7f080060;
-        public static final int logButton=0x7f080022;
-        public static final int magnitudeButtonButton=0x7f080072;
-        public static final int memButton=0x7f08000b;
-        public static final int modes=0x7f080041;
-        public static final int multiplyButton=0x7f080034;
-        public static final int negativeButton=0x7f08003f;
-        public static final int nineButton=0x7f08002d;
-        public static final int numRow2=0x7f08002a;
-        public static final int numRow3=0x7f080030;
-        public static final int numRow4=0x7f080036;
-        public static final int numRow5=0x7f08003c;
-        public static final int oneButton=0x7f080037;
-        public static final int openBracketButton=0x7f08002e;
-        public static final int openSquareBracketButton=0x7f080073;
-        public static final int output=0x7f080005;
-        public static final int outputScroll=0x7f080004;
-        public static final int piButton=0x7f080019;
-        public static final int powButton=0x7f080021;
-        public static final int powerButton=0x7f080020;
-        public static final int projectionButton=0x7f08006f;
-        public static final int reciprocal=0x7f080028;
-        public static final int rightScroll=0x7f080006;
-        public static final int rootButton=0x7f08001e;
-        public static final int rootsButton=0x7f080062;
-        public static final int row1=0x7f080047;
-        public static final int row2=0x7f08004c;
-        public static final int row3=0x7f080051;
-        public static final int row4=0x7f080056;
-        public static final int row5=0x7f08005b;
-        public static final int s=0x7f08006a;
-        public static final int scalarEquationButton=0x7f080070;
-        public static final int scroll=0x7f080002;
-        public static final int settingsRow1=0x7f080008;
-        public static final int sevenButton=0x7f08002b;
-        public static final int shiftButton=0x7f080009;
-        public static final int simplify=0x7f080063;
-        public static final int sinButton=0x7f080016;
-        public static final int sixButton=0x7f080033;
-        public static final int squareButton=0x7f08001f;
-        public static final int subtractButton=0x7f08003b;
-        public static final int t=0x7f08006b;
-        public static final int tanButton=0x7f080018;
-        public static final int threeButton=0x7f080039;
-        public static final int twoButton=0x7f080038;
-        public static final int unitVectorButton=0x7f08006e;
-        public static final int varRow=0x7f08000e;
-        public static final int vectorButton=0x7f080045;
-        public static final int vectorRow=0x7f08006c;
-        public static final int zeroButton=0x7f08003d;
+        public static final int AddButton=0x7f0b0077;
+        public static final int BackButton=0x7f0b0062;
+        public static final int ClearButton=0x7f0b0063;
+        public static final int Combination=0x7f0b003e;
+        public static final int Container=0x7f0b0017;
+        public static final int DecimalButton=0x7f0b0075;
+        public static final int DivideButton=0x7f0b0068;
+        public static final int DoneButton=0x7f0b00ab;
+        public static final int EightButton=0x7f0b0066;
+        public static final int EqualsButton=0x7f0b0076;
+        public static final int EvButton=0x7f0b008a;
+        public static final int FiveButton=0x7f0b006b;
+        public static final int FourButton=0x7f0b006a;
+        public static final int Grid=0x7f0b005e;
+        public static final int MultiplyButton=0x7f0b006d;
+        public static final int NegativeButton=0x7f0b0060;
+        public static final int NineButton=0x7f0b0067;
+        public static final int OneButton=0x7f0b006f;
+        public static final int Permutation=0x7f0b003d;
+        public static final int SevenButton=0x7f0b0065;
+        public static final int SixButton=0x7f0b006c;
+        public static final int SqrtButton=0x7f0b0061;
+        public static final int SubtractButton=0x7f0b0072;
+        public static final int ThreeButton=0x7f0b0071;
+        public static final int TwoButton=0x7f0b0070;
+        public static final int VarA=0x7f0b0026;
+        public static final int VarB=0x7f0b0027;
+        public static final int VarC=0x7f0b0028;
+        public static final int VarU=0x7f0b0095;
+        public static final int VarV=0x7f0b0096;
+        public static final int VarW=0x7f0b0097;
+        public static final int VarX=0x7f0b0029;
+        public static final int VarY=0x7f0b002a;
+        public static final int VarZ=0x7f0b002b;
+        public static final int ZeroButton=0x7f0b0074;
+        public static final int action_settings=0x7f0b00b1;
+        public static final int actionsRow=0x7f0b0079;
+        public static final int addButton=0x7f0b0051;
+        public static final int adjust_height=0x7f0b0000;
+        public static final int adjust_width=0x7f0b0001;
+        public static final int advancedButton=0x7f0b005a;
+        public static final int angleBetweenVectorsButton=0x7f0b009f;
+        public static final int angleMode=0x7f0b0032;
+        public static final int argumentButton=0x7f0b009b;
+        public static final int augmentButton=0x7f0b0094;
+        public static final int backButton=0x7f0b0023;
+        public static final int baseButton=0x7f0b003a;
+        public static final int basicButton=0x7f0b0059;
+        public static final int book_now=0x7f0b0010;
+        public static final int buyButton=0x7f0b000c;
+        public static final int buy_now=0x7f0b0011;
+        public static final int buy_with_google=0x7f0b0012;
+        public static final int classic=0x7f0b0014;
+        public static final int clearButton=0x7f0b0024;
+        public static final int closedBracketButton=0x7f0b0046;
+        public static final int closedSquareBracketButton=0x7f0b00a2;
+        public static final int commaButton=0x7f0b00a5;
+        public static final int cosButton=0x7f0b002e;
+        public static final int crossButton=0x7f0b00a4;
+        public static final int decimalButton=0x7f0b0055;
+        public static final int decompButton=0x7f0b0087;
+        public static final int derivativeButton=0x7f0b007d;
+        public static final int detButton=0x7f0b0085;
+        public static final int diagButton=0x7f0b0086;
+        public static final int display=0x7f0b001a;
+        public static final int divideButton=0x7f0b004c;
+        public static final int donate_with_google=0x7f0b0013;
+        public static final int dotButton=0x7f0b00a3;
+        public static final int eButton=0x7f0b0031;
+        public static final int editButton=0x7f0b0082;
+        public static final int eightButton=0x7f0b0043;
+        public static final int elements_grid=0x7f0b00ac;
+        public static final int equalsButton=0x7f0b0057;
+        public static final int expand=0x7f0b007c;
+        public static final int factor=0x7f0b007b;
+        public static final int factorial=0x7f0b003c;
+        public static final int fiveButton=0x7f0b0049;
+        public static final int fourButton=0x7f0b0048;
+        public static final int fracButton=0x7f0b0034;
+        public static final int fracMode=0x7f0b0040;
+        public static final int functionButton=0x7f0b005b;
+        public static final int functionRow1=0x7f0b002c;
+        public static final int functionRow2=0x7f0b0033;
+        public static final int functionRow3=0x7f0b003b;
+        public static final int functions_row=0x7f0b00a6;
+        public static final int graph=0x7f0b007f;
+        public static final int grayscale=0x7f0b0015;
+        public static final int grid=0x7f0b001e;
+        public static final int history=0x7f0b00b0;
+        public static final int holo_dark=0x7f0b0007;
+        public static final int holo_light=0x7f0b0008;
+        public static final int hybrid=0x7f0b0003;
+        public static final int hypButton=0x7f0b0021;
+        public static final int integralButton=0x7f0b007e;
+        public static final int inverseButton=0x7f0b008d;
+        public static final int lambdaButton=0x7f0b0089;
+        public static final int leftScroll=0x7f0b0018;
+        public static final int ln=0x7f0b0078;
+        public static final int logButton=0x7f0b0039;
+        public static final int magnitudeButtonButton=0x7f0b00a0;
+        public static final int mainRow=0x7f0b008e;
+        public static final int match_parent=0x7f0b000e;
+        public static final int matrixButton=0x7f0b005d;
+        public static final int memButton=0x7f0b0022;
+        public static final int minusButton=0x7f0b0092;
+        public static final int modes=0x7f0b0058;
+        public static final int monochrome=0x7f0b0016;
+        public static final int multiplyButton=0x7f0b004b;
+        public static final int negativeButton=0x7f0b0056;
+        public static final int newButton=0x7f0b0081;
+        public static final int nineButton=0x7f0b0044;
+        public static final int none=0x7f0b0002;
+        public static final int normal=0x7f0b0004;
+        public static final int numButton=0x7f0b008f;
+        public static final int numRow2=0x7f0b0041;
+        public static final int numRow3=0x7f0b0047;
+        public static final int numRow4=0x7f0b004d;
+        public static final int numRow5=0x7f0b0053;
+        public static final int num_row1=0x7f0b00a7;
+        public static final int num_row2=0x7f0b00a8;
+        public static final int num_row3=0x7f0b00a9;
+        public static final int num_row4=0x7f0b00aa;
+        public static final int oneButton=0x7f0b004e;
+        public static final int openBracketButton=0x7f0b0045;
+        public static final int openSquareBracketButton=0x7f0b00a1;
+        public static final int operatorContainer=0x7f0b0090;
+        public static final int operatorRow1=0x7f0b0091;
+        public static final int operatorRow2=0x7f0b0093;
+        public static final int output=0x7f0b001c;
+        public static final int outputScroll=0x7f0b001b;
+        public static final int piButton=0x7f0b0030;
+        public static final int powButton=0x7f0b0038;
+        public static final int powerButton=0x7f0b0037;
+        public static final int production=0x7f0b0009;
+        public static final int projectionButton=0x7f0b009d;
+        public static final int rankButton=0x7f0b008b;
+        public static final int reciprocal=0x7f0b003f;
+        public static final int refButton=0x7f0b0083;
+        public static final int rightScroll=0x7f0b001d;
+        public static final int rootButton=0x7f0b0035;
+        public static final int rootsButton=0x7f0b007a;
+        public static final int row1=0x7f0b005f;
+        public static final int row2=0x7f0b0064;
+        public static final int row3=0x7f0b0069;
+        public static final int row4=0x7f0b006e;
+        public static final int row5=0x7f0b0073;
+        public static final int rrefButton=0x7f0b0084;
+        public static final int s=0x7f0b0098;
+        public static final int sandbox=0x7f0b000a;
+        public static final int satellite=0x7f0b0005;
+        public static final int scalarEquationButton=0x7f0b009e;
+        public static final int scroll=0x7f0b0019;
+        public static final int selectionDetails=0x7f0b000d;
+        public static final int settingsRow=0x7f0b0080;
+        public static final int settingsRow1=0x7f0b001f;
+        public static final int sevenButton=0x7f0b0042;
+        public static final int shiftButton=0x7f0b0020;
+        public static final int sinButton=0x7f0b002d;
+        public static final int sixButton=0x7f0b004a;
+        public static final int squareButton=0x7f0b0036;
+        public static final int strict_sandbox=0x7f0b000b;
+        public static final int subtractButton=0x7f0b0052;
+        public static final int t=0x7f0b0099;
+        public static final int tanButton=0x7f0b002f;
+        public static final int terrain=0x7f0b0006;
+        public static final int textView=0x7f0b00ae;
+        public static final int threeButton=0x7f0b0050;
+        public static final int trButton=0x7f0b0088;
+        public static final int transposeButton=0x7f0b008c;
+        public static final int twoButton=0x7f0b004f;
+        public static final int unitVectorButton=0x7f0b009c;
+        public static final int varRow=0x7f0b0025;
+        public static final int vectorButton=0x7f0b005c;
+        public static final int vectorRow=0x7f0b009a;
+        public static final int wrap_content=0x7f0b000f;
+        public static final int xSpinner=0x7f0b00ad;
+        public static final int ySpinner=0x7f0b00af;
+        public static final int zeroButton=0x7f0b0054;
+    }
+    public static final class integer {
+        public static final int google_play_services_version=0x7f070000;
     }
     public static final class layout {
         public static final int activity_advanced=0x7f030000;
         public static final int activity_basic=0x7f030001;
         public static final int activity_function=0x7f030002;
-        public static final int activity_vector=0x7f030003;
+        public static final int activity_matrix=0x7f030003;
+        public static final int activity_vector=0x7f030004;
+        public static final int element=0x7f030005;
+        public static final int element_layout=0x7f030006;
+        public static final int elements_layout=0x7f030007;
+        public static final int history_view=0x7f030008;
+        public static final int spinner_item=0x7f030009;
     }
     public static final class menu {
-        public static final int matrix_mode=0x7f070000;
-        public static final int vector=0x7f070001;
+        public static final int matrix_mode=0x7f0a0000;
+        public static final int vector=0x7f0a0001;
+    }
+    public static final class raw {
+        public static final int gtm_analytics=0x7f040000;
     }
     public static final class string {
-        public static final int AC=0x7f050000;
-        public static final int C=0x7f050001;
-        public static final int action_settings=0x7f050002;
-        public static final int advanced=0x7f050003;
-        public static final int angleBetweenVectors=0x7f050004;
-        public static final int app_name=0x7f050005;
-        public static final int argument=0x7f050006;
-        public static final int backspace=0x7f050007;
-        public static final int base10=0x7f050008;
-        public static final int base16=0x7f050009;
-        public static final int base2=0x7f05000a;
-        public static final int base8=0x7f05000b;
-        public static final int basic=0x7f05000c;
-        public static final int bear=0x7f05000d;
-        public static final int cbrt=0x7f05000e;
-        public static final int closedBracket=0x7f05000f;
-        public static final int closedSquareBracket=0x7f050010;
-        public static final int combination=0x7f050011;
-        public static final int comma=0x7f050012;
-        public static final int cos=0x7f050013;
-        public static final int cross=0x7f050014;
-        public static final int cube=0x7f050015;
-        public static final int decimal=0x7f050016;
-        public static final int deg=0x7f050017;
-        public static final int degrees=0x7f050018;
-        public static final int derivative=0x7f050019;
-        public static final int divide=0x7f05001a;
-        public static final int dot=0x7f05001b;
-        public static final int e=0x7f05001c;
-        public static final int eight=0x7f05001d;
-        public static final int equals=0x7f05001e;
-        public static final int exponent=0x7f05001f;
-        public static final int factorial=0x7f050020;
-        public static final int findRoots=0x7f050021;
-        public static final int five=0x7f050022;
-        public static final int four=0x7f050023;
-        public static final int function=0x7f050024;
-        public static final int grad=0x7f050025;
-        public static final int gradians=0x7f050026;
-        public static final int graph=0x7f050027;
-        public static final int graphing=0x7f050028;
-        public static final int hello_world=0x7f050029;
-        public static final int hyp=0x7f05002a;
-        public static final int impFrac=0x7f05002b;
-        public static final int integrate=0x7f05002c;
-        public static final int leftscroll=0x7f05002d;
-        public static final int ln=0x7f05002e;
-        public static final int log10=0x7f05002f;
-        public static final int log_b=0x7f050030;
-        public static final int magnitude=0x7f050031;
-        public static final int matrix=0x7f050032;
-        public static final int minus=0x7f050033;
-        public static final int mixedFrac=0x7f050034;
-        public static final int more=0x7f050035;
-        public static final int multiply=0x7f050036;
-        public static final int nine=0x7f050037;
-        public static final int one=0x7f050038;
-        public static final int openBracket=0x7f050039;
-        public static final int openSquareBracket=0x7f05003a;
-        public static final int permutation=0x7f05003b;
-        public static final int pi=0x7f05003c;
-        public static final int plus=0x7f05003d;
-        public static final int plusminus=0x7f05003e;
-        public static final int powOfE=0x7f05003f;
-        public static final int powOfTen=0x7f050040;
-        public static final int powerTen=0x7f050041;
-        public static final int projection=0x7f050042;
-        public static final int rad=0x7f050043;
-        public static final int radians=0x7f050044;
-        public static final int radix=0x7f050045;
-        public static final int reciprocal=0x7f050046;
-        public static final int rightArrow=0x7f050047;
-        public static final int rightscroll=0x7f050048;
-        public static final int s=0x7f050049;
-        public static final int scalarEquationOfALine=0x7f05004a;
-        public static final int seven=0x7f05004b;
-        public static final int shift=0x7f05004c;
-        public static final int simplify=0x7f05004d;
-        public static final int sin=0x7f05004e;
-        public static final int six=0x7f05004f;
-        public static final int sqrt=0x7f050050;
-        public static final int square=0x7f050051;
-        public static final int store=0x7f050052;
-        public static final int t=0x7f050053;
-        public static final int tan=0x7f050054;
-        public static final int three=0x7f050055;
-        public static final int title_activity_advanced=0x7f050056;
-        public static final int title_activity_basic=0x7f050057;
-        public static final int title_activity_graphing=0x7f050058;
-        public static final int title_activity_matrix_mode=0x7f050059;
-        public static final int title_activity_vector=0x7f05005a;
-        public static final int trueB=0x7f05005b;
-        public static final int two=0x7f05005c;
-        public static final int unitVector=0x7f05005d;
-        public static final int varA=0x7f05005e;
-        public static final int varB=0x7f05005f;
-        public static final int varC=0x7f050060;
-        public static final int varRoot=0x7f050061;
-        public static final int varX=0x7f050062;
-        public static final int varY=0x7f050063;
-        public static final int varZ=0x7f050064;
-        public static final int vectU=0x7f050065;
-        public static final int vectV=0x7f050066;
-        public static final int vectW=0x7f050067;
-        public static final int vector=0x7f050068;
-        public static final int zero=0x7f050069;
+        public static final int AC=0x7f080000;
+        public static final int C=0x7f080001;
+        public static final int accept=0x7f080002;
+        public static final int action_settings=0x7f080003;
+        public static final int advanced=0x7f080004;
+        public static final int angleBetweenVectors=0x7f080005;
+        public static final int app_name=0x7f080006;
+        public static final int argument=0x7f080007;
+        public static final int augment=0x7f080008;
+        public static final int backspace=0x7f080009;
+        public static final int base10=0x7f08000a;
+        public static final int base16=0x7f08000b;
+        public static final int base2=0x7f08000c;
+        public static final int base8=0x7f08000d;
+        public static final int basic=0x7f08000e;
+        public static final int bear=0x7f08000f;
+        public static final int cbrt=0x7f080010;
+        public static final int closedBracket=0x7f080011;
+        public static final int closedSquareBracket=0x7f080012;
+        public static final int combination=0x7f080013;
+        public static final int comma=0x7f080014;
+        public static final int common_android_wear_notification_needs_update_text=0x7f080015;
+        public static final int common_android_wear_update_text=0x7f080016;
+        public static final int common_android_wear_update_title=0x7f080017;
+        public static final int common_google_play_services_enable_button=0x7f080018;
+        public static final int common_google_play_services_enable_text=0x7f080019;
+        public static final int common_google_play_services_enable_title=0x7f08001a;
+        public static final int common_google_play_services_error_notification_requested_by_msg=0x7f08001b;
+        public static final int common_google_play_services_install_button=0x7f08001c;
+        public static final int common_google_play_services_install_text_phone=0x7f08001d;
+        public static final int common_google_play_services_install_text_tablet=0x7f08001e;
+        public static final int common_google_play_services_install_title=0x7f08001f;
+        public static final int common_google_play_services_invalid_account_text=0x7f080020;
+        public static final int common_google_play_services_invalid_account_title=0x7f080021;
+        public static final int common_google_play_services_needs_enabling_title=0x7f080022;
+        public static final int common_google_play_services_network_error_text=0x7f080023;
+        public static final int common_google_play_services_network_error_title=0x7f080024;
+        public static final int common_google_play_services_notification_needs_installation_title=0x7f080025;
+        public static final int common_google_play_services_notification_needs_update_title=0x7f080026;
+        public static final int common_google_play_services_notification_ticker=0x7f080027;
+        public static final int common_google_play_services_unknown_issue=0x7f080028;
+        public static final int common_google_play_services_unsupported_text=0x7f080029;
+        public static final int common_google_play_services_unsupported_title=0x7f08002a;
+        public static final int common_google_play_services_update_button=0x7f08002b;
+        public static final int common_google_play_services_update_text=0x7f08002c;
+        public static final int common_google_play_services_update_title=0x7f08002d;
+        public static final int common_open_on_phone=0x7f08002e;
+        public static final int common_signin_button_text=0x7f08002f;
+        public static final int common_signin_button_text_long=0x7f080030;
+        public static final int cos=0x7f080031;
+        public static final int create_calendar_message=0x7f080032;
+        public static final int create_calendar_title=0x7f080033;
+        public static final int cross=0x7f080034;
+        public static final int cube=0x7f080035;
+        public static final int decimal=0x7f080036;
+        public static final int decline=0x7f080037;
+        public static final int decomp=0x7f080038;
+        public static final int deg=0x7f080039;
+        public static final int degrees=0x7f08003a;
+        public static final int derivative=0x7f08003b;
+        public static final int det=0x7f08003c;
+        public static final int diag=0x7f08003d;
+        public static final int divide=0x7f08003e;
+        public static final int done=0x7f08003f;
+        public static final int dot=0x7f080040;
+        public static final int e=0x7f080041;
+        public static final int edit=0x7f080042;
+        public static final int eight=0x7f080043;
+        public static final int equals=0x7f080044;
+        public static final int ev=0x7f080045;
+        public static final int expand=0x7f080046;
+        public static final int exponent=0x7f080047;
+        public static final int factor=0x7f080048;
+        public static final int factorial=0x7f080049;
+        public static final int findRoots=0x7f08004a;
+        public static final int five=0x7f08004b;
+        public static final int four=0x7f08004c;
+        public static final int function=0x7f08004d;
+        public static final int grad=0x7f08004e;
+        public static final int gradians=0x7f08004f;
+        public static final int graph=0x7f080050;
+        public static final int graphing=0x7f080051;
+        public static final int hello_world=0x7f080052;
+        public static final int hyp=0x7f080053;
+        public static final int impFrac=0x7f080054;
+        public static final int integrate=0x7f080055;
+        public static final int inverse_a=0x7f080056;
+        public static final int lambda=0x7f080057;
+        public static final int leftscroll=0x7f080058;
+        public static final int ln=0x7f080059;
+        public static final int log10=0x7f08005a;
+        public static final int log_b=0x7f08005b;
+        public static final int magnitude=0x7f08005c;
+        public static final int matrix=0x7f08005d;
+        public static final int matrix_pow=0x7f08005e;
+        public static final int minus=0x7f08005f;
+        public static final int mixedFrac=0x7f080060;
+        public static final int more=0x7f080061;
+        public static final int multiply=0x7f080062;
+        public static final int newe=0x7f080063;
+        public static final int nine=0x7f080064;
+        public static final int num=0x7f080065;
+        public static final int one=0x7f080066;
+        public static final int openBracket=0x7f080067;
+        public static final int openSquareBracket=0x7f080068;
+        public static final int permutation=0x7f080069;
+        public static final int pi=0x7f08006a;
+        public static final int plus=0x7f08006b;
+        public static final int plusminus=0x7f08006c;
+        public static final int powOfE=0x7f08006d;
+        public static final int powOfTen=0x7f08006e;
+        public static final int powerTen=0x7f08006f;
+        public static final int projection=0x7f080070;
+        public static final int rad=0x7f080071;
+        public static final int radians=0x7f080072;
+        public static final int radix=0x7f080073;
+        public static final int rank=0x7f080074;
+        public static final int recip=0x7f080075;
+        public static final int reciprocal=0x7f080076;
+        public static final int ref=0x7f080077;
+        public static final int rightArrow=0x7f080078;
+        public static final int rightscroll=0x7f080079;
+        public static final int rref=0x7f08007a;
+        public static final int s=0x7f08007b;
+        public static final int scalarEquationOfALine=0x7f08007c;
+        public static final int seven=0x7f08007d;
+        public static final int shift=0x7f08007e;
+        public static final int simplify=0x7f08007f;
+        public static final int sin=0x7f080080;
+        public static final int six=0x7f080081;
+        public static final int sqrt=0x7f080082;
+        public static final int square=0x7f080083;
+        public static final int store=0x7f080084;
+        public static final int store_picture_message=0x7f080085;
+        public static final int store_picture_title=0x7f080086;
+        public static final int t=0x7f080087;
+        public static final int tan=0x7f080088;
+        public static final int three=0x7f080089;
+        public static final int title_activity_advanced=0x7f08008a;
+        public static final int title_activity_basic=0x7f08008b;
+        public static final int title_activity_graphing=0x7f08008c;
+        public static final int title_activity_matrix_mode=0x7f08008d;
+        public static final int title_activity_ocrmode=0x7f08008e;
+        public static final int title_activity_vector=0x7f08008f;
+        public static final int tr=0x7f080090;
+        public static final int transpose=0x7f080091;
+        public static final int trueB=0x7f080092;
+        public static final int two=0x7f080093;
+        public static final int unitVector=0x7f080094;
+        public static final int varA=0x7f080095;
+        public static final int varB=0x7f080096;
+        public static final int varC=0x7f080097;
+        public static final int varRoot=0x7f080098;
+        public static final int varX=0x7f080099;
+        public static final int varY=0x7f08009a;
+        public static final int varZ=0x7f08009b;
+        public static final int vectU=0x7f08009c;
+        public static final int vectV=0x7f08009d;
+        public static final int vectW=0x7f08009e;
+        public static final int vector=0x7f08009f;
+        public static final int wallet_buy_button_place_holder=0x7f0800a0;
+        public static final int zero=0x7f0800a1;
     }
     public static final class style {
-        public static final int Main=0x7f060000;
-        public static final int button=0x7f060001;
-        public static final int button2=0x7f060002;
-        public static final int button3=0x7f060003;
-        public static final int button4=0x7f060004;
-        public static final int toggle=0x7f060005;
+        public static final int Main=0x7f090000;
+        public static final int Theme_IAPTheme=0x7f090001;
+        public static final int WalletFragmentDefaultButtonTextAppearance=0x7f090002;
+        public static final int WalletFragmentDefaultDetailsHeaderTextAppearance=0x7f090003;
+        public static final int WalletFragmentDefaultDetailsTextAppearance=0x7f090004;
+        public static final int WalletFragmentDefaultStyle=0x7f090005;
+        public static final int button=0x7f090006;
+        public static final int button2=0x7f090007;
+        public static final int button3=0x7f090008;
+        public static final int button4=0x7f090009;
+        public static final int toggle=0x7f09000a;
     }
+    public static final class styleable {
+        /** Attributes that can be used with a AdsAttrs.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #AdsAttrs_adSize com.trutech.calculall:adSize}</code></td><td></td></tr>
+           <tr><td><code>{@link #AdsAttrs_adSizes com.trutech.calculall:adSizes}</code></td><td></td></tr>
+           <tr><td><code>{@link #AdsAttrs_adUnitId com.trutech.calculall:adUnitId}</code></td><td></td></tr>
+           </table>
+           @see #AdsAttrs_adSize
+           @see #AdsAttrs_adSizes
+           @see #AdsAttrs_adUnitId
+         */
+        public static final int[] AdsAttrs = {
+            0x7f010000, 0x7f010001, 0x7f010002
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.trutech.calculall.R.attr#adSize}
+          attribute's value can be found in the {@link #AdsAttrs} array.
+
+
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.trutech.calculall:adSize
+        */
+        public static final int AdsAttrs_adSize = 0;
+        /**
+          <p>This symbol is the offset where the {@link com.trutech.calculall.R.attr#adSizes}
+          attribute's value can be found in the {@link #AdsAttrs} array.
+
+
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.trutech.calculall:adSizes
+        */
+        public static final int AdsAttrs_adSizes = 1;
+        /**
+          <p>This symbol is the offset where the {@link com.trutech.calculall.R.attr#adUnitId}
+          attribute's value can be found in the {@link #AdsAttrs} array.
+
+
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.trutech.calculall:adUnitId
+        */
+        public static final int AdsAttrs_adUnitId = 2;
+        /** Attributes that can be used with a LoadingImageView.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #LoadingImageView_circleCrop com.trutech.calculall:circleCrop}</code></td><td></td></tr>
+           <tr><td><code>{@link #LoadingImageView_imageAspectRatio com.trutech.calculall:imageAspectRatio}</code></td><td></td></tr>
+           <tr><td><code>{@link #LoadingImageView_imageAspectRatioAdjust com.trutech.calculall:imageAspectRatioAdjust}</code></td><td></td></tr>
+           </table>
+           @see #LoadingImageView_circleCrop
+           @see #LoadingImageView_imageAspectRatio
+           @see #LoadingImageView_imageAspectRatioAdjust
+         */
+        public static final int[] LoadingImageView = {
+            0x7f010003, 0x7f010004, 0x7f010005
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.trutech.calculall.R.attr#circleCrop}
+          attribute's value can be found in the {@link #LoadingImageView} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.trutech.calculall:circleCrop
+        */
+        public static final int LoadingImageView_circleCrop = 2;
+        /**
+          <p>This symbol is the offset where the {@link com.trutech.calculall.R.attr#imageAspectRatio}
+          attribute's value can be found in the {@link #LoadingImageView} array.
+
+
+          <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.trutech.calculall:imageAspectRatio
+        */
+        public static final int LoadingImageView_imageAspectRatio = 1;
+        /**
+          <p>This symbol is the offset where the {@link com.trutech.calculall.R.attr#imageAspectRatioAdjust}
+          attribute's value can be found in the {@link #LoadingImageView} array.
+
+
+          <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>none</code></td><td>0</td><td></td></tr>
+<tr><td><code>adjust_width</code></td><td>1</td><td></td></tr>
+<tr><td><code>adjust_height</code></td><td>2</td><td></td></tr>
+</table>
+          @attr name com.trutech.calculall:imageAspectRatioAdjust
+        */
+        public static final int LoadingImageView_imageAspectRatioAdjust = 0;
+        /** Attributes that can be used with a MapAttrs.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #MapAttrs_cameraBearing com.trutech.calculall:cameraBearing}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_cameraTargetLat com.trutech.calculall:cameraTargetLat}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_cameraTargetLng com.trutech.calculall:cameraTargetLng}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_cameraTilt com.trutech.calculall:cameraTilt}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_cameraZoom com.trutech.calculall:cameraZoom}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_liteMode com.trutech.calculall:liteMode}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_mapType com.trutech.calculall:mapType}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_uiCompass com.trutech.calculall:uiCompass}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_uiMapToolbar com.trutech.calculall:uiMapToolbar}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_uiRotateGestures com.trutech.calculall:uiRotateGestures}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_uiScrollGestures com.trutech.calculall:uiScrollGestures}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_uiTiltGestures com.trutech.calculall:uiTiltGestures}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_uiZoomControls com.trutech.calculall:uiZoomControls}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_uiZoomGestures com.trutech.calculall:uiZoomGestures}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_useViewLifecycle com.trutech.calculall:useViewLifecycle}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_zOrderOnTop com.trutech.calculall:zOrderOnTop}</code></td><td></td></tr>
+           </table>
+           @see #MapAttrs_cameraBearing
+           @see #MapAttrs_cameraTargetLat
+           @see #MapAttrs_cameraTargetLng
+           @see #MapAttrs_cameraTilt
+           @see #MapAttrs_cameraZoom
+           @see #MapAttrs_liteMode
+           @see #MapAttrs_mapType
+           @see #MapAttrs_uiCompass
+           @see #MapAttrs_uiMapToolbar
+           @see #MapAttrs_uiRotateGestures
+           @see #MapAttrs_uiScrollGestures
+           @see #MapAttrs_uiTiltGestures
+           @see #MapAttrs_uiZoomControls
+           @see #MapAttrs_uiZoomGestures
+           @see #MapAttrs_useViewLifecycle
+           @see #MapAttrs_zOrderOnTop
+         */
+        public static final int[] MapAttrs = {
+            0x7f010006, 0x7f010007, 0x7f010008, 0x7f010009,
+            0x7f01000a, 0x7f01000b, 0x7f01000c, 0x7f01000d,
+            0x7f01000e, 0x7f01000f, 0x7f010010, 0x7f010011,
+            0x7f010012, 0x7f010013, 0x7f010014, 0x7f010015
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.trutech.calculall.R.attr#cameraBearing}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.trutech.calculall:cameraBearing
+        */
+        public static final int MapAttrs_cameraBearing = 1;
+        /**
+          <p>This symbol is the offset where the {@link com.trutech.calculall.R.attr#cameraTargetLat}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.trutech.calculall:cameraTargetLat
+        */
+        public static final int MapAttrs_cameraTargetLat = 2;
+        /**
+          <p>This symbol is the offset where the {@link com.trutech.calculall.R.attr#cameraTargetLng}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.trutech.calculall:cameraTargetLng
+        */
+        public static final int MapAttrs_cameraTargetLng = 3;
+        /**
+          <p>This symbol is the offset where the {@link com.trutech.calculall.R.attr#cameraTilt}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.trutech.calculall:cameraTilt
+        */
+        public static final int MapAttrs_cameraTilt = 4;
+        /**
+          <p>This symbol is the offset where the {@link com.trutech.calculall.R.attr#cameraZoom}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.trutech.calculall:cameraZoom
+        */
+        public static final int MapAttrs_cameraZoom = 5;
+        /**
+          <p>This symbol is the offset where the {@link com.trutech.calculall.R.attr#liteMode}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.trutech.calculall:liteMode
+        */
+        public static final int MapAttrs_liteMode = 6;
+        /**
+          <p>This symbol is the offset where the {@link com.trutech.calculall.R.attr#mapType}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>none</code></td><td>0</td><td></td></tr>
+<tr><td><code>normal</code></td><td>1</td><td></td></tr>
+<tr><td><code>satellite</code></td><td>2</td><td></td></tr>
+<tr><td><code>terrain</code></td><td>3</td><td></td></tr>
+<tr><td><code>hybrid</code></td><td>4</td><td></td></tr>
+</table>
+          @attr name com.trutech.calculall:mapType
+        */
+        public static final int MapAttrs_mapType = 0;
+        /**
+          <p>This symbol is the offset where the {@link com.trutech.calculall.R.attr#uiCompass}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.trutech.calculall:uiCompass
+        */
+        public static final int MapAttrs_uiCompass = 7;
+        /**
+          <p>This symbol is the offset where the {@link com.trutech.calculall.R.attr#uiMapToolbar}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.trutech.calculall:uiMapToolbar
+        */
+        public static final int MapAttrs_uiMapToolbar = 15;
+        /**
+          <p>This symbol is the offset where the {@link com.trutech.calculall.R.attr#uiRotateGestures}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.trutech.calculall:uiRotateGestures
+        */
+        public static final int MapAttrs_uiRotateGestures = 8;
+        /**
+          <p>This symbol is the offset where the {@link com.trutech.calculall.R.attr#uiScrollGestures}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.trutech.calculall:uiScrollGestures
+        */
+        public static final int MapAttrs_uiScrollGestures = 9;
+        /**
+          <p>This symbol is the offset where the {@link com.trutech.calculall.R.attr#uiTiltGestures}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.trutech.calculall:uiTiltGestures
+        */
+        public static final int MapAttrs_uiTiltGestures = 10;
+        /**
+          <p>This symbol is the offset where the {@link com.trutech.calculall.R.attr#uiZoomControls}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.trutech.calculall:uiZoomControls
+        */
+        public static final int MapAttrs_uiZoomControls = 11;
+        /**
+          <p>This symbol is the offset where the {@link com.trutech.calculall.R.attr#uiZoomGestures}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.trutech.calculall:uiZoomGestures
+        */
+        public static final int MapAttrs_uiZoomGestures = 12;
+        /**
+          <p>This symbol is the offset where the {@link com.trutech.calculall.R.attr#useViewLifecycle}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.trutech.calculall:useViewLifecycle
+        */
+        public static final int MapAttrs_useViewLifecycle = 13;
+        /**
+          <p>This symbol is the offset where the {@link com.trutech.calculall.R.attr#zOrderOnTop}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.trutech.calculall:zOrderOnTop
+        */
+        public static final int MapAttrs_zOrderOnTop = 14;
+        /** Attributes that can be used with a WalletFragmentOptions.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #WalletFragmentOptions_appTheme com.trutech.calculall:appTheme}</code></td><td></td></tr>
+           <tr><td><code>{@link #WalletFragmentOptions_environment com.trutech.calculall:environment}</code></td><td></td></tr>
+           <tr><td><code>{@link #WalletFragmentOptions_fragmentMode com.trutech.calculall:fragmentMode}</code></td><td></td></tr>
+           <tr><td><code>{@link #WalletFragmentOptions_fragmentStyle com.trutech.calculall:fragmentStyle}</code></td><td></td></tr>
+           </table>
+           @see #WalletFragmentOptions_appTheme
+           @see #WalletFragmentOptions_environment
+           @see #WalletFragmentOptions_fragmentMode
+           @see #WalletFragmentOptions_fragmentStyle
+         */
+        public static final int[] WalletFragmentOptions = {
+            0x7f010016, 0x7f010017, 0x7f010018, 0x7f010019
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.trutech.calculall.R.attr#appTheme}
+          attribute's value can be found in the {@link #WalletFragmentOptions} array.
+
+
+          <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>holo_dark</code></td><td>0</td><td></td></tr>
+<tr><td><code>holo_light</code></td><td>1</td><td></td></tr>
+</table>
+          @attr name com.trutech.calculall:appTheme
+        */
+        public static final int WalletFragmentOptions_appTheme = 0;
+        /**
+          <p>This symbol is the offset where the {@link com.trutech.calculall.R.attr#environment}
+          attribute's value can be found in the {@link #WalletFragmentOptions} array.
+
+
+          <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>production</code></td><td>1</td><td></td></tr>
+<tr><td><code>sandbox</code></td><td>0</td><td></td></tr>
+<tr><td><code>strict_sandbox</code></td><td>2</td><td></td></tr>
+</table>
+          @attr name com.trutech.calculall:environment
+        */
+        public static final int WalletFragmentOptions_environment = 1;
+        /**
+          <p>This symbol is the offset where the {@link com.trutech.calculall.R.attr#fragmentMode}
+          attribute's value can be found in the {@link #WalletFragmentOptions} array.
+
+
+          <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>buyButton</code></td><td>1</td><td></td></tr>
+<tr><td><code>selectionDetails</code></td><td>2</td><td></td></tr>
+</table>
+          @attr name com.trutech.calculall:fragmentMode
+        */
+        public static final int WalletFragmentOptions_fragmentMode = 3;
+        /**
+          <p>This symbol is the offset where the {@link com.trutech.calculall.R.attr#fragmentStyle}
+          attribute's value can be found in the {@link #WalletFragmentOptions} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name com.trutech.calculall:fragmentStyle
+        */
+        public static final int WalletFragmentOptions_fragmentStyle = 2;
+        /** Attributes that can be used with a WalletFragmentStyle.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #WalletFragmentStyle_buyButtonAppearance com.trutech.calculall:buyButtonAppearance}</code></td><td></td></tr>
+           <tr><td><code>{@link #WalletFragmentStyle_buyButtonHeight com.trutech.calculall:buyButtonHeight}</code></td><td></td></tr>
+           <tr><td><code>{@link #WalletFragmentStyle_buyButtonText com.trutech.calculall:buyButtonText}</code></td><td></td></tr>
+           <tr><td><code>{@link #WalletFragmentStyle_buyButtonWidth com.trutech.calculall:buyButtonWidth}</code></td><td></td></tr>
+           <tr><td><code>{@link #WalletFragmentStyle_maskedWalletDetailsBackground com.trutech.calculall:maskedWalletDetailsBackground}</code></td><td></td></tr>
+           <tr><td><code>{@link #WalletFragmentStyle_maskedWalletDetailsButtonBackground com.trutech.calculall:maskedWalletDetailsButtonBackground}</code></td><td></td></tr>
+           <tr><td><code>{@link #WalletFragmentStyle_maskedWalletDetailsButtonTextAppearance com.trutech.calculall:maskedWalletDetailsButtonTextAppearance}</code></td><td></td></tr>
+           <tr><td><code>{@link #WalletFragmentStyle_maskedWalletDetailsHeaderTextAppearance com.trutech.calculall:maskedWalletDetailsHeaderTextAppearance}</code></td><td></td></tr>
+           <tr><td><code>{@link #WalletFragmentStyle_maskedWalletDetailsLogoImageType com.trutech.calculall:maskedWalletDetailsLogoImageType}</code></td><td></td></tr>
+           <tr><td><code>{@link #WalletFragmentStyle_maskedWalletDetailsLogoTextColor com.trutech.calculall:maskedWalletDetailsLogoTextColor}</code></td><td></td></tr>
+           <tr><td><code>{@link #WalletFragmentStyle_maskedWalletDetailsTextAppearance com.trutech.calculall:maskedWalletDetailsTextAppearance}</code></td><td></td></tr>
+           </table>
+           @see #WalletFragmentStyle_buyButtonAppearance
+           @see #WalletFragmentStyle_buyButtonHeight
+           @see #WalletFragmentStyle_buyButtonText
+           @see #WalletFragmentStyle_buyButtonWidth
+           @see #WalletFragmentStyle_maskedWalletDetailsBackground
+           @see #WalletFragmentStyle_maskedWalletDetailsButtonBackground
+           @see #WalletFragmentStyle_maskedWalletDetailsButtonTextAppearance
+           @see #WalletFragmentStyle_maskedWalletDetailsHeaderTextAppearance
+           @see #WalletFragmentStyle_maskedWalletDetailsLogoImageType
+           @see #WalletFragmentStyle_maskedWalletDetailsLogoTextColor
+           @see #WalletFragmentStyle_maskedWalletDetailsTextAppearance
+         */
+        public static final int[] WalletFragmentStyle = {
+            0x7f01001a, 0x7f01001b, 0x7f01001c, 0x7f01001d,
+            0x7f01001e, 0x7f01001f, 0x7f010020, 0x7f010021,
+            0x7f010022, 0x7f010023, 0x7f010024
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.trutech.calculall.R.attr#buyButtonAppearance}
+          attribute's value can be found in the {@link #WalletFragmentStyle} array.
+
+
+          <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>classic</code></td><td>1</td><td></td></tr>
+<tr><td><code>grayscale</code></td><td>2</td><td></td></tr>
+<tr><td><code>monochrome</code></td><td>3</td><td></td></tr>
+</table>
+          @attr name com.trutech.calculall:buyButtonAppearance
+        */
+        public static final int WalletFragmentStyle_buyButtonAppearance = 3;
+        /**
+          <p>This symbol is the offset where the {@link com.trutech.calculall.R.attr#buyButtonHeight}
+          attribute's value can be found in the {@link #WalletFragmentStyle} array.
+
+
+          <p>May be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+<p>May be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>match_parent</code></td><td>-1</td><td></td></tr>
+<tr><td><code>wrap_content</code></td><td>-2</td><td></td></tr>
+</table>
+          @attr name com.trutech.calculall:buyButtonHeight
+        */
+        public static final int WalletFragmentStyle_buyButtonHeight = 0;
+        /**
+          <p>This symbol is the offset where the {@link com.trutech.calculall.R.attr#buyButtonText}
+          attribute's value can be found in the {@link #WalletFragmentStyle} array.
+
+
+          <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>buy_with_google</code></td><td>1</td><td></td></tr>
+<tr><td><code>buy_now</code></td><td>2</td><td></td></tr>
+<tr><td><code>book_now</code></td><td>3</td><td></td></tr>
+<tr><td><code>donate_with_google</code></td><td>4</td><td></td></tr>
+</table>
+          @attr name com.trutech.calculall:buyButtonText
+        */
+        public static final int WalletFragmentStyle_buyButtonText = 2;
+        /**
+          <p>This symbol is the offset where the {@link com.trutech.calculall.R.attr#buyButtonWidth}
+          attribute's value can be found in the {@link #WalletFragmentStyle} array.
+
+
+          <p>May be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+<p>May be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>match_parent</code></td><td>-1</td><td></td></tr>
+<tr><td><code>wrap_content</code></td><td>-2</td><td></td></tr>
+</table>
+          @attr name com.trutech.calculall:buyButtonWidth
+        */
+        public static final int WalletFragmentStyle_buyButtonWidth = 1;
+        /**
+          <p>This symbol is the offset where the {@link com.trutech.calculall.R.attr#maskedWalletDetailsBackground}
+          attribute's value can be found in the {@link #WalletFragmentStyle} array.
+
+
+          <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+          @attr name com.trutech.calculall:maskedWalletDetailsBackground
+        */
+        public static final int WalletFragmentStyle_maskedWalletDetailsBackground = 6;
+        /**
+          <p>This symbol is the offset where the {@link com.trutech.calculall.R.attr#maskedWalletDetailsButtonBackground}
+          attribute's value can be found in the {@link #WalletFragmentStyle} array.
+
+
+          <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+          @attr name com.trutech.calculall:maskedWalletDetailsButtonBackground
+        */
+        public static final int WalletFragmentStyle_maskedWalletDetailsButtonBackground = 8;
+        /**
+          <p>This symbol is the offset where the {@link com.trutech.calculall.R.attr#maskedWalletDetailsButtonTextAppearance}
+          attribute's value can be found in the {@link #WalletFragmentStyle} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name com.trutech.calculall:maskedWalletDetailsButtonTextAppearance
+        */
+        public static final int WalletFragmentStyle_maskedWalletDetailsButtonTextAppearance = 7;
+        /**
+          <p>This symbol is the offset where the {@link com.trutech.calculall.R.attr#maskedWalletDetailsHeaderTextAppearance}
+          attribute's value can be found in the {@link #WalletFragmentStyle} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name com.trutech.calculall:maskedWalletDetailsHeaderTextAppearance
+        */
+        public static final int WalletFragmentStyle_maskedWalletDetailsHeaderTextAppearance = 5;
+        /**
+          <p>This symbol is the offset where the {@link com.trutech.calculall.R.attr#maskedWalletDetailsLogoImageType}
+          attribute's value can be found in the {@link #WalletFragmentStyle} array.
+
+
+          <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>classic</code></td><td>1</td><td></td></tr>
+<tr><td><code>monochrome</code></td><td>2</td><td></td></tr>
+</table>
+          @attr name com.trutech.calculall:maskedWalletDetailsLogoImageType
+        */
+        public static final int WalletFragmentStyle_maskedWalletDetailsLogoImageType = 10;
+        /**
+          <p>This symbol is the offset where the {@link com.trutech.calculall.R.attr#maskedWalletDetailsLogoTextColor}
+          attribute's value can be found in the {@link #WalletFragmentStyle} array.
+
+
+          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.trutech.calculall:maskedWalletDetailsLogoTextColor
+        */
+        public static final int WalletFragmentStyle_maskedWalletDetailsLogoTextColor = 9;
+        /**
+          <p>This symbol is the offset where the {@link com.trutech.calculall.R.attr#maskedWalletDetailsTextAppearance}
+          attribute's value can be found in the {@link #WalletFragmentStyle} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name com.trutech.calculall:maskedWalletDetailsTextAppearance
+        */
+        public static final int WalletFragmentStyle_maskedWalletDetailsTextAppearance = 4;
+    };
 }

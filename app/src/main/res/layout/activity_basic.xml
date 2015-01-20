@@ -41,7 +41,7 @@
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:fadingEdge="vertical"
-                    android:scrollbars="vertical"></view>
+                    android:scrollbars="vertical" />
 
                 <HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
                     android:id="@+id/outputScroll"
@@ -56,7 +56,7 @@
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
                         android:fadingEdge="vertical"
-                        android:scrollbars="vertical"></view>
+                        android:scrollbars="vertical" />
                 </HorizontalScrollView>
 
                 <requestFocus />
@@ -373,6 +373,16 @@
                 android:layout_weight="1"
                 android:onClick="clickVector"
                 android:text="@string/vector"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/matrixButton"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:onClick="clickMatrix"
+                android:text="@string/matrix"
                 android:textSize="16sp" />
 
         </LinearLayout>

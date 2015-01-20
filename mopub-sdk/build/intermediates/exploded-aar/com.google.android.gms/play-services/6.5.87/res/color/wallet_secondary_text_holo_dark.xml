@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?><!-- Copyright 2014 Google Inc. All Rights Reserved. -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="@color/wallet_dim_foreground_disabled_holo_dark" android:state_enabled="false" android:state_window_focused="false" />
+    <item android:color="@color/wallet_dim_foreground_holo_dark" android:state_window_focused="false" />
+    <item android:color="@color/wallet_dim_foreground_disabled_holo_dark" android:state_enabled="false" android:state_selected="true" />
+    <item android:color="@color/wallet_dim_foreground_disabled_holo_dark" android:state_enabled="false" android:state_pressed="true" />
+    <item android:color="@color/wallet_dim_foreground_holo_dark" android:state_selected="true" />
+    <item android:color="@color/wallet_dim_foreground_holo_dark" android:state_pressed="true" />
+    <item android:color="@color/wallet_dim_foreground_disabled_holo_dark" android:state_enabled="false" />
+    <item android:color="@color/wallet_dim_foreground_holo_dark" />
+    <!-- not selected -->
+</selector>

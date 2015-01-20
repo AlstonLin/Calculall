@@ -1,6 +1,7 @@
 package com.trutech.calculall;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -8,7 +9,17 @@ import android.view.Window;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
+import com.mopub.mobileads.MoPubErrorCode;
+import com.mopub.mobileads.MoPubInterstitial;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * The activity for the basic calculator mode. The basic mode will only be able to
@@ -16,16 +27,21 @@ import java.util.ArrayList;
  *
  * @version 0.4.0
  */
-public class Basic extends Activity {
+public class Basic extends Activity implements MoPubInterstitial.InterstitialAdListener {
 
-    public static final int ROUND_TO = 9;
+
+    public static final String CLASS_NAME = Basic.class.getName();
+    public static final int HISTORY_SIZE = 10;
+    public static final int AD_RATE = 2; //Ads will show 1 in 2 activity opens
+    private static final String FILENAME = "history_basic";
+    private static final String AD_ID = "3ae32e9f72e2402cb01bbbaf1d6ba1f4";
+
     protected ArrayList<Token> tokens = new ArrayList<Token>(); //Tokens shown on screen
     protected boolean changedTokens = false;
     protected DisplayView display;
     protected OutputView output;
-
-    //GridView mKeypadGrid;
-    //KeypadAdapter mKeypadAdapter;
+    private MoPubInterstitial interstitial;
+    private boolean adShown = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +54,30 @@ public class Basic extends Activity {
         display.setOutput(output);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!(interstitial != null && interstitial.isReady()) && !adShown && !((Object) this).getClass().getName().equals(CLASS_NAME)) {
+            Random random = new Random();
+            if (random.nextInt(AD_RATE) == 0) {
+                // Create the interstitial.
+                interstitial = new MoPubInterstitial(this, AD_ID);
+                interstitial.setInterstitialAdListener(this);
+                interstitial.load();
+                interstitial.load();
+            }
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        if (interstitial != null) {
+            interstitial.destroy(); //Prevents Ads from other activities appearing if it is not loaded before switching between them
+        }
+        super.onPause();
+    }
+
+
     /**
      * Processes the expression and returns the result using the Shunting Yard Algorithm to convert
      * the expression into reverse polish and then evaluating it.
@@ -47,8 +87,7 @@ public class Basic extends Activity {
      */
     protected double process() {
         ArrayList<Token> tokens = Utility.setupExpression(Utility.condenseDigits(Utility.addMissingBrackets(subVariables())));
-        double unrounded = Utility.evaluateExpression(Utility.convertToReversePolish(tokens));
-        return Utility.round(unrounded, ROUND_TO);
+        return Utility.evaluateExpression(Utility.convertToReversePolish(tokens));
     }
 
     /**
@@ -257,7 +296,7 @@ public class Basic extends Activity {
         updateInput();
         changedTokens = true; //used to know if the button has been used
         DisplayView display = (DisplayView) findViewById(R.id.display);
-        display.displayOutput("");
+        display.displayOutput(new ArrayList<Token>());
         display.reset();
     }
 
@@ -329,16 +368,87 @@ public class Basic extends Activity {
     public void clickEquals(View v) {
         DisplayView display = (DisplayView) findViewById(R.id.display);
         try {
-            String s = Double.toString(process());
-            //TODO: Find a new way to display to output
-            s = s.indexOf(".") < 0 ? s : (s.indexOf("E") > 0 ? s.substring(0, s.indexOf("E")).replaceAll("0*$", "")
-                    .replaceAll("\\.$", "").concat(s.substring(s.indexOf("E"))) : s.replaceAll("0*$", "")
-                    .replaceAll("\\.$", "")); //Removes trailing zeroes
-            display.displayOutput(s);
+            Number num = new Number(process());
+            if (Double.isInfinite(num.getValue())) {
+                throw new NumberTooLargeException();
+            }
+            ArrayList<Token> list = new ArrayList<Token>();
+            list.add(num);
+            display.displayOutput(list);
+            saveEquation(tokens, list, FILENAME);
         } catch (Exception e) { //User did a mistake
-            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
+            handleExceptions(e);
         }
         scrollDown();
+    }
+
+    /**
+     * Called when an exception occurs anywhere during processing.
+     *
+     * @param e The exception that was thrown
+     */
+    protected void handleExceptions(Exception e) {
+        String message = "";
+        if (e instanceof NumberTooLargeException) {
+            message = "The calculation is to large to perform";
+        } else {
+            message = "Invalid input";
+        }
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+
+    /**
+     * Saves the equation into the calculation history.
+     *
+     * @param input  The expression that the user inputted into the calculator
+     * @param output The result of the calculation
+     */
+    public void saveEquation(ArrayList<Token> input, ArrayList<Token> output, String filepath) throws IOException, ClassNotFoundException {
+        ArrayList<Object[]> history = new ArrayList<Object[]>();
+        try {
+            FileInputStream inStream = openFileInput(filepath);
+            ObjectInputStream objectStreamIn = new ObjectInputStream(inStream);
+            history = (ArrayList<Object[]>) objectStreamIn.readObject();
+        } catch (Exception e) {
+        }
+
+        FileOutputStream outStream = openFileOutput(filepath, Context.MODE_PRIVATE);
+        Object[] toWrite = new Object[2];
+        toWrite[0] = input;
+        toWrite[1] = output;
+        history.add(toWrite);
+
+        while (history.size() > HISTORY_SIZE) {
+            history.remove(0);
+        }
+
+        ObjectOutputStream objectStreamOut = new ObjectOutputStream(outStream);
+        objectStreamOut.writeObject(history);
+        objectStreamOut.flush();
+        objectStreamOut.close();
+        outStream.close();
+        adShown = false;
+    }
+
+    /**
+     * Opens the calculation history.
+     *
+     * @param v Not Used
+     */
+    public void openHistory(View v) throws IOException, ClassNotFoundException {
+        setContentView(R.layout.history_view);
+        HistoryView hv = (HistoryView) findViewById(R.id.history);
+        try {
+            FileInputStream stream = openFileInput(FILENAME);
+            ObjectInputStream objectStream = new ObjectInputStream(stream);
+            hv.setHistory((ArrayList<Object[]>) objectStream.readObject());
+        } catch (FileNotFoundException e) {
+            ArrayList<Object[]> history = new ArrayList<Object[]>();
+            Object[] message = new Object[2];
+            message[0] = new StringToken("No History to show");
+            message[1] = new StringToken("");
+            hv.setHistory(history);
+        }
     }
 
     /**
@@ -417,11 +527,22 @@ public class Basic extends Activity {
     }
 
     /**
+     * When the user wants to change to Matrix Mode.
+     *
+     * @param v Not Used
+     */
+    public void clickMatrix(View v) {
+        //Goes to the VectorMode activity
+        Intent intent = new Intent(this, MatrixMode.class);
+        startActivity(intent);
+    }
+
+    /**
      * Updates the text on the input screen.
      */
     protected void updateInput() {
         updatePlaceHolders();
-        display.displayOutput(""); //Clears output
+        display.displayOutput(new ArrayList<Token>()); //Clears output
         display.displayInput(tokens);
     }
 
@@ -454,4 +575,31 @@ public class Basic extends Activity {
         }
     }
 
+    @Override
+    public void onInterstitialLoaded(MoPubInterstitial interstitial) {
+        adShown = true;
+        if (interstitial.isReady()) {
+            interstitial.show();
+        }
+    }
+
+    @Override
+    public void onInterstitialFailed(MoPubInterstitial interstitial, MoPubErrorCode errorCode) {
+
+    }
+
+    @Override
+    public void onInterstitialShown(MoPubInterstitial interstitial) {
+
+    }
+
+    @Override
+    public void onInterstitialClicked(MoPubInterstitial interstitial) {
+
+    }
+
+    @Override
+    public void onInterstitialDismissed(MoPubInterstitial interstitial) {
+
+    }
 }

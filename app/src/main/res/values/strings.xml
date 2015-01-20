@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <string name="done">✔</string>
+    <string name="num">#</string>
+    <string name="edit">Edit</string>
+    <string name="newe">New</string>
+    <string name="rank">Rank</string>
+    <string name="ref">REF</string>
+    <string name="rref">RREF</string>
+    <string name="det">DET</string>
+    <string name="diag">DIAG</string>
+    <string name="decomp">DECOMP</string>
+    <string name="tr">tr</string>
+    <string name="lambda">λ</string>
+    <string name="ev">Ev</string>
+    <string name="augment">[A|B]</string>
+    <string name="transpose"><![CDATA[<p>A<sup><small><i>t</i></small></sup></p>]]></string>
+    <string name="matrix_pow"><![CDATA[<p>A<sup><small><i>y</i></small></sup></p>]]></string>
+    <string name="inverse_a"><![CDATA[<p>A<sup><small><i>-1</i></small></sup></p>]]></string>
+    <string name="expand">Expand</string>
     <string name="app_name">Calculall</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_basic">Basic</string>
@@ -11,6 +28,7 @@
     <string name="plusminus">±</string>
     <string name="seven">7</string>
     <string name="six">6</string>
+    <string name="factor">Factor</string>
     <string name="five">5</string>
     <string name="four">4</string>
     <string name="three">3</string>
@@ -67,12 +85,13 @@
     <string name="degrees">Degrees</string>
     <string name="radians">Radians</string>
     <string name="gradians">Gradians</string>
-    <string name="exponent"><![CDATA[<p>x<sup><small><small><i>y</i></small></small></sup></p>]]></string>
-    <string name="varRoot"><![CDATA[<p><sup><small><small><i>y</i></small></small></sup>√x</p>]]></string>
+    <string name="exponent"><![CDATA[<p>x<sup><small><i>y</i></small></sup></p>]]></string>
+    <string name="varRoot"><![CDATA[<p><sup><small><i>y</i></small></sup>√x</p>]]></string>
+    <string name="recip"><![CDATA[<p>x<sup><small>-1</small></sup></p>]]></string>
     <string name="square">x²</string>
     <string name="cube">x³</string>
-    <string name="powOfTen"><![CDATA[<p>10<sup><small><small><i>x</i></small></small></sup></p>]]></string>
-    <string name="powOfE"><![CDATA[<p>e<sup><small><small><i>x</i></small></small></sup></p>]]></string>
+    <string name="powOfTen"><![CDATA[<p>10<sup><small><i>x</i></small></sup></p>]]></string>
+    <string name="powOfE"><![CDATA[<p>e<sup><small><i>x</i></small></sup></p>]]></string>
     <string name="log10">log</string>
     <string name="log_b">log_b</string>
     <string name="ln">ln</string>
@@ -107,5 +126,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="leftscroll"><![CDATA[<-]]></string>
     <string name="rightscroll"><![CDATA[->]]></string>
+    <string name="title_activity_ocrmode">OCRMode</string>
 
 </resources>

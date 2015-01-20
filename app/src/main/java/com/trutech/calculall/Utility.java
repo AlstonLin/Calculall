@@ -13,17 +13,16 @@ import java.util.Stack;
  */
 public class Utility {
 
-    //ID of the Buttons (nowhere else to put them)
-    public static final int MC = 0, MR = 1, MS = 2, M_ADD = 3, M_REMOVE = 4, BACKSPACE = 5, CE = 6, C = 7, ZERO = 8, ONE = 9, TWO = 10, THREE = 11, FOUR = 12, FIVE = 13, SIX = 14, SEVEN = 15, EIGHT = 16, NINE = 17, PLUS = 18, MINUS = 19, MULTIPLY = 20, DIV = 21, RECIPROC = 22, DECIMAL_SEP = 23, SIGN = 24, SQRT = 25, PERCENT = 26, CALCULATE = 27, DUMMY = 28;
-
-
     /**
+     * Prints the given expression to be read by machine.
+     *
      * @param expression The expression to print
-     * @return The string representation of the given expression
+     * @return The string representation of the given expression (machine readable)
      */
-    public static String printExpression(ArrayList<Token> expression) {
+    public static String machinePrintExpression(ArrayList<Token> expression) {
         String s = "";
-        for (Token token : expression) {
+        for (int i = 0; i < expression.size(); i++) {
+            Token token = expression.get(i);
             if (token instanceof Number) {
                 if (((Number) token).getValue() % 1 != 0) {
                     s += ((Number) token).getValue();
@@ -44,6 +43,46 @@ public class Utility {
                     case Operator.SUBTRACT:
                         s += "-";
                         break;
+                    case Operator.VARROOT:
+                        String base = "";
+                        //Finds the root
+                        int bracketCount = 1;
+                        int j = s.length() - 2; //Starts at the character BEFORE the ")"
+                        while (bracketCount > 0) {
+                            char c = s.charAt(j);
+                            if (c == ')') {
+                                bracketCount++;
+                            } else if (c == '(') {
+                                bracketCount--;
+                            }
+                            s = s.substring(0, j); //Removes the last character
+                            base = c + base; //Adds at the beginning of the root
+                            j--;
+                        }
+
+                        //Removes the opening (
+                        base = base.substring(1);
+
+                        //Now adds the roots to the end of the Surd
+                        ArrayList<Token> root = new ArrayList<>();
+                        bracketCount = 1;
+                        i = i + 2; //Starts after the ( bracket
+                        while (bracketCount > 0) {
+                            Token t = expression.get(i);
+                            if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.OPEN) {
+                                bracketCount++;
+                            } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.CLOSE) {
+                                bracketCount--;
+                            }
+                            root.add(t);
+                            i++;
+                        }
+                        i--; //Reverses the last iteration
+                        root.remove(root.size() - 1); //Takes out the closing )
+                        s += "Surd(";
+                        s += machinePrintExpression(root);
+                        s += "," + base + ")";
+                        break;
                     default:
                         s += token.getSymbol();
                 }
@@ -61,6 +100,9 @@ public class Utility {
                 }
             } else if (token instanceof Function) {
                 switch (((Function) token).getType()) {
+                    case Function.SQRT:
+                        s += "sqrt";
+                        break;
                     case Function.SIN:
                         s += "Sin";
                         break;
@@ -69,6 +111,18 @@ public class Utility {
                         break;
                     case Function.TAN:
                         s += "Tan";
+                        break;
+                    case Function.CSC:
+                        s += "Csc";
+                        break;
+                    case Function.SEC:
+                        s += "Sec";
+                        break;
+                    case Function.COT:
+                        s += "Cot";
+                        break;
+                    case Function.ERF:
+                        s += "Erf";
                         break;
                     case Function.ARCSIN:
                         s += "ArcSin";
@@ -79,11 +133,32 @@ public class Utility {
                     case Function.ARCTAN:
                         s += "ArcTan";
                         break;
+                    case Function.SINH:
+                        s += "Sinh";
+                        break;
+                    case Function.COSH:
+                        s += "Cosh";
+                        break;
+                    case Function.TANH:
+                        s += "Tanh";
+                        break;
+                    case Function.ARCSINH:
+                        s += "ArcSinh";
+                        break;
+                    case Function.ARCCOSH:
+                        s += "ArcCosh";
+                        break;
+                    case Function.ARCTANH:
+                        s += "ArcTanh";
+                        break;
                     case Function.LN:
                         s += "Ln";
                         break;
+                    case Function.APPELLF1:
+                        s += "AppellF1";
+                        break;
                     default:
-                        throw new IllegalArgumentException("NOT SUPPORTED YET");
+                        throw new IllegalArgumentException("NOT SUPPORTED YET: " + s);
                         //TODO: IMPLEMENT OTHERS
                 }
             } else if (token instanceof Bracket) {
@@ -124,6 +199,20 @@ public class Utility {
     }
 
     /**
+     * Prints the expression to be read by humans.
+     *
+     * @param expression The expression to print
+     * @return The string representation of the expression
+     */
+    public static String printExpression(ArrayList<Token> expression) {
+        String s = "";
+        for (Token t : expression) {
+            s += t.getSymbol();
+        }
+        return s;
+    }
+
+    /**
      * Returns the numerical value of a given set of digits.
      *
      * @param digits A list of digits to find the value of
@@ -137,7 +226,7 @@ public class Utility {
         try {
             while (digits.get(0).getValue() == DigitFactory.NEGATIVE) { //Only accepts negatives at the beginning
                 digits.remove(0);
-                negative = negative ? false : true; //Allows for multiple negatives
+                negative = !negative; //Allows for multiple negatives
             }
         } catch (IndexOutOfBoundsException e) { //The digits only contains negatives (occurs during adding a neg to variables)
             return negative ? -1 : 1;
@@ -219,37 +308,53 @@ public class Utility {
     public static ArrayList<Token> setupExpression(ArrayList<Token> toSetup) {
         ArrayList<Token> newExpression = new ArrayList<Token>();
         for (Token t : toSetup) {
+            boolean negative = false;
             Token last = newExpression.isEmpty() ? null : newExpression.get(newExpression.size() - 1); //Last token in the new expression
             if (t instanceof Bracket) {
                 Bracket b = (Bracket) t;
                 if (b.getType() == Bracket.OPEN && last instanceof Bracket && ((Bracket) last).getType() == Bracket.CLOSE) { //Ex. (2 + 1)(3 + 4)
                     newExpression.add(OperatorFactory.makeMultiply()); //Implies multiplication between the two expressions in the brackets
-                } else if (last instanceof Number && b.getType() == Bracket.OPEN) { //Ex. 3(2 + 1)
+                } else if ((last instanceof Number || last instanceof Variable) && b.getType() == Bracket.OPEN) { //Ex. 3(2 + 1) or X(1+X)
                     newExpression.add(OperatorFactory.makeMultiply());
                 } else if (last instanceof Operator && ((Operator) last).getType() == Operator.SUBTRACT) { //Ex. -(X + 1) -> -1 * (X + 1)
                     newExpression.remove(last);
                     newExpression.add(new Number(-1));
                     newExpression.add(OperatorFactory.makeMultiply());
                 }
-            } else if (t instanceof Number || t instanceof Variable) { //So it works with Function mode too
+            } else if (t instanceof Number || t instanceof Variable || t instanceof Function) { //So it works with Function mode too
+                //Simplifies the second if statement
+                Token beforeLast = newExpression.size() > 1 ? newExpression.get(newExpression.size() - 2) : null;
+                boolean lastIsSubtract = last instanceof Operator && ((Operator) last).getType() == Operator.SUBTRACT;
+                boolean beforeLastIsOperator = beforeLast != null && beforeLast instanceof Operator;
+                boolean beforeLastIsOpenBracket = beforeLast != null && beforeLast instanceof Bracket && (((Bracket) beforeLast).getType() == Bracket.OPEN
+                        || ((Bracket) beforeLast).getType() == Bracket.NUM_OPEN || ((Bracket) beforeLast).getType() == Bracket.DENOM_OPEN || ((Bracket) beforeLast).getType() == Bracket.SUPERSCRIPT_OPEN);
+
                 if (last instanceof Number) { //Ex. 5A
                     newExpression.add(OperatorFactory.makeMultiply());
-                } else if (t instanceof Variable && last instanceof Operator && ((Operator) last).getType() == Operator.SUBTRACT) { //Ex. -X -> -1 * X
+                } else if (lastIsSubtract && (beforeLastIsOperator || beforeLastIsOpenBracket || newExpression.size() <= 1)) { //Ex. E * -X -> E * -1 * X
                     newExpression.remove(last);
-                    newExpression.add(new Number(-1));
+                    if (t instanceof Number) {
+                        negative = true;
+                    } else {
+                        newExpression.add(new Number(-1));
+                        newExpression.add(OperatorFactory.makeMultiply());
+                    }
+                }
+
+                if (t instanceof Function && (last instanceof Number || last instanceof Function
+                        || (last instanceof Bracket && ((Bracket) last).getType() == Bracket.CLOSE) || last instanceof Variable)) { //Ex. 2f(x) or f(x)g(x) or (1 + 2)f(x) or xf(x)
                     newExpression.add(OperatorFactory.makeMultiply());
                 }
-            } else if (t instanceof Function) {
-                if (last instanceof Number || last instanceof Function
-                        || (last instanceof Bracket && ((Bracket) last).getType() == Bracket.CLOSE)) { //Ex. 2f(x) or f(x)g(x) or (1 + 2)f(x)
-                    newExpression.add(OperatorFactory.makeMultiply());
-                } else if (last instanceof Operator && ((Operator) last).getType() == Operator.SUBTRACT) { //Ex. -sinX -> -1 * sinX
-                    newExpression.remove(last);
-                    newExpression.add(new Number(-1));
+
+                if (t instanceof Variable && last instanceof Variable) { //Ex. pi x
                     newExpression.add(OperatorFactory.makeMultiply());
                 }
             }
-            newExpression.add(t);
+            if (negative) {
+                newExpression.add(new Number(((Number) t).getValue() * -1));
+            } else {
+                newExpression.add(t);
+            }
         }
         return newExpression;
     }
@@ -326,7 +431,7 @@ public class Utility {
             } else if (token instanceof Function) { //Function uses the top number on the stack
                 Number top = stack.pop(); //Function performs on the first number
                 stack.push(new Number(((Function) token).perform(top.getValue()))); //Adds the result back to the stack
-            } else { //This should never bee reached
+            } else { //This should never be reached
                 throw new IllegalArgumentException();
             }
         }
@@ -507,8 +612,8 @@ public class Utility {
         ArrayList<Token> tempExpression = new ArrayList<Token>();
         for (Token t : expression) {
             if (t instanceof Vector) {
-                ArrayList<Token> tempVector = ((Vector) t).getVector();
-                tempExpression.addAll(tempVector);
+                //ArrayList<Token> tempVector = ((Vector) t).getVector();
+                //tempExpression.addAll(tempVector);
             } else {
                 tempExpression.add(t);
             }
@@ -624,7 +729,17 @@ public class Utility {
      */
     public static ArrayList<Token> cleanupExpressionForReading(ArrayList<Token> expression) {
         ArrayList<Token> newExpression = new ArrayList<Token>();
-        for (Token t : expression) {
+        for (int i = 0; i < expression.size(); i++) {
+            Token t = expression.get(i);
+            Token last = newExpression.size() > 0 ? newExpression.get(newExpression.size() - 1) : null;
+            //Token beforeLast = newExpression.size() > 1 ? newExpression.get(newExpression.size() - 2) : null;
+            if (t instanceof Variable && last != null && last instanceof Operator && ((Operator) last).getType() == Operator.MULTIPLY) { // E * V -> EV
+                newExpression.remove(last);
+            } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.OPEN && last instanceof Operator && ((Operator) last).getType() == Operator.MULTIPLY) { //E * (E) -> E(E)
+                newExpression.remove(last);
+            } else if (t instanceof Function && last instanceof Operator && ((Operator) last).getType() == Operator.MULTIPLY) { //E * F -> EF
+                newExpression.remove(last);
+            }
             newExpression.add(t);
         }
         return newExpression;
@@ -1203,32 +1318,6 @@ public class Utility {
         }
 
         return roots;
-    }
-
-    /**
-     * Finds the derivative of a given function
-     *
-     * @param function The function that will be differentiated
-     * @return The differentiated function
-     */
-    public ArrayList<Token> differentiate(ArrayList<Token> function) {
-        for (int i = 0; i < function.size(); i++) {
-
-        }
-        return null;
-    }
-
-    /**
-     * Finds the integral of a given function
-     *
-     * @param function The function that will be integrated
-     * @return The integrated function
-     */
-    public ArrayList<Token> integrate(ArrayList<Token> function) {
-        for (int i = 0; i < function.size(); i++) {
-
-        }
-        return null;
     }
 
 }

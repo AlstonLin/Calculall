@@ -34,6 +34,7 @@ public class Matrix extends Token {
         this.entries = newMatrix;
     }
 
+
     public static Matrix add(Matrix a, Matrix b) {
         return MatrixOperatorFactory.makeMatrixAdd().operate(a, b);
     }
@@ -48,6 +49,44 @@ public class Matrix extends Token {
 
     public static Matrix transpose(Matrix a) {
         return MatrixFunctionFactory.makeTranspose().perform(a);
+    }
+
+    /**
+     * Changes the size of the Matrix while keeping the values
+     *
+     * @param numOfRows The new number of rows of the Matrix
+     * @param numOfCols The new number of columns of the Matrix
+     */
+    public void changeSize(int numOfRows, int numOfCols) {
+        ArrayList<Token>[][] temp = entries;
+        entries = new ArrayList[numOfRows][numOfCols];
+        //Populates the entries
+        for (int i = 0; i < numOfRows; i++) {
+            for (int j = 0; j < numOfCols; j++) {
+                if (i < this.numOfRows && j < this.numOfCols) { //Existing entry exists
+                    entries[i][j] = temp[i][j];
+                } else { //Creates a new entry
+                    ArrayList<Token> entry = new ArrayList<>();
+                    entry.add(new Number(0));
+                    entries[i][j] = entry;
+                }
+            }
+        }
+
+        //Updates values
+        this.numOfRows = numOfRows;
+        this.numOfCols = numOfCols;
+    }
+
+    /**
+     * Sets the entry at the given row and column number to the given.
+     *
+     * @param x     Row number
+     * @param y     Column number
+     * @param entry The entry to set
+     */
+    public void setEntry(int x, int y, ArrayList<Token> entry) {
+        entries[x][y] = entry;
     }
 
     public AugmentedMatrix makeNewAM(Matrix[] matrices) {
@@ -92,6 +131,26 @@ public class Matrix extends Token {
         } else {
             throw new IllegalArgumentException("Not enough columns");
         }
+    }
+
+    /**
+     * Determines whats gets displayed onto the Screen.
+     *
+     * @return The visual representation of the Matrix
+     */
+    public String getSymbol() {
+        String s = "";
+        for (int i = 0; i < entries.length; i++) {
+            String temp = "";
+            for (int j = 0; j < entries[i].length; j++) {
+                if (j != 0) {
+                    s += ",";
+                }
+                s += Utility.machinePrintExpression(entries[i][j]);
+            }
+            s += "/";
+        }
+        return s;
     }
 
     public static class AugmentedMatrix extends Matrix {
