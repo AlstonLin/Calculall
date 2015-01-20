@@ -21,7 +21,7 @@ public class MathUtilities {
      * @return The differentiated function
      */
     public static ArrayList<Token> differentiate(ArrayList<Token> function) {
-        String expr = Utility.printExpression(Utility.setupExpression(function));
+        String expr = Utility.machinePrintExpression(Utility.setupExpression(function));
         try {
             String derivativeStr = differentiateStr(expr);
             ArrayList<Token> derivative = convertStringToTokens(derivativeStr);
@@ -40,7 +40,7 @@ public class MathUtilities {
      * @return The differentiated function
      */
     public static ArrayList<Token> integrate(ArrayList<Token> function) throws UnsupportedOperationException {
-        String expr = Utility.printExpression(Utility.setupExpression(function));
+        String expr = Utility.machinePrintExpression(Utility.setupExpression(function));
         try {
             String integralStr = integrateStr(expr);
             ArrayList<Token> integral = convertStringToTokens(integralStr);
@@ -83,7 +83,7 @@ public class MathUtilities {
                     i++;
                 }
                 function.remove(function.size() - 1); //Last close bracket
-                if (Utility.printExpression(function).equals("2.0,1.0/2.0,1.0/2.0,3.0,x,-x")) {
+                if (Utility.machinePrintExpression(function).equals("2.0,1.0/2.0,1.0/2.0,3.0,x,-x")) {
                     //AppellF1(2,1/2,1/2,3/x,-x) = -2sqrt(1-x^2)/x^2
                     newExpr.add(DigitFactory.makeNegative());
                     newExpr.add(DigitFactory.makeTwo());
@@ -117,7 +117,8 @@ public class MathUtilities {
     public static String integrateStr(String function) {
         String str = "Simplify(integrate(" + function + ",x))";
         IExpr integral = util.evaluate(str);
-        if (integral.toString().contains("Integrate")) { //Could not integrate into an elementary function
+        if (integral.toString().contains("Integrate")) { //Could not integrate into an elementary funct
+        // ion
             throw new UnsupportedOperationException();
         }
         return integral.toString();
@@ -338,7 +339,7 @@ public class MathUtilities {
      * @return The expanded expression
      */
     public static ArrayList<Token> expand(ArrayList<Token> expression) {
-        String simplifyStr = "Expand(" + Utility.printExpression(Utility.setupExpression(expression)) + ")";
+        String simplifyStr = "Expand(" + Utility.machinePrintExpression(Utility.setupExpression(expression)) + ")";
         try {
             ArrayList<Token> simplified = convertStringToTokens(util.evaluate(simplifyStr).toString());
             simplified = JFok.jFokExpression(simplified);
@@ -355,7 +356,7 @@ public class MathUtilities {
      * @return The factored expression
      */
     public static ArrayList<Token> factor(ArrayList<Token> expression) {
-        String simplifyStr = "Factor(" + Utility.printExpression(Utility.setupExpression(expression)) + ")";
+        String simplifyStr = "Factor(" + Utility.machinePrintExpression(Utility.setupExpression(expression)) + ")";
         try {
             String simplifiedStr = util.evaluate(simplifyStr).toString();
             if (simplifiedStr.contains("Factor")) { //Cannot factor further
@@ -376,7 +377,7 @@ public class MathUtilities {
      * @return The roots of the expression in a List of expressions
      */
     public static ArrayList<ArrayList<Token>> findRoots(ArrayList<Token> expression) {
-        String solveStr = "Solve(" + Utility.printExpression(Utility.setupExpression(expression)) + "==0,x)";
+        String solveStr = "Solve(" + Utility.machinePrintExpression(Utility.setupExpression(expression)) + "==0,x)";
         try {
             //Uses the library to get the result as a String
             IExpr roots = util.evaluate(solveStr);
@@ -407,7 +408,7 @@ public class MathUtilities {
             //Validates the roots (makes sure that it is actually a root)
             for (int i = 0; i < rootsList.size(); i++) {
                 ArrayList<Token> root = rootsList.get(i);
-                float value = (float) Utility.valueAt(expression, Utility.evaluateExpression(Utility.convertToReversePolish(Utility.setupExpression(root))));
+                float value = (float)Utility.valueAt(expression, Utility.evaluateExpression(Utility.convertToReversePolish(Utility.setupExpression(root))));
                 final float ERROR_MARGIN = 1e-6f;
                 if (!(value > -ERROR_MARGIN && value < ERROR_MARGIN)) {
                     rootsList.remove(root);
