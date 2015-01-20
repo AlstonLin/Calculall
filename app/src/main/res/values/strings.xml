@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="done">✔</string>
+    <string name="num">#</string>
+    <string name="edit">Edit</string>
+    <string name="newe">New</string>
+    <string name="rank">Rank</string>
+    <string name="ref">REF</string>
+    <string name="rref">RREF</string>
+    <string name="det">DET</string>
+    <string name="diag">DIAG</string>
+    <string name="decomp">DECOMP</string>
+    <string name="tr">tr</string>
+    <string name="lambda">λ</string>
+    <string name="ev">Ev</string>
+    <string name="augment">[A|B]</string>
+    <string name="transpose"><![CDATA[<p>A<sup><small><i>t</i></small></sup></p>]]></string>
+    <string name="matrix_pow"><![CDATA[<p>A<sup><small><i>y</i></small></sup></p>]]></string>
+    <string name="inverse_a"><![CDATA[<p>A<sup><small><i>-1</i></small></sup></p>]]></string>
     <string name="expand">Expand</string>
     <string name="app_name">Calculall</string>
     <string name="action_settings">Settings</string>

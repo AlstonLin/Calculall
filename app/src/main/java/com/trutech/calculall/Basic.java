@@ -12,8 +12,6 @@ import android.widget.Toast;
 import com.mopub.mobileads.MoPubErrorCode;
 import com.mopub.mobileads.MoPubInterstitial;
 
-import org.apache.commons.math3.exception.NumberIsTooLargeException;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -59,9 +57,9 @@ public class Basic extends Activity implements MoPubInterstitial.InterstitialAdL
     @Override
     protected void onResume() {
         super.onResume();
-        if (!(interstitial != null && interstitial.isReady()) && !adShown && !((Object)this).getClass().getName().equals(CLASS_NAME)) {
+        if (!(interstitial != null && interstitial.isReady()) && !adShown && !((Object) this).getClass().getName().equals(CLASS_NAME)) {
             Random random = new Random();
-            if (random.nextInt(AD_RATE) == 0){
+            if (random.nextInt(AD_RATE) == 0) {
                 // Create the interstitial.
                 interstitial = new MoPubInterstitial(this, AD_ID);
                 interstitial.setInterstitialAdListener(this);
@@ -371,7 +369,7 @@ public class Basic extends Activity implements MoPubInterstitial.InterstitialAdL
         DisplayView display = (DisplayView) findViewById(R.id.display);
         try {
             Number num = new Number(process());
-            if (Double.isInfinite(num.getValue())){
+            if (Double.isInfinite(num.getValue())) {
                 throw new NumberTooLargeException();
             }
             ArrayList<Token> list = new ArrayList<Token>();
@@ -389,11 +387,11 @@ public class Basic extends Activity implements MoPubInterstitial.InterstitialAdL
      *
      * @param e The exception that was thrown
      */
-    protected void handleExceptions(Exception e){
+    protected void handleExceptions(Exception e) {
         String message = "";
-        if (e instanceof NumberTooLargeException){
+        if (e instanceof NumberTooLargeException) {
             message = "The calculation is to large to perform";
-        }else{
+        } else {
             message = "Invalid input";
         }
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
@@ -525,6 +523,17 @@ public class Basic extends Activity implements MoPubInterstitial.InterstitialAdL
     public void clickVector(View v) {
         //Goes to the VectorMode activity
         Intent intent = new Intent(this, VectorMode.class);
+        startActivity(intent);
+    }
+
+    /**
+     * When the user wants to change to Matrix Mode.
+     *
+     * @param v Not Used
+     */
+    public void clickMatrix(View v) {
+        //Goes to the VectorMode activity
+        Intent intent = new Intent(this, MatrixMode.class);
         startActivity(intent);
     }
 

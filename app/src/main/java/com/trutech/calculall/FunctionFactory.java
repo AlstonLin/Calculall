@@ -422,13 +422,12 @@ public class FunctionFactory {
 			public double perform(double input, double base) {
                 return (Math.log(input))/(Math.log(base)); //TODO: find a way to do this properly
             }
-
 			@Override
 			public double perform(double input) {
 				return 0;
 			}
         };
-     } 
+     }
      public static Function makePowOfB(){
      	return new Function(null){
      		public double perform(double base, double exponent){

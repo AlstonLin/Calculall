@@ -139,6 +139,8 @@ public class OperatorFactory {
                 } else {
                     if (right > left) {
                         return 0;
+                    } else if (right == left) {
+                        return 1;
                     } else {
                         return Utility.factorial((int) left) / (Utility.factorial((int) right) * Utility.factorial((int) (left - right)));
                     }

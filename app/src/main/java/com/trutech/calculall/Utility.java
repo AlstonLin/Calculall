@@ -14,11 +14,12 @@ import java.util.Stack;
 public class Utility {
 
     /**
+     * Prints the given expression to be read by machine.
      *
      * @param expression The expression to print
-     * @return The string representation of the given expression
+     * @return The string representation of the given expression (machine readable)
      */
-    public static String printExpression(ArrayList<Token> expression) {
+    public static String machinePrintExpression(ArrayList<Token> expression) {
         String s = "";
         for (int i = 0; i < expression.size(); i++) {
             Token token = expression.get(i);
@@ -79,7 +80,7 @@ public class Utility {
                         i--; //Reverses the last iteration
                         root.remove(root.size() - 1); //Takes out the closing )
                         s += "Surd(";
-                        s += printExpression(root);
+                        s += machinePrintExpression(root);
                         s += "," + base + ")";
                         break;
                     default:
@@ -193,6 +194,20 @@ public class Utility {
             } else {
                 s += token.getSymbol();
             }
+        }
+        return s;
+    }
+
+    /**
+     * Prints the expression to be read by humans.
+     *
+     * @param expression The expression to print
+     * @return The string representation of the expression
+     */
+    public static String printExpression(ArrayList<Token> expression) {
+        String s = "";
+        for (Token t : expression) {
+            s += t.getSymbol();
         }
         return s;
     }
@@ -427,6 +442,122 @@ public class Utility {
         }
     }
 
+    /**
+     * Uses the shunting yard algorithm to change the matrix expression from infix to reverse polish.
+     *
+     * @param infix The infix expression
+     * @return The expression in reverse polish
+     * @throws java.lang.IllegalArgumentException The infix notation is invalid
+     */
+    public static ArrayList<Token> convertToReversePolishMatrix(ArrayList<Token> infix) {
+        ArrayList<Token> reversePolish = new ArrayList<Token>();
+        Stack<Token> stack = new Stack<Token>();
+        for (Token token : infix) {
+            if (token instanceof Number || token instanceof Variable || token instanceof Matrix) { //Adds directly to the queue if it's a token
+                reversePolish.add(token);
+            } else if (token instanceof MatrixFunction) { //Adds to the stack if it's a function
+                stack.push(token);
+            } else if (token instanceof MatrixOperator) {
+                if (!stack.empty()) { //Make sure it's not empty to prevent bugs
+                    Token top = stack.lastElement();
+                    while (top != null && ((top instanceof MatrixOperator && ((MatrixOperator) token).isLeftAssociative()
+                            && ((MatrixOperator) top).getPrecedence() >= ((MatrixOperator) token).getPrecedence()) || top instanceof MatrixFunction)) { //Operator is left associative and has higher precedence / is a function
+                        reversePolish.add(stack.pop()); //Pops top element to the queue
+                        top = stack.isEmpty() ? null : stack.lastElement(); //Assigns the top element of the stack if it exists
+                    }
+                }
+                stack.push(token);
+            } else if (token instanceof Bracket) {
+                Bracket bracket = (Bracket) token;
+                if (bracket.getType() == Bracket.OPEN || bracket.getType() == Bracket.SUPERSCRIPT_OPEN
+                        || bracket.getType() == Bracket.NUM_OPEN || bracket.getType() == Bracket.DENOM_OPEN) { //Pushes the bracket to the stack if it's open
+                    stack.push(bracket);
+                } else if (bracket.getType() == Bracket.CLOSE || bracket.getType() == Bracket.SUPERSCRIPT_CLOSE
+                        || bracket.getType() == Bracket.NUM_CLOSE || bracket.getType() == Bracket.DENOM_CLOSE) { //For close brackets, pop operators onto the list until a open bracket is found
+                    Token top = stack.lastElement();
+                    while (!(top instanceof Bracket)) { //While it has not found an open bracket
+                        reversePolish.add(stack.pop()); //Pops the top element
+                        if (stack.isEmpty()) { //Mismatched brackets
+                            throw new IllegalArgumentException();
+                        }
+                        top = stack.lastElement();
+                    }
+                    stack.pop(); //Removes the bracket
+                }
+            }
+        }
+        //All tokens read at this point
+        while (!stack.isEmpty()) { //Puts the remaining tokens in the stack to the queue
+            reversePolish.add(stack.pop());
+        }
+        return reversePolish;
+    }
+
+    /**
+     * Takes a given Matrix expression in reverse polish form and returns the resulting value.
+     *
+     * @param tokens The matrix expression in reverse polish
+     * @return The value of the expression
+     * @throws java.lang.IllegalArgumentException The user entered an invalid expression
+     */
+    public static Matrix evaluateMatrixExpression(ArrayList<Token> tokens) {
+        Stack stack = new Stack();
+        for (Token token : tokens) {
+            if (token instanceof Matrix || token instanceof Number) { //Adds all Matrices directly to the stack
+                stack.push(token);
+            } else if (token instanceof MatrixOperator) {
+                //Operates the first and second top operators
+                Object right = stack.pop();
+                Object left = stack.pop();
+                stack.push(((MatrixOperator) token).operate(left, right)); //Adds the result back to the stack
+            } else if (token instanceof MatrixFunction) { //Function uses the top number on the stack
+                Matrix top = (Matrix) stack.pop(); //Function performs on the first number
+                stack.push(((MatrixFunction) token).perform(top)); //Adds the result back to the stack
+            } else { //This should never be reached
+                throw new IllegalArgumentException();
+            }
+        }
+        if (stack.size() != 1) {
+            throw new IllegalArgumentException("Stack size is empty"); //There should only be 1 token left on the stack
+        } else {
+            return (Matrix) stack.pop();
+        }
+    }
+
+    /**
+     * Simplifies and Rationalizes the given expression.
+     *
+     * @param expression The un-simplified expression
+     * @return The simplified expression
+     */
+    public static ArrayList<Token> simplifyExpression(ArrayList<Token> expression) {
+        ArrayList<Token> num = new ArrayList<Token>();
+        ArrayList<Token> den = new ArrayList<Token>();
+        int intNum = 0;
+        int intDen = 0;
+        int divisionIndex;
+        for (Token token : expression) {
+            if (token instanceof Operator) {
+                if ((((Operator) (token)).getType() == 4)) {
+                    divisionIndex = expression.indexOf(token);
+                    for (int i = 0; i < divisionIndex; i++) {
+                        num.add(expression.get(i));
+                    }
+                    for (int i = divisionIndex + 1; i < expression.size(); i++) {
+                        den.add(expression.get(i));
+                    }
+                }
+            }
+        }
+        if (num.size() == 1) {
+            intNum = ((Digit) (num.get(0))).getValue();
+        }
+        if (den.size() == 1) {
+            intDen = ((Digit) (den.get(0))).getValue();
+        }
+
+        return null;
+    }
 
     public static ArrayList<Token> simplifyVector(ArrayList<Token> expression) {
         return VRuleSet.reduce(expression);
@@ -481,8 +612,8 @@ public class Utility {
         ArrayList<Token> tempExpression = new ArrayList<Token>();
         for (Token t : expression) {
             if (t instanceof Vector) {
-                ArrayList<Token> tempVector = ((Vector) t).getVector();
-                tempExpression.addAll(tempVector);
+                //ArrayList<Token> tempVector = ((Vector) t).getVector();
+                //tempExpression.addAll(tempVector);
             } else {
                 tempExpression.add(t);
             }
@@ -592,6 +723,7 @@ public class Utility {
 
     /**
      * Cleans up the given expression to render it more human-readable.
+     *
      * @param expression The expression the clean up
      * @return The human readable version (note: not machine readable)
      */
@@ -677,7 +809,8 @@ public class Utility {
         //special case if c = 0
         if (c == 0) {
             output.add(VariableFactory.makeX());
-            output.add(new Token("="){});
+            output.add(new Token("=") {
+            });
             output.add(new Number(Utility.round(a, 3)));
             return output;
         }
@@ -685,7 +818,8 @@ public class Utility {
         //special case if d = 0
         if (d == 0) {
             output.add(VariableFactory.makeY());
-            output.add(new Token("="){});
+            output.add(new Token("=") {
+            });
             output.add(new Number(Utility.round(b, 3)));
             return output;
         }
@@ -693,7 +827,7 @@ public class Utility {
         //Scalar equation is in the form cy - dx + z = 0 , where z = -cb + da
 
         //for first term
-        if (c !=0){
+        if (c != 0) {
             output.add(new Number(Utility.round(c, 3)));
             output.add(VariableFactory.makeY());
         }
@@ -733,29 +867,29 @@ public class Utility {
     }
 
     /**
-          * Determines the unit vector of a given vector
-          *
-          * @param vector The vector.
-          * @return ArrayList<Token></Token> The unit vector.
-          */
-         public static ArrayList<Token> findUnitVector (double[] vector){
-             double magnitude = calculateMagnitude(vector);
-             if (vector.length == 2){
-                 double[] unitVector = new double[2];
-                 unitVector[0] = Utility.round(vector[0] / magnitude, 3);
-                 unitVector[1] = Utility.round(vector[1] / magnitude, 3);
-                 return Utility.convertDoublesToVector(unitVector);
-             } else if (vector.length == 3) {
-                 double[] unitVector = new double[3];
-                 unitVector[0] = Utility.round(vector[0] / magnitude, 3);
-                 unitVector[1] = Utility.round(vector[1] / magnitude, 3);
-                 unitVector[2] = Utility.round(vector[2] / magnitude, 3);
-                 return Utility.convertDoublesToVector(unitVector);
-             } else {
-                 throw new IllegalArgumentException("Error: This calculator only supports 2D and 3D vectors.");
-             }
+     * Determines the unit vector of a given vector
+     *
+     * @param vector The vector.
+     * @return ArrayList<Token></Token> The unit vector.
+     */
+    public static ArrayList<Token> findUnitVector(double[] vector) {
+        double magnitude = calculateMagnitude(vector);
+        if (vector.length == 2) {
+            double[] unitVector = new double[2];
+            unitVector[0] = Utility.round(vector[0] / magnitude, 3);
+            unitVector[1] = Utility.round(vector[1] / magnitude, 3);
+            return Utility.convertDoublesToVector(unitVector);
+        } else if (vector.length == 3) {
+            double[] unitVector = new double[3];
+            unitVector[0] = Utility.round(vector[0] / magnitude, 3);
+            unitVector[1] = Utility.round(vector[1] / magnitude, 3);
+            unitVector[2] = Utility.round(vector[2] / magnitude, 3);
+            return Utility.convertDoublesToVector(unitVector);
+        } else {
+            throw new IllegalArgumentException("Error: This calculator only supports 2D and 3D vectors.");
+        }
 
-         }
+    }
 
     /**
      * Returns the argument of a vector. (angle to the X axis)
@@ -829,7 +963,7 @@ public class Utility {
             return 3;
         }
         //Quadrant 4
-        if (x > 0 && y < 0){
+        if (x > 0 && y < 0) {
             return 4;
         }
         //vector lies on positive y axis
@@ -907,55 +1041,75 @@ public class Utility {
             output.add(new Token("N") {
             });
             output.add(new Number(0));
-            output.add(new Token ("°"){});
-            output.add(new Token("E"){});
+            output.add(new Token("°") {
+            });
+            output.add(new Token("E") {
+            });
         }
         if (quadrant == -2) { //positive x axis
             output.add(new Token("E") {
             });
             output.add(new Number(0));
-            output.add(new Token ("°"){});
-            output.add(new Token("N"){});
+            output.add(new Token("°") {
+            });
+            output.add(new Token("N") {
+            });
         }
         if (quadrant == -3) { //negative y axis
             output.add(new Token("S") {
             });
             output.add(new Number(0));
-            output.add(new Token ("°"){});
-            output.add(new Token("W"){});
+            output.add(new Token("°") {
+            });
+            output.add(new Token("W") {
+            });
         }
         if (quadrant == -4) { //negative x axis
             output.add(new Token("W") {
             });
             output.add(new Number(0));
-            output.add(new Token ("°"){});
-            output.add(new Token("S"){});
+            output.add(new Token("°") {
+            });
+            output.add(new Token("S") {
+            });
         }
 
         //returns vectors that do not lie on an axis
-        if (quadrant == 1){
-            output.add(new Token("E"){});
+        if (quadrant == 1) {
+            output.add(new Token("E") {
+            });
             output.add(new Number(Utility.round(angle, 3)));
-            output.add(new Token ("°"){});
-            output.add(new Token("N"){});
+            output.add(new Token("°") {
+            });
+            output.add(new Token("N") {
+            });
         }
-        if (quadrant == 2){
-            output.add(new Token("W"){});
+        if (quadrant == 2) {
+            output.add(new Token("W") {
+            });
             output.add(new Number(Utility.round(angle, 3)));
-            output.add(new Token ("°"){});
-            output.add(new Token("N"){});
+            output.add(new Token("°") {
+            });
+            output.add(new Token("N") {
+            });
         }
-        if (quadrant == 3){
-            output.add(new Token("W"){});
+        if (quadrant == 3) {
+            output.add(new Token("W") {
+            });
             output.add(new Number(Utility.round(angle, 3)));
-            output.add(new Token ("°"){});
-            output.add(new Token("S"){});
+            output.add(new Token("°") {
+            });
+            output.add(new Token("S") {
+            });
         }
-        if (quadrant == 4){
-            output.add(new Token("E"){});
+        if (quadrant == 4) {
+            output.add(new Token("E") {
+            });
             output.add(new Number(Utility.round(angle, 3)));
-            output.add(new Token ("°"){});
-            output.add(new Token("S"){});
+            output.add(new Token("°") {
+            });
+            output.add(new Token("S") {
+            });
         }
         return output;
     }
@@ -975,7 +1129,7 @@ public class Utility {
         } else if (vector.length == 3) {
             dimensions = 3;
         }
-        double[] newVector = new double [dimensions];
+        double[] newVector = new double[dimensions];
         newVector[0] = Utility.round(multiplier * vector[0], 3);
         newVector[1] = Utility.round(multiplier * vector[1], 3);
         if (dimensions > 2) {
@@ -1010,7 +1164,6 @@ public class Utility {
     }
 
     /**
-     *
      * @param leftVector
      * @param rightVector
      * @return ArrayList<Token>
@@ -1039,9 +1192,8 @@ public class Utility {
      * @param n The base of the factorial
      * @return The value of the factorial
      */
-
     public static int factorial(int n) {
-        if (n == 1) {
+        if (n == 1 || n == 0) {
             return 1;
         } else {
             return n * factorial(n - 1);

@@ -17,6 +17,7 @@
         android:icon="@drawable/ic_launcher"
         android:theme="@style/Main">
 
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -47,9 +48,10 @@
             android:name=".VectorMode"
             android:label="@string/title_activity_vector"
             android:screenOrientation="portrait" />
+
         <activity
-            android:name=".OCRMode"
-            android:label="@string/title_activity_ocrmode"
+            android:name=".MatrixMode"
+            android:label="@string/title_activity_matrix_mode"
             android:screenOrientation="portrait" />
 
         <activity
