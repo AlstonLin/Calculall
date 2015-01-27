@@ -163,7 +163,7 @@ public class DisplayView extends View {
                             j++;
                         }
                         exponent.remove(exponent.size() - 1); //Removes the SUPERSCRIPT_CLOSE Bracket
-                        yModifier -= SUPERSCRIPT_Y_OFFSET + (getMaxFracSize(exponent) == 1 ? 0 : getHeight(exponent, false) / 2);
+                        yModifier -= SUPERSCRIPT_Y_OFFSET + (getMaxLinesHeight(exponent) == 1 ? 0 : getHeight(exponent, false) / 2);
                         break;
                     }
                     case Bracket.SUPERSCRIPT_CLOSE: {
@@ -197,7 +197,7 @@ public class DisplayView extends View {
                         fraction.addAll(getDenominator(expression, j)); //Adds the entire denom
                         fraction.add(BracketFactory.makeDenomClose());
 
-                        if (getMaxFracSize(num) == 1) {
+                        if (getMaxLinesHeight(num) == 1) {
                             yModifier += -getHeight(fraction, true) / 2 + getHeight(num, true);
                         } else {
                             yModifier += -getHeight(fraction, true) / 2 + getHeight(num, true) / 2;
@@ -206,7 +206,7 @@ public class DisplayView extends View {
                     }
                     case Bracket.DENOM_OPEN: {
                         ArrayList<Token> denom = getDenominator(expression, i - 1);
-                        if (getMaxFracSize(denom) == 1) {
+                        if (getMaxLinesHeight(denom) == 1) {
                             yModifier += getHeight(denom, true);
                         } else {
                             yModifier += getHeight(denom, true) / 2;
@@ -265,11 +265,28 @@ public class DisplayView extends View {
             //Calculates the x and y position of the draw position (modified later)
             float x = drawX.get(i) + xModifier;
             float y = yModifier;
-            heights.add(i, yModifier);
+            heights.add(i, y);
 
             //Draws the text
-            canvas.drawText(token.getSymbol(), x, y, paint);
-
+            if (token instanceof Matrix){
+                float startX = x;
+                ArrayList<Token>[][] entries = ((Matrix)token).getEntries();
+                y -= (entries.length - 1) * TEXT_HEIGHT; //Starts at the top
+                //Draws all the Matrix entries
+                for (int j = 0; j < entries.length; j++){
+                    for (int k = 0; k < entries[j].length; k++){
+                        String str = Utility.printExpression(entries[j][k]) + " ";
+                        canvas.drawText(str, x, y, paint);
+                        float width = paint.measureText(str);
+                        x += width;
+                    }
+                    x = startX;
+                    y += TEXT_HEIGHT;
+                }
+                y -= TEXT_HEIGHT; //Undeos the last interation
+            }else {
+                canvas.drawText(token.getSymbol(), x, y, paint);
+            }
             //Updates maxY
             if (y > maxY) {
                 maxY = y;
@@ -356,7 +373,7 @@ public class DisplayView extends View {
                             j++;
                         }
                         exponent.remove(exponent.size() - 1); //Removes the SUPERSCRIPT_CLOSE Bracket
-                        yModifier -= SUPERSCRIPT_Y_OFFSET + (getMaxFracSize(exponent) == 1 ? 0 : getHeight(exponent, false) / 2);
+                        yModifier -= SUPERSCRIPT_Y_OFFSET + (getMaxLinesHeight(exponent) == 1 ? 0 : getHeight(exponent, false) / 2);
                         break;
                     }
                     case Bracket.SUPERSCRIPT_CLOSE: {
@@ -390,7 +407,7 @@ public class DisplayView extends View {
                         fraction.addAll(getDenominator(expression, j)); //Adds the entire denom
                         fraction.add(BracketFactory.makeDenomClose());
 
-                        if (getMaxFracSize(num) == 1) {
+                        if (getMaxLinesHeight(num) == 1) {
                             yModifier += -getHeight(fraction, true) / 2 + getHeight(num, true);
                         } else {
                             yModifier += -getHeight(fraction, true) / 2 + getHeight(num, true) / 2;
@@ -399,7 +416,7 @@ public class DisplayView extends View {
                     }
                     case Bracket.DENOM_OPEN: {
                         ArrayList<Token> denom = getDenominator(expression, i - 1);
-                        if (getMaxFracSize(denom) == 1) {
+                        if (getMaxLinesHeight(denom) == 1) {
                             yModifier += getHeight(denom, true);
                         } else {
                             yModifier += getHeight(denom, true) / 2;
@@ -454,12 +471,19 @@ public class DisplayView extends View {
                 }
                 yModifier = maxHeight;
             }
-
-            //Sets the most neg if it is lower than current
-            if (yModifier < mostNeg) {
-                mostNeg = yModifier;
+            if (token instanceof Matrix){
+                float negY = -TEXT_HEIGHT * (((Matrix)token).getNumOfRows() - 1) + yModifier;
+                heights.add(negY);
+                if (negY < mostNeg) {
+                    mostNeg = negY;
+                }
+            }else {
+                //Sets the most neg if it is lower than current
+                if (yModifier < mostNeg) {
+                    mostNeg = yModifier;
+                }
+                heights.add(yModifier);
             }
-            heights.add(yModifier);
         }
         heights.clear();
         return mostNeg;
@@ -532,6 +556,12 @@ public class DisplayView extends View {
                     maxHeight = temp;
                 }
                 temp = 0;
+            } else if (t instanceof Matrix){
+                temp = TEXT_HEIGHT * (((Matrix)t).getNumOfRows() - 1);
+                if (temp > maxHeight) {
+                    maxHeight = temp;
+                }
+                temp = 0;
             }
         }
         return maxHeight;
@@ -539,12 +569,12 @@ public class DisplayView extends View {
 
 
     /**
-     * Finds the max number of continued fractions (height) in a given expression
+     * Finds the max number of lines of text (vertically) there are in the expression
      *
      * @param expression The expression to find the height
      * @return The maximum height of a fraction in the given expression
      */
-    private int getMaxFracSize(ArrayList<Token> expression) {
+    private int getMaxLinesHeight(ArrayList<Token> expression) {
         int maxFracHeight = 1;
         int numBracketCount = 0;
         int denomBracketCount = 0;
@@ -577,6 +607,11 @@ public class DisplayView extends View {
                         denomBracketCount--;
                         break;
                 }
+            } else if (t instanceof Matrix){
+                int height = ((Matrix)t).getNumOfRows();
+                if (height > maxFracHeight){
+                    maxFracHeight = height;
+                }
             }
 
             if (numBracketCount == 0 && denomBracketCount == 0 && !inExponent) { //Cannot be in a numerator or denom or an exponent
@@ -584,7 +619,7 @@ public class DisplayView extends View {
                     ArrayList<Token> num = getNumerator(expression, i);
                     ArrayList<Token> denom = getDenominator(expression, i);
                     //And adds the height of both + 1
-                    int height = getMaxFracSize(num) + getMaxFracSize(denom);
+                    int height = getMaxLinesHeight(num) + getMaxLinesHeight(denom);
                     if (height > maxFracHeight) {
                         maxFracHeight = height;
                     }
@@ -740,7 +775,6 @@ public class DisplayView extends View {
                 //NUM
                 j -= 1;
                 int endNum = j;
-
                 float newX = x > drawX.get(endNum) ? x : drawX.get(endNum); //Takes bigger of two
                 x = newX;
             } else if (scriptLevel > 0) { //Counts brackets if its writing in superscript
@@ -757,13 +791,35 @@ public class DisplayView extends View {
                 }
             }
 
-            //Changes paint for superscript
-            paint = textPaint;
-            //Determines the width of the symbol in text
-            float[] widths = new float[token.getSymbol().length()];
-            paint.getTextWidths(token.getSymbol(), widths);
-            float widthSum = sum(widths);
-            x += widthSum;
+            if (token instanceof Matrix){
+                float maxX = 0;
+                float currentX = 0;
+                ArrayList<Token>[][] entries = ((Matrix)token).getEntries();
+                //Finds whats the largest x delta when drawing the matrix
+                for (int j = 0; j < entries.length; j++){
+                    currentX = 0;
+                    for (int k = 0; k < entries[j].length; k++){
+                        String str = Utility.printExpression(entries[j][k]) + " ";
+                        float[] widths = new float[str.length()];
+                        textPaint.getTextWidths(str, widths);
+                        float widthSum = sum(widths);
+                        currentX += widthSum;
+                    }
+                    if (currentX > maxX){
+                        maxX = currentX;
+                    }
+                }
+                //Adds the largest delta x to the x value
+                x += maxX;
+            }else {
+                //Changes paint for superscript
+                paint = textPaint;
+                //Determines the width of the symbol in text
+                float[] widths = new float[token.getSymbol().length()];
+                paint.getTextWidths(token.getSymbol(), widths);
+                float widthSum = sum(widths);
+                x += widthSum;
+            }
         }
         drawX.add(x);
     }

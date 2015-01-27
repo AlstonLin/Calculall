@@ -31,6 +31,9 @@ public class MatrixMode extends Advanced {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_matrix);
         setupButtons();
+        output = (OutputView) findViewById(R.id.output);
+        display = (DisplayView) findViewById(R.id.display);
+        display.setOutput(output);
     }
 
     /**
@@ -72,7 +75,7 @@ public class MatrixMode extends Advanced {
      * @param v Not Used
      */
     public void clickEdit(View v) {
-        if (tokens.size() != 0) {
+        if (tokens.size() != 0 && display.getRealCursorIndex() < tokens.size()) {
             Token m = tokens.get(display.getRealCursorIndex());
             if (m instanceof Matrix) {
                 editMatrix((Matrix) m);

@@ -310,25 +310,24 @@ public class Utility {
         for (Token t : toSetup) {
             boolean negative = false;
             Token last = newExpression.isEmpty() ? null : newExpression.get(newExpression.size() - 1); //Last token in the new expression
+            Token beforeLast = newExpression.size() > 1 ? newExpression.get(newExpression.size() - 2) : null;
+            boolean lastIsSubtract = last instanceof Operator && ((Operator) last).getType() == Operator.SUBTRACT;
+            boolean beforeLastIsOperator = beforeLast != null && beforeLast instanceof Operator;
+            boolean beforeLastIsOpenBracket = beforeLast != null && beforeLast instanceof Bracket && (((Bracket) beforeLast).getType() == Bracket.OPEN
+                    || ((Bracket) beforeLast).getType() == Bracket.NUM_OPEN || ((Bracket) beforeLast).getType() == Bracket.DENOM_OPEN || ((Bracket) beforeLast).getType() == Bracket.SUPERSCRIPT_OPEN);
+
             if (t instanceof Bracket) {
                 Bracket b = (Bracket) t;
                 if (b.getType() == Bracket.OPEN && last instanceof Bracket && ((Bracket) last).getType() == Bracket.CLOSE) { //Ex. (2 + 1)(3 + 4)
                     newExpression.add(OperatorFactory.makeMultiply()); //Implies multiplication between the two expressions in the brackets
                 } else if ((last instanceof Number || last instanceof Variable) && b.getType() == Bracket.OPEN) { //Ex. 3(2 + 1) or X(1+X)
                     newExpression.add(OperatorFactory.makeMultiply());
-                } else if (last instanceof Operator && ((Operator) last).getType() == Operator.SUBTRACT) { //Ex. -(X + 1) -> -1 * (X + 1)
+                } else if (last instanceof Operator && ((Operator) last).getType() == Operator.SUBTRACT && beforeLastIsOperator) { //Ex. E + -(X + 1) -> E + -1 * (X + 1)
                     newExpression.remove(last);
                     newExpression.add(new Number(-1));
                     newExpression.add(OperatorFactory.makeMultiply());
                 }
             } else if (t instanceof Number || t instanceof Variable || t instanceof Function) { //So it works with Function mode too
-                //Simplifies the second if statement
-                Token beforeLast = newExpression.size() > 1 ? newExpression.get(newExpression.size() - 2) : null;
-                boolean lastIsSubtract = last instanceof Operator && ((Operator) last).getType() == Operator.SUBTRACT;
-                boolean beforeLastIsOperator = beforeLast != null && beforeLast instanceof Operator;
-                boolean beforeLastIsOpenBracket = beforeLast != null && beforeLast instanceof Bracket && (((Bracket) beforeLast).getType() == Bracket.OPEN
-                        || ((Bracket) beforeLast).getType() == Bracket.NUM_OPEN || ((Bracket) beforeLast).getType() == Bracket.DENOM_OPEN || ((Bracket) beforeLast).getType() == Bracket.SUPERSCRIPT_OPEN);
-
                 if (last instanceof Number) { //Ex. 5A
                     newExpression.add(OperatorFactory.makeMultiply());
                 } else if (lastIsSubtract && (beforeLastIsOperator || beforeLastIsOpenBracket || newExpression.size() <= 1)) { //Ex. E * -X -> E * -1 * X
