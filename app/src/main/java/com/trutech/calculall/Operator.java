@@ -11,9 +11,9 @@ import java.io.Serializable;
 public abstract class Operator extends Token implements Serializable {
 
     public static final int ADD = 1, SUBTRACT = 2, MULTIPLY = 3, DIVIDE = 4, EXPONENT = 5, PERMUTATION = 6,
-            COMBINATION = 7, FACTORIAL = 8, VARROOT = 9, DOT = 10, CROSS = 11, ANGLE = 12, POW_OF_TEN = 13, FRACTION = 14;
+            COMBINATION = 7, FACTORIAL = 8, VARROOT = 9, FRACTION = 10;
     private int type;
-    private int precedence;
+        private int precedence;
     private boolean leftAssociative, commutative, anticommutative, associative;
 
     /**
