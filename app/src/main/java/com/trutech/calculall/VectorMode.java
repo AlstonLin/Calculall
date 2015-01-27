@@ -8,6 +8,7 @@ import android.widget.ToggleButton;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class VectorMode extends Advanced {
     public static final int ARGUMENT = 1, TRUEBEARING = 2, BEARING = 3; //directionmode options
@@ -32,6 +33,87 @@ public class VectorMode extends Advanced {
 
     public ArrayList<Token> processVectors() {
         return Utility.simplifyVector(Utility.convertVariablesToTokens(Utility.setupExpression(Utility.addMissingBrackets(Utility.condenseDigits(tokens)))));
+    }
+    /**
+     * Uses the shunting yard algorithm to change the expression from infix to reverse polish.
+     *
+     * @param infix The infix expression
+     * @return The expression in reverse polish
+     * @throws java.lang.IllegalArgumentException The infix notation is invalid
+     */
+    public static ArrayList<Token> convertToReversePolish(ArrayList<Token> infix) {
+        ArrayList<Token> reversePolish = new ArrayList<Token>();
+        Stack<Token> stack = new Stack<Token>();
+        for (Token token : infix) {
+            if (token instanceof Number || token instanceof Variable) { //Adds directly to the queue if it's a token
+                reversePolish.add(token);
+            } else if (token instanceof Function) { //Adds to the stack if it's a function
+                stack.push(token);
+            } else if (token instanceof Operator) {
+                if (!stack.empty()) { //Make sure it's not empty to prevent bugs
+                    Token top = stack.lastElement();
+                    while (top != null && ((top instanceof Operator && ((Operator) token).isLeftAssociative()
+                            && ((Operator) top).getPrecedence() >= ((Operator) token).getPrecedence()) || top instanceof Function)) { //Operator is left associative and higher precendence / is a function
+                        reversePolish.add(stack.pop()); //Pops top element to the queue
+                        top = stack.isEmpty() ? null : stack.lastElement(); //Assigns the top element of the stack if it exists
+                    }
+                }
+                stack.push(token);
+            } else if (token instanceof Bracket) {
+                Bracket bracket = (Bracket) token;
+                if (bracket.getType() == Bracket.OPEN || bracket.getType() == Bracket.SUPERSCRIPT_OPEN
+                        || bracket.getType() == Bracket.NUM_OPEN || bracket.getType() == Bracket.DENOM_OPEN) { //Pushes the bracket to the stack if it's open
+                    stack.push(bracket);
+                } else if (bracket.getType() == Bracket.CLOSE || bracket.getType() == Bracket.SUPERSCRIPT_CLOSE
+                        || bracket.getType() == Bracket.NUM_CLOSE || bracket.getType() == Bracket.DENOM_CLOSE) { //For close brackets, pop operators onto the list until a open bracket is found
+                    Token top = stack.lastElement();
+                    while (!(top instanceof Bracket)) { //While it has not found an open bracket
+                        reversePolish.add(stack.pop()); //Pops the top element
+                        if (stack.isEmpty()) { //Mismatched brackets
+                            throw new IllegalArgumentException();
+                        }
+                        top = stack.lastElement();
+                    }
+                    stack.pop(); //Removes the bracket
+                }
+            }
+        }
+        //All tokens read at this point
+        while (!stack.isEmpty()) { //Puts the remaining tokens in the stack to the queue
+            reversePolish.add(stack.pop());
+        }
+        return reversePolish;
+    }
+
+    /**
+     * Evaluates a given expression in reverse polish notation and returns the resulting value.
+     *
+     * @param tokens The expression in reverse polish
+     * @return The value of the expression
+     * @throws java.lang.IllegalArgumentException The user has inputted an invalid expression
+     */
+    public static double evaluateExpression(ArrayList<Token> tokens) {
+        Stack<Number> stack = new Stack<Number>();
+        for (Token token : tokens) {
+            if (token instanceof Number) { //Adds all numbers directly to the stack
+                stack.push((Number) token);
+            } else if (token instanceof Operator) {
+                //Operates the first and second top operators
+                Number right = stack.pop();
+                Number left = stack.pop();
+                stack.push(new Number(((Operator) token).operate(left.getValue(), right.getValue()))); //Adds the result back to the stack
+            } else if (token instanceof Function) { //Function uses the top number on the stack
+                Number top = stack.pop(); //Function performs on the first number
+                stack.push(new Number(((Function) token).perform(top.getValue()))); //Adds the result back to the stack
+            } else { //This should never be reached
+                throw new IllegalArgumentException();
+            }
+        }
+        if (stack.size() != 1) {
+            throw new IllegalArgumentException("Stack size is empty"); //There should only be 1 token left on the stack
+        } else {
+            return stack.pop().getValue();
+        }
     }
 
     /**
@@ -393,5 +475,34 @@ public class VectorMode extends Advanced {
         scrollDown();
     }
 
+    public ArrayList<Token> parseVectors(ArrayList<Token> input){
+        input = Utility.condenseDigits(input);
+        ArrayList<Token> output = new ArrayList<>();
+        ArrayList<Number> listOfNumbers = new ArrayList<>();
+        boolean newVector = false;
+        for (Token t : input) {
+            if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.SQUAREOPEN) {
+                newVector = true;
+            }
+            else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.SQUARECLOSED){
+                newVector = false;
+                double[] nums = new double[listOfNumbers.size()];
+                int i = 0;
+                for (Number num : listOfNumbers){
+                    nums[i] = num.getValue();
+                    i++;
+                }
+                output.add(new Vector(nums));
+            }
+            else if (newVector == true && t instanceof Number){
+                listOfNumbers.add((Number) t);
+            }
+            else
+            {
+                output.add(t);
+            }
+        }
+        return output;
+    }
 
 }
