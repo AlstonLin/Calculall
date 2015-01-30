@@ -9,7 +9,10 @@ import org.matheclipse.parser.client.SyntaxError;
 import java.util.ArrayList;
 
 /**
- * Utilities specificly for calculus related functions.
+ * Utilities specifically for calculus related functions.
+ *
+ * @version Alpha 2.0
+ * @author Alston Lin
  */
 public class MathUtilities {
     private static EvalUtilities util = new EvalUtilities(false, true);

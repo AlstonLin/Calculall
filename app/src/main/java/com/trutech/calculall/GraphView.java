@@ -1,13 +1,14 @@
 package com.trutech.calculall;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.PopupWindow;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,13 +22,13 @@ import java.util.HashMap;
 public class GraphView extends View {
 
     private static final int NUM_OF_POINTS = 10000;
+    private PopupWindow popupWindow;
     private ArrayList<Token> function;
-    private Activity activity;
     private RectF exitRect; //The rectangle of tne exit button
     private Paint redPaint;
     private Paint blackPaint;
     private Paint backgroundPaint;
-    private float originX = 0, originY = 0; //The origin of the graph
+    private double originX = 0, originY = 0; //The origin of the graph
     private int width;
     private int height;
     //The bounds for the graph
@@ -58,19 +59,16 @@ public class GraphView extends View {
         }
     };
 
+
     /**
      * Constructor for a Graph View, a custom view with the sole purpose
      * of graphing a function.
      *
-     * @param context  The context which this view will be in
-     * @param activity The activity this view will be part of
-     * @param function The function to graph
+     * @param context The context which this view will be in
+     * @param attrs   The attribute set
      */
-    public GraphView(Context context, Activity activity, ArrayList<Token> function) {
-        super(context);
-
-        this.activity = activity;
-        this.function = Utility.setupExpression(Utility.condenseDigits(function));
+    public GraphView(Context context, AttributeSet attrs) {
+        super(context, attrs);
         //Sets up paints
         redPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         redPaint.setColor(Color.RED);
@@ -87,6 +85,14 @@ public class GraphView extends View {
         setOnTouchListener(listener);
     }
 
+    public void setFunction(ArrayList<Token> function) {
+        this.function = Utility.setupExpression(Utility.condenseDigits(function));
+    }
+
+    public void setPopupWindow(PopupWindow popupWindow) {
+        this.popupWindow = popupWindow;
+    }
+
     /**
      * Overrides the default Android draw command to manually draw the screen.
      *
@@ -94,11 +100,13 @@ public class GraphView extends View {
      */
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        //Draws the background
-        canvas.drawRect(0, 0, width, height, backgroundPaint);
-        drawExit(canvas);
-        drawGraph(canvas);
-        drawAxis(canvas);
+        if (function != null) {
+            //Draws the background
+            canvas.drawRect(0, 0, width, height, backgroundPaint);
+            drawExit(canvas);
+            drawGraph(canvas);
+            drawAxis(canvas);
+        }
     }
 
     /**
@@ -108,55 +116,84 @@ public class GraphView extends View {
      * @param canvas The canvas to draw on
      */
     private void drawGraph(Canvas canvas) {
-        HashMap<Float, Float> points = new HashMap<>();
-        boolean asympFound = false;
+        final int NULL = 0, POSITIVE = 1, NEGATIVE = 2;
+
+        ArrayList<Double> xValues = new ArrayList<>();
+        ArrayList<Double> yValues = new ArrayList<>();
+
         //Calculates important values that will adjust how the graph would look
-        float xRange = upperX - lowerX;
-        float xMultiplier = width / xRange;
-        float yMultiplier = (float) (height / (upperY - lowerY));
+        double xRange = upperX - lowerX;
+        double xMultiplier = width / xRange;
+        double yMultiplier = (float) (height / (upperY - lowerY));
 
         //Plots the 100 points across the screen
-        for (int i = 0; i < NUM_OF_POINTS; i++) {
-            float x = lowerX + i * (xRange / NUM_OF_POINTS);
-            float y = (float) Utility.valueAt(function, x);
-            points.put(x, y);
+        for (int i = 0; i <= NUM_OF_POINTS; i++) {
+            double x = lowerX + i * (xRange / NUM_OF_POINTS);
+            double y = Utility.valueAt(function, x);
+            xValues.add(x);
+            yValues.add(y);
         }
 
-        //Finds asymptotes to not connect points that are on the other side of the asymptote
-        //ArrayList<Float> asymp = findAsymptotes(points, xRange, xMultiplier, yMultiplier, numOfPoints);
-
+        //Keeps tracks on the slopes
+        ArrayList<Double> slopes = findSlopes(yValues, lowerX, xRange / NUM_OF_POINTS);
+        int beforeLastSlopePositive = NULL;
+        int lastSlopePositive = NULL;
         //Now draws a line in between each point
         for (int i = 0; i < NUM_OF_POINTS; i++) {
-            float startX = lowerX + i * (xRange / NUM_OF_POINTS);
-            float endX = lowerX + (i + 1) * (xRange / NUM_OF_POINTS);
-            Float startY = points.get(startX);
-            Float endY = points.get(endX);
-            if (startY != null && endY != null) { //If both the start and end points exists
-                if (startY != Integer.MAX_VALUE && endY != Integer.MAX_VALUE
-                        && startY > lowerY - Math.abs(lowerY * 0.1) && endY < upperY + Math.abs(upperY * 0.1)) { //Does not graph discontinuities or outside the screen
-                    //Adjusts the x and y values according to the display
+            Double startX = xValues.get(i);
+            Double endX = xValues.get(i + 1);
+            Double startY = yValues.get(i);
+            Double endY = yValues.get(i + 1);
+            int slopeIsPositive;
+            if (startY != Integer.MAX_VALUE && endY != Integer.MAX_VALUE) { //Does not graph points that DNE or outside the screen
+                slopeIsPositive = i + 1 >= slopes.size() ? NULL : slopes.get(i + 1) > 0 ? POSITIVE : NEGATIVE; //Checks after
+                //Checks for conditions for asympotes: +-+ or -+- slope
+                boolean hasAsymptote = (beforeLastSlopePositive == POSITIVE && lastSlopePositive == NEGATIVE && slopeIsPositive == POSITIVE) ||
+                        (beforeLastSlopePositive == NEGATIVE && lastSlopePositive == POSITIVE && slopeIsPositive == NEGATIVE);
+                if (!hasAsymptote) {
                     startX = (startX - lowerX) * xMultiplier;
                     endX = (endX - lowerX) * xMultiplier;
                     startY = (startY - lowerY) * yMultiplier;
                     endY = (endY - lowerY) * yMultiplier;
-
-/*                   for (Float a : asymp) {
-                       if (a == startX || a == endX) {
-                            asympFound = true;
-                           break;
-                       }
-                   }*/
-
-                    //if (!asympFound) {
-                    canvas.drawLine(startX, height - startY, endX, height - endY, blackPaint);
-                    //}
-                    asympFound = false;
+                    canvas.drawLine(startX.floatValue(), height - startY.floatValue(), endX.floatValue(), (float)(height - endY), blackPaint);
+                } else {
+                    slopeIsPositive = NULL;
                 }
+            } else { //Either does not matter or points DNE
+                slopeIsPositive = NULL;
             }
+            beforeLastSlopePositive = lastSlopePositive;
+            lastSlopePositive = slopeIsPositive;
             //Saves the origin coordinate
             originX = -lowerX * xMultiplier;
             originY = -lowerY * yMultiplier;
         }
+    }
+
+
+    /**
+     * Finds th slopes in between each points on the given list.
+     *
+     * @param yValues    The list of y values
+     * @param lowerX     The starting X value
+     * @param increments Distance between each point
+     * @return The slopes in between the points
+     */
+    private ArrayList<Double> findSlopes(ArrayList<Double> yValues, double lowerX, double increments) {
+        ArrayList<Double> slopes = new ArrayList<>();
+        double startX = lowerX;
+        for (int i = 0; i < NUM_OF_POINTS; i++) {
+            double endX = lowerX + (i + 1) * increments;
+            Double startY = yValues.get(i);
+            Double endY = yValues.get(i + 1);
+            double slope = Integer.MAX_VALUE; //Default value of MAX_VALUE
+            if (startY != Integer.MAX_VALUE && endY != Integer.MAX_VALUE) { //Both points exists
+                slope = (endY - startY) / (endX - startX);
+            }
+            slopes.add(slope);
+            startX = endX;
+        }
+        return slopes;
     }
 
 
@@ -168,9 +205,9 @@ public class GraphView extends View {
      */
     private void drawAxis(Canvas canvas) {
         //X axis
-        canvas.drawLine(0, height - originY, width, height - originY, redPaint);
+        canvas.drawLine(0, height - (float)originY, width, height - (float)originY, redPaint);
         //Y axis
-        canvas.drawLine(originX, 0, originX, height, redPaint);
+        canvas.drawLine((float)originX, 0, (float)originX, height, redPaint);
     }
 
     /**
@@ -202,68 +239,7 @@ public class GraphView extends View {
      * Exits the graphing window.
      */
     private void exit() {
-        activity.setContentView(R.layout.activity_function);
-        ((FunctionMode) activity).updateInput();
-    }
-
-    private HashMap<Float, Float> findSlope(HashMap<Float, Float> points, float xRange,
-                                            float xMultiplier, float yMultiplier, int numOfPoints) {
-        float slope;
-        HashMap<Float, Float> slopes = new HashMap<>();
-        for (int i = 0; i < numOfPoints - 1; i++) {
-            float startX = lowerX + i * (xRange / numOfPoints);
-            float endX = lowerX + (i + 1) * (xRange / numOfPoints);
-            Float startY = points.get(startX);
-            Float endY = points.get(endX);
-
-            //Adjusts the x and y values according to the display
-            startX = (startX - lowerX) * xMultiplier;
-            endX = (endX - lowerX) * xMultiplier;
-            startY = (startY - lowerY) * yMultiplier;
-            endY = (endY - lowerY) * yMultiplier;
-            //Finds a slope
-            slope = (startY - endY) / (endX - startX);
-            slopes.put(startX, slope);
-        }
-        return slopes;
-    }
-
-    private ArrayList<Float> findAsymptotes(HashMap<Float, Float> points, float xRange,
-                                            float xMultiplier, float yMultiplier, int numOfPoints) {
-        HashMap<Float, Float> slopes = findSlope(points, xRange, xMultiplier, yMultiplier, numOfPoints);
-        ArrayList asymp = new ArrayList();
-
-        for (int i = 2; i < numOfPoints - 1; i++) {
-
-            float startX = lowerX + i * (xRange / numOfPoints);
-            float endX = lowerX + (i + 1) * (xRange / numOfPoints);
-            Float startY = points.get(startX);
-            Float endY = points.get(endX);
-
-            //Adjusts the x and y values according to the display
-            startX = (startX - lowerX) * xMultiplier;
-            endX = (endX - lowerX) * xMultiplier;
-            startY = (startY - lowerY) * yMultiplier;
-            endY = (endY - lowerY) * yMultiplier;
-            if (slopes.get(startX) > 0) {
-                if (slopes.get(startX / xMultiplier + lowerX) < 0) {
-                    if (slopes.get((startX / xMultiplier + lowerX) / xMultiplier + lowerX) > 0) {
-                        asymp.add(slopes.get(slopes.get(startX / xMultiplier + lowerX)));
-                    }
-                }
-            }
-
-            if (slopes.get(startX) < 0) {
-                if (slopes.get(startX / xMultiplier + lowerX) > 0) {
-                    if (slopes.get((startX / xMultiplier + lowerX) / xMultiplier + lowerX) < 0) {
-                        asymp.add(slopes.get(slopes.get(startX / xMultiplier + lowerX)));
-                    }
-                }
-            }
-        }
-
-
-        return asymp;
+        popupWindow.dismiss();
     }
 
 }

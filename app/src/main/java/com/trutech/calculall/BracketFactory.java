@@ -3,7 +3,8 @@ package com.trutech.calculall;
 /**
  * Contains static methods that will create Brackets.
  *
- * @version 0.4.0
+ * @version Alpha 2.0
+ * @author Alston Lin, Ejaaz Merali, Jason Fok
  */
 public class BracketFactory {
 

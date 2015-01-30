@@ -1,7 +1,5 @@
 package com.trutech.calculall;
 
-import android.os.Bundle;
-import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ToggleButton;
@@ -9,53 +7,115 @@ import android.widget.ToggleButton;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-@SuppressWarnings("unused")
 /**
- * The activity for the advanced calculator mode. The advanced mode will be able to
+ * Contains the back-end of the advanced calculator mode. The advanced mode will be able to
  * perform the most of the operations of a standard scientific calculator.
  *
- * @version 0.4.0
+ * @version Alpha 2.0
+ * @author Alston Lin, Ejaaz Merali
  */
 public class Advanced extends Basic {
+    //CONSTANTS
     public static final int DEGREE = 1, RADIAN = 2, GRADIAN = 3; //angleMode options
-    public static final int DEC = 1, BIN = 2, OCT = 3, HEX = 4;//number bases
-    private int fracMode = DEC;
-    public static final int FRAC = 2;
+    public static final int DEC = 1, FRAC = 2;
     private static final String FILENAME = "history_advanced";
-    public boolean switchedAngleMode = false;
-    protected boolean hyperbolic = false;
-    protected boolean shift = false;
-    protected boolean mem = false;
-    private int angleMode = 1;
-    private int base = 1;
-    private Token root;
+    private static final Basic INSTANCE = new Advanced();
+    //Fields
+    protected ArrayList<MultiButton> multiButtons;
+    protected boolean switchedAngleMode = false;
+    protected int angleMode = DEGREE;
+    protected boolean hyperbolic = false, shift = false, mem = false;
+    private int fracMode = DEC;
 
+    /**
+     * Allows for the Singleton pattern so there would be only one instance.
+     * @return The singleton instance
+     */
+    public static Basic getInstance(){
+        return INSTANCE;
+    }
+
+    public void setMultiButtons(ArrayList<MultiButton> multiButtons){
+        this.multiButtons = multiButtons;
+    }
+
+    /**
+     * When a Button has been clicked, calls the appropriate method.
+     *
+     * @param v The Button that has been clicked
+     */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_advanced);
-        //Programmaticly sets the texts that can't be defined with XML
-        Button powButton = (Button) findViewById(R.id.powButton);
-        Button expButton = (Button) findViewById(R.id.powerButton);
-        Button recipButton = (Button) findViewById(R.id.reciprocal);
-        recipButton.setText(Html.fromHtml(getString(R.string.recip)));
-        powButton.setText(Html.fromHtml(getString(R.string.powOfTen)));
-        expButton.setText(Html.fromHtml(getString(R.string.exponent)));
-        output = (OutputView) findViewById(R.id.output);
-        display = (DisplayView) findViewById(R.id.display);
-        display.setOutput(output);
+    public void onClick(View v) {
+        //First: If it is a MultiButton
+        if (v instanceof MultiButton){
+            ((MultiButton)v).onClick();
+            updateInput();
+            return;
+        }
+        switch(v.getId()){
+            case R.id.equals_button:
+                clickEquals();
+                break;
+            case R.id.shift_button:
+                clickShift();
+                break;
+            case R.id.hyp_button:
+                clickHyp();
+                break;
+            case R.id.mem_button:
+                clickMem();
+                break;
+            case R.id.var_a:
+                clickA();
+                break;
+            case R.id.var_b:
+                clickB();
+                break;
+            case R.id.var_c:
+                clickC();
+                break;
+            case R.id.pi_button:
+                clickPi();
+                break;
+            case R.id.e_button:
+                clickE();
+                break;
+            case R.id.permutation:
+                clickPermutation();
+                break;
+            case R.id.combination:
+                clickCombination();
+                break;
+            case R.id.angle_mode:
+                clickAngleMode();
+                break;
+            case R.id.frac_button:
+                clickFrac();
+                break;
+            case R.id.reciprocal:
+                clickReciprocal();
+                break;
+            case R.id.frac_mode:
+                clickFracMode();
+                break;
+            case R.id.open_bracket_button:
+                clickOpenBracket();
+                break;
+            case R.id.closed_bracket_button:
+                clickCloseBracket();
+                break;
+            default:
+                super.onClick(v);
+        }
     }
 
     /**
      * When the user presses the equals Button.
-     *
-     * @param v Not Used
      */
-    public void clickEquals(View v) {
-        DisplayView display = (DisplayView) findViewById(R.id.display);
+    public void clickEquals() {
         try {
             if (fracMode == DEC) {
-                super.clickEquals(v);
+                super.clickEquals();
             } else if (fracMode == FRAC) {
                 ArrayList<Token> output = JFok.simplifyExpression(tokens);
                 display.displayOutput(output);
@@ -64,37 +124,28 @@ public class Advanced extends Basic {
         } catch (Exception e) { //User did a mistake
             handleExceptions(e);
         }
-
-        scrollDown();
+        activity.scrollDown();
     }
 
-    /**
-     * @return the angleMode
-     */
-    public int getAngleMode() {
-        return angleMode;
-    }
-
-    public void clickAngleMode(View v) {
-        Button angleModeButton = (Button) findViewById(R.id.angleMode);
+    public void clickAngleMode() {
+        Button angleModeButton = (Button) activity.findViewById(R.id.angle_mode);
         if (angleMode == GRADIAN) {
             convGtoD();
             angleMode = DEGREE;
-            angleModeButton.setText(getString(R.string.deg));
+            angleModeButton.setText(activity.getString(R.string.deg));
         } else if (angleMode == RADIAN) {
             convRtoG();
             angleMode = GRADIAN;
-            angleModeButton.setText(getString(R.string.grad));
+            angleModeButton.setText(activity.getString(R.string.grad));
         } else if (angleMode == DEGREE) {
             convDtoR();
             angleMode = RADIAN;
-            angleModeButton.setText(getString(R.string.rad));
+            angleModeButton.setText(activity.getString(R.string.rad));
         }
         updateInput();
     }
 
     public void convGtoD() {
-        DisplayView display = (DisplayView) findViewById(R.id.display);
         try {
             double val = process();
             if (switchedAngleMode) {
@@ -109,7 +160,7 @@ public class Advanced extends Basic {
             ArrayList<Token> list = new ArrayList<>();
             list.add(num);
             display.displayOutput(list);
-            scrollDown();
+            activity.scrollDown();
             switchedAngleMode = true;
         } catch (Exception e) { //User made a mistake
             handleExceptions(e);
@@ -117,8 +168,6 @@ public class Advanced extends Basic {
     }
 
     public void convRtoG() {
-        //Converts the number displayed from radians into gradians ie multiplies the number by 100/pi
-        DisplayView display = (DisplayView) findViewById(R.id.display);
         try {
             double val = process();
             if (switchedAngleMode) {
@@ -133,7 +182,7 @@ public class Advanced extends Basic {
             ArrayList<Token> list = new ArrayList<>();
             list.add(num);
             display.displayOutput(list);
-            scrollDown();
+            activity.scrollDown();
             switchedAngleMode = true;
         } catch (Exception e) { //User made a mistake
             handleExceptions(e);
@@ -142,7 +191,6 @@ public class Advanced extends Basic {
 
     public void convDtoR() {
         //Converts the number displayed from degrees into radians ie multiplies the number by pi/180
-        DisplayView display = (DisplayView) findViewById(R.id.display);
         try {
             double val = process();
             if (switchedAngleMode) {
@@ -157,230 +205,60 @@ public class Advanced extends Basic {
             ArrayList<Token> list = new ArrayList<>();
             list.add(num);
             display.displayOutput(list);
-            scrollDown();
+            activity.scrollDown();
             switchedAngleMode = true;
         } catch (Exception e) { //User made a mistake
             handleExceptions(e);
         }
     }
 
-    /**
-     * @return the fracMode
-     */
-    public int getFracMode() {
-        return fracMode;
-    }
-
-    public void clickFracMode(View v) {
-        Button fracModeButton = (Button) findViewById(R.id.fracMode);
+    public void clickFracMode() {
+        Button fracModeButton = (Button) activity.findViewById(R.id.frac_button);
         if (fracMode == DEC) {
-            convDtoM();
             fracMode = FRAC;
-            fracModeButton.setText(getString(R.string.impFrac));
+            fracModeButton.setText(activity.getString(R.string.imp_frac));
         } else if (fracMode == FRAC) {
-            convItoD();
             fracMode = DEC;
-            fracModeButton.setText(getString(R.string.radix));
+            fracModeButton.setText(activity.getString(R.string.radix));
         }
         updateInput();
-        clickEquals(null);
-    }
-
-    public void convMtoI() {
-        //Converts the number displayed from a mixed fraction into an improper fraction
-    }
-
-    public void convItoD() {
-        //Converts the number displayed from an improper fraction into a decimal number
-    }
-
-    public void convDtoM() {
-        //Converts the number displayed from a decimal number into a mixed fraction
-    }
-
-    /**
-     * @return the number base
-     */
-    public int getBase() {
-        return base;
-    }
-
-    public void clickBase(View v) {
-        Button baseButton = (Button) findViewById(R.id.baseButton);
-        if (base == DEC) {
-            convDecToBin();
-            base = BIN;
-            baseButton.setText(getString(R.string.base2));
-        } else if (base == BIN) {
-            convBinToOct();
-            base = OCT;
-            baseButton.setText(getString(R.string.base8));
-        } else if (base == OCT) {
-            convOctToHex();
-            base = HEX;
-            baseButton.setText(getString(R.string.base16));
-        } else if (base == HEX) {
-            convHexToDec();
-            base = DEC;
-            baseButton.setText(getString(R.string.base10));
-        }
-        updateInput();
-    }
-
-    public void convDecToBin() {
-        //Converts the number displayed from base10 to base2
-    }
-
-    public void convBinToOct() {
-        //Converts the number displayed from base2 to base8
-    }
-
-    public void convOctToHex() {
-        //Converts the number displayed from base8 to base16
-    }
-
-    public void convHexToDec() {
-        //Converts the number displayed from base16 to base10
-    }
-
-    /**
-     * @return whether or not shift is hyperbolic
-     */
-    public boolean getHyp() {
-        return hyperbolic;
+        clickEquals();
     }
 
     /**
      * When the user presses the hyp button. Switches the state of the boolean variable hyperbolic
-     *
-     * @param v Not Used
      */
-    public void clickHyp(View v) {
-        Button sinButton = (Button) findViewById(R.id.sinButton);
-        Button cosButton = (Button) findViewById(R.id.cosButton);
-        Button tanButton = (Button) findViewById(R.id.tanButton);
-        ToggleButton hypButton = (ToggleButton) findViewById(R.id.hypButton);
-
-        if (hyperbolic) {
-            hyperbolic = false;
-            if (shift) {
-                sinButton.setText("arcsin");
-                sinButton.setTextSize(14);
-                cosButton.setText("arccos");
-                cosButton.setTextSize(14);
-                tanButton.setText("arctan");
-                tanButton.setTextSize(14);
-            } else {
-                sinButton.setText("sin");
-                sinButton.setTextSize(16);
-                cosButton.setText("cos");
-                cosButton.setTextSize(16);
-                tanButton.setText("tan");
-                tanButton.setTextSize(16);
-            }
-        } else {
-            hyperbolic = true;
-            if (shift) {
-                sinButton.setText("arsinh");
-                sinButton.setTextSize(14);
-                cosButton.setText("arcosh");
-                cosButton.setTextSize(14);
-                tanButton.setText("artanh");
-                tanButton.setTextSize(14);
-            } else {
-                sinButton.setText("sinh");
-                sinButton.setTextSize(16);
-                cosButton.setText("cosh");
-                cosButton.setTextSize(16);
-                tanButton.setText("tanh");
-                tanButton.setTextSize(16);
-            }
+    public void clickHyp() {
+        ToggleButton hypButton = (ToggleButton) activity.findViewById(R.id.hyp_button);
+        hyperbolic = !hyperbolic;
+        hypButton.setChecked(hyperbolic);
+        //Changes the mode for all the Buttons
+        for (MultiButton b : multiButtons){
+            b.changeMode(shift, hyperbolic);
         }
         hypButton.setChecked(hyperbolic);
         updateInput();
     }
 
     /**
-     * @return whether or not shift is active
+     * When the user presses the shift button. Switches the state of the boolean variable shift.
      */
-    public boolean getShift() {
-        return shift;
-    }
-
-    /**
-     * When the user presses the shift button. Switches the state of the boolean variable shift
-     *
-     * @param v Not Used
-     */
-    public void clickShift(View v) {
-        Button sinButton = (Button) findViewById(R.id.sinButton);
-        Button cosButton = (Button) findViewById(R.id.cosButton);
-        Button tanButton = (Button) findViewById(R.id.tanButton);
-        Button powButton = (Button) findViewById(R.id.powButton);
-        Button expButton = (Button) findViewById(R.id.powerButton);
-        Button logButton = (Button) findViewById(R.id.logButton);
-        Button rootButton = (Button) findViewById(R.id.rootButton);
-        Button squareButton = (Button) findViewById(R.id.squareButton);
-        ToggleButton shiftButton = (ToggleButton) findViewById(R.id.shiftButton);
-
-        if (shift) {
-            shift = false;
-            powButton.setText(Html.fromHtml(getString(R.string.powOfTen)));
-            logButton.setText(getString(R.string.log10));
-            rootButton.setText(getString(R.string.sqrt));
-            squareButton.setText(getString(R.string.square));
-            expButton.setText(Html.fromHtml(getString(R.string.exponent)));
-
-            if (hyperbolic) {
-                sinButton.setText("sinh");
-                sinButton.setTextSize(16);
-                cosButton.setText("cosh");
-                cosButton.setTextSize(16);
-                tanButton.setText("tanh");
-                tanButton.setTextSize(16);
-            } else {
-                sinButton.setText("sin");
-                sinButton.setTextSize(16);
-                cosButton.setText("cos");
-                cosButton.setTextSize(16);
-                tanButton.setText("tan");
-                tanButton.setTextSize(16);
-            }
-        } else {
-            shift = true;
-            powButton.setText(Html.fromHtml(getString(R.string.powOfE)));
-            logButton.setText(getString(R.string.ln));
-            rootButton.setText(getString(R.string.cbrt));
-            squareButton.setText(getString(R.string.cube));
-            expButton.setText(Html.fromHtml(getString(R.string.varRoot)));
-
-            if (hyperbolic) {
-                sinButton.setText("arsinh");
-                sinButton.setTextSize(14);
-                cosButton.setText("arcosh");
-                cosButton.setTextSize(14);
-                tanButton.setText("artanh");
-                tanButton.setTextSize(14);
-            } else {
-                sinButton.setText("arcsin");
-                sinButton.setTextSize(14);
-                cosButton.setText("arccos");
-                cosButton.setTextSize(14);
-                tanButton.setText("arctan");
-                tanButton.setTextSize(14);
-            }
-        }
+    public void clickShift() {
+        shift = !shift;
+        ToggleButton shiftButton = (ToggleButton) activity.findViewById(R.id.shift_button);
         shiftButton.setChecked(shift);
+        //Changes the mode for all the Buttons
+        for (MultiButton b : multiButtons){
+            b.changeMode(shift, hyperbolic);
+        }
         updateInput();
     }
 
     /**
      * When the user presses the MEM button; toggles memory storage
-     *
-     * @param v Not Used
      */
-    public void clickMem(View v) {
-        ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
+    public void clickMem() {
+        ToggleButton memButton = (ToggleButton) activity.findViewById(R.id.mem_button);
         mem = !mem;
         memButton.setChecked(mem);
     }
@@ -392,8 +270,7 @@ public class Advanced extends Basic {
      * @param assignment  The assignment command that would be executed
      */
     protected void storeVariable(String addToOutput, Command<Void, Double> assignment) {
-        DisplayView display = (DisplayView) findViewById(R.id.display);
-        ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
+        ToggleButton memButton = (ToggleButton) activity.findViewById(R.id.mem_button);
         try {
             double val = process();
             ArrayList<Token> outputList = new ArrayList<>();
@@ -410,10 +287,8 @@ public class Advanced extends Basic {
 
     /**
      * When the user presses the A button
-     *
-     * @param v Not Used
      */
-    public void clickA(View v) {
+    public void clickA() {
         if (mem) {
             storeVariable("→ A", new Command<Void, Double>() {
                 @Override
@@ -431,10 +306,8 @@ public class Advanced extends Basic {
 
     /**
      * When the user presses the B button
-     *
-     * @param v Not Used
      */
-    public void clickB(View v) {
+    public void clickB() {
         if (mem) {
             storeVariable("→ B", new Command<Void, Double>() {
                 @Override
@@ -452,10 +325,8 @@ public class Advanced extends Basic {
 
     /**
      * When the user presses the C button
-     *
-     * @param v Not Used
      */
-    public void clickC(View v) {
+    public void clickC() {
         if (mem) {
             storeVariable("→ C", new Command<Void, Double>() {
                 @Override
@@ -471,75 +342,11 @@ public class Advanced extends Basic {
         }
     }
 
-    /**
-     * When the user presses the X button
-     *
-     * @param v Not Used
-     */
-    public void clickX(View v) {
-        if (mem) {
-            storeVariable("→ X", new Command<Void, Double>() {
-                @Override
-                public Void execute(Double val) {
-                    Variable.x_value = val;
-                    return null;
-                }
-            });
-        } else {
-            tokens.add(display.getRealCursorIndex(), VariableFactory.makeX());
-            display.setCursorIndex(display.getCursorIndex() + 1);
-            updateInput();
-        }
-    }
-
-    /**
-     * When the user presses the Y button
-     *
-     * @param v Not Used
-     */
-    public void clickY(View v) {
-        if (mem) {
-            storeVariable("→ Y", new Command<Void, Double>() {
-                @Override
-                public Void execute(Double val) {
-                    Variable.y_value = val;
-                    return null;
-                }
-            });
-        } else {
-            tokens.add(display.getRealCursorIndex(), VariableFactory.makeY());
-            display.setCursorIndex(display.getCursorIndex() + 1);
-            updateInput();
-        }
-    }
-
-    /**
-     * When the user presses the Z button
-     *
-     * @param v Not Used
-     */
-    public void clickZ(View v) {
-        if (mem) {
-            storeVariable("→ Z", new Command<Void, Double>() {
-                @Override
-                public Void execute(Double val) {
-                    Variable.z_value = val;
-                    return null;
-                }
-            });
-        } else {
-            tokens.add(display.getRealCursorIndex(), VariableFactory.makeZ());
-            display.setCursorIndex(display.getCursorIndex() + 1);
-            updateInput();
-        }
-    }
 
     /**
      * When the user presses the ( Button.
-     *
-     * @param v Not Used
      */
-    public void clickOpenBracket(View v) {
+    public void clickOpenBracket() {
         tokens.add(display.getRealCursorIndex(), BracketFactory.makeOpenBracket());
         display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
@@ -547,10 +354,8 @@ public class Advanced extends Basic {
 
     /**
      * When the user presses the ) Button.
-     *
-     * @param v Not Used
      */
-    public void clickCloseBracket(View v) {
+    public void clickCloseBracket() {
         tokens.add(display.getRealCursorIndex(), BracketFactory.makeCloseBracket());
         display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
@@ -558,56 +363,42 @@ public class Advanced extends Basic {
 
     /**
      * When the user presses the 10^x Button.
-     *
-     * @param v Not Used
      */
-    public void clickPowerOfTen(View v) {
-        Token powTen = OperatorFactory.makePowOfTen();
+    public void clickPowerOfTen() {
+        Token multiply = OperatorFactory.makeMultiply();
+        Token one = DigitFactory.makeOne();
+        Token zero = DigitFactory.makeZero();
+        Token exp = OperatorFactory.makeExponent();
         Token openBracket = BracketFactory.makeSuperscriptOpen();
         Token closeBracket = BracketFactory.makeSuperscriptClose();
 
-        tokens.add(display.getRealCursorIndex(), powTen);
-        tokens.add(display.getRealCursorIndex() + 1, openBracket);
-        tokens.add(display.getRealCursorIndex() + 2, PlaceholderFactory.makeBlock());
-        tokens.add(display.getRealCursorIndex() + 3, closeBracket);
+        tokens.add(display.getRealCursorIndex(), multiply);
+        tokens.add(display.getRealCursorIndex() + 1, one);
+        tokens.add(display.getRealCursorIndex() + 2, zero);
+        tokens.add(display.getRealCursorIndex() + 3, exp);
+        tokens.add(display.getRealCursorIndex() + 4, openBracket);
+        tokens.add(display.getRealCursorIndex() + 5, PlaceholderFactory.makeBlock());
+        tokens.add(display.getRealCursorIndex() + 6, closeBracket);
 
-        powTen.addDependency(openBracket);
-        powTen.addDependency(closeBracket);
-        display.setCursorIndex(display.getCursorIndex() + 1);
+        exp.addDependency(openBracket);
+        exp.addDependency(closeBracket);
+        display.setCursorIndex(display.getCursorIndex() + 6);
         updateInput();
     }
 
 
     /**
      * When the user presses the e^x Button.
-     *
-     * @param v Not Used
      */
-    public void clickExp(View v) {
-        clickExponent(v);
-        clickE(v);
-    }
-
-    /**
-     * When the user presses the C^x button. Where C is either 10 or e
-     *
-     * @param v Not Used
-     */
-    public void clickPower(View v) {
-        if (!shift) {
-            clickPowerOfTen(v);
-        } else {
-            clickExp(v);
-        }
-        updateInput();
+    public void clickExp() {
+        clickExponent();
+        clickE();
     }
 
     /**
      * When the user presses the ln(x) Button.
-     *
-     * @param v Not Used
      */
-    public void clickLn(View v) {
+    public void clickLn() {
         Token t = FunctionFactory.makeLn();
         Bracket b = BracketFactory.makeOpenBracket();
         if (t != null) {
@@ -622,10 +413,8 @@ public class Advanced extends Basic {
 
     /**
      * When the user presses the log(x) or log_10(x)Button.
-     *
-     * @param v Not Used
      */
-    public void clickLog_10(View v) {
+    public void clickLog_10() {
         Token t = FunctionFactory.makeLog_10();
         Bracket b = BracketFactory.makeOpenBracket();
         if (t != null) {
@@ -639,21 +428,7 @@ public class Advanced extends Basic {
     }
 
 
-    /**
-     * When the user presses the log/ln button.
-     *
-     * @param v Not Used
-     */
-    public void clickLog(View v) {
-        if (!shift) {
-            clickLog_10(v);
-        } else {
-            clickLn(v);
-        }
-        updateInput();
-    }
-
-    public void clickExponent(View v) {
+    public void clickExponent() {
         Token exponent = OperatorFactory.makeExponent();
         Token openBracket = BracketFactory.makeSuperscriptOpen();
         Token closeBracket = BracketFactory.makeSuperscriptClose();
@@ -670,7 +445,7 @@ public class Advanced extends Basic {
         updateInput();
     }
 
-    public void clickVarRoot(View v) {
+    public void clickVarRoot() {
         Token root = OperatorFactory.makeVariableRoot();
         Token openBracket = BracketFactory.makeSuperscriptOpen();
         Token closeBracket = BracketFactory.makeSuperscriptClose();
@@ -741,11 +516,9 @@ public class Advanced extends Basic {
 
     /**
      * When the user presses the sqrt Button.
-     *
-     * @param v Not Used
      */
     @Override
-    public void clickSqrt(View v) {
+    public void clickSqrt() {
         Token t = FunctionFactory.makeSqrt();
         Bracket b = BracketFactory.makeOpenBracket();
         if (t != null) {
@@ -758,21 +531,10 @@ public class Advanced extends Basic {
         updateInput();
     }
 
-    public void clickPow(View v) {
-        if (!shift) {
-            clickExponent(v);
-        } else {
-            clickVarRoot(v);
-        }
-        updateInput();
-    }
-
     /**
      * When the user presses the x^2 Button.
-     *
-     * @param v Not Used
      */
-    public void clickSquare(View v) {
+    public void clickSquare() {
         Token exponent = OperatorFactory.makeExponent();
         Token openBracket = BracketFactory.makeSuperscriptOpen();
         Token closeBracket = BracketFactory.makeSuperscriptClose();
@@ -791,10 +553,8 @@ public class Advanced extends Basic {
 
     /**
      * When the user presses the x^3 Button.
-     *
-     * @param v Not Used
      */
-    public void clickCube(View v) {
+    public void clickCube() {
         Token exponent = OperatorFactory.makeExponent();
         Token openBracket = BracketFactory.makeSuperscriptOpen();
         Token closeBracket = BracketFactory.makeSuperscriptClose();
@@ -812,26 +572,10 @@ public class Advanced extends Basic {
     }
 
     /**
-     * When the user presses the square or cube button.
-     *
-     * @param v Not Used
-     */
-    public void clickSmallExp(View v) {
-        if (!shift) {
-            clickSquare(v);
-        } else {
-            clickCube(v);
-        }
-        updateInput();
-    }
-
-    /**
      * When the user presses the cuberoot Button.
-     *
-     * @param v Not Used
      */
-    public void clickCbrt(View v) {
-        root = OperatorFactory.makeVariableRoot();
+    public void clickCbrt() {
+        Token root = OperatorFactory.makeVariableRoot();
         Token openBracket = BracketFactory.makeSuperscriptOpen();
         Token closeBracket = BracketFactory.makeSuperscriptClose();
         Bracket b = BracketFactory.makeOpenBracket();
@@ -851,25 +595,9 @@ public class Advanced extends Basic {
     }
 
     /**
-     * When the user presses the root button.
-     *
-     * @param v Not Used
-     */
-    public void clickRoot(View v) {
-        if (!shift) {
-            clickSqrt(v);
-        } else {
-            clickCbrt(v);
-        }
-        updateInput();
-    }
-
-    /**
      * When the user presses the FRAC Button.
-     *
-     * @param v Not Used
      */
-    public void clickFrac(View v) {
+    public void clickFrac() {
         Token frac = OperatorFactory.makeFraction();
         Token numOpenBracket = BracketFactory.makeNumOpen();
         Token numCloseBracket = BracketFactory.makeNumClose();
@@ -959,24 +687,10 @@ public class Advanced extends Basic {
         updateInput();
     }
 
-
-    /**
-     * When the user presses the |x| or abs(x) Button.
-     *
-     * @param v Not Used
-     */
-    public void clickAbs(View v) {
-        tokens.add(display.getRealCursorIndex(), FunctionFactory.makeAbs());
-        display.setCursorIndex(display.getCursorIndex() + 1);
-        updateInput();
-    }
-
     /**
      * When the user presses the x^-1 button.
-     *
-     * @param v Not Used
      */
-    public void clickReciprocal(View v) {
+    public void clickReciprocal() {
         Token exponent = OperatorFactory.makeExponent();
         Token openBracket = BracketFactory.makeSuperscriptOpen();
         Token closeBracket = BracketFactory.makeSuperscriptClose();
@@ -996,23 +710,9 @@ public class Advanced extends Basic {
     }
 
     /**
-     * When the user presses the n! Button.
-     *
-     * @param v Not Used
-     */
-    public void clickFactorial(View v) {
-        //NOTE: BROKEN
-        tokens.add(display.getRealCursorIndex(), OperatorFactory.makeFactorial());
-        display.setCursorIndex(display.getCursorIndex() + 1);
-        updateInput();
-    }
-
-    /**
      * When the user presses the nCk Button.
-     *
-     * @param v Not Used
      */
-    public void clickCombination(View v) {
+    public void clickCombination() {
         tokens.add(display.getRealCursorIndex(), OperatorFactory.makeCombination());
         display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
@@ -1020,10 +720,8 @@ public class Advanced extends Basic {
 
     /**
      * When the user presses the nPk Button.
-     *
-     * @param v Not Used
      */
-    public void clickPermutation(View v) {
+    public void clickPermutation() {
         tokens.add(display.getRealCursorIndex(), OperatorFactory.makePermutation());
         display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
@@ -1031,10 +729,8 @@ public class Advanced extends Basic {
 
     /**
      * When the user presses the e Button.
-     *
-     * @param v Not Used
      */
-    public void clickE(View v) {
+    public void clickE() {
         tokens.add(display.getRealCursorIndex(), VariableFactory.makeE());
         display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
@@ -1042,10 +738,8 @@ public class Advanced extends Basic {
 
     /**
      * When the user presses the pi Button.
-     *
-     * @param v Not Used
      */
-    public void clickPi(View v) {
+    public void clickPi() {
         tokens.add(display.getRealCursorIndex(), VariableFactory.makePI());
         display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
@@ -1053,31 +747,9 @@ public class Advanced extends Basic {
 
 
     /**
-     * When the user presses the sin(x) button.
-     * Picks the correct function based
-     * on the modifiers which are currently enabled
-     *
-     * @param v Not Used
-     */
-    public void clickSin(View v) {
-        if (hyperbolic && shift) {
-            clickASinh(v);
-        } else if (hyperbolic) {
-            clickSinh(v);
-        } else if (shift) {
-            clickASin(v);
-        } else {
-            clickSin1(v);
-        }
-        updateInput();
-    }
-
-    /**
      * When the user presses the sin(x) Button.
-     *
-     * @param v Not Used
      */
-    public void clickSin1(View v) {
+    public void clickSin() {
         Token t = null;
         if (angleMode == DEGREE) {
             t = FunctionFactory.makeSinD();
@@ -1098,10 +770,8 @@ public class Advanced extends Basic {
 
     /**
      * When the user presses the arcsin(x) or sin^-1(x) Button.
-     *
-     * @param v Not Used
      */
-    public void clickASin(View v) {
+    public void clickASin() {
         Token t = null;
         if (angleMode == DEGREE) {
             t = FunctionFactory.makeASinD();
@@ -1121,31 +791,9 @@ public class Advanced extends Basic {
     }
 
     /**
-     * When the user presses the cos(x) button.
-     * Picks the correct function based
-     * on the modifiers which are currently enabled
-     *
-     * @param v Not Used
-     */
-    public void clickCos(View v) {
-        if (hyperbolic && shift) {
-            clickACosh(v);
-        } else if (hyperbolic) {
-            clickCosh(v);
-        } else if (shift) {
-            clickACos(v);
-        } else {
-            clickCos1(v);
-        }
-        updateInput();
-    }
-
-    /**
      * When the user presses the cos(x) Button.
-     *
-     * @param v Not Used
      */
-    public void clickCos1(View v) {
+    public void clickCos() {
         Token t = null;
         if (angleMode == DEGREE) {
             t = FunctionFactory.makeCosD();
@@ -1166,10 +814,8 @@ public class Advanced extends Basic {
 
     /**
      * When the user presses the arccos(x) or cos^-1(x) Button.
-     *
-     * @param v Not Used
      */
-    public void clickACos(View v) {
+    public void clickACos() {
         Token t = null;
         if (angleMode == DEGREE) {
             t = FunctionFactory.makeACosD();
@@ -1189,31 +835,9 @@ public class Advanced extends Basic {
     }
 
     /**
-     * When the user presses the cos(x) button.
-     * Picks the correct function based
-     * on the modifiers which are currently enabled
-     *
-     * @param v Not Used
-     */
-    public void clickTan(View v) {
-        if (hyperbolic && shift) {
-            clickATanh(v);
-        } else if (hyperbolic) {
-            clickTanh(v);
-        } else if (shift) {
-            clickATan(v);
-        } else {
-            clickTan1(v);
-        }
-        updateInput();
-    }
-
-    /**
      * When the user presses the tan(x) Button.
-     *
-     * @param v Not Used
      */
-    public void clickTan1(View v) {
+    public void clickTan() {
         Token t = null;
         if (angleMode == DEGREE) {
             t = FunctionFactory.makeTanD();
@@ -1234,10 +858,8 @@ public class Advanced extends Basic {
 
     /**
      * When the user presses the arctan(x) or tan^-1(x) Button.
-     *
-     * @param v Not Used
      */
-    public void clickATan(View v) {
+    public void clickATan() {
         Token t = null;
         if (angleMode == DEGREE) {
             t = FunctionFactory.makeATanD();
@@ -1258,10 +880,8 @@ public class Advanced extends Basic {
 
     /**
      * When the user presses the sinh(x) Button.
-     *
-     * @param v Not Used
      */
-    public void clickSinh(View v) {
+    public void clickSinh() {
         Token t = FunctionFactory.makeSinh();
         Bracket b = BracketFactory.makeOpenBracket();
         if (t != null) {
@@ -1275,10 +895,8 @@ public class Advanced extends Basic {
 
     /**
      * When the user presses the arsinh(x) Button.
-     *
-     * @param v Not Used
      */
-    public void clickASinh(View v) {
+    public void clickASinh() {
         Token t = FunctionFactory.makeASinh();
         Bracket b = BracketFactory.makeOpenBracket();
         if (t != null) {
@@ -1292,10 +910,8 @@ public class Advanced extends Basic {
 
     /**
      * When the user presses the cosh(x) Button.
-     *
-     * @param v Not Used
      */
-    public void clickCosh(View v) {
+    public void clickCosh() {
         Token t = FunctionFactory.makeCosh();
         Bracket b = BracketFactory.makeOpenBracket();
         if (t != null) {
@@ -1309,10 +925,8 @@ public class Advanced extends Basic {
 
     /**
      * When the user presses the arcosh(x) Button.
-     *
-     * @param v Not Used
      */
-    public void clickACosh(View v) {
+    public void clickACosh() {
         Token t = FunctionFactory.makeACosh();
         Bracket b = BracketFactory.makeOpenBracket();
         if (t != null) {
@@ -1326,10 +940,8 @@ public class Advanced extends Basic {
 
     /**
      * When the user presses the tanh(x) Button.
-     *
-     * @param v Not Used
      */
-    public void clickTanh(View v) {
+    public void clickTanh() {
         Token t = FunctionFactory.makeTanh();
         Bracket b = BracketFactory.makeOpenBracket();
         if (t != null) {
@@ -1343,10 +955,8 @@ public class Advanced extends Basic {
 
     /**
      * When the user presses the artanh(x) Button.
-     *
-     * @param v Not Used
      */
-    public void clickATanh(View v) {
+    public void clickATanh() {
         Token t = FunctionFactory.makeATanh();
         Bracket b = BracketFactory.makeOpenBracket();
         if (t != null) {

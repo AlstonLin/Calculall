@@ -1,7 +1,5 @@
 package com.trutech.calculall;
 
-import android.os.Bundle;
-import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ToggleButton;
@@ -9,6 +7,14 @@ import android.widget.ToggleButton;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Stack;
+
+/**
+ * Contains the back-end for Vector Mode. The mode will be able to compute most vector
+ * problems in a grade twelve level.
+ *
+ * @version Alpha 2.0
+ * @author Alston Lin, Keith Wong
+ */
 
 public class VectorMode extends Advanced {
     public static final int ARGUMENT = 1, TRUEBEARING = 2, BEARING = 3; //directionmode options
@@ -20,15 +26,97 @@ public class VectorMode extends Advanced {
     private int tokenSize = -1;
     private boolean mem = false;
     private int angleMode = 1;
-    private boolean shift = false;
+    private static final Basic INSTANCE = new VectorMode();
 
+
+    /**
+     * Allows for the Singleton pattern so there would be only one instance.
+     * @return The singleton instance
+     */
+    public static Basic getInstance(){
+        return INSTANCE;
+    }
+
+    /**
+     * When a Button has been clicked, calls the appropriate method.
+     *
+     * @param v The Button that has been clicked
+     */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_vector);
-        output = (OutputView) findViewById(R.id.output);
-        display = (DisplayView) findViewById(R.id.display);
-        display.setOutput(output);
+    public void onClick(View v){
+        switch(v.getId()){
+            case R.id.var_u:
+                clickU();
+                break;
+            case R.id.var_v:
+                clickV();
+                break;
+            case R.id.var_t:
+                clickVT();
+                break;
+            case R.id.angle_between_vectors:
+                clickAngle();
+                break;
+            case R.id.magnitude_button:
+                clickMagnitude();
+                break;
+            case R.id.argument_button:
+                clickDirectionMode();
+                break;
+            case R.id.unit_vector:
+                clickUnitVector();
+                break;
+            case R.id.projection_button:
+                clickProjection();
+                break;
+            case R.id.scalar_equation:
+                clickScalar();
+                break;
+            case R.id.open_square_bracket:
+                clickOpenSquareBracket();
+                break;
+            case R.id.closed_square_button:
+                clickCloseSquareBracket();
+                break;
+            case R.id.dot_button:
+                clickDot();
+                break;
+            case R.id.cross_button:
+                clickCross();
+                break;
+            case R.id.equals_button:
+                clickEquals();
+                break;
+            case R.id.comma_button:
+                clickComma();
+                break;
+            default:
+                super.onClick(v);
+        }
+    }
+
+    private void clickCross() {
+        //TODO: FINISH THIS
+    }
+
+    private void clickDot() {
+        //TODO: FINISH THIS
+    }
+
+    private void clickArgument() {
+        //TODO: FINISH THIS
+    }
+
+    private void clickAngle() {
+        //TODO: FINISH THIS
+    }
+
+    public void clickU(){
+        //TODO: FINISH THIS
+    }
+
+    public void clickV(){
+        //TODO: FINISH THIS
     }
 
     public ArrayList<Token> processVectors() {
@@ -118,12 +206,8 @@ public class VectorMode extends Advanced {
 
     /**
      * When the user presses the equals Button.
-     *
-     * @param v Not Used
      */
-    public void clickVectorEquals(View v) throws IOException, ClassNotFoundException {
-        DisplayView display = (DisplayView) findViewById(R.id.display);
-
+    public void clickVectorEquals() throws IOException, ClassNotFoundException {
         //Used to check if the user added extra tokens after clicking the direction mode button at least once
         //and change switchedDirectionMode and changedTokens accordingly
         if (tokenSize != tokens.size() || changedTokens) {
@@ -150,101 +234,18 @@ public class VectorMode extends Advanced {
         } catch (Exception e) { //User did a mistake
             handleExceptions(e);
         }
-        scrollDown();
+        activity.scrollDown();
     }
 
     /**
      * When the user presses the MEM button; toggles memory storage
-     *
-     * @param v Not Used
      */
-    public void clickMem(View v) {
-        ToggleButton vMemButton = (ToggleButton) findViewById(R.id.memButton);
+    public void clickMem() {
+        ToggleButton vMemButton = (ToggleButton) activity.findViewById(R.id.mem_button);
         mem = !mem;
         vMemButton.setChecked(mem);
     }
 
-    /**
-     * @return whether or not shift is active
-     */
-    public boolean getShift() {
-        return shift;
-    }
-
-    /**
-     * When the user presses the shift button. Switches the state of the boolean variable shift
-     *
-     * @param v Not Used
-     */
-    public void clickShift(View v) {
-        Button sinButton = (Button) findViewById(R.id.sinButton);
-        Button cosButton = (Button) findViewById(R.id.cosButton);
-        Button tanButton = (Button) findViewById(R.id.tanButton);
-        Button powButton = (Button) findViewById(R.id.powButton);
-        Button expButton = (Button) findViewById(R.id.powerButton);
-        Button logButton = (Button) findViewById(R.id.logButton);
-        Button rootButton = (Button) findViewById(R.id.rootButton);
-        Button squareButton = (Button) findViewById(R.id.squareButton);
-        ToggleButton shiftButton = (ToggleButton) findViewById(R.id.shiftButton);
-
-        if (shift) {
-            shift = false;
-            powButton.setText(Html.fromHtml(getString(R.string.powOfTen)));
-            logButton.setText(getString(R.string.log10));
-            rootButton.setText(getString(R.string.sqrt));
-            squareButton.setText(getString(R.string.square));
-            expButton.setText(Html.fromHtml(getString(R.string.exponent)));
-
-            sinButton.setText("sin");
-            sinButton.setTextSize(16);
-            cosButton.setText("cos");
-            cosButton.setTextSize(16);
-            tanButton.setText("tan");
-            tanButton.setTextSize(16);
-        } else {
-            shift = true;
-            powButton.setText(Html.fromHtml(getString(R.string.powOfE)));
-            logButton.setText(getString(R.string.ln));
-            rootButton.setText(getString(R.string.cbrt));
-            squareButton.setText(getString(R.string.cube));
-            expButton.setText(Html.fromHtml(getString(R.string.varRoot)));
-
-            sinButton.setText("arcsin");
-            sinButton.setTextSize(14);
-            cosButton.setText("arccos");
-            cosButton.setTextSize(14);
-            tanButton.setText("arctan");
-            tanButton.setTextSize(14);
-
-        }
-        shiftButton.setChecked(shift);
-        updateInput();
-    }
-
-    /**
-     * @return the angleMode
-     */
-    public int getAngleMode() {
-        return angleMode;
-    }
-
-    public void clickAngleMode(View v) {
-        Button angleModeButton = (Button) findViewById(R.id.angleMode);
-        if (angleMode == GRADIAN) {
-            convGtoD();
-            angleMode = DEGREE;
-            angleModeButton.setText(getString(R.string.deg));
-        } else if (angleMode == RADIAN) {
-            convRtoG();
-            angleMode = GRADIAN;
-            angleModeButton.setText(getString(R.string.grad));
-        } else if (angleMode == DEGREE) {
-            convDtoR();
-            angleMode = RADIAN;
-            angleModeButton.setText(getString(R.string.rad));
-        }
-        updateInput();
-    }
 
     /**
      * Stores the a variable into the memory; the assignment itself will occur in the given Command.
@@ -253,8 +254,8 @@ public class VectorMode extends Advanced {
      * @param assignment  The assignment command that would be executed
      */
     protected void storeVector(String addToOutput, Command<Void, ArrayList<Token>> assignment) {
-        DisplayView display = (DisplayView) findViewById(R.id.display);
-        ToggleButton memButton = (ToggleButton) findViewById(R.id.memButton);
+        DisplayView display = (DisplayView) activity.findViewById(R.id.display);
+        ToggleButton memButton = (ToggleButton) activity.findViewById(R.id.mem_button);
         try {
             ArrayList<Token> output = processVectors();
             assignment.execute(output);
@@ -271,10 +272,8 @@ public class VectorMode extends Advanced {
 
     /**
      * When the user presses the T button
-     *
-     * @param v Not Used
      */
-    public void clickVT(View v) {
+    public void clickVT() {
         tokens.add(display.getRealCursorIndex(), new StringToken("t"));
         display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
@@ -283,10 +282,8 @@ public class VectorMode extends Advanced {
 
     /**
      * When the user presses the [ Button.
-     *
-     * @param v Not Used
      */
-    public void clickOpenSquareBracket(View v) {
+    public void clickOpenSquareBracket() {
         tokens.add(display.getRealCursorIndex(), BracketFactory.makeOpenSquareBracket());
         display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
@@ -294,10 +291,8 @@ public class VectorMode extends Advanced {
 
     /**
      * When the user presses the ] Button.
-     *
-     * @param v Not Used
      */
-    public void clickCloseSquareBracket(View v) {
+    public void clickCloseSquareBracket() {
         tokens.add(display.getRealCursorIndex(), BracketFactory.makeCloseSquareBracket());
         display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
@@ -305,43 +300,17 @@ public class VectorMode extends Advanced {
 
     /**
      * When the user presses the | Button.
-     *
-     * @param v Not Used
      */
-    public void clickMagnitude(View v) {
+    public void clickMagnitude() {
         tokens.add(display.getRealCursorIndex(), BracketFactory.makeMagnitudeBar());
         display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
     }
 
     /**
-     * When the user presses the â€¢ Button.
-     *
-     * @param v Not Used
-     */
-    public void clickDot(View v) {
-        tokens.add(display.getRealCursorIndex(), OperatorFactory.makeDot());
-        display.setCursorIndex(display.getCursorIndex() + 1);
-        updateInput();
-    }
-
-    /**
-     * When the user presses the Ã— Button.
-     *
-     * @param v Not Used
-     */
-    public void clickCross(View v) {
-        tokens.add(display.getRealCursorIndex(), OperatorFactory.makeCross());
-        display.setCursorIndex(display.getCursorIndex() + 1);
-        updateInput();
-    }
-
-    /**
      * When the user presses the , Button.
-     *
-     * @param v Not Used
      */
-    public void clickComma(View v) {
+    public void clickComma() {
         tokens.add(display.getRealCursorIndex(), new Token(",") {
         });
         display.setCursorIndex(display.getCursorIndex() + 1);
@@ -349,30 +318,17 @@ public class VectorMode extends Advanced {
     }
 
     /**
-     * When the user presses the ∠ Button.
-     *
-     * @param v Not Used
-     */
-    public void clickAngle(View v) {
-        tokens.add(display.getRealCursorIndex(), OperatorFactory.makeAngle());
-        display.setCursorIndex(display.getCursorIndex() + 1);
-        updateInput();
-    }
-
-    /**
      * When the user presses the proj Button.
-     *
-     * @param v Not Used
      */
-    public void clickProjection(View v) {
+    public void clickProjection() {
         tokens.add(display.getRealCursorIndex(), new Token("proj") {
         });
         display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
     }
 
-    public void clickDirectionMode(View v) {
-        Button directionModeButton = (Button) findViewById(R.id.argumentButton);
+    public void clickDirectionMode() {
+        Button directionModeButton = (Button) activity.findViewById(R.id.argument_button);
 
         //Used to check if the user added extra tokens after clicking the direction mode button at least once
         //and change switchedDirectionMode and changedTokens accordingly
@@ -385,27 +341,27 @@ public class VectorMode extends Advanced {
         if (directionMode == BEARING) {
             convBtoA();
             directionMode = ARGUMENT;
-            directionModeButton.setText(getString(R.string.argument));
+            directionModeButton.setText(activity.getString(R.string.argument));
         } else if (directionMode == TRUEBEARING) {
             convTtoB();
             directionMode = BEARING;
-            directionModeButton.setText(getString(R.string.bear));
+            directionModeButton.setText(activity.getString(R.string.bear));
         } else if (directionMode == ARGUMENT) {
             convAtoT();
             directionMode = TRUEBEARING;
-            directionModeButton.setText(getString(R.string.trueB));
+            directionModeButton.setText(activity.getString(R.string.trueB));
         }
         updateInput();
     }
 
     public void convBtoA() {
         //Converts the number displayed from bearing into argument
-        DisplayView display = (DisplayView) findViewById(R.id.display);
+        DisplayView display = (DisplayView) activity.findViewById(R.id.display);
         try {
             VRuleSet.setPressedArgumentButton(true);
             updateInput();
             display.displayOutput(processVectors());
-            scrollDown();
+            activity.scrollDown();
             switchedDirectionMode = true;
         } catch (Exception e) { //User made a mistake
             VRuleSet.setPressedArgumentButton(false);
@@ -415,12 +371,12 @@ public class VectorMode extends Advanced {
 
     public void convTtoB() {
         //Converts the number displayed from bearing into argument ie multiplies the number by 9/10
-        DisplayView display = (DisplayView) findViewById(R.id.display);
+        DisplayView display = (DisplayView) activity.findViewById(R.id.display);
         try {
             VRuleSet.setPressedBearButton(true);
             updateInput();
             display.displayOutput(processVectors());
-            scrollDown();
+            activity.scrollDown();
             switchedDirectionMode = true;
         } catch (Exception e) { //User made a mistake
             VRuleSet.setPressedBearButton(false);
@@ -430,12 +386,12 @@ public class VectorMode extends Advanced {
 
     public void convAtoT() {
         //Converts the number displayed from bearing into argument ie multiplies the number by 9/10
-        DisplayView display = (DisplayView) findViewById(R.id.display);
+        DisplayView display = (DisplayView) activity.findViewById(R.id.display);
         try {
             VRuleSet.setPressedTrueBButton(true);
             updateInput();
             display.displayOutput(processVectors());
-            scrollDown();
+            activity.scrollDown();
             switchedDirectionMode = true;
         } catch (Exception e) { //User made a mistake
             VRuleSet.setPressedTrueBButton(false);
@@ -445,34 +401,30 @@ public class VectorMode extends Advanced {
 
     /**
      * When the user presses the , Button.
-     *
-     * @param v Not Used
      */
-    public void clickUnitVector(View v) {
-        DisplayView display = (DisplayView) findViewById(R.id.display);
+    public void clickUnitVector() {
+        DisplayView display = (DisplayView) activity.findViewById(R.id.display);
         VRuleSet.setPressedUnitVButton(true);
         try {
             display.displayOutput(processVectors());
         } catch (Exception e) { //User did a mistake
             handleExceptions(e);
         }
-        scrollDown();
+        activity.scrollDown();
     }
 
     /**
      * When the user presses the Scalar Button.
-     *
-     * @param v Not Used
      */
-    public void clickScalar(View v) {
-        DisplayView display = (DisplayView) findViewById(R.id.display);
+    public void clickScalar() {
+        DisplayView display = (DisplayView) activity.findViewById(R.id.display);
         VRuleSet.setPressedScalarEqnButton(true);
         try {
             display.displayOutput(processVectors());
         } catch (Exception e) { //User did a mistake
             handleExceptions(e);
         }
-        scrollDown();
+        activity.scrollDown();
     }
 
     public ArrayList<Token> parseVectors(ArrayList<Token> input){

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/graph_view">
+    <view xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/graph_content"
+        class="com.trutech.calculall.GraphView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:fadingEdge="vertical"
+        android:scrollbars="vertical" />
+</LinearLayout>

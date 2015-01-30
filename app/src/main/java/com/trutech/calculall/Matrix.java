@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Created by Ejaaz on 22/12/2014.
+ * The Object representation of a mathematical Matrix.
+ *
+ * @version Alpha 2.0
+ * @author Ejaaz Merali
  */
 
 @SuppressWarnings("unused")

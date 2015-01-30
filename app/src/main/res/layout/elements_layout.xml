@@ -37,13 +37,14 @@
         android:layout_weight="1">
 
         <Spinner
-            android:id="@+id/xSpinner"
+            android:id="@+id/x_spinner"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:spinnerMode="dialog"
             android:layout_weight="2" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/text_view"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -53,18 +54,19 @@
             android:textSize="72sp" />
 
         <Spinner
-            android:id="@+id/ySpinner"
+            android:id="@+id/y_spinner"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:spinnerMode="dialog"
             android:layout_weight="2" />
 
         <Button
-            android:id="@+id/DoneButton"
+            android:id="@+id/return_button"
             style="@style/button4"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="2"
-            android:onClick="clickReturn"
+            android:onClick="onClick"
             android:text="@string/done"
             android:textSize="36sp" />
     </LinearLayout>

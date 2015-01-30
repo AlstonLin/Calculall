@@ -61,12 +61,6 @@ public class VRule {
                     stringExpression = stringExpression + "A";
                 } else if (((Operator) (expression.get(i))).getType() == Operator.SUBTRACT) {
                     stringExpression = stringExpression + "S";
-                } else if (((Operator) (expression.get(i))).getType() == Operator.DOT) {
-                    stringExpression = stringExpression + "D";
-                } else if (((Operator) (expression.get(i))).getType() == Operator.CROSS) {
-                    stringExpression = stringExpression + "C";
-                } else if (((Operator) (expression.get(i))).getType() == Operator.ANGLE) {
-                    stringExpression = stringExpression + "a";
                 }
             } else if (expression.get(i) instanceof Bracket) {
                 if (((Bracket) (expression.get(i))).getType() == Bracket.SQUAREOPEN) {

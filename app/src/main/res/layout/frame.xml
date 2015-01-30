@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/frame"
+    android:weightSum="100">
+
+    <LinearLayout
+        android:id="@+id/Container"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:background="#ff093e53"
+        android:layout_weight="30"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/leftScroll"
+            style="@style/button4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:onClick="scrollLeft"
+            android:text="@string/leftscroll" />
+
+        <ScrollView
+            android:id="@+id/scroll"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="50">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <view xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/display"
+                    class="com.trutech.calculall.DisplayView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:fadingEdge="vertical"
+                    android:scrollbars="vertical" />
+
+                <HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/outputScroll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="horizontal">
+
+                    <view xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/output"
+                        class="com.trutech.calculall.OutputView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:fadingEdge="vertical"
+                        android:scrollbars="vertical" />
+                </HorizontalScrollView>
+
+                <requestFocus />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <Button
+            android:id="@+id/rightScroll"
+            style="@style/button4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:layout_weight="5"
+            android:onClick="scrollRight"
+            android:text="@string/rightscroll" />
+    </LinearLayout>
+
+
+<android.support.v4.view.ViewPager
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_weight="65"
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
+
+    <LinearLayout
+        android:layout_height="0dp"
+        android:id="@+id/modes"
+        android:layout_weight="5"
+        android:layout_width="match_parent"
+        android:weightSum="5"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/basicButton"
+            style="@style/button4"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:onClick="clickBasic"
+            android:text="@string/basic"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/advancedButton"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:onClick="clickAdvanced"
+            android:text="@string/advanced"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/functionButton"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:onClick="clickFunction"
+            android:text="@string/function"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/vectorButton"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:onClick="clickVector"
+            android:text="@string/vector"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/matrixButton"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="@string/matrix"
+            android:onClick="clickMatrix"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+</LinearLayout>
