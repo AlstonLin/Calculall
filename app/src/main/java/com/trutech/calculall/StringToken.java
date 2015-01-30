@@ -3,7 +3,10 @@ package com.trutech.calculall;
 import java.io.Serializable;
 
 /**
- * A token that holds a String for display purposes
+ * A Token that holds a String for display purposes.
+ *
+ * @author Alston Lin
+ * @version Alpha 2.0
  */
 public class StringToken extends Token implements Serializable {
     /**

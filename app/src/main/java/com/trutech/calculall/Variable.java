@@ -6,8 +6,8 @@ import java.io.Serializable;
  * Represents either a user-defined value or a variable for a function, represented by
  * english letters (ex. x, y, z). It also includes constants as well (such as Pi and e)
  *
- * @author Alston
- * @version 0.4.0
+ * @author Alston Lin
+ * @version Alpha 2.0
  */
 public abstract class Variable extends Token implements Serializable {
 

@@ -7,8 +7,11 @@ import android.view.ViewGroup;
 
 /**
  * Defines the UI ofr VectorMode.
+ *
+ * @author Alston Lin
+ * @version Alpha 2.0
  */
-public class VectorFragment extends BasicFragment{
+public class VectorFragment extends BasicFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.activity_vector, container, false);

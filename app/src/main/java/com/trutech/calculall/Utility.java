@@ -9,7 +9,8 @@ import java.util.Stack;
 /**
  * Contains miscellaneous static methods that provide utility.
  *
- * @version 0.3.0
+ * @author Alston Lin, Ejaaz Merali
+ * @version Alpha 2.0
  */
 public class Utility {
 

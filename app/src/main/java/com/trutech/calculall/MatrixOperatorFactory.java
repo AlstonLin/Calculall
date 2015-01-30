@@ -3,10 +3,12 @@ package com.trutech.calculall;
 import java.util.ArrayList;
 
 /**
- * Created by Ejaaz on 22/12/2014.
+ * Contains static factory methods for Operators in Matrix Mode.
+ *
+ * @author Ejaaz Merali, Keith Wong
+ * @version Alpha 2.0
  */
 
-@SuppressWarnings("unused")
 public class MatrixOperatorFactory {
 
     public static MatrixOperator makeMatrixAdd() {

@@ -7,30 +7,27 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-   import android.widget.PopupWindow;
+import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import org.matheclipse.core.eval.exception.WrongNumberOfArguments;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executor;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Contains the back-end for Function Mode. Ability to define functions and perform various
  * actions with them, such as finding roots, integration, differentiation, and graphing.
  *
- * @version Alpha 2.0
  * @author Alston Lin
+ * @version Alpha 2.0
  */
-public class FunctionMode extends Advanced{
+public class FunctionMode extends Advanced {
 
 
     //Some Threading stuff
@@ -39,16 +36,13 @@ public class FunctionMode extends Advanced{
     private static final int MAXIMUM_POOL_SIZE = CPU_COUNT * 2 + 1;
     private static final int KEEP_ALIVE = 1;
     private static final int STACK_SIZE = 1000000; //1MB STACK SIZE
-    private static final Basic INSTANCE = new FunctionMode();
     private static final ThreadFactory threadFactory = new ThreadFactory() {
-        private final AtomicInteger count = new AtomicInteger(1);
-
         public Thread newThread(Runnable r) {
             ThreadGroup group = new ThreadGroup("threadGroup");
             return new Thread(group, r, "Calculus Thread", STACK_SIZE);
         }
     };
-
+    private static final Basic INSTANCE = new FunctionMode();
     private static final BlockingQueue<Runnable> sPoolWorkQueue = new LinkedBlockingQueue<Runnable>(128);
     public static final Executor EXECUTOR = new ThreadPoolExecutor(CORE_POOL_SIZE, MAXIMUM_POOL_SIZE, KEEP_ALIVE, TimeUnit.SECONDS, sPoolWorkQueue, threadFactory);
     //Actual variables used
@@ -61,9 +55,10 @@ public class FunctionMode extends Advanced{
 
     /**
      * Allows for the Singleton pattern so there would be only one instance.
+     *
      * @return The singleton instance
      */
-    public static Basic getInstance(){
+    public static Basic getInstance() {
         return INSTANCE;
     }
 
@@ -73,8 +68,8 @@ public class FunctionMode extends Advanced{
      * @param v The Button that has been clicked
      */
     @Override
-    public void onClick(View v){
-        switch(v.getId()){
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.shift_button:
                 clickShift();
                 break;
@@ -104,7 +99,7 @@ public class FunctionMode extends Advanced{
         }
     }
 
-    public void clickX(){
+    public void clickX() {
         tokens.add(display.getRealCursorIndex(), VariableFactory.makeX());
         display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
@@ -377,7 +372,7 @@ public class FunctionMode extends Advanced{
 
         @Override
         protected void onPreExecute() {
-            if (pd == null){ //Lazy Initialization
+            if (pd == null) { //Lazy Initialization
                 //Loading dialog
                 pd = new ProgressDialog(activity);
                 pd.setTitle("Calculating...");

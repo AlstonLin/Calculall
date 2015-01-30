@@ -14,9 +14,10 @@ import java.util.Arrays;
 import static com.trutech.calculall.Matrix.AugmentedMatrix;
 
 /**
- * Contains the Row Reduction algorithm
- * <p/>
- * Created by Ejaaz on 24/12/2014.
+ * Contains the Row Reduction algorithm.
+ *
+ * @author Ejaaz Merali
+ * @version Alpha 2.0
  */
 public class MatrixUtils {
     /**
@@ -425,9 +426,11 @@ public class MatrixUtils {
         return rank;
     }
 
-    /*********************************************************
-     ************* EIGENVALUES AND EIGENVECTORS **************
-     *********************************************************/
+    /**
+     * ******************************************************
+     * ************ EIGENVALUES AND EIGENVECTORS **************
+     * *******************************************************
+     */
 
     public static double[] getRealEigenValues(Matrix a) {
         if (a instanceof AugmentedMatrix) {

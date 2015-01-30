@@ -8,12 +8,13 @@ import java.util.Locale;
  * This is the class for the main activity (entry-point to the app). It will simply configure
  * the setting then go to the basic activity.
  *
- * @version 0.4.0
+ * @author Alston Lin
+ * @version Alpha 2.0
  */
 public class Number extends Token implements Serializable {
 
-    public static int roundTo = 9;
     private static final long serialVersionUID = 752647223;
+    public static int roundTo = 9;
     private double value;
 
     /**

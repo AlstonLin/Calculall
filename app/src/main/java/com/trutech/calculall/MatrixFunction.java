@@ -4,6 +4,7 @@ package com.trutech.calculall;
  * The Object representation of a mathematical Function that has a Matrix as the input.
  *
  * @author Ejaaz Merali
+ * @version Alpha 2.0
  */
 public abstract class MatrixFunction extends Token {
 

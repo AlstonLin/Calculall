@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 /**
- * Created by Alston on 12/22/2014.
+ * Shows the calculation history of a mode.
  */
 public class HistoryView extends View {
     //CONSTANTS
@@ -729,8 +729,6 @@ public class HistoryView extends View {
      */
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int parentWidth = View.MeasureSpec.getSize(widthMeasureSpec);
-        int parentHeight = View.MeasureSpec.getSize(heightMeasureSpec);
         Canvas canvas = new Canvas();
         this.draw(canvas); //Lazy way to calculate maxX and maxY
         int width = (int) maxX + (int) TEXT_HEIGHT * 5;

@@ -7,7 +7,8 @@ import java.util.ArrayList;
  * Represents a digit, operation, brackets, or a function on the calculator screen; cannot be used by itself
  * (must use a subclass of this).
  *
- * @version 0.4.0
+ * @author Alston Lin
+ * @version Alpha 2.0
  */
 public abstract class Token implements Serializable {
 
