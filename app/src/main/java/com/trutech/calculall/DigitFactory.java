@@ -3,7 +3,8 @@ package com.trutech.calculall;
 /**
  * Contains static methods that will create Digit pieces.
  *
- * @version 0.4.0
+ * @version Alpha 2.0
+ * @author Alston Lin
  */
 public class DigitFactory {
 

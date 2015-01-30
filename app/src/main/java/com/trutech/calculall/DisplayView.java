@@ -15,6 +15,9 @@ import java.util.Stack;
 /**
  * A custom View that displays the given mathematical expression with superscripts, subscripts
  * and fraction support.
+ *
+ * @version Alpha 2.0
+ * @author Alston Lin
  */
 public class DisplayView extends View {
 
@@ -94,6 +97,16 @@ public class DisplayView extends View {
      */
     public void displayOutput(ArrayList<Token> tokens) {
         output.display(tokens);
+    }
+
+    /**
+     * Clears the input and output of the display.
+     */
+    public void clear(){
+        expression.clear();
+        output.display(new ArrayList<Token>());
+        requestLayout();
+        invalidate();
     }
 
     /**
@@ -322,20 +335,21 @@ public class DisplayView extends View {
                 canvas.drawText("|", cursorX, cursorY, cursorPaint);
             }
         }
-
-        //Draws cursor in special cases
-        if (expression.size() == 0) { //No expression
-            canvas.drawText("|", X_PADDING, yModifier, cursorPaint);
-        } else if (realCursorIndex == expression.size()) { //Last index (or the cursor index is larger than the draw count
-            //Moves the cursor up if its superscript
-            cursorY = yModifier;
-            cursorX = maxX + xModifier - CURSOR_PADDING;
-            canvas.drawText("|", cursorX, cursorY, cursorPaint);
-            realCursorIndex = expression.size();
+        try {
+            //Draws cursor in special cases
+            if (expression.size() == 0) { //No expression
+                canvas.drawText("|", X_PADDING, yModifier, cursorPaint);
+            } else if (realCursorIndex == expression.size()) { //Last index (or the cursor index is larger than the draw count
+                //Moves the cursor up if its superscript
+                cursorY = yModifier;
+                cursorX = maxX + xModifier - CURSOR_PADDING;
+                canvas.drawText("|", cursorX, cursorY, cursorPaint);
+                realCursorIndex = expression.size();
+            }
+        } catch (ArrayIndexOutOfBoundsException e){
+            //When rendering in Android Studio (Android bug)
         }
-
         //Displays output if there is any
-        //TODO: Make this work with tokens, and make sure to account for multiple lines (find the height of the lowest line and display it under)
         //TEMPORARY CODE (Will use a list of tokens in the future)
         if (outputString.length() != 0) {
             //Determines width of the output string
@@ -973,9 +987,6 @@ public class DisplayView extends View {
 
     public void setCursorIndex(int index) {
         cursorIndex = index;
-        //TODO: READ COMMENTS
-        //Determines if the cursor will go off the screen
-        //Scrolls appropriately if required
         invalidate();
     }
 }

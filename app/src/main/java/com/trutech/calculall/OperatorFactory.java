@@ -60,33 +60,6 @@ public class OperatorFactory {
         };
     }
 
-    public static Operator makePowOfTen() {
-        return new Operator("×10", Operator.POW_OF_TEN, 3, true, 1, true) {
-            @Override
-            public double operate(double left, double right) {
-                return left * Math.pow(10, right);
-            }
-        };
-    }
-
-    public static Operator makeDot() {
-        return new Operator("•", Operator.DOT, 6, true, 1, false) {
-            @Override
-            public double operate(double left, double right) {
-                return 1;
-            }
-        };
-    }
-
-    public static Operator makeCross() {
-        return new Operator("×", Operator.CROSS, 6, true, -1, false) {
-            @Override
-            public double operate(double left, double right) {
-                return 1;
-            }
-        };
-    }
-
     public static Operator makeExponent() {
         return new Operator("", Operator.EXPONENT, 5, false, 0, false) {
             @Override
@@ -148,15 +121,4 @@ public class OperatorFactory {
             }
         };
     }
-
-    public static Operator makeAngle() {
-        return new Operator("∠", Operator.ANGLE, 6, true, -1, false) {
-            @Override
-            public double operate(double left, double right) {
-                return 1;
-            }
-        };
-    }
-
-
 }

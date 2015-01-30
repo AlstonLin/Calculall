@@ -5,7 +5,10 @@ import java.util.EmptyStackException;
 import java.util.Stack;
 
 /**
- * @version 0.6.0
+ * Contains the JFok Algorithm and the core of the mathematical system.
+ *
+ * @author Jason Fok, Ejaaz Merali, Alston Lin
+ * @version Alpha 2.0
  */
 public class JFok {
 

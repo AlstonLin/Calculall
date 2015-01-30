@@ -4,8 +4,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
@@ -24,278 +29,261 @@ import java.util.Random;
 /**
  * The activity for the basic calculator mode. The basic mode will only be able to
  * perform the four operations (add, subtract, multiply and divide) including brackets.
+ * This class contains all the back-end of the Basic Mode.
  *
- * @version 0.4.0
+ * @version Alpha 2.0
+ * @author Alston Lin
  */
-public class Basic extends Activity implements MoPubInterstitial.InterstitialAdListener {
+public class Basic implements View.OnClickListener {
 
 
-    public static final String CLASS_NAME = Basic.class.getName();
+    //CONSTANTS
     public static final int HISTORY_SIZE = 10;
-    public static final int AD_RATE = 2; //Ads will show 1 in 2 activity opens
+    //CLASS CONSTANTS
     private static final String FILENAME = "history_basic";
-    private static final String AD_ID = "3ae32e9f72e2402cb01bbbaf1d6ba1f4";
-
+    private static final Basic INSTANCE = new Basic();
+    //PROTECTED VARIABLES
     protected ArrayList<Token> tokens = new ArrayList<Token>(); //Tokens shown on screen
-    protected boolean changedTokens = false;
     protected DisplayView display;
-    protected OutputView output;
-    private MoPubInterstitial interstitial;
-    private boolean adShown = false;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        //Remove fullscreen
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_basic);
-        output = (OutputView) findViewById(R.id.output);
-        display = (DisplayView) findViewById(R.id.display);
-        display.setOutput(output);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (!(interstitial != null && interstitial.isReady()) && !adShown && !((Object) this).getClass().getName().equals(CLASS_NAME)) {
-            Random random = new Random();
-            if (random.nextInt(AD_RATE) == 0) {
-                // Create the interstitial.
-                interstitial = new MoPubInterstitial(this, AD_ID);
-                interstitial.setInterstitialAdListener(this);
-                interstitial.load();
-                interstitial.load();
-            }
-        }
-    }
-
-    @Override
-    protected void onPause() {
-        if (interstitial != null) {
-            interstitial.destroy(); //Prevents Ads from other activities appearing if it is not loaded before switching between them
-        }
-        super.onPause();
-    }
-
+    protected MainActivity activity;
+    protected boolean changedTokens = false;
 
     /**
-     * Processes the expression and returns the result using the Shunting Yard Algorithm to convert
-     * the expression into reverse polish and then evaluating it.
-     *
-     * @return The numerical value of the expression
-     * @throws IllegalArgumentException If the user has input a invalid expression
+     * Makes sure that an instance of Basic cannot be created from outside the class.
      */
-    protected double process() {
-        ArrayList<Token> tokens = Utility.setupExpression(Utility.condenseDigits(Utility.addMissingBrackets(subVariables())));
-        return Utility.evaluateExpression(Utility.convertToReversePolish(tokens));
+    protected Basic(){
+        super();
     }
 
     /**
-     * Substitutes all the variables on the tokens list with the defined values
-     *
-     * @return The list of tokens with the variables substituted
+     * Allows for the Singleton pattern so there would be only one instance.
+     * @return The singleton instance
      */
-    protected ArrayList<Token> subVariables() {
-        ArrayList<Token> newTokens = new ArrayList<Token>();
-        for (Token token : tokens) {
-            if (token instanceof Variable) {
-                int index = tokens.indexOf(token);
-                Variable v = (Variable) token;
-                newTokens.add(index, new Number(v.getValue()));
-            } else {
-                newTokens.add(token);
-            }
+    public static Basic getInstance(){
+        return INSTANCE;
+    }
+
+    /**
+     * Sets that this Mode will run on.
+     *
+     * @param activity The running activity
+     */
+    public void setActivity(MainActivity activity){
+        this.activity = activity;
+        display = activity.getDisplay();
+    }
+
+    /**
+     * When a Button has been clicked, calls the appropriate method.
+     *
+     * @param v The Button that has been clicked
+     */
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()){
+            case R.id.one_button:
+                clickOne();
+                break;
+            case R.id.two_button:
+                clickTwo();
+                break;
+            case R.id.three_button:
+                clickThree();
+                break;
+            case R.id.four_button:
+                clickFour();
+                break;
+            case R.id.five_button:
+                clickFive();
+                break;
+            case R.id.six_button:
+                clickSix();
+                break;
+            case R.id.seven_button:
+                clickSeven();
+                break;
+            case R.id.eight_button:
+                clickEight();
+                break;
+            case R.id.nine_button:
+                clickNine();
+                break;
+            case R.id.zero_button:
+                clickZero();
+                break;
+            case R.id.decimal_button:
+                clickDecimal();
+                break;
+            case R.id.sqrt_button:
+                clickSqrt();
+                break;
+            case R.id.negative_button:
+                clickNegative();
+                break;
+            case R.id.back_button:
+                clickBack();
+                break;
+            case R.id.clear_button:
+                clickClear();
+                break;
+            case R.id.equals_button:
+                clickEquals();
+                return; //Does not want to updateInput()
+            case R.id.add_button:
+                clickAdd();
+                break;
+            case R.id.subtract_button:
+                clickSubtract();
+                break;
+            case R.id.multiply_button:
+                clickMultiply();
+                break;
+            case R.id.divide_button:
+                clickDivide();
+                break;
+            default: //Button has not been handled!
+                throw new UnsupportedOperationException("A Button has not been handled!");
         }
-        return newTokens;
+        updateInput();
     }
 
     /**
      * When the user presses the 1 Button.
-     *
-     * @param v Not Used
      */
-    public void clickOne(View v) {
+    public void clickOne() {
         tokens.add(display.getRealCursorIndex(), DigitFactory.makeOne());
         display.setCursorIndex(display.getCursorIndex() + 1);
-        updateInput();
     }
 
     /**
      * When the user presses the 2 Button.
-     *
-     * @param v Not Used
+
      */
-    public void clickTwo(View v) {
+    public void clickTwo() {
         tokens.add(display.getRealCursorIndex(), DigitFactory.makeTwo());
         display.setCursorIndex(display.getCursorIndex() + 1);
-        updateInput();
     }
 
     /**
      * When the user presses the 3 Button.
-     *
-     * @param v Not Used
      */
-    public void clickThree(View v) {
+    public void clickThree() {
         tokens.add(display.getRealCursorIndex(), DigitFactory.makeThree());
         display.setCursorIndex(display.getCursorIndex() + 1);
-        updateInput();
     }
 
     /**
      * When the user presses the 4 Button.
-     *
-     * @param v Not Used
      */
-    public void clickFour(View v) {
+    public void clickFour() {
         tokens.add(display.getRealCursorIndex(), DigitFactory.makeFour());
         display.setCursorIndex(display.getCursorIndex() + 1);
-        updateInput();
     }
 
     /**
      * When the user presses the 5 Button.
-     *
-     * @param v Not Used
      */
-    public void clickFive(View v) {
+    public void clickFive() {
         tokens.add(display.getRealCursorIndex(), DigitFactory.makeFive());
         display.setCursorIndex(display.getCursorIndex() + 1);
-        updateInput();
     }
 
     /**
      * When the user presses the 6 Button.
-     *
-     * @param v Not Used
      */
-    public void clickSix(View v) {
+    public void clickSix() {
         tokens.add(display.getRealCursorIndex(), DigitFactory.makeSix());
         display.setCursorIndex(display.getCursorIndex() + 1);
-        updateInput();
     }
 
     /**
      * When the user presses the 7 Button.
-     *
-     * @param v Not Used
      */
-    public void clickSeven(View v) {
+    public void clickSeven() {
         tokens.add(display.getRealCursorIndex(), DigitFactory.makeSeven());
         display.setCursorIndex(display.getCursorIndex() + 1);
-        updateInput();
     }
 
     /**
      * When the user presses the 8 Button.
-     *
-     * @param v Not Used
      */
-    public void clickEight(View v) {
+    public void clickEight() {
         tokens.add(display.getRealCursorIndex(), DigitFactory.makeEight());
         display.setCursorIndex(display.getCursorIndex() + 1);
-        updateInput();
     }
 
     /**
      * When the user presses the 9 Button.
-     *
-     * @param v Not Used
      */
-    public void clickNine(View v) {
+    public void clickNine() {
         tokens.add(display.getRealCursorIndex(), DigitFactory.makeNine());
         display.setCursorIndex(display.getCursorIndex() + 1);
-        updateInput();
     }
 
     /**
      * When the user presses the 0 Button.
-     *
-     * @param v Not Used
      */
-    public void clickZero(View v) {
+    public void clickZero() {
         tokens.add(display.getRealCursorIndex(), DigitFactory.makeZero());
         display.setCursorIndex(display.getCursorIndex() + 1);
-        updateInput();
     }
 
     /**
      * When the user presses the . Button.
-     *
-     * @param v Not Used
      */
-    public void clickDecimal(View v) {
+    public void clickDecimal() {
         tokens.add(display.getRealCursorIndex(), DigitFactory.makeDecimal());
         display.setCursorIndex(display.getCursorIndex() + 1);
-        updateInput();
     }
 
     /**
      * When the user presses the x Button.
-     *
-     * @param v Not Used
      */
-    public void clickMultiply(View v) {
+    public void clickMultiply() {
         tokens.add(display.getRealCursorIndex(), OperatorFactory.makeMultiply());
         display.setCursorIndex(display.getCursorIndex() + 1);
-        updateInput();
     }
 
     /**
      * When the user presses the / Button.
-     *
-     * @param v Not Used
      */
-    public void clickDivide(View v) {
+    public void clickDivide() {
         tokens.add(display.getRealCursorIndex(), OperatorFactory.makeDivide());
         display.setCursorIndex(display.getCursorIndex() + 1);
-        updateInput();
     }
 
     /**
      * When the user presses the + Button.
-     *
-     * @param v Not Used
      */
-    public void clickAdd(View v) {
+    public void clickAdd() {
         tokens.add(display.getRealCursorIndex(), OperatorFactory.makeAdd());
         display.setCursorIndex(display.getCursorIndex() + 1);
-        updateInput();
     }
 
     /**
      * When the user presses the - Button.
-     *
-     * @param v Not Used
      */
-    public void clickSubtract(View v) {
+    public void clickSubtract() {
         tokens.add(display.getRealCursorIndex(), OperatorFactory.makeSubtract());
         display.setCursorIndex(display.getCursorIndex() + 1);
-        updateInput();
     }
 
     /**
-     * When the user presses the sqrt Button.
-     *
-     * @param v Not Used
+     * When the user presses the sqrt Button
      */
-    public void clickSqrt(View v) {
+    public void clickSqrt() {
         tokens.add(display.getRealCursorIndex(), FunctionFactory.makeSqrt());
         display.setCursorIndex(display.getCursorIndex() + 1);
-        updateInput();
     }
 
 
     /**
      * When the user presses the clear Button.
-     *
-     * @param v Not Used
      */
-    public void clickClear(View v) {
+    public void clickClear() {
         tokens.clear();
         updateInput();
         changedTokens = true; //used to know if the button has been used
-        DisplayView display = (DisplayView) findViewById(R.id.display);
         display.displayOutput(new ArrayList<Token>());
         display.reset();
     }
@@ -303,10 +291,8 @@ public class Basic extends Activity implements MoPubInterstitial.InterstitialAdL
 
     /**
      * When the user presses the back Button.
-     *
-     * @param v Not Used
      */
-    public void clickBack(View v) {
+    public void clickBack() {
         if (tokens.isEmpty()) {
             return; //Prevents a bug
         }
@@ -351,10 +337,8 @@ public class Basic extends Activity implements MoPubInterstitial.InterstitialAdL
 
     /**
      * When the user presses the negative Button.
-     *
-     * @param v Not Used
      */
-    public void clickNegative(View v) {
+    public void clickNegative() {
         tokens.add(display.getRealCursorIndex(), DigitFactory.makeNegative());
         display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
@@ -362,11 +346,8 @@ public class Basic extends Activity implements MoPubInterstitial.InterstitialAdL
 
     /**
      * When the user presses the equals Button.
-     *
-     * @param v Not Used
      */
-    public void clickEquals(View v) {
-        DisplayView display = (DisplayView) findViewById(R.id.display);
+    public void clickEquals() {
         try {
             Number num = new Number(process());
             if (Double.isInfinite(num.getValue())) {
@@ -379,7 +360,38 @@ public class Basic extends Activity implements MoPubInterstitial.InterstitialAdL
         } catch (Exception e) { //User did a mistake
             handleExceptions(e);
         }
-        scrollDown();
+        activity.scrollDown();
+    }
+
+    /**
+     * Processes the expression and returns the result using the Shunting Yard Algorithm to convert
+     * the expression into reverse polish and then evaluating it.
+     *
+     * @return The numerical value of the expression
+     * @throws IllegalArgumentException If the user has input a invalid expression
+     */
+    protected double process() {
+        ArrayList<Token> tokens = Utility.setupExpression(Utility.condenseDigits(Utility.addMissingBrackets(subVariables())));
+        return Utility.evaluateExpression(Utility.convertToReversePolish(tokens));
+    }
+
+    /**
+     * Substitutes all the variables on the tokens list with the defined values
+     *
+     * @return The list of tokens with the variables substituted
+     */
+    protected ArrayList<Token> subVariables() {
+        ArrayList<Token> newTokens = new ArrayList<Token>();
+        for (Token token : tokens) {
+            if (token instanceof Variable) {
+                int index = tokens.indexOf(token);
+                Variable v = (Variable) token;
+                newTokens.add(index, new Number(v.getValue()));
+            } else {
+                newTokens.add(token);
+            }
+        }
+        return newTokens;
     }
 
     /**
@@ -394,7 +406,7 @@ public class Basic extends Activity implements MoPubInterstitial.InterstitialAdL
         } else {
             message = "Invalid input";
         }
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        Toast.makeText(activity, message, Toast.LENGTH_LONG).show();
     }
 
     /**
@@ -406,13 +418,13 @@ public class Basic extends Activity implements MoPubInterstitial.InterstitialAdL
     public void saveEquation(ArrayList<Token> input, ArrayList<Token> output, String filepath) throws IOException, ClassNotFoundException {
         ArrayList<Object[]> history = new ArrayList<Object[]>();
         try {
-            FileInputStream inStream = openFileInput(filepath);
+            FileInputStream inStream = activity.openFileInput(filepath);
             ObjectInputStream objectStreamIn = new ObjectInputStream(inStream);
             history = (ArrayList<Object[]>) objectStreamIn.readObject();
         } catch (Exception e) {
         }
 
-        FileOutputStream outStream = openFileOutput(filepath, Context.MODE_PRIVATE);
+        FileOutputStream outStream = activity.openFileOutput(filepath, Context.MODE_PRIVATE);
         Object[] toWrite = new Object[2];
         toWrite[0] = input;
         toWrite[1] = output;
@@ -427,19 +439,16 @@ public class Basic extends Activity implements MoPubInterstitial.InterstitialAdL
         objectStreamOut.flush();
         objectStreamOut.close();
         outStream.close();
-        adShown = false;
     }
 
     /**
      * Opens the calculation history.
-     *
-     * @param v Not Used
      */
-    public void openHistory(View v) throws IOException, ClassNotFoundException {
-        setContentView(R.layout.history_view);
-        HistoryView hv = (HistoryView) findViewById(R.id.history);
+    public void openHistory() throws IOException, ClassNotFoundException {
+        activity.setContentView(R.layout.history_view);
+        HistoryView hv = (HistoryView) activity.findViewById(R.id.history);
         try {
-            FileInputStream stream = openFileInput(FILENAME);
+            FileInputStream stream = activity.openFileInput(FILENAME);
             ObjectInputStream objectStream = new ObjectInputStream(stream);
             hv.setHistory((ArrayList<Object[]>) objectStream.readObject());
         } catch (FileNotFoundException e) {
@@ -451,91 +460,6 @@ public class Basic extends Activity implements MoPubInterstitial.InterstitialAdL
         }
     }
 
-    /**
-     * Scrolls down the display (if possible).
-     */
-    protected void scrollDown() {
-        ScrollView scrollView = (ScrollView) findViewById(R.id.scroll);
-        if (scrollView != null) {
-            //Shows bottom
-            scrollView.pageScroll(ScrollView.FOCUS_DOWN);
-        }
-    }
-
-    /**
-     * Moves the cursor on the display left if possible.
-     */
-    public void scrollLeft(View v) {
-        DisplayView display = (DisplayView) findViewById(R.id.display);
-        if (display != null) {
-            display.scrollLeft();
-        }
-    }
-
-    /**
-     * SMoves the cursor on the display right if possible.
-     */
-    public void scrollRight(View v) {
-        DisplayView display = (DisplayView) findViewById(R.id.display);
-        if (display != null) {
-            display.scrollRight();
-        }
-    }
-
-    /**
-     * When the user wants to change to Basic Mode.
-     *
-     * @param v Not Used
-     */
-    public void clickBasic(View v) {
-        //Goes to the Basic activity
-        Intent intent = new Intent(this, Basic.class);
-        startActivity(intent);
-    }
-
-    /**
-     * When the user wants to change to Advanced Mode.
-     *
-     * @param v Not Used
-     */
-    public void clickAdvanced(View v) {
-        //Goes to the Advanced activity
-        Intent intent = new Intent(this, Advanced.class);
-        startActivity(intent);
-    }
-
-    /**
-     * When the user wants to change to Function Mode.
-     *
-     * @param v Not Used
-     */
-    public void clickFunction(View v) {
-        //Goes to the FunctionMode activity
-        Intent intent = new Intent(this, FunctionMode.class);
-        startActivity(intent);
-    }
-
-    /**
-     * When the user wants to change to Vector Mode.
-     *
-     * @param v Not Used
-     */
-    public void clickVector(View v) {
-        //Goes to the VectorMode activity
-        Intent intent = new Intent(this, VectorMode.class);
-        startActivity(intent);
-    }
-
-    /**
-     * When the user wants to change to Matrix Mode.
-     *
-     * @param v Not Used
-     */
-    public void clickMatrix(View v) {
-        //Goes to the VectorMode activity
-        Intent intent = new Intent(this, MatrixMode.class);
-        startActivity(intent);
-    }
 
     /**
      * Updates the text on the input screen.
@@ -573,33 +497,5 @@ public class Basic extends Activity implements MoPubInterstitial.InterstitialAdL
                 tokens.remove(token);
             }
         }
-    }
-
-    @Override
-    public void onInterstitialLoaded(MoPubInterstitial interstitial) {
-        adShown = true;
-        if (interstitial.isReady()) {
-            interstitial.show();
-        }
-    }
-
-    @Override
-    public void onInterstitialFailed(MoPubInterstitial interstitial, MoPubErrorCode errorCode) {
-
-    }
-
-    @Override
-    public void onInterstitialShown(MoPubInterstitial interstitial) {
-
-    }
-
-    @Override
-    public void onInterstitialClicked(MoPubInterstitial interstitial) {
-
-    }
-
-    @Override
-    public void onInterstitialDismissed(MoPubInterstitial interstitial) {
-
     }
 }

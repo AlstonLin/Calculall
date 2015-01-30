@@ -4,86 +4,7 @@
     android:layout_height="match_parent"
     android:background="#ff093E53"
     android:orientation="vertical"
-    android:weightSum="100">
-
-
-    <LinearLayout
-        android:id="@+id/Container"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="30"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/leftScroll"
-            style="@style/button4"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="5"
-            android:onClick="scrollLeft"
-            android:text="@string/leftscroll" />
-
-        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/scroll"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="50">
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:orientation="vertical">
-
-                <view xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:id="@+id/display"
-                    class="com.trutech.calculall.DisplayView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:fadingEdge="vertical"
-                    android:scrollbars="vertical" />
-
-                <HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:id="@+id/outputScroll"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:scrollbars="horizontal">
-
-                    <view xmlns:android="http://schemas.android.com/apk/res/android"
-                        android:id="@+id/output"
-                        class="com.trutech.calculall.OutputView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:fadingEdge="vertical"
-                        android:scrollbars="vertical" />
-                </HorizontalScrollView>
-
-                <requestFocus />
-
-            </LinearLayout>
-
-        </ScrollView>
-
-        <Button
-            android:id="@+id/rightScroll"
-            style="@style/button4"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="right"
-            android:layout_weight="5"
-            android:onClick="scrollRight"
-            android:text="@string/rightscroll" />
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/Grid"
-        android:layout_width="fill_parent"
-        android:layout_height="0sp"
-        android:layout_weight="70"
-        android:orientation="vertical"
-        android:weightSum="11">
+    android:weightSum="10">
 
         <LinearLayout
             android:id="@+id/row1"
@@ -93,44 +14,44 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/NegativeButton"
+                android:id="@+id/negative_button"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:onClick="clickNegative"
+                android:onClick="onClick"
                 android:text="@string/plusminus"
                 android:textSize="36sp" />
 
-            <Button
-                android:id="@+id/SqrtButton"
+            <com.trutech.calculall.MultiButton
+                android:id="@+id/sqrt_button"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:onClick="clickSqrt"
                 android:text="@string/sqrt"
+                android:onClick="onClick"
                 android:textSize="36sp" />
 
             <Button
-                android:id="@+id/BackButton"
+                android:id="@+id/back_button"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:onClick="clickBack"
                 android:text="@string/backspace"
+                android:onClick="onClick"
                 android:textSize="36sp" />
 
             <Button
-                android:id="@+id/ClearButton"
+                android:id="@+id/clear_button"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:onClick="clickClear"
                 android:text="@string/C"
+                android:onClick="onClick"
                 android:textSize="36sp" />
         </LinearLayout>
 
@@ -142,43 +63,43 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/SevenButton"
+                android:id="@+id/seven_button"
                 style="@style/button3"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:onClick="clickSeven"
                 android:text="@string/seven"
+                android:onClick="onClick"
                 android:textSize="36sp" />
 
             <Button
-                android:id="@+id/EightButton"
+                android:id="@+id/eight_button"
                 style="@style/button3"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:onClick="clickEight"
                 android:text="@string/eight"
+                android:onClick="onClick"
                 android:textSize="36sp" />
 
             <Button
-                android:id="@+id/NineButton"
+                android:id="@+id/nine_button"
                 style="@style/button3"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:onClick="clickNine"
                 android:text="@string/nine"
+                android:onClick="onClick"
                 android:textSize="36sp" />
 
             <Button
-                android:id="@+id/DivideButton"
+                android:id="@+id/divide_button"
                 style="@style/button4"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:onClick="clickDivide"
                 android:text="@string/divide"
+                android:onClick="onClick"
                 android:textSize="36sp" />
         </LinearLayout>
 
@@ -190,43 +111,43 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/FourButton"
+                android:id="@+id/four_button"
                 style="@style/button3"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:onClick="clickFour"
                 android:text="@string/four"
+                android:onClick="onClick"
                 android:textSize="36sp" />
 
             <Button
-                android:id="@+id/FiveButton"
+                android:id="@+id/five_button"
                 style="@style/button3"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:onClick="clickFive"
                 android:text="@string/five"
+                android:onClick="onClick"
                 android:textSize="36sp" />
 
             <Button
-                android:id="@+id/SixButton"
+                android:id="@+id/six_button"
                 style="@style/button3"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:onClick="clickSix"
                 android:text="@string/six"
+                android:onClick="onClick"
                 android:textSize="36sp" />
 
             <Button
-                android:id="@+id/MultiplyButton"
+                android:id="@+id/multiply_button"
                 style="@style/button4"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:onClick="clickMultiply"
                 android:text="@string/multiply"
+                android:onClick="onClick"
                 android:textSize="36sp" />
         </LinearLayout>
 
@@ -238,43 +159,43 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/OneButton"
+                android:id="@+id/one_button"
                 style="@style/button3"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:onClick="clickOne"
                 android:text="@string/one"
+                android:onClick="onClick"
                 android:textSize="36sp" />
 
             <Button
-                android:id="@+id/TwoButton"
+                android:id="@+id/two_button"
                 style="@style/button3"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:onClick="clickTwo"
                 android:text="@string/two"
+                android:onClick="onClick"
                 android:textSize="36sp" />
 
             <Button
-                android:id="@+id/ThreeButton"
+                android:id="@+id/three_button"
                 style="@style/button3"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:onClick="clickThree"
                 android:text="@string/three"
+                android:onClick="onClick"
                 android:textSize="36sp" />
 
             <Button
-                android:id="@+id/SubtractButton"
+                android:id="@+id/subtract_button"
                 style="@style/button4"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:onClick="clickSubtract"
                 android:text="@string/minus"
+                android:onClick="onClick"
                 android:textSize="36sp" />
         </LinearLayout>
 
@@ -286,106 +207,45 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/ZeroButton"
+                android:id="@+id/zero_button"
                 style="@style/button3"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:onClick="clickZero"
                 android:text="@string/zero"
+                android:onClick="onClick"
                 android:textSize="36sp" />
 
             <Button
-                android:id="@+id/DecimalButton"
+                android:id="@+id/decimal_button"
                 style="@style/button4"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:onClick="clickDecimal"
                 android:text="@string/decimal"
+                android:onClick="onClick"
                 android:textSize="36sp" />
 
             <Button
-                android:id="@+id/EqualsButton"
+                android:id="@+id/equals_button"
                 style="@style/button4"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:onClick="clickEquals"
                 android:text="@string/equals"
+                android:onClick="onClick"
                 android:textSize="36sp" />
 
             <Button
-                android:id="@+id/AddButton"
+                android:id="@+id/add_button"
                 style="@style/button4"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:onClick="clickAdd"
                 android:text="@string/plus"
+                android:onClick="onClick"
                 android:textSize="36sp" />
 
 
         </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/modes"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/basicButton"
-                style="@style/button4"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:onClick="clickBasic"
-                android:text="@string/basic"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/advancedButton"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:onClick="clickAdvanced"
-                android:text="@string/advanced"
-                android:textSize="12sp" />
-
-            <Button
-                android:id="@+id/functionButton"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:onClick="clickFunction"
-                android:text="@string/function"
-                android:textSize="14sp" />
-
-            <Button
-                android:id="@+id/vectorButton"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:onClick="clickVector"
-                android:text="@string/vector"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/matrixButton"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:onClick="clickMatrix"
-                android:text="@string/matrix"
-                android:textSize="16sp" />
-
-        </LinearLayout>
-    </LinearLayout>
-
 </LinearLayout>

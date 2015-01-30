@@ -3,9 +3,10 @@ package com.trutech.calculall;
 import java.io.Serializable;
 
 /**
- * Represents a single digit of a number.
+ * Represents a single Digit of a number.
  *
- * @version 0.4.0
+ * @version Alpha 2.0
+ * @author Alston Lin
  */
 public class Digit extends Token implements Serializable {
     private static final long serialVersionUID = 752647221;

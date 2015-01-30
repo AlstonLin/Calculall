@@ -3,7 +3,8 @@ package com.trutech.calculall;
 /**
  * A piece that receives a collection of pieces as an input, and then outputs a resulting number.
  *
- * @version 0.4.0
+ * @version Alpha 2.0
+ * @author Ejaaz Merali, Alston Lin
  */
 
 public abstract class Function extends Token {

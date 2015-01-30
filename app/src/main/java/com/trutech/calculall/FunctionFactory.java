@@ -5,7 +5,8 @@ import org.apache.commons.math3.special.Erf;
 /**
  * Contains static methods that will create function pieces.
  *
- * @version 0.4.0
+ * @version Alpha 2.0
+ * @author Ejaaz Merali
  */
 
 public class FunctionFactory {

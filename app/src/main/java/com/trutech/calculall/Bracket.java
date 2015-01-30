@@ -6,7 +6,8 @@ import java.io.Serializable;
  * When an expression is processed, the pieces within the bracket will be evaluated first. They
  * can be used alone or in conjunction with a function.
  *
- * @version 0.4.0
+ * @version Alpha 2.0
+ * @author Alston Lin, Ejaaz Merali
  */
 public class Bracket extends Token implements Serializable {
 

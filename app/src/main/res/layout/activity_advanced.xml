@@ -4,418 +4,269 @@
     android:layout_height="match_parent"
     android:background="#ff093E53"
     android:orientation="vertical"
-    android:weightSum="100">
-
-    <LinearLayout
-        android:id="@+id/Container"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="20"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/leftScroll"
-            style="@style/button4"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="5"
-            android:onClick="scrollLeft"
-            android:text="@string/leftscroll" />
-
-        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/scroll"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="50">
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:orientation="vertical">
-
-                <view xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:id="@+id/display"
-                    class="com.trutech.calculall.DisplayView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:fadingEdge="vertical"
-                    android:scrollbars="vertical"></view>
-
-                <HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:id="@+id/outputScroll"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:scrollbars="horizontal">
-
-                    <view xmlns:android="http://schemas.android.com/apk/res/android"
-                        android:id="@+id/output"
-                        class="com.trutech.calculall.OutputView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:fadingEdge="vertical"
-                        android:scrollbars="vertical"></view>
-                </HorizontalScrollView>
-
-                <requestFocus />
-
-            </LinearLayout>
-
-        </ScrollView>
-
-        <Button
-            android:id="@+id/rightScroll"
-            style="@style/button4"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="right"
-            android:layout_weight="5"
-            android:onClick="scrollRight"
-            android:text="@string/rightscroll" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/grid"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="80"
-        android:orientation="vertical"
-        android:weightSum="24">
+    android:weightSum="20">
 
         <LinearLayout
-            android:id="@+id/settingsRow1"
+            android:id="@+id/settings_row1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2"
             android:orientation="horizontal">
 
             <ToggleButton
-                android:id="@+id/shiftButton"
+                android:id="@+id/shift_button"
                 style="?android:attr/buttonStyleToggle"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:checked="false"
                 android:longClickable="false"
-                android:onClick="clickShift"
                 android:textOff="@string/shift"
                 android:textOn="@string/shift"
+                android:onClick="onClick"
                 android:textSize="16sp" />
 
             <ToggleButton
-                android:id="@+id/hypButton"
+                android:id="@+id/hyp_button"
                 style="?android:attr/buttonStyleToggle"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:checked="false"
-                android:onClick="clickHyp"
                 android:textOff="@string/hyp"
                 android:textOn="@string/hyp"
+                android:onClick="onClick"
                 android:textSize="16sp" />
 
             <ToggleButton
-                android:id="@+id/memButton"
+                android:id="@+id/mem_button"
                 style="?android:attr/buttonStyleToggle"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:checked="false"
-                android:onClick="clickMem"
                 android:textOff="@string/store"
                 android:textOn="@string/store"
+                android:onClick="onClick"
                 android:textSize="16sp" />
 
             <Button
-                android:id="@+id/backButton"
+                android:id="@+id/back_button"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:onClick="clickBack"
                 android:text="@string/backspace"
+                android:onClick="onClick"
                 android:textSize="20sp" />
 
             <Button
-                android:id="@+id/clearButton"
+                android:id="@+id/clear_button"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:onClick="clickClear"
                 android:text="@string/C"
+                android:onClick="onClick"
                 android:textSize="20sp" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/varRow"
+            android:id="@+id/var_row"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2"
             android:orientation="horizontal">
 
+            <com.trutech.calculall.MultiButton
+                android:id="@+id/sqrt_button"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="@string/sqrt"
+                android:onClick="onClick"
+                android:textSize="16sp" />
+
             <Button
-                android:id="@+id/VarA"
+                android:id="@+id/var_a"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:checked="false"
-                android:onClick="clickA"
                 android:text="@string/varA"
+                android:onClick="onClick"
                 android:textSize="16sp" />
 
             <Button
-                android:id="@+id/VarB"
+                android:id="@+id/var_b"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:checked="false"
-                android:onClick="clickB"
                 android:text="@string/varB"
+                android:onClick="onClick"
                 android:textSize="16sp" />
 
             <Button
-                android:id="@+id/VarC"
+                android:id="@+id/var_c"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:checked="false"
-                android:onClick="clickC"
                 android:text="@string/varC"
+                android:onClick="onClick"
                 android:textSize="16sp" />
 
             <Button
-                android:id="@+id/VarX"
+                android:id="@+id/pi_button"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:checked="false"
-                android:onClick="clickX"
-                android:text="@string/varX"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/VarY"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:checked="false"
-                android:onClick="clickY"
-                android:text="@string/varY"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/VarZ"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:checked="false"
-                android:onClick="clickZ"
-                android:text="@string/varZ"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/functionRow1"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/sinButton"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:onClick="clickSin"
-                android:text="@string/sin"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/cosButton"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginRight="0dp"
-                android:layout_weight="1"
-                android:onClick="clickCos"
-                android:text="@string/cos"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/tanButton"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginRight="0dp"
-                android:layout_weight="1"
-                android:onClick="clickTan"
-                android:text="@string/tan"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/piButton"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginRight="0dp"
-                android:layout_weight="1"
-                android:onClick="clickPi"
                 android:text="@string/pi"
+                android:onClick="onClick"
                 android:textSize="16sp" />
 
             <Button
-                android:id="@+id/eButton"
+                android:id="@+id/e_button"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="0dp"
                 android:layout_weight="1"
-                android:onClick="clickE"
                 android:text="@string/e"
+                android:onClick="onClick"
                 android:textSize="16sp" />
 
-            <Button
-                android:id="@+id/angleMode"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginRight="0dp"
-                android:layout_weight="1"
-                android:onClick="clickAngleMode"
-                android:text="@string/deg"
-                android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/functionRow2"
+            android:id="@+id/function_row_1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2"
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/fracButton"
+                android:id="@+id/permutation"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="@string/permutation"
+                android:onClick="onClick"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/combination"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="@string/combination"
+                android:onClick="onClick"
+                android:textSize="16sp" />
+
+            <com.trutech.calculall.MultiButton
+                android:id="@+id/sin_button"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="@string/sin"
+                android:onClick="onClick"
+                android:textSize="16sp" />
+
+            <com.trutech.calculall.MultiButton
+                android:id="@+id/cos_button"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="@string/cos"
+                android:onClick="onClick"
+                android:textSize="16sp" />
+
+            <com.trutech.calculall.MultiButton
+                android:id="@+id/tan_button"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="@string/tan"
+                android:onClick="onClick"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/angle_mode"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="@string/deg"
+                android:onClick="onClick"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/function_row_2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/frac_button"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_marginLeft="-7dp"
                 android:layout_marginRight="-7dp"
                 android:layout_weight="1"
-                android:onClick="clickFrac"
                 android:text="FRAC"
+                android:onClick="onClick"
                 android:textSize="16sp" />
 
-            <Button
-                android:id="@+id/rootButton"
+            <com.trutech.calculall.MultiButton
+                android:id="@+id/square_button"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:onClick="clickRoot"
-                android:text="@string/sqrt"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/squareButton"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginRight="0dp"
-                android:layout_weight="1"
-                android:onClick="clickSmallExp"
                 android:text="@string/square"
+                android:onClick="onClick"
                 android:textSize="16sp" />
 
-            <Button
-                android:id="@+id/powerButton"
+            <com.trutech.calculall.MultiButton
+                android:id="@+id/power_button"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="0dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:onClick="clickPow"
-                android:text="@string/exponent"
+                android:onClick="onClick"
                 android:textSize="16sp" />
 
-            <Button
-                android:id="@+id/powButton"
+            <com.trutech.calculall.MultiButton
+                android:id="@+id/pow_ten_button"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:onClick="clickPower"
-                android:text="@string/powOfTen"
+                android:onClick="onClick"
                 android:textSize="16sp" />
 
-            <Button
-                android:id="@+id/logButton"
+            <com.trutech.calculall.MultiButton
+                android:id="@+id/log_button"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-
                 android:layout_weight="1"
-                android:onClick="clickLog"
                 android:text="@string/log10"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/baseButton"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:onClick="clickBase"
-                android:text="@string/base10"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/functionRow3"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/factorial"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:onClick="clickFactorial"
-                android:text="@string/factorial"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/Permutation"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginRight="0dp"
-                android:layout_weight="1"
-                android:onClick="clickPermutation"
-                android:text="@string/permutation"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/Combination"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginRight="0dp"
-                android:layout_weight="1"
-                android:onClick="clickCombination"
-                android:text="@string/combination"
+                android:onClick="onClick"
                 android:textSize="16sp" />
 
             <Button
@@ -423,213 +274,199 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="0dp"
                 android:layout_weight="1"
-                android:onClick="clickReciprocal"
                 android:text="@string/reciprocal"
+                android:onClick="onClick"
                 android:textSize="16sp" />
 
             <Button
-                android:id="@+id/fracMode"
+                android:id="@+id/frac_mode"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_gravity="bottom"
-                android:layout_marginRight="0dp"
                 android:layout_weight="1"
-                android:onClick="clickFracMode"
                 android:text="@string/radix"
+                android:onClick="onClick"
                 android:textSize="15sp" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/numRow2"
+            android:id="@+id/num_row1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/sevenButton"
+                android:id="@+id/seven_button"
                 style="@style/button3"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:onClick="clickSeven"
                 android:text="@string/seven"
+                android:onClick="onClick"
                 android:textSize="30sp" />
 
             <Button
-                android:id="@+id/eightButton"
+                android:id="@+id/eight_button"
                 style="@style/button3"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="0dp"
                 android:layout_weight="1"
-                android:onClick="clickEight"
                 android:text="@string/eight"
+                android:onClick="onClick"
                 android:textSize="30sp" />
 
             <Button
-                android:id="@+id/nineButton"
+                android:id="@+id/nine_button"
                 style="@style/button3"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="0dp"
                 android:layout_weight="1"
-                android:onClick="clickNine"
                 android:text="@string/nine"
+                android:onClick="onClick"
                 android:textSize="30sp" />
 
             <Button
-                android:id="@+id/openBracketButton"
+                android:id="@+id/open_bracket_button"
                 style="@style/button4"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="0dp"
                 android:layout_weight="1"
-                android:onClick="clickOpenBracket"
-                android:text="@string/openBracket"
+                android:text="@string/open_bracket"
+                android:onClick="onClick"
                 android:textSize="25sp" />
 
             <Button
-                android:id="@+id/closedBracketButton"
+                android:id="@+id/closed_bracket_button"
                 style="@style/button4"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="0dp"
                 android:layout_weight="1"
-                android:onClick="clickCloseBracket"
-                android:text="@string/closedBracket"
+                android:text="@string/closed_bracket"
+                android:onClick="onClick"
                 android:textSize="25sp" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/numRow3"
+            android:id="@+id/num_row3"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/fourButton"
+                android:id="@+id/four_button"
                 style="@style/button3"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:onClick="clickFour"
                 android:text="@string/four"
+                android:onClick="onClick"
                 android:textSize="30sp" />
 
             <Button
-                android:id="@+id/fiveButton"
+                android:id="@+id/five_button"
                 style="@style/button3"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="0dp"
                 android:layout_weight="1"
-                android:onClick="clickFive"
                 android:text="@string/five"
+                android:onClick="onClick"
                 android:textSize="30sp" />
 
             <Button
-                android:id="@+id/sixButton"
+                android:id="@+id/six_button"
                 style="@style/button3"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="0dp"
                 android:layout_weight="1"
-                android:onClick="clickSix"
                 android:text="@string/six"
+                android:onClick="onClick"
                 android:textSize="30sp" />
 
             <Button
-                android:id="@+id/multiplyButton"
+                android:id="@+id/multiply_button"
                 style="@style/button4"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="0dp"
                 android:layout_weight="1"
-                android:onClick="clickMultiply"
                 android:text="@string/multiply"
+                android:onClick="onClick"
                 android:textSize="30sp" />
 
             <Button
-                android:id="@+id/divideButton"
+                android:id="@+id/divide_button"
                 style="@style/button4"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="0dp"
                 android:layout_weight="1"
-                android:onClick="clickDivide"
                 android:text="@string/divide"
+                android:onClick="onClick"
                 android:textSize="30sp" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/numRow4"
+            android:id="@+id/num_row4"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/oneButton"
+                android:id="@+id/one_button"
                 style="@style/button3"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:onClick="clickOne"
                 android:text="@string/one"
+                android:onClick="onClick"
                 android:textSize="30sp" />
 
             <Button
-                android:id="@+id/twoButton"
+                android:id="@+id/two_button"
                 style="@style/button3"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="0dp"
                 android:layout_weight="1"
-                android:onClick="clickTwo"
                 android:text="@string/two"
+                android:onClick="onClick"
                 android:textSize="30sp" />
 
             <Button
-                android:id="@+id/threeButton"
+                android:id="@+id/three_button"
                 style="@style/button3"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="0dp"
                 android:layout_weight="1"
-                android:onClick="clickThree"
                 android:text="@string/three"
+                android:onClick="onClick"
                 android:textSize="30sp" />
 
             <Button
-                android:id="@+id/addButton"
+                android:id="@+id/add_button"
                 style="@style/button4"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="0dp"
                 android:layout_weight="1"
-                android:onClick="clickAdd"
                 android:text="@string/plus"
+                android:onClick="onClick"
                 android:textSize="30sp" />
 
             <Button
-                android:id="@+id/subtractButton"
+                android:id="@+id/subtract_button"
                 style="@style/button4"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="0dp"
                 android:layout_weight="1"
-                android:onClick="clickSubtract"
                 android:text="@string/minus"
+                android:onClick="onClick"
                 android:textSize="30sp" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/numRow5"
+            android:id="@+id/num_row5"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
@@ -638,106 +475,43 @@
             android:weightSum="5">
 
             <Button
-                android:id="@+id/zeroButton"
+                android:id="@+id/zero_button"
                 style="@style/button3"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:onClick="clickZero"
                 android:text="@string/zero"
+                android:onClick="onClick"
                 android:textSize="30sp" />
 
             <Button
-                android:id="@+id/decimalButton"
+                android:id="@+id/decimal_button"
                 style="@style/button4"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="0dp"
                 android:layout_weight="1"
-                android:onClick="clickDecimal"
                 android:text="@string/decimal"
+                android:onClick="onClick"
                 android:textSize="30sp" />
 
             <Button
-                android:id="@+id/negativeButton"
+                android:id="@+id/negative_button"
                 style="@style/button4"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="0dp"
                 android:layout_weight="1"
-                android:onClick="clickNegative"
                 android:text="@string/plusminus"
+                android:onClick="onClick"
                 android:textSize="30sp" />
 
             <Button
-                android:id="@+id/equalsButton"
+                android:id="@+id/equals_button"
                 style="@style/button4"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="2"
-                android:onClick="clickEquals"
                 android:text="@string/equals"
+                android:onClick="onClick"
                 android:textSize="30sp" />
         </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/modes"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/basicButton"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:onClick="clickBasic"
-                android:text="@string/basic"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/advancedButton"
-                style="@style/button4"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:text="@string/advanced"
-                android:textSize="12sp" />
-
-            <Button
-                android:id="@+id/functionButton"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginRight="0dp"
-                android:layout_weight="1"
-                android:onClick="clickFunction"
-                android:text="@string/function"
-                android:textSize="14sp" />
-
-            <Button
-                android:id="@+id/vectorButton"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_marginRight="0dp"
-                android:layout_weight="1"
-                android:onClick="clickVector"
-                android:text="@string/vector"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/matrixButton"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:onClick="clickMatrix"
-                android:text="@string/matrix"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-    </LinearLayout>
 </LinearLayout>

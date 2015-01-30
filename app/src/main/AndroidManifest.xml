@@ -24,35 +24,14 @@
 
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".Basic"
-            android:label="@string/title_activity_basic"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".Advanced"
-            android:label="@string/title_activity_advanced"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".FunctionMode"
-            android:label="@string/title_activity_graphing"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".VectorMode"
-            android:label="@string/title_activity_vector"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name=".MatrixMode"
-            android:label="@string/title_activity_matrix_mode"
-            android:screenOrientation="portrait" />
 
         <activity
             android:name="com.mopub.mobileads.MoPubActivity"

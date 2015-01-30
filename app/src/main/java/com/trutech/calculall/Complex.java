@@ -4,8 +4,8 @@ package com.trutech.calculall;
 /**
  * Object which represents a complex number
  *
- * @version 0.3.0
- * @author ejaaz
+ * @version Alpha 2.0
+ * @author Ejaaz Merali
  */
 @SuppressWarnings("unused")
 public class Complex {
