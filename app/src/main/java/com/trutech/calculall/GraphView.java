@@ -11,13 +11,12 @@ import android.view.View;
 import android.widget.PopupWindow;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
- * A Custom View that will be shown when graphing.
+ * A custom view that will show the graph of a function.
  *
- * @author Alston Lin
- * @version 0.9.0
+ * @author Alston Lin, Jason Fok
+ * @version Alpha 2.0
  */
 public class GraphView extends View {
 
@@ -155,7 +154,7 @@ public class GraphView extends View {
                     endX = (endX - lowerX) * xMultiplier;
                     startY = (startY - lowerY) * yMultiplier;
                     endY = (endY - lowerY) * yMultiplier;
-                    canvas.drawLine(startX.floatValue(), height - startY.floatValue(), endX.floatValue(), (float)(height - endY), blackPaint);
+                    canvas.drawLine(startX.floatValue(), height - startY.floatValue(), endX.floatValue(), (float) (height - endY), blackPaint);
                 } else {
                     slopeIsPositive = NULL;
                 }
@@ -205,9 +204,9 @@ public class GraphView extends View {
      */
     private void drawAxis(Canvas canvas) {
         //X axis
-        canvas.drawLine(0, height - (float)originY, width, height - (float)originY, redPaint);
+        canvas.drawLine(0, height - (float) originY, width, height - (float) originY, redPaint);
         //Y axis
-        canvas.drawLine((float)originX, 0, (float)originX, height, redPaint);
+        canvas.drawLine((float) originX, 0, (float) originX, height, redPaint);
     }
 
     /**

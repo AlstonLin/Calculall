@@ -5,6 +5,13 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 
+/**
+ * A mode that will enable the user to take a picture of a math problem, then
+ * solve it. Not yet implemented.
+ *
+ * @author Alston Lin
+ * @version Alpha 2.0
+ */
 public class OCRMode extends Activity {
 
     private Bitmap image;

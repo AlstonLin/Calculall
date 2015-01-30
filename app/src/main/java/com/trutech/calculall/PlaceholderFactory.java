@@ -3,8 +3,8 @@ package com.trutech.calculall;
 /**
  * Statically create Placeholders through anonymous classes.
  *
- * @author Alston
- * @version 0.10.0
+ * @author Alston Lin
+ * @version Alpha 2.0
  */
 public class PlaceholderFactory {
 

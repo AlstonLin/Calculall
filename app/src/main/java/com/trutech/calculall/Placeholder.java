@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 /**
  * Tokens that have no function at all, simply used to mark a point and add a visual.
+ *
+ * @author Alston Lin
+ * @version Alpha 2.0
  */
 public class Placeholder extends Token implements Serializable {
 

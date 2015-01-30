@@ -3,7 +3,8 @@ package com.trutech.calculall;
 /**
  * Contains static methods that will create Operator pieces.
  *
- * @version 0.4.0
+ * @author Alston Lin, Ejaaz Merali
+ * @version Alpha 2.0
  */
 public class OperatorFactory {
 

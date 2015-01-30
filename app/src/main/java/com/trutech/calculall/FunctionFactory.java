@@ -5,8 +5,8 @@ import org.apache.commons.math3.special.Erf;
 /**
  * Contains static methods that will create function pieces.
  *
- * @version Alpha 2.0
  * @author Ejaaz Merali
+ * @version Alpha 2.0
  */
 
 public class FunctionFactory {
@@ -112,6 +112,7 @@ public class FunctionFactory {
     }
 
     public static Function makeASinD() { //Result will be in degrees
+        //TODO: MAKE IT SIN-1
         return new Function("arcsin", Function.ARCSIN) {
             @Override
             public double perform(double input) {
@@ -390,24 +391,6 @@ public class FunctionFactory {
         };
     }
 
-    public static Function makeFloor() {
-        return new Function("floor", Function.FLOOR) {
-            @Override
-            public double perform(double input) {
-                return Math.floor(input);
-            }
-        };
-    }
-
-    public static Function makeCeiling() {
-        return new Function("ceiling", Function.CEILING) {
-            @Override
-            public double perform(double input) {
-                return Math.ceil(input);
-            }
-        };
-    }
-
     public static Function makeLog_10() {
         return new Function("log", Function.LOG10) {
             @Override
@@ -448,14 +431,6 @@ public class FunctionFactory {
         };
     }
 
-    public static Function makeExp() {
-        return new Function("e^", Function.EXP) {
-            @Override
-            public double perform(double input) {
-                return Math.exp(input);
-            }
-        };
-    }
 
     public static Function makeSqrt() {
         return new Function("√", Function.SQRT) {

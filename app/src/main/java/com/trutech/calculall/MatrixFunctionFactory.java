@@ -3,7 +3,10 @@ package com.trutech.calculall;
 import java.util.ArrayList;
 
 /**
- * Created by Keith on 2014-12-22.
+ * Contains a static Factory to create Functions for Matrix Mode.
+ *
+ * @author Ejaaz Merali, Keith Wong
+ * @version Alpha 2.0
  */
 public class MatrixFunctionFactory {
 

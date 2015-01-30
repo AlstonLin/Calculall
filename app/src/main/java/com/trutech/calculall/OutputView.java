@@ -14,7 +14,9 @@ import java.util.Stack;
 
 /**
  * Modified DisplayView to display outputs.
- * Created by Alston on 11/28/2014.
+ *
+ * @author Alston Lin
+ * @version Alpha 2.0
  */
 public class OutputView extends View {
 

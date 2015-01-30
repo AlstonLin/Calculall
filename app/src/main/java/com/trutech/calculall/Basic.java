@@ -1,21 +1,9 @@
 package com.trutech.calculall;
 
-import android.app.Activity;
+
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.Button;
-import android.widget.ScrollView;
 import android.widget.Toast;
-
-import com.mopub.mobileads.MoPubErrorCode;
-import com.mopub.mobileads.MoPubInterstitial;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -24,15 +12,14 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * The activity for the basic calculator mode. The basic mode will only be able to
  * perform the four operations (add, subtract, multiply and divide) including brackets.
  * This class contains all the back-end of the Basic Mode.
  *
- * @version Alpha 2.0
  * @author Alston Lin
+ * @version Alpha 2.0
  */
 public class Basic implements View.OnClickListener {
 
@@ -51,15 +38,16 @@ public class Basic implements View.OnClickListener {
     /**
      * Makes sure that an instance of Basic cannot be created from outside the class.
      */
-    protected Basic(){
+    protected Basic() {
         super();
     }
 
     /**
      * Allows for the Singleton pattern so there would be only one instance.
+     *
      * @return The singleton instance
      */
-    public static Basic getInstance(){
+    public static Basic getInstance() {
         return INSTANCE;
     }
 
@@ -68,7 +56,7 @@ public class Basic implements View.OnClickListener {
      *
      * @param activity The running activity
      */
-    public void setActivity(MainActivity activity){
+    public void setActivity(MainActivity activity) {
         this.activity = activity;
         display = activity.getDisplay();
     }
@@ -80,7 +68,7 @@ public class Basic implements View.OnClickListener {
      */
     @Override
     public void onClick(View v) {
-        switch(v.getId()){
+        switch (v.getId()) {
             case R.id.one_button:
                 clickOne();
                 break;
@@ -157,7 +145,6 @@ public class Basic implements View.OnClickListener {
 
     /**
      * When the user presses the 2 Button.
-
      */
     public void clickTwo() {
         tokens.add(display.getRealCursorIndex(), DigitFactory.makeTwo());

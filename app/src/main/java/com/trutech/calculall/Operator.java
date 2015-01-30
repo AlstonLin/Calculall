@@ -6,14 +6,15 @@ import java.io.Serializable;
 /**
  * Receives input from the digits surrounding the operation piece and results in a new number.
  *
- * @version 0.4.0
+ * @author Alston Lin, Ejaaz Merali
+ * @version Alpha 2.0
  */
 public abstract class Operator extends Token implements Serializable {
 
     public static final int ADD = 1, SUBTRACT = 2, MULTIPLY = 3, DIVIDE = 4, EXPONENT = 5, PERMUTATION = 6,
             COMBINATION = 7, FACTORIAL = 8, VARROOT = 9, FRACTION = 10;
     private int type;
-        private int precedence;
+    private int precedence;
     private boolean leftAssociative, commutative, anticommutative, associative;
 
     /**

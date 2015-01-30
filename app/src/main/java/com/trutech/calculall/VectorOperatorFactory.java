@@ -1,7 +1,10 @@
 package com.trutech.calculall;
 
 /**
- * Created by Alston on 1/13/2015.
+ * Contains static factory methods of Functions used by Vectors.
+ *
+ * @version Alpha 2.0
+ * @author Alston Lin
  */
 public class VectorOperatorFactory {
 
