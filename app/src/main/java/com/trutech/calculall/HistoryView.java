@@ -6,7 +6,9 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.View;
+import android.view.WindowManager;
 
 import java.util.ArrayList;
 import java.util.Stack;
@@ -16,11 +18,12 @@ import java.util.Stack;
  */
 public class HistoryView extends View {
     //CONSTANTS
+    private final float ENTRY_PADDING;
     private final float TEXT_HEIGHT;
-    private final float SMALL_HEIGHT;
-    private final float Y_PADDING_BETWEEN_LINES;
     private final float SUPERSCRIPT_Y_OFFSET;
     private final float FRAC_PADDING;
+    private final float MATRIX_PADDING;
+    private final int backgroundColor;
     private final int FONT_SIZE = 96;
     private final float X_PADDING; //The padding at the start and end of the display (x)
     private ArrayList<Object[]> history;
@@ -32,34 +35,34 @@ public class HistoryView extends View {
 
     public HistoryView(Context context, AttributeSet attr) {
         super(context, attr);
-        init();
-        //Sets constant values
-        //Calculates the height of the texts
-        Rect textRect = new Rect();
-        Rect smallRect = new Rect();
-        textPaint.getTextBounds("1", 0, 1, textRect);
-        TEXT_HEIGHT = textRect.height() * 1.25f;
-        SMALL_HEIGHT = smallRect.height();
-        history = new ArrayList<Object[]>();
-        X_PADDING = TEXT_HEIGHT / 3;
-        Y_PADDING_BETWEEN_LINES = TEXT_HEIGHT;
-        SUPERSCRIPT_Y_OFFSET = TEXT_HEIGHT / 2;
-        FRAC_PADDING = TEXT_HEIGHT / 8;
-    }
-
-    /**
-     * Common variable assignments for all the constructors.
-     */
-    private void init() {
+        TypedValue typedValue1 = new TypedValue();
+        TypedValue typedValue2 = new TypedValue();
+        context.getTheme().resolveAttribute(R.attr.displayColor, typedValue1, true);
+        int displayColor = typedValue1.data;
+        context.getTheme().resolveAttribute(android.R.attr.colorBackground, typedValue2, true);
+        backgroundColor = typedValue2.data;
         //Setup the paints
         textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        textPaint.setColor(Color.parseColor("#F64B55"));
+        textPaint.setColor(displayColor);
         textPaint.setTextSize(FONT_SIZE);
 
         fracPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        fracPaint.setColor(Color.parseColor("#F64B55"));
+        fracPaint.setColor(displayColor);
         fracPaint.setTextSize(FONT_SIZE);
         fracPaint.setStrokeWidth(10);
+
+        //Sets constant values
+        //Calculates the height of the texts
+        Rect textRect = new Rect();
+        textPaint.getTextBounds("1", 0, 1, textRect);
+        TEXT_HEIGHT = textRect.height() * 1.25f;
+
+        X_PADDING = TEXT_HEIGHT / 3;
+        //LINE_HEIGHT_NORMAL = TEXT_HEIGHT;
+        FRAC_PADDING = TEXT_HEIGHT / 8;
+        SUPERSCRIPT_Y_OFFSET = TEXT_HEIGHT / 2;
+        ENTRY_PADDING = TEXT_HEIGHT;
+        MATRIX_PADDING = textPaint.measureText("  ");
         setWillNotDraw(false);
     }
 
@@ -72,15 +75,22 @@ public class HistoryView extends View {
     @Override
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        //Clears canvas
+        canvas.drawColor(backgroundColor);
         heights.clear();
         float lastHeight = 0;
-        for (Object[] element : history) {
-            ArrayList<Token> input = (ArrayList<Token>) element[0];
-            ArrayList<Token> output = (ArrayList<Token>) element[1];
+        if (history == null){
+            return;
+        }
+        for (int i = history.size() - 1; i >= 0; i--) {
+            Object[] elements = history.get(i);
+            ArrayList<Token> input = (ArrayList<Token>) elements[0];
+            ArrayList<Token> output = (ArrayList<Token>) elements[1];
             lastHeight = drawExpression(input, canvas, lastHeight);
             lastHeight = drawExpression(output, canvas, lastHeight);
-            if (lastHeight + calculateMaxY(output) > maxY) {
-                maxY = calculateMaxY(output) + lastHeight;
+            lastHeight += ENTRY_PADDING;
+            if (lastHeight > maxY) {
+                maxY = lastHeight;
             }
         }
     }
@@ -104,19 +114,16 @@ public class HistoryView extends View {
      */
     public float drawExpression(ArrayList<Token> expression, Canvas canvas, float offset) {
         float maxY = offset;
+        heights.clear();
 
-        ArrayList<Float> drawX = calculateDrawX(expression);
-        drawX = centerFractions(expression, drawX);
-
-        if (drawX.size() > 0) {
-            float maxX = drawX.get(drawX.size() - 1);
-            if (maxX > this.maxX) {
-                this.maxX = maxX;
-            }
+        ArrayList<Float> drawX = calculateDrawX(expression); //Stores the width of each counted symbol
+        centerFractions(expression, drawX);
+        if (drawX.size() > 1) {
+            maxX = drawX.get(drawX.size() - 1);
         }
 
         //Counter and state variables
-        final float INITIAL_MODIFIER = getMaxFracSize(expression) == 1 ? getHeight(expression, true) : getHeight(expression, true) / 2f;
+        float INITIAL_MODIFIER = -getMostNeg(expression) + offset + TEXT_HEIGHT;
         float yModifier = INITIAL_MODIFIER;
         //float scriptHeightMultiplier = 0; //Height on the superscript level
         for (int i = 0; i < expression.size(); i++) {
@@ -141,7 +148,7 @@ public class HistoryView extends View {
                             j++;
                         }
                         exponent.remove(exponent.size() - 1); //Removes the SUPERSCRIPT_CLOSE Bracket
-                        yModifier -= SUPERSCRIPT_Y_OFFSET + (getMaxFracSize(exponent) == 1 ? 0 : getHeight(exponent, false) / 2);
+                        yModifier -= SUPERSCRIPT_Y_OFFSET + (getMaxLinesHeight(exponent) == 1 ? 0 : getHeight(exponent, false) / 2);
                         break;
                     }
                     case Bracket.SUPERSCRIPT_CLOSE: {
@@ -175,7 +182,7 @@ public class HistoryView extends View {
                         fraction.addAll(getDenominator(expression, j)); //Adds the entire denom
                         fraction.add(BracketFactory.makeDenomClose());
 
-                        if (getMaxFracSize(num) == 1) {
+                        if (getMaxLinesHeight(num) == 1) {
                             yModifier += -getHeight(fraction, true) / 2 + getHeight(num, true);
                         } else {
                             yModifier += -getHeight(fraction, true) / 2 + getHeight(num, true) / 2;
@@ -184,7 +191,7 @@ public class HistoryView extends View {
                     }
                     case Bracket.DENOM_OPEN: {
                         ArrayList<Token> denom = getDenominator(expression, i - 1);
-                        if (getMaxFracSize(denom) == 1) {
+                        if (getMaxLinesHeight(denom) == 1) {
                             yModifier += getHeight(denom, true);
                         } else {
                             yModifier += getHeight(denom, true) / 2;
@@ -242,12 +249,45 @@ public class HistoryView extends View {
 
             //Calculates the x and y position of the draw position (modified later)
             float x = drawX.get(i);
-            float y = yModifier + offset;
-            heights.add(i, yModifier);
+            float y = yModifier;
+            heights.add(i, y);
 
             //Draws the text
-            canvas.drawText(token.getSymbol(), x, y, paint);
+            if (token instanceof Matrix) {
+                ArrayList<Token>[][] entries = ((Matrix) token).getEntries();
+                y -= (entries.length - 1) * TEXT_HEIGHT; //Starts at the top
+                //Calculates at what x value to start drawing each column
+                float[] columnX = new float[entries[0].length + 1];
+                columnX[0] = x;
+                for (int j = 1; j < columnX.length; j++) {
+                    float maxWidth = 0;
+                    for (int k = 0; k < entries.length; k++) {
+                        float width = paint.measureText(Utility.printExpression(entries[k][j - 1]));
+                        if (width > maxWidth) {
+                            maxWidth = width;
+                        }
+                    }
+                    columnX[j] = columnX[j - 1] + maxWidth;
+                }
 
+                //Draws all the Matrix entries
+                for (int j = 0; j < entries.length; j++) {
+                    for (int k = 0; k < entries[j].length; k++) {
+                        String str = Utility.printExpression(entries[j][k]);
+                        //Centers the text (determines what x value to print it at
+                        float currentWidth = paint.measureText(str);
+                        float targetWidth = columnX[k + 1] - columnX[k];
+                        float padding = (targetWidth - currentWidth) / 2; //Padding on each side
+                        float drawMatrixX = columnX[k] + k * MATRIX_PADDING;
+                        drawMatrixX += padding;
+                        canvas.drawText(str, drawMatrixX, y, paint);
+                    }
+                    y += TEXT_HEIGHT;
+                }
+                y -= TEXT_HEIGHT; //Undeos the last iteration
+            } else {
+                canvas.drawText(token.getSymbol(), x, y, paint);
+            }
             //Updates maxY
             if (y > maxY) {
                 maxY = y;
@@ -269,8 +309,154 @@ public class HistoryView extends View {
                 }
                 canvas.drawLine(x, y + FRAC_PADDING, drawX.get(j), y + FRAC_PADDING, fracPaint);
             }
+
         }
         return maxY;
+    }
+
+    /**
+     * Determines what would be the most negative pixel drawn, assuming the expression that drawing at zero.
+     *
+     * @param expression The expression to draw
+     * @return The most negative y coordinate drawn on
+     */
+    private float getMostNeg(ArrayList<Token> expression) {
+        float mostNeg = Float.POSITIVE_INFINITY;
+        float yModifier = 0;
+        for (int i = 0; i < expression.size(); i++) {
+            Token token = expression.get(i);
+            if (token instanceof Bracket) {
+                switch (((Bracket) token).getType()) {
+                    case Bracket.SUPERSCRIPT_OPEN: {
+                        //Extract the exponent expression
+                        ArrayList<Token> exponent = new ArrayList<Token>();
+                        int j = i + 1;
+                        int scriptCount = 1;
+                        while (scriptCount != 0) {
+                            Token t = expression.get(j);
+                            if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.SUPERSCRIPT_OPEN) {
+                                scriptCount++;
+                            } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.SUPERSCRIPT_CLOSE) {
+                                scriptCount--;
+                            }
+                            exponent.add(t);
+                            j++;
+                        }
+                        exponent.remove(exponent.size() - 1); //Removes the SUPERSCRIPT_CLOSE Bracket
+                        yModifier -= SUPERSCRIPT_Y_OFFSET + (getMaxLinesHeight(exponent) == 1 ? 0 : getHeight(exponent, false) / 2);
+                        break;
+                    }
+                    case Bracket.SUPERSCRIPT_CLOSE: {
+                        yModifier += SUPERSCRIPT_Y_OFFSET;
+                        break;
+                    }
+                    case Bracket.NUM_OPEN: {
+                        int j = i + 1;
+                        ArrayList<Token> num = new ArrayList<Token>();
+                        int bracketCount = 1;
+                        while (bracketCount != 0) {
+                            Token t = expression.get(j);
+                            if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.NUM_OPEN) {
+                                bracketCount++;
+                            } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.NUM_CLOSE) {
+                                bracketCount--;
+                            }
+                            num.add(t);
+
+                            j++;
+                        }
+                        num.remove(num.size() - 1); //Removes the NUM_CLOSE Bracket
+
+                        //Generates an expression containing the fraction
+                        ArrayList<Token> fraction = new ArrayList<Token>();
+                        fraction.add(BracketFactory.makeNumOpen());
+                        fraction.addAll(num);
+                        fraction.add(expression.get(j - 1)); //NUM_CLOSE Bracket
+                        fraction.add(expression.get(j)); //FRACTION Operator
+                        fraction.add(BracketFactory.makeDenomOpen());
+                        fraction.addAll(getDenominator(expression, j)); //Adds the entire denom
+                        fraction.add(BracketFactory.makeDenomClose());
+
+                        if (getMaxLinesHeight(num) == 1) {
+                            yModifier += -getHeight(fraction, true) / 2 + getHeight(num, true);
+                        } else {
+                            yModifier += -getHeight(fraction, true) / 2 + getHeight(num, true) / 2;
+                        }
+                        break;
+                    }
+                    case Bracket.DENOM_OPEN: {
+                        ArrayList<Token> denom = getDenominator(expression, i - 1);
+                        if (getMaxLinesHeight(denom) == 1) {
+                            yModifier += getHeight(denom, true);
+                        } else {
+                            yModifier += getHeight(denom, true) / 2;
+                        }
+                        break;
+                    }
+                    case Bracket.DENOM_CLOSE: {
+                        int bracketCount = 1;
+                        int j = i - 1;
+                        while (bracketCount > 0) {
+                            Token t = expression.get(j);
+                            if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.DENOM_OPEN) {
+                                bracketCount--;
+                            } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.DENOM_CLOSE) {
+                                bracketCount++;
+                            }
+                            j--;
+                        }
+
+                        //Now j is at the index of the fraction. Looking for the height of the NUM_OPEN bracket
+                        bracketCount = 1;
+                        j -= 2;
+                        while (bracketCount > 0) {
+                            Token t = expression.get(j);
+                            if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.NUM_OPEN) {
+                                bracketCount--;
+                            } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.NUM_CLOSE) {
+                                bracketCount++;
+                            }
+                            j--;
+                        }
+
+                        //Changes height to the height of the Token before the NUM_OPEN
+                        if (j >= 0) {
+                            yModifier = heights.get(j);
+                        } else { //Very first token; cannot check token before it
+                            yModifier = 0;
+                        }
+                        break;
+                    }
+                }
+            } else if (token instanceof Operator && ((Operator) token).getType() == Operator.FRACTION) {
+
+                //Finds the max height in the numerator
+                ArrayList<Token> numerator = getNumerator(expression, i);
+                float maxHeight = Float.NEGATIVE_INFINITY;
+                for (Token t : numerator) {
+                    float height = heights.get(expression.indexOf(t));
+                    if (height > maxHeight) {
+                        maxHeight = height;
+                    }
+                }
+                yModifier = maxHeight;
+            }
+            if (token instanceof Matrix){
+                float negY = -TEXT_HEIGHT * (((Matrix)token).getNumOfRows() - 1) + yModifier;
+                heights.add(negY);
+                if (negY < mostNeg) {
+                    mostNeg = negY;
+                }
+            }else {
+                //Sets the most neg if it is lower than current
+                if (yModifier < mostNeg) {
+                    mostNeg = yModifier;
+                }
+                heights.add(yModifier);
+            }
+        }
+        heights.clear();
+        return mostNeg;
     }
 
     /**
@@ -340,6 +526,12 @@ public class HistoryView extends View {
                     maxHeight = temp;
                 }
                 temp = 0;
+            } else if (t instanceof Matrix){
+                temp = TEXT_HEIGHT * (((Matrix)t).getNumOfRows() - 1);
+                if (temp > maxHeight) {
+                    maxHeight = temp;
+                }
+                temp = 0;
             }
         }
         return maxHeight;
@@ -379,31 +571,12 @@ public class HistoryView extends View {
     }
 
     /**
-     * Determines the width of a given expression from the drawX list.
-     *
-     * @param start      The start index on the drawX
-     * @param end        The end index on the drawX
-     * @param expression The expression to center
-     * @param drawX      The uncentered drawing x coordinates
-     * @return The width of the expression
-     */
-    private float getWidth(int start, int end, ArrayList<Token> expression, ArrayList<Float> drawX) {
-        //Counts to the END for the expression (last pixel drawn)
-        String symb = expression.get(end).getSymbol();
-        float[] widths = new float[symb.length()];
-        textPaint.getTextWidths(symb, widths);
-
-        return drawX.get(end) + sum(widths) - drawX.get(start);
-    }
-
-
-    /**
-     * Finds the max number of continued fractions (height) in a given expression
+     * Finds the max number of lines of text (vertically) there are in the expression
      *
      * @param expression The expression to find the height
      * @return The maximum height of a fraction in the given expression
      */
-    private int getMaxFracSize(ArrayList<Token> expression) {
+    private int getMaxLinesHeight(ArrayList<Token> expression) {
         int maxFracHeight = 1;
         int numBracketCount = 0;
         int denomBracketCount = 0;
@@ -436,6 +609,11 @@ public class HistoryView extends View {
                         denomBracketCount--;
                         break;
                 }
+            } else if (t instanceof Matrix){
+                int height = ((Matrix)t).getNumOfRows();
+                if (height > maxFracHeight){
+                    maxFracHeight = height;
+                }
             }
 
             if (numBracketCount == 0 && denomBracketCount == 0 && !inExponent) { //Cannot be in a numerator or denom or an exponent
@@ -443,7 +621,7 @@ public class HistoryView extends View {
                     ArrayList<Token> num = getNumerator(expression, i);
                     ArrayList<Token> denom = getDenominator(expression, i);
                     //And adds the height of both + 1
-                    int height = getMaxFracSize(num) + getMaxFracSize(denom);
+                    int height = getMaxLinesHeight(num) + getMaxLinesHeight(denom);
                     if (height > maxFracHeight) {
                         maxFracHeight = height;
                     }
@@ -451,6 +629,24 @@ public class HistoryView extends View {
             }
         }
         return maxFracHeight;
+    }
+
+    /**
+     * Determines the width of a given expression from the drawX list.
+     *
+     * @param start      The start index on the drawX
+     * @param end        The end index on the drawX
+     * @param expression The expression to center
+     * @param drawX      The uncentered drawing x coordinates
+     * @return The width of the expression
+     */
+    private float getWidth(int start, int end, ArrayList<Token> expression, ArrayList<Float> drawX) {
+        //Counts to the END for the expression (last pixel drawn)
+        String symb = expression.get(end).getSymbol();
+        float[] widths = new float[symb.length()];
+        textPaint.getTextWidths(symb, widths);
+
+        return drawX.get(end) + sum(widths) - drawX.get(start);
     }
 
     /**
@@ -657,23 +853,6 @@ public class HistoryView extends View {
     }
 
     /**
-     * Calculates the maximum height of the expression
-     *
-     * @param expression The expression the find
-     * @return The maximum Y value
-     */
-    private float calculateMaxY(ArrayList<Token> expression) {
-        final float maxHeight = getMaxFracHeight(expression) - 1;
-        final float yMaxFrac = Y_PADDING_BETWEEN_LINES * (maxHeight + 2);
-        final float yMaxScript = SMALL_HEIGHT * getMaxScriptLevel(expression) / 3;
-        float maxY = yMaxFrac + yMaxScript;
-        if (maxY > this.maxY) {
-            this.maxY = maxY;
-        }
-        return maxY;
-    }
-
-    /**
      * Finds the sum of the given array of widths
      *
      * @param widths The array to sum
@@ -729,9 +908,11 @@ public class HistoryView extends View {
      */
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        int parentWidth = MeasureSpec.getSize(widthMeasureSpec);
         Canvas canvas = new Canvas();
         this.draw(canvas); //Lazy way to calculate maxX and maxY
-        int width = (int) maxX + (int) TEXT_HEIGHT * 5;
+        int maxWidth = (int)(maxX + TEXT_HEIGHT * 5);
+        int width = maxWidth > parentWidth ? maxWidth : parentWidth;
         int height = (int) maxY;
         this.setMeasuredDimension(width, height);
     }

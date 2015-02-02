@@ -2,7 +2,12 @@ package com.trutech.calculall;
 
 
 import android.content.Context;
+import android.support.v4.app.Fragment;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import java.io.FileInputStream;
@@ -25,15 +30,16 @@ public class Basic implements View.OnClickListener {
 
 
     //CONSTANTS
-    public static final int HISTORY_SIZE = 10;
-    //CLASS CONSTANTS
-    private static final String FILENAME = "history_basic";
+    public static final int HISTORY_SIZE = 25;
     private static final Basic INSTANCE = new Basic();
     //PROTECTED VARIABLES
     protected ArrayList<Token> tokens = new ArrayList<Token>(); //Tokens shown on screen
     protected DisplayView display;
     protected MainActivity activity;
     protected boolean changedTokens = false;
+    protected String filename= "history_basic";
+    protected Fragment fragment;
+    protected PopupWindow historyWindow;
 
     /**
      * Makes sure that an instance of Basic cannot be created from outside the class.
@@ -59,6 +65,10 @@ public class Basic implements View.OnClickListener {
     public void setActivity(MainActivity activity) {
         this.activity = activity;
         display = activity.getDisplay();
+    }
+
+    public void setFragment(Fragment fragment){
+        this.fragment = fragment;
     }
 
     /**
@@ -126,13 +136,46 @@ public class Basic implements View.OnClickListener {
             case R.id.multiply_button:
                 clickMultiply();
                 break;
+            case R.id.history_button:
+                clickHistory();
+                break;
+            case R.id.settings_button:
+                break;
             case R.id.divide_button:
                 clickDivide();
+                break;
+            case R.id.exit_button:
+                clickExit();
                 break;
             default: //Button has not been handled!
                 throw new UnsupportedOperationException("A Button has not been handled!");
         }
         updateInput();
+    }
+
+    /**
+     * When the user clicks the Settings button.
+     */
+    public void clickSettings(){
+
+    }
+
+    /**
+     * When the user clicks the History button.
+     */
+    public void clickHistory(){
+        try {
+            openHistory(filename);
+        } catch (IOException | ClassNotFoundException e) {
+            Toast.makeText(activity, "Error saving to history", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    /**
+     * Exits the history view.
+     */
+    public void clickExit(){
+        historyWindow.dismiss();
     }
 
     /**
@@ -343,7 +386,7 @@ public class Basic implements View.OnClickListener {
             ArrayList<Token> list = new ArrayList<Token>();
             list.add(num);
             display.displayOutput(list);
-            saveEquation(tokens, list, FILENAME);
+            saveEquation(tokens, list, filename);
         } catch (Exception e) { //User did a mistake
             handleExceptions(e);
         }
@@ -430,12 +473,17 @@ public class Basic implements View.OnClickListener {
 
     /**
      * Opens the calculation history.
+     *
+     * @param filename The file name of the history file
      */
-    public void openHistory() throws IOException, ClassNotFoundException {
-        activity.setContentView(R.layout.history_view);
-        HistoryView hv = (HistoryView) activity.findViewById(R.id.history);
+    public void openHistory(String filename) throws IOException, ClassNotFoundException {
+        LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View layout = inflater.inflate(R.layout.history_view, null, false);
+        historyWindow = new PopupWindow(layout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
+        historyWindow.showAtLocation(activity.findViewById(R.id.frame), Gravity.CENTER, 0, 0);
+        HistoryView hv = (HistoryView) layout.findViewById(R.id.history);
         try {
-            FileInputStream stream = activity.openFileInput(FILENAME);
+            FileInputStream stream = activity.openFileInput(filename);
             ObjectInputStream objectStream = new ObjectInputStream(stream);
             hv.setHistory((ArrayList<Object[]>) objectStream.readObject());
         } catch (FileNotFoundException e) {
@@ -455,6 +503,7 @@ public class Basic implements View.OnClickListener {
         updatePlaceHolders();
         display.displayOutput(new ArrayList<Token>()); //Clears output
         display.displayInput(tokens);
+        activity.setShowAd(true);
     }
 
     /**

@@ -2,8 +2,10 @@ package com.trutech.calculall;
 
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ToggleButton;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -26,6 +28,10 @@ public class Advanced extends Basic {
     protected int angleMode = DEGREE;
     protected boolean hyperbolic = false, shift = false, mem = false;
     private int fracMode = DEC;
+
+    { //pseudo-constructor
+        filename = "history_advanced";
+    }
 
     /**
      * Allows for the Singleton pattern so there would be only one instance.
@@ -213,13 +219,10 @@ public class Advanced extends Basic {
     }
 
     public void clickFracMode() {
-        Button fracModeButton = (Button) activity.findViewById(R.id.frac_button);
         if (fracMode == DEC) {
             fracMode = FRAC;
-            fracModeButton.setText(activity.getString(R.string.imp_frac));
         } else if (fracMode == FRAC) {
             fracMode = DEC;
-            fracModeButton.setText(activity.getString(R.string.radix));
         }
         updateInput();
         clickEquals();

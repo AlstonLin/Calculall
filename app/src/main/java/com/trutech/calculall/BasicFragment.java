@@ -5,6 +5,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ToggleButton;
+
 import com.mopub.mobileads.MoPubErrorCode;
 import com.mopub.mobileads.MoPubInterstitial;
 
@@ -20,7 +23,6 @@ public class BasicFragment extends Fragment implements MoPubInterstitial.Interst
     private static final String AD_ID = "3ae32e9f72e2402cb01bbbaf1d6ba1f4";
     //PRIVATE VARIABLES
     private MoPubInterstitial interstitial;
-    private boolean adShown = false;
     protected MainActivity activity;
 
     public BasicFragment(){
@@ -38,6 +40,7 @@ public class BasicFragment extends Fragment implements MoPubInterstitial.Interst
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         activity = (MainActivity) getActivity();
+        Basic.getInstance().setFragment(this);
         return inflater.inflate(R.layout.activity_basic, container, false);
     }
 
@@ -47,7 +50,7 @@ public class BasicFragment extends Fragment implements MoPubInterstitial.Interst
     @Override
     public void onResume() {
         super.onResume();
-        if (!(interstitial != null && interstitial.isReady()) && !adShown && !((Object) this).getClass().getName().equals(CLASS_NAME)) {
+        if (!(interstitial != null && interstitial.isReady()) && ((MainActivity)getActivity()).isShowAd()) {
             Random random = new Random();
             if (random.nextInt(AD_RATE) == 0) {
                 // Create the interstitial.
@@ -74,7 +77,7 @@ public class BasicFragment extends Fragment implements MoPubInterstitial.Interst
     }
     @Override
     public void onInterstitialLoaded(MoPubInterstitial interstitial) {
-        adShown = true;
+        activity.setShowAd(false);
         if (interstitial.isReady()) {
             interstitial.show();
         }

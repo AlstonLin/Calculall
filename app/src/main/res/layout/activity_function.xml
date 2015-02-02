@@ -40,9 +40,42 @@
                 android:textOn="@string/hyp"
                 android:textSize="16sp" />
 
+            <ImageButton
+                android:id="@+id/settings_button"
+                style="?attr/buttonFunction"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_weight="1"
+                android:onClick="onClick"
+                android:scaleType="fitCenter"
+                android:src="@drawable/settings_white"
+                android:adjustViewBounds="true"
+                android:textSize="20sp" />
+
+
+            <ImageButton
+                android:id="@+id/history_button"
+                style="?attr/buttonFunction"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_weight="1"
+                android:onClick="onClick"
+                android:scaleType="fitCenter"
+                android:src="@drawable/history_white"
+                android:adjustViewBounds="true"
+                android:textSize="20sp" />
+
             <Button
                 android:id="@+id/graph"
-                style="?android:attr/buttonStyleSmall"
+                style="?attr/buttonSpecial"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -62,7 +95,7 @@
 
             <Button
                 android:id="@+id/var_x"
-                style="?android:attr/buttonStyleSmall"
+                style="?attr/buttonSpecial"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -74,7 +107,7 @@
 
             <com.trutech.calculall.MultiButton
                 android:id="@+id/square_button_function"
-                style="?android:attr/buttonStyleSmall"
+                style="?attr/buttonFunction"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -84,7 +117,7 @@
 
             <com.trutech.calculall.MultiButton
                 android:id="@+id/power_button"
-                style="?android:attr/buttonStyleSmall"
+                style="?attr/buttonFunction"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -93,7 +126,7 @@
 
             <com.trutech.calculall.MultiButton
                 android:id="@+id/sqrt_button"
-                style="?android:attr/buttonStyleSmall"
+                style="?attr/buttonFunction"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -102,7 +135,7 @@
                 android:textSize="16sp" />
             <com.trutech.calculall.MultiButton
                 android:id="@+id/log_button"
-                style="?android:attr/buttonStyleSmall"
+                style="?attr/buttonFunction"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -120,9 +153,27 @@
             android:layout_weight="2"
             android:orientation="horizontal">
 
+            <ImageButton
+                android:id="@+id/frac_button"
+                style="?attr/buttonFunction"
+                android:layout_width="0dp"
+                android:src="@drawable/frac_white"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="-7dp"
+                android:layout_marginRight="-7dp"
+                android:layout_weight="1"
+                android:onClick="onClick"
+                android:textSize="16sp" />
+
             <com.trutech.calculall.MultiButton
                 android:id="@+id/sin_button"
-                style="?android:attr/buttonStyleSmall"
+                style="?attr/buttonFunction"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -132,7 +183,7 @@
 
             <com.trutech.calculall.MultiButton
                 android:id="@+id/cos_button"
-                style="?android:attr/buttonStyleSmall"
+                style="?attr/buttonFunction"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -142,7 +193,7 @@
 
             <com.trutech.calculall.MultiButton
                 android:id="@+id/tan_button"
-                style="?android:attr/buttonStyleSmall"
+                style="?attr/buttonFunction"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -152,7 +203,7 @@
 
             <Button
                 android:id="@+id/pi_button"
-                style="?android:attr/buttonStyleSmall"
+                style="?attr/buttonFunction"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -162,7 +213,7 @@
 
             <Button
                 android:id="@+id/e_button"
-                style="?android:attr/buttonStyleSmall"
+                style="?attr/buttonFunction"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -183,7 +234,7 @@
 
             <Button
                 android:id="@+id/roots_button"
-                style="?android:attr/buttonStyleSmall"
+                style="?attr/buttonSpecial"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -193,7 +244,7 @@
 
             <Button
                 android:id="@+id/factor"
-                style="?android:attr/buttonStyleSmall"
+                style="?attr/buttonSpecial"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -204,7 +255,7 @@
 
             <Button
                 android:id="@+id/expand"
-                style="?android:attr/buttonStyleSmall"
+                style="?attr/buttonSpecial"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -215,7 +266,7 @@
 
             <Button
                 android:id="@+id/derivative_button"
-                style="?android:attr/buttonStyleSmall"
+                style="?attr/buttonSpecial"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -225,7 +276,7 @@
 
             <Button
                 android:id="@+id/integral_button"
-                style="?android:attr/buttonStyleSmall"
+                style="?attr/buttonSpecial"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -244,7 +295,7 @@
 
             <Button
                 android:id="@+id/seven_button"
-                style="@style/button3"
+                style="?buttonNum"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -254,7 +305,7 @@
 
             <Button
                 android:id="@+id/eight_button"
-                style="@style/button3"
+                style="?buttonNum"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -264,7 +315,7 @@
 
             <Button
                 android:id="@+id/nine_button"
-                style="@style/button3"
+                style="?buttonNum"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -274,7 +325,7 @@
 
             <Button
                 android:id="@+id/back_button"
-                style="@style/button4"
+                style="?attr/buttonOperator"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -284,7 +335,7 @@
 
             <Button
                 android:id="@+id/clear_button"
-                style="@style/button4"
+                style="?attr/buttonOperator"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -304,7 +355,7 @@
 
             <Button
                 android:id="@+id/four_button"
-                style="@style/button3"
+                style="?buttonNum"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -314,7 +365,7 @@
 
             <Button
                 android:id="@+id/five_button"
-                style="@style/button3"
+                style="?buttonNum"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -324,7 +375,7 @@
 
             <Button
                 android:id="@+id/six_button"
-                style="@style/button3"
+                style="?buttonNum"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -334,7 +385,7 @@
 
             <Button
                 android:id="@+id/open_bracket_button"
-                style="@style/button4"
+                style="?attr/buttonOperator"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -344,7 +395,7 @@
 
             <Button
                 android:id="@+id/closed_bracket_button"
-                style="@style/button4"
+                style="?attr/buttonOperator"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -364,7 +415,7 @@
 
             <Button
                 android:id="@+id/one_button"
-                style="@style/button3"
+                style="?buttonNum"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -374,7 +425,7 @@
 
             <Button
                 android:id="@+id/two_button"
-                style="@style/button3"
+                style="?buttonNum"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -384,7 +435,7 @@
 
             <Button
                 android:id="@+id/three_button"
-                style="@style/button3"
+                style="?buttonNum"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -394,7 +445,7 @@
 
             <Button
                 android:id="@+id/multiply_button"
-                style="@style/button4"
+                style="?attr/buttonOperator"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -404,7 +455,7 @@
 
             <Button
                 android:id="@+id/divide_button"
-                style="@style/button4"
+                style="?attr/buttonOperator"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -425,7 +476,7 @@
 
             <Button
                 android:id="@+id/zero_button"
-                style="@style/button3"
+                style="?buttonNum"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -435,7 +486,7 @@
 
             <Button
                 android:id="@+id/decimal_button"
-                style="@style/button4"
+                style="?attr/buttonOperator"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -445,7 +496,7 @@
 
             <Button
                 android:id="@+id/negative_button"
-                style="@style/button4"
+                style="?attr/buttonOperator"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -455,7 +506,7 @@
 
             <Button
                 android:id="@+id/add_button"
-                style="@style/button4"
+                style="?attr/buttonOperator"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -465,7 +516,7 @@
 
             <Button
                 android:id="@+id/subtract_button"
-                style="@style/button4"
+                style="?attr/buttonOperator"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"

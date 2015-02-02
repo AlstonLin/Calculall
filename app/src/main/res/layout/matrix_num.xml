@@ -54,7 +54,7 @@
 
         <Button
             android:id="@+id/seven_button"
-            style="@style/button3"
+            style="?buttonNum"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
@@ -64,7 +64,7 @@
 
         <Button
             android:id="@+id/eight_button"
-            style="@style/button3"
+            style="?buttonNum"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
@@ -74,7 +74,7 @@
 
         <Button
             android:id="@+id/nine_button"
-            style="@style/button3"
+            style="?buttonNum"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
@@ -92,7 +92,7 @@
 
         <Button
             android:id="@+id/four_button"
-            style="@style/button3"
+            style="?buttonNum"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
@@ -102,7 +102,7 @@
 
         <Button
             android:id="@+id/five_button"
-            style="@style/button3"
+            style="?buttonNum"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
@@ -112,7 +112,7 @@
 
         <Button
             android:id="@+id/six_button"
-            style="@style/button3"
+            style="?buttonNum"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
@@ -131,7 +131,7 @@
 
         <Button
             android:id="@+id/one_button"
-            style="@style/button3"
+            style="?buttonNum"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
@@ -141,7 +141,7 @@
 
         <Button
             android:id="@+id/two_button"
-            style="@style/button3"
+            style="?buttonNum"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
@@ -151,7 +151,7 @@
 
         <Button
             android:id="@+id/three_button"
-            style="@style/button3"
+            style="?buttonNum"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
@@ -169,7 +169,7 @@
 
         <Button
             android:id="@+id/zero_button"
-            style="@style/button3"
+            style="?buttonNum"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
@@ -179,7 +179,7 @@
 
         <Button
             android:id="@+id/decimal_button"
-            style="@style/button4"
+            style="?attr/buttonOperator"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
@@ -189,7 +189,7 @@
 
         <Button
             android:id="@+id/done_num_button"
-            style="@style/button4"
+            style="?attr/buttonOperator"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
