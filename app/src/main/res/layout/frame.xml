@@ -9,16 +9,16 @@
     android:weightSum="100">
 
     <LinearLayout
-        android:id="@+id/Container"
+        android:id="@+id/container"
         android:layout_width="fill_parent"
+        android:background="?android:colorBackground"
         android:layout_height="0dp"
-        android:background="#ff093e53"
         android:layout_weight="30"
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/leftScroll"
-            style="@style/button4"
+            android:id="@+id/left_scroll"
+            style="?attr/buttonOperator"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="5"
@@ -46,7 +46,7 @@
                     android:scrollbars="vertical" />
 
                 <HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:id="@+id/outputScroll"
+                    android:id="@+id/output_scroll"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:scrollbars="horizontal">
@@ -68,8 +68,8 @@
         </ScrollView>
 
         <Button
-            android:id="@+id/rightScroll"
-            style="@style/button4"
+            android:id="@+id/right_scroll"
+            style="?attr/buttonOperator"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="right"
@@ -95,53 +95,54 @@
         android:weightSum="5"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/basicButton"
-            style="@style/button4"
+        <ToggleButton
+            android:id="@+id/basic_button"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:onClick="clickBasic"
-            android:text="@string/basic"
+            android:checked="true"
+            android:textOn="@string/basic"
+            android:textOff="@string/basic"
             android:textSize="16sp" />
 
-        <Button
-            android:id="@+id/advancedButton"
-            style="?android:attr/buttonStyleSmall"
+        <ToggleButton
+            android:id="@+id/advanced_button"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:onClick="clickAdvanced"
-            android:text="@string/advanced"
+            android:textOn="@string/advanced"
+            android:textOff="@string/advanced"
             android:textSize="12sp" />
 
-        <Button
-            android:id="@+id/functionButton"
-            style="?android:attr/buttonStyleSmall"
+        <ToggleButton
+            android:id="@+id/function_button"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:onClick="clickFunction"
-            android:text="@string/function"
+            android:textOn="@string/function"
+            android:textOff="@string/function"
             android:textSize="14sp" />
 
-        <Button
-            android:id="@+id/vectorButton"
-            style="?android:attr/buttonStyleSmall"
+        <ToggleButton
+            android:id="@+id/vector_button"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:onClick="clickVector"
-            android:text="@string/vector"
+            android:textOn="@string/vector"
+            android:textOff="@string/vector"
             android:textSize="16sp" />
 
-        <Button
-            android:id="@+id/matrixButton"
-            style="?android:attr/buttonStyleSmall"
+        <ToggleButton
+            android:id="@+id/matrix_button"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:text="@string/matrix"
+            android:textOn="@string/matrix"
+            android:textOff="@string/matrix"
             android:onClick="clickMatrix"
             android:textSize="16sp" />
 

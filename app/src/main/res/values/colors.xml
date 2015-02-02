@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="backgroundDavid">#ff093e53</color>
+    <color name="backgroundAlston">#2E7D32</color>
+    <color name="displayTextAlston">#FFD54F</color>
+    <color name="displayTextDavid">#F64B55</color>
+</resources>

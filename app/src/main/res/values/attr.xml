@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="buttonOperator" format="reference" />
+    <attr name="buttonFunction" format="reference" />
+    <attr name="buttonNum" format="reference" />
+    <attr name="buttonSpecial" format="reference"/>
+    <attr name="toggle" format="reference"/>
+    <attr name="displayColor" format="reference"/>
+</resources>

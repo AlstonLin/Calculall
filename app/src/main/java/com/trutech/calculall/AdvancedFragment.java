@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ToggleButton;
 
 import java.util.ArrayList;
 
@@ -28,7 +29,22 @@ public class AdvancedFragment extends BasicFragment{
         expButton.setText(Html.fromHtml(getString(R.string.exponent)));
         if (recipButton != null) recipButton.setText(Html.fromHtml(getString(R.string.recip)));
         setupButtons(v);
+        Advanced.getInstance().setFragment(this);
         return v;
+    }
+
+    /**
+     * When the user switches to or away from this fragment.
+     *
+     * @param hidden If it is visible or not
+     */
+    public void onHiddenChanged(boolean hidden) {
+        ToggleButton b = (ToggleButton) activity.findViewById(R.id.advanced_button);
+        if (!hidden){
+            b.setChecked(true);
+        }else{
+            b.setChecked(false);
+        }
     }
 
     /**

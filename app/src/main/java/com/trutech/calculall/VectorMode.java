@@ -28,6 +28,9 @@ public class VectorMode extends Advanced {
     private int angleMode = 1;
     private static final Basic INSTANCE = new VectorMode();
 
+    { //pseudo-constructor
+        filename = "history_vector";
+    }
 
     /**
      * Allows for the Singleton pattern so there would be only one instance.

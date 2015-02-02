@@ -1,11 +1,13 @@
 package com.trutech.calculall;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -27,6 +29,7 @@ public class DisplayView extends View {
     private final int FONT_SIZE = 96;
     private final float X_PADDING; //The padding at the start and end of the display (x)
     private final float SUPERSCRIPT_Y_OFFSET;
+    private final float MATRIX_PADDING;
     private float FRAC_PADDING;
     private float startX = 0; //Tracks the starting x position at which the canvas will start drawing (allows side scrolling)
     private float maxX = 0; //Max start X that the user can scroll to
@@ -47,17 +50,20 @@ public class DisplayView extends View {
 
     public DisplayView(Context context, AttributeSet attr) {
         super(context, attr);
+        TypedValue typedValue = new TypedValue();
+        context.getTheme().resolveAttribute(R.attr.displayColor, typedValue, true);
+        int displayColor = typedValue.data;
         //Setup the paints
         textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        textPaint.setColor(Color.parseColor("#F64B55"));
+        textPaint.setColor(displayColor);
         textPaint.setTextSize(FONT_SIZE);
 
         cursorPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        cursorPaint.setColor(Color.parseColor("#F64B55"));
+        cursorPaint.setColor(displayColor);
         cursorPaint.setTextSize(FONT_SIZE);
 
         fracPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        fracPaint.setColor(Color.parseColor("#F64B55"));
+        fracPaint.setColor(displayColor);
         fracPaint.setTextSize(FONT_SIZE);
         fracPaint.setStrokeWidth(10);
 
@@ -72,6 +78,7 @@ public class DisplayView extends View {
         CURSOR_PADDING = TEXT_HEIGHT / 10;
         FRAC_PADDING = TEXT_HEIGHT / 8;
         SUPERSCRIPT_Y_OFFSET = TEXT_HEIGHT / 2;
+        MATRIX_PADDING = textPaint.measureText("  ");
         setWillNotDraw(false);
     }
 
@@ -282,21 +289,37 @@ public class DisplayView extends View {
 
             //Draws the text
             if (token instanceof Matrix){
-                float startX = x;
                 ArrayList<Token>[][] entries = ((Matrix)token).getEntries();
                 y -= (entries.length - 1) * TEXT_HEIGHT; //Starts at the top
+                //Calculates at what x value to start drawing each column
+                float[] columnX = new float[entries[0].length + 1];
+                columnX[0] = x;
+                for (int j = 1; j < columnX.length; j++) {
+                    float maxWidth = 0;
+                    for (int k = 0; k < entries.length; k++) {
+                        float width = paint.measureText(Utility.printExpression(entries[k][j - 1]));
+                        if (width > maxWidth){
+                            maxWidth = width;
+                        }
+                    }
+                    columnX[j] = columnX[j - 1] + maxWidth;
+                }
+
                 //Draws all the Matrix entries
                 for (int j = 0; j < entries.length; j++){
                     for (int k = 0; k < entries[j].length; k++){
-                        String str = Utility.printExpression(entries[j][k]) + " ";
-                        canvas.drawText(str, x, y, paint);
-                        float width = paint.measureText(str);
-                        x += width;
+                        String str = Utility.printExpression(entries[j][k]);
+                        //Centers the text (determines what x value to print it at
+                        float currentWidth = paint.measureText(str);
+                        float targetWidth = columnX[k + 1] - columnX[k];
+                        float padding = (targetWidth - currentWidth) / 2; //Padding on each side
+                        float drawX = columnX[k] + k * MATRIX_PADDING;
+                        drawX += padding;
+                        canvas.drawText(str, drawX, y, paint);
                     }
-                    x = startX;
                     y += TEXT_HEIGHT;
                 }
-                y -= TEXT_HEIGHT; //Undeos the last interation
+                y -= TEXT_HEIGHT; //Undeos the last iteration
             }else {
                 canvas.drawText(token.getSymbol(), x, y, paint);
             }
@@ -807,16 +830,16 @@ public class DisplayView extends View {
 
             if (token instanceof Matrix){
                 float maxX = 0;
-                float currentX = 0;
+                float currentX;
                 ArrayList<Token>[][] entries = ((Matrix)token).getEntries();
                 //Finds whats the largest x delta when drawing the matrix
                 for (int j = 0; j < entries.length; j++){
                     currentX = 0;
                     for (int k = 0; k < entries[j].length; k++){
-                        String str = Utility.printExpression(entries[j][k]) + " ";
+                        String str = Utility.printExpression(entries[j][k]);
                         float[] widths = new float[str.length()];
                         textPaint.getTextWidths(str, widths);
-                        float widthSum = sum(widths);
+                        float widthSum = sum(widths) + k * MATRIX_PADDING;
                         currentX += widthSum;
                     }
                     if (currentX > maxX){
@@ -932,7 +955,6 @@ public class DisplayView extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int parentWidth = MeasureSpec.getSize(widthMeasureSpec);
-        int parentHeight = MeasureSpec.getSize(heightMeasureSpec);
         WindowManager wm = (WindowManager) this.getContext().getSystemService(Context.WINDOW_SERVICE);
         Canvas canvas = new Canvas();
         this.draw(canvas); //Lazy way to calculate maxX and maxY

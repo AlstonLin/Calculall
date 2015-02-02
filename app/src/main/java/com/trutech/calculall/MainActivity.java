@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ScrollView;
+import android.widget.ToggleButton;
 
 /**
  * Entry point to the application as well as the only Activity. Sets
@@ -19,11 +20,12 @@ import android.widget.ScrollView;
  * @version Alpha 2.0
  * @author Alston Lin, David Liu
  */
-public class MainActivity extends FragmentActivity{
+public class MainActivity extends FragmentActivity implements ViewPager.OnPageChangeListener {
 
     //Fragment Objects
     private static final int NUM_PAGES = 5;
     private ViewPager mPager;
+    private boolean showAd = false;
     private android.support.v4.app.FragmentManager mg = getSupportFragmentManager();
     //Display Objects
     protected DisplayView display;
@@ -46,6 +48,7 @@ public class MainActivity extends FragmentActivity{
         mPager = (ViewPager) findViewById(R.id.pager);
         PagerAdapter mPagerAdapter = new ScreenSlidePagerAdapter(mg);
         mPager.setAdapter(mPagerAdapter);
+        mPager.setOnPageChangeListener(this);
         //Sets up the display
         output = (OutputView) findViewById(R.id.output);
         display = (DisplayView) findViewById(R.id.display);
@@ -56,6 +59,7 @@ public class MainActivity extends FragmentActivity{
         FunctionMode.getInstance().setActivity(this);
         VectorMode.getInstance().setActivity(this);
         MatrixMode.getInstance().setActivity(this);
+        mPager.setOffscreenPageLimit(5);
     }
 
     /**
@@ -69,7 +73,7 @@ public class MainActivity extends FragmentActivity{
     }
 
     /**
-     * SMoves the cursor on the display right if possible.
+     * Moves the cursor on the display right if possible.
      */
     public void scrollRight(View v) {
         DisplayView display = (DisplayView) findViewById(R.id.display);
@@ -162,6 +166,66 @@ public class MainActivity extends FragmentActivity{
         mPager.setCurrentItem(4);
     }
 
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        display.clear();
+        ToggleButton basic = (ToggleButton) findViewById(R.id.basic_button);
+        ToggleButton advanced = (ToggleButton) findViewById(R.id.advanced_button);
+        ToggleButton function = (ToggleButton) findViewById(R.id.function_button);
+        ToggleButton vector = (ToggleButton) findViewById(R.id.vector_button);
+        ToggleButton matrix = (ToggleButton) findViewById(R.id.matrix_button);
+
+        switch(position){
+            case 0:
+                basic.setChecked(true);
+                advanced.setChecked(false);
+                function.setChecked(false);
+                vector.setChecked(false);
+                matrix.setChecked(false);
+                break;
+            case 1:
+                basic.setChecked(false);
+                advanced.setChecked(true);
+                function.setChecked(false);
+                vector.setChecked(false);
+                matrix.setChecked(false);
+                break;
+            case 2:
+                basic.setChecked(false);
+                advanced.setChecked(false);
+                function.setChecked(true);
+                vector.setChecked(false);
+                matrix.setChecked(false);
+                break;
+            case 3:
+                basic.setChecked(false);
+                advanced.setChecked(false);
+                function.setChecked(false);
+                vector.setChecked(true);
+                matrix.setChecked(false);
+                break;
+            case 4:
+                basic.setChecked(false);
+                advanced.setChecked(false);
+                function.setChecked(false);
+                vector.setChecked(false);
+                matrix.setChecked(true);
+                break;
+            default:
+                throw new IllegalArgumentException("The current pager item index could not be handled");
+        }
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
+    }
+
     /**
      * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in
      * sequence.
@@ -196,4 +260,15 @@ public class MainActivity extends FragmentActivity{
         return display;
     }
 
+    /**
+     *
+     * @return If an ad should be shown
+     */
+    public boolean isShowAd(){
+        return showAd;
+    }
+
+    public void setShowAd(boolean showAd){
+        this.showAd = showAd;
+    }
 }

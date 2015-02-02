@@ -1,17 +1,24 @@
 package com.trutech.calculall;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import org.matheclipse.core.eval.exception.WrongNumberOfArguments;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executor;
@@ -35,6 +42,7 @@ public class FunctionMode extends Advanced {
     private static final int CORE_POOL_SIZE = CPU_COUNT + 1;
     private static final int MAXIMUM_POOL_SIZE = CPU_COUNT * 2 + 1;
     private static final int KEEP_ALIVE = 1;
+    private static final String FILENAME = "history_function";
     private static final int STACK_SIZE = 1000000; //1MB STACK SIZE
     private static final ThreadFactory threadFactory = new ThreadFactory() {
         public Thread newThread(Runnable r) {
@@ -48,9 +56,11 @@ public class FunctionMode extends Advanced {
     //Actual variables used
     private ProgressDialog pd;
     private PopupWindow pw;
+    private Dialog graphDialog;
 
     { //lazy constructor
         angleMode = RADIAN;
+        filename = "history_function";
     }
 
     /**
@@ -94,6 +104,12 @@ public class FunctionMode extends Advanced {
             case R.id.graph:
                 clickGraph();
                 break;
+            case R.id.graph_dialog_button:
+                clickGraphDialog();
+                break;
+            case R.id.cancel_button:
+                cancelGraph();
+                break;
             default:
                 super.onClick(v);
         }
@@ -103,6 +119,19 @@ public class FunctionMode extends Advanced {
         tokens.add(display.getRealCursorIndex(), VariableFactory.makeX());
         display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
+    }
+
+    /**
+     * When the user clicks the History button.
+     */
+    public void clickHistory(){
+        try {
+            openHistory(FILENAME);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public void clickRoots() {
@@ -156,7 +185,14 @@ public class FunctionMode extends Advanced {
                     }
                     display.displayOutput(toOutput);
                     activity.scrollDown();
-
+                    //Saves to history
+                    try {
+                        ArrayList<Token> saveInput = tokens;
+                        tokens.add(0, new StringToken("Roots of "));
+                        saveEquation(saveInput, toOutput, filename);
+                    } catch (IOException | ClassNotFoundException e) {
+                        Toast.makeText(activity, "Error saving to history", Toast.LENGTH_LONG).show();
+                    }
                     super.onPostExecute(roots);
                 }
             }
@@ -202,8 +238,11 @@ public class FunctionMode extends Advanced {
         //Sets up the params
         ArrayList<Token>[] params = new ArrayList[1];
         params[0] = tokens;
+        ArrayList<Token> input = new ArrayList<>();
+        input.add(new StringToken("d/dx "));
+        input.addAll(tokens);
         //Passes the rest onto the Thread
-        MathThread thread = new MathThread(task, errorHandler);
+        MathThread thread = new MathThread(task, errorHandler, input);
         thread.executeOnExecutor(EXECUTOR, params);
 
     }
@@ -244,8 +283,11 @@ public class FunctionMode extends Advanced {
         //Sets up the params
         ArrayList<Token>[] params = new ArrayList[1];
         params[0] = tokens;
+        ArrayList<Token> input = new ArrayList<>();
+        input.add(0, new StringToken("∫ "));
+        input.addAll(tokens);
         //Passes the rest onto the Thread
-        MathThread thread = new MathThread(task, errorHandler);
+        MathThread thread = new MathThread(task, errorHandler, input);
         thread.executeOnExecutor(EXECUTOR, params);
     }
 
@@ -285,8 +327,11 @@ public class FunctionMode extends Advanced {
         //Sets up the params
         ArrayList<Token>[] params = new ArrayList[1];
         params[0] = tokens;
+        ArrayList<Token> input = new ArrayList<>();
+        input.add(0, new StringToken("Expand "));
+        input.addAll(tokens);
         //Passes the rest onto the Thread
-        MathThread thread = new MathThread(task, errorHandler);
+        MathThread thread = new MathThread(task, errorHandler, input);
         thread.executeOnExecutor(EXECUTOR, params);
     }
 
@@ -325,8 +370,11 @@ public class FunctionMode extends Advanced {
         //Sets up the params
         ArrayList<Token>[] params = new ArrayList[1];
         params[0] = tokens;
+        ArrayList<Token> input = new ArrayList<>();
+        input.add(0, new StringToken("Factor "));
+        input.addAll(tokens);
         //Passes the rest onto the Thread
-        MathThread thread = new MathThread(task, errorHandler);
+        MathThread thread = new MathThread(task, errorHandler, input);
         thread.executeOnExecutor(EXECUTOR, params);
     }
 
@@ -338,13 +386,78 @@ public class FunctionMode extends Advanced {
     }
 
     /**
-     * Graphs the inputted function.
+     * Shows the graph dialog.
      */
     public void clickGraph() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        LayoutInflater inflater = activity.getLayoutInflater();
+        builder.setView(inflater.inflate(R.layout.graph_dialog, null));
+        graphDialog = builder.create();
+        graphDialog.show();
+    }
+
+    /**
+     * Cancels the graph dialog.
+     */
+    public void cancelGraph(){
+        graphDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        graphDialog.dismiss();
+    }
+
+    /**
+     * User had finished choosing graph bounds; shows
+     * the graph dialog.
+     */
+    public void clickGraphDialog(){
+        try {
+            EditText xMinEdit = (EditText) graphDialog.findViewById(R.id.x_min);
+            EditText xMaxEdit = (EditText) graphDialog.findViewById(R.id.x_max);
+            EditText yMinEdit = (EditText) graphDialog.findViewById(R.id.y_min);
+            EditText yMaxEdit = (EditText) graphDialog.findViewById(R.id.y_max);
+
+            float xMin = Float.parseFloat(xMinEdit.getText().toString());
+            float xMax = Float.parseFloat(xMaxEdit.getText().toString());
+            float yMin = Float.parseFloat(yMinEdit.getText().toString());
+            float yMax = Float.parseFloat(yMaxEdit.getText().toString());
+
+            //Makes sure that the floats are valid
+            if (xMin >= xMax){
+                Toast.makeText(activity, "The min x must be greater than max x", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (yMin >= yMax){
+                Toast.makeText(activity, "The min y must be greater than max y", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            graph(xMin, xMax, yMin, yMax);
+            InputMethodManager im = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            im.hideSoftInputFromWindow(xMinEdit.getWindowToken(), 0);
+            im.hideSoftInputFromWindow(xMaxEdit.getWindowToken(), 0);
+            im.hideSoftInputFromWindow(yMinEdit.getWindowToken(), 0);
+            im.hideSoftInputFromWindow(yMaxEdit.getWindowToken(), 0);
+            graphDialog.cancel();
+        } catch (NumberFormatException e){ //Wrong text format
+            Toast.makeText(activity, "Invalid Number Format", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * Graph the function at the given bounds.
+     *
+     * @param minX Minimum x value
+     * @param maxX Maximum x value
+     * @param minY Minimum y value
+     * @param maxY Maximum y value
+     */
+    private void graph(float minX, float maxX, float minY, float maxY){
         LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View layout = inflater.inflate(R.layout.graph_view, null, false);
+
         GraphView gv = (GraphView) layout.findViewById(R.id.graph_content);
         gv.setFunction(tokens);
+        gv.setBounds(minX, maxX, minY, maxY);
         pw = new PopupWindow(layout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
         gv.setPopupWindow(pw);
         pw.showAtLocation(activity.findViewById(R.id.frame), Gravity.CENTER, 0, 0);
@@ -358,16 +471,19 @@ public class FunctionMode extends Advanced {
         private Exception error; //If any Exception were to occur
         private Command<ArrayList<Token>, ArrayList<Token>> task;
         private Command<Void, Exception> errorHandler;
+        private ArrayList<Token> historyInput;
 
         /**
          * Constructor for MathThread.
          *
          * @param task         The Command to be executed
          * @param errorHandler The Command that will be called to handle errors
+         * @param historyInput The tokens that would appear on history as input
          */
-        public MathThread(Command<ArrayList<Token>, ArrayList<Token>> task, Command<Void, Exception> errorHandler) {
+        public MathThread(Command<ArrayList<Token>, ArrayList<Token>> task, Command<Void, Exception> errorHandler, ArrayList<Token> historyInput) {
             this.task = task;
             this.errorHandler = errorHandler;
+            this.historyInput = historyInput;
         }
 
         @Override
@@ -396,10 +512,16 @@ public class FunctionMode extends Advanced {
         @Override
         protected void onPostExecute(ArrayList<Token> result) {
             pd.dismiss();
+
+            try {
+                saveEquation(historyInput, result, filename);
+            } catch (IOException | ClassNotFoundException e) {
+                Toast.makeText(activity, "Error saving to history", Toast.LENGTH_LONG).show();
+            }
+
             if (result == null) { //Something went Wrong
                 errorHandler.execute(error);
             } else {
-                //Got the Integral!
                 display.displayOutput(result);
             }
             super.onPostExecute(tokens);

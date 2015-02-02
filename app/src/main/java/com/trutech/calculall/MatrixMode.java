@@ -2,6 +2,7 @@ package com.trutech.calculall;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.SpannedString;
@@ -14,10 +15,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.PopupWindow;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -33,12 +36,15 @@ public class MatrixMode extends Advanced {
     public static final int MAX_DIMENSIONS = 7;
     private static final Basic INSTANCE = new MatrixMode();
     //Variables used only when in ElementView
-    private MatrixFragment fragment;
     private PopupWindow elementsWindow;
     private PopupWindow elementWindow;
     private ArrayList<Token> storedTokens; //Used to store Tokens when switched to the ElementView
     private Matrix matrix;
     private int x, y;
+
+    { //pseudo-constructor
+        filename = "history_matrix";
+    }
 
     /**
      * Allows for the Singleton pattern so there would be only one instance.
@@ -46,10 +52,6 @@ public class MatrixMode extends Advanced {
      */
     public static Basic getInstance(){
         return INSTANCE;
-    }
-
-    public void setMatrixFragment(MatrixFragment fragment){
-        this.fragment = fragment;
     }
 
     /**
@@ -132,6 +134,12 @@ public class MatrixMode extends Advanced {
             case R.id.done_num_button:
                 clickDoneNum();
                 break;
+            case R.id.left_scroll:
+                scrollLeft();
+                break;
+            case R.id.right_scroll:
+                scrollRight();
+                break;
             default:
                 super.onClick(v);
         }
@@ -152,6 +160,14 @@ public class MatrixMode extends Advanced {
         View matrixView = inflater.inflate(R.layout.activity_matrix, null, false);
         v.removeAllViews();
         v.addView(matrixView);
+        Button transButton = (Button) matrixView.findViewById(R.id.transpose_button);
+        Button powButton = (Button) matrixView.findViewById(R.id.pow_button);
+        Button inverseButton = (Button) matrixView.findViewById(R.id.inverse_button);
+        Button newButton = (Button) matrixView.findViewById(R.id.new_button);
+        transButton.setText(Html.fromHtml(activity.getString(R.string.transpose)));
+        powButton.setText(Html.fromHtml(activity.getString(R.string.matrix_pow)));
+        inverseButton.setText(Html.fromHtml(activity.getString(R.string.inverse_a)));
+        newButton.setText(Html.fromHtml(activity.getString(R.string.newe)));
     }
 
     public void clickMem(){
@@ -315,6 +331,7 @@ public class MatrixMode extends Advanced {
         }
         //Sets up the variables and parameters
         display = (DisplayView) layout.findViewById(R.id.display);
+        display.displayInput(tokens);
         display.setOutput((OutputView) layout.findViewById(R.id.output));
         updateInput();
         matrix = m;
@@ -322,6 +339,19 @@ public class MatrixMode extends Advanced {
         y = colNum;
     }
 
+    /**
+     * Moves the cursor on the display right if possible.
+     */
+    public void scrollRight() {
+       display.scrollRight();
+    }
+
+    /**
+     * Scrolls the display left (if possible).
+     */
+    protected void scrollLeft() {
+        display.scrollLeft();
+    }
     /**
      * Sets up the buttons in ElementView.
      *

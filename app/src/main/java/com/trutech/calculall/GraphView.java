@@ -21,20 +21,23 @@ import java.util.ArrayList;
 public class GraphView extends View {
 
     private static final int NUM_OF_POINTS = 10000;
+    private static final int NUM_OF_GRIDELINES = 10;
     private PopupWindow popupWindow;
     private ArrayList<Token> function;
     private RectF exitRect; //The rectangle of tne exit button
-    private Paint redPaint;
+    private Paint axisPaint;
+    private Paint gridPaint;
+    private Paint incrementPaint;
     private Paint blackPaint;
     private Paint backgroundPaint;
     private double originX = 0, originY = 0; //The origin of the graph
     private int width;
     private int height;
     //The bounds for the graph
-    private int lowerX = -50;
-    private int lowerY = -30;
-    private int upperX = 50;
-    private int upperY = 30;
+    private float lowerX = 0;
+    private float lowerY = 0;
+    private float upperX = 0;
+    private float upperY = 0;
 
     private OnTouchListener listener = new OnTouchListener() {
 
@@ -69,13 +72,21 @@ public class GraphView extends View {
     public GraphView(Context context, AttributeSet attrs) {
         super(context, attrs);
         //Sets up paints
-        redPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        redPaint.setColor(Color.RED);
+        axisPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        axisPaint.setColor(Color.RED);
+        axisPaint.setStrokeWidth(3);
+        gridPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        gridPaint.setColor(Color.GREEN);
+        gridPaint.setStrokeWidth(1);
+        incrementPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        incrementPaint.setColor(Color.BLUE);
+        incrementPaint.setStrokeWidth(2);
+        incrementPaint.setTextSize(18);
         blackPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         blackPaint.setColor(Color.BLACK);
         blackPaint.setTextSize(52);
         blackPaint.setFakeBoldText(true);
-        blackPaint.setStrokeWidth(3);
+        blackPaint.setStrokeWidth(5);
         backgroundPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         backgroundPaint.setColor(Color.WHITE);
         backgroundPaint.setStyle(Paint.Style.FILL);
@@ -84,12 +95,37 @@ public class GraphView extends View {
         setOnTouchListener(listener);
     }
 
+    /**
+     * Sets what function this will graph.
+     *
+     * @param function The function to graph
+     */
     public void setFunction(ArrayList<Token> function) {
         this.function = Utility.setupExpression(Utility.condenseDigits(function));
     }
 
+    /**
+     * Sets the popup window that this view will show in.
+     *
+     * @param popupWindow The popup window.
+     */
     public void setPopupWindow(PopupWindow popupWindow) {
         this.popupWindow = popupWindow;
+    }
+
+    /**
+     * Sets the bounds of what this graph will show.
+     *
+     * @param lowerX The minimum x value
+     * @param upperX The maximum x value
+     * @param lowerY The minimum y value
+     * @param upperY The maximum y value
+     */
+    public void setBounds(float lowerX, float upperX, float lowerY, float upperY){
+        this.lowerX = lowerX;
+        this.upperX = upperX;
+        this.lowerY = lowerY;
+        this.upperY = upperY;
     }
 
     /**
@@ -99,7 +135,7 @@ public class GraphView extends View {
      */
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if (function != null) {
+        if (function != null && upperY != lowerY) { //When the function and bounds have been defined
             //Draws the background
             canvas.drawRect(0, 0, width, height, backgroundPaint);
             drawExit(canvas);
@@ -123,7 +159,7 @@ public class GraphView extends View {
         //Calculates important values that will adjust how the graph would look
         double xRange = upperX - lowerX;
         double xMultiplier = width / xRange;
-        double yMultiplier = (float) (height / (upperY - lowerY));
+        double yMultiplier = height / (upperY - lowerY);
 
         //Plots the 100 points across the screen
         for (int i = 0; i <= NUM_OF_POINTS; i++) {
@@ -203,10 +239,40 @@ public class GraphView extends View {
      * @param canvas The canvas to draw on
      */
     private void drawAxis(Canvas canvas) {
+        double xRange = (upperX - lowerX);
+        double yRange = (upperY - lowerY);
+        double xMultiplier = width / xRange;
+        double yMultiplier = height / yRange;
         //X axis
-        canvas.drawLine(0, height - (float) originY, width, height - (float) originY, redPaint);
+        canvas.drawLine(0, height - (float) originY, width, height - (float) originY, axisPaint);
+        //Calculates when the increments should be drawn
+        float approximateDistance = (upperX - lowerX) / NUM_OF_GRIDELINES;
+        int ordersOfMag = (int) Math.floor(Math.log10(approximateDistance)); //Finds how many orders of magnitudes the dist is
+        float distBetweenGridlines = (float) Math.pow(10, ordersOfMag);
+        for (float x = 0; x + distBetweenGridlines <= xRange; x += distBetweenGridlines){ //Draws the gridlines and increments
+            if (x + lowerX != 0) { //Does not include origin
+                canvas.drawLine((float) (x * xMultiplier), 0, (float) (x * xMultiplier), height, gridPaint);
+                //Draws the texts for increments
+                String incrementText = String.format("%.5f", x + lowerX); //Max 5 decimals
+                incrementText = !incrementText.contains(".") ? incrementText : incrementText.replaceAll("0*$", "").replaceAll("\\.$", "");
+                canvas.drawText(incrementText, (float) (x * xMultiplier), height - (float) originY, incrementPaint);
+            }
+        }
         //Y axis
-        canvas.drawLine((float) originX, 0, (float) originX, height, redPaint);
+        canvas.drawLine((float) originX, 0, (float) originX, height, axisPaint);
+        //Calculates when the increments should be drawn
+        approximateDistance = (upperY - lowerY) / NUM_OF_GRIDELINES;
+        ordersOfMag = (int) Math.floor(Math.log10(approximateDistance)); //Finds how many orders of magnitudes the dist is
+        distBetweenGridlines = (float) Math.pow(10, ordersOfMag);
+        for (float y = 0; y + distBetweenGridlines <= yRange; y += distBetweenGridlines){ //Draws the gridlines and increments
+            if (y + lowerY != 0) { //Does not include origin
+                canvas.drawLine(0, (float) (y * yMultiplier), width, (float) (y * yMultiplier), gridPaint);
+                //Draws the texts for increments
+                String incrementText = String.format("%.5f", y + lowerY); //Max 5 decimals
+                incrementText = !incrementText.contains(".") ? incrementText : incrementText.replaceAll("0*$", "").replaceAll("\\.$", "");
+                canvas.drawText(incrementText, (float) originX, (float) (y * yMultiplier), incrementPaint);
+            }
+        }
     }
 
     /**
