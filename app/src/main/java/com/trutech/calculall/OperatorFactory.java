@@ -40,7 +40,7 @@ public class OperatorFactory {
             @Override
             public double operate(double left, double right) {
                 if (right == 0) {
-                    throw new IllegalArgumentException();
+                    throw new ArithmeticException("Division by zero");
                 } else {
                     return left / right;
                 }
@@ -53,7 +53,7 @@ public class OperatorFactory {
             @Override
             public double operate(double left, double right) {
                 if (right == 0) {
-                    throw new IllegalArgumentException();
+                    throw new ArithmeticException("Division by zero");
                 } else {
                     return left / right;
                 }
@@ -65,7 +65,9 @@ public class OperatorFactory {
         return new Operator("", Operator.EXPONENT, 5, false, 0, false) {
             @Override
             public double operate(double left, double right) {
-                return Math.pow(left, right);
+                double result = Math.pow(left, right);
+                if (result == Double.NaN) throw new IllegalArgumentException("The answer involves Imaginary numbers (currently not supported)");
+                return result;
             }
         };
     }
@@ -73,7 +75,7 @@ public class OperatorFactory {
     public static Operator makeFactorial() {
         return new Operator("!", Operator.FACTORIAL, 5, false, 0, false) {
             @Override
-            public double operate(double left, double right) {
+            public double operate(double left, double right){
                 if (left % 1 != 0) { // Makes sure this is an integer
                     throw new IllegalArgumentException();
                 }
@@ -91,10 +93,10 @@ public class OperatorFactory {
         };
     }
 
-    public static Operator makePermutation() {
+    public static Operator makePermutation(){
         return new Operator("P", Operator.PERMUTATION, 5, false, 0, false) {  //TODO: make it so that the previous and next numbers are subscript
             @Override
-            public double operate(double left, double right) {
+            public double operate(double left, double right){
                 if (left % 1 != 0 || right % 1 != 0 || right > left) {
                     throw new IllegalArgumentException();
                 } else {
@@ -104,10 +106,10 @@ public class OperatorFactory {
         };
     }
 
-    public static Operator makeCombination() {
+    public static Operator makeCombination(){
         return new Operator("C", Operator.COMBINATION, 5, false, 0, false) { //TODO: make it so that the previous and next numbers are subscript
             @Override
-            public double operate(double left, double right) {
+            public double operate(double left, double right) throws NumberTooLargeException{
                 if (left % 1 != 0 || right % 1 != 0) {
                     throw new IllegalArgumentException();
                 } else {

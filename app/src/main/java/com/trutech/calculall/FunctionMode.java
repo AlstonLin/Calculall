@@ -43,7 +43,7 @@ public class FunctionMode extends Advanced {
     private static final int MAXIMUM_POOL_SIZE = CPU_COUNT * 2 + 1;
     private static final int KEEP_ALIVE = 1;
     private static final String FILENAME = "history_function";
-    private static final int STACK_SIZE = 1000000; //1MB STACK SIZE
+    private static final int STACK_SIZE = 500000; //1MB STACK SIZE
     private static final ThreadFactory threadFactory = new ThreadFactory() {
         public Thread newThread(Runnable r) {
             ThreadGroup group = new ThreadGroup("threadGroup");
@@ -142,6 +142,13 @@ public class FunctionMode extends Advanced {
 
             @Override
             protected void onPreExecute() {
+                if (pd == null) { //Lazy Initialization
+                    //Loading dialog
+                    pd = new ProgressDialog(activity);
+                    pd.setTitle("Calculating...");
+                    pd.setMessage("This may take a while. ");
+                    pd.setCancelable(false);
+                }
                 pd.show();
                 super.onPreExecute();
             }
@@ -187,8 +194,9 @@ public class FunctionMode extends Advanced {
                     activity.scrollDown();
                     //Saves to history
                     try {
-                        ArrayList<Token> saveInput = tokens;
-                        tokens.add(0, new StringToken("Roots of "));
+                        ArrayList<Token> saveInput = new ArrayList<>();
+                        saveInput.addAll(tokens);
+                        saveInput.add(0, new StringToken("Roots of "));
                         saveEquation(saveInput, toOutput, filename);
                     } catch (IOException | ClassNotFoundException e) {
                         Toast.makeText(activity, "Error saving to history", Toast.LENGTH_LONG).show();
@@ -492,7 +500,11 @@ public class FunctionMode extends Advanced {
                 //Loading dialog
                 pd = new ProgressDialog(activity);
                 pd.setTitle("Calculating...");
-                pd.setMessage("This may take a while. ");
+                if (historyInput.get(0).getSymbol().equals("∫ ")) { //Very lazy way of doing this
+                    pd.setMessage("This may take a while. Note that some integrations can take several minutes or may be impossible.");
+                }else{
+                    pd.setMessage("This may take a while.");
+                }
                 pd.setCancelable(false);
             }
             pd.show();
@@ -502,6 +514,7 @@ public class FunctionMode extends Advanced {
         @Override
         protected final ArrayList<Token> doInBackground(ArrayList<Token>[] params) {
             try {
+                android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_MORE_FAVORABLE); //Higher priority
                 return task.execute(params[0]);
             } catch (Exception e) {
                 error = e;
@@ -513,15 +526,14 @@ public class FunctionMode extends Advanced {
         protected void onPostExecute(ArrayList<Token> result) {
             pd.dismiss();
 
-            try {
-                saveEquation(historyInput, result, filename);
-            } catch (IOException | ClassNotFoundException e) {
-                Toast.makeText(activity, "Error saving to history", Toast.LENGTH_LONG).show();
-            }
-
             if (result == null) { //Something went Wrong
                 errorHandler.execute(error);
             } else {
+                try {
+                    saveEquation(historyInput, result, filename);
+                } catch (IOException | ClassNotFoundException e) {
+                    Toast.makeText(activity, "Error saving to history", Toast.LENGTH_LONG).show();
+                }
                 display.displayOutput(result);
             }
             super.onPostExecute(tokens);

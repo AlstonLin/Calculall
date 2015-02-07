@@ -139,8 +139,6 @@ public class Basic implements View.OnClickListener {
             case R.id.history_button:
                 clickHistory();
                 break;
-            case R.id.settings_button:
-                break;
             case R.id.divide_button:
                 clickDivide();
                 break;
@@ -153,12 +151,6 @@ public class Basic implements View.OnClickListener {
         updateInput();
     }
 
-    /**
-     * When the user clicks the Settings button.
-     */
-    public void clickSettings(){
-
-    }
 
     /**
      * When the user clicks the History button.
@@ -379,7 +371,7 @@ public class Basic implements View.OnClickListener {
      */
     public void clickEquals() {
         try {
-            Number num = new Number(process());
+            Number num = new Number(process(tokens));
             if (Double.isInfinite(num.getValue())) {
                 throw new NumberTooLargeException();
             }
@@ -387,6 +379,8 @@ public class Basic implements View.OnClickListener {
             list.add(num);
             display.displayOutput(list);
             saveEquation(tokens, list, filename);
+        } catch (StackOverflowError e){
+            Toast.makeText(activity, "It seems this phone is not powerful enough to compute this :(", Toast.LENGTH_LONG).show();
         } catch (Exception e) { //User did a mistake
             handleExceptions(e);
         }
@@ -397,20 +391,22 @@ public class Basic implements View.OnClickListener {
      * Processes the expression and returns the result using the Shunting Yard Algorithm to convert
      * the expression into reverse polish and then evaluating it.
      *
+     *@param tokens The expression to process
      * @return The numerical value of the expression
      * @throws IllegalArgumentException If the user has input a invalid expression
      */
-    protected double process() {
-        ArrayList<Token> tokens = Utility.setupExpression(Utility.condenseDigits(Utility.addMissingBrackets(subVariables())));
+    protected double process(ArrayList<Token> tokens) {
+        tokens = Utility.setupExpression(Utility.condenseDigits(Utility.addMissingBrackets(subVariables(tokens))));
         return Utility.evaluateExpression(Utility.convertToReversePolish(tokens));
     }
 
     /**
      * Substitutes all the variables on the tokens list with the defined values
      *
+     * @param tokens The tokens to sub variables
      * @return The list of tokens with the variables substituted
      */
-    protected ArrayList<Token> subVariables() {
+    protected ArrayList<Token> subVariables(ArrayList<Token> tokens) {
         ArrayList<Token> newTokens = new ArrayList<Token>();
         for (Token token : tokens) {
             if (token instanceof Variable) {
@@ -433,8 +429,14 @@ public class Basic implements View.OnClickListener {
         String message = "";
         if (e instanceof NumberTooLargeException) {
             message = "The calculation is to large to perform";
+        } else if (e instanceof ArithmeticException){
+            message = "Math Error";
         } else {
-            message = "Invalid input";
+            if (e.getMessage() == null || e.getMessage().equals("")) {
+                message = "Invalid input";
+            }else{
+                message = e.getMessage();
+            }
         }
         Toast.makeText(activity, message, Toast.LENGTH_LONG).show();
     }

@@ -1,0 +1,18 @@
+-keep class android.support.multidex.MultiDexApplication {
+    <init>();
+    void attachBaseContext(android.content.Context);
+}
+-keep class com.trutech.calculall.MainActivity { <init>(); }
+-keep class com.mopub.mobileads.MoPubActivity { <init>(); }
+-keep class com.mopub.mobileads.MraidActivity { <init>(); }
+-keep class com.mopub.common.MoPubBrowser { <init>(); }
+-keep class com.mopub.mobileads.MraidVideoPlayerActivity { <init>(); }
+-keep class com.google.android.gms.ads.AdActivity { <init>(); }
+-keep class com.millennialmedia.android.MMActivity { <init>(); }
+-keep class com.trutech.calculall.SettingsActivity { <init>(); }
+-keep public class * extends android.app.backup.BackupAgent {
+    <init>();
+}
+-keep public class * extends java.lang.annotation.Annotation {
+    *;
+}

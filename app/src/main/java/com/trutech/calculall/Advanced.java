@@ -3,6 +3,7 @@ package com.trutech.calculall;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import java.io.IOException;
@@ -24,7 +25,6 @@ public class Advanced extends Basic {
     private static final Basic INSTANCE = new Advanced();
     //Fields
     protected ArrayList<MultiButton> multiButtons;
-    protected boolean switchedAngleMode = false;
     protected int angleMode = DEGREE;
     protected boolean hyperbolic = false, shift = false, mem = false;
     private int fracMode = DEC;
@@ -124,8 +124,15 @@ public class Advanced extends Basic {
                 super.clickEquals();
             } else if (fracMode == FRAC) {
                 ArrayList<Token> output = JFok.simplifyExpression(tokens);
-                display.displayOutput(output);
-                saveEquation(tokens, output, FILENAME);
+                //TEMP
+                double actualOutput = process(tokens);
+                double fracOutput = process(output);
+                if (Math.abs(fracOutput / actualOutput) > 1e6){ //Signfinicant differencce
+                    Toast.makeText(activity, "Error in processing the fractions!", Toast.LENGTH_LONG).show();
+                }else {
+                    display.displayOutput(output);
+                    saveEquation(tokens, output, FILENAME);
+                }
             }
         } catch (Exception e) { //User did a mistake
             handleExceptions(e);
@@ -136,85 +143,14 @@ public class Advanced extends Basic {
     public void clickAngleMode() {
         Button angleModeButton = (Button) activity.findViewById(R.id.angle_mode);
         if (angleMode == GRADIAN) {
-            convGtoD();
             angleMode = DEGREE;
             angleModeButton.setText(activity.getString(R.string.deg));
         } else if (angleMode == RADIAN) {
-            convRtoG();
             angleMode = GRADIAN;
             angleModeButton.setText(activity.getString(R.string.grad));
         } else if (angleMode == DEGREE) {
-            convDtoR();
             angleMode = RADIAN;
             angleModeButton.setText(activity.getString(R.string.rad));
-        }
-        updateInput();
-    }
-
-    public void convGtoD() {
-        try {
-            double val = process();
-            if (switchedAngleMode) {
-                tokens.set(tokens.size() - 1, new StringToken(" → DEG") {
-                });
-            } else {
-                tokens.add(new StringToken(" → DEG") {
-                });
-            }
-            updateInput();
-            Number num = new Number(val * 9 / 10);
-            ArrayList<Token> list = new ArrayList<>();
-            list.add(num);
-            display.displayOutput(list);
-            activity.scrollDown();
-            switchedAngleMode = true;
-        } catch (Exception e) { //User made a mistake
-            handleExceptions(e);
-        }
-    }
-
-    public void convRtoG() {
-        try {
-            double val = process();
-            if (switchedAngleMode) {
-                tokens.set(tokens.size() - 1, new Token(" → GRAD") {
-                });
-            } else {
-                tokens.add(new Token(" → GRAD") {
-                });
-            }
-            updateInput();
-            Number num = new Number(val * 100 / Math.PI);
-            ArrayList<Token> list = new ArrayList<>();
-            list.add(num);
-            display.displayOutput(list);
-            activity.scrollDown();
-            switchedAngleMode = true;
-        } catch (Exception e) { //User made a mistake
-            handleExceptions(e);
-        }
-    }
-
-    public void convDtoR() {
-        //Converts the number displayed from degrees into radians ie multiplies the number by pi/180
-        try {
-            double val = process();
-            if (switchedAngleMode) {
-                tokens.set(tokens.size() - 1, new Token(" → RAD") {
-                });
-            } else {
-                tokens.add(new Token(" → RAD") {
-                });
-            }
-            updateInput();
-            Number num = new Number(val * Math.PI / 180);
-            ArrayList<Token> list = new ArrayList<>();
-            list.add(num);
-            display.displayOutput(list);
-            activity.scrollDown();
-            switchedAngleMode = true;
-        } catch (Exception e) { //User made a mistake
-            handleExceptions(e);
         }
     }
 
@@ -275,7 +211,7 @@ public class Advanced extends Basic {
     protected void storeVariable(String addToOutput, Command<Void, Double> assignment) {
         ToggleButton memButton = (ToggleButton) activity.findViewById(R.id.mem_button);
         try {
-            double val = process();
+            double val = process(tokens);
             ArrayList<Token> outputList = new ArrayList<>();
             outputList.add(new Number(val));
             outputList.add(new StringToken(addToOutput));
@@ -620,14 +556,23 @@ public class Advanced extends Basic {
         } else {
             //Whats on the numerator depends on the token before
             Token tokenBefore = tokens.get(display.getRealCursorIndex() - 1);
-            if (tokenBefore instanceof Digit) {
-                LinkedList<Digit> digits = new LinkedList<Digit>();
+            if (tokenBefore instanceof Digit || tokenBefore instanceof Variable) {
+                LinkedList<Token> digits = new LinkedList<>();
                 int i = display.getRealCursorIndex() - 1;
-                while (i >= 0 && tokens.get(i) instanceof Digit) {
-                    Token t = tokens.get(i);
-                    digits.addFirst((Digit) t);
-                    tokens.remove(t);
-                    i--;
+                if (tokenBefore instanceof Variable){
+                    while (i >= 0 && tokens.get(i) instanceof Variable) {
+                        Token t = tokens.get(i);
+                        digits.addFirst(t);
+                        tokens.remove(t);
+                        i--;
+                    }
+                }else { //Digit
+                    while (i >= 0 && tokens.get(i) instanceof Digit) {
+                        Token t = tokens.get(i);
+                        digits.addFirst(t);
+                        tokens.remove(t);
+                        i--;
+                    }
                 }
                 tokens.add(display.getRealCursorIndex() - digits.size(), numOpenBracket);
                 tokens.addAll(display.getRealCursorIndex() - digits.size() + 1, digits);
@@ -657,6 +602,11 @@ public class Advanced extends Basic {
                         }
                     }
                     expression.addFirst(t);
+                    i--;
+                }
+                //Includes the function if there is one
+                if (i >= 0 && tokens.get(i) instanceof Function){
+                    expression.addFirst(tokens.remove(i));
                     i--;
                 }
                 tokens.add(i + 1, numOpenBracket);

@@ -124,7 +124,24 @@ public class OutputView extends View {
                         break;
                     }
                     case Bracket.SUPERSCRIPT_CLOSE: {
-                        yModifier += SUPERSCRIPT_Y_OFFSET;
+                        //Finds the height of the SUPERSCRIPT_OPEN
+                        int bracketCount = 1;
+                        int j = i - 1;
+                        while (bracketCount > 0) {
+                            Token t = expression.get(j);
+                            if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.SUPERSCRIPT_OPEN) {
+                                bracketCount--;
+                            } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.SUPERSCRIPT_CLOSE) {
+                                bracketCount++;
+                            }
+                            j--;
+                        }
+
+                        if (j == 0){ //Some idiot did ^E (with no base)
+                            yModifier = INITIAL_MODIFIER;
+                        } else{
+                            yModifier = heights.get(j);
+                        }
                         break;
                     }
                     case Bracket.NUM_OPEN: {

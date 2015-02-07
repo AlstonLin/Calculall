@@ -20,7 +20,7 @@ public class AdvancedFragment extends BasicFragment{
 
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.activity_advanced, container, false);
+        View v = inflater.inflate(R.layout.advanced, container, false);
         activity = (MainActivity) getActivity();
         Button recipButton = (Button) v.findViewById(R.id.reciprocal);
         MultiButton powButton = (MultiButton) v.findViewById(R.id.pow_ten_button);

@@ -1,8 +1,6 @@
 package com.trutech.calculall;
 
 import android.content.Context;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.SpannedString;
@@ -15,12 +13,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.PopupWindow;
-import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -157,7 +153,7 @@ public class MatrixMode extends Advanced {
     public void clickDoneNum(){
         ViewGroup v = (ViewGroup) fragment.getView();
         LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View matrixView = inflater.inflate(R.layout.activity_matrix, null, false);
+        View matrixView = inflater.inflate(R.layout.matrix, null, false);
         v.removeAllViews();
         v.addView(matrixView);
         Button transButton = (Button) matrixView.findViewById(R.id.transpose_button);
@@ -320,6 +316,7 @@ public class MatrixMode extends Advanced {
         View layout = inflater.inflate(R.layout.element_layout, null, false);
         elementWindow = new PopupWindow(layout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
         elementWindow.showAtLocation(activity.findViewById(R.id.frame), Gravity.CENTER, 0, 0);
+
         //Sets up the Buttons
         setupElementButtons(layout);
         //Sets up the tokens already in the element

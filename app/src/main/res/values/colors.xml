@@ -2,6 +2,10 @@
 <resources>
     <color name="backgroundDavid">#ff093e53</color>
     <color name="backgroundAlston">#2E7D32</color>
+    <color name="backgroundPanda">#9E9E9E</color>
+    <color name="backgroundTrailblazer">#B71C1C</color>
     <color name="displayTextAlston">#FFD54F</color>
     <color name="displayTextDavid">#F64B55</color>
+    <color name="displayTextPanda">#000000</color>
+    <color name="displayTextTrailblazer">#FFFFFF</color>
 </resources>

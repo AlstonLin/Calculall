@@ -1,5 +1,7 @@
 package com.trutech.calculall;
 
+import org.apache.commons.math3.exception.NumberIsTooLargeException;
+
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.ArrayList;
@@ -279,7 +281,11 @@ public class Utility {
                         ((Variable) token).setNegative(true);
                     } else if (num.getValue() == 1 && token instanceof Variable) { // 1 * Variable
                         ((Variable) token).setNegative(false);
-                    } else {
+                    } else if (num.getValue() < 0){ //Negative number; changes to -1 * Number
+                        newTokens.add(new Number(-1));
+                        newTokens.add(OperatorFactory.makeMultiply());
+                        newTokens.add(new Number(num.getValue() * -1));
+                    } else{
                         newTokens.add(num); //Adds the sum of all the digits
                     }
                     newTokens.add(token);
@@ -319,7 +325,8 @@ public class Utility {
 
             if (t instanceof Bracket) {
                 Bracket b = (Bracket) t;
-                if (b.getType() == Bracket.OPEN && last instanceof Bracket && ((Bracket) last).getType() == Bracket.CLOSE) { //Ex. (2 + 1)(3 + 4)
+                if (b.getType() == Bracket.OPEN && last instanceof Bracket && (((Bracket) last).getType() == Bracket.CLOSE
+                        || ((Bracket) last).getType() == Bracket.SUPERSCRIPT_CLOSE || ((Bracket) last).getType() == Bracket.DENOM_CLOSE)) { //Ex. (2 + 1)(3 + 4), (2)/(5)(x + 1) or x^(2)(x+1)
                     newExpression.add(OperatorFactory.makeMultiply()); //Implies multiplication between the two expressions in the brackets
                 } else if ((last instanceof Number || last instanceof Variable) && b.getType() == Bracket.OPEN) { //Ex. 3(2 + 1) or X(1+X)
                     newExpression.add(OperatorFactory.makeMultiply());
@@ -329,7 +336,10 @@ public class Utility {
                     newExpression.add(OperatorFactory.makeMultiply());
                 }
             } else if (t instanceof Number || t instanceof Variable || t instanceof Function) { //So it works with Function mode too
-                if (last instanceof Number) { //Ex. 5A
+                if (last instanceof Number) { //Ex. 5A , 5f(x)
+                    newExpression.add(OperatorFactory.makeMultiply());
+                } else if (last instanceof Bracket && (((Bracket) last).getType() == Bracket.CLOSE
+                        || ((Bracket) last).getType() == Bracket.SUPERSCRIPT_CLOSE || ((Bracket) last).getType() == Bracket.DENOM_CLOSE)){ //Ex. x^2(x + 1) or 2/5x
                     newExpression.add(OperatorFactory.makeMultiply());
                 } else if (lastIsSubtract && (beforeLastIsOperator || beforeLastIsOpenBracket || newExpression.size() <= 1)) { //Ex. E * -X -> E * -1 * X
                     newExpression.remove(last);
@@ -339,10 +349,9 @@ public class Utility {
                         newExpression.add(new Number(-1));
                         newExpression.add(OperatorFactory.makeMultiply());
                     }
-                }
-
-                if (t instanceof Function && (last instanceof Number || last instanceof Function
-                        || (last instanceof Bracket && ((Bracket) last).getType() == Bracket.CLOSE) || last instanceof Variable)) { //Ex. 2f(x) or f(x)g(x) or (1 + 2)f(x) or xf(x)
+                } else if (t instanceof Function && (last instanceof Function
+                        || (last instanceof Bracket && (((Bracket) last).getType() == Bracket.CLOSE || ((Bracket) last).getType() == Bracket.SUPERSCRIPT_CLOSE || ((Bracket) last).getType() == Bracket.DENOM_CLOSE))
+                        || last instanceof Variable)) { //Ex. f(x)g(x) or (1 + 2)f(x) or xf(x)
                     newExpression.add(OperatorFactory.makeMultiply());
                 }
 
@@ -436,7 +445,7 @@ public class Utility {
             }
         }
         if (stack.size() != 1) {
-            throw new IllegalArgumentException("Stack size is empty"); //There should only be 1 token left on the stack
+            throw new IllegalArgumentException("Input is empty"); //There should only be 1 token left on the stack
         } else {
             return stack.pop().getValue();
         }
@@ -522,41 +531,6 @@ public class Utility {
         } else {
             return (Matrix) stack.pop();
         }
-    }
-
-    /**
-     * Simplifies and Rationalizes the given expression.
-     *
-     * @param expression The un-simplified expression
-     * @return The simplified expression
-     */
-    public static ArrayList<Token> simplifyExpression(ArrayList<Token> expression) {
-        ArrayList<Token> num = new ArrayList<Token>();
-        ArrayList<Token> den = new ArrayList<Token>();
-        int intNum = 0;
-        int intDen = 0;
-        int divisionIndex;
-        for (Token token : expression) {
-            if (token instanceof Operator) {
-                if ((((Operator) (token)).getType() == 4)) {
-                    divisionIndex = expression.indexOf(token);
-                    for (int i = 0; i < divisionIndex; i++) {
-                        num.add(expression.get(i));
-                    }
-                    for (int i = divisionIndex + 1; i < expression.size(); i++) {
-                        den.add(expression.get(i));
-                    }
-                }
-            }
-        }
-        if (num.size() == 1) {
-            intNum = ((Digit) (num.get(0))).getValue();
-        }
-        if (den.size() == 1) {
-            intDen = ((Digit) (den.get(0))).getValue();
-        }
-
-        return null;
     }
 
     public static ArrayList<Token> simplifyVector(ArrayList<Token> expression) {
@@ -937,6 +911,7 @@ public class Utility {
         }
     }
 
+
     /**
      * Calculates the quadrant that the vector is in. Only works in 2D.
      *
@@ -1192,7 +1167,7 @@ public class Utility {
      * @param n The base of the factorial
      * @return The value of the factorial
      */
-    public static int factorial(int n) {
+    public static double factorial(int n) throws NumberTooLargeException{
         if (n == 1 || n == 0) {
             return 1;
         } else {

@@ -6,5 +6,5 @@ package com.trutech.calculall;
  * @author Alston Lin
  * @version Alpha 2.0
  */
-public class NumberTooLargeException extends Exception {
+public class NumberTooLargeException extends RuntimeException {
 }
