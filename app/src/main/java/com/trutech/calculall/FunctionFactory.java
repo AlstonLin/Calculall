@@ -117,7 +117,7 @@ public class FunctionFactory {
             @Override
             public double perform(double input) {
                 if (Math.abs(input) > 1) {//Makes sure the input is within the range of sin
-                    throw new IllegalArgumentException();
+                    throw new IllegalArgumentException("The answer involves Imaginary numbers (currently not supported)");
                 } else {
                     return Math.toDegrees(Math.asin(input));
                 }
@@ -140,7 +140,7 @@ public class FunctionFactory {
             @Override
             public double perform(double input) {
                 if (Math.abs(input) > 1) {//Makes sure the input is within the range of sin
-                    throw new IllegalArgumentException();
+                    throw new IllegalArgumentException("The answer involves Imaginary numbers (currently not supported)");
                 } else {
                     return Math.asin(input);
                 }
@@ -163,7 +163,7 @@ public class FunctionFactory {
             @Override
             public double perform(double input) {
                 if (Math.abs(input) > 1) {//Makes sure the input is within the range of sin
-                    throw new IllegalArgumentException();
+                    throw new IllegalArgumentException("The answer involves Imaginary numbers (currently not supported)");
                 } else {
                     return ((Math.asin(input)) * (200 / Math.PI));
                 }
@@ -188,7 +188,7 @@ public class FunctionFactory {
             @Override
             public double perform(double input) {
                 if (Math.abs(input) > 1) {//Makes sure the input is within the range of cos
-                    throw new IllegalArgumentException();
+                    throw new IllegalArgumentException("The answer involves Imaginary numbers (currently not supported)");
                 } else {
                     return Math.toDegrees(Math.acos(input));
                 }
@@ -211,7 +211,7 @@ public class FunctionFactory {
             @Override
             public double perform(double input) {
                 if (Math.abs(input) > 1) {//Makes sure the input is within the range of cos
-                    throw new IllegalArgumentException();
+                    throw new IllegalArgumentException("The answer involves Imaginary numbers (currently not supported)");
                 } else {
                     return Math.acos(input);
                 }
@@ -234,7 +234,7 @@ public class FunctionFactory {
             @Override
             public double perform(double input) {
                 if (Math.abs(input) > 1) {//Makes sure the input is within the range of cos
-                    throw new IllegalArgumentException();
+                    throw new IllegalArgumentException("The answer involves Imaginary numbers (currently not supported)");
                 } else {
                     return ((Math.acos(input)) * (200 / Math.PI));
                 }
@@ -250,7 +250,7 @@ public class FunctionFactory {
             @Override
             public double perform(double input) {
                 if (Math.toRadians(input) % (Math.PI / 2) == 0) {//Makes sure the input is within the domain of tan
-                    throw new IllegalArgumentException();
+                    throw new IllegalArgumentException("The answer involves Imaginary numbers (currently not supported)");
                 } else {
                     return tan(Math.toRadians(input));
                 }
@@ -272,8 +272,8 @@ public class FunctionFactory {
         return new Function("tan", Function.TAN) {
             @Override
             public double perform(double input) {
-                if (input % (Math.PI / 2) == 0) {//Makes sure the input is within the domain of tan
-                    throw new IllegalArgumentException();
+                if (input % (Math.PI / 2) == 0 && input % Math.PI != 0) {//Makes sure the input is within the domain of tan
+                    throw new ArithmeticException();
                 } else {
                     return tan(input);
                 }
@@ -296,7 +296,7 @@ public class FunctionFactory {
             @Override
             public double perform(double input) {
                 if ((input * (Math.PI / 200)) % (Math.PI / 2) == 0) {//Makes sure the input is within the domain of tan
-                    throw new IllegalArgumentException();
+                    throw new IllegalArgumentException("The answer involves Imaginary numbers (currently not supported)");
                 } else {
                     return tan(input * (Math.PI / 200));
                 }
@@ -352,7 +352,7 @@ public class FunctionFactory {
                 if (input >= 1) {
                     return Math.log(input + Math.sqrt(Math.pow(input, 2) - 1));
                 } else {
-                    throw new IllegalArgumentException();
+                    throw new IllegalArgumentException("The answer involves Imaginary numbers (currently not supported)");
                 }
             }
         };
@@ -374,19 +374,8 @@ public class FunctionFactory {
                 if (Math.abs(input) < 1) {
                     return 0.5 * Math.log((input + 1) / (1 - input));
                 } else {
-                    throw new IllegalArgumentException();
+                    throw new IllegalArgumentException("The answer involves Imaginary numbers (currently not supported)");
                 }
-            }
-        };
-    }
-
-    ////////////////////////////////////////////////////
-
-    public static Function makeAbs() {
-        return new Function("abs", Function.ABS) {
-            @Override
-            public double perform(double input) {
-                return Math.abs(input);
             }
         };
     }
@@ -399,28 +388,6 @@ public class FunctionFactory {
             }
         };
     }
-
-	/*
-    public static Function makeLog_b() {
-        return new Function(null) {
-			public double perform(double input, double base) {
-                return (Math.log(input))/(Math.log(base)); //TODO: find a way to do this properly
-            }
-			@Override
-			public double perform(double input) {
-				return 0;
-			}
-        };
-     }
-     public static Function makePowOfB(){
-     	return new Function(null){
-     		public double perform(double base, double exponent){
-     			return Math.pow(base, exponent);
-     		}
-     	};
-     }
-     //We're gonna need multi-variable Functions for these^^ or we could use OperatorFactory instead
-	 */
 
     public static Function makeLn() {
         return new Function("ln", Function.LN) {
@@ -437,7 +404,7 @@ public class FunctionFactory {
             @Override
             public double perform(double input) {
                 if (input < 0) {
-                    throw new IllegalArgumentException();
+                    throw new IllegalArgumentException("The answer involves Imaginary numbers (currently not supported)");
                 } else {
                     return Math.sqrt(input);
                 }

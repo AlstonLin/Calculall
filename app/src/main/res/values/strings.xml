@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="mode_key">Mode</string>
+    <string name="tokens_key">Tokens</string>
+    <string name="about_us">About Us</string>
+    <string name="visit">Visit our website</string>
+    <string name="our_team">Our Team</string>
+    <string name="about_content">Calculall is a mobile application developed by TruTech Innovations, a startup
+    started by students in the Waterloo area to create tools for other students.</string>
+    <string name="credits">CEO and Software Architect - Alston Lin\nCFO and Designer - David Liu\nSenior Developer - Ejaaz Merali\n
+    Junior Developer - Jason Fok\nJunior Developer - Keith Wong\nQuality Assurance Analyst - Tyler Wang</string>
+    <string name="special_thanks">Other collaborators\n Ernest Wong, Brenden Chiu, Ahsen Husain, David Lin</string>
+    <string name="preference_key">com.trutechinnovations.calculall.PREFERENCES</string>
+    <string name="upgrade">Upgrade to Ad-Free</string>
+    <string name="report">Report a Bug</string>
+    <string name="haptic">Haptic Feedback</string>
+    <string name="decimals">Digits</string>
+    <string name="round_to">Round to</string>
+    <string name="theme">Change Themes</string>
+    <string name="about">About</string>
     <string name="select_bounds">Select the Bounds</string>
     <string name="x_min">X min</string>
     <string name="y_min">Y min</string>
@@ -138,5 +156,6 @@
     <string name="leftscroll">⇦</string>
     <string name="rightscroll">⇨</string>
     <string name="title_activity_ocrmode">OCRMode</string>
+    <string name="title_activity_settings">SettingsActivity</string>
 
 </resources>

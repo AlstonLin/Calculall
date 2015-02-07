@@ -486,8 +486,8 @@ public class JFok {
             Node<Token> childNode1 = root.getChildren().get(0);
             Node<Token> childNode2 = root.getChildren().get(1);
             Node<Token> interiorExpression;
-            Token child1 = (Token) childNode1.getContent();
-            Token child2 = (Token) childNode2.getContent();
+            Token child1 = childNode1.getContent();
+            Token child2 = childNode2.getContent();
             Operator expression; //Operator of the interior subclass
             Number n1;
             Number n2;
@@ -498,8 +498,8 @@ public class JFok {
             if (child1 instanceof Operator && (((Operator) child1).getType() == Operator.ADD || ((Operator) child1).getType() == Operator.SUBTRACT) && child2 instanceof Number) {
                 expression = (Operator) child1;
                 n1 = (Number) child2;
-                expressionNode1 = (Node<Token>) childNode1.getChildren().get(0);
-                expressionNode2 = (Node<Token>) childNode1.getChildren().get(1);
+                expressionNode1 = childNode1.getChildren().get(0);
+                expressionNode2 = childNode1.getChildren().get(1);
                 expressionChild1 = expressionNode1.getContent();
                 expressionChild2 = expressionNode2.getContent();
             } else if (child2 instanceof Operator && (((Operator) child2).getType() == Operator.ADD || ((Operator) child2).getType() == Operator.SUBTRACT) && child1 instanceof Number) {

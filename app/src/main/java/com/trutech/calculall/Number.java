@@ -34,9 +34,12 @@ public class Number extends Token implements Serializable {
     }
 
     public String getSymbol() {
-        //Removes trailing zeroes
-        DecimalFormat formatter = (DecimalFormat) DecimalFormat.getInstance(Locale.CANADA);
-        formatter.setMaximumFractionDigits(roundTo);
-        return formatter.format(value);
+        //Rounds
+        value = Utility.round(value, roundTo);
+        String s = Double.toString(value);
+        s = !s.contains(".") ? s : (s.indexOf("E") > 0 ? s.substring(0, s.indexOf("E")).replaceAll("0*$", "")
+                .replaceAll("\\.$", "").concat(s.substring(s.indexOf("E"))) : s.replaceAll("0*$", "")
+                .replaceAll("\\.$", "")); //Removes trailing zeroes
+        return s;
     }
 }

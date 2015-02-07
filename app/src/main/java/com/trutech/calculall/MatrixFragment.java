@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ToggleButton;
 
 /**
  * Defines the UI for MatrixMode.
@@ -24,7 +23,7 @@ public class MatrixFragment extends BasicFragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         MatrixMode.getInstance().setFragment(this);
-        return inflater.inflate(R.layout.activity_matrix, container, false);
+        return inflater.inflate(R.layout.matrix, container, false);
     }
 
     /**

@@ -21,11 +21,13 @@ import java.util.ArrayList;
 public class GraphView extends View {
 
     private static final int NUM_OF_POINTS = 10000;
-    private static final int NUM_OF_GRIDELINES = 10;
+    private static final int NUM_OF_GRIDELINES = 10; //NOTE: NOT EXACT; IT WILL BE WITHIN AN ORDER OF MAGNITUDE
+    private static final int MAX_INCREMENT_TEXTS = 15;
     private PopupWindow popupWindow;
     private ArrayList<Token> function;
     private RectF exitRect; //The rectangle of tne exit button
     private Paint axisPaint;
+    private Paint exitPaint;
     private Paint gridPaint;
     private Paint incrementPaint;
     private Paint blackPaint;
@@ -75,21 +77,29 @@ public class GraphView extends View {
         axisPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         axisPaint.setColor(Color.RED);
         axisPaint.setStrokeWidth(3);
+
         gridPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         gridPaint.setColor(Color.GREEN);
         gridPaint.setStrokeWidth(1);
+
         incrementPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         incrementPaint.setColor(Color.BLUE);
         incrementPaint.setStrokeWidth(2);
         incrementPaint.setTextSize(18);
+
         blackPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         blackPaint.setColor(Color.BLACK);
-        blackPaint.setTextSize(52);
-        blackPaint.setFakeBoldText(true);
         blackPaint.setStrokeWidth(5);
+
+        exitPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        exitPaint.setColor(Color.BLACK);
+        exitPaint.setTextSize(52);
+        exitPaint.setFakeBoldText(true);
+
         backgroundPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         backgroundPaint.setColor(Color.WHITE);
         backgroundPaint.setStyle(Paint.Style.FILL);
+
         width = getWidth();
         height = getHeight();
         setOnTouchListener(listener);
@@ -121,7 +131,7 @@ public class GraphView extends View {
      * @param lowerY The minimum y value
      * @param upperY The maximum y value
      */
-    public void setBounds(float lowerX, float upperX, float lowerY, float upperY){
+    public void setBounds(float lowerX, float upperX, float lowerY, float upperY) {
         this.lowerX = lowerX;
         this.upperX = upperX;
         this.lowerY = lowerY;
@@ -239,6 +249,7 @@ public class GraphView extends View {
      * @param canvas The canvas to draw on
      */
     private void drawAxis(Canvas canvas) {
+        final double TOLERANCE = 1e-3f;
         double xRange = (upperX - lowerX);
         double yRange = (upperY - lowerY);
         double xMultiplier = width / xRange;
@@ -249,13 +260,24 @@ public class GraphView extends View {
         float approximateDistance = (upperX - lowerX) / NUM_OF_GRIDELINES;
         int ordersOfMag = (int) Math.floor(Math.log10(approximateDistance)); //Finds how many orders of magnitudes the dist is
         float distBetweenGridlines = (float) Math.pow(10, ordersOfMag);
-        for (float x = 0; x + distBetweenGridlines <= xRange; x += distBetweenGridlines){ //Draws the gridlines and increments
-            if (x + lowerX != 0) { //Does not include origin
+        int totalNumLines = (int) (xRange / distBetweenGridlines);
+        int gridlinesBetweenTexts = totalNumLines / MAX_INCREMENT_TEXTS; //Number of gridlines between each text
+        //Just in case
+        if (gridlinesBetweenTexts == 0) {
+            gridlinesBetweenTexts = 1;
+        }
+        int textCounter = 0;
+        for (float x = 0; x <= xRange; x += distBetweenGridlines) { //Draws the gridlines and increments
+            if (Math.abs((x + lowerX) / distBetweenGridlines) > TOLERANCE) { //Does not include origin
                 canvas.drawLine((float) (x * xMultiplier), 0, (float) (x * xMultiplier), height, gridPaint);
                 //Draws the texts for increments
-                String incrementText = String.format("%.5f", x + lowerX); //Max 5 decimals
-                incrementText = !incrementText.contains(".") ? incrementText : incrementText.replaceAll("0*$", "").replaceAll("\\.$", "");
-                canvas.drawText(incrementText, (float) (x * xMultiplier), height - (float) originY, incrementPaint);
+                textCounter++;
+                if (textCounter == gridlinesBetweenTexts) {
+                    String incrementText = Double.toString(Utility.round(x + lowerX, 3)); //Max 3 decimals
+                    incrementText = !incrementText.contains(".") ? incrementText : incrementText.replaceAll("0*$", "").replaceAll("\\.$", "");
+                    canvas.drawText(incrementText, (float) (x * xMultiplier), height - (float) originY, incrementPaint);
+                    textCounter = 0;
+                }
             }
         }
         //Y axis
@@ -264,13 +286,24 @@ public class GraphView extends View {
         approximateDistance = (upperY - lowerY) / NUM_OF_GRIDELINES;
         ordersOfMag = (int) Math.floor(Math.log10(approximateDistance)); //Finds how many orders of magnitudes the dist is
         distBetweenGridlines = (float) Math.pow(10, ordersOfMag);
-        for (float y = 0; y + distBetweenGridlines <= yRange; y += distBetweenGridlines){ //Draws the gridlines and increments
-            if (y + lowerY != 0) { //Does not include origin
+        totalNumLines = (int) (yRange / distBetweenGridlines);
+        gridlinesBetweenTexts = totalNumLines / MAX_INCREMENT_TEXTS; //Number of gridlines between each text
+        //Just in case
+        if (gridlinesBetweenTexts == 0) {
+            gridlinesBetweenTexts = 1;
+        }
+        textCounter = 0;
+        for (float y = 0; y <= yRange; y += distBetweenGridlines) { //Draws the gridlines and increments
+            if (Math.abs((y + lowerY) / distBetweenGridlines) > TOLERANCE) { //Does not include origin
                 canvas.drawLine(0, (float) (y * yMultiplier), width, (float) (y * yMultiplier), gridPaint);
                 //Draws the texts for increments
-                String incrementText = String.format("%.5f", y + lowerY); //Max 5 decimals
-                incrementText = !incrementText.contains(".") ? incrementText : incrementText.replaceAll("0*$", "").replaceAll("\\.$", "");
-                canvas.drawText(incrementText, (float) originX, (float) (y * yMultiplier), incrementPaint);
+                textCounter++;
+                if (textCounter == gridlinesBetweenTexts) {
+                    String incrementText = Double.toString(Utility.round(y + lowerY, 5)); //Max 5 decimals
+                    incrementText = !incrementText.contains(".") ? incrementText : incrementText.replaceAll("0*$", "").replaceAll("\\.$", "");
+                    canvas.drawText(incrementText, (float) originX, height - (float) (y * yMultiplier), incrementPaint);
+                    textCounter = 0;
+                }
             }
         }
     }
@@ -284,7 +317,7 @@ public class GraphView extends View {
         //Exit rectangle
         exitRect = new RectF(width / 1.1f, 0, width, height / 20f);
         canvas.drawRect(exitRect, backgroundPaint); //Invisible rectangle; only used to sense touches
-        canvas.drawText("X", width / 1.065f, height / 25f, blackPaint);
+        canvas.drawText("X", width / 1.065f, height / 25f, exitPaint);
     }
 
     /**

@@ -7,8 +7,6 @@ import android.text.SpannedString;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ToggleButton;
 
 import java.util.ArrayList;
 
@@ -19,7 +17,7 @@ public class FunctionFragment extends BasicFragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         activity = (MainActivity) getActivity();
-        View v = inflater.inflate(R.layout.activity_function, container, false);
+        View v = inflater.inflate(R.layout.function, container, false);
         MultiButton expButton = (MultiButton) v.findViewById(R.id.power_button);
         expButton.setText(Html.fromHtml(getString(R.string.exponent)));
         setupButtons(v);

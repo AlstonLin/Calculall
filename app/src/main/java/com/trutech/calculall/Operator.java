@@ -44,7 +44,7 @@ public abstract class Operator extends Token implements Serializable {
      * @param right The value right of the operation
      * @return The result of the operation
      */
-    public abstract double operate(double left, double right);
+    public abstract double operate(double left, double right) throws NumberTooLargeException;
 
 
     /**

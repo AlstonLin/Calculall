@@ -86,6 +86,10 @@ public class DisplayView extends View {
         output = o;
     }
 
+    public ArrayList<Token> getExpression(){
+        return expression;
+    }
+
     /**
      * Displays the given mathematical expression on the view.
      *
@@ -187,7 +191,24 @@ public class DisplayView extends View {
                         break;
                     }
                     case Bracket.SUPERSCRIPT_CLOSE: {
-                        yModifier += SUPERSCRIPT_Y_OFFSET;
+                        //Finds the height of the SUPERSCRIPT_OPEN
+                        int bracketCount = 1;
+                        int j = i - 1;
+                        while (bracketCount > 0) {
+                            Token t = expression.get(j);
+                            if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.SUPERSCRIPT_OPEN) {
+                                bracketCount--;
+                            } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.SUPERSCRIPT_CLOSE) {
+                                bracketCount++;
+                            }
+                            j--;
+                        }
+
+                        if (j == 0){ //Some idiot did ^E (with no base)
+                            yModifier = INITIAL_MODIFIER;
+                        } else{
+                            yModifier = heights.get(j);
+                        }
                         break;
                     }
                     case Bracket.NUM_OPEN: {
@@ -976,6 +997,8 @@ public class DisplayView extends View {
     public void scrollLeft() {
         if (cursorIndex > 0) {
             setCursorIndex(cursorIndex - 1);
+        }else{
+            setCursorIndex(drawCount);
         }
     }
 
@@ -993,6 +1016,10 @@ public class DisplayView extends View {
     public void scrollRight() {
         if (cursorIndex < drawCount) {
             setCursorIndex(cursorIndex + 1);
+        } else if (cursorIndex == drawCount){ //Wraps around
+            setCursorIndex(0);
+        } else{
+            throw new IllegalStateException("Cursor Index is greater than draw count");
         }
     }
 

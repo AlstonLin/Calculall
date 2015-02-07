@@ -5,8 +5,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ToggleButton;
 
 import com.mopub.mobileads.MoPubErrorCode;
 import com.mopub.mobileads.MoPubInterstitial;
@@ -41,7 +39,7 @@ public class BasicFragment extends Fragment implements MoPubInterstitial.Interst
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         activity = (MainActivity) getActivity();
         Basic.getInstance().setFragment(this);
-        return inflater.inflate(R.layout.activity_basic, container, false);
+        return inflater.inflate(R.layout.basic, container, false);
     }
 
     /**
@@ -61,7 +59,6 @@ public class BasicFragment extends Fragment implements MoPubInterstitial.Interst
             }
         }
         activity = (MainActivity)getActivity();
-        activity.getDisplay().clear();
     }
 
     /**
@@ -72,7 +69,6 @@ public class BasicFragment extends Fragment implements MoPubInterstitial.Interst
         if (interstitial != null) {
             interstitial.destroy(); //Prevents Ads from other activities appearing if it is not loaded before switching between them
         }
-        activity.getDisplay().clear();
         super.onPause();
     }
     @Override

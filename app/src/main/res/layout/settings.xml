@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:colorBackground"
+    android:id="@id/container"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="48sp"
+        android:onClick="clickBack"
+        android:text="@string/backspace" />
+
+    <Button
+        android:id="@+id/theme_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/theme"
+        android:onClick="clickTheme"
+        android:textSize="26sp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/round_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="@string/round_to"
+            android:gravity="right"
+            android:textSize="26sp" />
+
+        <Spinner
+            android:id="@+id/decimal_spinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="26sp" />
+
+        <TextView
+            android:id="@+id/decimals_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="@string/decimals"
+            android:textSize="26sp" />
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/upgrade_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/upgrade"
+        android:onClick="clickUpgrade"
+        android:textSize="26sp" />
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/haptic"
+        android:textSize="26sp"
+        android:layout_gravity="center"
+        android:id="@+id/haptic_switch" />
+
+    <Button
+        android:id="@+id/report_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/report"
+        android:onClick="clickReport"
+        android:textSize="26sp" />
+
+    <Button
+        android:id="@+id/about_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/about"
+        android:onClick="clickAbout"
+        android:textSize="26sp" />
+</LinearLayout>

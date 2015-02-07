@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ff093E53"
+    android:background="?android:colorBackground"
     android:orientation="vertical"
     android:weightSum="10">
 
@@ -15,7 +15,7 @@
 
         <Button
             android:id="@+id/negative_button"
-            style="?android:attr/buttonStyleSmall"
+            style="?buttonFunction"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
@@ -25,7 +25,7 @@
 
         <Button
             android:id="@+id/sqrt_button"
-            style="?android:attr/buttonStyleSmall"
+            style="?buttonFunction"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
@@ -35,7 +35,7 @@
 
         <Button
             android:id="@+id/back_button"
-            style="?android:attr/buttonStyleSmall"
+            style="?buttonFunction"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
