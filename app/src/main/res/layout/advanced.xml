@@ -3,14 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ff093E53"
-    android:orientation="vertical"
-    android:weightSum="20">
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/settings_row1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_weight="1"
         android:orientation="horizontal">
 
 
@@ -40,18 +39,6 @@
             android:textOn="@string/hyp"
             android:textSize="16sp" />
 
-        <ToggleButton
-            android:id="@+id/mem_button"
-            style="?android:attr/buttonStyleToggle"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:checked="false"
-            android:onClick="onClick"
-            android:textOff="@string/store"
-            android:textOn="@string/store"
-            android:textSize="16sp" />
-
         <ImageButton
             android:id="@+id/settings_button"
             style="?attr/buttonFunction"
@@ -68,6 +55,18 @@
             android:adjustViewBounds="true"
             android:textSize="20sp" />
 
+
+        <ToggleButton
+            android:id="@+id/mem_button"
+            style="?android:attr/buttonStyleToggle"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:checked="false"
+            android:onClick="onClick"
+            android:textOff="@string/store"
+            android:textOn="@string/store"
+            android:textSize="16sp" />
 
         <ImageButton
             android:id="@+id/history_button"
@@ -91,7 +90,7 @@
         android:id="@+id/var_row"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_weight="1"
         android:orientation="horizontal">
 
         <com.trutech.calculall.MultiButton
@@ -163,7 +162,7 @@
         android:id="@+id/function_row_1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_weight="1"
         android:orientation="horizontal">
 
 
@@ -233,7 +232,7 @@
         android:id="@+id/function_row_2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_weight="1"
         android:orientation="horizontal">
 
         <ImageButton
@@ -300,7 +299,7 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:onClick="onClick"
-            android:text="@string/reciprocal"
+            android:text="@string/recip"
             android:textSize="16sp" />
 
         <ImageButton
@@ -320,7 +319,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="12"
+        android:layout_weight="5"
         android:orientation="horizontal">
 
         <LinearLayout

@@ -533,10 +533,6 @@ public class Utility {
         }
     }
 
-    public static ArrayList<Token> simplifyVector(ArrayList<Token> expression) {
-        return VRuleSet.reduce(expression);
-    }
-
     public static ArrayList<Token> convertDoublesToVector(double[] vector) {
         ArrayList<Token> newVector = new ArrayList<Token>();
         newVector.add(BracketFactory.makeOpenSquareBracket());
@@ -596,104 +592,6 @@ public class Utility {
 
     }
 
-    public static double[] calculateAddOrSubtract(double[] vectorLeft, double[] vectorRight, int operator) {
-        if (vectorLeft.length == vectorRight.length) {
-            int dimensions = vectorLeft.length;
-            if (operator == VRuleSet.ADD) {
-                if (dimensions == 2) {
-                    double[] expression = new double[2];
-                    expression[0] = Utility.round(vectorLeft[0] + vectorRight[0], 3);
-                    expression[1] = Utility.round(vectorLeft[1] + vectorRight[1], 3);
-                    return expression;
-                } else if (dimensions == 3) {
-                    double[] expression = new double[3];
-                    expression[0] = Utility.round(vectorLeft[0] + vectorRight[0], 3);
-                    expression[1] = Utility.round(vectorLeft[1] + vectorRight[1], 3);
-                    expression[2] = Utility.round(vectorLeft[2] + vectorRight[2], 3);
-                    return expression;
-                }
-            } else if (operator == VRuleSet.SUBTRACT) {
-                if (dimensions == 2) {
-                    double[] expression = new double[2];
-                    expression[0] = Utility.round(vectorLeft[0] - vectorRight[0], 3);
-                    expression[1] = Utility.round(vectorLeft[1] - vectorRight[1], 3);
-                    return expression;
-                } else if (dimensions == 3) {
-                    double[] expression = new double[3];
-                    expression[0] = Utility.round(vectorLeft[0] - vectorRight[0], 3);
-                    expression[1] = Utility.round(vectorLeft[1] - vectorRight[1], 3);
-                    expression[2] = Utility.round(vectorLeft[2] - vectorRight[2], 3);
-                    return expression;
-                }
-            }
-        }
-        return null;
-    }
-
-
-    /**
-     * The parameter vectors should be set up so that each vector is in it's own column
-     * for example if the vectors are 2D vectors the first vector's x co-ordinate should be stored in vectors[0][0]
-     * the y co-ordinate should be stored in vectors[0][1]
-     * for the second vector the x co-ordinate should be stored in vectors[1][0]
-     * the y co-ordinate for the second vector should be stored in vectors[1][1]
-     *
-     * @param vectorLeft  is a 2D array that holds the 1 vector that we are trying to find the dot product of
-     * @param vectorRight is a 2D array that holds the 2 vectors that we are trying to find the dot product of
-     * @return will return the answer as a double or if it can't calculate it returns null
-     */
-    public static double calculateDotProduct(double[] vectorLeft, double[] vectorRight) {
-
-/*        //first solution
-        //can handle 1D, 2D and 3D vectors
-        //for 2D vectors
-        if (vectorLeft.length == 2){
-            double dotProduct = vectorLeft[0] * vectorRight[0] + vectorLeft[1] * vectorRight[1];
-            return dotProduct;
-        }
-        //for 3D vectors
-        else if (vectorLeft.length == 3) {
-            double dotProduct = vectorLeft[0] * vectorRight[0] + vectorLeft[1] * vectorRight[1] + vectorLeft[2] * vectorRight[2];
-            return dotProduct;
-        }
-        //for 1D vectors basically just multiplication
-        else if (vectorLeft.length == 1) {
-            double dotProduct = vectorLeft[0] * vectorRight[0];
-            return dotProduct;
-        }
-        //if the vectors[0].length is greater than 3 it would mean dealing with vectors that are 4D or higher
-        else{
-            return -1;
-        }*/
-
-
-        //second solution
-        // can handle vectors no matter how many dimensions the vector has
-        // this if is to make sure both vectors will be the same type basically to make sure you are finding the dot product between a 2D vector and another
-        // 2D vector not between a 2D vector and a 3D vector
-        if (vectorLeft.length == vectorRight.length) {
-            //are we dealing with 2D vectors?, 3D vectors?, 4D vectors? so on
-            int dimensions = vectorLeft.length;
-            //holds the answer
-            double dotProduct = 0;
-            //this for loop wll be able to do dot products no matter how many dimensions there are
-            //loop as many times as here are vectors
-            for (int i = 0; i < dimensions; i++) {
-                //first time it goes through it will multiply the x co-ordinate aka first dimension of each vector with each other
-                //the product is added to the variable dot product
-                //second run it will multiply the y co-ordinate aka second dimension of each vector with each other
-                //this second product will be added to the dot product
-                //for 2D vectors this would be the dot product and the loop would end if the vectors are 3D or higher it would keep looping
-                dotProduct = dotProduct + vectorLeft[i] * vectorRight[i];
-            }
-            //return the answer
-            return dotProduct;
-        } else {
-            return 0;
-        }
-
-    }
-
 
     /**
      * Cleans up the given expression to render it more human-readable.
@@ -717,152 +615,6 @@ public class Utility {
             newExpression.add(t);
         }
         return newExpression;
-    }
-
-    /**
-     * the parameter vectors should be set up the same way as it is for dot product
-     * each of the two vectors is in it's own column
-     * the co-ordinates for the first vector should be as such x is in vectors[0][0]
-     * y is in vectors[0][1]  z is in vectors[0][2]
-     * for the second vector x is in vectors[1][0]  y is in vectors[1][1]
-     * z is in vectors[1][2]
-     *
-     * @param vectorLeft  is an array that holds 1 vector that we are trying to find the dot product of
-     * @param vectorRight is an array that holds 1 vector that we are trying to find the dot product of
-     * @return returns the answer as a 1D array of doubles or if it can't calculate it will return null
-     */
-    public static double[] calculateCrossProduct(double[] vectorLeft, double[] vectorRight) {
-        if (vectorRight.length == 3 && vectorRight.length == 3) {
-            double[] crossProduct = new double[3];
-            crossProduct[0] = vectorLeft[1] * vectorRight[2] - vectorLeft[2] * vectorRight[1];
-            crossProduct[1] = vectorLeft[2] * vectorRight[0] - vectorLeft[0] * vectorRight[2];
-            crossProduct[2] = vectorLeft[0] * vectorRight[1] - vectorLeft[1] * vectorRight[0];
-            return crossProduct;
-        } else {
-            throw new IllegalArgumentException();
-        }
-    }
-
-    /**
-     * Returns the magnitude of a vector given a vector represented as an array of doubles
-     *
-     * @param vector Vector as an array of doubles
-     * @return double Magnitude of the vector
-     */
-    public static double calculateMagnitude(double[] vector) {
-        if (vector.length == 2) {
-            return Math.sqrt(Math.pow(vector[0], 2) + Math.pow(vector[1], 2));
-        } else if (vector.length == 3) {
-            return Math.sqrt(Math.pow(vector[0], 2) + Math.pow(vector[1], 2) + Math.pow(vector[2], 2));
-        } else {
-            throw new IllegalArgumentException("Error: This calculator only supports 2D and 3D vectors.");
-        }
-    }
-
-    /**
-     * STILL NEEDS TO BE TESTED
-     * Calculates the scalar equation of a line in vector form in 2D and outputs it to the user
-     *
-     * @ param point The point on the line
-     * @ param direction The direction vector of the line
-     * @ return ArrayList<Token> The scalar equation to be output on the screen
-     */
-    public static ArrayList<Token> calculateScalarEquation(double[] point, double[] direction) {
-        ArrayList<Token> output = new ArrayList<Token>();
-        //line is in the form [a,b] + t[c,d] where [a,b] is the point and [c,d] is the direction vector
-        double a = point[0];
-        double b = point[1];
-        double c = direction[0];
-        double d = direction[1];
-        double z = -1 * c * b + d * a;
-
-        if (c == 0 && d == 0) {
-            throw new IllegalArgumentException("Error: Not a line!");
-        }
-
-        //special case if c = 0
-        if (c == 0) {
-            output.add(VariableFactory.makeX());
-            output.add(new Token("=") {
-            });
-            output.add(new Number(Utility.round(a, 3)));
-            return output;
-        }
-
-        //special case if d = 0
-        if (d == 0) {
-            output.add(VariableFactory.makeY());
-            output.add(new Token("=") {
-            });
-            output.add(new Number(Utility.round(b, 3)));
-            return output;
-        }
-
-        //Scalar equation is in the form cy - dx + z = 0 , where z = -cb + da
-
-        //for first term
-        if (c != 0) {
-            output.add(new Number(Utility.round(c, 3)));
-            output.add(VariableFactory.makeY());
-        }
-
-        //for second term
-        if (d > 0) {
-            output.add(OperatorFactory.makeSubtract());
-            output.add(new Number(Utility.round(Math.abs(d), 3)));
-        } else if (d < 0) {
-            if (c != 0) {
-                output.add(OperatorFactory.makeAdd());
-            }
-            output.add(new Number(Utility.round(Math.abs(d), 3)));
-        }
-        if (d != 0) {
-            output.add(VariableFactory.makeX());
-        }
-
-        //for third term
-        if (z > 0) {
-            output.add(OperatorFactory.makeAdd());
-        }
-        if (z < 0) {
-            output.add(OperatorFactory.makeSubtract());
-        }
-
-        if (z != 0) {
-            output.add(new Number(Utility.round(Math.abs(z), 3)));
-        }
-
-        // = 0
-        output.add(new Token("=") {
-        });
-        output.add(new Number(0));
-        return output;
-
-    }
-
-    /**
-     * Determines the unit vector of a given vector
-     *
-     * @param vector The vector.
-     * @return ArrayList<Token></Token> The unit vector.
-     */
-    public static ArrayList<Token> findUnitVector(double[] vector) {
-        double magnitude = calculateMagnitude(vector);
-        if (vector.length == 2) {
-            double[] unitVector = new double[2];
-            unitVector[0] = Utility.round(vector[0] / magnitude, 3);
-            unitVector[1] = Utility.round(vector[1] / magnitude, 3);
-            return Utility.convertDoublesToVector(unitVector);
-        } else if (vector.length == 3) {
-            double[] unitVector = new double[3];
-            unitVector[0] = Utility.round(vector[0] / magnitude, 3);
-            unitVector[1] = Utility.round(vector[1] / magnitude, 3);
-            unitVector[2] = Utility.round(vector[2] / magnitude, 3);
-            return Utility.convertDoublesToVector(unitVector);
-        } else {
-            throw new IllegalArgumentException("Error: This calculator only supports 2D and 3D vectors.");
-        }
-
     }
 
     /**
@@ -1113,44 +865,6 @@ public class Utility {
         return newVector;
     }
 
-/*    *//**
-     *
-     * @param vector Vector in an array of doubles who's unit vector is being found
-     * @return ArrayList<Token> The unit vector
-     *//*
-    public static ArrayList<Token> findUnitVector (double[] vector) {
-        ArrayList<Token> tempExpression = new ArrayList<Token>();
-        tempExpression.add(new Number (1/Utility.calculateMagnitude(vector)));
-        tempExpression.addAll(Utility.convertDoublesToVector(vector));
-        return tempExpression;
-    }*/
-
-    /**
-     * Finds the angle between 2 vectors represent
-     *
-     * @param leftVector
-     * @param rightVector
-     * @return double Angle between 2 vectors
-     */
-    public static double findAngleBetweenVector(double[] leftVector, double[] rightVector) {
-        return (Math.acos((Utility.calculateDotProduct(leftVector, rightVector))
-                / (Utility.calculateMagnitude(leftVector) * Utility.calculateMagnitude(rightVector)))) * (180 / Math.PI);
-
-    }
-
-    /**
-     * @param leftVector
-     * @param rightVector
-     * @return ArrayList<Token>
-     */
-    public static ArrayList<Token> findProjection(double[] leftVector, double[] rightVector) {
-        ArrayList<Token> tempTokens = new ArrayList<Token>();
-        ArrayList<Token> tempVector = new ArrayList<Token>();
-        tempTokens.add(new Number(Utility.round((calculateDotProduct(rightVector, leftVector) / Math.pow(calculateMagnitude(leftVector), 2)), 3)));
-        tempTokens.addAll(convertDoublesToVector(leftVector));
-        return tempTokens;
-    }
-
     /**
      * Finds the roots of any given function, if any
      *
@@ -1293,5 +1007,38 @@ public class Utility {
         }
 
         return roots;
+    }
+
+    /**
+     * Processes the expression and returns the result using the Shunting Yard Algorithm to convert
+     * the expression into reverse polish and then evaluating it.
+     *
+     *@param tokens The expression to process
+     * @return The numerical value of the expression
+     * @throws IllegalArgumentException If the user has input a invalid expression
+     */
+    public static double process(ArrayList<Token> tokens) {
+        tokens = setupExpression(condenseDigits(addMissingBrackets(subVariables(tokens))));
+        return evaluateExpression(convertToReversePolish(tokens));
+    }
+
+    /**
+     * Substitutes all the variables on the tokens list with the defined values
+     *
+     * @param tokens The tokens to sub variables
+     * @return The list of tokens with the variables substituted
+     */
+    private static ArrayList<Token> subVariables(ArrayList<Token> tokens) {
+        ArrayList<Token> newTokens = new ArrayList<Token>();
+        for (Token token : tokens) {
+            if (token instanceof Variable) {
+                int index = tokens.indexOf(token);
+                Variable v = (Variable) token;
+                newTokens.add(index, new Number(v.getValue()));
+            } else {
+                newTokens.add(token);
+            }
+        }
+        return newTokens;
     }
 }

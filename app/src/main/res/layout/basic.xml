@@ -9,24 +9,8 @@
             android:id="@+id/row1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:orientation="horizontal">
-
-            <ImageButton
-                android:id="@+id/settings_button"
-                style="?attr/buttonFunction"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:layout_weight="1"
-                android:onClick="clickSettings"
-                android:scaleType="fitCenter"
-                android:src="@drawable/settings_white"
-                android:adjustViewBounds="true"
-                android:textSize="20sp" />
 
 
             <ImageButton
@@ -34,14 +18,30 @@
                 style="?attr/buttonFunction"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
                 android:layout_weight="1"
                 android:onClick="onClick"
                 android:scaleType="fitCenter"
                 android:src="@drawable/history_white"
+                android:adjustViewBounds="true"
+                android:textSize="20sp" />
+
+            <ImageButton
+                android:id="@+id/settings_button"
+                style="?attr/buttonFunction"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_weight="1"
+                android:onClick="clickSettings"
+                android:scaleType="fitCenter"
+                android:src="@drawable/settings_white"
                 android:adjustViewBounds="true"
                 android:textSize="20sp" />
 
@@ -62,7 +62,7 @@
         android:id="@+id/row2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_weight="1"
         android:orientation="horizontal">
 
         <Button
@@ -101,7 +101,7 @@
             android:id="@+id/row3"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3"
+            android:layout_weight="1"
             android:orientation="horizontal">
 
             <Button
@@ -149,7 +149,7 @@
             android:id="@+id/row4"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3"
+            android:layout_weight="1"
             android:orientation="horizontal">
 
             <Button
@@ -197,7 +197,7 @@
             android:id="@+id/row5"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3"
+            android:layout_weight="1"
             android:orientation="horizontal">
 
             <Button
@@ -245,7 +245,7 @@
             android:id="@+id/row6"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3"
+            android:layout_weight="1"
             android:orientation="horizontal">
 
             <Button

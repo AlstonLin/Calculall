@@ -371,7 +371,7 @@ public class Basic implements View.OnClickListener {
      */
     public void clickEquals() {
         try {
-            Number num = new Number(process(tokens));
+            Number num = new Number(Utility.process(tokens));
             if (Double.isInfinite(num.getValue())) {
                 throw new NumberTooLargeException();
             }
@@ -379,45 +379,10 @@ public class Basic implements View.OnClickListener {
             list.add(num);
             display.displayOutput(list);
             saveEquation(tokens, list, filename);
-        } catch (StackOverflowError e){
-            Toast.makeText(activity, "It seems this phone is not powerful enough to compute this :(", Toast.LENGTH_LONG).show();
         } catch (Exception e) { //User did a mistake
             handleExceptions(e);
         }
         activity.scrollDown();
-    }
-
-    /**
-     * Processes the expression and returns the result using the Shunting Yard Algorithm to convert
-     * the expression into reverse polish and then evaluating it.
-     *
-     *@param tokens The expression to process
-     * @return The numerical value of the expression
-     * @throws IllegalArgumentException If the user has input a invalid expression
-     */
-    protected double process(ArrayList<Token> tokens) {
-        tokens = Utility.setupExpression(Utility.condenseDigits(Utility.addMissingBrackets(subVariables(tokens))));
-        return Utility.evaluateExpression(Utility.convertToReversePolish(tokens));
-    }
-
-    /**
-     * Substitutes all the variables on the tokens list with the defined values
-     *
-     * @param tokens The tokens to sub variables
-     * @return The list of tokens with the variables substituted
-     */
-    protected ArrayList<Token> subVariables(ArrayList<Token> tokens) {
-        ArrayList<Token> newTokens = new ArrayList<Token>();
-        for (Token token : tokens) {
-            if (token instanceof Variable) {
-                int index = tokens.indexOf(token);
-                Variable v = (Variable) token;
-                newTokens.add(index, new Number(v.getValue()));
-            } else {
-                newTokens.add(token);
-            }
-        }
-        return newTokens;
     }
 
     /**
@@ -525,14 +490,25 @@ public class Basic implements View.OnClickListener {
                     || (token instanceof Bracket && ((Bracket) token).getType() == Bracket.DENOM_CLOSE && previous != null && previous instanceof Bracket
                     && ((Bracket) previous).getType() == Bracket.DENOM_OPEN)) {
                 //Adds the placeholder before the close bracket
-                tokens.add(i, PlaceholderFactory.makeBlock());
+                tokens.add(i, PlaceholderFactory.makeSuperscriptBlock());
             }
-
-            //Removes Placeholder if it is not needed - Checks to see if it is not next to a superscript or frac bracket
-            if (token instanceof Placeholder && ((Placeholder) token).getType() == Placeholder.BLOCK && !(previous != null && previous instanceof Bracket
+            //BASE
+            if (token instanceof Operator && ((Operator)token).getType() == Operator.EXPONENT && !(previous instanceof Placeholder)
+                    && (previous == null || !(previous instanceof Digit || previous instanceof Variable
+                    || previous instanceof Bracket && (((Bracket)previous).getType() == Bracket.CLOSE || ((Bracket)previous).getType() == Bracket.DENOM_CLOSE)))) {
+                tokens.add(i, PlaceholderFactory.makeBaseBlock());
+            }
+            //Removes Placeholder if it is not needed - Checks to see if it is not next to a superscript or frac bracket - SUPERSCRIPT
+            if (token instanceof Placeholder && ((Placeholder) token).getType() == Placeholder.SUPERSCRIPT_BLOCK && !(previous != null && previous instanceof Bracket
                     && (((Bracket) previous).getType() == Bracket.SUPERSCRIPT_OPEN || ((Bracket) previous).getType() == Bracket.NUM_OPEN
                     || ((Bracket) previous).getType() == Bracket.DENOM_OPEN))) {
                 tokens.remove(token);
+            }
+            //for BASE
+            if (token instanceof Placeholder && ((Placeholder) token).getType() == Placeholder.BASE_BLOCK && previous != null
+                && (previous instanceof Digit || previous instanceof Variable || (previous instanceof Bracket
+                    && (((Bracket)previous).getType() == Bracket.CLOSE || ((Bracket)previous).getType() == Bracket.DENOM_CLOSE)))) {
+                    tokens.remove(token);
             }
         }
     }

@@ -102,7 +102,7 @@
             android:checked="true"
             android:textOn="@string/basic"
             android:textOff="@string/basic"
-            android:textSize="16sp" />
+            android:textSize="12sp" />
 
         <ToggleButton
             android:id="@+id/advanced_button"
@@ -122,7 +122,7 @@
             android:onClick="clickFunction"
             android:textOn="@string/function"
             android:textOff="@string/function"
-            android:textSize="14sp" />
+            android:textSize="12sp" />
 
         <ToggleButton
             android:id="@+id/vector_button"
@@ -132,7 +132,7 @@
             android:onClick="clickVector"
             android:textOn="@string/vector"
             android:textOff="@string/vector"
-            android:textSize="16sp" />
+            android:textSize="12sp" />
 
         <ToggleButton
             android:id="@+id/matrix_button"
@@ -142,7 +142,7 @@
             android:textOn="@string/matrix"
             android:textOff="@string/matrix"
             android:onClick="clickMatrix"
-            android:textSize="16sp" />
+            android:textSize="12sp" />
 
     </LinearLayout>
 </LinearLayout>

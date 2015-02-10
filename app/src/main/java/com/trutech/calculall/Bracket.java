@@ -11,8 +11,8 @@ import java.io.Serializable;
  */
 public class Bracket extends Token implements Serializable {
 
-    public static final int OPEN = 1, CLOSE = 2, SQUAREOPEN = 3, SQUARECLOSED = 4, MAGNITUDEBAR = 5, SUPERSCRIPT_OPEN = 6, SUPERSCRIPT_CLOSE = 7,
-            NUM_OPEN = 8, NUM_CLOSE = 9, DENOM_OPEN = 10, DENOM_CLOSE = 11;
+    public static final int OPEN = 1, CLOSE = 2, SQUAREOPEN = 3, SQUARECLOSED = 4, MAGNITUDE_OPEN = 5, SUPERSCRIPT_OPEN = 6, SUPERSCRIPT_CLOSE = 7,
+            NUM_OPEN = 8, NUM_CLOSE = 9, DENOM_OPEN = 10, DENOM_CLOSE = 11, MAGNITUDE_CLOSE = 12;
     private static final long serialVersionUID = 752647220;
     private int type;
 

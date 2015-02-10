@@ -10,7 +10,7 @@ import java.io.Serializable;
  */
 public class Placeholder extends Token implements Serializable {
 
-    public static final int BLOCK = 0, COMMA = 1;
+    public static final int SUPERSCRIPT_BLOCK = 0, COMMA = 1, BASE_BLOCK = 2;
     private int type;
 
     /**

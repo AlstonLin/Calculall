@@ -19,6 +19,10 @@ public abstract class VectorOperator extends Token implements Serializable {
         this.precedence = precedence;
     }
 
-    public abstract Vector operate(Vector left, Vector right);
+    public abstract Token operate(Token left, Token right);
 
+
+    public int getPrecedence(){
+        return precedence;
+    }
 }

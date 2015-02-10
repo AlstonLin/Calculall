@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="font_size">Font Size</string>
     <string name="mode_key">Mode</string>
     <string name="tokens_key">Tokens</string>
     <string name="about_us">About Us</string>
@@ -81,7 +82,8 @@
     <string name="closed_bracket">)</string>
     <string name="open_square_bracket">[</string>
     <string name="closed_square_bracket">]</string>
-    <string name="magnitude">|v|</string>
+    <string name="magnitude_open">‖(</string>
+    <string name="magnitude_close">)‖</string>
     <string name="unit_vector">û</string>
     <string name="argument">Arg</string>
     <string name="bear">Bea</string>
@@ -89,9 +91,8 @@
     <string name="projection">proj</string>
     <string name="scalar">Scalar</string>
     <string name="angle_between_vectors">∠</string>
-    <string name="vect_u">u</string>
-    <string name="vect_v">v</string>
-    <string name="vect_w">w</string>
+    <string name="vect_u">U</string>
+    <string name="vect_v">V</string>
     <string name="s">s</string>
     <string name="t">t</string>
     <string name="dot">•</string>
@@ -115,13 +116,13 @@
     <string name="degrees">Degrees</string>
     <string name="radians">Radians</string>
     <string name="gradians">Gradians</string>
-    <string name="exponent"><![CDATA[x<sup><small><i>y</i></small></sup>]]></string>
-    <string name="var_root"><![CDATA[<sup><small><i>y</i></small></sup>√x]]></string>
+    <string name="exponent"><![CDATA[x<sup><small><i>□</i></small></sup>]]></string>
+    <string name="var_root"><![CDATA[<sup><small><i>□</i></small></sup>√x]]></string>
     <string name="recip"><![CDATA[x<sup><small>-1</small></sup>]]></string>
     <string name="square">x²</string>
     <string name="cube">x³</string>
-    <string name="pow_of_ten"><![CDATA[10<sup><small><i>x</i></small></sup>]]></string>
-    <string name="pow_of_e"><![CDATA[e<sup><small><i>x</i></small></sup>]]></string>
+    <string name="pow_of_ten"><![CDATA[10<sup><small><i>□</i></small></sup>]]></string>
+    <string name="pow_of_e"><![CDATA[e<sup><small><i>□</i></small></sup>]]></string>
     <string name="log10">log</string>
     <string name="log_b">log_b</string>
     <string name="ln">ln</string>
@@ -139,15 +140,14 @@
     <string name="base2">BIN</string>
     <string name="radix">CHANGE</string>
     <string name="imp_frac">d/e</string>
-    <string name="factorial">n!</string>
-    <string name="reciprocal">x^-1</string>
+    <string name="factorial">x!</string>
     <string name="combination">n<b><b>C</b></b>r</string>
     <string name="permutation">n<b><b>P</b></b>r</string>
     <string name="title_activity_vector">Vector</string>
     <string name="function">Function</string>
     <string name="vector">Vector</string>
     <string name="findRoots">Roots</string>
-    <string name="derivative">dy/dx</string>
+    <string name="derivative">d/dx</string>
     <string name="graph">Graph</string>
     <string name="integrate">∫</string>
     <string name="simplify">Simplify</string>

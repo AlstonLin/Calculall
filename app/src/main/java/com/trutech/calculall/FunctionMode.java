@@ -516,6 +516,9 @@ public class FunctionMode extends Advanced {
             try {
                 android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_MORE_FAVORABLE); //Higher priority
                 return task.execute(params[0]);
+            } catch (StackOverflowError e) {
+                Toast.makeText(activity, "It seems this phone is not powerful enough to compute this :(", Toast.LENGTH_LONG).show();
+                return null;
             } catch (Exception e) {
                 error = e;
                 return null;
