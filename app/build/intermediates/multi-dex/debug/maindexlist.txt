@@ -294,6 +294,7 @@ com/trutech/calculall/Token.class
 com/google/android/gms/internal/go.class
 com/mopub/mobileads/MraidVideoPlayerActivity.class
 com/google/android/gms/common/data/DataBuffer.class
+com/trutech/calculall/HistoryView.class
 org/apache/commons/math3/analysis/DifferentiableMultivariateVectorFunction.class
 com/google/android/gms/internal/dc.class
 com/mopub/mobileads/AdFetcher.class
@@ -439,6 +440,7 @@ com/mopub/mraid/MraidVideoViewController.class
 com/mopub/mobileads/factories/AdFetcherFactory.class
 com/google/android/gms/games/leaderboard/Leaderboard.class
 org/apache/commons/math3/optimization/general/NonLinearConjugateGradientOptimizer.class
+com/trutech/calculall/SettingsActivity$3.class
 android/support/v4/widget/MaterialProgressDrawable$ProgressDrawableSize.class
 com/mopub/common/MoPubBrowser$5.class
 com/trutech/calculall/SettingsActivity$ImageAdapter.class
@@ -583,6 +585,7 @@ com/google/common/collect/TreeRangeSet.class
 org/matheclipse/core/interfaces/IExpr.class
 com/google/android/gms/internal/cc.class
 android/support/v4/widget/CursorAdapter.class
+com/trutech/calculall/SettingsActivity$2.class
 com/google/android/gms/cast/CastMediaControlIntent.class
 org/apache/commons/math3/analysis/function/Tanh.class
 com/google/common/collect/TreeRangeMap$SubRangeMap.class

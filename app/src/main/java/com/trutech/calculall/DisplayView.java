@@ -1,9 +1,7 @@
 package com.trutech.calculall;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
@@ -23,20 +21,19 @@ import java.util.Stack;
  */
 public class DisplayView extends View {
 
-    //CONSTANTS
-    private final float TEXT_HEIGHT;
-    private final float CURSOR_PADDING;
-    private final int FONT_SIZE = 96;
-    private final float X_PADDING; //The padding at the start and end of the display (x)
-    private final float SUPERSCRIPT_Y_OFFSET;
-    private final float MATRIX_PADDING;
-    private float FRAC_PADDING;
+    private float cursorPadding;
+    private float xPadding; //The padding at the start and end of the display (x)
+    private float superscriptYOffset;
+    private float matrixPadding;
+    private float fracPadding;
     private float startX = 0; //Tracks the starting x position at which the canvas will start drawing (allows side scrolling)
     private float maxX = 0; //Max start X that the user can scroll to
     private int cursorIndex = 0; //The index where the cursor is when shown on screen
+    private int fontSize;
     private int drawCount = 0;
     private float maxY = 0;
     private float cursorY = 0;
+    private float textHeight;
     private ArrayList<Float> drawX = new ArrayList<Float>(); //Stores the width of each counted symbol
     private ArrayList<Float> heights = new ArrayList<Float>();
     private int realCursorIndex = 0; //The index of the cursor in the list of tokens
@@ -45,7 +42,6 @@ public class DisplayView extends View {
     private Paint fracPaint;
     private Paint cursorPaint;
     private ArrayList<Token> expression = new ArrayList<Token>();
-    private String outputString = ""; //TEMPORARY
     private OutputView output;
 
     public DisplayView(Context context, AttributeSet attr) {
@@ -56,34 +52,37 @@ public class DisplayView extends View {
         //Setup the paints
         textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         textPaint.setColor(displayColor);
-        textPaint.setTextSize(FONT_SIZE);
 
         cursorPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         cursorPaint.setColor(displayColor);
-        cursorPaint.setTextSize(FONT_SIZE);
 
         fracPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         fracPaint.setColor(displayColor);
-        fracPaint.setTextSize(FONT_SIZE);
         fracPaint.setStrokeWidth(10);
 
-        //Sets constant values
-        //Calculates the height of the texts
-        Rect textRect = new Rect();
-        textPaint.getTextBounds("1", 0, 1, textRect);
-        TEXT_HEIGHT = textRect.height() * 1.25f;
-
-        X_PADDING = TEXT_HEIGHT / 3;
-        //LINE_HEIGHT_NORMAL = TEXT_HEIGHT;
-        CURSOR_PADDING = TEXT_HEIGHT / 10;
-        FRAC_PADDING = TEXT_HEIGHT / 8;
-        SUPERSCRIPT_Y_OFFSET = TEXT_HEIGHT / 2;
-        MATRIX_PADDING = textPaint.measureText("  ");
         setWillNotDraw(false);
     }
 
     public void setOutput(OutputView o) {
         output = o;
+    }
+
+    public void setFontSize(int fontSize){
+        this.fontSize = fontSize;
+        output.setFontSize(fontSize);
+        textPaint.setTextSize(fontSize);
+        cursorPaint.setTextSize(fontSize);
+        fracPaint.setTextSize(fontSize);
+        //Calculates the height of the texts
+        Rect textRect = new Rect();
+        textPaint.getTextBounds("1", 0, 1, textRect);
+        textHeight = textRect.height() * 1.25f;
+        //Sets variables that are based on the text height
+        xPadding = textHeight / 3;
+        cursorPadding = textHeight / 10;
+        fracPadding = textHeight / 8;
+        superscriptYOffset = textHeight / 2;
+        matrixPadding = textPaint.measureText("  ");
     }
 
     public ArrayList<Token> getExpression(){
@@ -143,9 +142,9 @@ public class DisplayView extends View {
         float cursorX = getCursorX();
 
         if (cursorX < startX) {
-            startX = cursorX - CURSOR_PADDING;
+            startX = cursorX - cursorPadding;
         } else if (cursorX > startX + getWidth()) {
-            startX = cursorX - getWidth() + CURSOR_PADDING;
+            startX = cursorX - getWidth() + cursorPadding;
         }
 
 
@@ -153,7 +152,7 @@ public class DisplayView extends View {
 
         if (functionMode) { //Adds a f(x)= at the start
             final String s = "f(x)=";
-            canvas.drawText(s, X_PADDING, TEXT_HEIGHT, textPaint);
+            canvas.drawText(s, xPadding, textHeight, textPaint);
             float[] widths = new float[s.length()];
             textPaint.getTextWidths(s, widths);
             xModifier += sum(widths);
@@ -162,7 +161,7 @@ public class DisplayView extends View {
 
 
         //Counter and state variables
-        final float INITIAL_MODIFIER = -getMostNeg(expression) + TEXT_HEIGHT;
+        final float INITIAL_MODIFIER = -getMostNeg(expression) + textHeight;
         float yModifier = INITIAL_MODIFIER;
         //float scriptHeightMultiplier = 0; //Height on the superscript level
         for (int i = 0; i < expression.size(); i++) {
@@ -187,7 +186,7 @@ public class DisplayView extends View {
                             j++;
                         }
                         exponent.remove(exponent.size() - 1); //Removes the SUPERSCRIPT_CLOSE Bracket
-                        yModifier -= SUPERSCRIPT_Y_OFFSET + (getMaxLinesHeight(exponent) == 1 ? 0 : getHeight(exponent, false) / 2);
+                        yModifier -= superscriptYOffset + (getMaxLinesHeight(exponent) == 1 ? 0 : getHeight(exponent, false) / 2);
                         break;
                     }
                     case Bracket.SUPERSCRIPT_CLOSE: {
@@ -204,7 +203,7 @@ public class DisplayView extends View {
                             j--;
                         }
 
-                        if (j == 0){ //Some idiot did ^E (with no base)
+                        if (j == -1){ //Some idiot did ^E (with no base)
                             yModifier = INITIAL_MODIFIER;
                         } else{
                             yModifier = heights.get(j);
@@ -311,7 +310,7 @@ public class DisplayView extends View {
             //Draws the text
             if (token instanceof Matrix){
                 ArrayList<Token>[][] entries = ((Matrix)token).getEntries();
-                y -= (entries.length - 1) * TEXT_HEIGHT; //Starts at the top
+                y -= (entries.length - 1) * textHeight; //Starts at the top
                 //Calculates at what x value to start drawing each column
                 float[] columnX = new float[entries[0].length + 1];
                 columnX[0] = x;
@@ -334,13 +333,13 @@ public class DisplayView extends View {
                         float currentWidth = paint.measureText(str);
                         float targetWidth = columnX[k + 1] - columnX[k];
                         float padding = (targetWidth - currentWidth) / 2; //Padding on each side
-                        float drawX = columnX[k] + k * MATRIX_PADDING;
+                        float drawX = columnX[k] + k * matrixPadding;
                         drawX += padding;
                         canvas.drawText(str, drawX, y, paint);
                     }
-                    y += TEXT_HEIGHT;
+                    y += textHeight;
                 }
-                y -= TEXT_HEIGHT; //Undeos the last iteration
+                y -= textHeight; //Undeos the last iteration
             }else {
                 canvas.drawText(token.getSymbol(), x, y, paint);
             }
@@ -363,14 +362,14 @@ public class DisplayView extends View {
                     }
                     j++;
                 }
-                canvas.drawLine(x, y + FRAC_PADDING, drawX.get(j), y + FRAC_PADDING, fracPaint);
+                canvas.drawLine(x, y + fracPadding, drawX.get(j), y + fracPadding, fracPaint);
             }
 
             //Draws cursor
             if (i == realCursorIndex) {
                 //Superscripts the cursor if needed
                 cursorY = y;
-                cursorX = x - CURSOR_PADDING;
+                cursorX = x - cursorPadding;
                 if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.SUPERSCRIPT_CLOSE) {
                     cursorY = heights.get(i - 1);
                 } else if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.DENOM_CLOSE) {
@@ -382,23 +381,16 @@ public class DisplayView extends View {
         try {
             //Draws cursor in special cases
             if (expression.size() == 0) { //No expression
-                canvas.drawText("|", X_PADDING, yModifier, cursorPaint);
+                canvas.drawText("|", xPadding, yModifier, cursorPaint);
             } else if (realCursorIndex == expression.size()) { //Last index (or the cursor index is larger than the draw count
                 //Moves the cursor up if its superscript
                 cursorY = yModifier;
-                cursorX = maxX + xModifier - CURSOR_PADDING;
+                cursorX = maxX + xModifier - cursorPadding;
                 canvas.drawText("|", cursorX, cursorY, cursorPaint);
                 realCursorIndex = expression.size();
             }
         } catch (ArrayIndexOutOfBoundsException e){
             //When rendering in Android Studio (Android bug)
-        }
-        //Displays output if there is any
-        //TEMPORARY CODE (Will use a list of tokens in the future)
-        if (outputString.length() != 0) {
-            //Determines width of the output string
-            float[] outputWidths = new float[outputString.length()];
-            textPaint.getTextWidths(outputString, outputWidths);
         }
     }
 
@@ -431,11 +423,11 @@ public class DisplayView extends View {
                             j++;
                         }
                         exponent.remove(exponent.size() - 1); //Removes the SUPERSCRIPT_CLOSE Bracket
-                        yModifier -= SUPERSCRIPT_Y_OFFSET + (getMaxLinesHeight(exponent) == 1 ? 0 : getHeight(exponent, false) / 2);
+                        yModifier -= superscriptYOffset + (getMaxLinesHeight(exponent) == 1 ? 0 : getHeight(exponent, false) / 2);
                         break;
                     }
                     case Bracket.SUPERSCRIPT_CLOSE: {
-                        yModifier += SUPERSCRIPT_Y_OFFSET;
+                        yModifier += superscriptYOffset;
                         break;
                     }
                     case Bracket.NUM_OPEN: {
@@ -530,7 +522,7 @@ public class DisplayView extends View {
                 yModifier = maxHeight;
             }
             if (token instanceof Matrix){
-                float negY = -TEXT_HEIGHT * (((Matrix)token).getNumOfRows() - 1) + yModifier;
+                float negY = -textHeight * (((Matrix)token).getNumOfRows() - 1) + yModifier;
                 heights.add(negY);
                 if (negY < mostNeg) {
                     mostNeg = negY;
@@ -555,7 +547,7 @@ public class DisplayView extends View {
      * @return The height of the given expression, in pixels
      */
     private float getHeight(ArrayList<Token> expression, boolean countEndExponents) {
-        float maxHeight = TEXT_HEIGHT;
+        float maxHeight = textHeight;
         float temp = 0;
         for (int i = 0; i < expression.size(); i++) {
             Token t = expression.get(i);
@@ -609,13 +601,13 @@ public class DisplayView extends View {
                         exponent.remove(k); //Removes the exponent
                     }
                 }
-                temp = (countEndExponents ? SUPERSCRIPT_Y_OFFSET : 0) + getHeight(exponent, countEndExponents);
+                temp = (countEndExponents ? superscriptYOffset : 0) + getHeight(exponent, countEndExponents);
                 if (temp > maxHeight) {
                     maxHeight = temp;
                 }
                 temp = 0;
             } else if (t instanceof Matrix){
-                temp = TEXT_HEIGHT * (((Matrix)t).getNumOfRows() - 1);
+                temp = textHeight * (((Matrix)t).getNumOfRows() - 1);
                 if (temp > maxHeight) {
                     maxHeight = temp;
                 }
@@ -765,7 +757,7 @@ public class DisplayView extends View {
 
 
             //SPECIAL CASES FOR DO NOT COUNTS
-            if (token instanceof Placeholder && ((Placeholder) token).getType() == Placeholder.BLOCK) {
+            if (token instanceof Placeholder && (((Placeholder) token).getType() == Placeholder.SUPERSCRIPT_BLOCK || ((Placeholder) token).getType() == Placeholder.BASE_BLOCK)) {
                 doNotCountNext = true;
             } else if ((token instanceof Operator && ((Operator) token).getType() == Operator.VARROOT) ||
                     (token instanceof Bracket && ((Bracket) token).getType() == Bracket.SUPERSCRIPT_OPEN) ||
@@ -800,7 +792,7 @@ public class DisplayView extends View {
         int scriptLevel = 0; //superscript = 1, any additional levels would +1
         int scriptBracketCount = 0; //Counts the brackets for any exponents
         Stack<Float> fracStarts = new Stack<Float>(); //The indices where fractions start
-        float x = X_PADDING;
+        float x = xPadding;
 
         for (int i = 0; i < expression.size(); i++) {
             Token token = expression.get(i);
@@ -860,7 +852,7 @@ public class DisplayView extends View {
                         String str = Utility.printExpression(entries[j][k]);
                         float[] widths = new float[str.length()];
                         textPaint.getTextWidths(str, widths);
-                        float widthSum = sum(widths) + k * MATRIX_PADDING;
+                        float widthSum = sum(widths) + k * matrixPadding;
                         currentX += widthSum;
                     }
                     if (currentX > maxX){
@@ -987,7 +979,7 @@ public class DisplayView extends View {
         }
 
         int width = parentWidth;
-        int height = expression.size() == 0 ? (int) TEXT_HEIGHT : (int) (maxY + TEXT_HEIGHT);
+        int height = expression.size() == 0 ? (int) textHeight : (int) (maxY + textHeight);
         this.setMeasuredDimension(width, height);
     }
 
@@ -1034,7 +1026,8 @@ public class DisplayView extends View {
         return cursorIndex;
     }
 
-    public void setCursorIndex(int index) {
+    public void
+    setCursorIndex(int index) {
         cursorIndex = index;
         invalidate();
     }

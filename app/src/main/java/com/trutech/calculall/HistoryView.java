@@ -2,13 +2,11 @@ package com.trutech.calculall;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
-import android.view.WindowManager;
 
 import java.util.ArrayList;
 import java.util.Stack;
@@ -17,6 +15,8 @@ import java.util.Stack;
  * Shows the calculation history of a mode.
  */
 public class HistoryView extends View {
+
+    public static int fontSize = 96;
     //CONSTANTS
     private final float ENTRY_PADDING;
     private final float TEXT_HEIGHT;
@@ -24,7 +24,6 @@ public class HistoryView extends View {
     private final float FRAC_PADDING;
     private final float MATRIX_PADDING;
     private final int backgroundColor;
-    private final int FONT_SIZE = 96;
     private final float X_PADDING; //The padding at the start and end of the display (x)
     private ArrayList<Object[]> history;
     private float maxX = 0; //Max start X that the user can scroll to
@@ -44,11 +43,11 @@ public class HistoryView extends View {
         //Setup the paints
         textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         textPaint.setColor(displayColor);
-        textPaint.setTextSize(FONT_SIZE);
+        textPaint.setTextSize(fontSize);
 
         fracPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         fracPaint.setColor(displayColor);
-        fracPaint.setTextSize(FONT_SIZE);
+        fracPaint.setTextSize(fontSize);
         fracPaint.setStrokeWidth(10);
 
         //Sets constant values

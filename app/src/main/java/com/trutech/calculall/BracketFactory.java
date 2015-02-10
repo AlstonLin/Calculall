@@ -24,8 +24,12 @@ public class BracketFactory {
         return new Bracket("]", Bracket.SQUARECLOSED);
     }
 
-    public static Bracket makeMagnitudeBar() {
-        return new Bracket("|", Bracket.MAGNITUDEBAR);
+    public static Bracket makeMagnitudeOpen() {
+        return new Bracket("‖(", Bracket.MAGNITUDE_OPEN);
+    }
+
+    public static Bracket makeMagnitudeClose() {
+        return new Bracket(")‖", Bracket.MAGNITUDE_CLOSE);
     }
 
     public static Bracket makeSuperscriptOpen() {

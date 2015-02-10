@@ -47,6 +47,7 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
     private boolean feedbackOn;
     private int roundTo;
     private int lastMode;
+    private int fontSize;
     private int currentTheme;
 
     @Override
@@ -73,9 +74,13 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
         SharedPreferences pref = getSharedPreferences(getString(R.string.preference_key), Context.MODE_PRIVATE);
         feedbackOn = pref.getBoolean(getString(R.string.haptic), SettingsActivity.DEFAULT_FEEDBACK);
         roundTo = pref.getInt(getString(R.string.round_to), SettingsActivity.DEFAULT_ROUND);
+        fontSize = pref.getInt(getString(R.string.font_size), SettingsActivity.DEFAULT_FONT_SIZE);
         int theme = pref.getInt(getString(R.string.theme), SettingsActivity.DEFAULT_THEME);
         //Sets the decimal rounding
         Number.roundTo = roundTo;
+        //Sets the font sizes
+        display.setFontSize(fontSize);
+        HistoryView.fontSize = fontSize;
         //Checks if the Theme has changes
         if (theme != currentTheme){
             //Needs to restart the activity

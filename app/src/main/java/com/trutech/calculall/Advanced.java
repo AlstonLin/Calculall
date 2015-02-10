@@ -2,11 +2,9 @@ package com.trutech.calculall;
 
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -125,8 +123,8 @@ public class Advanced extends Basic {
             } else if (fracMode == FRAC) {
                 ArrayList<Token> output = JFok.simplifyExpression(tokens);
                 //TEMP
-                double actualOutput = process(tokens);
-                double fracOutput = process(output);
+                double actualOutput = Utility.process(tokens);
+                double fracOutput = Utility.process(output);
                 if (Math.abs(fracOutput / actualOutput) > 1e6){ //Signfinicant differencce
                     Toast.makeText(activity, "Error in processing the fractions!", Toast.LENGTH_LONG).show();
                 }else {
@@ -211,7 +209,7 @@ public class Advanced extends Basic {
     protected void storeVariable(String addToOutput, Command<Void, Double> assignment) {
         ToggleButton memButton = (ToggleButton) activity.findViewById(R.id.mem_button);
         try {
-            double val = process(tokens);
+            double val = Utility.process(tokens);
             ArrayList<Token> outputList = new ArrayList<>();
             outputList.add(new Number(val));
             outputList.add(new StringToken(addToOutput));
@@ -316,12 +314,12 @@ public class Advanced extends Basic {
         tokens.add(display.getRealCursorIndex() + 2, zero);
         tokens.add(display.getRealCursorIndex() + 3, exp);
         tokens.add(display.getRealCursorIndex() + 4, openBracket);
-        tokens.add(display.getRealCursorIndex() + 5, PlaceholderFactory.makeBlock());
+        tokens.add(display.getRealCursorIndex() + 5, PlaceholderFactory.makeSuperscriptBlock());
         tokens.add(display.getRealCursorIndex() + 6, closeBracket);
 
         exp.addDependency(openBracket);
         exp.addDependency(closeBracket);
-        display.setCursorIndex(display.getCursorIndex() + 6);
+        display.setCursorIndex(display.getCursorIndex() + 4);
         updateInput();
     }
 
@@ -332,6 +330,7 @@ public class Advanced extends Basic {
     public void clickExp() {
         clickExponent();
         clickE();
+        //display.setCursorIndex(display.getRealCursorIndex() + 1);
     }
 
     /**
@@ -368,20 +367,9 @@ public class Advanced extends Basic {
 
 
     public void clickExponent() {
-        Token exponent = OperatorFactory.makeExponent();
-        Token openBracket = BracketFactory.makeSuperscriptOpen();
-        Token closeBracket = BracketFactory.makeSuperscriptClose();
-
-        tokens.add(display.getRealCursorIndex(), exponent);
-        tokens.add(display.getRealCursorIndex() + 1, openBracket);
-        tokens.add(display.getRealCursorIndex() + 2, PlaceholderFactory.makeBlock());
-        tokens.add(display.getRealCursorIndex() + 3, closeBracket);
-
-        exponent.addDependency(openBracket);
-        exponent.addDependency(closeBracket);
-
-        display.setCursorIndex(display.getCursorIndex() + 1);
-        updateInput();
+        ArrayList<Token> list = new ArrayList<>();
+        list.add(PlaceholderFactory.makeSuperscriptBlock());
+        addTokenInExponent(list);
     }
 
     public void clickVarRoot() {
@@ -444,7 +432,7 @@ public class Advanced extends Basic {
         }
 
         tokens.add(display.getRealCursorIndex(), openBracket);
-        tokens.add(display.getRealCursorIndex() + 1, PlaceholderFactory.makeBlock());
+        tokens.add(display.getRealCursorIndex() + 1, PlaceholderFactory.makeSuperscriptBlock());
         tokens.add(display.getRealCursorIndex() + 2, closeBracket);
         tokens.add(display.getRealCursorIndex() + 3, root);
         tokens.add(display.getRealCursorIndex() + 4, b);
@@ -474,40 +462,20 @@ public class Advanced extends Basic {
      * When the user presses the x^2 Button.
      */
     public void clickSquare() {
-        Token exponent = OperatorFactory.makeExponent();
-        Token openBracket = BracketFactory.makeSuperscriptOpen();
-        Token closeBracket = BracketFactory.makeSuperscriptClose();
-
-        tokens.add(display.getRealCursorIndex(), exponent);
-        tokens.add(display.getRealCursorIndex() + 1, openBracket);
-        tokens.add(display.getRealCursorIndex() + 2, DigitFactory.makeTwo());
-        tokens.add(display.getRealCursorIndex() + 3, closeBracket);
-
-        exponent.addDependency(openBracket);
-        exponent.addDependency(closeBracket);
-
-        display.setCursorIndex(display.getCursorIndex() + 3);
-        updateInput();
+        ArrayList<Token> list = new ArrayList<>();
+        list.add(DigitFactory.makeTwo());
+        addTokenInExponent(list);
+        display.setCursorIndex(display.getCursorIndex() + 2);
     }
 
     /**
      * When the user presses the x^3 Button.
      */
     public void clickCube() {
-        Token exponent = OperatorFactory.makeExponent();
-        Token openBracket = BracketFactory.makeSuperscriptOpen();
-        Token closeBracket = BracketFactory.makeSuperscriptClose();
-
-        tokens.add(display.getRealCursorIndex(), exponent);
-        tokens.add(display.getRealCursorIndex() + 1, openBracket);
-        tokens.add(display.getRealCursorIndex() + 2, DigitFactory.makeThree());
-        tokens.add(display.getRealCursorIndex() + 3, closeBracket);
-
-        exponent.addDependency(openBracket);
-        exponent.addDependency(closeBracket);
-
-        display.setCursorIndex(display.getCursorIndex() + 3);
-        updateInput();
+        ArrayList<Token> list = new ArrayList<>();
+        list.add(DigitFactory.makeThree());
+        addTokenInExponent(list);
+        display.setCursorIndex(display.getCursorIndex() + 2);
     }
 
     /**
@@ -551,7 +519,7 @@ public class Advanced extends Basic {
 
         if (display.getRealCursorIndex() == 0) {
             tokens.add(display.getRealCursorIndex(), numOpenBracket);
-            tokens.add(display.getRealCursorIndex() + 1, PlaceholderFactory.makeBlock());
+            tokens.add(display.getRealCursorIndex() + 1, PlaceholderFactory.makeSuperscriptBlock());
             display.setCursorIndex(display.getCursorIndex() + 1);
         } else {
             //Whats on the numerator depends on the token before
@@ -580,7 +548,7 @@ public class Advanced extends Basic {
                 tokens.add(display.getRealCursorIndex() + 1, numCloseBracket);
                 tokens.add(display.getRealCursorIndex() + 2, frac);
                 tokens.add(display.getRealCursorIndex() + 3, denomOpenBracket);
-                Placeholder p = PlaceholderFactory.makeBlock();
+                Placeholder p = PlaceholderFactory.makeSuperscriptBlock();
                 tokens.add(display.getRealCursorIndex() + 4, p);
                 tokens.add(display.getRealCursorIndex() + 5, denomCloseBracket);
                 frac.addDependency(p);
@@ -615,7 +583,7 @@ public class Advanced extends Basic {
                 tokens.add(display.getRealCursorIndex() + 1, numCloseBracket);
                 tokens.add(display.getRealCursorIndex() + 2, frac);
                 tokens.add(display.getRealCursorIndex() + 3, denomOpenBracket);
-                Placeholder p = PlaceholderFactory.makeBlock();
+                Placeholder p = PlaceholderFactory.makeSuperscriptBlock();
                 tokens.add(display.getRealCursorIndex() + 4, p);
                 tokens.add(display.getRealCursorIndex() + 5, denomCloseBracket);
                 frac.addDependency(p);
@@ -624,7 +592,7 @@ public class Advanced extends Basic {
 
             } else {
                 tokens.add(display.getRealCursorIndex(), numOpenBracket);
-                Placeholder p = PlaceholderFactory.makeBlock();
+                Placeholder p = PlaceholderFactory.makeSuperscriptBlock();
                 tokens.add(display.getRealCursorIndex() + 1, p);
                 frac.addDependency(p);
             }
@@ -632,7 +600,7 @@ public class Advanced extends Basic {
         tokens.add(display.getRealCursorIndex() + 2, numCloseBracket);
         tokens.add(display.getRealCursorIndex() + 3, frac);
         tokens.add(display.getRealCursorIndex() + 4, denomOpenBracket);
-        Placeholder p = PlaceholderFactory.makeBlock();
+        Placeholder p = PlaceholderFactory.makeSuperscriptBlock();
         tokens.add(display.getRealCursorIndex() + 5, p);
         tokens.add(display.getRealCursorIndex() + 6, denomCloseBracket);
         display.setCursorIndex(display.getCursorIndex() + 1);
@@ -644,22 +612,11 @@ public class Advanced extends Basic {
      * When the user presses the x^-1 button.
      */
     public void clickReciprocal() {
-        Token exponent = OperatorFactory.makeExponent();
-        Token openBracket = BracketFactory.makeSuperscriptOpen();
-        Token closeBracket = BracketFactory.makeSuperscriptClose();
-
-        tokens.add(display.getRealCursorIndex(), exponent);
-        tokens.add(display.getRealCursorIndex() + 1, openBracket);
-        tokens.add(display.getRealCursorIndex() + 2, DigitFactory.makeNegative());
-        tokens.add(display.getRealCursorIndex() + 3, DigitFactory.makeOne());
-        tokens.add(display.getRealCursorIndex() + 4, closeBracket);
-
-        exponent.addDependency(openBracket);
-        exponent.addDependency(closeBracket);
-
-        display.setCursorIndex(display.getCursorIndex() + 4);
-        updateInput();
-        updateInput();
+        ArrayList<Token> list = new ArrayList<>();
+        list.add(DigitFactory.makeNegative());
+        list.add(DigitFactory.makeOne());
+        addTokenInExponent(list);
+        display.setCursorIndex(display.getCursorIndex() + 3);
     }
 
     /**
@@ -919,5 +876,37 @@ public class Advanced extends Basic {
         tokens.add(display.getRealCursorIndex(), t);
         tokens.add(display.getRealCursorIndex() + 1, b);
         display.setCursorIndex(display.getCursorIndex() + 2);
+    }
+
+    /**
+     * Adds all the tokens in the expression into an exponent.
+     *
+     * @param toAdd The tokens to add
+     */
+    private void addTokenInExponent(ArrayList<Token> toAdd){
+        Token exponent = OperatorFactory.makeExponent();
+        Token openBracket = BracketFactory.makeSuperscriptOpen();
+        Token closeBracket = BracketFactory.makeSuperscriptClose();
+        //Determines if a placeholder should be placed
+        Token lastToken = tokens.size() == 0 ? null : tokens.get(display.getRealCursorIndex() - 1);
+        int addIndex = display.getRealCursorIndex();
+        if (lastToken == null || !(lastToken instanceof Number || lastToken instanceof Variable
+                || lastToken instanceof Bracket && (((Bracket)lastToken).getType() == Bracket.CLOSE || ((Bracket)lastToken).getType() == Bracket.DENOM_CLOSE))) {
+            tokens.add(addIndex, PlaceholderFactory.makeBaseBlock());
+            addIndex += 1;
+        }
+        tokens.add(addIndex, exponent);
+        tokens.add(addIndex + 1, openBracket);
+        addIndex += 2;
+        for (Token token : toAdd){
+            tokens.add(addIndex, token);
+            addIndex++;
+        }
+        tokens.add(addIndex, closeBracket);
+
+        exponent.addDependency(openBracket);
+        exponent.addDependency(closeBracket);
+        display.setCursorIndex(display.getCursorIndex() + 1);
+        updateInput();
     }
 }

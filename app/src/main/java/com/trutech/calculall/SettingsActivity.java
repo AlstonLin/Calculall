@@ -22,21 +22,24 @@ import android.widget.Spinner;
 import android.widget.Switch;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
  * When the Settings Button has been pressed.
  */
-public class SettingsActivity extends Activity implements AdapterView.OnItemSelectedListener, CompoundButton.OnCheckedChangeListener {
+public class SettingsActivity extends Activity implements CompoundButton.OnCheckedChangeListener {
 
 
     //Constants
     public static final int DAVID = 0, ALSTON = 1, PANDA = 2, TRAILBLAZER = 3;
     public static final int MIN_DIGITS = 5, MAX_DIGITS = 12;
+    public static final Integer[] FONT_SIZES = {42, 48, 64, 72, 84, 96, 108, 120};
     public static final String TRUTECH_URL = "http://www.trutechinnovations.com", REPORT_URL = "http://www.trutechinnovations.com/report", UPGRADE_URL = "http://www.trutechinnovations.com";
     //Default values
     public static final int DEFAULT_THEME = ALSTON;
     public static final int DEFAULT_ROUND = 6;
+    public static final int DEFAULT_FONT_SIZE = 96;
     public static final boolean DEFAULT_FEEDBACK = false;
     private int currentTheme;
     private PopupWindow popup;
@@ -44,6 +47,7 @@ public class SettingsActivity extends Activity implements AdapterView.OnItemSele
     private SharedPreferences pref;
     private boolean feedbackOn;
     private int roundTo;
+    private int fontSize;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +57,7 @@ public class SettingsActivity extends Activity implements AdapterView.OnItemSele
         currentTheme = pref.getInt(getString(R.string.theme), DEFAULT_THEME);
         feedbackOn = pref.getBoolean(getString(R.string.haptic), DEFAULT_FEEDBACK);
         roundTo = pref.getInt(getString(R.string.round_to), DEFAULT_ROUND);
+        fontSize = pref.getInt(getString(R.string.font_size), DEFAULT_FONT_SIZE);
         //Sets up the current theme
         switch (currentTheme) {
             case DAVID:
@@ -71,14 +76,15 @@ public class SettingsActivity extends Activity implements AdapterView.OnItemSele
                 throw new IllegalStateException();
         }
         setContentView(R.layout.settings);
-        setupSpinner();
+        setupDecimalSpinner();
+        setupFontSpinner();
         setupSwitch();
     }
 
     /**
      * Sets up the precision spinner.
      */
-    public void setupSpinner() {
+    public void setupDecimalSpinner() {
         Spinner spinner = (Spinner) findViewById(R.id.decimal_spinner);
         List<Integer> list = new ArrayList<>();
         for (int i = MIN_DIGITS; i <= MAX_DIGITS; i++) {
@@ -86,8 +92,43 @@ public class SettingsActivity extends Activity implements AdapterView.OnItemSele
         }
         ArrayAdapter<Integer> adapter = new ArrayAdapter<>(this, R.layout.spinner_item, list);
         spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                roundTo = position + MIN_DIGITS;
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putInt(getString(R.string.round_to), roundTo);
+                editor.apply();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+
+        });
         spinner.setSelection(roundTo - MIN_DIGITS);
+    }
+
+    /**
+     * Sets up the precision spinner.
+     */
+    public void setupFontSpinner() {
+        Spinner spinner = (Spinner) findViewById(R.id.font_spinner);
+        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.spinner_item, FONT_SIZES);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                fontSize = FONT_SIZES[position];
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putInt(getString(R.string.font_size), fontSize);
+                editor.apply();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+        spinner.setSelection(Arrays.binarySearch(FONT_SIZES, fontSize));
     }
 
     /**
@@ -217,32 +258,6 @@ public class SettingsActivity extends Activity implements AdapterView.OnItemSele
         editor.putBoolean(getString(R.string.haptic), isChecked);
         editor.apply();
     }
-
-    /**
-     * When an Item has been clicked on the decimal spinner.
-     *
-     * @param parent   Not Used
-     * @param view     Not Used
-     * @param position The position of the item clicked
-     * @param id       Not Used
-     */
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        roundTo = position + MIN_DIGITS;
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putInt(getString(R.string.round_to), roundTo);
-        editor.apply();
-    }
-
-    /**
-     * Does nothing.
-     *
-     * @param parent Not Used
-     */
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-    }
-
 
     private class ImageAdapter extends BaseAdapter {
         private LayoutInflater mInflater;
