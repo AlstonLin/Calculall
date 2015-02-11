@@ -44,15 +44,15 @@
             style="?attr/buttonFunction"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:onClick="clickSettings"
+            android:paddingBottom="5dp"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:layout_weight="1"
-            android:onClick="clickSettings"
             android:scaleType="fitCenter"
             android:src="@drawable/settings_white"
-            android:adjustViewBounds="true"
             android:textSize="20sp" />
 
 
@@ -73,15 +73,15 @@
             style="?attr/buttonFunction"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:onClick="onClick"
+            android:paddingBottom="5dp"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:layout_weight="1"
-            android:onClick="onClick"
             android:scaleType="fitCenter"
             android:src="@drawable/history_white"
-            android:adjustViewBounds="true"
             android:textSize="20sp" />
 
     </LinearLayout>
@@ -239,18 +239,18 @@
             android:id="@+id/frac_button"
             style="?attr/buttonFunction"
             android:layout_width="0dp"
-            android:src="?attr/frac_img"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:scaleType="fitCenter"
-            android:adjustViewBounds="true"
             android:layout_height="fill_parent"
             android:layout_marginLeft="-7dp"
             android:layout_marginRight="-7dp"
             android:layout_weight="1"
+            android:adjustViewBounds="true"
             android:onClick="onClick"
+            android:paddingBottom="5dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp"
+            android:scaleType="fitCenter"
+            android:src="?attr/frac_img"
             android:textSize="16sp" />
 
         <Button
@@ -309,9 +309,9 @@
             android:layout_height="fill_parent"
             android:layout_gravity="bottom"
             android:layout_weight="1"
-            android:scaleType="fitCenter"
             android:adjustViewBounds="true"
             android:onClick="onClick"
+            android:scaleType="fitCenter"
             android:src="?attr/change_img"
             android:textSize="15sp" />
     </LinearLayout>
@@ -621,14 +621,13 @@
                 android:layout_height="0dp"
                 android:layout_weight="3"
                 android:baselineAligned="true"
-                android:orientation="horizontal"
-                android:weightSum="2">
+                android:orientation="horizontal">
+
                 <Button
                     android:id="@+id/equals_button"
                     style="?attr/buttonOperator"
-                    android:layout_width="0dp"
+                    android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:layout_weight="2"
                     android:onClick="onClick"
                     android:text="@string/equals"
                     android:textSize="30sp" />

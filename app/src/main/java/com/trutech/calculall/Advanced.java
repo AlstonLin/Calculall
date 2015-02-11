@@ -12,34 +12,36 @@ import java.util.LinkedList;
  * Contains the back-end of the advanced calculator mode. The advanced mode will be able to
  * perform the most of the operations of a standard scientific calculator.
  *
- * @version Alpha 2.0
  * @author Alston Lin, Ejaaz Merali
+ * @version Alpha 2.0
  */
 public class Advanced extends Basic {
     //CONSTANTS
     public static final int DEGREE = 1, RADIAN = 2, GRADIAN = 3; //angleMode options
-    public static final int DEC = 1, FRAC = 2;
-    private static final String FILENAME = "history_advanced";
-    private static final Basic INSTANCE = new Advanced();
-    //Fields
-    protected ArrayList<MultiButton> multiButtons;
     protected int angleMode = DEGREE;
-    protected boolean hyperbolic = false, shift = false, mem = false;
+    public static final int DEC = 1, FRAC = 2;
     private int fracMode = DEC;
 
     { //pseudo-constructor
         filename = "history_advanced";
     }
 
+    private static final String FILENAME = "history_advanced";
+    private static final Basic INSTANCE = new Advanced();
+    //Fields
+    protected ArrayList<MultiButton> multiButtons;
+    protected boolean hyperbolic = false, shift = false, mem = false;
+
     /**
      * Allows for the Singleton pattern so there would be only one instance.
+     *
      * @return The singleton instance
      */
-    public static Basic getInstance(){
+    public static Basic getInstance() {
         return INSTANCE;
     }
 
-    public void setMultiButtons(ArrayList<MultiButton> multiButtons){
+    public void setMultiButtons(ArrayList<MultiButton> multiButtons) {
         this.multiButtons = multiButtons;
     }
 
@@ -51,12 +53,12 @@ public class Advanced extends Basic {
     @Override
     public void onClick(View v) {
         //First: If it is a MultiButton
-        if (v instanceof MultiButton){
-            ((MultiButton)v).onClick();
+        if (v instanceof MultiButton) {
+            ((MultiButton) v).onClick();
             updateInput();
             return;
         }
-        switch(v.getId()){
+        switch (v.getId()) {
             case R.id.equals_button:
                 clickEquals();
                 break;
@@ -125,9 +127,9 @@ public class Advanced extends Basic {
                 //TEMP
                 double actualOutput = Utility.process(tokens);
                 double fracOutput = Utility.process(output);
-                if (Math.abs(fracOutput / actualOutput) > 1e6){ //Signfinicant differencce
+                if (Math.abs(fracOutput / actualOutput) > 1e6) { //Signfinicant differencce
                     Toast.makeText(activity, "Error in processing the fractions!", Toast.LENGTH_LONG).show();
-                }else {
+                } else {
                     display.displayOutput(output);
                     saveEquation(tokens, output, FILENAME);
                 }
@@ -170,7 +172,7 @@ public class Advanced extends Basic {
         hyperbolic = !hyperbolic;
         hypButton.setChecked(hyperbolic);
         //Changes the mode for all the Buttons
-        for (MultiButton b : multiButtons){
+        for (MultiButton b : multiButtons) {
             b.changeMode(shift, hyperbolic);
         }
         hypButton.setChecked(hyperbolic);
@@ -185,7 +187,7 @@ public class Advanced extends Basic {
         ToggleButton shiftButton = (ToggleButton) activity.findViewById(R.id.shift_button);
         shiftButton.setChecked(shift);
         //Changes the mode for all the Buttons
-        for (MultiButton b : multiButtons){
+        for (MultiButton b : multiButtons) {
             b.changeMode(shift, hyperbolic);
         }
         updateInput();
@@ -324,6 +326,10 @@ public class Advanced extends Basic {
     }
 
 
+    public int getAngleMode() {
+        return angleMode;
+    }
+
     /**
      * When the user presses the e^x Button.
      */
@@ -448,10 +454,8 @@ public class Advanced extends Basic {
     public void clickSqrt() {
         Token t = FunctionFactory.makeSqrt();
         Bracket b = BracketFactory.makeOpenBracket();
-        if (t != null) {
-            t.addDependency(b);
-            b.addDependency(t);
-        }
+        t.addDependency(b);
+        b.addDependency(t);
         tokens.add(display.getRealCursorIndex(), t);
         tokens.add(display.getRealCursorIndex() + 1, b);
         display.setCursorIndex(display.getCursorIndex() + 2);
@@ -527,14 +531,14 @@ public class Advanced extends Basic {
             if (tokenBefore instanceof Digit || tokenBefore instanceof Variable) {
                 LinkedList<Token> digits = new LinkedList<>();
                 int i = display.getRealCursorIndex() - 1;
-                if (tokenBefore instanceof Variable){
+                if (tokenBefore instanceof Variable) {
                     while (i >= 0 && tokens.get(i) instanceof Variable) {
                         Token t = tokens.get(i);
                         digits.addFirst(t);
                         tokens.remove(t);
                         i--;
                     }
-                }else { //Digit
+                } else { //Digit
                     while (i >= 0 && tokens.get(i) instanceof Digit) {
                         Token t = tokens.get(i);
                         digits.addFirst(t);
@@ -573,7 +577,7 @@ public class Advanced extends Basic {
                     i--;
                 }
                 //Includes the function if there is one
-                if (i >= 0 && tokens.get(i) instanceof Function){
+                if (i >= 0 && tokens.get(i) instanceof Function) {
                     expression.addFirst(tokens.remove(i));
                     i--;
                 }
@@ -883,7 +887,7 @@ public class Advanced extends Basic {
      *
      * @param toAdd The tokens to add
      */
-    private void addTokenInExponent(ArrayList<Token> toAdd){
+    private void addTokenInExponent(ArrayList<Token> toAdd) {
         Token exponent = OperatorFactory.makeExponent();
         Token openBracket = BracketFactory.makeSuperscriptOpen();
         Token closeBracket = BracketFactory.makeSuperscriptClose();
@@ -891,14 +895,14 @@ public class Advanced extends Basic {
         Token lastToken = tokens.size() == 0 ? null : tokens.get(display.getRealCursorIndex() - 1);
         int addIndex = display.getRealCursorIndex();
         if (lastToken == null || !(lastToken instanceof Number || lastToken instanceof Variable
-                || lastToken instanceof Bracket && (((Bracket)lastToken).getType() == Bracket.CLOSE || ((Bracket)lastToken).getType() == Bracket.DENOM_CLOSE))) {
+                || lastToken instanceof Bracket && (((Bracket) lastToken).getType() == Bracket.CLOSE || ((Bracket) lastToken).getType() == Bracket.DENOM_CLOSE))) {
             tokens.add(addIndex, PlaceholderFactory.makeBaseBlock());
             addIndex += 1;
         }
         tokens.add(addIndex, exponent);
         tokens.add(addIndex + 1, openBracket);
         addIndex += 2;
-        for (Token token : toAdd){
+        for (Token token : toAdd) {
             tokens.add(addIndex, token);
             addIndex++;
         }

@@ -6,236 +6,248 @@
     android:orientation="vertical">
 
 
-        <LinearLayout
-            android:id="@+id/settings_row"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
+    <LinearLayout
+        android:id="@+id/settings_row"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <ToggleButton
+            android:id="@+id/shift_button"
+            style="?android:attr/buttonStyleToggle"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:orientation="horizontal">
+            android:checked="false"
+            android:longClickable="false"
+            android:onClick="onClick"
+            android:textOff="@string/shift"
+            android:textOn="@string/shift"
+            android:textSize="16sp" />
 
-            <ToggleButton
-                android:id="@+id/shift_button"
-                style="?android:attr/buttonStyleToggle"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:checked="false"
-                android:longClickable="false"
-                android:onClick="onClick"
-                android:textOff="@string/shift"
-                android:textOn="@string/shift"
-                android:textSize="16sp" />
-
-            <ToggleButton
-                android:id="@+id/mem_button"
-                style="?android:attr/buttonStyleToggle"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:checked="false"
-                android:onClick="onClick"
-                android:textOff="@string/store"
-                android:textOn="@string/store"
-                android:textSize="16sp" />
-
-
-            <ImageButton
-                android:id="@+id/history_button"
-                style="?attr/buttonFunction"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:layout_weight="1"
-                android:onClick="onClick"
-                android:scaleType="fitCenter"
-                android:src="@drawable/history_white"
-                android:adjustViewBounds="true"
-                android:textSize="20sp" />
-
-            <ImageButton
-                android:id="@+id/settings_button"
-                style="?attr/buttonFunction"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:layout_weight="1"
-                android:onClick="clickSettings"
-                android:scaleType="fitCenter"
-                android:src="@drawable/settings_white"
-                android:adjustViewBounds="true"
-                android:textSize="20sp" />
-
-            <Button
-                android:id="@+id/back_button"
-                style="?attr/buttonFunction"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:onClick="onClick"
-                android:text="@string/backspace"
-                android:textSize="20sp" />
-
-            <Button
-                android:id="@+id/clear_button"
-                style="?attr/buttonFunction"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:onClick="onClick"
-                android:text="@string/C"
-                android:textSize="20sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/var_bow"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
+        <ToggleButton
+            android:id="@+id/mem_button"
+            style="?android:attr/buttonStyleToggle"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:orientation="horizontal">
+            android:checked="false"
+            android:onClick="onClick"
+            android:textOff="@string/store"
+            android:textOn="@string/store"
+            android:textSize="16sp" />
 
-            <Button
-                android:id="@+id/var_u"
-                style="?attr/buttonFunction"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:checked="false"
-                android:onClick="onClick"
-                android:text="@string/vect_u"
-                android:textSize="16sp" />
 
-            <Button
-                android:id="@+id/var_v"
-                style="?attr/buttonFunction"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:checked="false"
-                android:onClick="onClick"
-                android:text="@string/vect_v"
-                android:textSize="16sp" />
-
-            <com.trutech.calculall.MultiButton
-                android:id="@+id/sin_button"
-                style="?attr/buttonFunction"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:onClick="onClick"
-                android:text="@string/sin"
-                android:textSize="16sp" />
-
-            <com.trutech.calculall.MultiButton
-                android:id="@+id/cos_button"
-                style="?attr/buttonFunction"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:onClick="onClick"
-                android:text="@string/cos"
-                android:textSize="16sp" />
-
-            <com.trutech.calculall.MultiButton
-                android:id="@+id/tan_button"
-                style="?attr/buttonFunction"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:onClick="onClick"
-                android:text="@string/tan"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/angle_between_vectors"
-                style="?attr/buttonFunction"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:checked="false"
-                android:onClick="onClick"
-                android:text="@string/angle_between_vectors"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/vector_row"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
+        <ImageButton
+            android:id="@+id/history_button"
+            style="?attr/buttonFunction"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:orientation="horizontal">
+            android:adjustViewBounds="true"
+            android:onClick="onClick"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/history_white"
+            android:textSize="20sp" />
 
-            <Button
-                android:id="@+id/unit_vector"
-                style="?attr/buttonFunction"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:checked="false"
-                android:onClick="onClick"
-                android:text="@string/unit_vector"
-                android:textSize="16sp" />
+        <ImageButton
+            android:id="@+id/settings_button"
+            style="?attr/buttonFunction"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:onClick="clickSettings"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/settings_white"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/back_button"
+            style="?attr/buttonFunction"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:text="@string/backspace"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/clear_button"
+            style="?attr/buttonFunction"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:text="@string/C"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/var_row"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/angle_mode"
+            style="?attr/buttonSpecial"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:text="@string/deg"
+            android:textSize="16sp" />
+
+        <com.trutech.calculall.MultiButton
+            android:id="@+id/sin_button"
+            style="?attr/buttonFunction"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:text="@string/sin"
+            android:textSize="16sp" />
+
+        <com.trutech.calculall.MultiButton
+            android:id="@+id/cos_button"
+            style="?attr/buttonFunction"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:text="@string/cos"
+            android:textSize="16sp" />
+
+        <com.trutech.calculall.MultiButton
+            android:id="@+id/tan_button"
+            style="?attr/buttonFunction"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:text="@string/tan"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/var_u"
+            style="?attr/buttonFunction"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:checked="false"
+            android:onClick="onClick"
+            android:text="@string/vect_u"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/var_v"
+            style="?attr/buttonFunction"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:checked="false"
+            android:onClick="onClick"
+            android:text="@string/vect_v"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/vector_row"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/unit_vector"
+            style="?attr/buttonFunction"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:checked="false"
+            android:onClick="onClick"
+            android:text="@string/unit_vector"
+            android:textSize="16sp" />
 
 
-            <Button
-                android:id="@+id/projection_button"
-                style="?attr/buttonFunction"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:checked="false"
-                android:onClick="onClick"
-                android:text="@string/projection"
-                android:textSize="16sp" />
+        <Button
+            android:id="@+id/angle_between_vectors"
+            style="?attr/buttonFunction"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:checked="false"
+            android:onClick="onClick"
+            android:text="@string/angle_between_vectors"
+            android:textSize="16sp" />
 
-            <Button
-                android:id="@+id/magnitude_open_button"
-                style="?attr/buttonFunction"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:onClick="onClick"
-                android:text="@string/magnitude_open"
-                android:textSize="20sp" />
+        <Button
+            android:id="@+id/magnitude_open_button"
+            style="?attr/buttonFunction"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:text="@string/magnitude_open"
+            android:textSize="20sp" />
 
-            <Button
-                android:id="@+id/magnitude_close_button"
-                style="?attr/buttonFunction"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:onClick="onClick"
-                android:text="@string/magnitude_close"
-                android:textSize="20sp" />
-            <Button
-                android:id="@+id/var_t"
-                style="?attr/buttonFunction"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:checked="false"
-                android:onClick="onClick"
-                android:text="@string/t"
-                android:textSize="16sp" />
+        <Button
+            android:id="@+id/magnitude_close_button"
+            style="?attr/buttonFunction"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:text="@string/magnitude_close"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/var_s"
+            style="?attr/buttonFunction"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:checked="false"
+            android:onClick="onClick"
+            android:text="@string/s"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/var_t"
+            style="?attr/buttonFunction"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:checked="false"
+            android:onClick="onClick"
+            android:text="@string/t"
+            android:textSize="16sp" />
 
 
-            <Button
-                android:id="@+id/scalar_equation"
-                style="?attr/buttonSpecial"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:checked="false"
-                android:onClick="onClick"
-                android:text="@string/scalar"
-                android:textSize="16sp" />
+        <Button
+            android:id="@+id/scalar_equation"
+            style="?attr/buttonSpecial"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:checked="false"
+            android:onClick="onClick"
+            android:text="@string/scalar"
+            android:textSize="14sp" />
 
-        </LinearLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -393,6 +405,7 @@
                     android:onClick="onClick"
                     android:text="@string/decimal"
                     android:textSize="30sp" />
+
                 <Button
                     android:id="@+id/negative_button"
                     style="?attr/buttonOperator"
@@ -536,6 +549,7 @@
                     android:textSize="30sp" />
 
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/operator_row5"
                 android:layout_width="match_parent"

@@ -1,6 +1,5 @@
 package com.trutech.calculall;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -38,12 +37,12 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
     private static final String TOKENS_FILENAME = "tokens";
     private static final int NUM_PAGES = 5;
     private static final int VIRBRATE_DURATION = 17;
-    private ViewPager mPager;
-    private boolean showAd = false;
-    private android.support.v4.app.FragmentManager mg = getSupportFragmentManager();
     //Display Objects
     protected DisplayView display;
     protected OutputView output;
+    private ViewPager mPager;
+    private boolean showAd = false;
+    private android.support.v4.app.FragmentManager mg = getSupportFragmentManager();
     private boolean feedbackOn;
     private int roundTo;
     private int lastMode;
@@ -172,6 +171,24 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
             display.displayInput(tokens);
             objectStream.close();
             stream.close();
+            //Now sets the tokens
+            switch (lastMode) {
+                case 0:
+                    Basic.getInstance().setTokens(tokens);
+                    break;
+                case 1:
+                    Advanced.getInstance();
+                    break;
+                case 2:
+                    FunctionMode.getInstance().setTokens(tokens);
+                    break;
+                case 3:
+                    VectorMode.getInstance().setTokens(tokens);
+                    break;
+                case 4:
+                    MatrixMode.getInstance().setTokens(tokens);
+                    break;
+            }
         }catch (ClassNotFoundException | IOException ignored) {
         }
     }
@@ -361,6 +378,21 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
 
     }
 
+    public DisplayView getDisplay(){
+        return display;
+    }
+
+    /**
+     * @return If an ad should be shown
+     */
+    public boolean isShowAd() {
+        return showAd;
+    }
+
+    public void setShowAd(boolean showAd) {
+        this.showAd = showAd;
+    }
+
     /**
      * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in
      * sequence.
@@ -372,15 +404,15 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
 
         @Override
         public Fragment getItem(int position) {
-            if (position == 0){
+            if (position == 0) {
                 return new BasicFragment();
-            }else if (position == 1){
+            } else if (position == 1) {
                 return new AdvancedFragment();
-            }else if (position == 2){
+            } else if (position == 2) {
                 return new FunctionFragment();
-            }else if (position == 3){
+            } else if (position == 3) {
                 return new VectorFragment();
-            }else {
+            } else {
                 return new MatrixFragment();
             }
         }
@@ -389,21 +421,5 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
         public int getCount() {
             return NUM_PAGES;
         }
-    }
-
-    public DisplayView getDisplay(){
-        return display;
-    }
-
-    /**
-     *
-     * @return If an ad should be shown
-     */
-    public boolean isShowAd(){
-        return showAd;
-    }
-
-    public void setShowAd(boolean showAd){
-        this.showAd = showAd;
     }
 }

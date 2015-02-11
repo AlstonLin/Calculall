@@ -37,7 +37,7 @@ public class Basic implements View.OnClickListener {
     protected DisplayView display;
     protected MainActivity activity;
     protected boolean changedTokens = false;
-    protected String filename= "history_basic";
+    protected String filename = "history_basic";
     protected Fragment fragment;
     protected PopupWindow historyWindow;
 
@@ -57,6 +57,10 @@ public class Basic implements View.OnClickListener {
         return INSTANCE;
     }
 
+    public void setTokens(ArrayList<Token> expression) {
+        this.tokens = expression;
+    }
+
     /**
      * Sets that this Mode will run on.
      *
@@ -67,7 +71,7 @@ public class Basic implements View.OnClickListener {
         display = activity.getDisplay();
     }
 
-    public void setFragment(Fragment fragment){
+    public void setFragment(Fragment fragment) {
         this.fragment = fragment;
     }
 
@@ -155,7 +159,7 @@ public class Basic implements View.OnClickListener {
     /**
      * When the user clicks the History button.
      */
-    public void clickHistory(){
+    public void clickHistory() {
         try {
             openHistory(filename);
         } catch (IOException | ClassNotFoundException e) {
@@ -166,7 +170,7 @@ public class Basic implements View.OnClickListener {
     /**
      * Exits the history view.
      */
-    public void clickExit(){
+    public void clickExit() {
         historyWindow.dismiss();
     }
 
@@ -394,12 +398,12 @@ public class Basic implements View.OnClickListener {
         String message = "";
         if (e instanceof NumberTooLargeException) {
             message = "The calculation is to large to perform";
-        } else if (e instanceof ArithmeticException){
+        } else if (e instanceof ArithmeticException) {
             message = "Math Error";
         } else {
             if (e.getMessage() == null || e.getMessage().equals("")) {
                 message = "Invalid input";
-            }else{
+            } else {
                 message = e.getMessage();
             }
         }
@@ -493,9 +497,9 @@ public class Basic implements View.OnClickListener {
                 tokens.add(i, PlaceholderFactory.makeSuperscriptBlock());
             }
             //BASE
-            if (token instanceof Operator && ((Operator)token).getType() == Operator.EXPONENT && !(previous instanceof Placeholder)
+            if (token instanceof Operator && ((Operator) token).getType() == Operator.EXPONENT && !(previous instanceof Placeholder)
                     && (previous == null || !(previous instanceof Digit || previous instanceof Variable
-                    || previous instanceof Bracket && (((Bracket)previous).getType() == Bracket.CLOSE || ((Bracket)previous).getType() == Bracket.DENOM_CLOSE)))) {
+                    || previous instanceof Bracket && (((Bracket) previous).getType() == Bracket.CLOSE || ((Bracket) previous).getType() == Bracket.DENOM_CLOSE)))) {
                 tokens.add(i, PlaceholderFactory.makeBaseBlock());
             }
             //Removes Placeholder if it is not needed - Checks to see if it is not next to a superscript or frac bracket - SUPERSCRIPT
@@ -506,9 +510,9 @@ public class Basic implements View.OnClickListener {
             }
             //for BASE
             if (token instanceof Placeholder && ((Placeholder) token).getType() == Placeholder.BASE_BLOCK && previous != null
-                && (previous instanceof Digit || previous instanceof Variable || (previous instanceof Bracket
-                    && (((Bracket)previous).getType() == Bracket.CLOSE || ((Bracket)previous).getType() == Bracket.DENOM_CLOSE)))) {
-                    tokens.remove(token);
+                    && (previous instanceof Digit || previous instanceof Variable || (previous instanceof Bracket
+                    && (((Bracket) previous).getType() == Bracket.CLOSE || ((Bracket) previous).getType() == Bracket.DENOM_CLOSE)))) {
+                tokens.remove(token);
             }
         }
     }
