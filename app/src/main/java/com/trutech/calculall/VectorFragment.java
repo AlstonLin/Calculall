@@ -36,7 +36,7 @@ public class VectorFragment extends BasicFragment {
      *
      * @param v The view of the Fragment
      */
-    private void setupButtons(View v){
+    private void setupButtons(View v) {
         MultiButton sinButton = (MultiButton) v.findViewById(R.id.sin_button);
         MultiButton cosButton = (MultiButton) v.findViewById(R.id.cos_button);
         MultiButton tanButton = (MultiButton) v.findViewById(R.id.tan_button);
@@ -63,29 +63,29 @@ public class VectorFragment extends BasicFragment {
         tanStrings[2] = SpannedString.valueOf("tanh");
         tanStrings[3] = Html.fromHtml(getString(R.string.arctanh));
         //Sets the commands
-        final Advanced advanced = (Advanced) Advanced.getInstance();
-        sinCommands[0] = new Command<Void, Void>(){
+        final VectorMode advanced = (VectorMode) VectorMode.getInstance();
+        sinCommands[0] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 advanced.clickSin();
                 return null;
             }
         };
-        sinCommands[1] = new Command<Void, Void>(){
+        sinCommands[1] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 advanced.clickASin();
                 return null;
             }
         };
-        sinCommands[2] = new Command<Void, Void>(){
+        sinCommands[2] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 advanced.clickSinh();
                 return null;
             }
         };
-        sinCommands[3] = new Command<Void, Void>(){
+        sinCommands[3] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 advanced.clickASinh();
@@ -93,28 +93,28 @@ public class VectorFragment extends BasicFragment {
             }
         };
 
-        cosCommands[0] = new Command<Void, Void>(){
+        cosCommands[0] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 advanced.clickCos();
                 return null;
             }
         };
-        cosCommands[1] = new Command<Void, Void>(){
+        cosCommands[1] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 advanced.clickACos();
                 return null;
             }
         };
-        cosCommands[2] = new Command<Void, Void>(){
+        cosCommands[2] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 advanced.clickCosh();
                 return null;
             }
         };
-        cosCommands[3] = new Command<Void, Void>(){
+        cosCommands[3] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 advanced.clickACosh();
@@ -122,28 +122,28 @@ public class VectorFragment extends BasicFragment {
             }
         };
 
-        tanCommands[0] = new Command<Void, Void>(){
+        tanCommands[0] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 advanced.clickTan();
                 return null;
             }
         };
-        tanCommands[1] = new Command<Void, Void>(){
+        tanCommands[1] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 advanced.clickATan();
                 return null;
             }
         };
-        tanCommands[2] = new Command<Void, Void>(){
+        tanCommands[2] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 advanced.clickTanh();
                 return null;
             }
         };
-        tanCommands[3] = new Command<Void, Void>(){
+        tanCommands[3] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 advanced.clickATanh();

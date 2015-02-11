@@ -9,22 +9,17 @@ package com.trutech.calculall;
 public class VectorOperatorFactory {
 
     public static VectorOperator makeAdd() {
-        return new VectorOperator("+", VectorOperator.ADD, 1) {
+        return new VectorOperator("+", VectorOperator.ADD, 1, true) {
             @Override
             public Token operate(Token left, Token right) {
                 if (left instanceof Vector && right instanceof Vector) {
                     Vector leftVector = (Vector) left;
                     Vector rightVector = (Vector) right;
-                    if (leftVector.getDimensions() == 2 && rightVector.getDimensions() == 2) {
-                        double[] values = new double[2];
-                        values[0] = leftVector.getValues()[0] + rightVector.getValues()[0];
-                        values[1] = leftVector.getValues()[1] + rightVector.getValues()[1];
-                        return new Vector(values);
-                    } else if (leftVector.getDimensions() == 3 && rightVector.getDimensions() == 3) {
-                        double[] values = new double[3];
-                        values[0] = leftVector.getValues()[0] + rightVector.getValues()[0];
-                        values[1] = leftVector.getValues()[1] + rightVector.getValues()[1];
-                        values[2] = leftVector.getValues()[2] + rightVector.getValues()[2];
+                    if (leftVector.getDimensions() == rightVector.getDimensions()) {
+                        double[] values = new double[leftVector.getDimensions()];
+                        for (int i = 0; i < leftVector.getDimensions(); i++) {
+                            values[i] += leftVector.getValues()[i] + rightVector.getValues()[i];
+                        }
                         return new Vector(values);
                     } else {
                         throw new IllegalArgumentException("Attempted to operate two vector of different dimensions");
@@ -39,22 +34,17 @@ public class VectorOperatorFactory {
     }
 
     public static VectorOperator makeSubtract() {
-        return new VectorOperator("-", VectorOperator.SUBTRACT, 1) {
+        return new VectorOperator("-", VectorOperator.SUBTRACT, 1, true) {
             @Override
             public Token operate(Token left, Token right) {
                 if (left instanceof Vector && right instanceof Vector) {
                     Vector leftVector = (Vector) left;
                     Vector rightVector = (Vector) right;
-                    if (leftVector.getDimensions() == 2 && rightVector.getDimensions() == 2) {
-                        double[] values = new double[2];
-                        values[0] = leftVector.getValues()[0] - rightVector.getValues()[0];
-                        values[1] = leftVector.getValues()[1] - rightVector.getValues()[1];
-                        return new Vector(values);
-                    } else if (leftVector.getDimensions() == 3 && rightVector.getDimensions() == 3) {
-                        double[] values = new double[3];
-                        values[0] = leftVector.getValues()[0] - rightVector.getValues()[0];
-                        values[1] = leftVector.getValues()[1] - rightVector.getValues()[1];
-                        values[2] = leftVector.getValues()[2] - rightVector.getValues()[2];
+                    if (leftVector.getDimensions() == rightVector.getDimensions()) {
+                        double[] values = new double[leftVector.getDimensions()];
+                        for (int i = 0; i < leftVector.getDimensions(); i++) {
+                            values[i] += leftVector.getValues()[i] - rightVector.getValues()[i];
+                        }
                         return new Vector(values);
                     } else {
                         throw new IllegalArgumentException("Attempted to operate two vector of different dimensions");
@@ -69,7 +59,7 @@ public class VectorOperatorFactory {
     }
 
     public static VectorOperator makeDot() {
-        return new VectorOperator("•", VectorOperator.DOT, 2) {
+        return new VectorOperator("•", VectorOperator.DOT, 2, true) {
             @Override
             public Token operate(Token left, Token right) {
                 if (left instanceof Vector && right instanceof Vector) {
@@ -88,21 +78,11 @@ public class VectorOperatorFactory {
     }
 
     public static VectorOperator makeCross() {
-        return new VectorOperator("×", VectorOperator.CROSS, 3) {
+        return new VectorOperator("×", VectorOperator.CROSS, 3, true) {
             @Override
             public Token operate(Token left, Token right) {
                 if (left instanceof Vector && right instanceof Vector) {
-                    Vector leftVector = (Vector) left;
-                    Vector rightVector = (Vector) right;
-                    if (leftVector.getDimensions() == 3 && rightVector.getDimensions() == 3) {
-                        double[] values = new double[3];
-                        values[0] = (leftVector.getValues()[1] * rightVector.getValues()[2]) - (leftVector.getValues()[2] * rightVector.getValues()[1]); //U2V3 - U3V2
-                        values[1] = (leftVector.getValues()[2] * rightVector.getValues()[0]) - (leftVector.getValues()[0] * rightVector.getValues()[2]); //U3V1 - U1V3
-                        values[2] = (leftVector.getValues()[0] * rightVector.getValues()[1]) - (leftVector.getValues()[1] * rightVector.getValues()[0]); //U1V2 - U2V1
-                        return new Vector(values);
-                    } else {
-                        throw new IllegalArgumentException("Can only have a cross product of two 3D vectors.");
-                    }
+                    return VectorUtilities.findCrossProduct((Vector) left, (Vector) right);
                 } else if (left instanceof Number && right instanceof Vector) {
                     return VectorUtilities.findScalarProduct(((Number) left).getValue(), (Vector) right);
                 } else if (right instanceof Number && left instanceof Vector) {
@@ -117,21 +97,28 @@ public class VectorOperatorFactory {
     }
 
     public static VectorOperator makeAngle() {
-        return new VectorOperator("∠", VectorOperator.ANGLE, 3) {
+        return new VectorOperator("∠", VectorOperator.ANGLE, 3, true) {
             @Override
             public Token operate(Token left, Token right) {
                 if (left instanceof Vector && right instanceof Vector) {
                     Vector leftVector = (Vector) left;
                     Vector rightVector = (Vector) right;
-                    if (leftVector.getDimensions() == 3 && rightVector.getDimensions() == 3) {
+                    if (leftVector.getDimensions() == rightVector.getDimensions()) {
                         double result;
                         result = Math.acos((VectorUtilities.findDotProduct(leftVector, rightVector))
-                                / (VectorUtilities.calculateMagnitude(leftVector) * VectorUtilities.calculateMagnitude(rightVector))) * (180 / Math.PI);
-                        return new Number(result);
-                    } else if (leftVector.getDimensions() == 2 && rightVector.getDimensions() == 2) {
-                        double result;
-                        result = Math.acos((VectorUtilities.findDotProduct(leftVector, rightVector))
-                                / (VectorUtilities.calculateMagnitude(leftVector) * VectorUtilities.calculateMagnitude(rightVector))) * (180 / Math.PI);
+                                / (VectorUtilities.calculateMagnitude(leftVector) * VectorUtilities.calculateMagnitude(rightVector)));
+                        //Switched depending on angle mode
+                        switch (((VectorMode) VectorMode.getInstance()).getAngleMode()) {
+                            case VectorMode.DEGREE:
+                                result *= (180 / Math.PI);
+                                break;
+                            case VectorMode.RADIAN:
+                                //Deos nothing
+                                break;
+                            case VectorMode.GRADIAN:
+                                result *= (200 / Math.PI);
+                                break;
+                        }
                         return new Number(result);
                     } else {
                         throw new IllegalArgumentException("Attempted to operate two vector of different dimensions");

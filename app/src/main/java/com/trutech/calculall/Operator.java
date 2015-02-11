@@ -9,10 +9,11 @@ import java.io.Serializable;
  * @author Alston Lin, Ejaaz Merali
  * @version Alpha 2.0
  */
-public abstract class Operator extends Token implements Serializable {
+public abstract class Operator extends Token implements Serializable, OrderComparable {
 
     public static final int ADD = 1, SUBTRACT = 2, MULTIPLY = 3, DIVIDE = 4, EXPONENT = 5, PERMUTATION = 6,
             COMBINATION = 7, FACTORIAL = 8, VARROOT = 9, FRACTION = 10;
+    public static final int ADD_SUBTRACT = 2, MULTIPLY_DIVIDE = 3, EXPONENT_PRECEDENCE = 5; //Precedences
     private int type;
     private int precedence;
     private boolean leftAssociative, commutative, anticommutative, associative;

@@ -17,7 +17,7 @@ public class VectorFunctionFactory {
     }
 
     public static VectorFunction makeUnit() {
-        return new VectorFunction("unit", VectorFunction.UNIT) {
+        return new VectorFunction("Û", VectorFunction.UNIT) {
             @Override
             public Token perform(Vector v) {
                 double magnitude = VectorUtilities.calculateMagnitude(v);

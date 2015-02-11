@@ -3,8 +3,8 @@ package com.trutech.calculall;
 /**
  * The Factory that creates instances of Vector Variables.
  *
- * @version Alpha 2.2
  * @author Alston Lin
+ * @version Alpha 2.2
  */
 public class VectorVariableFactory {
 
@@ -14,6 +14,10 @@ public class VectorVariableFactory {
 
     public static VectorVariable makeV() {
         return new VectorVariable(VectorVariable.V, "V");
+    }
+
+    public static VectorVariable makeS() {
+        return new VectorVariable(VectorVariable.S, "s");
     }
 
     public static VectorVariable makeT() {

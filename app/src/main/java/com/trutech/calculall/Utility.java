@@ -1,7 +1,5 @@
 package com.trutech.calculall;
 
-import org.apache.commons.math3.exception.NumberIsTooLargeException;
-
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.ArrayList;
@@ -281,11 +279,11 @@ public class Utility {
                         ((Variable) token).setNegative(true);
                     } else if (num.getValue() == 1 && token instanceof Variable) { // 1 * Variable
                         ((Variable) token).setNegative(false);
-                    } else if (num.getValue() < 0){ //Negative number; changes to -1 * Number
+                    } else if (num.getValue() < 0) { //Negative number; changes to -1 * Number
                         newTokens.add(new Number(-1));
                         newTokens.add(OperatorFactory.makeMultiply());
                         newTokens.add(new Number(num.getValue() * -1));
-                    } else{
+                    } else {
                         newTokens.add(num); //Adds the sum of all the digits
                     }
                     newTokens.add(token);
@@ -339,7 +337,7 @@ public class Utility {
                 if (last instanceof Number) { //Ex. 5A , 5f(x)
                     newExpression.add(OperatorFactory.makeMultiply());
                 } else if (last instanceof Bracket && (((Bracket) last).getType() == Bracket.CLOSE
-                        || ((Bracket) last).getType() == Bracket.SUPERSCRIPT_CLOSE || ((Bracket) last).getType() == Bracket.DENOM_CLOSE)){ //Ex. x^2(x + 1) or 2/5x
+                        || ((Bracket) last).getType() == Bracket.SUPERSCRIPT_CLOSE || ((Bracket) last).getType() == Bracket.DENOM_CLOSE)) { //Ex. x^2(x + 1) or 2/5x
                     newExpression.add(OperatorFactory.makeMultiply());
                 } else if (lastIsSubtract && (beforeLastIsOperator || beforeLastIsOpenBracket || newExpression.size() <= 1)) { //Ex. E * -X -> E * -1 * X
                     newExpression.remove(last);
@@ -444,8 +442,10 @@ public class Utility {
                 throw new IllegalArgumentException();
             }
         }
-        if (stack.size() != 1) {
-            throw new IllegalArgumentException("Input is empty"); //There should only be 1 token left on the stack
+        if (stack.size() == 0) {
+            throw new IllegalArgumentException("Input is empty");
+        } else if (stack.size() != 1) {
+            throw new IllegalArgumentException("Illegal Expression"); //There should only be 1 token left on the stack
         } else {
             return stack.pop().getValue();
         }
@@ -881,7 +881,7 @@ public class Utility {
      * @param n The base of the factorial
      * @return The value of the factorial
      */
-    public static double factorial(int n) throws NumberTooLargeException{
+    public static double factorial(int n) throws NumberTooLargeException {
         if (n == 1 || n == 0) {
             return 1;
         } else {
@@ -1013,7 +1013,7 @@ public class Utility {
      * Processes the expression and returns the result using the Shunting Yard Algorithm to convert
      * the expression into reverse polish and then evaluating it.
      *
-     *@param tokens The expression to process
+     * @param tokens The expression to process
      * @return The numerical value of the expression
      * @throws IllegalArgumentException If the user has input a invalid expression
      */
