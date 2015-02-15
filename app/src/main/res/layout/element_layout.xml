@@ -32,7 +32,7 @@
                 android:orientation="vertical">
 
                 <view xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:id="@+id/display"
+                    android:id="@+id/element_display"
                     class="com.trutech.calculall.DisplayView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -84,7 +84,7 @@
             android:id="@+id/settings_row"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:orientation="horizontal">
 
             <ToggleButton
@@ -111,7 +111,7 @@
                 android:textSize="28sp" />
 
             <Button
-                android:id="@+id/sqrt_button"
+                android:id="@+id/entry_sqrt_button"
                 style="?attr/buttonFunction"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
@@ -146,7 +146,7 @@
             android:id="@+id/functions_row"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:orientation="horizontal">
 
             <com.trutech.calculall.MultiButton
@@ -206,7 +206,7 @@
             android:id="@+id/num_row1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:orientation="horizontal">
 
             <Button
@@ -234,13 +234,13 @@
                 style="?attr/buttonNum"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
+                android:layout_weight="1"
                 android:onClick="onClick"
                 android:text="@string/nine"
-                android:layout_weight="1"
                 android:textSize="36sp" />
 
             <Button
-                android:id="@+id/divide_button"
+                android:id="@+id/entry_divide_button"
                 style="?attr/buttonOperator"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
@@ -254,7 +254,7 @@
             android:id="@+id/num_row2"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:orientation="horizontal">
 
             <Button
@@ -288,7 +288,7 @@
                 android:textSize="36sp" />
 
             <Button
-                android:id="@+id/multiply_button"
+                android:id="@+id/entry_multiply_button"
                 style="?attr/buttonOperator"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
@@ -302,7 +302,7 @@
             android:id="@+id/num_row3"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:orientation="horizontal">
 
             <Button
@@ -336,7 +336,7 @@
                 android:textSize="36sp" />
 
             <Button
-                android:id="@+id/subtract_button"
+                android:id="@+id/entry_subtract_button"
                 style="?attr/buttonOperator"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
@@ -350,7 +350,7 @@
             android:id="@+id/num_row4"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:orientation="horizontal">
 
             <Button
@@ -384,7 +384,7 @@
                 android:textSize="36sp" />
 
             <Button
-                android:id="@+id/add_button"
+                android:id="@+id/entry_add_button"
                 style="?attr/buttonOperator"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"

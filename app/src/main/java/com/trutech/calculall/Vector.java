@@ -23,6 +23,7 @@ public class Vector extends Token implements Serializable {
     public int getDimensions() {
         return values.length;
     }
+
     /**
      * Determines whats gets displayed onto the Screen.
      *
@@ -31,7 +32,7 @@ public class Vector extends Token implements Serializable {
     public String getSymbol() {
         String s = "[";
         for (int i = 0; i < values.length; i++) {
-            if (i != 0){
+            if (i != 0) {
                 s += ", ";
             }
             double value = Utility.round(values[i], Number.roundTo);

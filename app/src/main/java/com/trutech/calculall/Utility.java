@@ -31,7 +31,7 @@ public class Utility {
                     s += (((Number) token).getValue());
                 }
             } else if (token instanceof Operator) {
-                switch (((Operator) token).getType()) {
+                switch (token.getType()) {
                     case Operator.FRACTION:
                         s += "/";
                         break;
@@ -70,9 +70,9 @@ public class Utility {
                         i = i + 2; //Starts after the ( bracket
                         while (bracketCount > 0) {
                             Token t = expression.get(i);
-                            if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.OPEN) {
+                            if (t instanceof Bracket && t.getType() == Bracket.OPEN) {
                                 bracketCount++;
-                            } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.CLOSE) {
+                            } else if (t instanceof Bracket && t.getType() == Bracket.CLOSE) {
                                 bracketCount--;
                             }
                             root.add(t);
@@ -100,7 +100,7 @@ public class Utility {
                         break;
                 }
             } else if (token instanceof Function) {
-                switch (((Function) token).getType()) {
+                switch (token.getType()) {
                     case Function.SQRT:
                         s += "sqrt";
                         break;
@@ -163,7 +163,7 @@ public class Utility {
                         //TODO: IMPLEMENT OTHERS
                 }
             } else if (token instanceof Bracket) {
-                switch (((Bracket) token).getType()) {
+                switch (token.getType()) {
                     case Bracket.DENOM_OPEN:
                         s += "(";
                         break;
@@ -250,7 +250,6 @@ public class Utility {
                 power--;
             }
         }
-        ;
 
         return negative ? value * -1 : value;
     }
@@ -263,8 +262,8 @@ public class Utility {
      * @return The expression with the digits condensed
      */
     public static ArrayList<Token> condenseDigits(ArrayList<Token> tokens) {
-        ArrayList<Token> newTokens = new ArrayList<Token>();
-        ArrayList<Digit> digits = new ArrayList<Digit>();
+        ArrayList<Token> newTokens = new ArrayList<>();
+        ArrayList<Digit> digits = new ArrayList<>();
         boolean atDigits = false; //Tracks if it's currently tracking digits
         for (Token token : tokens) {
             if (atDigits) { //Going through digits
@@ -311,24 +310,24 @@ public class Utility {
      * @return The expression with the added Tokens to make the
      */
     public static ArrayList<Token> setupExpression(ArrayList<Token> toSetup) {
-        ArrayList<Token> newExpression = new ArrayList<Token>();
+        ArrayList<Token> newExpression = new ArrayList<>();
         for (Token t : toSetup) {
             boolean negative = false;
             Token last = newExpression.isEmpty() ? null : newExpression.get(newExpression.size() - 1); //Last token in the new expression
             Token beforeLast = newExpression.size() > 1 ? newExpression.get(newExpression.size() - 2) : null;
-            boolean lastIsSubtract = last instanceof Operator && ((Operator) last).getType() == Operator.SUBTRACT;
+            boolean lastIsSubtract = last instanceof Operator && last.getType() == Operator.SUBTRACT;
             boolean beforeLastIsOperator = beforeLast != null && beforeLast instanceof Operator;
-            boolean beforeLastIsOpenBracket = beforeLast != null && beforeLast instanceof Bracket && (((Bracket) beforeLast).getType() == Bracket.OPEN
-                    || ((Bracket) beforeLast).getType() == Bracket.NUM_OPEN || ((Bracket) beforeLast).getType() == Bracket.DENOM_OPEN || ((Bracket) beforeLast).getType() == Bracket.SUPERSCRIPT_OPEN);
+            boolean beforeLastIsOpenBracket = beforeLast != null && beforeLast instanceof Bracket && (beforeLast.getType() == Bracket.OPEN
+                    || beforeLast.getType() == Bracket.NUM_OPEN || beforeLast.getType() == Bracket.DENOM_OPEN || beforeLast.getType() == Bracket.SUPERSCRIPT_OPEN);
 
             if (t instanceof Bracket) {
                 Bracket b = (Bracket) t;
-                if (b.getType() == Bracket.OPEN && last instanceof Bracket && (((Bracket) last).getType() == Bracket.CLOSE
-                        || ((Bracket) last).getType() == Bracket.SUPERSCRIPT_CLOSE || ((Bracket) last).getType() == Bracket.DENOM_CLOSE)) { //Ex. (2 + 1)(3 + 4), (2)/(5)(x + 1) or x^(2)(x+1)
+                if (b.getType() == Bracket.OPEN && last instanceof Bracket && (last.getType() == Bracket.CLOSE
+                        || last.getType() == Bracket.SUPERSCRIPT_CLOSE || last.getType() == Bracket.DENOM_CLOSE)) { //Ex. (2 + 1)(3 + 4), (2)/(5)(x + 1) or x^(2)(x+1)
                     newExpression.add(OperatorFactory.makeMultiply()); //Implies multiplication between the two expressions in the brackets
                 } else if ((last instanceof Number || last instanceof Variable) && b.getType() == Bracket.OPEN) { //Ex. 3(2 + 1) or X(1+X)
                     newExpression.add(OperatorFactory.makeMultiply());
-                } else if (last instanceof Operator && ((Operator) last).getType() == Operator.SUBTRACT && beforeLastIsOperator) { //Ex. E + -(X + 1) -> E + -1 * (X + 1)
+                } else if (last instanceof Operator && last.getType() == Operator.SUBTRACT && beforeLastIsOperator) { //Ex. E + -(X + 1) -> E + -1 * (X + 1)
                     newExpression.remove(last);
                     newExpression.add(new Number(-1));
                     newExpression.add(OperatorFactory.makeMultiply());
@@ -336,8 +335,8 @@ public class Utility {
             } else if (t instanceof Number || t instanceof Variable || t instanceof Function) { //So it works with Function mode too
                 if (last instanceof Number) { //Ex. 5A , 5f(x)
                     newExpression.add(OperatorFactory.makeMultiply());
-                } else if (last instanceof Bracket && (((Bracket) last).getType() == Bracket.CLOSE
-                        || ((Bracket) last).getType() == Bracket.SUPERSCRIPT_CLOSE || ((Bracket) last).getType() == Bracket.DENOM_CLOSE)) { //Ex. x^2(x + 1) or 2/5x
+                } else if (last instanceof Bracket && (last.getType() == Bracket.CLOSE
+                        || last.getType() == Bracket.SUPERSCRIPT_CLOSE || last.getType() == Bracket.DENOM_CLOSE)) { //Ex. x^2(x + 1) or 2/5x
                     newExpression.add(OperatorFactory.makeMultiply());
                 } else if (lastIsSubtract && (beforeLastIsOperator || beforeLastIsOpenBracket || newExpression.size() <= 1)) { //Ex. E * -X -> E * -1 * X
                     newExpression.remove(last);
@@ -375,8 +374,8 @@ public class Utility {
      * @throws java.lang.IllegalArgumentException The infix notation is invalid
      */
     public static ArrayList<Token> convertToReversePolish(ArrayList<Token> infix) {
-        ArrayList<Token> reversePolish = new ArrayList<Token>();
-        Stack<Token> stack = new Stack<Token>();
+        ArrayList<Token> reversePolish = new ArrayList<>();
+        Stack<Token> stack = new Stack<>();
         for (Token token : infix) {
             if (token instanceof Number || token instanceof Variable) { //Adds directly to the queue if it's a token
                 reversePolish.add(token);
@@ -426,7 +425,7 @@ public class Utility {
      * @throws java.lang.IllegalArgumentException The user has inputted an invalid expression
      */
     public static double evaluateExpression(ArrayList<Token> tokens) {
-        Stack<Number> stack = new Stack<Number>();
+        Stack<Number> stack = new Stack<>();
         for (Token token : tokens) {
             if (token instanceof Number) { //Adds all numbers directly to the stack
                 stack.push((Number) token);
@@ -451,90 +450,8 @@ public class Utility {
         }
     }
 
-    /**
-     * Uses the shunting yard algorithm to change the matrix expression from infix to reverse polish.
-     *
-     * @param infix The infix expression
-     * @return The expression in reverse polish
-     * @throws java.lang.IllegalArgumentException The infix notation is invalid
-     */
-    public static ArrayList<Token> convertToReversePolishMatrix(ArrayList<Token> infix) {
-        ArrayList<Token> reversePolish = new ArrayList<Token>();
-        Stack<Token> stack = new Stack<Token>();
-        for (Token token : infix) {
-            if (token instanceof Number || token instanceof Variable || token instanceof Matrix) { //Adds directly to the queue if it's a token
-                reversePolish.add(token);
-            } else if (token instanceof MatrixFunction) { //Adds to the stack if it's a function
-                stack.push(token);
-            } else if (token instanceof MatrixOperator) {
-                if (!stack.empty()) { //Make sure it's not empty to prevent bugs
-                    Token top = stack.lastElement();
-                    while (top != null && ((top instanceof MatrixOperator && ((MatrixOperator) token).isLeftAssociative()
-                            && ((MatrixOperator) top).getPrecedence() >= ((MatrixOperator) token).getPrecedence()) || top instanceof MatrixFunction)) { //Operator is left associative and has higher precedence / is a function
-                        reversePolish.add(stack.pop()); //Pops top element to the queue
-                        top = stack.isEmpty() ? null : stack.lastElement(); //Assigns the top element of the stack if it exists
-                    }
-                }
-                stack.push(token);
-            } else if (token instanceof Bracket) {
-                Bracket bracket = (Bracket) token;
-                if (bracket.getType() == Bracket.OPEN || bracket.getType() == Bracket.SUPERSCRIPT_OPEN
-                        || bracket.getType() == Bracket.NUM_OPEN || bracket.getType() == Bracket.DENOM_OPEN) { //Pushes the bracket to the stack if it's open
-                    stack.push(bracket);
-                } else if (bracket.getType() == Bracket.CLOSE || bracket.getType() == Bracket.SUPERSCRIPT_CLOSE
-                        || bracket.getType() == Bracket.NUM_CLOSE || bracket.getType() == Bracket.DENOM_CLOSE) { //For close brackets, pop operators onto the list until a open bracket is found
-                    Token top = stack.lastElement();
-                    while (!(top instanceof Bracket)) { //While it has not found an open bracket
-                        reversePolish.add(stack.pop()); //Pops the top element
-                        if (stack.isEmpty()) { //Mismatched brackets
-                            throw new IllegalArgumentException();
-                        }
-                        top = stack.lastElement();
-                    }
-                    stack.pop(); //Removes the bracket
-                }
-            }
-        }
-        //All tokens read at this point
-        while (!stack.isEmpty()) { //Puts the remaining tokens in the stack to the queue
-            reversePolish.add(stack.pop());
-        }
-        return reversePolish;
-    }
-
-    /**
-     * Takes a given Matrix expression in reverse polish form and returns the resulting value.
-     *
-     * @param tokens The matrix expression in reverse polish
-     * @return The value of the expression
-     * @throws java.lang.IllegalArgumentException The user entered an invalid expression
-     */
-    public static Matrix evaluateMatrixExpression(ArrayList<Token> tokens) {
-        Stack stack = new Stack();
-        for (Token token : tokens) {
-            if (token instanceof Matrix || token instanceof Number) { //Adds all Matrices directly to the stack
-                stack.push(token);
-            } else if (token instanceof MatrixOperator) {
-                //Operates the first and second top operators
-                Object right = stack.pop();
-                Object left = stack.pop();
-                stack.push(((MatrixOperator) token).operate(left, right)); //Adds the result back to the stack
-            } else if (token instanceof MatrixFunction) { //Function uses the top number on the stack
-                Matrix top = (Matrix) stack.pop(); //Function performs on the first number
-                stack.push(((MatrixFunction) token).perform(top)); //Adds the result back to the stack
-            } else { //This should never be reached
-                throw new IllegalArgumentException();
-            }
-        }
-        if (stack.size() != 1) {
-            throw new IllegalArgumentException("Stack size is empty"); //There should only be 1 token left on the stack
-        } else {
-            return (Matrix) stack.pop();
-        }
-    }
-
     public static ArrayList<Token> convertDoublesToVector(double[] vector) {
-        ArrayList<Token> newVector = new ArrayList<Token>();
+        ArrayList<Token> newVector = new ArrayList<>();
         newVector.add(BracketFactory.makeOpenSquareBracket());
         newVector.add(new Number(vector[0]));
         newVector.add(new Token(",") {
@@ -557,11 +474,11 @@ public class Utility {
      * @return String String representation of the expression
      */
     public static String convertTokensToString(ArrayList<Token> expression) {
-        String stringExpression = new String("");
+        String stringExpression = "";
         for (int i = 0; i < expression.size(); i++) {
             if (expression.get(i) instanceof Number) {
                 String s = String.valueOf(((Number) expression.get(i)).getValue());
-                s = s.indexOf(".") < 0 ? s : (s.indexOf("E") > 0 ? s.substring(0, s.indexOf("E")).replaceAll("0*$", "")
+                s = !s.contains(".") ? s : (s.indexOf("E") > 0 ? s.substring(0, s.indexOf("E")).replaceAll("0*$", "")
                         .replaceAll("\\.$", "").concat(s.substring(s.indexOf("E"))) : s.replaceAll("0*$", "")
                         .replaceAll("\\.$", "")); //Removes trailing zeroes
                 stringExpression = stringExpression + s;
@@ -579,7 +496,7 @@ public class Utility {
      * @return ArrayList<Token> New expression of Tokens
      */
     public static ArrayList<Token> convertVariablesToTokens(ArrayList<Token> expression) {
-        ArrayList<Token> tempExpression = new ArrayList<Token>();
+        ArrayList<Token> tempExpression = new ArrayList<>();
         for (Token t : expression) {
             if (t instanceof Vector) {
                 //ArrayList<Token> tempVector = ((Vector) t).getVector();
@@ -600,16 +517,16 @@ public class Utility {
      * @return The human readable version (note: not machine readable)
      */
     public static ArrayList<Token> cleanupExpressionForReading(ArrayList<Token> expression) {
-        ArrayList<Token> newExpression = new ArrayList<Token>();
+        ArrayList<Token> newExpression = new ArrayList<>();
         for (int i = 0; i < expression.size(); i++) {
             Token t = expression.get(i);
             Token last = newExpression.size() > 0 ? newExpression.get(newExpression.size() - 1) : null;
             //Token beforeLast = newExpression.size() > 1 ? newExpression.get(newExpression.size() - 2) : null;
-            if (t instanceof Variable && last != null && last instanceof Operator && ((Operator) last).getType() == Operator.MULTIPLY) { // E * V -> EV
+            if (t instanceof Variable && last != null && last instanceof Operator && last.getType() == Operator.MULTIPLY) { // E * V -> EV
                 newExpression.remove(last);
-            } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.OPEN && last instanceof Operator && ((Operator) last).getType() == Operator.MULTIPLY) { //E * (E) -> E(E)
+            } else if (t instanceof Bracket && t.getType() == Bracket.OPEN && last instanceof Operator && last.getType() == Operator.MULTIPLY) { //E * (E) -> E(E)
                 newExpression.remove(last);
-            } else if (t instanceof Function && last instanceof Operator && ((Operator) last).getType() == Operator.MULTIPLY) { //E * F -> EF
+            } else if (t instanceof Function && last instanceof Operator && last.getType() == Operator.MULTIPLY) { //E * F -> EF
                 newExpression.remove(last);
             }
             newExpression.add(t);
@@ -646,11 +563,13 @@ public class Utility {
      * @return The y value, or -1 if non-existant
      */
     public static double valueAt(ArrayList<Token> function, double x) {
-        ArrayList<Token> expression = new ArrayList<Token>();
+        ArrayList<Token> expression = new ArrayList<>();
         //Substitutes all variables with the given x value
         for (Token token : function) {
-            if (token instanceof Variable && ((Variable) token).getType() == Variable.X) {
+            if (token instanceof Variable && token.getType() == Variable.X) {
                 expression.add(new Number(x));
+            } else if (token instanceof Variable) {
+                expression.add(new Number(((Variable) token).getValue()));
             } else {
                 expression.add(token);
             }
@@ -761,7 +680,7 @@ public class Utility {
     public static ArrayList<Token> calculateBearing(double[] vector) {
         double angle = calculateArgument(vector);
         int quadrant = calculateQuadrant(vector);
-        ArrayList<Token> output = new ArrayList<Token>();
+        ArrayList<Token> output = new ArrayList<>();
 
         //returns vectors that lie on an axis
         if (quadrant == -1) { //positive y axis
@@ -911,7 +830,7 @@ public class Utility {
      */
     public static ArrayList<Token> addMissingBrackets(ArrayList<Token> expression) {
         int bracketCount = 0;
-        ArrayList<Token> newExpression = new ArrayList<Token>();
+        ArrayList<Token> newExpression = new ArrayList<>();
         //Counts brackets
         for (Token t : expression) {
             newExpression.add(t);
@@ -929,84 +848,6 @@ public class Utility {
             newExpression.add(BracketFactory.makeCloseBracket());
         }
         return newExpression;
-    }
-
-    /**
-     * Finds all the REAL roots of a quadratic function
-     *
-     * @param a the coefficient of the 2nd degree x value of the cubic function
-     * @param b the coefficient of the 1st degree x value of the cubic function
-     * @param c the constant value of the cubic function
-     * @return An ArrayList (of Double objects) containing the real roots of the function
-     */
-    public static ArrayList<Double> solveQuadratic(double a, double b, double c) {
-        ArrayList<Double> roots = new ArrayList<Double>();
-        if ((b * b - 4 * a * c) < 0) {
-        } else if ((b * b - 4 * a * c) == 0) {
-            roots.add(-b / (2 * a));
-        } else {
-            roots.add((-b + Math.sqrt((b * b - 4 * a * c))) / (2 * a));
-            roots.add((-b - Math.sqrt((b * b - 4 * a * c))) / (2 * a));
-        }
-        return roots;
-    }
-
-    /**
-     * Finds all the roots of a quadratic function
-     *
-     * @param a the coefficient of the 2nd degree x value of the cubic function
-     * @param b the coefficient of the 1st degree x value of the cubic function
-     * @param c the constant value of the cubic function
-     * @return An ArrayList (of Complex objects) containing the roots of the function
-     */
-    public static ArrayList<Complex> solveQuadraticC(double a, double b, double c) {
-        ArrayList<Complex> roots = new ArrayList<Complex>();
-        if ((b * b - 4 * a * c) < 0) {
-            roots.add((Complex.sqrt((b * b - 4 * a * c))).add(-b).times(1 / (2 * a)));
-            roots.add(new Complex(-b, 0).subtract(Complex.sqrt((b * b - 4 * a * c))).times(1 / (2 * a)));
-        } else if ((b * b - 4 * a * c) == 0) {
-            roots.add(new Complex((-b / (2 * a)), 0));
-        } else {
-            roots.add(new Complex((-b + Math.sqrt((b * b - 4 * a * c))) / (2 * a), 0));
-            roots.add(new Complex((-b - Math.sqrt((b * b - 4 * a * c))) / (2 * a), 0));
-        }
-        return roots;
-    }
-
-    /**
-     * Finds all the REAL roots of a cubic function
-     * using the method found here: http://www.1728.org/cubic2.htm
-     *
-     * @param a the coefficient of the 3rd degree x value of the cubic function
-     * @param b the coefficient of the 2nd degree x value of the cubic function
-     * @param c the coefficient of the 1st degree x value of the cubic function
-     * @param d the constant value of the cubic function
-     * @return An ArrayList (of Double objects) containing the real roots of the function
-     */
-    public static ArrayList<Double> solveCubic(double a, double b, double c, double d) {
-        double f = ((3 * c / a) - ((b * b) / (a * a))) / 3;
-        double g = ((2 * Math.pow(b, 3) / Math.pow(a, 3)) - (9 * b * c / (a * a)) + (27 * d / a)) / 27;
-        double h = ((g * g / 4) + (f * f * f / 27));
-        ArrayList<Double> roots = new ArrayList<Double>();
-        if (h > 0) { //only one real root exists
-            double s = Math.cbrt((-g / 2) + Math.sqrt(h));
-            double u = Math.cbrt((-g / 2) - Math.sqrt(h));
-            roots.add((s + u) - (b / (3 * a)));
-        } else if (f == 0 && g == 0 && h == 0) {//all 3 roots are real and equal
-            roots.add((-1) * Math.cbrt(d / a));
-        } else if (h <= 0) {//all 3 roots are real
-            double i = Math.sqrt((g * g / 4) - h);
-            double j = Math.cbrt(i);
-            double k = Math.acos(-1 * (g / (2 * i)));
-            double m = Math.cos(k / 3);
-            double n = Math.sqrt(3) * Math.sin(k / 3);
-            double p = (b / (3 * a)) * (-1);
-            roots.add((2 * j * m) + p);
-            roots.add(((-1) * j * (m + n)) + p);
-            roots.add(((-1) * j * (m - n)) + p);
-        }
-
-        return roots;
     }
 
     /**
@@ -1029,7 +870,7 @@ public class Utility {
      * @return The list of tokens with the variables substituted
      */
     private static ArrayList<Token> subVariables(ArrayList<Token> tokens) {
-        ArrayList<Token> newTokens = new ArrayList<Token>();
+        ArrayList<Token> newTokens = new ArrayList<>();
         for (Token token : tokens) {
             if (token instanceof Variable) {
                 int index = tokens.indexOf(token);

@@ -1,13 +1,16 @@
 package com.trutech.calculall;
 
+import org.apache.commons.math3.linear.Array2DRowRealMatrix;
+import org.apache.commons.math3.linear.RealMatrix;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
  * The Object representation of a mathematical Matrix.
  *
- * @version Alpha 2.0
  * @author Ejaaz Merali
+ * @version Alpha 2.0
  */
 
 @SuppressWarnings("unused")
@@ -39,19 +42,23 @@ public class Matrix extends Token {
 
 
     public static Matrix add(Matrix a, Matrix b) {
-        return MatrixOperatorFactory.makeMatrixAdd().operate(a, b);
+        RealMatrix l = new Array2DRowRealMatrix(MatrixUtils.convMatrixEntriesToDbl(MatrixUtils.evaluateMatrixEntries(a).getEntries()));
+        RealMatrix r = new Array2DRowRealMatrix(MatrixUtils.convMatrixEntriesToDbl(MatrixUtils.evaluateMatrixEntries(b).getEntries()));
+        return new Matrix(l.add(r).getData());
     }
 
     public static Matrix subtract(Matrix a, Matrix b) {
-        return MatrixOperatorFactory.makeMatrixSubtract().operate(a, b);
+        RealMatrix l = new Array2DRowRealMatrix(MatrixUtils.convMatrixEntriesToDbl(MatrixUtils.evaluateMatrixEntries(a).getEntries()));
+        RealMatrix r = new Array2DRowRealMatrix(MatrixUtils.convMatrixEntriesToDbl(MatrixUtils.evaluateMatrixEntries(b).getEntries()));
+        return new Matrix(l.subtract(r).getData());
     }
 
     public static Matrix multiply(Object a, Object b) {
-        return MatrixOperatorFactory.makeMatrixMultiply().operate(a, b);
+        return (Matrix) MatrixOperatorFactory.makeMatrixMultiply().operate(a, b);
     }
 
     public static Matrix transpose(Matrix a) {
-        return MatrixFunctionFactory.makeTranspose().perform(a);
+        return (Matrix) MatrixFunctionFactory.makeTranspose().perform(a);
     }
 
     /**

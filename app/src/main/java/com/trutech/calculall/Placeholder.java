@@ -1,3 +1,4 @@
+
 package com.trutech.calculall;
 
 import java.io.Serializable;
@@ -11,7 +12,6 @@ import java.io.Serializable;
 public class Placeholder extends Token implements Serializable {
 
     public static final int SUPERSCRIPT_BLOCK = 0, COMMA = 1, BASE_BLOCK = 2;
-    private int type;
 
     /**
      * Creates a new Placeholder to be shown on the calculator screen.

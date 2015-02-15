@@ -296,20 +296,20 @@ public class VectorMode extends Advanced {
             ArrayList<Token> directionVectorsT = new ArrayList<>();
             for (int i = 0; i < tokens.size(); i++) {
                 Token t = tokens.get(i);
-                if (t instanceof VectorVariable && ((VectorVariable) t).getType() == VectorVariable.T) {
+                if (t instanceof VectorVariable && t.getType() == VectorVariable.T) {
                     i++; //Goes to the next token
                     //If the Vector is right after
                     if (i < tokens.size() && tokens.get(i) instanceof Vector) {
                         directionVectorsT.add(tokens.get(i));
-                    } else if (i < tokens.size() && tokens.get(i) instanceof Bracket && ((Bracket) tokens.get(i)).getType() == Bracket.OPEN) { //If the Vector is in a bracketed expression
+                    } else if (i < tokens.size() && tokens.get(i) instanceof Bracket && tokens.get(i).getType() == Bracket.OPEN) { //If the Vector is in a bracketed expression
                         int bracketCount = -1;
                         i++;
                         ArrayList<Token> inside = new ArrayList<>();
                         while (i < tokens.size() && bracketCount < 0) {
                             Token token = tokens.get(i);
-                            if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.OPEN) {
+                            if (token instanceof Bracket && token.getType() == Bracket.OPEN) {
                                 bracketCount--;
-                            } else if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.CLOSE) {
+                            } else if (token instanceof Bracket && token.getType() == Bracket.CLOSE) {
                                 bracketCount++;
                             }
                             inside.add(token);
@@ -317,20 +317,20 @@ public class VectorMode extends Advanced {
                         }
                         directionVectorsT.addAll(inside);
                     }
-                } else if (t instanceof VectorVariable && ((VectorVariable) t).getType() == VectorVariable.S) {
+                } else if (t instanceof VectorVariable && t.getType() == VectorVariable.S) {
                     i++; //Goes to the next token
                     //If the Vector is right after
                     if (i < tokens.size() && tokens.get(i) instanceof Vector) {
                         directionVectorsS.add(tokens.get(i));
-                    } else if (i < tokens.size() && tokens.get(i) instanceof Bracket && ((Bracket) tokens.get(i)).getType() == Bracket.OPEN) { //If the Vector is in a bracketed expression
+                    } else if (i < tokens.size() && tokens.get(i) instanceof Bracket && tokens.get(i).getType() == Bracket.OPEN) { //If the Vector is in a bracketed expression
                         int bracketCount = -1;
                         i++;
                         ArrayList<Token> inside = new ArrayList<>();
                         while (i < tokens.size() && bracketCount < 0) {
                             Token token = tokens.get(i);
-                            if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.OPEN) {
+                            if (token instanceof Bracket && token.getType() == Bracket.OPEN) {
                                 bracketCount--;
-                            } else if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.CLOSE) {
+                            } else if (token instanceof Bracket && token.getType() == Bracket.CLOSE) {
                                 bracketCount++;
                             }
                             inside.add(token);
@@ -338,7 +338,7 @@ public class VectorMode extends Advanced {
                         }
                         directionVectorsS.addAll(inside);
                     }
-                } else if (t instanceof VectorOperator && ((VectorOperator) t).getType() == VectorOperator.ADD && i + 1 < tokens.size() && tokens.get(i + 1) instanceof VectorVariable) { //Ignores addition before s & t
+                } else if (t instanceof VectorOperator && t.getType() == VectorOperator.ADD && i + 1 < tokens.size() && tokens.get(i + 1) instanceof VectorVariable) { //Ignores addition before s & t
                     //Do nothing
                 } else {
                     constantTerms.add(t);
@@ -348,7 +348,7 @@ public class VectorMode extends Advanced {
             ArrayList<Token> result1 = VectorUtilities.processVectors(directionVectorsT);
             ArrayList<Token> result2 = VectorUtilities.processVectors(directionVectorsS);
             Token t1 = result1.size() == 0 ? null : result1.get(0);
-            Token t2 = result1.size() == 0 ? null : result2.get(0);
+            Token t2 = result2.size() == 0 ? null : result2.get(0);
 
             if (constantTerms.size() > 0 && constantTerms.get(0) instanceof VectorOperator) { //Removes any front operators in the constant terms first
                 VectorOperator o = (VectorOperator) constantTerms.remove(0);
@@ -364,7 +364,6 @@ public class VectorMode extends Advanced {
             ArrayList<Token> constantResults = VectorUtilities.processVectors(constantTerms);
             double[] zeroVector = {0, 0, 0};
             Token constant = constantResults.size() == 0 ? new Vector(zeroVector) : constantResults.get(0);
-
             if (!(constant instanceof Vector)) { //Constant must be a Vector
                 throw new IllegalArgumentException("Illegal Vector Equation of line / plane");
             }

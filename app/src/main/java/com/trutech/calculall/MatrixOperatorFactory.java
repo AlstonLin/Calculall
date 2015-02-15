@@ -1,5 +1,8 @@
 package com.trutech.calculall;
 
+import org.apache.commons.math3.linear.Array2DRowRealMatrix;
+import org.apache.commons.math3.linear.RealMatrix;
+
 import java.util.ArrayList;
 
 /**
@@ -14,27 +17,22 @@ public class MatrixOperatorFactory {
     public static MatrixOperator makeMatrixAdd() {
         return new MatrixOperator("+", MatrixOperator.ADD, 2, true, 1, true) {
             @Override
-            public Matrix operate(Object left, Object right) {
+            public Token operate(Object left, Object right) {
                 if (left instanceof Matrix.AugmentedMatrix || right instanceof Matrix.AugmentedMatrix) {
                     throw new IllegalArgumentException("Addition is not defined for Augmented Matrices");
                 } else if (left instanceof Matrix && right instanceof Matrix) {
                     if (((Matrix) left).getNumOfCols() == ((Matrix) right).getNumOfCols()
                             && ((Matrix) left).getNumOfRows() == ((Matrix) right).getNumOfRows()) {
-                        ArrayList[][] newMatrix = new ArrayList[((Matrix) left).getNumOfRows()][((Matrix) left).getNumOfCols()];
-                        for (int i = 0; i < newMatrix.length; i++) {
-                            for (int j = 0; j < newMatrix.length; j++) {
-                                newMatrix[i][j] = new ArrayList<Token>();
-                                newMatrix[i][j].addAll(((Matrix) left).getEntry(i, j));
-                                newMatrix[i][j].add(OperatorFactory.makeAdd());
-                                newMatrix[i][j].addAll(((Matrix) right).getEntry(i, j));
-                            }
-                        }
-                        return MatrixUtils.evaluateMatrixEntries(new Matrix(newMatrix));
+                        RealMatrix l = new Array2DRowRealMatrix(MatrixUtils.convMatrixEntriesToDbl((MatrixUtils.evaluateMatrixEntries((Matrix) left)).getEntries()));
+                        RealMatrix r = new Array2DRowRealMatrix(MatrixUtils.convMatrixEntriesToDbl((MatrixUtils.evaluateMatrixEntries((Matrix) right)).getEntries()));
+                        return new Matrix(l.add(r).getData());
                     } else {
                         throw new IllegalArgumentException("Matrices are not the same size");
                     }
+                } else if (left instanceof Number && right instanceof Number) {
+                    return new Number(OperatorFactory.makeAdd().operate(((Number) left).getValue(), ((Number) right).getValue()));
                 } else {
-                    throw new IllegalArgumentException("Both arguments must be Matrices");
+                    throw new IllegalArgumentException("Both arguments must be Matrices or Numbers");
                 }
             }
         };
@@ -43,25 +41,20 @@ public class MatrixOperatorFactory {
     public static MatrixOperator makeMatrixSubtract() {
         return new MatrixOperator("−", MatrixOperator.SUBTRACT, 2, true, -1, false) {
             @Override
-            public Matrix operate(Object left, Object right) {
+            public Token operate(Object left, Object right) {
                 if (left instanceof Matrix.AugmentedMatrix || right instanceof Matrix.AugmentedMatrix) {
                     throw new IllegalArgumentException("Subtraction is not defined for Augmented Matrices");
                 } else if (left instanceof Matrix && right instanceof Matrix) {
                     if (((Matrix) left).getNumOfCols() == ((Matrix) right).getNumOfCols()
                             && ((Matrix) left).getNumOfRows() == ((Matrix) right).getNumOfRows()) {
-                        ArrayList[][] newMatrix = new ArrayList[((Matrix) left).getNumOfRows()][((Matrix) left).getNumOfCols()];
-                        for (int i = 0; i < newMatrix.length; i++) {
-                            for (int j = 0; j < newMatrix.length; j++) {
-                                newMatrix[i][j] = new ArrayList<Token>();
-                                newMatrix[i][j].addAll(((Matrix) left).getEntry(i, j));
-                                newMatrix[i][j].add(OperatorFactory.makeSubtract());
-                                newMatrix[i][j].addAll(((Matrix) right).getEntry(i, j));
-                            }
-                        }
-                        return MatrixUtils.evaluateMatrixEntries(new Matrix(newMatrix));
+                        RealMatrix l = new Array2DRowRealMatrix(MatrixUtils.convMatrixEntriesToDbl((MatrixUtils.evaluateMatrixEntries((Matrix) left)).getEntries()));
+                        RealMatrix r = new Array2DRowRealMatrix(MatrixUtils.convMatrixEntriesToDbl((MatrixUtils.evaluateMatrixEntries((Matrix) right)).getEntries()));
+                        return new Matrix(l.subtract(r).getData());
                     } else {
                         throw new IllegalArgumentException("Matrices are not the same size");
                     }
+                } else if (left instanceof Number && right instanceof Number) {
+                    return new Number(OperatorFactory.makeSubtract().operate(((Number) left).getValue(), ((Number) right).getValue()));
                 } else {
                     throw new IllegalArgumentException("Both arguments must be Matrices");
                 }
@@ -72,46 +65,26 @@ public class MatrixOperatorFactory {
     public static MatrixOperator makeMatrixMultiply() {
         return new MatrixOperator("", MatrixOperator.MULTIPLY, 3, true, 0, true) {
             @Override
-            public Matrix operate(Object left, Object right) {
+            public Token operate(Object left, Object right) {
                 if (left instanceof Matrix.AugmentedMatrix || right instanceof Matrix.AugmentedMatrix) {
                     throw new IllegalArgumentException("Multiplication is not defined for Augmented Matrices");
                 } else if (left instanceof Matrix && right instanceof Matrix) {
                     if (((Matrix) left).getNumOfCols() == ((Matrix) right).getNumOfRows()) {
-                        ArrayList[][] newMatrix = new ArrayList[((Matrix) left).getNumOfRows()][((Matrix) right).getNumOfCols()];
-                        for (int i = 0; i < ((Matrix) left).getNumOfRows(); i++) {
-                            for (int j = 0; j < ((Matrix) right).getNumOfCols(); j++) {
-                                newMatrix[i][j].add(new Number(dotProduct(((Matrix) left).getRow(i), ((Matrix) right).getColumn(j))));
-                            }
-                        }
-                        return MatrixUtils.evaluateMatrixEntries(new Matrix(newMatrix));
+                        RealMatrix l = new Array2DRowRealMatrix(MatrixUtils.convMatrixEntriesToDbl((MatrixUtils.evaluateMatrixEntries((Matrix) left)).getEntries()));
+                        RealMatrix r = new Array2DRowRealMatrix(MatrixUtils.convMatrixEntriesToDbl((MatrixUtils.evaluateMatrixEntries((Matrix) right)).getEntries()));
+                        return new Matrix(l.multiply(r).getData());
                     } else {
                         throw new IllegalArgumentException("Number of columns of left matrix is not " +
                                 "equal to the number of rows of the right matrix");
                     }
                 } else if (left instanceof Number && right instanceof Matrix) {
-                    ArrayList[][] newMatrix = new ArrayList[((Matrix) right).getNumOfRows()][((Matrix) right).getNumOfCols()];
-                    for (int i = 0; i < ((Matrix) right).getNumOfRows(); i++) {
-                        for (int j = 0; j < ((Matrix) right).getNumOfCols(); j++) {
-                            newMatrix[i][j].add(left);
-                            newMatrix[i][j].add(OperatorFactory.makeMultiply());
-                            newMatrix[i][j].add(BracketFactory.makeOpenBracket());
-                            newMatrix[i][j].addAll(((Matrix) right).getEntry(i, j));
-                            newMatrix[i][j].add(BracketFactory.makeCloseBracket());
-                        }
-                    }
-                    return new Matrix(newMatrix);
+                    RealMatrix r = new Array2DRowRealMatrix(MatrixUtils.convMatrixEntriesToDbl((MatrixUtils.evaluateMatrixEntries((Matrix) right)).getEntries()));
+                    return new Matrix(r.scalarMultiply(((Number) left).getValue()).getData());
                 } else if (right instanceof Number && left instanceof Matrix) {
-                    ArrayList[][] newMatrix = new ArrayList[((Matrix) left).getNumOfRows()][((Matrix) left).getNumOfCols()];
-                    for (int i = 0; i < ((Matrix) left).getNumOfRows(); i++) {
-                        for (int j = 0; j < ((Matrix) left).getNumOfCols(); j++) {
-                            newMatrix[i][j].add(right);
-                            newMatrix[i][j].add(OperatorFactory.makeMultiply());
-                            newMatrix[i][j].add(BracketFactory.makeOpenBracket());
-                            newMatrix[i][j].addAll(((Matrix) left).getEntry(i, j));
-                            newMatrix[i][j].add(BracketFactory.makeCloseBracket());
-                        }
-                    }
-                    return new Matrix(newMatrix);
+                    RealMatrix l = new Array2DRowRealMatrix(MatrixUtils.convMatrixEntriesToDbl((MatrixUtils.evaluateMatrixEntries((Matrix) left)).getEntries()));
+                    return new Matrix(l.scalarMultiply(((Number) right).getValue()).getData());
+                } else if (left instanceof Number && right instanceof Number) {
+                    return new Number(OperatorFactory.makeMultiply().operate(((Number) left).getValue(), ((Number) right).getValue()));
                 } else {
                     throw new IllegalArgumentException("None of the arguments are Matrices");
                 }
@@ -122,15 +95,18 @@ public class MatrixOperatorFactory {
     public static MatrixOperator makeMatrixExponent() {
         return new MatrixOperator("^", MatrixOperator.EXPONENT, 5, false, 0, false) {
             @Override
-            public Matrix operate(Object left, Object right) {
+            public Token operate(Object left, Object right) {
                 if (left instanceof Matrix.AugmentedMatrix || right instanceof Matrix.AugmentedMatrix) {
                     throw new IllegalArgumentException("Exponentiation is not defined for Augmented Matrices");
                 } else if (left instanceof Matrix && right instanceof Number && ((Number) right).getValue() % 1 == 0) {
                     if (((Matrix) left).getNumOfCols() == ((Matrix) left).getNumOfRows()) {
-                        return MatrixUtils.evaluateMatrixEntries(matrixExponent((Matrix) left, (int) ((Number) right).getValue()));
+                        RealMatrix l = new Array2DRowRealMatrix(MatrixUtils.convMatrixEntriesToDbl((MatrixUtils.evaluateMatrixEntries((Matrix) left)).getEntries()));
+                        return new Matrix(l.power((int) ((Number) right).getValue()).getData());
                     } else {
                         throw new IllegalArgumentException("Cannot raise a non-square Matrix to a power");
                     }
+                } else if (left instanceof Number && right instanceof Number) {
+                    return new Number(OperatorFactory.makeExponent().operate(((Number) left).getValue(), ((Number) right).getValue()));
                 } else {
                     if (!(left instanceof Matrix)) {
                         throw new IllegalArgumentException("Invalid input: base is not a matrix");
@@ -143,15 +119,21 @@ public class MatrixOperatorFactory {
         };
     }
 
+    /**
+     * @param m
+     * @param power
+     * @return
+     * @deprecated Using Apache Libs instead, kept just in case
+     */
     private static Matrix matrixExponent(Matrix m, int power) {
         if (power > 0) {
-            return matrixExponent(MatrixUtils.evaluateMatrixEntries(makeMatrixMultiply().operate(m, m)), power - 1);
+            return matrixExponent(MatrixUtils.evaluateMatrixEntries((Matrix) makeMatrixMultiply().operate(m, m)), power - 1);
         } else if (power == 0) {
             return MatrixUtils.makeIdentity(m.getNumOfCols());
         } else if (power <= 0) {
             Matrix inverse;
             try {
-                inverse = MatrixFunctionFactory.makeInverse().perform(m);
+                inverse = (Matrix) MatrixFunctionFactory.makeInverse().perform(m);
                 return matrixExponent(inverse, -1 * power);
             } catch (Exception e) {
                 throw new IllegalArgumentException("Cannot raise a non-invertible matrix to a negative power");

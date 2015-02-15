@@ -12,6 +12,7 @@ import java.util.ArrayList;
  */
 public abstract class Token implements Serializable {
 
+    protected int type;
     private transient ArrayList<Token> dependencies = new ArrayList<Token>(); //Tokens that are dependent with this token
     private String symbol;
 
@@ -47,5 +48,8 @@ public abstract class Token implements Serializable {
         return dependencies;
     }
 
+    public int getType() {
+        return type;
+    }
 }
 

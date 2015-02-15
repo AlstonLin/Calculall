@@ -1,5 +1,9 @@
 package com.trutech.calculall;
 
+import org.apache.commons.math3.linear.Array2DRowRealMatrix;
+import org.apache.commons.math3.linear.LUDecomposition;
+import org.apache.commons.math3.linear.RealMatrix;
+
 import java.util.ArrayList;
 
 /**
@@ -11,7 +15,7 @@ import java.util.ArrayList;
 public class MatrixFunctionFactory {
 
     public static MatrixFunction makeTranspose() {
-        return new MatrixFunction("transpose", MatrixFunction.TRANSPOSE) {
+        return new MatrixFunction("trans", MatrixFunction.TRANSPOSE) {
             @Override
             public Matrix perform(Matrix input) {
                 ArrayList[][] transposed = new ArrayList[input.getNumOfCols()][input.getNumOfRows()];
@@ -30,7 +34,8 @@ public class MatrixFunctionFactory {
         return new MatrixFunction("sqrt", MatrixFunction.SQRT) {
             @Override
             public Matrix perform(Matrix input) {
-                return MatrixUtils.getSqrt(input);
+                Matrix m = MatrixUtils.evaluateMatrixEntries(input);
+                return MatrixUtils.getSqrt(m);
             }
         };
     }
@@ -40,9 +45,9 @@ public class MatrixFunctionFactory {
             @Override
             public Matrix perform(Matrix input) {
                 if (input instanceof Matrix.AugmentedMatrix) {
-                    return MatrixUtils.rowReduceREF((Matrix.AugmentedMatrix) input);
+                    return MatrixUtils.evaluateMatrixEntries(MatrixUtils.rowReduceREF((Matrix.AugmentedMatrix) input));
                 } else {
-                    return MatrixUtils.ref(input);
+                    return MatrixUtils.evaluateMatrixEntries(MatrixUtils.ref(input));
                 }
             }
         };
@@ -53,72 +58,42 @@ public class MatrixFunctionFactory {
             @Override
             public Matrix perform(Matrix input) {
                 if (input instanceof Matrix.AugmentedMatrix) {
-                    return MatrixUtils.rowReduceRREF((Matrix.AugmentedMatrix) input);
+                    return MatrixUtils.evaluateMatrixEntries(MatrixUtils.rowReduceRREF((Matrix.AugmentedMatrix) input));
                 } else {
-                    return MatrixUtils.rref(input);
+                    return MatrixUtils.evaluateMatrixEntries(MatrixUtils.rref(input));
                 }
             }
         };
     }
 
-    //TODO: make a wrapper function to convert this into a double
     public static MatrixFunction makeDeterminant() {
         return new MatrixFunction("det", MatrixFunction.DET) {
             @Override
-            public Matrix perform(Matrix input) {
+            public Number perform(Matrix input) {
                 if (input.getNumOfCols() != input.getNumOfRows()) {
                     throw new IllegalArgumentException("Determinant can only be applied to square matrices.");
                 }
-
-                if (input.getNumOfCols() == 2) {
-                    double ele11 = ((Number) (input.getEntry(0, 0).get(0))).getValue();
-                    double ele12 = ((Number) (input.getEntry(0, 1).get(0))).getValue();
-                    double ele21 = ((Number) (input.getEntry(1, 0).get(0))).getValue();
-                    double ele22 = ((Number) (input.getEntry(1, 1).get(0))).getValue();
-
-                    ArrayList<Token> det_2by2 = new ArrayList<Token>();
-                    det_2by2.add(new Number(ele11 * ele22 - ele12 * ele21));
-
-                    ArrayList[][] temp = new ArrayList[1][1];
-                    temp[0][0] = det_2by2;
-
-                    return new Matrix(temp);
-                } else {
-                    double output = 0;
-                    for (int i = 0; i < input.getNumOfRows(); i++) {
-                        for (int j = 0; j < input.getNumOfCols(); j++) {
-                            output += ((Number) input.getEntry(i, j).get(0)).getValue() * (Math.pow(-1, i + j) * (((Number) (perform(minorMatrix(input, i, j)).getEntry(0, 0)).get(0)).getValue()));
-                        }
-                    }
-
-                    ArrayList<Token> det = new ArrayList<>();
-                    det.add(new Number(output));
-
-                    ArrayList[][] temp = new ArrayList[1][1];
-                    temp[0][0].add(new Number(Utility.evaluateExpression(det)));
-
-                    return new Matrix(temp);
-                }
+                Matrix a = MatrixUtils.evaluateMatrixEntries(input);
+                RealMatrix m = new Array2DRowRealMatrix(MatrixUtils.convMatrixEntriesToDbl(a.getEntries()));
+                LUDecomposition lu = new LUDecomposition(m);
+                return new Number(lu.getDeterminant());
             }
         };
     }
 
-    //TODO: make a wrapper function to convert output into a double (might be able to do this in the matrix mode class)
     public static MatrixFunction makeTrace() {
         return new MatrixFunction("tr", MatrixFunction.TRACE) {
             @Override
-            public Matrix perform(Matrix input) {
-                if (input.getNumOfCols() == input.getNumOfRows()) {
+            public Number perform(Matrix input) {
+                Matrix m = MatrixUtils.evaluateMatrixEntries(input);
+                if (m.getNumOfCols() == m.getNumOfRows()) {
                     ArrayList<Token> trace = new ArrayList<>();
-                    for (int i = 0; i < input.getNumOfCols() - 1; i++) {
-                        trace.addAll(input.getEntry(i, i));
+                    for (int i = 0; i < m.getNumOfCols() - 1; i++) {
+                        trace.addAll(m.getEntry(i, i));
                         trace.add(OperatorFactory.makeAdd());
                     }
-                    trace.addAll(input.getEntry(input.getNumOfCols() - 1, input.getNumOfCols() - 1));
-                    ArrayList[][] temp = new ArrayList[1][1];
-                    temp[0][0].add(new Number(Utility.evaluateExpression(trace)));
-
-                    return new Matrix(temp);
+                    trace.addAll(m.getEntry(m.getNumOfCols() - 1, m.getNumOfCols() - 1));
+                    return new Number(Utility.evaluateExpression(Utility.convertToReversePolish(Utility.setupExpression(Utility.condenseDigits(Utility.addMissingBrackets(trace))))));
                 } else {
                     throw new IllegalArgumentException("Trace can only be applied to square matrices.");
                 }
@@ -129,10 +104,12 @@ public class MatrixFunctionFactory {
     public static MatrixFunction makeRank() {
         return new MatrixFunction("rank", MatrixFunction.RANK) {
             @Override
-            public Matrix perform(Matrix input) {
-                ArrayList<Token>[][] rank = new ArrayList[1][1];
-                rank[0][0].add(new Number(MatrixUtils.findRank(input)));
-                return new Matrix(rank);
+            public Number perform(Matrix input) {
+//                ArrayList<Token>[][] rank = new ArrayList[1][1];
+//                rank[0][0].add(new Number(MatrixUtils.findRank(input)));
+//                return new Matrix(rank);
+
+                return new Number(MatrixUtils.findRank(input));
             }
         };
     }
@@ -146,12 +123,11 @@ public class MatrixFunctionFactory {
         };
     }
 
-    //NOTES:
-    //Outputs a row matrix, make it show up on screen as a set of numbers for ex. λ = {1,2,3,4}
-    //get the entries using m.getRow(0) which will output an ArrayList<Token>[]
-    //alternatively you could output the actual matrix and just display λ = [...]
-    //if the matrix that is returned is empty, output "No real eigenvalues" to screen
-    public static MatrixFunction makeEigenVal() {
+    /**
+     * @return a Matrix containing the eigenvalues of the input Matrix
+     * @deprecated Kept just in case
+     */
+    private static MatrixFunction makeEigenVal() {
         return new MatrixFunction("λ", MatrixFunction.EIGENVAL) {
             @Override
             public Matrix perform(Matrix input) {
@@ -165,10 +141,11 @@ public class MatrixFunctionFactory {
         };
     }
 
-    //Notes:
-    //Outputs as an Augmented Matrix, extract the matrices contained in it with AM.getMatrices() which will output
-    // an array of Matrices, then show all of those matrices on the screen
-    public static MatrixFunction makeEigenVectors() {
+    /**
+     * @return an Augmented Matrix containing the Eigenvectors of the input Matrix
+     * @deprecated Kept just in case
+     */
+    private static MatrixFunction makeEigenVectors() {
         return new MatrixFunction("eigenvect", MatrixFunction.EIGENVECT) {
             @Override
             public Matrix.AugmentedMatrix perform(Matrix input) {
@@ -177,7 +154,11 @@ public class MatrixFunctionFactory {
         };
     }
 
-    public static MatrixFunction makeDiagonalize() {
+    /**
+     * @return an Augmented Matrix containing the eigenvector decomposition of the input Matrix
+     * @deprecated Kept just in case
+     */
+    private static MatrixFunction makeDiagonalize() {
         return new MatrixFunction("diag", MatrixFunction.DIAG) {
             @Override
             public Matrix.AugmentedMatrix perform(Matrix input) {
@@ -190,12 +171,16 @@ public class MatrixFunctionFactory {
         };
     }
 
-    public static MatrixFunction makeLUP() {
+    /**
+     * @return an Augmented Matrix containing the LUP factorization of the input Matrix
+     * @deprecated Kept just in case
+     */
+    private static MatrixFunction makeLUP() {
         return new MatrixFunction("LUP", MatrixFunction.LU) {
             @Override
             public Matrix.AugmentedMatrix perform(Matrix input) {
                 Matrix[] matrices = new Matrix[3];
-                matrices[0] = makeTranspose().perform(MatrixUtils.getPermutationMatrix(input));
+                matrices[0] = (Matrix) makeTranspose().perform(MatrixUtils.getPermutationMatrix(input));
                 matrices[1] = MatrixUtils.getLowerTriangularMatrix(input);
                 matrices[2] = MatrixUtils.getUpperTriangularMatrix(input);
                 return new Matrix.AugmentedMatrix(matrices);

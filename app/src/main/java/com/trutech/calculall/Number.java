@@ -1,8 +1,6 @@
 package com.trutech.calculall;
 
 import java.io.Serializable;
-import java.text.DecimalFormat;
-import java.util.Locale;
 
 /**
  * This is the class for the main activity (entry-point to the app). It will simply configure
@@ -24,6 +22,7 @@ public class Number extends Token implements Serializable {
     protected Number(double value) {
         super(null); //No image for this; it should never be shown on screen
         this.value = value;
+        this.type = -1;
     }
 
     /**
