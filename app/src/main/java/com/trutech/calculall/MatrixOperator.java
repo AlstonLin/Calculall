@@ -8,7 +8,6 @@ package com.trutech.calculall;
 
 public abstract class MatrixOperator extends Token {
     public static final int ADD = 1, SUBTRACT = 2, MULTIPLY = 3, EXPONENT = 4, VARROOT = 5, AUGMENT = 6;
-    private int type;
     private int precedence;
     private boolean leftAssociative, commutative, anticommutative, associative;
 
@@ -40,7 +39,7 @@ public abstract class MatrixOperator extends Token {
      * @param right The matrix right of the operation
      * @return The result of the operation
      */
-    public abstract Matrix operate(Object left, Object right);
+    public abstract Token operate(Object left, Object right);
 
 
     /**

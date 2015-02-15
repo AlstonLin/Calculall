@@ -159,24 +159,30 @@ public class VectorUtilities {
         Vector normal = findCrossProduct(d1, d2);
         ArrayList<Token> scalar = new ArrayList<>();
         //X
-        scalar.add(new Number(normal.getValues()[0]));
-        scalar.add(new StringToken("X"));
+        if (normal.getValues()[0] != 0) {
+            scalar.add(new Number(normal.getValues()[0]));
+            scalar.add(new StringToken("X"));
+        }
         //Y
-        if (normal.getValues()[1] > 0) {
-            scalar.add(OperatorFactory.makeAdd());
-        } else {
-            scalar.add(OperatorFactory.makeSubtract());
+        if (normal.getValues()[1] != 0) {
+            if (normal.getValues()[1] > 0) {
+                scalar.add(OperatorFactory.makeAdd());
+            } else {
+                scalar.add(OperatorFactory.makeSubtract());
+            }
+            scalar.add(new Number(Math.abs(normal.getValues()[1])));
+            scalar.add(new StringToken("Y"));
         }
-        scalar.add(new Number(Math.abs(normal.getValues()[1])));
-        scalar.add(new StringToken("Y"));
         //Z
-        if (normal.getValues()[2] > 0) {
-            scalar.add(OperatorFactory.makeAdd());
-        } else {
-            scalar.add(OperatorFactory.makeSubtract());
+        if (normal.getValues()[2] != 0) {
+            if (normal.getValues()[2] > 0) {
+                scalar.add(OperatorFactory.makeAdd());
+            } else {
+                scalar.add(OperatorFactory.makeSubtract());
+            }
+            scalar.add(new Number(Math.abs(normal.getValues()[2])));
+            scalar.add(new StringToken("Z"));
         }
-        scalar.add(new Number(Math.abs(normal.getValues()[2])));
-        scalar.add(new StringToken("Z"));
         //Constant
         double constant = findDotProduct(normal, point) * -1;
         if (constant > 0) {
@@ -205,9 +211,9 @@ public class VectorUtilities {
         ArrayList<Token> temp = new ArrayList<>();
         boolean newVector = false;
         for (Token t : input) {
-            if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.SQUAREOPEN) {
+            if (t instanceof Bracket && t.getType() == Bracket.SQUAREOPEN) {
                 newVector = true;
-            } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.SQUARECLOSED) {
+            } else if (t instanceof Bracket && t.getType() == Bracket.SQUARECLOSED) {
                 //Adds last entry
                 ArrayList<Token> entry = processVectors(temp);
                 if (!(entry.size() == 1 && entry.get(0) instanceof Number)) {
@@ -227,7 +233,7 @@ public class VectorUtilities {
                 //Creates the Vector
                 output.add(new Vector(nums));
                 listOfNumbers.clear();
-            } else if (newVector && t instanceof Placeholder && ((Placeholder) t).getType() == Placeholder.COMMA) { //A comma
+            } else if (newVector && t instanceof Placeholder && t.getType() == Placeholder.COMMA) { //A comma
                 //Adds last entry
                 ArrayList<Token> entry = processVectors(temp);
                 if (!(entry.size() == 1 && entry.get(0) instanceof Number)) {
@@ -319,6 +325,9 @@ public class VectorUtilities {
      * @throws java.lang.IllegalArgumentException The user has inputted an invalid expression
      */
     public static Token evaluateExpression(ArrayList<Token> tokens) {
+        if (tokens.size() == 0) { //No Expression
+            return null; //Returns no expreesion
+        }
         Stack<Token> stack = new Stack<Token>();
         for (Token token : tokens) {
             if (token instanceof Number || token instanceof Vector) { //Adds all numbers directly to the stack
@@ -374,25 +383,25 @@ public class VectorUtilities {
             Token t = toSetup.get(i);
             Token previous = i == 0 ? null : toSetup.get(i - 1);
             //Applies pattern N[V] -> N * [V]
-            if (t instanceof Bracket && (((Bracket) t).getType() == Bracket.SQUAREOPEN || ((Bracket) t).getType() == Bracket.MAGNITUDE_OPEN) && previous instanceof Number) {
+            if (t instanceof Bracket && (t.getType() == Bracket.SQUAREOPEN || t.getType() == Bracket.MAGNITUDE_OPEN) && previous instanceof Number) {
                 toReturn.add(VectorOperatorFactory.makeCross());
             }
-            if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.MAGNITUDE_OPEN) { //Replaces Magnitude bars
+            if (t instanceof Bracket && t.getType() == Bracket.MAGNITUDE_OPEN) { //Replaces Magnitude bars
                 ArrayList<Token> inside = new ArrayList<>();
                 int bracketCount = -1;
                 i++;
                 while (i < toSetup.size() && bracketCount < 0) {
                     Token token = toSetup.get(i);
-                    if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.MAGNITUDE_OPEN) {
+                    if (token instanceof Bracket && token.getType() == Bracket.MAGNITUDE_OPEN) {
                         bracketCount--;
-                    } else if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.MAGNITUDE_CLOSE) {
+                    } else if (token instanceof Bracket && token.getType() == Bracket.MAGNITUDE_CLOSE) {
                         bracketCount++;
                     }
                     inside.add(token);
                     i++;
                 }
                 if (bracketCount != 0) { //Mismatches brackets
-                    throw new IllegalArgumentException("Mismatches Magnitude Brackets!");
+                    throw new IllegalArgumentException("Mismatched Magnitude Brackets!");
                 }
                 inside.remove(inside.size() - 1); //Removes the last magnitude bracket
                 inside = setupVectorExpression(inside); //Sets itself up recursively
@@ -418,7 +427,9 @@ public class VectorUtilities {
         ArrayList<Token> parsedTokens = parseVectors(setupVectorExpression(Utility.setupExpression(Utility.condenseDigits(subVariables(tokens)))));
         Token result = evaluateExpression(convertToReversePolish(parsedTokens));
         ArrayList<Token> toOutput = new ArrayList<>();
-        toOutput.add(result);
+        if (result != null) {
+            toOutput.add(result);
+        }
         return toOutput;
     }
 
@@ -427,9 +438,9 @@ public class VectorUtilities {
         for (int i = 0; i < tokens.size(); i++) {
             Token t = tokens.get(i);
             if (t instanceof VectorVariable) {
-                if (((VectorVariable) t).getType() == VectorVariable.U) {
+                if (t.getType() == VectorVariable.U) {
                     toReturn.add(VectorVariable.uValue);
-                } else if (((VectorVariable) t).getType() == VectorVariable.V) {
+                } else if (t.getType() == VectorVariable.V) {
                     toReturn.add(VectorVariable.vValue);
                 } else {
                     toReturn.add(t);

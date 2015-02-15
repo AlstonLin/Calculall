@@ -16,8 +16,8 @@ import java.util.Stack;
  * A custom View that displays the given mathematical expression with superscripts, subscripts
  * and fraction support.
  *
- * @version Alpha 2.0
  * @author Alston Lin
+ * @version Alpha 2.0
  */
 public class DisplayView extends View {
 
@@ -26,6 +26,7 @@ public class DisplayView extends View {
     private float superscriptYOffset;
     private float matrixPadding;
     private float fracPadding;
+    private float paddingAfterMatrix;
     private float startX = 0; //Tracks the starting x position at which the canvas will start drawing (allows side scrolling)
     private float maxX = 0; //Max start X that the user can scroll to
     private int cursorIndex = 0; //The index where the cursor is when shown on screen
@@ -67,7 +68,7 @@ public class DisplayView extends View {
         output = o;
     }
 
-    public void setFontSize(int fontSize){
+    public void setFontSize(int fontSize) {
         this.fontSize = fontSize;
         output.setFontSize(fontSize);
         textPaint.setTextSize(fontSize);
@@ -83,9 +84,10 @@ public class DisplayView extends View {
         fracPadding = textHeight / 8;
         superscriptYOffset = textHeight / 2;
         matrixPadding = textPaint.measureText("  ");
+        paddingAfterMatrix = matrixPadding * 1.5f;
     }
 
-    public ArrayList<Token> getExpression(){
+    public ArrayList<Token> getExpression() {
         return expression;
     }
 
@@ -112,7 +114,7 @@ public class DisplayView extends View {
     /**
      * Clears the input and output of the display.
      */
-    public void clear(){
+    public void clear() {
         expression.clear();
         output.display(new ArrayList<Token>());
         requestLayout();
@@ -169,7 +171,7 @@ public class DisplayView extends View {
             Paint paint = textPaint;
 
             if (token instanceof Bracket) {
-                switch (((Bracket) token).getType()) {
+                switch (token.getType()) {
                     case Bracket.SUPERSCRIPT_OPEN: {
                         //Extract the exponent expression
                         ArrayList<Token> exponent = new ArrayList<Token>();
@@ -177,9 +179,9 @@ public class DisplayView extends View {
                         int scriptCount = 1;
                         while (scriptCount != 0) {
                             Token t = expression.get(j);
-                            if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.SUPERSCRIPT_OPEN) {
+                            if (t instanceof Bracket && t.getType() == Bracket.SUPERSCRIPT_OPEN) {
                                 scriptCount++;
-                            } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.SUPERSCRIPT_CLOSE) {
+                            } else if (t instanceof Bracket && t.getType() == Bracket.SUPERSCRIPT_CLOSE) {
                                 scriptCount--;
                             }
                             exponent.add(t);
@@ -195,17 +197,17 @@ public class DisplayView extends View {
                         int j = i - 1;
                         while (bracketCount > 0) {
                             Token t = expression.get(j);
-                            if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.SUPERSCRIPT_OPEN) {
+                            if (t instanceof Bracket && t.getType() == Bracket.SUPERSCRIPT_OPEN) {
                                 bracketCount--;
-                            } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.SUPERSCRIPT_CLOSE) {
+                            } else if (t instanceof Bracket && t.getType() == Bracket.SUPERSCRIPT_CLOSE) {
                                 bracketCount++;
                             }
                             j--;
                         }
 
-                        if (j == -1){ //Some idiot did ^E (with no base)
+                        if (j == -1) { //Some idiot did ^E (with no base)
                             yModifier = INITIAL_MODIFIER;
-                        } else{
+                        } else {
                             yModifier = heights.get(j);
                         }
                         break;
@@ -216,9 +218,9 @@ public class DisplayView extends View {
                         int bracketCount = 1;
                         while (bracketCount != 0) {
                             Token t = expression.get(j);
-                            if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.NUM_OPEN) {
+                            if (t instanceof Bracket && t.getType() == Bracket.NUM_OPEN) {
                                 bracketCount++;
-                            } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.NUM_CLOSE) {
+                            } else if (t instanceof Bracket && t.getType() == Bracket.NUM_CLOSE) {
                                 bracketCount--;
                             }
                             num.add(t);
@@ -246,11 +248,7 @@ public class DisplayView extends View {
                     }
                     case Bracket.DENOM_OPEN: {
                         ArrayList<Token> denom = getDenominator(expression, i - 1);
-                        if (getMaxLinesHeight(denom) == 1) {
-                            yModifier += getHeight(denom, true);
-                        } else {
-                            yModifier += getHeight(denom, true) / 2;
-                        }
+                        yModifier += -getMostNeg(denom) + textHeight;
                         break;
                     }
                     case Bracket.DENOM_CLOSE: {
@@ -258,9 +256,9 @@ public class DisplayView extends View {
                         int j = i - 1;
                         while (bracketCount > 0) {
                             Token t = expression.get(j);
-                            if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.DENOM_OPEN) {
+                            if (t instanceof Bracket && t.getType() == Bracket.DENOM_OPEN) {
                                 bracketCount--;
-                            } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.DENOM_CLOSE) {
+                            } else if (t instanceof Bracket && t.getType() == Bracket.DENOM_CLOSE) {
                                 bracketCount++;
                             }
                             j--;
@@ -271,9 +269,9 @@ public class DisplayView extends View {
                         j -= 2;
                         while (bracketCount > 0) {
                             Token t = expression.get(j);
-                            if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.NUM_OPEN) {
+                            if (t instanceof Bracket && t.getType() == Bracket.NUM_OPEN) {
                                 bracketCount--;
-                            } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.NUM_CLOSE) {
+                            } else if (t instanceof Bracket && t.getType() == Bracket.NUM_CLOSE) {
                                 bracketCount++;
                             }
                             j--;
@@ -288,7 +286,7 @@ public class DisplayView extends View {
                         break;
                     }
                 }
-            } else if (token instanceof Operator && ((Operator) token).getType() == Operator.FRACTION) {
+            } else if (token instanceof Operator && token.getType() == Operator.FRACTION) {
 
                 //Finds the max height in the numerator
                 ArrayList<Token> numerator = getNumerator(expression, i);
@@ -308,8 +306,8 @@ public class DisplayView extends View {
             heights.add(i, y);
 
             //Draws the text
-            if (token instanceof Matrix){
-                ArrayList<Token>[][] entries = ((Matrix)token).getEntries();
+            if (token instanceof Matrix) {
+                ArrayList<Token>[][] entries = ((Matrix) token).getEntries();
                 y -= (entries.length - 1) * textHeight; //Starts at the top
                 //Calculates at what x value to start drawing each column
                 float[] columnX = new float[entries[0].length + 1];
@@ -318,7 +316,7 @@ public class DisplayView extends View {
                     float maxWidth = 0;
                     for (int k = 0; k < entries.length; k++) {
                         float width = paint.measureText(Utility.printExpression(entries[k][j - 1]));
-                        if (width > maxWidth){
+                        if (width > maxWidth) {
                             maxWidth = width;
                         }
                     }
@@ -326,8 +324,8 @@ public class DisplayView extends View {
                 }
 
                 //Draws all the Matrix entries
-                for (int j = 0; j < entries.length; j++){
-                    for (int k = 0; k < entries[j].length; k++){
+                for (int j = 0; j < entries.length; j++) {
+                    for (int k = 0; k < entries[j].length; k++) {
                         String str = Utility.printExpression(entries[j][k]);
                         //Centers the text (determines what x value to print it at
                         float currentWidth = paint.measureText(str);
@@ -340,7 +338,12 @@ public class DisplayView extends View {
                     y += textHeight;
                 }
                 y -= textHeight; //Undeos the last iteration
-            }else {
+            } /**else if (token instanceof Bracket && token.getType() == Bracket.OPEN){
+             canvas.drawArc(x);
+             } else if (token instanceof Bracket && token.getType() == Bracket.CLOSE) {
+             }
+             **/
+            else {
                 canvas.drawText(token.getSymbol(), x, y, paint);
             }
             //Updates maxY
@@ -349,15 +352,15 @@ public class DisplayView extends View {
             }
 
             //Draws fraction sign
-            if (token instanceof Operator && ((Operator) token).getType() == Operator.FRACTION) {
+            if (token instanceof Operator && token.getType() == Operator.FRACTION) {
                 //Looks for index where the denom ends
                 int j = i + 2;
                 int bracketCount = 1;
                 while (bracketCount > 0) {
                     Token t = expression.get(j);
-                    if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.DENOM_CLOSE) {
+                    if (t instanceof Bracket && t.getType() == Bracket.DENOM_CLOSE) {
                         bracketCount--;
-                    } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.DENOM_OPEN) {
+                    } else if (t instanceof Bracket && t.getType() == Bracket.DENOM_OPEN) {
                         bracketCount++;
                     }
                     j++;
@@ -370,9 +373,9 @@ public class DisplayView extends View {
                 //Superscripts the cursor if needed
                 cursorY = y;
                 cursorX = x - cursorPadding;
-                if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.SUPERSCRIPT_CLOSE) {
+                if (token instanceof Bracket && token.getType() == Bracket.SUPERSCRIPT_CLOSE) {
                     cursorY = heights.get(i - 1);
-                } else if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.DENOM_CLOSE) {
+                } else if (token instanceof Bracket && token.getType() == Bracket.DENOM_CLOSE) {
                     cursorY = heights.get(i - 1);
                 }
                 canvas.drawText("|", cursorX, cursorY, cursorPaint);
@@ -389,7 +392,7 @@ public class DisplayView extends View {
                 canvas.drawText("|", cursorX, cursorY, cursorPaint);
                 realCursorIndex = expression.size();
             }
-        } catch (ArrayIndexOutOfBoundsException e){
+        } catch (ArrayIndexOutOfBoundsException e) {
             //When rendering in Android Studio (Android bug)
         }
     }
@@ -403,10 +406,11 @@ public class DisplayView extends View {
     private float getMostNeg(ArrayList<Token> expression) {
         float mostNeg = Float.POSITIVE_INFINITY;
         float yModifier = 0;
+        ArrayList<Float> heights = new ArrayList<>();
         for (int i = 0; i < expression.size(); i++) {
             Token token = expression.get(i);
             if (token instanceof Bracket) {
-                switch (((Bracket) token).getType()) {
+                switch (token.getType()) {
                     case Bracket.SUPERSCRIPT_OPEN: {
                         //Extract the exponent expression
                         ArrayList<Token> exponent = new ArrayList<Token>();
@@ -414,9 +418,9 @@ public class DisplayView extends View {
                         int scriptCount = 1;
                         while (scriptCount != 0) {
                             Token t = expression.get(j);
-                            if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.SUPERSCRIPT_OPEN) {
+                            if (t instanceof Bracket && t.getType() == Bracket.SUPERSCRIPT_OPEN) {
                                 scriptCount++;
-                            } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.SUPERSCRIPT_CLOSE) {
+                            } else if (t instanceof Bracket && t.getType() == Bracket.SUPERSCRIPT_CLOSE) {
                                 scriptCount--;
                             }
                             exponent.add(t);
@@ -436,9 +440,9 @@ public class DisplayView extends View {
                         int bracketCount = 1;
                         while (bracketCount != 0) {
                             Token t = expression.get(j);
-                            if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.NUM_OPEN) {
+                            if (t instanceof Bracket && t.getType() == Bracket.NUM_OPEN) {
                                 bracketCount++;
-                            } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.NUM_CLOSE) {
+                            } else if (t instanceof Bracket && t.getType() == Bracket.NUM_CLOSE) {
                                 bracketCount--;
                             }
                             num.add(t);
@@ -478,9 +482,9 @@ public class DisplayView extends View {
                         int j = i - 1;
                         while (bracketCount > 0) {
                             Token t = expression.get(j);
-                            if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.DENOM_OPEN) {
+                            if (t instanceof Bracket && t.getType() == Bracket.DENOM_OPEN) {
                                 bracketCount--;
-                            } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.DENOM_CLOSE) {
+                            } else if (t instanceof Bracket && t.getType() == Bracket.DENOM_CLOSE) {
                                 bracketCount++;
                             }
                             j--;
@@ -491,9 +495,9 @@ public class DisplayView extends View {
                         j -= 2;
                         while (bracketCount > 0) {
                             Token t = expression.get(j);
-                            if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.NUM_OPEN) {
+                            if (t instanceof Bracket && t.getType() == Bracket.NUM_OPEN) {
                                 bracketCount--;
-                            } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.NUM_CLOSE) {
+                            } else if (t instanceof Bracket && t.getType() == Bracket.NUM_CLOSE) {
                                 bracketCount++;
                             }
                             j--;
@@ -508,7 +512,7 @@ public class DisplayView extends View {
                         break;
                     }
                 }
-            } else if (token instanceof Operator && ((Operator) token).getType() == Operator.FRACTION) {
+            } else if (token instanceof Operator && token.getType() == Operator.FRACTION) {
 
                 //Finds the max height in the numerator
                 ArrayList<Token> numerator = getNumerator(expression, i);
@@ -521,13 +525,13 @@ public class DisplayView extends View {
                 }
                 yModifier = maxHeight;
             }
-            if (token instanceof Matrix){
-                float negY = -textHeight * (((Matrix)token).getNumOfRows() - 1) + yModifier;
+            if (token instanceof Matrix) {
+                float negY = -textHeight * (((Matrix) token).getNumOfRows() - 1) + yModifier;
                 heights.add(negY);
                 if (negY < mostNeg) {
                     mostNeg = negY;
                 }
-            }else {
+            } else {
                 //Sets the most neg if it is lower than current
                 if (yModifier < mostNeg) {
                     mostNeg = yModifier;
@@ -535,7 +539,6 @@ public class DisplayView extends View {
                 heights.add(yModifier);
             }
         }
-        heights.clear();
         return mostNeg;
     }
 
@@ -553,7 +556,7 @@ public class DisplayView extends View {
             Token t = expression.get(i);
             //Handles parts of fractions seperately
             if (t instanceof Bracket) {
-                switch (((Bracket) t).getType()) {
+                switch (t.getType()) {
                     case Bracket.NUM_CLOSE:
                         ArrayList<Token> numerator = getNumerator(expression, i + 1);
                         temp += getHeight(numerator, true);
@@ -567,15 +570,15 @@ public class DisplayView extends View {
                         temp = 0;
                         break;
                 }
-            } else if (t instanceof Operator && ((Operator) t).getType() == Operator.EXPONENT) {
+            } else if (t instanceof Operator && t.getType() == Operator.EXPONENT) {
                 ArrayList<Token> exponent = new ArrayList<Token>();
                 int j = i + 2;
                 int scriptCount = 1;
                 while (scriptCount != 0) {
                     Token token = expression.get(j);
-                    if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.SUPERSCRIPT_OPEN) {
+                    if (token instanceof Bracket && token.getType() == Bracket.SUPERSCRIPT_OPEN) {
                         scriptCount++;
-                    } else if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.SUPERSCRIPT_CLOSE) {
+                    } else if (token instanceof Bracket && token.getType() == Bracket.SUPERSCRIPT_CLOSE) {
                         scriptCount--;
                     }
                     exponent.add(token);
@@ -584,15 +587,15 @@ public class DisplayView extends View {
                 exponent.remove(exponent.size() - 1); //Removes the SUPERSCRIPT_CLOSE Bracket
                 if (!countEndExponents) {
                     //Takes out all cases where there is a ^(E) and the end
-                    while (exponent.size() > 1 && exponent.get(exponent.size() - 1) instanceof Bracket && ((Bracket) exponent.get(exponent.size() - 1)).getType() == Bracket.SUPERSCRIPT_CLOSE) {
+                    while (exponent.size() > 1 && exponent.get(exponent.size() - 1) instanceof Bracket && exponent.get(exponent.size() - 1).getType() == Bracket.SUPERSCRIPT_CLOSE) {
                         int k = exponent.size() - 2;
                         exponent.remove(k + 1);
                         int bracketCount = 1;
                         while (bracketCount != 0) { //Keeps removing until the end exponents begins
                             Token token = exponent.get(k);
-                            if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.SUPERSCRIPT_OPEN) {
+                            if (token instanceof Bracket && token.getType() == Bracket.SUPERSCRIPT_OPEN) {
                                 bracketCount--;
-                            } else if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.SUPERSCRIPT_CLOSE) {
+                            } else if (token instanceof Bracket && token.getType() == Bracket.SUPERSCRIPT_CLOSE) {
                                 bracketCount++;
                             }
                             exponent.remove(k);
@@ -606,8 +609,8 @@ public class DisplayView extends View {
                     maxHeight = temp;
                 }
                 temp = 0;
-            } else if (t instanceof Matrix){
-                temp = textHeight * (((Matrix)t).getNumOfRows() - 1);
+            } else if (t instanceof Matrix) {
+                temp = textHeight * (((Matrix) t).getNumOfRows() - 1);
                 if (temp > maxHeight) {
                     maxHeight = temp;
                 }
@@ -633,7 +636,7 @@ public class DisplayView extends View {
         for (int i = 0; i < expression.size(); i++) {
             Token t = expression.get(i);
             if (t instanceof Bracket) {
-                switch (((Bracket) t).getType()) {
+                switch (t.getType()) {
                     case Bracket.SUPERSCRIPT_OPEN:
                         expBracketCount++;
                         inExponent = true;
@@ -657,15 +660,15 @@ public class DisplayView extends View {
                         denomBracketCount--;
                         break;
                 }
-            } else if (t instanceof Matrix){
-                int height = ((Matrix)t).getNumOfRows();
-                if (height > maxFracHeight){
+            } else if (t instanceof Matrix) {
+                int height = ((Matrix) t).getNumOfRows();
+                if (height > maxFracHeight) {
                     maxFracHeight = height;
                 }
             }
 
             if (numBracketCount == 0 && denomBracketCount == 0 && !inExponent) { //Cannot be in a numerator or denom or an exponent
-                if (t instanceof Operator && ((Operator) t).getType() == Operator.FRACTION) {
+                if (t instanceof Operator && t.getType() == Operator.FRACTION) {
                     ArrayList<Token> num = getNumerator(expression, i);
                     ArrayList<Token> denom = getDenominator(expression, i);
                     //And adds the height of both + 1
@@ -687,7 +690,7 @@ public class DisplayView extends View {
      * @return The numerator of the fraction
      */
     private ArrayList<Token> getNumerator(ArrayList<Token> expression, int i) {
-        if (!(expression.get(i) instanceof Operator && ((Operator) expression.get(i)).getType() == Operator.FRACTION)) {
+        if (!(expression.get(i) instanceof Operator && expression.get(i).getType() == Operator.FRACTION)) {
             throw new IllegalArgumentException("Given index of the expression is not a Fraction Token.");
         }
         ArrayList<Token> num = new ArrayList<Token>();
@@ -696,9 +699,9 @@ public class DisplayView extends View {
         int j = i - 2;
         while (bracketCount > 0) {
             Token token = expression.get(j);
-            if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.NUM_OPEN) {
+            if (token instanceof Bracket && token.getType() == Bracket.NUM_OPEN) {
                 bracketCount--;
-            } else if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.NUM_CLOSE) {
+            } else if (token instanceof Bracket && token.getType() == Bracket.NUM_CLOSE) {
                 bracketCount++;
             }
             num.add(0, token);
@@ -716,7 +719,7 @@ public class DisplayView extends View {
      * @return The denom of the fraction
      */
     private ArrayList<Token> getDenominator(ArrayList<Token> expression, int i) {
-        if (!(expression.get(i) instanceof Operator && ((Operator) expression.get(i)).getType() == Operator.FRACTION)) {
+        if (!(expression.get(i) instanceof Operator && expression.get(i).getType() == Operator.FRACTION)) {
             throw new IllegalArgumentException("Given index of the expression is not a Fraction Token.");
         }
         ArrayList<Token> denom = new ArrayList<Token>();
@@ -725,9 +728,9 @@ public class DisplayView extends View {
         int j = i + 2;
         while (bracketCount > 0) {
             Token token = expression.get(j);
-            if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.DENOM_OPEN) {
+            if (token instanceof Bracket && token.getType() == Bracket.DENOM_OPEN) {
                 bracketCount++;
-            } else if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.DENOM_CLOSE) {
+            } else if (token instanceof Bracket && token.getType() == Bracket.DENOM_CLOSE) {
                 bracketCount--;
             }
             denom.add(token);
@@ -757,12 +760,12 @@ public class DisplayView extends View {
 
 
             //SPECIAL CASES FOR DO NOT COUNTS
-            if (token instanceof Placeholder && (((Placeholder) token).getType() == Placeholder.SUPERSCRIPT_BLOCK || ((Placeholder) token).getType() == Placeholder.BASE_BLOCK)) {
+            if (token instanceof Placeholder && (token.getType() == Placeholder.SUPERSCRIPT_BLOCK || token.getType() == Placeholder.BASE_BLOCK)) {
                 doNotCountNext = true;
-            } else if ((token instanceof Operator && ((Operator) token).getType() == Operator.VARROOT) ||
-                    (token instanceof Bracket && ((Bracket) token).getType() == Bracket.SUPERSCRIPT_OPEN) ||
-                    (token instanceof Bracket && ((Bracket) token).getType() == Bracket.DENOM_OPEN) ||
-                    (token instanceof Operator && ((Operator) token).getType() == Operator.FRACTION)) {
+            } else if ((token instanceof Operator && token.getType() == Operator.VARROOT) ||
+                    (token instanceof Bracket && token.getType() == Bracket.SUPERSCRIPT_OPEN) ||
+                    (token instanceof Bracket && token.getType() == Bracket.DENOM_OPEN) ||
+                    (token instanceof Operator && token.getType() == Operator.FRACTION)) {
                 doNotCount = true;
             }
 
@@ -799,25 +802,25 @@ public class DisplayView extends View {
             //Stores the width of this draw count into the array
             drawX.add(x);
 
-            if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.SUPERSCRIPT_OPEN) {
+            if (token instanceof Bracket && token.getType() == Bracket.SUPERSCRIPT_OPEN) {
                 scriptLevel++;
                 scriptBracketCount++;
-            } else if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.NUM_OPEN) {
+            } else if (token instanceof Bracket && token.getType() == Bracket.NUM_OPEN) {
                 fracStarts.push(x);
-            } else if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.NUM_CLOSE) {
+            } else if (token instanceof Bracket && token.getType() == Bracket.NUM_CLOSE) {
                 if (!fracStarts.isEmpty()) {
                     x = fracStarts.pop();
                 }
-            } else if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.DENOM_CLOSE) {
+            } else if (token instanceof Bracket && token.getType() == Bracket.DENOM_CLOSE) {
                 //Finds index where the numerator ends
                 int j = i - 1;
                 int bracketCount = 1;
                 //DENOM
                 while (bracketCount > 0) {
                     Token t = expression.get(j);
-                    if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.DENOM_OPEN) {
+                    if (t instanceof Bracket && t.getType() == Bracket.DENOM_OPEN) {
                         bracketCount--;
-                    } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.DENOM_CLOSE) {
+                    } else if (t instanceof Bracket && t.getType() == Bracket.DENOM_CLOSE) {
                         bracketCount++;
                     }
                     j--;
@@ -841,27 +844,23 @@ public class DisplayView extends View {
                 }
             }
 
-            if (token instanceof Matrix){
-                float maxX = 0;
-                float currentX;
-                ArrayList<Token>[][] entries = ((Matrix)token).getEntries();
-                //Finds whats the largest x delta when drawing the matrix
-                for (int j = 0; j < entries.length; j++){
-                    currentX = 0;
-                    for (int k = 0; k < entries[j].length; k++){
-                        String str = Utility.printExpression(entries[j][k]);
-                        float[] widths = new float[str.length()];
-                        textPaint.getTextWidths(str, widths);
-                        float widthSum = sum(widths) + k * matrixPadding;
-                        currentX += widthSum;
+            if (token instanceof Matrix) {
+                ArrayList<Token>[][] entries = ((Matrix) token).getEntries();
+                //Calculates at what x value to start drawing each column
+                float[] columnX = new float[entries[0].length + 1];
+                columnX[0] = x;
+                for (int j = 1; j < columnX.length; j++) {
+                    float maxWidth = 0;
+                    for (int k = 0; k < entries.length; k++) {
+                        float width = textPaint.measureText(Utility.printExpression(entries[k][j - 1]));
+                        if (width > maxWidth) {
+                            maxWidth = width;
+                        }
                     }
-                    if (currentX > maxX){
-                        maxX = currentX;
-                    }
+                    columnX[j] = columnX[j - 1] + maxWidth;
                 }
-                //Adds the largest delta x to the x value
-                x += maxX;
-            }else {
+                x = columnX[columnX.length - 1] + entries.length * matrixPadding + paddingAfterMatrix;
+            } else {
                 //Changes paint for superscript
                 paint = textPaint;
                 //Determines the width of the symbol in text
@@ -880,7 +879,7 @@ public class DisplayView extends View {
     private void centerFractions() {
         for (int i = 0; i < expression.size(); i++) {
             Token t = expression.get(i);
-            if (t instanceof Operator && ((Operator) t).getType() == Operator.FRACTION) {
+            if (t instanceof Operator && t.getType() == Operator.FRACTION) {
                 ArrayList<Token> numerator = getNumerator(expression, i);
                 ArrayList<Token> denom = getDenominator(expression, i);
                 float numWidth = getWidth(i - numerator.size() - 1, i - 1);
@@ -989,7 +988,7 @@ public class DisplayView extends View {
     public void scrollLeft() {
         if (cursorIndex > 0) {
             setCursorIndex(cursorIndex - 1);
-        }else{
+        } else {
             setCursorIndex(drawCount);
         }
     }
@@ -1008,9 +1007,9 @@ public class DisplayView extends View {
     public void scrollRight() {
         if (cursorIndex < drawCount) {
             setCursorIndex(cursorIndex + 1);
-        } else if (cursorIndex == drawCount){ //Wraps around
+        } else if (cursorIndex == drawCount) { //Wraps around
             setCursorIndex(0);
-        } else{
+        } else {
             throw new IllegalStateException("Cursor Index is greater than draw count");
         }
     }

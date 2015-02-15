@@ -330,17 +330,17 @@ public class Basic implements View.OnClickListener {
         Token toRemove = tokens.get(display.getRealCursorIndex() - 1);
 
         //Can not remove superscript close Brackets
-        if (toRemove instanceof Bracket && ((Bracket) toRemove).getType() == Bracket.SUPERSCRIPT_CLOSE) {
+        if (toRemove instanceof Bracket && toRemove.getType() == Bracket.SUPERSCRIPT_CLOSE) {
             display.setCursorIndex(display.getCursorIndex() - 1);
             return;
-        } else if (toRemove instanceof Bracket && ((Bracket) toRemove).getType() == Bracket.SUPERSCRIPT_OPEN) { //Removes whatever was before it instead
+        } else if (toRemove instanceof Bracket && toRemove.getType() == Bracket.SUPERSCRIPT_OPEN) { //Removes whatever was before it instead
             toRemove = tokens.get(display.getRealCursorIndex() - 2);
-        } else if (toRemove instanceof Bracket && ((Bracket) toRemove).getType() == Bracket.NUM_OPEN) {
+        } else if (toRemove instanceof Bracket && toRemove.getType() == Bracket.NUM_OPEN) {
             display.setCursorIndex(display.getCursorIndex() - 1);
             return;
-        } else if (toRemove instanceof Bracket && ((Bracket) toRemove).getType() == Bracket.DENOM_OPEN) {
+        } else if (toRemove instanceof Bracket && toRemove.getType() == Bracket.DENOM_OPEN) {
             toRemove = tokens.get(display.getRealCursorIndex() - 2);
-        } else if (toRemove instanceof Bracket && ((Bracket) toRemove).getType() == Bracket.DENOM_CLOSE) {
+        } else if (toRemove instanceof Bracket && toRemove.getType() == Bracket.DENOM_CLOSE) {
             Token bracket = toRemove;
             for (Token t : tokens) {
                 if (t.getDependencies().contains(bracket)) {
@@ -487,31 +487,31 @@ public class Basic implements View.OnClickListener {
             Token previous = i - 1 < 0 ? null : tokens.get(i - 1);
 
             //Adds the block if necessary; looks for ^() (superscripted brackets or frac brackets)
-            if ((token instanceof Bracket && ((Bracket) token).getType() == Bracket.SUPERSCRIPT_CLOSE && previous != null && previous instanceof Bracket
-                    && ((Bracket) previous).getType() == Bracket.SUPERSCRIPT_OPEN)
-                    || (token instanceof Bracket && ((Bracket) token).getType() == Bracket.NUM_CLOSE && previous != null && previous instanceof Bracket
-                    && ((Bracket) previous).getType() == Bracket.NUM_OPEN)
-                    || (token instanceof Bracket && ((Bracket) token).getType() == Bracket.DENOM_CLOSE && previous != null && previous instanceof Bracket
-                    && ((Bracket) previous).getType() == Bracket.DENOM_OPEN)) {
+            if ((token instanceof Bracket && token.getType() == Bracket.SUPERSCRIPT_CLOSE && previous != null && previous instanceof Bracket
+                    && previous.getType() == Bracket.SUPERSCRIPT_OPEN)
+                    || (token instanceof Bracket && token.getType() == Bracket.NUM_CLOSE && previous != null && previous instanceof Bracket
+                    && previous.getType() == Bracket.NUM_OPEN)
+                    || (token instanceof Bracket && token.getType() == Bracket.DENOM_CLOSE && previous != null && previous instanceof Bracket
+                    && previous.getType() == Bracket.DENOM_OPEN)) {
                 //Adds the placeholder before the close bracket
                 tokens.add(i, PlaceholderFactory.makeSuperscriptBlock());
             }
             //BASE
-            if (token instanceof Operator && ((Operator) token).getType() == Operator.EXPONENT && !(previous instanceof Placeholder)
+            if (token instanceof Operator && token.getType() == Operator.EXPONENT && !(previous instanceof Placeholder)
                     && (previous == null || !(previous instanceof Digit || previous instanceof Variable
-                    || previous instanceof Bracket && (((Bracket) previous).getType() == Bracket.CLOSE || ((Bracket) previous).getType() == Bracket.DENOM_CLOSE)))) {
+                    || previous instanceof Bracket && (previous.getType() == Bracket.CLOSE || previous.getType() == Bracket.DENOM_CLOSE)))) {
                 tokens.add(i, PlaceholderFactory.makeBaseBlock());
             }
             //Removes Placeholder if it is not needed - Checks to see if it is not next to a superscript or frac bracket - SUPERSCRIPT
-            if (token instanceof Placeholder && ((Placeholder) token).getType() == Placeholder.SUPERSCRIPT_BLOCK && !(previous != null && previous instanceof Bracket
-                    && (((Bracket) previous).getType() == Bracket.SUPERSCRIPT_OPEN || ((Bracket) previous).getType() == Bracket.NUM_OPEN
-                    || ((Bracket) previous).getType() == Bracket.DENOM_OPEN))) {
+            if (token instanceof Placeholder && token.getType() == Placeholder.SUPERSCRIPT_BLOCK && !(previous != null && previous instanceof Bracket
+                    && (previous.getType() == Bracket.SUPERSCRIPT_OPEN || previous.getType() == Bracket.NUM_OPEN
+                    || previous.getType() == Bracket.DENOM_OPEN))) {
                 tokens.remove(token);
             }
             //for BASE
-            if (token instanceof Placeholder && ((Placeholder) token).getType() == Placeholder.BASE_BLOCK && previous != null
+            if (token instanceof Placeholder && token.getType() == Placeholder.BASE_BLOCK && previous != null
                     && (previous instanceof Digit || previous instanceof Variable || (previous instanceof Bracket
-                    && (((Bracket) previous).getType() == Bracket.CLOSE || ((Bracket) previous).getType() == Bracket.DENOM_CLOSE)))) {
+                    && (previous.getType() == Bracket.CLOSE || previous.getType() == Bracket.DENOM_CLOSE)))) {
                 tokens.remove(token);
             }
         }

@@ -7,7 +7,7 @@ import java.util.Stack;
 /**
  * Contains the JFok Algorithm and the core of the mathematical system.
  *
- * @author Jason Fok, Ejaaz Merali, Alston Lin
+ * @author J(ason)Fok, Ejaaz Merali, Alston Lin
  * @version Alpha 2.0
  */
 public class JFok {
@@ -163,8 +163,55 @@ public class JFok {
         root = multiplyFractions(root, command);
         root = addLikeFractions(root);
         root = simplifyFraction(root);
+        root = simplifyIdenticalNumDenom(root);
         root = removeMultiplicationsOfOne(root);
         return root;
+    }
+
+    /**
+     * Simplifies fractions that have identical Num and Denoms to 1.
+     *
+     * @param root The root of the tree to apply this rule to
+     * @return The new root of the tree
+     */
+    private static Node<Token> simplifyIdenticalNumDenom(Node<Token> root) {
+        if (root.getContent() instanceof Operator && (root.getContent().getType() == Operator.DIVIDE || root.getContent().getType() == Operator.FRACTION)) {
+            Node<Token> child1 = root.getChildren().get(0);
+            Node<Token> child2 = root.getChildren().get(1);
+            if (isBranchesEqual(child1, child2)) {
+                return new Node(new Number(1));
+            } else {
+                return root;
+            }
+        } else {
+            return root;
+        }
+    }
+
+    /**
+     * Determines if both nodes contain the exact same tokens
+     *
+     * @param root1 The root of the first tree
+     * @param root2 The root of the second tree
+     * @return If the first and second tree contains the same tokens
+     */
+    private static boolean isBranchesEqual(Node<Token> root1, Node<Token> root2) {
+        if (root1 == null && root2 == null) { //Base case
+            return true;
+        } else if (root1 == null || root2 == null) { //Trees are different side
+            return false;
+        } else {
+            boolean equal = root1.getContent().getClass().equals(root2.getContent().getClass()) && root1.getContent().getType() == root2.getContent().getType()
+                    && (root1.getContent().getType() != -1 || ((Number) root1.getContent()).getValue() == ((Number) root2.getContent()).getValue());
+            if (equal && root1.getNumOfChildren() == root2.getNumOfChildren()) { //Same number of subbranches
+                for (int i = 0; i < root1.getNumOfChildren(); i++) { //Compares all the subbranches
+                    equal = equal && isBranchesEqual(root1.getChildren().get(i), root2.getChildren().get(i));
+                }
+                return equal;
+            } else {
+                return false;
+            }
+        }
     }
 
     /**
@@ -177,15 +224,17 @@ public class JFok {
     private static ArrayList<Token> cleanupExpression(ArrayList<Token> expression) {
         expression = removeNegatives(expression);
         expression = removeMultiplicationsOfOne(expression);
+        expression = removeDivisionsOfOne(expression);
         expression = addFractionalBrackets(expression);
         return expression;
     }
+
 
     private static ArrayList<Token> addFractionalBrackets(ArrayList<Token> expression) {
         ArrayList<Token> newExp = new ArrayList<>();
         for (int i = 0; i < expression.size(); i++) {
             Token t = expression.get(i);
-            if (t instanceof Operator && (((Operator) t).getType() == Operator.FRACTION || ((Operator) t).getType() == Operator.DIVIDE)) {
+            if (t instanceof Operator && (t.getType() == Operator.FRACTION || t.getType() == Operator.DIVIDE)) {
                 //Finds the numerator first
                 ArrayList<Token> num = new ArrayList<>();
                 int bracketCount = 0;
@@ -227,13 +276,13 @@ public class JFok {
                 }
 
                 //Removes any brackets encompassing the num and denom, if any
-                if (num.get(0) instanceof Bracket && ((Bracket) num.get(0)).getType() == Bracket.OPEN && num.get(num.size() - 1) instanceof Bracket
-                        && ((Bracket) num.get(num.size() - 1)).getType() == Bracket.CLOSE) { //Num
+                if (num.get(0) instanceof Bracket && num.get(0).getType() == Bracket.OPEN && num.get(num.size() - 1) instanceof Bracket
+                        && num.get(num.size() - 1).getType() == Bracket.CLOSE) { //Num
                     num.remove(0);
                     num.remove(num.size() - 1);
                 }
-                if (denom.get(0) instanceof Bracket && ((Bracket) denom.get(0)).getType() == Bracket.OPEN && denom.get(denom.size() - 1) instanceof Bracket
-                        && ((Bracket) denom.get(denom.size() - 1)).getType() == Bracket.CLOSE) { //Denom
+                if (denom.get(0) instanceof Bracket && denom.get(0).getType() == Bracket.OPEN && denom.get(denom.size() - 1) instanceof Bracket
+                        && denom.get(denom.size() - 1).getType() == Bracket.CLOSE) { //Denom
                     denom.remove(0);
                     denom.remove(denom.size() - 1);
                 }
@@ -353,7 +402,7 @@ public class JFok {
      */
     private static Node<Token> removeExponentsOfOne(Node<Token> node) {
         Token t = node.getContent();
-        if (t instanceof Operator && ((Operator) t).getType() == Operator.EXPONENT) {
+        if (t instanceof Operator && t.getType() == Operator.EXPONENT) {
             Node<Token> base = node.getChildren().get(0);
             Node<Token> exp = node.getChildren().get(1);
             if (getValue(exp) == 1) {
@@ -370,7 +419,7 @@ public class JFok {
      * @return The root of the new tree with the rule applied
      */
     public static Node<Token> removeMultiplicationsOfOne(Node<Token> node) {
-        if (node.getContent() instanceof Operator && ((Operator) node.getContent()).getType() == Operator.MULTIPLY) {
+        if (node.getContent() instanceof Operator && node.getContent().getType() == Operator.MULTIPLY) {
             Node<Token> child1 = node.getChildren().get(0);
             Node<Token> child2 = node.getChildren().get(1);
             if (child2.getContent() instanceof Number && ((Number) child2.getContent()).getValue() == 1) {
@@ -390,7 +439,7 @@ public class JFok {
      * @return The node with the rule applied
      */
     private static Node<Token> addSqrts(Node<Token> node) {
-        if (node.getContent() instanceof Operator && ((Operator) node.getContent()).getType() == Operator.EXPONENT) {
+        if (node.getContent() instanceof Operator && node.getContent().getType() == Operator.EXPONENT) {
             Node<Token> child1 = node.getChildren().get(0);
             Node<Token> child2 = node.getChildren().get(1);
             if (getValue(child2) == 0.5f) { //E ^ 0.5
@@ -421,7 +470,7 @@ public class JFok {
      * @return The node with the negative exponents, if any, removed
      */
     private static Node<Token> removeNegativeExponents(Node<Token> node) {
-        if (node.getContent() instanceof Operator && ((Operator) node.getContent()).getType() == Operator.EXPONENT) {
+        if (node.getContent() instanceof Operator && node.getContent().getType() == Operator.EXPONENT) {
             Node<Token> exp = node.getChildren().get(1);
             if (isNegative(exp)) {
                 node.getChildren().remove(exp);
@@ -443,22 +492,6 @@ public class JFok {
      * @return Whether or not the sub-expression is negative
      */
     private static boolean isNegative(Node<Token> node) {
-        /*
-        if (node.getNumOfChildren() == 0){ //Leaf
-           Token t = node.getContent();
-           if (t instanceof Number){
-               return ((Number)t).getValue() < 0;
-           }else {
-               return t instanceof Variable && ((Variable) t).isNegative();
-           }
-        }else if (node.getNumOfChildren() == 1){ //Function
-            return true;
-        }else{
-            Node<Token> child1 = node.getChildren().get(0);
-            Node<Token> child2 = node.getChildren().get(1);
-            return isNegative(child1) ^ isNegative(child2); //XOR GATE
-        }
-        */
         try { //Tries to evaluate it as a purely numerical expression
             return getValue(node) < 0;
         } catch (IllegalArgumentException | EmptyStackException e) { //Not a purely numerical expression; tries doing it individually
@@ -495,14 +528,14 @@ public class JFok {
             Token expressionChild2;
             Node<Token> expressionNode1;
             Node<Token> expressionNode2;
-            if (child1 instanceof Operator && (((Operator) child1).getType() == Operator.ADD || ((Operator) child1).getType() == Operator.SUBTRACT) && child2 instanceof Number) {
+            if (child1 instanceof Operator && (child1.getType() == Operator.ADD || child1.getType() == Operator.SUBTRACT) && child2 instanceof Number) {
                 expression = (Operator) child1;
                 n1 = (Number) child2;
                 expressionNode1 = childNode1.getChildren().get(0);
                 expressionNode2 = childNode1.getChildren().get(1);
                 expressionChild1 = expressionNode1.getContent();
                 expressionChild2 = expressionNode2.getContent();
-            } else if (child2 instanceof Operator && (((Operator) child2).getType() == Operator.ADD || ((Operator) child2).getType() == Operator.SUBTRACT) && child1 instanceof Number) {
+            } else if (child2 instanceof Operator && (child2.getType() == Operator.ADD || child2.getType() == Operator.SUBTRACT) && child1 instanceof Number) {
                 expression = (Operator) child2;
                 n1 = (Number) child1;
                 expressionNode1 = childNode2.getChildren().get(0);
@@ -601,30 +634,28 @@ public class JFok {
         //Evaluates this node
         if (root.getNumOfChildren() == 2) { //Operator
             //Now checks this node after the subtrees has been checked
-            Token t1 = (Token) root.getChildren().get(0).getContent();
-            Token t2 = (Token) root.getChildren().get(1).getContent();
-            if (t1 instanceof Number && t2 instanceof Number && (!(((Operator) token).getType() == Operator.DIVIDE || ((Operator) token).getType() == Operator.FRACTION) || !exactValue)) { //Rule applies (deos not do divisions)
+            Token t1 = root.getChildren().get(0).getContent();
+            Token t2 = root.getChildren().get(1).getContent();
+            if (t1 instanceof Number && t2 instanceof Number && (!(token.getType() == Operator.DIVIDE || token.getType() == Operator.FRACTION) || !exactValue)) { //Rule applies (deos not do divisions)
                 //Both numbers, rule can be applied
                 double result = ((Operator) token).operate(((Number) t1).getValue(), ((Number) t2).getValue());
-                Node<Token> node = new Node<Token>(new Number(result));
-                return node;
+                return new Node<Token>(new Number(result));
             } else { //Rule deos not apply
                 return root;
             }
         } else if (root.getNumOfChildren() == 1) { //Function
-            Token child = (Token) root.getChildren().get(0).getContent();
+            Token child = root.getChildren().get(0).getContent();
             //Changes PI and e to their numbers
-            if (child instanceof Variable && ((Variable) child).getType() == Variable.PI) {
+            if (child instanceof Variable && child.getType() == Variable.PI) {
                 child = new Number(Math.PI);
-            } else if (child instanceof Variable && ((Variable) child).getType() == Variable.E) {
+            } else if (child instanceof Variable && child.getType() == Variable.E) {
                 child = new Number(Math.E);
             }
             Function f = (Function) token;
             if (child instanceof Number) {
                 double result = ((Function) token).perform(((Number) child).getValue());
                 if (!doNotEvaluateFunctions || result % 1 == 0) {
-                    Node<Token> node = new Node<Token>(new Number(result));
-                    return node;
+                    return new Node<Token>(new Number(result));
                 } else {
                     return root;
                 }
@@ -648,8 +679,8 @@ public class JFok {
     private static Node<Token> applySquareRootRules(Node<Token> root) {
         //TODO: ALLOW IT TO APPLY RULES FOR MULTIPLES OF ROOTS (EG. 2SQRT2 * 3SQRT 3 -> 6SQRT6)
         Token token = root.getContent();
-        if (token instanceof Function && ((Function) token).getType() == Function.SQRT) { //A square root; rules may apply
-            Token child = (Token) root.getChildren().get(0).getContent();
+        if (token instanceof Function && token.getType() == Function.SQRT) { //A square root; rules may apply
+            Token child = root.getChildren().get(0).getContent();
             if (child instanceof Number) {
                 double value = ((Number) child).getValue();
                 //Rules specificly for Numbers
@@ -690,11 +721,11 @@ public class JFok {
             }
         } else {
             //Condenses square roots multiplying each other
-            if (token instanceof Operator && ((Operator) token).getType() == Operator.MULTIPLY) {
+            if (token instanceof Operator && token.getType() == Operator.MULTIPLY) {
                 Node<Token> child1 = root.getChildren().get(0);
                 Node<Token> child2 = root.getChildren().get(1);
-                if (child1.getContent() instanceof Function && ((Function) child1.getContent()).getType() == Function.SQRT && child2.getContent() instanceof Function
-                        && ((Function) child2.getContent()).getType() == Function.SQRT) { //Two square roots under a multiplication; Rule can be applied
+                if (child1.getContent() instanceof Function && child1.getContent().getType() == Function.SQRT && child2.getContent() instanceof Function
+                        && child2.getContent().getType() == Function.SQRT) { //Two square roots under a multiplication; Rule can be applied
                     Node<Token> node1 = child1.getChildren().get(0);
                     Node<Token> node2 = child2.getChildren().get(0);
                     root = new Node<Token>(FunctionFactory.makeSqrt());
@@ -723,9 +754,9 @@ public class JFok {
      * @throws IllegalArgumentException The given expression is invalid
      */
     public static Node<Token> setupTree(ArrayList<Token> expression) {
-        Stack<Node<Token>> stack = new Stack<Node<Token>>();
+        Stack<Node<Token>> stack = new Stack<>();
         for (Token token : expression) {
-            Node<Token> node = new Node<Token>(token);
+            Node<Token> node = new Node<>(token);
             if (token instanceof Variable || token instanceof Number) {
                 stack.push(node);
             } else if (token instanceof Operator) {
@@ -760,7 +791,7 @@ public class JFok {
      * @throws IllegalArgumentException Invalid tree
      */
     public static ArrayList<Token> traverseTree(Node<Token> root) {
-        ArrayList<Token> toReturn = new ArrayList<Token>();
+        ArrayList<Token> toReturn = new ArrayList<>();
         if (root.getNumOfChildren() == 2) { //Tree not empty
             if (root.getContent() instanceof Operator) { //Beginning of a sub-expression
                 if (root.getChildren().get(0).getContent() instanceof Operator && ((Operator) root.getContent()).getPrecedence() > ((Operator) root.getChildren().get(0).getContent()).getPrecedence()) {
@@ -768,7 +799,7 @@ public class JFok {
                     toReturn.addAll(traverseTree(root.getChildren().get(0)));
                     toReturn.add(BracketFactory.makeCloseBracket());
                 } else if (root.getChildren().get(0).getContent() instanceof Operator && ((Operator) root.getContent()).getPrecedence() == ((Operator) root.getChildren().get(0).getContent()).getPrecedence()) {
-                    if ((((Operator) root.getContent()).getType() == Operator.DIVIDE || ((Operator) root.getContent()).getType() == Operator.FRACTION) && ((Operator) root.getChildren().get(0).getContent()).getType() == Operator.MULTIPLY) {
+                    if ((root.getContent().getType() == Operator.DIVIDE || root.getContent().getType() == Operator.FRACTION) && root.getChildren().get(0).getContent().getType() == Operator.MULTIPLY) {
                         toReturn.add(BracketFactory.makeOpenBracket());
                         toReturn.addAll(traverseTree(root.getChildren().get(0)));
                         toReturn.add(BracketFactory.makeCloseBracket());
@@ -780,7 +811,7 @@ public class JFok {
                 }
                 toReturn.add(root.getContent());
                 if (root.getChildren().get(1).getContent() instanceof Operator && ((Operator) root.getContent()).getPrecedence() > ((Operator) root.getChildren().get(1).getContent()).getPrecedence()) {
-                    if (((Operator) root.getContent()).getType() == Operator.EXPONENT) {
+                    if (root.getContent().getType() == Operator.EXPONENT) {
                         toReturn.add(BracketFactory.makeSuperscriptOpen());
                         toReturn.addAll(traverseTree(root.getChildren().get(1)));
                         toReturn.add(BracketFactory.makeSuperscriptClose());
@@ -790,8 +821,8 @@ public class JFok {
                         toReturn.add(BracketFactory.makeCloseBracket());
                     }
                 } else if (root.getChildren().get(1).getContent() instanceof Operator && ((Operator) root.getContent()).getPrecedence() == ((Operator) root.getChildren().get(1).getContent()).getPrecedence()) {
-                    if ((((Operator) root.getContent()).getType() == Operator.DIVIDE || ((Operator) root.getContent()).getType() == Operator.FRACTION) && ((Operator) root.getChildren().get(1).getContent()).getType() == Operator.MULTIPLY) {
-                        if (((Operator) root.getContent()).getType() == Operator.EXPONENT) {
+                    if ((root.getContent().getType() == Operator.DIVIDE || root.getContent().getType() == Operator.FRACTION) && root.getChildren().get(1).getContent().getType() == Operator.MULTIPLY) {
+                        if (root.getContent().getType() == Operator.EXPONENT) {
                             toReturn.add(BracketFactory.makeSuperscriptOpen());
                             toReturn.addAll(traverseTree(root.getChildren().get(1)));
                             toReturn.add(BracketFactory.makeSuperscriptClose());
@@ -801,7 +832,7 @@ public class JFok {
                             toReturn.add(BracketFactory.makeCloseBracket());
                         }
                     } else {
-                        if (((Operator) root.getContent()).getType() == Operator.EXPONENT) {
+                        if (root.getContent().getType() == Operator.EXPONENT) {
                             toReturn.add(BracketFactory.makeSuperscriptOpen());
                             toReturn.addAll(traverseTree(root.getChildren().get(1)));
                             toReturn.add(BracketFactory.makeSuperscriptClose());
@@ -810,7 +841,7 @@ public class JFok {
                         }
                     }
                 } else {
-                    if (((Operator) root.getContent()).getType() == Operator.EXPONENT) {
+                    if (root.getContent().getType() == Operator.EXPONENT) {
                         toReturn.add(BracketFactory.makeSuperscriptOpen());
                         toReturn.addAll(traverseTree(root.getChildren().get(1)));
                         toReturn.add(BracketFactory.makeSuperscriptClose());
@@ -845,16 +876,16 @@ public class JFok {
         Node<Token> newRoot = new Node<Token>(root.getContent());
         if (root.getContent() instanceof Operator && ((Operator) root.getContent()).isCommutative()) {
             for (int i = 0; i < root.getNumOfChildren(); i++) {
-                if (root.getChildren().get(i).getContent() instanceof Operator && ((Operator) root.getChildren().get(i).getContent()).getType() == ((Operator) root.getContent()).getType()) {
+                if (root.getChildren().get(i).getContent() instanceof Operator && root.getChildren().get(i).getContent().getType() == root.getContent().getType()) {
                     newRoot.addChildren(convToMultiBranch(root.getChildren().get(i)).getChildren());
-                } else if (root.getChildren().get(i).getContent() instanceof Operator && ((Operator) root.getChildren().get(i).getContent()).getType() == Operator.SUBTRACT) {
+                } else if (root.getChildren().get(i).getContent() instanceof Operator && root.getChildren().get(i).getContent().getType() == Operator.SUBTRACT) {
                     newRoot.addChild(convToMultiBranch(root.getChildren().get(i)));
                 } else {
                     newRoot.addChild(root.getChildren().get(i));
                 }
             }
         } else if (root.getContent() instanceof Operator && ((Operator) root.getContent()).isAntiCommutative()) {
-            if (((Operator) root.getContent()).getType() == Operator.SUBTRACT) {
+            if (root.getContent().getType() == Operator.SUBTRACT) {
                 newRoot = new Node<Token>(OperatorFactory.makeAdd());
                 newRoot.addChild(convToMultiBranch(root.getChildren().get(0)));
                 Node<Token> temp = new Node<Token>(OperatorFactory.makeMultiply());
@@ -863,7 +894,7 @@ public class JFok {
                 if (temp.getChildren().get(1).getContent() instanceof Number) {
                     temp = new Node<Token>(new Number(-1 * ((Number) temp.getChildren().get(1).getContent()).getValue()));
                 } else if (temp.getChildren().get(1).getContent() instanceof Operator
-                        && ((Operator) temp.getChildren().get(1).getContent()).getType() == Operator.MULTIPLY) {
+                        && temp.getChildren().get(1).getContent().getType() == Operator.MULTIPLY) {
                     Node<Token> temp1 = temp.getChildren().get(1);
                     Node<Token> temp1_0 = temp1.getChildren().get(0);
                     if (temp1_0.getContent() instanceof Number) {
@@ -903,7 +934,7 @@ public class JFok {
      * @return An equivalent binary tree
      */
     public static Node<Token> convToBinary(Node<Token> root) {
-        Node<Token> newRoot = new Node<Token>(root.getContent());
+        Node<Token> newRoot = new Node<>(root.getContent());
         if (root.getNumOfChildren() == 2) {
             newRoot.addChild(convToBinary(root.getChildren().get(0)));
             newRoot.addChild(convToBinary(root.getChildren().get(1)));
@@ -914,15 +945,15 @@ public class JFok {
                 newRoot.addChild(convToBinary(root.getChildren().get(0)));
             }
         } else if (root.getNumOfChildren() == 0) {
-            if (root.getContent() instanceof Operator && ((Operator) root.getContent()).getType() == Operator.ADD) {
+            if (root.getContent() instanceof Operator && root.getContent().getType() == Operator.ADD) {
                 newRoot = new Node<Token>(new Number(0));
-            } else if (root.getContent() instanceof Operator && ((Operator) root.getContent()).getType() == Operator.MULTIPLY) {
+            } else if (root.getContent() instanceof Operator && root.getContent().getType() == Operator.MULTIPLY) {
                 newRoot = new Node<Token>(new Number(1));
             } else if (root.getContent() instanceof Number) {
                 return root;
             }
         } else {
-            if (root.getContent() instanceof Operator && (((Operator) root.getContent()).getType() == Operator.ADD || ((Operator) root.getContent()).getType() == Operator.MULTIPLY)) {
+            if (root.getContent() instanceof Operator && (root.getContent().getType() == Operator.ADD || root.getContent().getType() == Operator.MULTIPLY)) {
                 Node<Token> temp;
                 if (root.getNumOfChildren() % 2 == 0) {
                     temp = new Node<>(root.getContent());
@@ -971,36 +1002,36 @@ public class JFok {
             if (t instanceof Number && ((Number) t).getValue() < 0 && before != null && before instanceof Operator) { //Current token is a negative Number with Operator before it
                 Token beforePrevious = i > 1 ? expression.get(i - 2) : null; //Before the previous
                 Number absVal = new Number(Math.abs(((Number) expression.get(i)).getValue()));
-                if (((Operator) before).getType() == Operator.ADD) { //E + -N -> E - N
+                if (before.getType() == Operator.ADD) { //E + -N -> E - N
                     expression.set(i, absVal);
                     expression.set(i - 1, OperatorFactory.makeSubtract());
-                } else if (((Operator) before).getType() == Operator.SUBTRACT) { //E - -N -> E + N
+                } else if (before.getType() == Operator.SUBTRACT) { //E - -N -> E + N
                     expression.set(i, absVal);
                     expression.set(i - 1, OperatorFactory.makeAdd());
-                } else if (((Operator) before).getType() == Operator.MULTIPLY && beforePrevious != null && beforePrevious instanceof Number
+                } else if (before.getType() == Operator.MULTIPLY && beforePrevious != null && beforePrevious instanceof Number
                         && ((Number) beforePrevious).getValue() < 0) { // -N * -N -> N * N
                     Number absVal2 = new Number(Math.abs(((Number) beforePrevious).getValue()));
                     expression.set(i - 2, absVal2);
                     expression.set(i, absVal);
-                } else if (((Operator) before).getType() == Operator.MULTIPLY && beforePrevious != null && beforePrevious instanceof Variable
+                } else if (before.getType() == Operator.MULTIPLY && beforePrevious != null && beforePrevious instanceof Variable
                         && ((Variable) beforePrevious).isNegative()) { // -N * -V -> N * V
                     ((Variable) beforePrevious).setNegative(false);
                     expression.set(i, absVal);
                 }
             } else if (t instanceof Variable && ((Variable) t).isNegative() && before != null && before instanceof Operator) {     //Rules for variables
                 Token beforePrevious = i > 1 ? expression.get(i - 2) : null; //Before the previous
-                if (((Operator) before).getType() == Operator.ADD) { //E + -N -> E - N
+                if (before.getType() == Operator.ADD) { //E + -N -> E - N
                     ((Variable) t).setNegative(false);
                     expression.set(i - 1, OperatorFactory.makeSubtract());
-                } else if (((Operator) before).getType() == Operator.SUBTRACT) { //E - -N -> E + N
+                } else if (before.getType() == Operator.SUBTRACT) { //E - -N -> E + N
                     ((Variable) t).setNegative(false);
                     expression.set(i - 1, OperatorFactory.makeAdd());
-                } else if (((Operator) before).getType() == Operator.MULTIPLY && beforePrevious != null && beforePrevious instanceof Number
+                } else if (before.getType() == Operator.MULTIPLY && beforePrevious != null && beforePrevious instanceof Number
                         && ((Number) beforePrevious).getValue() < 0) { // -V * -N -> V * N
                     Number absVal = new Number(Math.abs(((Number) beforePrevious).getValue()));
                     expression.set(i - 2, absVal);
                     ((Variable) t).setNegative(false);
-                } else if (((Operator) before).getType() == Operator.MULTIPLY && beforePrevious != null && beforePrevious instanceof Variable
+                } else if (before.getType() == Operator.MULTIPLY && beforePrevious != null && beforePrevious instanceof Variable
                         && ((Variable) beforePrevious).isNegative()) { // -V * -V -> V * V
                     ((Variable) beforePrevious).setNegative(false);
                     ((Variable) t).setNegative(false);
@@ -1020,7 +1051,7 @@ public class JFok {
     private static Node<Token> simplifyFraction(Node<Token> root) {
         Node<Token> newRoot = root;
         if (root.getNumOfChildren() == 2) { //Tree not empty
-            if (root.getContent() instanceof Operator && (((Operator) root.getContent()).getType() == Operator.DIVIDE || ((Operator) root.getContent()).getType() == Operator.FRACTION)) { //Beginning of a sub-expression
+            if (root.getContent() instanceof Operator && (root.getContent().getType() == Operator.DIVIDE || root.getContent().getType() == Operator.FRACTION)) { //Beginning of a sub-expression
                 Node<Token> num = root.getChildren().get(0);
                 Node<Token> denom = root.getChildren().get(1);
                 Node<Token> temp;
@@ -1043,7 +1074,7 @@ public class JFok {
                          denom.addChild(temp.getChildren().get(i));
                          }*/
                     }
-                } else if (num.getContent() instanceof Operator && ((Operator) num.getContent()).getType() == Operator.MULTIPLY && denom.getContent() instanceof Number) {
+                } else if (num.getContent() instanceof Operator && num.getContent().getType() == Operator.MULTIPLY && denom.getContent() instanceof Number) {
                     int gcd;
                     int numerator = 1;
                     int denominator = (int) ((Number) denom.getContent()).getValue();
@@ -1089,7 +1120,7 @@ public class JFok {
                      for(int i=0; i<temp.getNumOfChildren();i++){
                      denom.addChild(temp.getChildren().get(i));
                      }*/
-                } else if (denom.getContent() instanceof Operator && ((Operator) denom.getContent()).getType() == Operator.MULTIPLY && num.getContent() instanceof Number) {
+                } else if (denom.getContent() instanceof Operator && denom.getContent().getType() == Operator.MULTIPLY && num.getContent() instanceof Number) {
                     int gcd;
                     int denominator = 1;
                     int numerator = (int) ((Number) num.getContent()).getValue();
@@ -1134,7 +1165,7 @@ public class JFok {
                      for(int i=0; i<temp.getNumOfChildren();i++){
                      num.addChild(temp.getChildren().get(i));
                      }*/
-                } else if (denom.getContent() instanceof Operator && ((Operator) denom.getContent()).getType() == Operator.MULTIPLY && num.getContent() instanceof Operator && ((Operator) num.getContent()).getType() == Operator.MULTIPLY) {
+                } else if (denom.getContent() instanceof Operator && denom.getContent().getType() == Operator.MULTIPLY && num.getContent() instanceof Operator && num.getContent().getType() == Operator.MULTIPLY) {
                     for (int i = 0; i < denom.getNumOfChildren(); i++) {
                         for (int j = 0; j < num.getNumOfChildren(); j++) {
                             if (denom.getChildren().get(i) == num.getChildren().get(j)) {
@@ -1160,7 +1191,7 @@ public class JFok {
                 newRoot.addChild(denom);
             }
         } else if (root.getNumOfChildren() == 1) { //Function
-            newRoot = new Node<Token>(root.getContent());
+            newRoot = new Node<>(root.getContent());
             newRoot.addChild(simplifyFraction(root.getChildren().get(0)));
         } else if (root.getNumOfChildren() == 0) {
             newRoot = root;
@@ -1193,13 +1224,13 @@ public class JFok {
     private static Node<Token> processMultipleFractions(Node<Token> root, Command<Node<Token>, Node<Token>> recursive) {
         Node<Token> newRoot = root;
         if (root.getNumOfChildren() == 2) { //Tree not empty
-            if (root.getContent() instanceof Operator && (((Operator) root.getContent()).getType() == Operator.DIVIDE || ((Operator) root.getContent()).getType() == Operator.FRACTION)) { //main operation is division
-                if (root.getChildren().get(1).getContent() instanceof Operator && (((Operator) root.getChildren().get(1).getContent()).getType() == Operator.DIVIDE || ((Operator) root.getChildren().get(1).getContent()).getType() == Operator.FRACTION)) {//divisor(denominator) is a fraction
+            if (root.getContent() instanceof Operator && (root.getContent().getType() == Operator.DIVIDE || root.getContent().getType() == Operator.FRACTION)) { //main operation is division
+                if (root.getChildren().get(1).getContent() instanceof Operator && (root.getChildren().get(1).getContent().getType() == Operator.DIVIDE || root.getChildren().get(1).getContent().getType() == Operator.FRACTION)) {//divisor(denominator) is a fraction
                     newRoot = new Node<Token>(OperatorFactory.makeMultiply());
                     newRoot.addChild(root.getChildren().get(0));
                     newRoot.addChild(reciprocal(root.getChildren().get(1)));
                     newRoot = recursive.execute(newRoot);
-                } else if (root.getChildren().get(0).getContent() instanceof Operator && ((((Operator) root.getChildren().get(0).getContent()).getType() == Operator.DIVIDE || ((Operator) root.getChildren().get(0).getContent()).getType() == Operator.FRACTION))) {//dividend(numerator) is a fraction
+                } else if (root.getChildren().get(0).getContent() instanceof Operator && ((root.getChildren().get(0).getContent().getType() == Operator.DIVIDE || root.getChildren().get(0).getContent().getType() == Operator.FRACTION))) {//dividend(numerator) is a fraction
                     newRoot = new Node<Token>(OperatorFactory.makeDivide());
                     Node<Token> oldDividend = root.getChildren().get(0);
                     Node<Token> newDivisor = new Node<Token>(OperatorFactory.makeMultiply());
@@ -1229,7 +1260,7 @@ public class JFok {
      */
     private static Node<Token> reciprocal(Node<Token> root) {
         Node<Token> newRoot = new Node<Token>(OperatorFactory.makeDivide());
-        if (root.getContent() instanceof Operator && (((Operator) root.getContent()).getType() == Operator.DIVIDE || ((Operator) root.getContent()).getType() == Operator.FRACTION)) {
+        if (root.getContent() instanceof Operator && (root.getContent().getType() == Operator.DIVIDE || root.getContent().getType() == Operator.FRACTION)) {
             newRoot.addChild(root.getChildren().get(1));
             newRoot.addChild(root.getChildren().get(0));
         } else {
@@ -1398,14 +1429,14 @@ public class JFok {
      */
     public static Node<Token> multiplyFractions(Node<Token> root, Command<Node<Token>, Node<Token>> recursive) {
         Token content = root.getContent();
-        if (content instanceof Operator && ((Operator) content).getType() == Operator.MULTIPLY) {
+        if (content instanceof Operator && content.getType() == Operator.MULTIPLY) {
             Node<Token> child1 = root.getChildren().get(0);
             Node<Token> child2 = root.getChildren().get(1);
             Token childT1 = child1.getContent();
             Token childT2 = child2.getContent();
             //N1/D1 * N2/D2 -> (N1 * N2) / (D1 * D2)
-            if (childT1 instanceof Operator && (((Operator) childT1).getType() == Operator.FRACTION || ((Operator) childT1).getType() == Operator.DIVIDE)
-                    && childT2 instanceof Operator && (((Operator) childT2).getType() == Operator.FRACTION || ((Operator) childT2).getType() == Operator.DIVIDE)) {
+            if (childT1 instanceof Operator && (childT1.getType() == Operator.FRACTION || childT1.getType() == Operator.DIVIDE)
+                    && childT2 instanceof Operator && (childT2.getType() == Operator.FRACTION || childT2.getType() == Operator.DIVIDE)) {
                 Node<Token> n1 = child1.getChildren().get(0);
                 Node<Token> n2 = child2.getChildren().get(0);
                 Node<Token> d1 = child1.getChildren().get(1);
@@ -1427,7 +1458,7 @@ public class JFok {
                 newRoot = simplifyFraction(newRoot);
                 return newRoot;
                 //N/D * E -> (E * N) / D
-            } else if (childT1 instanceof Operator && (((Operator) childT1).getType() == Operator.FRACTION || ((Operator) childT1).getType() == Operator.DIVIDE)) {
+            } else if (childT1 instanceof Operator && (childT1.getType() == Operator.FRACTION || childT1.getType() == Operator.DIVIDE)) {
                 Node<Token> n = child1.getChildren().get(0);
                 Node<Token> d = child1.getChildren().get(1);
                 Node<Token> e = child2;
@@ -1444,7 +1475,7 @@ public class JFok {
                 newRoot = simplifyFraction(newRoot);
                 return newRoot;
                 //E * N/D -> (E * N) / D
-            } else if (childT2 instanceof Operator && (((Operator) childT2).getType() == Operator.FRACTION || ((Operator) childT2).getType() == Operator.DIVIDE)) {
+            } else if (childT2 instanceof Operator && (childT2.getType() == Operator.FRACTION || childT2.getType() == Operator.DIVIDE)) {
                 Node<Token> n = child2.getChildren().get(0);
                 Node<Token> d = child2.getChildren().get(1);
                 Node<Token> e = child1;
@@ -1477,9 +1508,9 @@ public class JFok {
      */
     private static Node<Token> multiplyTerms(Node<Token> root) {//TODO:Add support for negatives and functions
         Node<Token> newRoot = new Node<Token>(OperatorFactory.makeAdd());
-        if (root.getContent() instanceof Operator && (((Operator) root.getContent()).getType() == Operator.DIVIDE || ((Operator) root.getContent()).getType() == Operator.FRACTION)) {
+        if (root.getContent() instanceof Operator && (root.getContent().getType() == Operator.DIVIDE || root.getContent().getType() == Operator.FRACTION)) {
             if (root.getChildren().get(0).getNumOfChildren() == 2) {
-                Token child = (Token) root.getChildren().get(1).getContent();
+                Token child = root.getChildren().get(1).getContent();
                 if (child instanceof Number) {
                     //Rewrites E1 / E2 to E1 * 1/ E2
                     Node<Token> multiply = new Node<Token>(OperatorFactory.makeMultiply());
@@ -1492,10 +1523,10 @@ public class JFok {
                 }
             }
             return root;
-        } else if (root.getContent() instanceof Operator && ((Operator) root.getContent()).getType() == Operator.MULTIPLY) {
+        } else if (root.getContent() instanceof Operator && root.getContent().getType() == Operator.MULTIPLY) {
             if ((root.getChildren().get(0).getNumOfChildren() == 0 || root.getChildren().get(0).getNumOfChildren() == 1) && root.getChildren().get(1).getNumOfChildren() == 2
-                    && root.getChildren().get(1).getContent() instanceof Operator && (((Operator) root.getChildren().get(1).getContent()).getType() == Operator.ADD
-                    || ((Operator) root.getChildren().get(1).getContent()).getType() == Operator.SUBTRACT)) { //Ensures that one child is a single number and the other is a polynomial
+                    && root.getChildren().get(1).getContent() instanceof Operator && (root.getChildren().get(1).getContent().getType() == Operator.ADD
+                    || root.getChildren().get(1).getContent().getType() == Operator.SUBTRACT)) { //Ensures that one child is a single number and the other is a polynomial
                 Node<Token> temp = root.getChildren().get(1);
                 Node<Token> n1 = new Node<Token>(OperatorFactory.makeMultiply());
                 n1.addChild(root.getChildren().get(0));
@@ -1508,8 +1539,8 @@ public class JFok {
                 newRoot = expand(newRoot);
                 return newRoot;
             } else if ((root.getChildren().get(1).getNumOfChildren() == 0 || root.getChildren().get(1).getNumOfChildren() == 1) && root.getChildren().get(0).getNumOfChildren() == 2
-                    && root.getChildren().get(0).getContent() instanceof Operator && (((Operator) root.getChildren().get(0).getContent()).getType() == Operator.ADD
-                    || ((Operator) root.getChildren().get(0).getContent()).getType() == Operator.SUBTRACT)) { //Ensures that one child is a single number and the other is a polynomial) {
+                    && root.getChildren().get(0).getContent() instanceof Operator && (root.getChildren().get(0).getContent().getType() == Operator.ADD
+                    || root.getChildren().get(0).getContent().getType() == Operator.SUBTRACT)) { //Ensures that one child is a single number and the other is a polynomial) {
                 Node<Token> temp = root.getChildren().get(0);
                 Node<Token> n1 = new Node<Token>(OperatorFactory.makeMultiply());
                 n1.addChild(temp.getChildren().get(0));
@@ -1538,11 +1569,11 @@ public class JFok {
      */
     private static Node<Token> multiplyPolynomials(Node<Token> root) {
         Token rootToken = root.getContent();
-        if (rootToken instanceof Operator && ((Operator) rootToken).getType() == Operator.MULTIPLY) { //Multiplication at top
+        if (rootToken instanceof Operator && rootToken.getType() == Operator.MULTIPLY) { //Multiplication at top
             Node<Token> n1 = root.getChildren().get(0);
             Node<Token> n2 = root.getChildren().get(1);
-            if (n1.getContent() instanceof Operator && (((Operator) n1.getContent()).getType() == Operator.ADD || ((Operator) n1.getContent()).getType() == Operator.SUBTRACT) //(T +- T) * (T +- T)
-                    && n2.getContent() instanceof Operator && (((Operator) n2.getContent()).getType() == Operator.ADD || ((Operator) n2.getContent()).getType() == Operator.SUBTRACT)) {
+            if (n1.getContent() instanceof Operator && (n1.getContent().getType() == Operator.ADD || n1.getContent().getType() == Operator.SUBTRACT) //(T +- T) * (T +- T)
+                    && n2.getContent() instanceof Operator && (n2.getContent().getType() == Operator.ADD || n2.getContent().getType() == Operator.SUBTRACT)) {
                 Node<Token> head = n1; //Keeps track on where the expression is being read from
                 Node<Token> expression = n2;
                 Node<Token> newExpression = new Node<>(head.getContent()); //Tracks the start of the expression
@@ -1553,8 +1584,8 @@ public class JFok {
                     Node<Token> child2 = head.getChildren().get(1);
                     Token t1 = child1.getContent();
                     Token t2 = child2.getContent();
-                    if (t1 instanceof Operator && (((Operator) t1).getType() == Operator.ADD || ((Operator) t1).getType() == Operator.SUBTRACT)
-                            && t2 instanceof Operator && (((Operator) t2).getType() == Operator.ADD || ((Operator) t2).getType() == Operator.SUBTRACT)) { //((T1A +- T1B) + (T2A +- T2B))
+                    if (t1 instanceof Operator && (t1.getType() == Operator.ADD || t1.getType() == Operator.SUBTRACT)
+                            && t2 instanceof Operator && (t2.getType() == Operator.ADD || t2.getType() == Operator.SUBTRACT)) { //((T1A +- T1B) + (T2A +- T2B))
                         Node<Token> n = new Node<>(head.getContent());
                         //Rewrites ((T1 +- T2) O (T3 +- T4)) * (E) -> (T1 +- T2) * (E) O (T3 +- T4) * (E) (Distributive property)
                         Node<Token> multiply1 = new Node<Token>(OperatorFactory.makeMultiply());
@@ -1574,7 +1605,7 @@ public class JFok {
                         } else {
                             newExpression = n;
                         }
-                    } else if (t1 instanceof Operator && (((Operator) t1).getType() == Operator.ADD || ((Operator) t1).getType() == Operator.SUBTRACT)) { // (T1A +- T1B) +- T2
+                    } else if (t1 instanceof Operator && (t1.getType() == Operator.ADD || t1.getType() == Operator.SUBTRACT)) { // (T1A +- T1B) +- T2
                         //Makes the subtree T2 * E
                         Node<Token> multiply = new Node<Token>(OperatorFactory.makeMultiply());
                         multiply.addChild(expression);
@@ -1584,7 +1615,7 @@ public class JFok {
                         Node<Token> futureHead = new Node<>(head.getContent());
                         newHead.addChild(futureHead);
                         newHead = futureHead;
-                    } else if (t2 instanceof Operator && (((Operator) t2).getType() == Operator.ADD || ((Operator) t2).getType() == Operator.SUBTRACT)) { // (T2A +- T2B) +- T1
+                    } else if (t2 instanceof Operator && (t2.getType() == Operator.ADD || t2.getType() == Operator.SUBTRACT)) { // (T2A +- T2B) +- T1
                         //Makes the subtree T1 * E
                         Node<Token> multiply = new Node<Token>(OperatorFactory.makeMultiply());
                         multiply.addChild(expression);
@@ -1620,30 +1651,75 @@ public class JFok {
      * @return The expression with multiplications of one removed
      */
     private static ArrayList<Token> removeMultiplicationsOfOne(ArrayList<Token> expression) {
-        ArrayList<Token> newExpression = new ArrayList<Token>();
+        ArrayList<Token> newExpression = new ArrayList<>();
         for (int i = 0; i < expression.size(); i++) {
             //Safely assigns the Token variables to do pattern searching
             Token before = i - 1 < 0 ? null : expression.get(i - 1);
             Token after = i + 1 > expression.size() - 1 ? null : expression.get(i + 1);
             Token current = expression.get(i);
-            if (current instanceof Operator && ((Operator) current).getType() == Operator.MULTIPLY) { //Multiplication token found
+            if (current instanceof Operator && current.getType() == Operator.MULTIPLY) { //Multiplication token found
                 if (before instanceof Number) { //1 * E -> E
                     if (((Number) before).getValue() == 1) {
                         newExpression.remove(before);
                         //Removes the 1 Token and deos not add the * Token to the new expression
                     } else if (((Number) before).getValue() == -1) {
-                        newExpression.remove(before); //Replaces * with -
+                        newExpression.remove(before); //Replaces -1 * with -
                         newExpression.add(DigitFactory.makeNegative());
                     } else {
                         newExpression.add(current);
                     }
                 } else if (after instanceof Number) { //E * 1 -> E
                     if (((Number) after).getValue() == 1) {
-                        expression.remove(after);
-                        //Removes the 1 Token and deos not add the * Token to the new expression
+                        i++; //Skips the current * and the next 1
                     } else if (((Number) after).getValue() == -1) {
-                        newExpression.remove(after); //Replaces * with -
-                        newExpression.add(DigitFactory.makeNegative());
+                        int j = i - 1;
+                        while (j >= 0 && (newExpression.get(j) instanceof Operator || newExpression.get(j) instanceof Function
+                                || (j > 0 && newExpression.get(j - 1) instanceof Bracket && (newExpression.get(j - 1).getType() == Bracket.OPEN || newExpression.get(j - 1).getType() == Bracket.DENOM_OPEN
+                                || newExpression.get(j - 1).getType() == Bracket.NUM_OPEN || newExpression.get(j - 1).getType() == Bracket.SUPERSCRIPT_OPEN)))) {
+                            j--;
+                        }
+                        newExpression.add(j, DigitFactory.makeNegative()); //Adds a negative in front
+                        i++; //Skips adding the * and the -1
+                    } else {
+                        newExpression.add(current);
+                    }
+                } else {
+                    newExpression.add(current);
+                }
+            } else {
+                newExpression.add(current);
+            }
+        }
+        return newExpression;
+    }
+
+
+    /**
+     * Removes redundant divisions of one, such as x / 1 -> x.
+     *
+     * @param expression The expression to remove the divisions of one
+     * @return The expression with divisions of one removed
+     */
+    private static ArrayList<Token> removeDivisionsOfOne(ArrayList<Token> expression) {
+        ArrayList<Token> newExpression = new ArrayList<>();
+        for (int i = 0; i < expression.size(); i++) {
+            //Safely assigns the Token variables to do pattern searching
+            Token before = i - 1 < 0 ? null : expression.get(i - 1);
+            Token after = i + 1 > expression.size() - 1 ? null : expression.get(i + 1);
+            Token current = expression.get(i);
+            if (current instanceof Operator && (current.getType() == Operator.DIVIDE || current.getType() == Operator.FRACTION)) { //Div / Frac found
+                if (after instanceof Number) { //E / 1 -> E
+                    if (((Number) after).getValue() == 1) {
+                        i++; //Skips the next 1
+                    } else if (((Number) after).getValue() == -1) {
+                        int j = i - 1;
+                        while (j >= 0 && (newExpression.get(j) instanceof Operator || newExpression.get(j) instanceof Function
+                                || (j > 0 && newExpression.get(j - 1) instanceof Bracket && (newExpression.get(j - 1).getType() == Bracket.OPEN || newExpression.get(j - 1).getType() == Bracket.DENOM_OPEN
+                                || newExpression.get(j - 1).getType() == Bracket.NUM_OPEN || newExpression.get(j - 1).getType() == Bracket.SUPERSCRIPT_OPEN)))) {
+                            j--;
+                        }
+                        newExpression.add(j, DigitFactory.makeNegative()); //Adds a negative in front
+                        i++; //Skips adding the * and the -1
                     } else {
                         newExpression.add(current);
                     }
@@ -1665,8 +1741,8 @@ public class JFok {
      * @return Returns the root of a new expression tree with grouped like terms
      */
     public static Node<Token> groupLikeTerms(Node<Token> root) {
-        Node<Token> newRoot = new Node<Token>(root.getContent());
-        Node<Token> temp = new Node<Token>(root.getContent());
+        Node<Token> newRoot = new Node<>(root.getContent());
+        Node<Token> temp = new Node<>(root.getContent());
         Node<Token> first;
         for (int i = 0; i < root.getNumOfChildren(); i++) {
             first = root.getChildren().get(i).copy();
@@ -1695,8 +1771,8 @@ public class JFok {
      * @return Returns true if term1 and term2 are like terms
      */
     private static boolean areLikeTerms(Node<Token> term1, Node<Token> term2) {
-        if (term1.getContent() instanceof Operator && ((Operator) term1.getContent()).getType() == Operator.MULTIPLY
-                && term2.getContent() instanceof Operator && ((Operator) term2.getContent()).getType() == Operator.MULTIPLY) {
+        if (term1.getContent() instanceof Operator && term1.getContent().getType() == Operator.MULTIPLY
+                && term2.getContent() instanceof Operator && term2.getContent().getType() == Operator.MULTIPLY) {
             for (int i = 0; i < term1.getNumOfChildren(); i++) {
                 for (int j = 0; j < term2.getNumOfChildren(); j++) {
                     if (traverseTree(term1.getChildren().get(i)).equals(traverseTree(term2.getChildren().get(j)))) {
@@ -1704,13 +1780,13 @@ public class JFok {
                     }
                 }
             }
-        } else if (term1.getContent() instanceof Operator && ((Operator) term1.getContent()).getType() == Operator.MULTIPLY) {
+        } else if (term1.getContent() instanceof Operator && term1.getContent().getType() == Operator.MULTIPLY) {
             for (int i = 0; i < term1.getNumOfChildren(); i++) {
                 if (traverseTree(term1.getChildren().get(i)).equals(traverseTree(term2))) {
                     return true;
                 }
             }
-        } else if (term2.getContent() instanceof Operator && ((Operator) term2.getContent()).getType() == Operator.MULTIPLY) {
+        } else if (term2.getContent() instanceof Operator && term2.getContent().getType() == Operator.MULTIPLY) {
             for (int i = 0; i < term2.getNumOfChildren(); i++) {
                 if (traverseTree(term2.getChildren().get(i)).equals(traverseTree(term1))) {
                     return true;
@@ -1720,7 +1796,7 @@ public class JFok {
             return true;
         }
         return term1.getContent() instanceof Variable && term2.getContent() instanceof Variable
-                && ((Variable) term1.getContent()).getType() == ((Variable) term2.getContent()).getType();
+                && term1.getContent().getType() == term2.getContent().getType();
     }
 
     /**
@@ -1732,7 +1808,7 @@ public class JFok {
      */
     private static Node<Token> add2LikeTerms(Node<Token> term1, Node<Token> term2) {
         Node<Token> newRoot = null;
-        if (term1.getContent() instanceof Operator && ((Operator) term1.getContent()).getType() == Operator.MULTIPLY) {
+        if (term1.getContent() instanceof Operator && term1.getContent().getType() == Operator.MULTIPLY) {
             newRoot = new Node<Token>(OperatorFactory.makeMultiply());
             int e1Pos = -1, e2Pos = -1;
             Node<Token> temp1 = null;
@@ -1789,11 +1865,11 @@ public class JFok {
      * @return The root of the expression with the like terms added
      */
     public static Node<Token> addLikeTerms(Node<Token> root) {//TODO: rewrite -> just add adjacent terms recursively
-        Node<Token> newRoot = new Node<Token>(root.getContent());
+        Node<Token> newRoot = new Node<>(root.getContent());
         Node<Token> first = root.getChildren().get(0);
-        Node<Token> rest = new Node<Token>(root.getContent());
-        rest.addChildren(new ArrayList<Node<Token>>(root.getChildren().subList(1, root.getNumOfChildren())));
-        if (root.getContent() instanceof Operator && ((Operator) root.getContent()).getType() == Operator.ADD) {
+        Node<Token> rest = new Node<>(root.getContent());
+        rest.addChildren(new ArrayList<>(root.getChildren().subList(1, root.getNumOfChildren())));
+        if (root.getContent() instanceof Operator && root.getContent().getType() == Operator.ADD) {
             if (rest.getNumOfChildren() == 1) {
                 return rest.getChildren().get(0);
             } else if (rest.getNumOfChildren() == 2) {
@@ -1814,21 +1890,19 @@ public class JFok {
      */
     public static Node<Token> addLikeFractions(Node<Token> root) {
         Token t = root.getContent();
-        if (t instanceof Operator && (((Operator) t).getType() == Operator.ADD || ((Operator) t).getType() == Operator.SUBTRACT)) {
+        if (t instanceof Operator && (t.getType() == Operator.ADD || t.getType() == Operator.SUBTRACT)) {
             Node<Token> o = root;
-            Node<Token> child1 = (Node<Token>) o.getChildren().get(0);
-            Node<Token> child2 = (Node<Token>) o.getChildren().get(1);
+            Node<Token> child1 = o.getChildren().get(0);
+            Node<Token> child2 = o.getChildren().get(1);
             Token content1 = child1.getContent();
             Token content2 = child2.getContent();
             //CASE 1: N1/D1 +- N2/D2 -> (N1*D2+N2*D1)/(D1*D2)
-            if (content1 instanceof Operator && (((Operator) content1).getType() == Operator.DIVIDE || ((Operator) content1).getType() == Operator.FRACTION)
-                    && content2 instanceof Operator && (((Operator) content2).getType() == Operator.DIVIDE || ((Operator) content2).getType() == Operator.FRACTION)) {
-                Node<Token> frac1 = child1;
-                Node<Token> frac2 = child2;
-                Node<Token> num1 = frac1.getChildren().get(0);
-                Node<Token> num2 = frac2.getChildren().get(0);
-                Node<Token> denom1 = frac1.getChildren().get(1);
-                Node<Token> denom2 = frac2.getChildren().get(1);
+            if (content1 instanceof Operator && (content1.getType() == Operator.DIVIDE || content1.getType() == Operator.FRACTION)
+                    && content2 instanceof Operator && (content2.getType() == Operator.DIVIDE || content2.getType() == Operator.FRACTION)) {
+                Node<Token> num1 = child1.getChildren().get(0);
+                Node<Token> num2 = child2.getChildren().get(0);
+                Node<Token> denom1 = child1.getChildren().get(1);
+                Node<Token> denom2 = child2.getChildren().get(1);
 
                 Node<Token> newFrac = new Node<Token>(OperatorFactory.makeFraction());
                 Node<Token> newNum = new Node<Token>(o.getContent());
@@ -1855,14 +1929,14 @@ public class JFok {
                 newFrac = simplifyFraction(newFrac);
                 return newFrac;
                 //CASE 2: N/D+-E -> (N+-E*D)/D
-            } else if (content1 instanceof Operator && (((Operator) content1).getType() == Operator.DIVIDE || ((Operator) content1).getType() == Operator.FRACTION)) {
+            } else if (content1 instanceof Operator && (content1.getType() == Operator.DIVIDE || content1.getType() == Operator.FRACTION)) {
                 Node<Token> frac = child1;
                 Node<Token> expression = child2;
                 Node<Token> num = frac.getChildren().get(0);
                 Node<Token> denom = frac.getChildren().get(1);
 
                 Node<Token> newFrac = new Node<Token>(OperatorFactory.makeFraction());
-                Node<Token> newNum = new Node<Token>(o.getContent());
+                Node<Token> newNum = new Node<>(o.getContent());
                 Node<Token> mult = new Node<Token>(OperatorFactory.makeMultiply());
 
                 mult.addChild(expression);
@@ -1877,14 +1951,14 @@ public class JFok {
                 newFrac = simplifyFraction(newFrac);
                 return newFrac;
                 //CASE 3: E+-N/D -> (E*D+-N)/D
-            } else if (content2 instanceof Operator && (((Operator) content2).getType() == Operator.DIVIDE || ((Operator) content2).getType() == Operator.FRACTION)) {
+            } else if (content2 instanceof Operator && (content2.getType() == Operator.DIVIDE || content2.getType() == Operator.FRACTION)) {
                 Node<Token> frac = child2;
                 Node<Token> expression = child1;
                 Node<Token> num = frac.getChildren().get(0);
                 Node<Token> denom = frac.getChildren().get(1);
 
                 Node<Token> newFrac = new Node<Token>(OperatorFactory.makeFraction());
-                Node<Token> newNum = new Node<Token>(o.getContent());
+                Node<Token> newNum = new Node<>(o.getContent());
                 Node<Token> mult = new Node<Token>(OperatorFactory.makeMultiply());
 
                 mult.addChild(expression);
@@ -1939,10 +2013,10 @@ public class JFok {
                 } else { //Not the same variable; rule deos not apply
                     return root;
                 }
-            } else if (child1 instanceof Operator && ((Operator) child1).getType() == Operator.EXPONENT && child2 instanceof Operator
-                    && ((Operator) child2).getType() == Operator.EXPONENT) { //EXPEXP
-                Node<Token> node1 = (Node<Token>) childNode1.getChildren().get(0);
-                Node<Token> node2 = (Node<Token>) childNode2.getChildren().get(1);
+            } else if (child1 instanceof Operator && child1.getType() == Operator.EXPONENT && child2 instanceof Operator
+                    && child2.getType() == Operator.EXPONENT) { //EXPEXP
+                Node<Token> node1 = childNode1.getChildren().get(0);
+                Node<Token> node2 = childNode2.getChildren().get(1);
                 Token exp1Child2 = childNode1.getChildren().get(0).getContent();
                 Token exp2Child2 = childNode2.getChildren().get(1).getContent();
                 Variable v1 = exp1Child2 instanceof Variable ? (Variable) exp1Child2 : null;
@@ -1976,7 +2050,7 @@ public class JFok {
                 Variable v = (Variable) child1;
                 Node<Token> exponent = childNode2;
                 Token t = exponent.getChildren().get(0).getContent();
-                if (t instanceof Variable && v.getType() == ((Variable) t).getType()) { //Rule applies
+                if (t instanceof Variable && v.getType() == t.getType()) { //Rule applies
                     Node<Token> node = exponent.getChildren().get(1);
                     if (o.getType() == Operator.DIVIDE || o.getType() == Operator.FRACTION) {
                         //Applies rule V / V ^ E -> V ^ (1 - E)
@@ -2007,8 +2081,8 @@ public class JFok {
             } else if (child2 instanceof Variable && child1 instanceof Operator && ((Operator) child1).getType() == Operator.EXPONENT) { //EXPVAR
                 Variable v = (Variable) child2;
                 Node<Token> exponent = childNode1;
-                Token t = (Token) (exponent.getChildren().get(0)).getContent();
-                if (t instanceof Variable && v.getType() == ((Variable) t).getType()) { //Rule applies
+                Token t = (exponent.getChildren().get(0)).getContent();
+                if (t instanceof Variable && v.getType() == t.getType()) { //Rule applies
                     Node<Token> node = exponent.getChildren().get(1);
                     if (o.getType() == Operator.DIVIDE || o.getType() == Operator.FRACTION) {
                         //Applies rule V / V ^ E -> V ^ (1 - E)
@@ -2054,9 +2128,9 @@ public class JFok {
      */
     private static Node<Token> applyPowers(Node<Token> root) {
         Token current = root.getContent();
-        Token child1 = (Token) root.getChildren().get(1).getContent();
-        Token child2 = (Token) root.getChildren().get(0).getContent();
-        if (current instanceof Operator && ((Operator) current).getType() == Operator.EXPONENT && child1 instanceof Number && child2 instanceof Operator) { //O ^ N rule applies
+        Token child1 = root.getChildren().get(1).getContent();
+        Token child2 = root.getChildren().get(0).getContent();
+        if (current instanceof Operator && current.getType() == Operator.EXPONENT && child1 instanceof Number && child2 instanceof Operator) { //O ^ N rule applies
             double n = ((Number) child1).getValue();
             Node<Token> expression = root.getChildren().get(0);
             if (n % 1 != 0) {
@@ -2116,10 +2190,9 @@ public class JFok {
      * @return The root of the new function
      */
     private static Node<Token> applyDistributiveProperty(Node<Token> root) {
-        ArrayList<Node<Token>> multiplications = new ArrayList<Node<Token>>();
-        ArrayList<Node> divisions = new ArrayList<Node>();
-        boolean stop = false;
-        Stack<Node<Token>> stack = new Stack<Node<Token>>(); //Things to read for multiplications / divisions
+        ArrayList<Node<Token>> multiplications = new ArrayList<>();
+        ArrayList<Node> divisions = new ArrayList<>();
+        Stack<Node<Token>> stack = new Stack<>(); //Things to read for multiplications / divisions
         stack.push(root);
         //Fills the lists of multiplications and divisions
         do {
@@ -2131,14 +2204,14 @@ public class JFok {
                     Node<Token> child2 = readHead.getChildren().get(1);
                     Token t1 = child1.getContent();
                     Token t2 = child2.getContent();
-                    if (t1 instanceof Operator && (((Operator) t1).getType() == Operator.MULTIPLY || (((Operator) t1).getType() == Operator.DIVIDE || ((Operator) t1).getType() == Operator.FRACTION))
-                            && t2 instanceof Operator && (((Operator) t2).getType() == Operator.MULTIPLY || (((Operator) t2).getType() == Operator.DIVIDE || ((Operator) t2).getType() == Operator.FRACTION))) { //Both children have multiplication / divisions
+                    if (t1 instanceof Operator && (t1.getType() == Operator.MULTIPLY || (t1.getType() == Operator.DIVIDE || t1.getType() == Operator.FRACTION))
+                            && t2 instanceof Operator && (t2.getType() == Operator.MULTIPLY || (t2.getType() == Operator.DIVIDE || t2.getType() == Operator.FRACTION))) { //Both children have multiplication / divisions
                         stack.push(child1);
                         stack.push(child2);
-                    } else if (t1 instanceof Operator && (((Operator) t1).getType() == Operator.MULTIPLY || (((Operator) t1).getType() == Operator.DIVIDE || ((Operator) t1).getType() == Operator.FRACTION))) { //More multiplications / divisions on T1
+                    } else if (t1 instanceof Operator && (t1.getType() == Operator.MULTIPLY || (t1.getType() == Operator.DIVIDE || t1.getType() == Operator.FRACTION))) { //More multiplications / divisions on T1
                         multiplications.add(child2);
                         stack.push(child1);
-                    } else if (t2 instanceof Operator && (((Operator) t2).getType() == Operator.MULTIPLY || (((Operator) t2).getType() == Operator.DIVIDE || ((Operator) t2).getType() == Operator.FRACTION))) { //More multiplications / divisions on T2
+                    } else if (t2 instanceof Operator && (t2.getType() == Operator.MULTIPLY || (t2.getType() == Operator.DIVIDE || t2.getType() == Operator.FRACTION))) { //More multiplications / divisions on T2
                         multiplications.add(child1);
                         stack.push(child2);
                     } else { //No more multiplications or divisions
@@ -2150,10 +2223,10 @@ public class JFok {
                     Node<Token> child2 = readHead.getChildren().get(1);
                     Token t1 = child1.getContent();
                     Token t2 = child2.getContent();
-                    if (t1 instanceof Operator && (((Operator) t1).getType() == Operator.MULTIPLY || (((Operator) t1).getType() == Operator.DIVIDE || ((Operator) t1).getType() == Operator.FRACTION))
-                            && t2 instanceof Operator && (((Operator) t2).getType() == Operator.MULTIPLY || (((Operator) t2).getType() == Operator.DIVIDE || ((Operator) t2).getType() == Operator.FRACTION))) { //Both children have multiplication / divisions
-                    } else if (t1 instanceof Operator && (((Operator) t1).getType() == Operator.MULTIPLY || (((Operator) t1).getType() == Operator.DIVIDE || ((Operator) t1).getType() == Operator.FRACTION))) { //More multiplications / divisions on T1
-                    } else if (t2 instanceof Operator && (((Operator) t2).getType() == Operator.MULTIPLY || (((Operator) t2).getType() == Operator.DIVIDE || ((Operator) t2).getType() == Operator.FRACTION))) { //More multiplications / divisions on T2
+                    if (t1 instanceof Operator && (t1.getType() == Operator.MULTIPLY || (t1.getType() == Operator.DIVIDE || t1.getType() == Operator.FRACTION))
+                            && t2 instanceof Operator && (t2.getType() == Operator.MULTIPLY || (t2.getType() == Operator.DIVIDE || t2.getType() == Operator.FRACTION))) { //Both children have multiplication / divisions
+                    } else if (t1 instanceof Operator && (t1.getType() == Operator.MULTIPLY || (t1.getType() == Operator.DIVIDE || t1.getType() == Operator.FRACTION))) { //More multiplications / divisions on T1
+                    } else if (t2 instanceof Operator && (t2.getType() == Operator.MULTIPLY || (t2.getType() == Operator.DIVIDE || t2.getType() == Operator.FRACTION))) { //More multiplications / divisions on T2
                     } else { //No more multiplications or divisions
                     }
                 } else {
@@ -2165,10 +2238,10 @@ public class JFok {
         } while (!stack.isEmpty());
         if (!multiplications.isEmpty() && !divisions.isEmpty()) {
             //Now builds the sorts the multiplications according to type
-            ArrayList<Node<Token>> variables = new ArrayList<Node<Token>>();
-            ArrayList<Node<Token>> constants = new ArrayList<Node<Token>>();
-            ArrayList<Node<Token>> polynomials = new ArrayList<Node<Token>>();
-            ArrayList<Node<Token>> others = new ArrayList<Node<Token>>();
+            ArrayList<Node<Token>> variables = new ArrayList<>();
+            ArrayList<Node<Token>> constants = new ArrayList<>();
+            ArrayList<Node<Token>> polynomials = new ArrayList<>();
+            ArrayList<Node<Token>> others = new ArrayList<>();
             for (Node<Token> node : multiplications) {
                 if (node.getContent() instanceof Variable) {
                     variables.add(node);

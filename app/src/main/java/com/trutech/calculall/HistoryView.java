@@ -16,21 +16,21 @@ import java.util.Stack;
  */
 public class HistoryView extends View {
 
-    public static int fontSize = 96;
+    public static int fontSize;
     //CONSTANTS
-    private final float ENTRY_PADDING;
-    private final float TEXT_HEIGHT;
-    private final float SUPERSCRIPT_Y_OFFSET;
-    private final float FRAC_PADDING;
-    private final float MATRIX_PADDING;
-    private final int backgroundColor;
-    private final float X_PADDING; //The padding at the start and end of the display (x)
+    private float entry_padding;
+    private float textHeight;
+    private float superscriptYOffset;
+    private float fracPadding;
+    private float matrixPadding;
+    private Paint textPaint;
+    private Paint fracPaint;
+    private float xPadding; //The padding at the start and end of the display (x)
+    private int backgroundColor;
     private ArrayList<Object[]> history;
     private float maxX = 0; //Max start X that the user can scroll to
     private float maxY = 0;
     private ArrayList<Float> heights = new ArrayList<Float>();
-    private Paint textPaint;
-    private Paint fracPaint;
 
     public HistoryView(Context context, AttributeSet attr) {
         super(context, attr);
@@ -50,18 +50,21 @@ public class HistoryView extends View {
         fracPaint.setTextSize(fontSize);
         fracPaint.setStrokeWidth(10);
 
-        //Sets constant values
         //Calculates the height of the texts
         Rect textRect = new Rect();
         textPaint.getTextBounds("1", 0, 1, textRect);
-        TEXT_HEIGHT = textRect.height() * 1.25f;
-
-        X_PADDING = TEXT_HEIGHT / 3;
-        //LINE_HEIGHT_NORMAL = TEXT_HEIGHT;
-        FRAC_PADDING = TEXT_HEIGHT / 8;
-        SUPERSCRIPT_Y_OFFSET = TEXT_HEIGHT / 2;
-        ENTRY_PADDING = TEXT_HEIGHT;
-        MATRIX_PADDING = textPaint.measureText("  ");
+        textHeight = textRect.height() * 1.25f;
+        //Sets variables that are based on the text height
+        xPadding = textHeight / 3;
+        fracPadding = textHeight / 8;
+        superscriptYOffset = textHeight / 2;
+        matrixPadding = textPaint.measureText("  ");
+        xPadding = textHeight / 3;
+        //LINE_HEIGHT_NORMAL = textHeight;
+        fracPadding = textHeight / 8;
+        superscriptYOffset = textHeight / 2;
+        entry_padding = textHeight;
+        matrixPadding = textPaint.measureText("  ");
         setWillNotDraw(false);
     }
 
@@ -78,7 +81,7 @@ public class HistoryView extends View {
         canvas.drawColor(backgroundColor);
         heights.clear();
         float lastHeight = 0;
-        if (history == null){
+        if (history == null) {
             return;
         }
         for (int i = history.size() - 1; i >= 0; i--) {
@@ -87,7 +90,7 @@ public class HistoryView extends View {
             ArrayList<Token> output = (ArrayList<Token>) elements[1];
             lastHeight = drawExpression(input, canvas, lastHeight);
             lastHeight = drawExpression(output, canvas, lastHeight);
-            lastHeight += ENTRY_PADDING;
+            lastHeight += entry_padding;
             if (lastHeight > maxY) {
                 maxY = lastHeight;
             }
@@ -122,7 +125,7 @@ public class HistoryView extends View {
         }
 
         //Counter and state variables
-        float INITIAL_MODIFIER = -getMostNeg(expression) + offset + TEXT_HEIGHT;
+        float INITIAL_MODIFIER = -getMostNeg(expression) + offset + textHeight;
         float yModifier = INITIAL_MODIFIER;
         //float scriptHeightMultiplier = 0; //Height on the superscript level
         for (int i = 0; i < expression.size(); i++) {
@@ -130,7 +133,7 @@ public class HistoryView extends View {
             Paint paint = textPaint;
 
             if (token instanceof Bracket) {
-                switch (((Bracket) token).getType()) {
+                switch (token.getType()) {
                     case Bracket.SUPERSCRIPT_OPEN: {
                         //Extract the exponent expression
                         ArrayList<Token> exponent = new ArrayList<Token>();
@@ -138,16 +141,16 @@ public class HistoryView extends View {
                         int scriptCount = 1;
                         while (scriptCount != 0) {
                             Token t = expression.get(j);
-                            if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.SUPERSCRIPT_OPEN) {
+                            if (t instanceof Bracket && t.getType() == Bracket.SUPERSCRIPT_OPEN) {
                                 scriptCount++;
-                            } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.SUPERSCRIPT_CLOSE) {
+                            } else if (t instanceof Bracket && t.getType() == Bracket.SUPERSCRIPT_CLOSE) {
                                 scriptCount--;
                             }
                             exponent.add(t);
                             j++;
                         }
                         exponent.remove(exponent.size() - 1); //Removes the SUPERSCRIPT_CLOSE Bracket
-                        yModifier -= SUPERSCRIPT_Y_OFFSET + (getMaxLinesHeight(exponent) == 1 ? 0 : getHeight(exponent, false) / 2);
+                        yModifier -= superscriptYOffset + (getMaxLinesHeight(exponent) == 1 ? 0 : getHeight(exponent, false) / 2);
                         break;
                     }
                     case Bracket.SUPERSCRIPT_CLOSE: {
@@ -156,17 +159,17 @@ public class HistoryView extends View {
                         int j = i - 1;
                         while (bracketCount > 0) {
                             Token t = expression.get(j);
-                            if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.SUPERSCRIPT_OPEN) {
+                            if (t instanceof Bracket && t.getType() == Bracket.SUPERSCRIPT_OPEN) {
                                 bracketCount--;
-                            } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.SUPERSCRIPT_CLOSE) {
+                            } else if (t instanceof Bracket && t.getType() == Bracket.SUPERSCRIPT_CLOSE) {
                                 bracketCount++;
                             }
                             j--;
                         }
 
-                        if (j == 0){ //Some idiot did ^E (with no base)
+                        if (j == 0) { //Some idiot did ^E (with no base)
                             yModifier = INITIAL_MODIFIER;
-                        } else{
+                        } else {
                             yModifier = heights.get(j);
                         }
                         break;
@@ -177,9 +180,9 @@ public class HistoryView extends View {
                         int bracketCount = 1;
                         while (bracketCount != 0) {
                             Token t = expression.get(j);
-                            if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.NUM_OPEN) {
+                            if (t instanceof Bracket && t.getType() == Bracket.NUM_OPEN) {
                                 bracketCount++;
-                            } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.NUM_CLOSE) {
+                            } else if (t instanceof Bracket && t.getType() == Bracket.NUM_CLOSE) {
                                 bracketCount--;
                             }
                             num.add(t);
@@ -219,9 +222,9 @@ public class HistoryView extends View {
                         int j = i - 1;
                         while (bracketCount > 0) {
                             Token t = expression.get(j);
-                            if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.DENOM_OPEN) {
+                            if (t instanceof Bracket && t.getType() == Bracket.DENOM_OPEN) {
                                 bracketCount--;
-                            } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.DENOM_CLOSE) {
+                            } else if (t instanceof Bracket && t.getType() == Bracket.DENOM_CLOSE) {
                                 bracketCount++;
                             }
                             j--;
@@ -232,9 +235,9 @@ public class HistoryView extends View {
                         j -= 2;
                         while (bracketCount > 0) {
                             Token t = expression.get(j);
-                            if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.NUM_OPEN) {
+                            if (t instanceof Bracket && t.getType() == Bracket.NUM_OPEN) {
                                 bracketCount--;
-                            } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.NUM_CLOSE) {
+                            } else if (t instanceof Bracket && t.getType() == Bracket.NUM_CLOSE) {
                                 bracketCount++;
                             }
                             j--;
@@ -249,7 +252,7 @@ public class HistoryView extends View {
                         break;
                     }
                 }
-            } else if (token instanceof Operator && ((Operator) token).getType() == Operator.FRACTION) {
+            } else if (token instanceof Operator && token.getType() == Operator.FRACTION) {
 
                 //Finds the max height in the numerator
                 ArrayList<Token> numerator = getNumerator(expression, i);
@@ -271,7 +274,7 @@ public class HistoryView extends View {
             //Draws the text
             if (token instanceof Matrix) {
                 ArrayList<Token>[][] entries = ((Matrix) token).getEntries();
-                y -= (entries.length - 1) * TEXT_HEIGHT; //Starts at the top
+                y -= (entries.length - 1) * textHeight; //Starts at the top
                 //Calculates at what x value to start drawing each column
                 float[] columnX = new float[entries[0].length + 1];
                 columnX[0] = x;
@@ -294,13 +297,13 @@ public class HistoryView extends View {
                         float currentWidth = paint.measureText(str);
                         float targetWidth = columnX[k + 1] - columnX[k];
                         float padding = (targetWidth - currentWidth) / 2; //Padding on each side
-                        float drawMatrixX = columnX[k] + k * MATRIX_PADDING;
+                        float drawMatrixX = columnX[k] + k * matrixPadding;
                         drawMatrixX += padding;
                         canvas.drawText(str, drawMatrixX, y, paint);
                     }
-                    y += TEXT_HEIGHT;
+                    y += textHeight;
                 }
-                y -= TEXT_HEIGHT; //Undeos the last iteration
+                y -= textHeight; //Undeos the last iteration
             } else {
                 canvas.drawText(token.getSymbol(), x, y, paint);
             }
@@ -310,20 +313,20 @@ public class HistoryView extends View {
             }
 
             //Draws fraction sign
-            if (token instanceof Operator && ((Operator) token).getType() == Operator.FRACTION) {
+            if (token instanceof Operator && token.getType() == Operator.FRACTION) {
                 //Looks for index where the denom ends
                 int j = i + 2;
                 int bracketCount = 1;
                 while (bracketCount > 0) {
                     Token t = expression.get(j);
-                    if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.DENOM_CLOSE) {
+                    if (t instanceof Bracket && t.getType() == Bracket.DENOM_CLOSE) {
                         bracketCount--;
-                    } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.DENOM_OPEN) {
+                    } else if (t instanceof Bracket && t.getType() == Bracket.DENOM_OPEN) {
                         bracketCount++;
                     }
                     j++;
                 }
-                canvas.drawLine(x, y + FRAC_PADDING, drawX.get(j), y + FRAC_PADDING, fracPaint);
+                canvas.drawLine(x, y + fracPadding, drawX.get(j), y + fracPadding, fracPaint);
             }
 
         }
@@ -342,7 +345,7 @@ public class HistoryView extends View {
         for (int i = 0; i < expression.size(); i++) {
             Token token = expression.get(i);
             if (token instanceof Bracket) {
-                switch (((Bracket) token).getType()) {
+                switch (token.getType()) {
                     case Bracket.SUPERSCRIPT_OPEN: {
                         //Extract the exponent expression
                         ArrayList<Token> exponent = new ArrayList<Token>();
@@ -350,20 +353,20 @@ public class HistoryView extends View {
                         int scriptCount = 1;
                         while (scriptCount != 0) {
                             Token t = expression.get(j);
-                            if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.SUPERSCRIPT_OPEN) {
+                            if (t instanceof Bracket && t.getType() == Bracket.SUPERSCRIPT_OPEN) {
                                 scriptCount++;
-                            } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.SUPERSCRIPT_CLOSE) {
+                            } else if (t instanceof Bracket && t.getType() == Bracket.SUPERSCRIPT_CLOSE) {
                                 scriptCount--;
                             }
                             exponent.add(t);
                             j++;
                         }
                         exponent.remove(exponent.size() - 1); //Removes the SUPERSCRIPT_CLOSE Bracket
-                        yModifier -= SUPERSCRIPT_Y_OFFSET + (getMaxLinesHeight(exponent) == 1 ? 0 : getHeight(exponent, false) / 2);
+                        yModifier -= superscriptYOffset + (getMaxLinesHeight(exponent) == 1 ? 0 : getHeight(exponent, false) / 2);
                         break;
                     }
                     case Bracket.SUPERSCRIPT_CLOSE: {
-                        yModifier += SUPERSCRIPT_Y_OFFSET;
+                        yModifier += superscriptYOffset;
                         break;
                     }
                     case Bracket.NUM_OPEN: {
@@ -372,9 +375,9 @@ public class HistoryView extends View {
                         int bracketCount = 1;
                         while (bracketCount != 0) {
                             Token t = expression.get(j);
-                            if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.NUM_OPEN) {
+                            if (t instanceof Bracket && t.getType() == Bracket.NUM_OPEN) {
                                 bracketCount++;
-                            } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.NUM_CLOSE) {
+                            } else if (t instanceof Bracket && t.getType() == Bracket.NUM_CLOSE) {
                                 bracketCount--;
                             }
                             num.add(t);
@@ -414,9 +417,9 @@ public class HistoryView extends View {
                         int j = i - 1;
                         while (bracketCount > 0) {
                             Token t = expression.get(j);
-                            if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.DENOM_OPEN) {
+                            if (t instanceof Bracket && t.getType() == Bracket.DENOM_OPEN) {
                                 bracketCount--;
-                            } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.DENOM_CLOSE) {
+                            } else if (t instanceof Bracket && t.getType() == Bracket.DENOM_CLOSE) {
                                 bracketCount++;
                             }
                             j--;
@@ -427,9 +430,9 @@ public class HistoryView extends View {
                         j -= 2;
                         while (bracketCount > 0) {
                             Token t = expression.get(j);
-                            if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.NUM_OPEN) {
+                            if (t instanceof Bracket && t.getType() == Bracket.NUM_OPEN) {
                                 bracketCount--;
-                            } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.NUM_CLOSE) {
+                            } else if (t instanceof Bracket && t.getType() == Bracket.NUM_CLOSE) {
                                 bracketCount++;
                             }
                             j--;
@@ -444,7 +447,7 @@ public class HistoryView extends View {
                         break;
                     }
                 }
-            } else if (token instanceof Operator && ((Operator) token).getType() == Operator.FRACTION) {
+            } else if (token instanceof Operator && token.getType() == Operator.FRACTION) {
 
                 //Finds the max height in the numerator
                 ArrayList<Token> numerator = getNumerator(expression, i);
@@ -457,13 +460,13 @@ public class HistoryView extends View {
                 }
                 yModifier = maxHeight;
             }
-            if (token instanceof Matrix){
-                float negY = -TEXT_HEIGHT * (((Matrix)token).getNumOfRows() - 1) + yModifier;
+            if (token instanceof Matrix) {
+                float negY = -textHeight * (((Matrix) token).getNumOfRows() - 1) + yModifier;
                 heights.add(negY);
                 if (negY < mostNeg) {
                     mostNeg = negY;
                 }
-            }else {
+            } else {
                 //Sets the most neg if it is lower than current
                 if (yModifier < mostNeg) {
                     mostNeg = yModifier;
@@ -483,13 +486,13 @@ public class HistoryView extends View {
      * @return The height of the given expression, in pixels
      */
     private float getHeight(ArrayList<Token> expression, boolean countEndExponents) {
-        float maxHeight = TEXT_HEIGHT;
+        float maxHeight = textHeight;
         float temp = 0;
         for (int i = 0; i < expression.size(); i++) {
             Token t = expression.get(i);
             //Handles parts of fractions seperately
             if (t instanceof Bracket) {
-                switch (((Bracket) t).getType()) {
+                switch (t.getType()) {
                     case Bracket.NUM_CLOSE:
                         ArrayList<Token> numerator = getNumerator(expression, i + 1);
                         temp += getHeight(numerator, true);
@@ -503,15 +506,15 @@ public class HistoryView extends View {
                         temp = 0;
                         break;
                 }
-            } else if (t instanceof Operator && ((Operator) t).getType() == Operator.EXPONENT) {
+            } else if (t instanceof Operator && t.getType() == Operator.EXPONENT) {
                 ArrayList<Token> exponent = new ArrayList<Token>();
                 int j = i + 2;
                 int scriptCount = 1;
                 while (scriptCount != 0) {
                     Token token = expression.get(j);
-                    if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.SUPERSCRIPT_OPEN) {
+                    if (token instanceof Bracket && token.getType() == Bracket.SUPERSCRIPT_OPEN) {
                         scriptCount++;
-                    } else if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.SUPERSCRIPT_CLOSE) {
+                    } else if (token instanceof Bracket && token.getType() == Bracket.SUPERSCRIPT_CLOSE) {
                         scriptCount--;
                     }
                     exponent.add(token);
@@ -520,15 +523,15 @@ public class HistoryView extends View {
                 exponent.remove(exponent.size() - 1); //Removes the SUPERSCRIPT_CLOSE Bracket
                 if (!countEndExponents) {
                     //Takes out all cases where there is a ^(E) and the end
-                    while (exponent.size() > 1 && exponent.get(exponent.size() - 1) instanceof Bracket && ((Bracket) exponent.get(exponent.size() - 1)).getType() == Bracket.SUPERSCRIPT_CLOSE) {
+                    while (exponent.size() > 1 && exponent.get(exponent.size() - 1) instanceof Bracket && exponent.get(exponent.size() - 1).getType() == Bracket.SUPERSCRIPT_CLOSE) {
                         int k = exponent.size() - 2;
                         exponent.remove(k + 1);
                         int bracketCount = 1;
                         while (bracketCount != 0) { //Keeps removing until the end exponents begins
                             Token token = exponent.get(k);
-                            if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.SUPERSCRIPT_OPEN) {
+                            if (token instanceof Bracket && token.getType() == Bracket.SUPERSCRIPT_OPEN) {
                                 bracketCount--;
-                            } else if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.SUPERSCRIPT_CLOSE) {
+                            } else if (token instanceof Bracket && token.getType() == Bracket.SUPERSCRIPT_CLOSE) {
                                 bracketCount++;
                             }
                             exponent.remove(k);
@@ -537,13 +540,13 @@ public class HistoryView extends View {
                         exponent.remove(k); //Removes the exponent
                     }
                 }
-                temp = (countEndExponents ? SUPERSCRIPT_Y_OFFSET : 0) + getHeight(exponent, countEndExponents);
+                temp = (countEndExponents ? superscriptYOffset : 0) + getHeight(exponent, countEndExponents);
                 if (temp > maxHeight) {
                     maxHeight = temp;
                 }
                 temp = 0;
-            } else if (t instanceof Matrix){
-                temp = TEXT_HEIGHT * (((Matrix)t).getNumOfRows() - 1);
+            } else if (t instanceof Matrix) {
+                temp = textHeight * (((Matrix) t).getNumOfRows() - 1);
                 if (temp > maxHeight) {
                     maxHeight = temp;
                 }
@@ -563,7 +566,7 @@ public class HistoryView extends View {
     private ArrayList<Float> centerFractions(ArrayList<Token> expression, ArrayList<Float> drawX) {
         for (int i = 0; i < expression.size(); i++) {
             Token t = expression.get(i);
-            if (t instanceof Operator && ((Operator) t).getType() == Operator.FRACTION) {
+            if (t instanceof Operator && t.getType() == Operator.FRACTION) {
                 ArrayList<Token> numerator = getNumerator(expression, i);
                 ArrayList<Token> denom = getDenominator(expression, i);
                 float numWidth = getWidth(i - numerator.size() - 1, i - 1, expression, drawX);
@@ -601,7 +604,7 @@ public class HistoryView extends View {
         for (int i = 0; i < expression.size(); i++) {
             Token t = expression.get(i);
             if (t instanceof Bracket) {
-                switch (((Bracket) t).getType()) {
+                switch (t.getType()) {
                     case Bracket.SUPERSCRIPT_OPEN:
                         expBracketCount++;
                         inExponent = true;
@@ -625,15 +628,15 @@ public class HistoryView extends View {
                         denomBracketCount--;
                         break;
                 }
-            } else if (t instanceof Matrix){
-                int height = ((Matrix)t).getNumOfRows();
-                if (height > maxFracHeight){
+            } else if (t instanceof Matrix) {
+                int height = ((Matrix) t).getNumOfRows();
+                if (height > maxFracHeight) {
                     maxFracHeight = height;
                 }
             }
 
             if (numBracketCount == 0 && denomBracketCount == 0 && !inExponent) { //Cannot be in a numerator or denom or an exponent
-                if (t instanceof Operator && ((Operator) t).getType() == Operator.FRACTION) {
+                if (t instanceof Operator && t.getType() == Operator.FRACTION) {
                     ArrayList<Token> num = getNumerator(expression, i);
                     ArrayList<Token> denom = getDenominator(expression, i);
                     //And adds the height of both + 1
@@ -677,18 +680,18 @@ public class HistoryView extends View {
         int denomBracketCount = 0;
         for (int i = 0; i < expression.size(); i++) {
             Token t = expression.get(i);
-            if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.NUM_OPEN) {
+            if (t instanceof Bracket && t.getType() == Bracket.NUM_OPEN) {
                 numBracketCount++;
-            } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.NUM_CLOSE) {
+            } else if (t instanceof Bracket && t.getType() == Bracket.NUM_CLOSE) {
                 numBracketCount--;
-            } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.DENOM_OPEN) {
+            } else if (t instanceof Bracket && t.getType() == Bracket.DENOM_OPEN) {
                 denomBracketCount++;
-            } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.DENOM_CLOSE) {
+            } else if (t instanceof Bracket && t.getType() == Bracket.DENOM_CLOSE) {
                 denomBracketCount--;
             }
 
             if (numBracketCount == 0 && denomBracketCount == 0) { //Cannot be in a numerator or denom
-                if (t instanceof Operator && ((Operator) t).getType() == Operator.FRACTION) {
+                if (t instanceof Operator && t.getType() == Operator.FRACTION) {
                     ArrayList<Token> num = getNumerator(expression, i);
                     ArrayList<Token> denom = getDenominator(expression, i);
                     //And adds the height of both + 1
@@ -710,7 +713,7 @@ public class HistoryView extends View {
      * @return The numerator of the fraction
      */
     private ArrayList<Token> getNumerator(ArrayList<Token> expression, int i) {
-        if (!(expression.get(i) instanceof Operator && ((Operator) expression.get(i)).getType() == Operator.FRACTION)) {
+        if (!(expression.get(i) instanceof Operator && expression.get(i).getType() == Operator.FRACTION)) {
             throw new IllegalArgumentException("Given index of the expression is not a Fraction Token.");
         }
         ArrayList<Token> num = new ArrayList<Token>();
@@ -723,9 +726,9 @@ public class HistoryView extends View {
                 s = "";
             }
             Token token = expression.get(j);
-            if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.NUM_OPEN) {
+            if (token instanceof Bracket && token.getType() == Bracket.NUM_OPEN) {
                 bracketCount--;
-            } else if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.NUM_CLOSE) {
+            } else if (token instanceof Bracket && token.getType() == Bracket.NUM_CLOSE) {
                 bracketCount++;
             }
             num.add(0, token);
@@ -750,7 +753,7 @@ public class HistoryView extends View {
                 } else if (b.getType() == Bracket.DENOM_CLOSE) {
                     s += "}";
                 }
-            } else if (t instanceof Operator && ((Operator) t).getType() == Operator.FRACTION) {
+            } else if (t instanceof Operator && t.getType() == Operator.FRACTION) {
                 s += "F";
             }
 
@@ -766,7 +769,7 @@ public class HistoryView extends View {
      * @return The denom of the fraction
      */
     private ArrayList<Token> getDenominator(ArrayList<Token> expression, int i) {
-        if (!(expression.get(i) instanceof Operator && ((Operator) expression.get(i)).getType() == Operator.FRACTION)) {
+        if (!(expression.get(i) instanceof Operator && expression.get(i).getType() == Operator.FRACTION)) {
             throw new IllegalArgumentException("Given index of the expression is not a Fraction Token.");
         }
         ArrayList<Token> denom = new ArrayList<Token>();
@@ -779,9 +782,9 @@ public class HistoryView extends View {
                 s = "";
             }
             Token token = expression.get(j);
-            if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.DENOM_OPEN) {
+            if (token instanceof Bracket && token.getType() == Bracket.DENOM_OPEN) {
                 bracketCount++;
-            } else if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.DENOM_CLOSE) {
+            } else if (token instanceof Bracket && token.getType() == Bracket.DENOM_CLOSE) {
                 bracketCount--;
             }
             denom.add(token);
@@ -805,7 +808,7 @@ public class HistoryView extends View {
         int scriptLevel = 0; //superscript = 1, any additional levels would +1
         int scriptBracketCount = 0; //Counts the brackets for any exponents
         Stack<Float> fracStarts = new Stack<Float>(); //The indices where fractions start
-        float x = X_PADDING;
+        float x = xPadding;
 
         for (int i = 0; i < expression.size(); i++) {
             Token token = expression.get(i);
@@ -814,25 +817,25 @@ public class HistoryView extends View {
             if (x > maxX) {
                 maxX = x;
             }
-            if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.SUPERSCRIPT_OPEN) {
+            if (token instanceof Bracket && token.getType() == Bracket.SUPERSCRIPT_OPEN) {
                 scriptLevel++;
                 scriptBracketCount++;
-            } else if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.NUM_OPEN) {
+            } else if (token instanceof Bracket && token.getType() == Bracket.NUM_OPEN) {
                 fracStarts.push(x);
-            } else if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.NUM_CLOSE) {
+            } else if (token instanceof Bracket && token.getType() == Bracket.NUM_CLOSE) {
                 if (!fracStarts.isEmpty()) {
                     x = fracStarts.pop();
                 }
-            } else if (token instanceof Bracket && ((Bracket) token).getType() == Bracket.DENOM_CLOSE) {
+            } else if (token instanceof Bracket && token.getType() == Bracket.DENOM_CLOSE) {
                 //Finds index where the numerator ends
                 int j = i - 1;
                 int bracketCount = 1;
                 //DENOM
                 while (bracketCount > 0) {
                     Token t = expression.get(j);
-                    if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.DENOM_OPEN) {
+                    if (t instanceof Bracket && t.getType() == Bracket.DENOM_OPEN) {
                         bracketCount--;
-                    } else if (t instanceof Bracket && ((Bracket) t).getType() == Bracket.DENOM_CLOSE) {
+                    } else if (t instanceof Bracket && t.getType() == Bracket.DENOM_CLOSE) {
                         bracketCount++;
                     }
                     j--;
@@ -893,7 +896,7 @@ public class HistoryView extends View {
         int scriptLevel = 0;
         int scriptBracketCount = 0;
         for (Token token : expression) {
-            if (token instanceof Operator && ((Operator) token).getType() == Operator.EXPONENT) {
+            if (token instanceof Operator && token.getType() == Operator.EXPONENT) {
                 scriptLevel++;
                 if (scriptLevel > maxScriptLevel) {
                     maxScriptLevel = scriptLevel;
@@ -925,10 +928,29 @@ public class HistoryView extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int parentWidth = MeasureSpec.getSize(widthMeasureSpec);
+        float maxWidth = 0;
         Canvas canvas = new Canvas();
-        this.draw(canvas); //Lazy way to calculate maxX and maxY
-        int maxWidth = (int)(maxX + TEXT_HEIGHT * 5);
-        int width = maxWidth > parentWidth ? maxWidth : parentWidth;
+        this.draw(canvas);
+        //Calculates max width
+        for (Object[] o : history) {
+            ArrayList<Token> input = (ArrayList<Token>) o[0];
+            ArrayList<Token> output = (ArrayList<Token>) o[1];
+            float width = 0;
+            for (Token t : input) {
+                width += textPaint.measureText(t.getSymbol());
+            }
+            if (width > maxWidth) {
+                maxWidth = width;
+            }
+            width = 0;
+            for (Token t : output) {
+                width += textPaint.measureText(t.getSymbol());
+            }
+            if (width > maxWidth) {
+                maxWidth = width;
+            }
+        }
+        int width = (int) (maxWidth + textHeight) > parentWidth ? (int) (maxWidth + textHeight) : parentWidth;
         int height = (int) maxY;
         this.setMeasuredDimension(width, height);
     }

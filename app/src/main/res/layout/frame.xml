@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/frame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:id="@+id/frame"
     android:weightSum="100">
 
     <LinearLayout
         android:id="@+id/container"
         android:layout_width="fill_parent"
-        android:background="?android:colorBackground"
         android:layout_height="0dp"
         android:layout_weight="30"
+        android:background="?android:colorBackground"
         android:orientation="horizontal">
 
         <Button
@@ -77,20 +76,18 @@
     </LinearLayout>
 
 
-<android.support.v4.view.ViewPager
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_weight="65"
+    <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/pager"
         android:layout_width="match_parent"
-        android:layout_height="0dp" />
+        android:layout_height="0dp"
+        android:layout_weight="65" />
 
 
     <LinearLayout
-        android:layout_height="0dp"
         android:id="@+id/modes"
-        android:layout_weight="5"
         android:layout_width="match_parent"
-        android:weightSum="5"
+        android:layout_height="0dp"
+        android:layout_weight="5"
         android:orientation="horizontal">
 
         <ToggleButton
@@ -98,11 +95,11 @@
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:onClick="clickBasic"
             android:checked="true"
-            android:textOn="@string/basic"
+            android:onClick="clickBasic"
             android:textOff="@string/basic"
-            android:textSize="12sp" />
+            android:textOn="@string/basic"
+            android:textSize="16sp" />
 
         <ToggleButton
             android:id="@+id/advanced_button"
@@ -110,8 +107,8 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:onClick="clickAdvanced"
-            android:textOn="@string/advanced"
             android:textOff="@string/advanced"
+            android:textOn="@string/advanced"
             android:textSize="12sp" />
 
         <ToggleButton
@@ -120,9 +117,9 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:onClick="clickFunction"
-            android:textOn="@string/function"
             android:textOff="@string/function"
-            android:textSize="12sp" />
+            android:textOn="@string/function"
+            android:textSize="14sp" />
 
         <ToggleButton
             android:id="@+id/vector_button"
@@ -130,10 +127,10 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:onClick="clickVector"
-            android:textOn="@string/vector"
             android:textOff="@string/vector"
-            android:textSize="12sp" />
-
+            android:textOn="@string/vector"
+            android:textSize="16sp" />
+        <!--
         <ToggleButton
             android:id="@+id/matrix_button"
             android:layout_width="0dp"
@@ -142,7 +139,7 @@
             android:textOn="@string/matrix"
             android:textOff="@string/matrix"
             android:onClick="clickMatrix"
-            android:textSize="12sp" />
-
+            android:textSize="16sp" />
+       -->
     </LinearLayout>
 </LinearLayout>

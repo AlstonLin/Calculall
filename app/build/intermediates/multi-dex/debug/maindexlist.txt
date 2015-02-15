@@ -14,6 +14,7 @@ com/google/ads/mediation/customevent/CustomEvent.class
 com/google/common/collect/Maps$FilteredEntryNavigableMap.class
 edu/jas/poly/Complex.class
 com/google/ads/mediation/MediationBannerListener.class
+com/trutech/calculall/MatrixMode$12.class
 com/google/common/collect/RegularImmutableMap$NonTerminalMapEntry.class
 android/support/multidex/MultiDexExtractor.class
 com/millennialmedia/android/MMLog.class
@@ -118,6 +119,7 @@ com/google/android/gms/internal/gw.class
 com/mopub/mobileads/ToolbarWidget.class
 com/google/common/collect/Maps$EntryFunction$2.class
 com/google/android/gms/internal/pi$h.class
+com/mopub/mobileads/MoPubInterstitial$InterstitialAdListener.class
 com/google/android/gms/internal/gr.class
 com/trutech/calculall/Number.class
 com/google/common/primitives/Ints.class
@@ -555,6 +557,7 @@ com/google/android/gms/internal/bg$a.class
 android/support/annotation/NonNull.class
 org/apache/commons/math3/analysis/function/Atan.class
 org/apache/commons/math3/optimization/general/AbstractLeastSquaresOptimizer.class
+com/mopub/mobileads/CustomEventInterstitialAdapter$CustomEventInterstitialAdapterListener.class
 com/trutech/calculall/Advanced.class
 com/google/android/gms/appstate/AppState.class
 com/google/android/gms/internal/gv.class

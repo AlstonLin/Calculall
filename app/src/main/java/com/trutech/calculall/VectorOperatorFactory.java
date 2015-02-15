@@ -108,6 +108,9 @@ public class VectorOperatorFactory {
                         result = Math.acos((VectorUtilities.findDotProduct(leftVector, rightVector))
                                 / (VectorUtilities.calculateMagnitude(leftVector) * VectorUtilities.calculateMagnitude(rightVector)));
                         //Switched depending on angle mode
+                        if (Double.isNaN(result)) {
+                            result = 0d;
+                        }
                         switch (((VectorMode) VectorMode.getInstance()).getAngleMode()) {
                             case VectorMode.DEGREE:
                                 result *= (180 / Math.PI);

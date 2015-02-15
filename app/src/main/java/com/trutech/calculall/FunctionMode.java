@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -124,7 +125,7 @@ public class FunctionMode extends Advanced {
     /**
      * When the user clicks the History button.
      */
-    public void clickHistory(){
+    public void clickHistory() {
         try {
             openHistory(FILENAME);
         } catch (IOException e) {
@@ -389,7 +390,7 @@ public class FunctionMode extends Advanced {
     /**
      * Makes the toast that shows a message saying "Malformed Expression".
      */
-    private void showMalformedExpressionToast() {
+    protected void showMalformedExpressionToast() {
         Toast.makeText(activity, "Malformed Expression", Toast.LENGTH_SHORT).show();
     }
 
@@ -399,15 +400,26 @@ public class FunctionMode extends Advanced {
     public void clickGraph() {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         LayoutInflater inflater = activity.getLayoutInflater();
-        builder.setView(inflater.inflate(R.layout.graph_dialog, null));
+        View layout = inflater.inflate(R.layout.graph_dialog, null);
+        builder.setView(layout);
         graphDialog = builder.create();
+        //Sets the numbers from the previous graph, if any
+        SharedPreferences pref = activity.getSharedPreferences(activity.getString(R.string.preference_key), Context.MODE_PRIVATE);
+        float minX = pref.getFloat(activity.getString(R.string.x_min), 0f);
+        float minY = pref.getFloat(activity.getString(R.string.y_min), 0f);
+        float maxX = pref.getFloat(activity.getString(R.string.x_max), 0f);
+        float maxY = pref.getFloat(activity.getString(R.string.y_max), 0f);
+        ((EditText) layout.findViewById(R.id.x_min)).setText(Float.toString(minX));
+        ((EditText) layout.findViewById(R.id.y_min)).setText(Float.toString(minY));
+        ((EditText) layout.findViewById(R.id.x_max)).setText(Float.toString(maxX));
+        ((EditText) layout.findViewById(R.id.y_max)).setText(Float.toString(maxY));
         graphDialog.show();
     }
 
     /**
      * Cancels the graph dialog.
      */
-    public void cancelGraph(){
+    public void cancelGraph() {
         graphDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         graphDialog.dismiss();
     }
@@ -416,7 +428,7 @@ public class FunctionMode extends Advanced {
      * User had finished choosing graph bounds; shows
      * the graph dialog.
      */
-    public void clickGraphDialog(){
+    public void clickGraphDialog() {
         try {
             EditText xMinEdit = (EditText) graphDialog.findViewById(R.id.x_min);
             EditText xMaxEdit = (EditText) graphDialog.findViewById(R.id.x_max);
@@ -429,24 +441,32 @@ public class FunctionMode extends Advanced {
             float yMax = Float.parseFloat(yMaxEdit.getText().toString());
 
             //Makes sure that the floats are valid
-            if (xMin >= xMax){
+            if (xMin >= xMax) {
                 Toast.makeText(activity, "The min x must be greater than max x", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            if (yMin >= yMax){
+            if (yMin >= yMax) {
                 Toast.makeText(activity, "The min y must be greater than max y", Toast.LENGTH_SHORT).show();
                 return;
             }
-
+            //Saves to preferences
+            SharedPreferences pref = activity.getSharedPreferences(activity.getString(R.string.preference_key), Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = pref.edit();
+            editor.putFloat(activity.getString(R.string.x_min), xMin);
+            editor.putFloat(activity.getString(R.string.y_min), yMin);
+            editor.putFloat(activity.getString(R.string.x_max), xMax);
+            editor.putFloat(activity.getString(R.string.y_max), yMax);
+            editor.commit();
+            //Graphs and hides the keyboard
             graph(xMin, xMax, yMin, yMax);
-            InputMethodManager im = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            InputMethodManager im = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
             im.hideSoftInputFromWindow(xMinEdit.getWindowToken(), 0);
             im.hideSoftInputFromWindow(xMaxEdit.getWindowToken(), 0);
             im.hideSoftInputFromWindow(yMinEdit.getWindowToken(), 0);
             im.hideSoftInputFromWindow(yMaxEdit.getWindowToken(), 0);
             graphDialog.cancel();
-        } catch (NumberFormatException e){ //Wrong text format
+        } catch (NumberFormatException e) { //Wrong text format
             Toast.makeText(activity, "Invalid Number Format", Toast.LENGTH_SHORT).show();
         }
     }
@@ -459,7 +479,7 @@ public class FunctionMode extends Advanced {
      * @param minY Minimum y value
      * @param maxY Maximum y value
      */
-    private void graph(float minX, float maxX, float minY, float maxY){
+    private void graph(float minX, float maxX, float minY, float maxY) {
         LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View layout = inflater.inflate(R.layout.graph_view, null, false);
 
@@ -475,7 +495,7 @@ public class FunctionMode extends Advanced {
     /**
      * A generalization of the Thread that all the heavy worload calculus functions will use.
      */
-    private class MathThread extends AsyncTask<ArrayList<Token>, Void, ArrayList<Token>> {
+    protected class MathThread extends AsyncTask<ArrayList<Token>, Void, ArrayList<Token>> {
         private Exception error; //If any Exception were to occur
         private Command<ArrayList<Token>, ArrayList<Token>> task;
         private Command<Void, Exception> errorHandler;
@@ -501,12 +521,18 @@ public class FunctionMode extends Advanced {
                 pd = new ProgressDialog(activity);
                 pd.setTitle("Calculating...");
                 if (historyInput.get(0).getSymbol().equals("∫ ")) { //Very lazy way of doing this
-                    pd.setMessage("This may take a while. Note that some integrations can take several minutes or may be impossible.");
-                }else{
+                    pd.setMessage("This may take a while. Some integrations, especially ones relating to partial fractions can take several minutes or may be impossible.");
+                } else {
                     pd.setMessage("This may take a while.");
                 }
                 pd.setCancelable(false);
             }
+            pd.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    cancel(true);
+                }
+            });
             pd.show();
             super.onPreExecute();
         }
@@ -516,9 +542,6 @@ public class FunctionMode extends Advanced {
             try {
                 android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_MORE_FAVORABLE); //Higher priority
                 return task.execute(params[0]);
-            } catch (StackOverflowError e) {
-                Toast.makeText(activity, "It seems this phone is not powerful enough to compute this :(", Toast.LENGTH_LONG).show();
-                return null;
             } catch (Exception e) {
                 error = e;
                 return null;
@@ -528,18 +551,19 @@ public class FunctionMode extends Advanced {
         @Override
         protected void onPostExecute(ArrayList<Token> result) {
             pd.dismiss();
-
-            if (result == null) { //Something went Wrong
-                errorHandler.execute(error);
-            } else {
-                try {
-                    saveEquation(historyInput, result, filename);
-                } catch (IOException | ClassNotFoundException e) {
-                    Toast.makeText(activity, "Error saving to history", Toast.LENGTH_LONG).show();
+            if (!isCancelled()) {
+                if (result == null) { //Something went Wrong
+                    errorHandler.execute(error);
+                } else {
+                    try {
+                        saveEquation(historyInput, result, filename);
+                    } catch (IOException | ClassNotFoundException e) {
+                        Toast.makeText(activity, "Error saving to history", Toast.LENGTH_LONG).show();
+                    }
+                    display.displayOutput(result);
                 }
-                display.displayOutput(result);
+                super.onPostExecute(tokens);
             }
-            super.onPostExecute(tokens);
         }
     }
 }

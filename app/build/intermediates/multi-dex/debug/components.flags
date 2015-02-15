@@ -1,7 +1,7 @@
 -injars 'C:\Users\Alston\Calculall\app\build\intermediates\multi-dex\debug\allclasses.jar'
 -outjars 'C:\Users\Alston\Calculall\app\build\intermediates\multi-dex\debug\componentClasses.jar'
 
--libraryjars 'C:\Users\Alston\AndroidSDK\sdk\build-tools\21.1.2\lib\shrinkedAndroid.jar'
+-libraryjars 'C:\Users\Alston\AppData\Local\Android\sdk\build-tools\21.1.2\lib\shrinkedAndroid.jar'
 
 -forceprocessing
 -dontoptimize
