@@ -88,7 +88,7 @@ public class Utility {
                         s += token.getSymbol();
                 }
             } else if (token instanceof Variable) {
-                switch (((Variable) token).getType()) {
+                switch (token.getType()) {
                     case Variable.PI:
                         s += "Pi";
                         break;
@@ -220,6 +220,16 @@ public class Utility {
      * @return The value of the given digits
      */
     public static double valueOf(List<Digit> digits) {
+        //Counters number of Decimals first
+        int decimalCount = 0;
+        for (Digit d : digits) {
+            if (d.getValue() == -1) {
+                decimalCount++;
+            }
+        }
+        if (decimalCount > 1) {
+            throw new IllegalArgumentException("Invalid Decimal Placement");
+        }
         double value = 0;
         int indexOfDecimal = -1;
         boolean negative = false;
@@ -318,14 +328,14 @@ public class Utility {
             boolean lastIsSubtract = last instanceof Operator && last.getType() == Operator.SUBTRACT;
             boolean beforeLastIsOperator = beforeLast != null && beforeLast instanceof Operator;
             boolean beforeLastIsOpenBracket = beforeLast != null && beforeLast instanceof Bracket && (beforeLast.getType() == Bracket.OPEN
-                    || beforeLast.getType() == Bracket.NUM_OPEN || beforeLast.getType() == Bracket.DENOM_OPEN || beforeLast.getType() == Bracket.SUPERSCRIPT_OPEN);
+                    || beforeLast.getType() == Bracket.NUM_OPEN || beforeLast.getType() == Bracket.DENOM_OPEN || beforeLast.getType() == Bracket.SUPERSCRIPT_OPEN || beforeLast.getType() == Bracket.FRACTION_OPEN);
 
             if (t instanceof Bracket) {
                 Bracket b = (Bracket) t;
                 if (b.getType() == Bracket.OPEN && last instanceof Bracket && (last.getType() == Bracket.CLOSE
                         || last.getType() == Bracket.SUPERSCRIPT_CLOSE || last.getType() == Bracket.DENOM_CLOSE)) { //Ex. (2 + 1)(3 + 4), (2)/(5)(x + 1) or x^(2)(x+1)
                     newExpression.add(OperatorFactory.makeMultiply()); //Implies multiplication between the two expressions in the brackets
-                } else if ((last instanceof Number || last instanceof Variable) && b.getType() == Bracket.OPEN) { //Ex. 3(2 + 1) or X(1+X)
+                } else if ((last instanceof Number || last instanceof Variable) && (b.getType() == Bracket.OPEN || b.getType() == Bracket.FRACTION_OPEN)) { //Ex. 3(2 + 1) or X(1+X) or 2(1/2)
                     newExpression.add(OperatorFactory.makeMultiply());
                 } else if (last instanceof Operator && last.getType() == Operator.SUBTRACT && beforeLastIsOperator) { //Ex. E + -(X + 1) -> E + -1 * (X + 1)
                     newExpression.remove(last);
@@ -346,9 +356,7 @@ public class Utility {
                         newExpression.add(new Number(-1));
                         newExpression.add(OperatorFactory.makeMultiply());
                     }
-                } else if (t instanceof Function && (last instanceof Function
-                        || (last instanceof Bracket && (((Bracket) last).getType() == Bracket.CLOSE || ((Bracket) last).getType() == Bracket.SUPERSCRIPT_CLOSE || ((Bracket) last).getType() == Bracket.DENOM_CLOSE))
-                        || last instanceof Variable)) { //Ex. f(x)g(x) or (1 + 2)f(x) or xf(x)
+                } else if (t instanceof Function && (last instanceof Function || last instanceof Variable)) { //Ex. f(x)g(x) or (1 + 2)f(x) or xf(x)
                     newExpression.add(OperatorFactory.makeMultiply());
                 }
 
@@ -394,10 +402,10 @@ public class Utility {
             } else if (token instanceof Bracket) {
                 Bracket bracket = (Bracket) token;
                 if (bracket.getType() == Bracket.OPEN || bracket.getType() == Bracket.SUPERSCRIPT_OPEN
-                        || bracket.getType() == Bracket.NUM_OPEN || bracket.getType() == Bracket.DENOM_OPEN) { //Pushes the bracket to the stack if it's open
+                        || bracket.getType() == Bracket.NUM_OPEN || bracket.getType() == Bracket.DENOM_OPEN || bracket.getType() == Bracket.FRACTION_OPEN) { //Pushes the bracket to the stack if it's open
                     stack.push(bracket);
                 } else if (bracket.getType() == Bracket.CLOSE || bracket.getType() == Bracket.SUPERSCRIPT_CLOSE
-                        || bracket.getType() == Bracket.NUM_CLOSE || bracket.getType() == Bracket.DENOM_CLOSE) { //For close brackets, pop operators onto the list until a open bracket is found
+                        || bracket.getType() == Bracket.NUM_CLOSE || bracket.getType() == Bracket.DENOM_CLOSE || bracket.getType() == Bracket.FRACTION_CLOSE) { //For close brackets, pop operators onto the list until a open bracket is found
                     Token top = stack.lastElement();
                     while (!(top instanceof Bracket)) { //While it has not found an open bracket
                         reversePolish.add(stack.pop()); //Pops the top element
@@ -567,7 +575,7 @@ public class Utility {
         //Substitutes all variables with the given x value
         for (Token token : function) {
             if (token instanceof Variable && token.getType() == Variable.X) {
-                expression.add(new Number(x));
+                expression.add(((Variable) token).isNegative() ? new Number(-x) : new Number(x));
             } else if (token instanceof Variable) {
                 expression.add(new Number(((Variable) token).getValue()));
             } else {
@@ -804,7 +812,11 @@ public class Utility {
         if (n == 1 || n == 0) {
             return 1;
         } else {
-            return n * factorial(n - 1);
+            double result = n * factorial(n - 1);
+            if (Double.isInfinite(result)) {
+                throw new NumberTooLargeException();
+            }
+            return result;
         }
     }
 
@@ -869,7 +881,7 @@ public class Utility {
      * @param tokens The tokens to sub variables
      * @return The list of tokens with the variables substituted
      */
-    private static ArrayList<Token> subVariables(ArrayList<Token> tokens) {
+    public static ArrayList<Token> subVariables(ArrayList<Token> tokens) {
         ArrayList<Token> newTokens = new ArrayList<>();
         for (Token token : tokens) {
             if (token instanceof Variable) {

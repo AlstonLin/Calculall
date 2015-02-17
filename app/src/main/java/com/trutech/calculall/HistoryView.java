@@ -931,23 +931,25 @@ public class HistoryView extends View {
         float maxWidth = 0;
         Canvas canvas = new Canvas();
         this.draw(canvas);
-        //Calculates max width
-        for (Object[] o : history) {
-            ArrayList<Token> input = (ArrayList<Token>) o[0];
-            ArrayList<Token> output = (ArrayList<Token>) o[1];
-            float width = 0;
-            for (Token t : input) {
-                width += textPaint.measureText(t.getSymbol());
-            }
-            if (width > maxWidth) {
-                maxWidth = width;
-            }
-            width = 0;
-            for (Token t : output) {
-                width += textPaint.measureText(t.getSymbol());
-            }
-            if (width > maxWidth) {
-                maxWidth = width;
+        if (history != null) {
+            //Calculates max width
+            for (Object[] o : history) {
+                ArrayList<Token> input = (ArrayList<Token>) o[0];
+                ArrayList<Token> output = (ArrayList<Token>) o[1];
+                float width = 0;
+                for (Token t : input) {
+                    width += textPaint.measureText(t.getSymbol());
+                }
+                if (width > maxWidth) {
+                    maxWidth = width;
+                }
+                width = 0;
+                for (Token t : output) {
+                    width += textPaint.measureText(t.getSymbol());
+                }
+                if (width > maxWidth) {
+                    maxWidth = width;
+                }
             }
         }
         int width = (int) (maxWidth + textHeight) > parentWidth ? (int) (maxWidth + textHeight) : parentWidth;

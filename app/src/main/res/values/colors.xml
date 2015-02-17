@@ -4,8 +4,15 @@
     <color name="backgroundAlston">#2E7D32</color>
     <color name="backgroundPanda">#9E9E9E</color>
     <color name="backgroundTrailblazer">#B71C1C</color>
+    <color name="backgroundHawks">#4527A0</color>
+    <color name="backgroundGeese">#FFEB3B</color>
+    <color name="backgroundSunset">#B71C1C</color>
+
     <color name="displayTextAlston">#FFD54F</color>
     <color name="displayTextDavid">#F64B55</color>
     <color name="displayTextPanda">#000000</color>
     <color name="displayTextTrailblazer">#FFFFFF</color>
+    <color name="displayTextHawks">#FFD700</color>
+    <color name="displayTextGeese">#000000</color>
+    <color name="displayTextSunset">#FFC107</color>
 </resources>

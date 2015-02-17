@@ -26,7 +26,7 @@ public class VectorUtilities {
             }
             return result;
         } else {
-            throw new IllegalArgumentException("Attempted to operate two vector of different dimensions");
+            throw new IllegalArgumentException("Attempted to operate on two vector of different dimensions");
         }
     }
 
@@ -37,13 +37,11 @@ public class VectorUtilities {
      * @return The Number that contains the value of the magnitude
      */
     public static double calculateMagnitude(Vector v) {
-        if (v.getDimensions() == 2) {
-            return Math.sqrt(Math.pow(v.getValues()[0], 2) + Math.pow(v.getValues()[1], 2));
-        } else if (v.getDimensions() == 3) {
-            return Math.sqrt(Math.pow(v.getValues()[0], 2) + Math.pow(v.getValues()[1], 2) + Math.pow(v.getValues()[2], 2));
-        } else {
-            throw new IllegalStateException("Evaluating a non 2D/3D vector");
+        double sum = 0;
+        for (int i = 0; i < v.getDimensions(); i++) {
+            sum += v.getValues()[i] * v.getValues()[i];
         }
+        return Math.sqrt(sum);
     }
 
     /**
@@ -425,6 +423,12 @@ public class VectorUtilities {
      */
     public static ArrayList<Token> processVectors(ArrayList<Token> tokens) {
         ArrayList<Token> parsedTokens = parseVectors(setupVectorExpression(Utility.setupExpression(Utility.condenseDigits(subVariables(tokens)))));
+        //Makes sure theres no Variables left
+        for (Token t : tokens) {
+            if (t instanceof VectorVariable && (t.getType() == VectorVariable.T || t.getType() == VectorVariable.S)) {
+                throw new IllegalArgumentException("s and t can only be used for finding Scalar Equations");
+            }
+        }
         Token result = evaluateExpression(convertToReversePolish(parsedTokens));
         ArrayList<Token> toOutput = new ArrayList<>();
         if (result != null) {

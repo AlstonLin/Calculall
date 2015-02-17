@@ -7,6 +7,8 @@ import android.text.SpannedString;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ToggleButton;
 
 import java.util.ArrayList;
 
@@ -23,12 +25,6 @@ public class VectorFragment extends BasicFragment {
         View v = inflater.inflate(R.layout.vector, container, false);
         setupButtons(v);
         return v;
-    }
-
-
-    @Override
-    public void onResume() {
-        super.onResume();
     }
 
     /**
@@ -168,6 +164,25 @@ public class VectorFragment extends BasicFragment {
         buttons.add(tanButton);
 
         advanced.setMultiButtons(buttons);
+
+        //Sets the Angle mode button the the appropriate text
+        Button angleModeButton = (Button) v.findViewById(R.id.angle_mode_vector);
+        switch (Function.angleMode) {
+            case Function.DEGREE:
+                angleModeButton.setText("DEG");
+                break;
+            case Function.RADIAN:
+                angleModeButton.setText("RAD");
+                break;
+            case Function.GRADIAN:
+                angleModeButton.setText("GRAD");
+                break;
+        }
+        //Restores the toggle buttons to their states
+        ToggleButton shift = (ToggleButton) v.findViewById(R.id.shift_button);
+        ToggleButton mem = (ToggleButton) v.findViewById(R.id.mem_button);
+        shift.setChecked(((VectorMode) VectorMode.getInstance()).isShift());
+        mem.setChecked(((VectorMode) VectorMode.getInstance()).isMem());
     }
 
 }

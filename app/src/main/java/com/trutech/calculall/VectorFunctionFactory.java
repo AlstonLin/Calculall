@@ -21,22 +21,13 @@ public class VectorFunctionFactory {
             @Override
             public Token perform(Vector v) {
                 double magnitude = VectorUtilities.calculateMagnitude(v);
-                if (v.getDimensions() == 2) {
-                    double[] unitVector = new double[2];
-                    unitVector[0] = v.getValues()[0] / magnitude;
-                    unitVector[1] = v.getValues()[1] / magnitude;
-                    return new Vector(unitVector);
-                } else if (v.getDimensions() == 3) {
-                    double[] unitVector = new double[3];
-                    unitVector[0] = v.getValues()[0] / magnitude;
-                    unitVector[1] = v.getValues()[1] / magnitude;
-                    unitVector[2] = v.getValues()[2] / magnitude;
-                    return new Vector(unitVector);
-                } else {
-                    throw new IllegalArgumentException("Error: This calculator only supports 2D and 3D vectors.");
+                double[] unitVector = new double[v.getDimensions()];
+                for (int i = 0; i < v.getDimensions(); i++) {
+                    unitVector[i] = v.getValues()[i] / magnitude;
                 }
+                return new Vector(unitVector);
             }
+
         };
     }
-
 }

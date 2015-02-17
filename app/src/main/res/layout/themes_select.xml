@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="?android:colorBackground"
-    android:layout_height="match_parent">
+    android:hardwareAccelerated="true"
+    android:orientation="vertical">
 
     <Button
         android:id="@+id/back_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="48sp"
         android:onClick="clickExitTheme"
-        android:text="@string/backspace" />
+        android:text="@string/backspace"
+        android:textSize="48sp" />
 
     <GridView
+        android:id="@+id/themes_grid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/themes_grid"
-        android:numColumns="2"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:numColumns="2" />
 
 </LinearLayout>

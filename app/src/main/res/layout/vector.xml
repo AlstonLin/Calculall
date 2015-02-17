@@ -52,7 +52,7 @@
             android:paddingRight="10dp"
             android:paddingTop="10dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/history_white"
+            android:src="?history_img"
             android:textSize="20sp" />
 
         <ImageButton
@@ -68,7 +68,7 @@
             android:paddingRight="10dp"
             android:paddingTop="10dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/settings_white"
+            android:src="?settings_img"
             android:textSize="20sp" />
 
         <Button
@@ -100,13 +100,12 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/angle_mode"
+            android:id="@+id/angle_mode_vector"
             style="?attr/buttonSpecial"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:onClick="onClick"
-            android:text="@string/deg"
             android:textSize="16sp" />
 
         <com.trutech.calculall.MultiButton

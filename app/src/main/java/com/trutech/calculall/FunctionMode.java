@@ -60,7 +60,7 @@ public class FunctionMode extends Advanced {
     private Dialog graphDialog;
 
     { //lazy constructor
-        angleMode = RADIAN;
+        Function.angleMode = Function.RADIAN;
         filename = "history_function";
     }
 
@@ -149,6 +149,12 @@ public class FunctionMode extends Advanced {
                     pd.setTitle("Calculating...");
                     pd.setMessage("This may take a while. ");
                     pd.setCancelable(false);
+                    pd.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            cancel(true);
+                        }
+                    });
                 }
                 pd.show();
                 super.onPreExecute();
@@ -167,42 +173,43 @@ public class FunctionMode extends Advanced {
             @Override
             protected void onPostExecute(ArrayList<ArrayList<Token>> roots) {
                 pd.dismiss();
-
-                if (roots == null) {
-                    if (error == null) {
-                        showMalformedExpressionToast();
-                    } else if (error instanceof UnsupportedOperationException) {
-                        Toast.makeText(context, "Sorry, we're unable to find the root(s) of this function. Root finding for this function may not be supported yet.", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(context, "Something weird happened in our system, and we can't find the derivative. We'll try to fix this as soon as we can. Sorry! :(", Toast.LENGTH_LONG).show();
-                    }
-                } else {
-                    ArrayList<Token> toOutput = new ArrayList<>();
-                    int counter = 0;
-                    toOutput.add(new StringToken("X = "));
-                    while (counter < roots.size()) {
-                        ArrayList<Token> root = roots.get(counter);
-                        if (counter != 0) {
-                            toOutput.add(new StringToken(" OR "));
+                if (!isCancelled()) {
+                    if (roots == null) {
+                        if (error == null) {
+                            showMalformedExpressionToast();
+                        } else if (error instanceof UnsupportedOperationException) {
+                            Toast.makeText(context, "Sorry, we're unable to find the root(s) of this function. Root finding for this function may not be supported yet.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(context, "Something weird happened in our system, and we can't find the roots. We'll try to fix this as soon as we can. Sorry! :(", Toast.LENGTH_LONG).show();
                         }
-                        toOutput.addAll(root);
-                        counter++;
+                    } else {
+                        ArrayList<Token> toOutput = new ArrayList<>();
+                        int counter = 0;
+                        toOutput.add(new StringToken("X = "));
+                        while (counter < roots.size()) {
+                            ArrayList<Token> root = roots.get(counter);
+                            if (counter != 0) {
+                                toOutput.add(new StringToken(" OR "));
+                            }
+                            toOutput.addAll(root);
+                            counter++;
+                        }
+                        if (counter == 0) { //No roots
+                            toOutput.add(new StringToken("No Real Roots"));
+                        }
+                        display.displayOutput(toOutput);
+                        activity.scrollDown();
+                        //Saves to history
+                        try {
+                            ArrayList<Token> saveInput = new ArrayList<>();
+                            saveInput.addAll(tokens);
+                            saveInput.add(0, new StringToken("Roots of "));
+                            saveEquation(saveInput, toOutput, filename);
+                        } catch (IOException | ClassNotFoundException e) {
+                            Toast.makeText(activity, "Error saving to history", Toast.LENGTH_LONG).show();
+                        }
+                        super.onPostExecute(roots);
                     }
-                    if (counter == 0) { //No roots
-                        toOutput.add(new StringToken("No Real Roots"));
-                    }
-                    display.displayOutput(toOutput);
-                    activity.scrollDown();
-                    //Saves to history
-                    try {
-                        ArrayList<Token> saveInput = new ArrayList<>();
-                        saveInput.addAll(tokens);
-                        saveInput.add(0, new StringToken("Roots of "));
-                        saveEquation(saveInput, toOutput, filename);
-                    } catch (IOException | ClassNotFoundException e) {
-                        Toast.makeText(activity, "Error saving to history", Toast.LENGTH_LONG).show();
-                    }
-                    super.onPostExecute(roots);
                 }
             }
         };
@@ -321,7 +328,7 @@ public class FunctionMode extends Advanced {
                 } else if (error instanceof WrongNumberOfArguments) {
                     showMalformedExpressionToast();
                 } else {
-                    Toast.makeText(context, "Something weird happened in our system, and we can't find the integral. We'll try to fix this as soon as we can. Sorry! :(", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Something weird happened in our system, and we can't expand this. We'll try to fix this as soon as we can. Sorry! :(", Toast.LENGTH_LONG).show();
                 }
                 return null;
             }
@@ -365,7 +372,7 @@ public class FunctionMode extends Advanced {
                 } else if (error instanceof WrongNumberOfArguments) {
                     showMalformedExpressionToast();
                 } else {
-                    Toast.makeText(context, "Something weird happened in our system, and we can't find the integral. We'll try to fix this as soon as we can. Sorry! :(", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Something weird happened in our system, and we can't factor this. We'll try to fix this as soon as we can. Sorry! :(", Toast.LENGTH_LONG).show();
                 }
                 return null;
             }
@@ -545,6 +552,8 @@ public class FunctionMode extends Advanced {
             } catch (Exception e) {
                 error = e;
                 return null;
+            } catch (StackOverflowError e) {
+                throw new IllegalArgumentException("Not enough processing power to compute!");
             }
         }
 

@@ -15,11 +15,11 @@ import java.util.ArrayList;
 /**
  * Handles the UI for Advanced Mode
  */
-public class AdvancedFragment extends BasicFragment{
+public class AdvancedFragment extends BasicFragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.advanced, container, false);
         activity = (MainActivity) getActivity();
         Button recipButton = (Button) v.findViewById(R.id.reciprocal);
@@ -40,9 +40,9 @@ public class AdvancedFragment extends BasicFragment{
      */
     public void onHiddenChanged(boolean hidden) {
         ToggleButton b = (ToggleButton) activity.findViewById(R.id.advanced_button);
-        if (!hidden){
+        if (!hidden) {
             b.setChecked(true);
-        }else{
+        } else {
             b.setChecked(false);
         }
     }
@@ -52,7 +52,7 @@ public class AdvancedFragment extends BasicFragment{
      *
      * @param v The view of the Fragment
      */
-    private void setupButtons(View v){
+    private void setupButtons(View v) {
         MultiButton sinButton = (MultiButton) v.findViewById(R.id.sin_button);
         MultiButton cosButton = (MultiButton) v.findViewById(R.id.cos_button);
         MultiButton tanButton = (MultiButton) v.findViewById(R.id.tan_button);
@@ -110,28 +110,28 @@ public class AdvancedFragment extends BasicFragment{
         squareStrings[1] = Html.fromHtml(activity.getString(R.string.cube));
         //Sets the commands
         final Advanced advanced = (Advanced) Advanced.getInstance();
-        sinCommands[0] = new Command<Void, Void>(){
+        sinCommands[0] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 advanced.clickSin();
                 return null;
             }
         };
-        sinCommands[1] = new Command<Void, Void>(){
+        sinCommands[1] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 advanced.clickASin();
                 return null;
             }
         };
-        sinCommands[2] = new Command<Void, Void>(){
+        sinCommands[2] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 advanced.clickSinh();
                 return null;
             }
         };
-        sinCommands[3] = new Command<Void, Void>(){
+        sinCommands[3] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 advanced.clickASinh();
@@ -139,28 +139,28 @@ public class AdvancedFragment extends BasicFragment{
             }
         };
 
-        cosCommands[0] = new Command<Void, Void>(){
+        cosCommands[0] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 advanced.clickCos();
                 return null;
             }
         };
-        cosCommands[1] = new Command<Void, Void>(){
+        cosCommands[1] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 advanced.clickACos();
                 return null;
             }
         };
-        cosCommands[2] = new Command<Void, Void>(){
+        cosCommands[2] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 advanced.clickCosh();
                 return null;
             }
         };
-        cosCommands[3] = new Command<Void, Void>(){
+        cosCommands[3] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 advanced.clickACosh();
@@ -168,28 +168,28 @@ public class AdvancedFragment extends BasicFragment{
             }
         };
 
-        tanCommands[0] = new Command<Void, Void>(){
+        tanCommands[0] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 advanced.clickTan();
                 return null;
             }
         };
-        tanCommands[1] = new Command<Void, Void>(){
+        tanCommands[1] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 advanced.clickATan();
                 return null;
             }
         };
-        tanCommands[2] = new Command<Void, Void>(){
+        tanCommands[2] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 advanced.clickTanh();
                 return null;
             }
         };
-        tanCommands[3] = new Command<Void, Void>(){
+        tanCommands[3] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 advanced.clickATanh();
@@ -197,14 +197,14 @@ public class AdvancedFragment extends BasicFragment{
             }
         };
 
-        powCommands[0] = new Command<Void, Void>(){
+        powCommands[0] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 advanced.clickPowerOfTen();
                 return null;
             }
         };
-        powCommands[1] = new Command<Void, Void>(){
+        powCommands[1] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 advanced.clickExp();
@@ -212,14 +212,14 @@ public class AdvancedFragment extends BasicFragment{
             }
         };
 
-        expCommands[0] = new Command<Void, Void>(){
+        expCommands[0] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 advanced.clickExponent();
                 return null;
             }
         };
-        expCommands[1] = new Command<Void, Void>(){
+        expCommands[1] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 advanced.clickVarRoot();
@@ -227,14 +227,14 @@ public class AdvancedFragment extends BasicFragment{
             }
         };
 
-        logCommands[0] = new Command<Void, Void>(){
+        logCommands[0] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 advanced.clickLog_10();
                 return null;
             }
         };
-        logCommands[1] = new Command<Void, Void>(){
+        logCommands[1] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 advanced.clickLn();
@@ -242,14 +242,14 @@ public class AdvancedFragment extends BasicFragment{
             }
         };
 
-        rootCommands[0] = new Command<Void, Void>(){
+        rootCommands[0] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 advanced.clickSqrt();
                 return null;
             }
         };
-        rootCommands[1] = new Command<Void, Void>(){
+        rootCommands[1] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 advanced.clickCbrt();
@@ -257,14 +257,14 @@ public class AdvancedFragment extends BasicFragment{
             }
         };
 
-        squareCommands[0] = new Command<Void, Void>(){
+        squareCommands[0] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 advanced.clickSquare();
                 return null;
             }
         };
-        squareCommands[1] = new Command<Void, Void>(){
+        squareCommands[1] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 advanced.clickCube();
@@ -307,5 +307,27 @@ public class AdvancedFragment extends BasicFragment{
         buttons.add(rootButton);
         buttons.add(squareButton);
         advanced.setMultiButtons(buttons);
+
+        //Sets the Angle mode button the the appropriate text
+        Button angleModeButton = (Button) v.findViewById(R.id.angle_mode);
+        switch (Function.angleMode) {
+            case Function.DEGREE:
+                angleModeButton.setText("DEG");
+                break;
+            case Function.RADIAN:
+                angleModeButton.setText("RAD");
+                break;
+            case Function.GRADIAN:
+                angleModeButton.setText("GRAD");
+                break;
+        }
+        //Restores the toggle buttons to their states
+        ToggleButton shift = (ToggleButton) v.findViewById(R.id.shift_button);
+        ToggleButton mem = (ToggleButton) v.findViewById(R.id.hyp_button);
+        ToggleButton hyp = (ToggleButton) v.findViewById(R.id.mem_button);
+        shift.setChecked(((Advanced) Advanced.getInstance()).isShift());
+        mem.setChecked(((Advanced) Advanced.getInstance()).isHyperbolic());
+        hyp.setChecked(((Advanced) Advanced.getInstance()).isMem());
+        ((Advanced) Advanced.getInstance()).updateMultiButtons();
     }
 }

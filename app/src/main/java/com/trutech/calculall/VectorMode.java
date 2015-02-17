@@ -1,6 +1,7 @@
 package com.trutech.calculall;
 
 import android.view.View;
+import android.widget.Button;
 import android.widget.ToggleButton;
 
 import java.util.ArrayList;
@@ -88,6 +89,9 @@ public class VectorMode extends Advanced {
             case R.id.equals_button:
                 clickVectorEquals();
                 break;
+            case R.id.angle_mode_vector:
+                clickAngleMode();
+                break;
             case R.id.comma_button:
                 clickComma();
                 break;
@@ -96,6 +100,19 @@ public class VectorMode extends Advanced {
         }
     }
 
+    public void clickAngleMode() {
+        Button angleModeButton = (Button) activity.findViewById(R.id.angle_mode_vector);
+        if (Function.angleMode == Function.GRADIAN) {
+            Function.angleMode = Function.DEGREE;
+            angleModeButton.setText("DEG");
+        } else if (Function.angleMode == Function.RADIAN) {
+            Function.angleMode = Function.GRADIAN;
+            angleModeButton.setText("GRAD");
+        } else if (Function.angleMode == Function.DEGREE) {
+            Function.angleMode = Function.RADIAN;
+            angleModeButton.setText("RAD");
+        }
+    }
 
     public void clickAdd() {
         tokens.add(display.getRealCursorIndex(), VectorOperatorFactory.makeAdd());
