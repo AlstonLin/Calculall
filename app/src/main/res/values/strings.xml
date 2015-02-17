@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="graph_note">Note: All angles are in radians</string>
     <string name="font_size">Font Size</string>
     <string name="mode_key">Mode</string>
     <string name="tokens_key">Tokens</string>
@@ -110,9 +111,6 @@
     <string name="rightArrow">→</string>
     <string name="sqrt">√</string>
     <string name="cbrt">³√</string>
-    <string name="deg">DEG</string>
-    <string name="rad">RAD</string>
-    <string name="grad">GRAD</string>
     <string name="degrees">Degrees</string>
     <string name="radians">Radians</string>
     <string name="gradians">Gradians</string>

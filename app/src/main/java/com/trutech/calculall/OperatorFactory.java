@@ -101,7 +101,11 @@ public class OperatorFactory {
                 if (left % 1 != 0 || right % 1 != 0 || right > left) {
                     throw new IllegalArgumentException();
                 } else {
-                    return Utility.factorial((int) left) / Utility.factorial((int) (left - right));
+                    try {
+                        return Utility.factorial((int) left) / Utility.factorial((int) (left - right));
+                    } catch (StackOverflowError e) {
+                        throw new IllegalArgumentException("The calculation is to large to compute.");
+                    }
                 }
             }
         };
@@ -119,7 +123,11 @@ public class OperatorFactory {
                     } else if (right == left) {
                         return 1;
                     } else {
-                        return Utility.factorial((int) left) / (Utility.factorial((int) right) * Utility.factorial((int) (left - right)));
+                        try {
+                            return Utility.factorial((int) left) / (Utility.factorial((int) right) * Utility.factorial((int) (left - right)));
+                        } catch (StackOverflowError e) {
+                            throw new IllegalArgumentException("The calculation is to large to compute.");
+                        }
                     }
                 }
             }

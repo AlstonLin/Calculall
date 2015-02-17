@@ -8,12 +8,12 @@
     </style>
 
     <style name="buttonLightDavid" parent="android:Widget.Holo.Button.Borderless.Small">
-        <item name ="android:background">@drawable/button_light_david</item>
+        <item name="android:background">@drawable/button_light_david</item>
         <item name="android:textColor">#ffffff</item>
     </style>
 
-    <style name = "buttonSpecialDavid" parent="android:Widget.Holo.Button.Borderless.Small">
-        <item name ="android:background">@drawable/button_special_david</item>
+    <style name="buttonSpecialDavid" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_special_david</item>
         <item name="android:textColor">#ffffff</item>
     </style>
 
@@ -31,13 +31,17 @@
         <item name="buttonFunction">@style/buttonDarkDavid</item>
         <item name="buttonOperator">@style/buttonLightDavid</item>
         <item name="buttonSpecial">@style/buttonSpecialDavid</item>
+        <item name="android:textColor">#FFFFFF</item>
         <item name="buttonNum">@style/buttonNumDavid</item>
         <item name="displayColor">@color/displayTextDavid</item>
         <item name="android:windowNoTitle">true</item>
         <item name="change_img">@drawable/change_white</item>
         <item name="frac_img">@drawable/frac_white</item>
+        <item name="history_img">@drawable/history_white</item>
+        <item name="settings_img">@drawable/settings_white</item>
         <item name="android:buttonStyle">@style/buttonLightDavid</item>
         <item name="android:buttonStyleToggle">@style/toggleDavid</item>
+
     </style>
 
     <!-- THEME ALSTON -->
@@ -47,12 +51,12 @@
     </style>
 
     <style name="buttonLightAlston" parent="android:Widget.Holo.Button.Borderless.Small">
-        <item name ="android:background">@drawable/button_light_alston</item>
+        <item name="android:background">@drawable/button_light_alston</item>
         <item name="android:textColor">#ffffff</item>
     </style>
 
-    <style name = "buttonSpecialAlston" parent="android:Widget.Holo.Button.Borderless.Small">
-        <item name ="android:background">@drawable/button_special_alston</item>
+    <style name="buttonSpecialAlston" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_special_alston</item>
         <item name="android:textColor">#000000</item>
     </style>
 
@@ -78,6 +82,8 @@
         <item name="android:buttonStyleToggle">@style/toggleAlston</item>
         <item name="change_img">@drawable/change_black</item>
         <item name="frac_img">@drawable/frac_white</item>
+        <item name="history_img">@drawable/history_white</item>
+        <item name="settings_img">@drawable/settings_white</item>
     </style>
 
     <!-- THEME CLASSIC-->
@@ -87,12 +93,12 @@
     </style>
 
     <style name="buttonLightPanda" parent="android:Widget.Holo.Button.Borderless.Small">
-        <item name ="android:background">@drawable/button_light_panda</item>
+        <item name="android:background">@drawable/button_light_panda</item>
         <item name="android:textColor">#ffffff</item>
     </style>
 
-    <style name = "buttonSpecialPanda" parent="android:Widget.Holo.Button.Borderless.Small">
-        <item name ="android:background">@drawable/button_special_panda</item>
+    <style name="buttonSpecialPanda" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_special_panda</item>
         <item name="android:textColor">#ffffff</item>
     </style>
 
@@ -118,6 +124,8 @@
         <item name="android:buttonStyleToggle">@style/togglePanda</item>
         <item name="change_img">@drawable/change_white</item>
         <item name="frac_img">@drawable/frac_white</item>
+        <item name="history_img">@drawable/history_white</item>
+        <item name="settings_img">@drawable/settings_white</item>
     </style>
 
     <!-- THEME TRAILBLAZER-->
@@ -127,12 +135,12 @@
     </style>
 
     <style name="buttonLightTrailblazer" parent="android:Widget.Holo.Button.Borderless.Small">
-        <item name ="android:background">@drawable/button_light_trailblazer</item>
+        <item name="android:background">@drawable/button_light_trailblazer</item>
         <item name="android:textColor">#FFFFFF</item>
     </style>
 
-    <style name = "buttonSpecialTrailblazer" parent="android:Widget.Holo.Button.Borderless.Small">
-        <item name ="android:background">@drawable/button_special_trailblazer</item>
+    <style name="buttonSpecialTrailblazer" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_special_trailblazer</item>
         <item name="android:textColor">#ffffff</item>
     </style>
 
@@ -158,6 +166,138 @@
         <item name="android:buttonStyleToggle">@style/toggleTrailblazer</item>
         <item name="change_img">@drawable/change_white</item>
         <item name="frac_img">@drawable/frac_white</item>
+        <item name="history_img">@drawable/history_white</item>
+        <item name="settings_img">@drawable/settings_white</item>
+    </style>
+
+
+    <!-- THEME HAWKS-->
+    <style name="buttonDarkHawks" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_dark_hawks</item>
+        <item name="android:textColor">#FF9100</item>
+    </style>
+
+    <style name="buttonLightHawks" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_light_hawks</item>
+        <item name="android:textColor">#000000</item>
+    </style>
+
+    <style name="buttonSpecialHawks" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_special_hawks</item>
+        <item name="android:textColor">#4527A0</item>
+    </style>
+
+    <style name="buttonNumHawks" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_dark_hawks</item>
+        <item name="android:textColor">#FF9100</item>
+    </style>
+
+    <style name="toggleHawks" parent="android:Widget.Holo.Button.Toggle">
+        <item name="android:background">@drawable/toggle_hawks</item>
+        <item name="android:textColor">#000000</item>
+    </style>
+
+    <style name="hawks" parent="android:Theme.Holo">
+        <item name="android:colorBackground">@color/backgroundHawks</item>
+        <item name="buttonFunction">@style/buttonLightHawks</item>
+        <item name="buttonOperator">@style/buttonDarkHawks</item>
+        <item name="buttonSpecial">@style/buttonSpecialHawks</item>
+        <item name="android:textColor">#000000</item>
+        <item name="buttonNum">@style/buttonNumHawks</item>
+        <item name="displayColor">@color/displayTextHawks</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:buttonStyle">@style/buttonDarkHawks</item>
+        <item name="android:buttonStyleToggle">@style/toggleHawks</item>
+        <item name="change_img">@drawable/change_black</item>
+        <item name="frac_img">@drawable/frac_black</item>
+        <item name="history_img">@drawable/history_black</item>
+        <item name="settings_img">@drawable/settings_black</item>
+    </style>
+
+    <!-- THEME GEESE-->
+    <style name="buttonDarkGeese" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_dark_geese</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <style name="buttonLightGeese" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_light_geese</item>
+        <item name="android:textColor">#000000</item>
+    </style>
+
+    <style name="buttonSpecialGeese" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_special_geese</item>
+        <item name="android:textColor">#FFEB3B</item>
+    </style>
+
+    <style name="buttonNumGeese" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_light_geese</item>
+        <item name="android:textColor">#FF9100</item>
+    </style>
+
+    <style name="toggleGeese" parent="android:Widget.Holo.Button.Toggle">
+        <item name="android:background">@drawable/toggle_geese</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <style name="geese" parent="android:Theme.Holo">
+        <item name="android:colorBackground">@color/backgroundGeese</item>
+        <item name="buttonFunction">@style/buttonDarkGeese</item>
+        <item name="buttonOperator">@style/buttonLightGeese</item>
+        <item name="buttonSpecial">@style/buttonSpecialGeese</item>
+        <item name="android:textColor">#000000</item>
+        <item name="buttonNum">@style/buttonNumGeese</item>
+        <item name="displayColor">@color/displayTextGeese</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:buttonStyle">@style/buttonLightGeese</item>
+        <item name="android:buttonStyleToggle">@style/toggleGeese</item>
+        <item name="change_img">@drawable/change_white</item>
+        <item name="frac_img">@drawable/frac_white</item>
+        <item name="history_img">@drawable/history_white</item>
+        <item name="settings_img">@drawable/settings_white</item>
+    </style>
+
+    <!-- THEME SUNSET-->
+    <style name="buttonDarkSunset" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_dark_sunset</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <style name="buttonLightSunset" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_light_sunset</item>
+        <item name="android:textColor">#000000</item>
+    </style>
+
+    <style name="buttonSpecialSunset" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_special_sunset</item>
+        <item name="android:textColor">#DD2C00</item>
+    </style>
+
+    <style name="buttonNumSunset" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_dark_sunset</item>
+        <item name="android:textColor">#FFEB3B</item>
+    </style>
+
+    <style name="toggleSunset" parent="android:Widget.Holo.Button.Toggle">
+        <item name="android:background">@drawable/toggle_sunset</item>
+        <item name="android:textColor">#000000</item>
+    </style>
+
+    <style name="sunset" parent="android:Theme.Holo">
+        <item name="android:colorBackground">@color/backgroundSunset</item>
+        <item name="buttonFunction">@style/buttonLightSunset</item>
+        <item name="buttonOperator">@style/buttonDarkSunset</item>
+        <item name="buttonSpecial">@style/buttonSpecialSunset</item>
+        <item name="android:textColor">#000000</item>
+        <item name="buttonNum">@style/buttonNumSunset</item>
+        <item name="displayColor">@color/displayTextSunset</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:buttonStyle">@style/buttonDarkSunset</item>
+        <item name="android:buttonStyleToggle">@style/toggleSunset</item>
+        <item name="change_img">@drawable/change_black</item>
+        <item name="frac_img">@drawable/frac_black</item>
+        <item name="history_img">@drawable/history_black</item>
+        <item name="settings_img">@drawable/settings_black</item>
     </style>
 
 </resources>

@@ -16,9 +16,7 @@ import java.util.LinkedList;
  * @version Alpha 2.0
  */
 public class Advanced extends Basic {
-    //CONSTANTS
-    public static final int DEGREE = 1, RADIAN = 2, GRADIAN = 3; //angleMode options
-    protected int angleMode = DEGREE;
+
     public static final int DEC = 1, FRAC = 2;
     private int fracMode = DEC;
 
@@ -123,7 +121,8 @@ public class Advanced extends Basic {
             if (fracMode == DEC) {
                 super.clickEquals();
             } else if (fracMode == FRAC) {
-                ArrayList<Token> output = JFok.simplifyExpression(tokens);
+                ArrayList<Token> output = Utility.subVariables(tokens);
+                output = JFok.simplifyExpression(output);
                 //TEMP
                 double actualOutput = Utility.process(tokens);
                 double fracOutput = Utility.process(output);
@@ -142,15 +141,15 @@ public class Advanced extends Basic {
 
     public void clickAngleMode() {
         Button angleModeButton = (Button) activity.findViewById(R.id.angle_mode);
-        if (angleMode == GRADIAN) {
-            angleMode = DEGREE;
-            angleModeButton.setText(activity.getString(R.string.deg));
-        } else if (angleMode == RADIAN) {
-            angleMode = GRADIAN;
-            angleModeButton.setText(activity.getString(R.string.grad));
-        } else if (angleMode == DEGREE) {
-            angleMode = RADIAN;
-            angleModeButton.setText(activity.getString(R.string.rad));
+        if (Function.angleMode == Function.GRADIAN) {
+            Function.angleMode = Function.DEGREE;
+            angleModeButton.setText("DEG");
+        } else if (Function.angleMode == Function.RADIAN) {
+            Function.angleMode = Function.GRADIAN;
+            angleModeButton.setText("GRAD");
+        } else if (Function.angleMode == Function.DEGREE) {
+            Function.angleMode = Function.RADIAN;
+            angleModeButton.setText("RAD");
         }
     }
 
@@ -171,11 +170,7 @@ public class Advanced extends Basic {
         ToggleButton hypButton = (ToggleButton) activity.findViewById(R.id.hyp_button);
         hyperbolic = !hyperbolic;
         hypButton.setChecked(hyperbolic);
-        //Changes the mode for all the Buttons
-        for (MultiButton b : multiButtons) {
-            b.changeMode(shift, hyperbolic);
-        }
-        hypButton.setChecked(hyperbolic);
+        updateMultiButtons();
         updateInput();
     }
 
@@ -187,10 +182,17 @@ public class Advanced extends Basic {
         ToggleButton shiftButton = (ToggleButton) activity.findViewById(R.id.shift_button);
         shiftButton.setChecked(shift);
         //Changes the mode for all the Buttons
+        updateMultiButtons();
+        updateInput();
+    }
+
+    /**
+     * Changes all the MultiButtons in the layout and updates them according to the current toggle button values.
+     */
+    public void updateMultiButtons() {
         for (MultiButton b : multiButtons) {
             b.changeMode(shift, hyperbolic);
         }
-        updateInput();
     }
 
     /**
@@ -323,11 +325,6 @@ public class Advanced extends Basic {
         exp.addDependency(closeBracket);
         display.setCursorIndex(display.getCursorIndex() + 4);
         updateInput();
-    }
-
-
-    public int getAngleMode() {
-        return angleMode;
     }
 
     /**
@@ -505,10 +502,78 @@ public class Advanced extends Basic {
         updateInput();
     }
 
+
+    /**
+     * Gets the index where the fraction starts.
+     *
+     * @param expression The expression to look at
+     * @param numClose   The index where the closing bracket would be placed
+     * @return The index where the NUM_OPEN bracket should go
+     */
+    private int getFracStart(ArrayList<Token> expression, int numClose) {
+        Token tokenBefore = expression.get(numClose - 1);
+        if (tokenBefore instanceof Digit || tokenBefore instanceof Variable) {
+            LinkedList<Token> digits = new LinkedList<>();
+            int i = numClose - 1;
+            if (tokenBefore instanceof Variable) {
+                while (i >= 0 && expression.get(i) instanceof Variable) {
+                    i--;
+                }
+            } else { //Digit
+                while (i >= 0 && expression.get(i) instanceof Digit) {
+                    i--;
+                }
+            }
+            return i + 1;
+        } else if (tokenBefore instanceof Bracket && tokenBefore.getType() == Bracket.CLOSE) {
+            int i = numClose - 2;
+            int bracketCount = 1;
+            while (i >= 0 && bracketCount != 0) {
+                Token t = expression.get(i);
+                if (t instanceof Bracket) {
+                    Bracket b = (Bracket) t;
+                    if (b.getType() == Bracket.OPEN) {
+                        bracketCount--;
+                    } else if (b.getType() == Bracket.CLOSE) {
+                        bracketCount++;
+                    }
+                }
+                i--;
+            }
+            //Includes the function if there is one
+            if (i >= 0 && expression.get(i) instanceof Function) {
+                i--;
+            }
+            return i + 1;
+        } else if (tokenBefore instanceof Bracket && tokenBefore.getType() == Bracket.SUPERSCRIPT_CLOSE) {
+            //Goes to the token before the start of the superscript
+            int i = numClose - 2;
+            int bracketCount = 1;
+            while (i >= 0 && bracketCount != 0) {
+                Token t = expression.get(i);
+                if (t instanceof Bracket) {
+                    Bracket b = (Bracket) t;
+                    if (b.getType() == Bracket.SUPERSCRIPT_OPEN) {
+                        bracketCount--;
+                    } else if (b.getType() == Bracket.SUPERSCRIPT_CLOSE) {
+                        bracketCount++;
+                    }
+                }
+                i--;
+            }
+            //Frac will start at whatever it wouldve been at what the exponent is over
+            return getFracStart(expression, i);
+        } else {
+            return numClose;
+        }
+    }
+
     /**
      * When the user presses the FRAC Button.
      */
     public void clickFrac() {
+        Token fracOpen = BracketFactory.makeFracOpen();
+        Token fracClose = BracketFactory.makeFracClose();
         Token frac = OperatorFactory.makeFraction();
         Token numOpenBracket = BracketFactory.makeNumOpen();
         Token numCloseBracket = BracketFactory.makeNumClose();
@@ -520,95 +585,39 @@ public class Advanced extends Basic {
         frac.addDependency(denomOpenBracket);
         frac.addDependency(denomCloseBracket);
 
-
-        if (display.getRealCursorIndex() == 0) {
-            tokens.add(display.getRealCursorIndex(), numOpenBracket);
-            tokens.add(display.getRealCursorIndex() + 1, PlaceholderFactory.makeSuperscriptBlock());
-            display.setCursorIndex(display.getCursorIndex() + 1);
-        } else {
-            //Whats on the numerator depends on the token before
-            Token tokenBefore = tokens.get(display.getRealCursorIndex() - 1);
-            if (tokenBefore instanceof Digit || tokenBefore instanceof Variable) {
-                LinkedList<Token> digits = new LinkedList<>();
-                int i = display.getRealCursorIndex() - 1;
-                if (tokenBefore instanceof Variable) {
-                    while (i >= 0 && tokens.get(i) instanceof Variable) {
-                        Token t = tokens.get(i);
-                        digits.addFirst(t);
-                        tokens.remove(t);
-                        i--;
-                    }
-                } else { //Digit
-                    while (i >= 0 && tokens.get(i) instanceof Digit) {
-                        Token t = tokens.get(i);
-                        digits.addFirst(t);
-                        tokens.remove(t);
-                        i--;
-                    }
-                }
-                tokens.add(display.getRealCursorIndex() - digits.size(), numOpenBracket);
-                tokens.addAll(display.getRealCursorIndex() - digits.size() + 1, digits);
-
-                tokens.add(display.getRealCursorIndex() + 1, numCloseBracket);
-                tokens.add(display.getRealCursorIndex() + 2, frac);
-                tokens.add(display.getRealCursorIndex() + 3, denomOpenBracket);
-                Placeholder p = PlaceholderFactory.makeSuperscriptBlock();
-                tokens.add(display.getRealCursorIndex() + 4, p);
-                tokens.add(display.getRealCursorIndex() + 5, denomCloseBracket);
-                frac.addDependency(p);
-                display.setCursorIndex(display.getCursorIndex() + 2);
-                return;
-            } else if (tokenBefore instanceof Bracket && ((Bracket) tokenBefore).getType() == Bracket.CLOSE) {
-                LinkedList<Token> expression = new LinkedList<Token>();
-                int i = display.getRealCursorIndex() - 2;
-                int bracketCount = 1;
-                expression.add(tokens.remove(display.getRealCursorIndex() - 1));
-                while (i >= 0 && bracketCount != 0) {
-                    Token t = tokens.remove(i);
-                    if (t instanceof Bracket) {
-                        Bracket b = (Bracket) t;
-                        if (b.getType() == Bracket.OPEN) {
-                            bracketCount--;
-                        } else if (b.getType() == Bracket.CLOSE) {
-                            bracketCount++;
-                        }
-                    }
-                    expression.addFirst(t);
-                    i--;
-                }
-                //Includes the function if there is one
-                if (i >= 0 && tokens.get(i) instanceof Function) {
-                    expression.addFirst(tokens.remove(i));
-                    i--;
-                }
-                tokens.add(i + 1, numOpenBracket);
-                tokens.addAll(i + 2, expression);
-
-                tokens.add(display.getRealCursorIndex() + 1, numCloseBracket);
-                tokens.add(display.getRealCursorIndex() + 2, frac);
-                tokens.add(display.getRealCursorIndex() + 3, denomOpenBracket);
-                Placeholder p = PlaceholderFactory.makeSuperscriptBlock();
-                tokens.add(display.getRealCursorIndex() + 4, p);
-                tokens.add(display.getRealCursorIndex() + 5, denomCloseBracket);
-                frac.addDependency(p);
-                display.setCursorIndex(display.getCursorIndex() + 2);
-                return;
-
-            } else {
-                tokens.add(display.getRealCursorIndex(), numOpenBracket);
-                Placeholder p = PlaceholderFactory.makeSuperscriptBlock();
-                tokens.add(display.getRealCursorIndex() + 1, p);
-                frac.addDependency(p);
-            }
-        }
-        tokens.add(display.getRealCursorIndex() + 2, numCloseBracket);
-        tokens.add(display.getRealCursorIndex() + 3, frac);
-        tokens.add(display.getRealCursorIndex() + 4, denomOpenBracket);
         Placeholder p = PlaceholderFactory.makeSuperscriptBlock();
-        tokens.add(display.getRealCursorIndex() + 5, p);
-        tokens.add(display.getRealCursorIndex() + 6, denomCloseBracket);
-        display.setCursorIndex(display.getCursorIndex() + 1);
-        frac.addDependency(p);
+
+        if (display.getRealCursorIndex() == 0) { //Empty Expression
+            tokens.add(display.getRealCursorIndex(), fracOpen);
+            tokens.add(display.getRealCursorIndex() + 1, numOpenBracket);
+            tokens.add(display.getRealCursorIndex() + 2, PlaceholderFactory.makeSuperscriptBlock());
+            tokens.add(display.getRealCursorIndex() + 3, numCloseBracket);
+            tokens.add(display.getRealCursorIndex() + 4, frac);
+            tokens.add(display.getRealCursorIndex() + 5, denomOpenBracket);
+            tokens.add(display.getRealCursorIndex() + 6, p);
+            tokens.add(display.getRealCursorIndex() + 7, denomCloseBracket);
+            tokens.add(display.getRealCursorIndex() + 8, fracClose);
+            display.setCursorIndex(display.getCursorIndex() + 2);
+            frac.addDependency(p);
+        } else {
+            int startIndex = getFracStart(tokens, display.getRealCursorIndex());
+            //Removes the numerator from the expression
+            ArrayList<Token> inside = new ArrayList<>();
+            for (int i = 0; i < display.getRealCursorIndex() - startIndex; i++) {
+                inside.add(tokens.remove(startIndex));
+            }
+            tokens.add(startIndex, fracOpen);
+            tokens.add(startIndex + 1, numOpenBracket);
+            tokens.addAll(startIndex + 2, inside);
+            tokens.add(display.getRealCursorIndex() + 2, numCloseBracket);
+            tokens.add(display.getRealCursorIndex() + 3, frac);
+            tokens.add(display.getRealCursorIndex() + 4, denomOpenBracket);
+            tokens.add(display.getRealCursorIndex() + 5, p);
+            tokens.add(display.getRealCursorIndex() + 6, denomCloseBracket);
+            tokens.add(display.getRealCursorIndex() + 7, fracClose);
+            display.setCursorIndex(display.getCursorIndex() + 2);
+            frac.addDependency(p);
+        }
         updateInput();
     }
 
@@ -664,14 +673,7 @@ public class Advanced extends Basic {
      * When the user presses the sin(x) Button.
      */
     public void clickSin() {
-        Token t = null;
-        if (angleMode == DEGREE) {
-            t = FunctionFactory.makeSinD();
-        } else if (angleMode == RADIAN) {
-            t = FunctionFactory.makeSinR();
-        } else if (angleMode == GRADIAN) {
-            t = FunctionFactory.makeSinG();
-        }
+        Token t = FunctionFactory.makeSin();
         Bracket b = BracketFactory.makeOpenBracket();
         if (t != null) {
             t.addDependency(b);
@@ -686,14 +688,7 @@ public class Advanced extends Basic {
      * When the user presses the arcsin(x) or sin^-1(x) Button.
      */
     public void clickASin() {
-        Token t = null;
-        if (angleMode == DEGREE) {
-            t = FunctionFactory.makeASinD();
-        } else if (angleMode == RADIAN) {
-            t = FunctionFactory.makeASinR();
-        } else if (angleMode == GRADIAN) {
-            t = FunctionFactory.makeASinG();
-        }
+        Token t = FunctionFactory.makeASin();
         Bracket b = BracketFactory.makeOpenBracket();
         if (t != null) {
             t.addDependency(b);
@@ -708,14 +703,7 @@ public class Advanced extends Basic {
      * When the user presses the cos(x) Button.
      */
     public void clickCos() {
-        Token t = null;
-        if (angleMode == DEGREE) {
-            t = FunctionFactory.makeCosD();
-        } else if (angleMode == RADIAN) {
-            t = FunctionFactory.makeCosR();
-        } else if (angleMode == GRADIAN) {
-            t = FunctionFactory.makeCosG();
-        }
+        Token t = FunctionFactory.makeCos();
         Bracket b = BracketFactory.makeOpenBracket();
         if (t != null) {
             t.addDependency(b);
@@ -730,14 +718,7 @@ public class Advanced extends Basic {
      * When the user presses the arccos(x) or cos^-1(x) Button.
      */
     public void clickACos() {
-        Token t = null;
-        if (angleMode == DEGREE) {
-            t = FunctionFactory.makeACosD();
-        } else if (angleMode == RADIAN) {
-            t = FunctionFactory.makeACosR();
-        } else if (angleMode == GRADIAN) {
-            t = FunctionFactory.makeACosG();
-        }
+        Token t = FunctionFactory.makeACos();
         Bracket b = BracketFactory.makeOpenBracket();
         if (t != null) {
             t.addDependency(b);
@@ -752,14 +733,7 @@ public class Advanced extends Basic {
      * When the user presses the tan(x) Button.
      */
     public void clickTan() {
-        Token t = null;
-        if (angleMode == DEGREE) {
-            t = FunctionFactory.makeTanD();
-        } else if (angleMode == RADIAN) {
-            t = FunctionFactory.makeTanR();
-        } else if (angleMode == GRADIAN) {
-            t = FunctionFactory.makeTanG();
-        }
+        Token t = FunctionFactory.makeTan();
         Bracket b = BracketFactory.makeOpenBracket();
         if (t != null) {
             t.addDependency(b);
@@ -774,14 +748,7 @@ public class Advanced extends Basic {
      * When the user presses the arctan(x) or tan^-1(x) Button.
      */
     public void clickATan() {
-        Token t = null;
-        if (angleMode == DEGREE) {
-            t = FunctionFactory.makeATanD();
-        } else if (angleMode == RADIAN) {
-            t = FunctionFactory.makeATanR();
-        } else if (angleMode == GRADIAN) {
-            t = FunctionFactory.makeATanG();
-        }
+        Token t = FunctionFactory.makeATan();
         Bracket b = BracketFactory.makeOpenBracket();
         if (t != null) {
             t.addDependency(b);
@@ -912,5 +879,17 @@ public class Advanced extends Basic {
         exponent.addDependency(closeBracket);
         display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
+    }
+
+    public boolean isShift() {
+        return shift;
+    }
+
+    public boolean isMem() {
+        return mem;
+    }
+
+    public boolean isHyperbolic() {
+        return hyperbolic;
     }
 }

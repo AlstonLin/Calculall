@@ -11,8 +11,8 @@ import java.util.ArrayList;
 /**
  * Utilities specifically for calculus related functions.
  *
- * @version Alpha 2.0
  * @author Alston Lin
+ * @version Alpha 2.0
  */
 public class MathUtilities {
     private static EvalUtilities util = new EvalUtilities(false, true);
@@ -121,7 +121,7 @@ public class MathUtilities {
         String str = "Simplify(integrate(" + function + ",x))";
         IExpr integral = util.evaluate(str);
         if (integral.toString().contains("Integrate")) { //Could not integrate into an elementary funct
-        // ion
+            // ion
             throw new UnsupportedOperationException();
         }
         return integral.toString();
@@ -184,15 +184,15 @@ public class MathUtilities {
                         //Looks for combinations of characters for functions
                         switch (temp) {
                             case "Sin":
-                                tokens.add(FunctionFactory.makeSinR());
+                                tokens.add(FunctionFactory.makeSin());
                                 temp = "";
                                 break;
                             case "Cos":
-                                tokens.add(FunctionFactory.makeCosR());
+                                tokens.add(FunctionFactory.makeCos());
                                 temp = "";
                                 break;
                             case "Tan":
-                                tokens.add(FunctionFactory.makeTanR());
+                                tokens.add(FunctionFactory.makeTan());
                                 temp = "";
                                 break;
                             case "Csc":
@@ -220,15 +220,15 @@ public class MathUtilities {
                                 temp = "";
                                 break;
                             case "ArcSin":
-                                tokens.add(FunctionFactory.makeASinR());
+                                tokens.add(FunctionFactory.makeASin());
                                 temp = "";
                                 break;
                             case "ArcCos":
-                                tokens.add(FunctionFactory.makeACosR());
+                                tokens.add(FunctionFactory.makeACos());
                                 temp = "";
                                 break;
                             case "ArcTan":
-                                tokens.add(FunctionFactory.makeATanR());
+                                tokens.add(FunctionFactory.makeATan());
                                 temp = "";
                                 break;
                             case "Log":
@@ -411,7 +411,7 @@ public class MathUtilities {
             //Validates the roots (makes sure that it is actually a root)
             for (int i = 0; i < rootsList.size(); i++) {
                 ArrayList<Token> root = rootsList.get(i);
-                float value = (float)Utility.valueAt(expression, Utility.evaluateExpression(Utility.convertToReversePolish(Utility.setupExpression(root))));
+                float value = (float) Utility.valueAt(expression, Utility.evaluateExpression(Utility.convertToReversePolish(Utility.setupExpression(root))));
                 final float ERROR_MARGIN = 1e-6f;
                 if (!(value > -ERROR_MARGIN && value < ERROR_MARGIN)) {
                     rootsList.remove(root);

@@ -7,13 +7,14 @@ import android.text.SpannedString;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ToggleButton;
 
 import java.util.ArrayList;
 
 /**
  * Defines the UI for FunctionMode.
  */
-public class FunctionFragment extends BasicFragment{
+public class FunctionFragment extends BasicFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         activity = (MainActivity) getActivity();
@@ -88,28 +89,28 @@ public class FunctionFragment extends BasicFragment{
         squareStrings[1] = Html.fromHtml(activity.getString(R.string.cube));
         //Sets the commands
         final FunctionMode functionMode = (FunctionMode) FunctionMode.getInstance();
-        sinCommands[0] = new Command<Void, Void>(){
+        sinCommands[0] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 functionMode.clickSin();
                 return null;
             }
         };
-        sinCommands[1] = new Command<Void, Void>(){
+        sinCommands[1] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 functionMode.clickASin();
                 return null;
             }
         };
-        sinCommands[2] = new Command<Void, Void>(){
+        sinCommands[2] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 functionMode.clickSinh();
                 return null;
             }
         };
-        sinCommands[3] = new Command<Void, Void>(){
+        sinCommands[3] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 functionMode.clickASinh();
@@ -117,28 +118,28 @@ public class FunctionFragment extends BasicFragment{
             }
         };
 
-        cosCommands[0] = new Command<Void, Void>(){
+        cosCommands[0] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 functionMode.clickCos();
                 return null;
             }
         };
-        cosCommands[1] = new Command<Void, Void>(){
+        cosCommands[1] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 functionMode.clickACos();
                 return null;
             }
         };
-        cosCommands[2] = new Command<Void, Void>(){
+        cosCommands[2] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 functionMode.clickCosh();
                 return null;
             }
         };
-        cosCommands[3] = new Command<Void, Void>(){
+        cosCommands[3] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 functionMode.clickACosh();
@@ -146,28 +147,28 @@ public class FunctionFragment extends BasicFragment{
             }
         };
 
-        tanCommands[0] = new Command<Void, Void>(){
+        tanCommands[0] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 functionMode.clickTan();
                 return null;
             }
         };
-        tanCommands[1] = new Command<Void, Void>(){
+        tanCommands[1] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 functionMode.clickATan();
                 return null;
             }
         };
-        tanCommands[2] = new Command<Void, Void>(){
+        tanCommands[2] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 functionMode.clickTanh();
                 return null;
             }
         };
-        tanCommands[3] = new Command<Void, Void>(){
+        tanCommands[3] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 functionMode.clickATanh();
@@ -175,14 +176,14 @@ public class FunctionFragment extends BasicFragment{
             }
         };
 
-        powCommands[0] = new Command<Void, Void>(){
+        powCommands[0] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 functionMode.clickPowerOfTen();
                 return null;
             }
         };
-        powCommands[1] = new Command<Void, Void>(){
+        powCommands[1] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 functionMode.clickExp();
@@ -190,14 +191,14 @@ public class FunctionFragment extends BasicFragment{
             }
         };
 
-        expCommands[0] = new Command<Void, Void>(){
+        expCommands[0] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 functionMode.clickExponent();
                 return null;
             }
         };
-        expCommands[1] = new Command<Void, Void>(){
+        expCommands[1] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 functionMode.clickVarRoot();
@@ -205,14 +206,14 @@ public class FunctionFragment extends BasicFragment{
             }
         };
 
-        logCommands[0] = new Command<Void, Void>(){
+        logCommands[0] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 functionMode.clickLog_10();
                 return null;
             }
         };
-        logCommands[1] = new Command<Void, Void>(){
+        logCommands[1] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 functionMode.clickLn();
@@ -220,14 +221,14 @@ public class FunctionFragment extends BasicFragment{
             }
         };
 
-        rootCommands[0] = new Command<Void, Void>(){
+        rootCommands[0] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 functionMode.clickSqrt();
                 return null;
             }
         };
-        rootCommands[1] = new Command<Void, Void>(){
+        rootCommands[1] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 functionMode.clickCbrt();
@@ -235,14 +236,14 @@ public class FunctionFragment extends BasicFragment{
             }
         };
 
-        squareCommands[0] = new Command<Void, Void>(){
+        squareCommands[0] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 functionMode.clickSquare();
                 return null;
             }
         };
-        squareCommands[1] = new Command<Void, Void>(){
+        squareCommands[1] = new Command<Void, Void>() {
             @Override
             public Void execute(Void o) {
                 functionMode.clickCube();
@@ -281,5 +282,12 @@ public class FunctionFragment extends BasicFragment{
         buttons.add(rootButton);
         buttons.add(squareButton);
         functionMode.setMultiButtons(buttons);
+
+        //Restores the toggle buttons to their states
+        ToggleButton shift = (ToggleButton) layout.findViewById(R.id.shift_button);
+        ToggleButton hyp = (ToggleButton) layout.findViewById(R.id.hyp_button);
+        shift.setChecked(((FunctionMode) FunctionMode.getInstance()).isShift());
+        hyp.setChecked(((FunctionMode) FunctionMode.getInstance()).isHyperbolic());
+        ((FunctionMode) FunctionMode.getInstance()).updateMultiButtons();
     }
 }

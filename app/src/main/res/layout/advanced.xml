@@ -52,7 +52,7 @@
             android:paddingRight="5dp"
             android:paddingTop="5dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/settings_white"
+            android:src="?settings_img"
             android:textSize="20sp" />
 
 
@@ -81,7 +81,7 @@
             android:paddingRight="5dp"
             android:paddingTop="5dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/history_white"
+            android:src="?history_img"
             android:textSize="20sp" />
 
     </LinearLayout>
@@ -173,7 +173,6 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:onClick="onClick"
-            android:text="@string/deg"
             android:textSize="16sp" />
 
         <com.trutech.calculall.MultiButton
@@ -319,7 +318,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="5"
+        android:layout_weight="4"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -472,6 +471,7 @@
                     android:onClick="onClick"
                     android:text="@string/decimal"
                     android:textSize="30sp" />
+
                 <Button
                     android:id="@+id/negative_button"
                     style="?attr/buttonOperator"
@@ -615,6 +615,7 @@
                     android:textSize="30sp" />
 
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/operator_row5"
                 android:layout_width="match_parent"

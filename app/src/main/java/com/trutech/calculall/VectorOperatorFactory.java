@@ -105,20 +105,26 @@ public class VectorOperatorFactory {
                     Vector rightVector = (Vector) right;
                     if (leftVector.getDimensions() == rightVector.getDimensions()) {
                         double result;
-                        result = Math.acos((VectorUtilities.findDotProduct(leftVector, rightVector))
-                                / (VectorUtilities.calculateMagnitude(leftVector) * VectorUtilities.calculateMagnitude(rightVector)));
+                        double magnitudes = (VectorUtilities.calculateMagnitude(leftVector) * VectorUtilities.calculateMagnitude(rightVector));
+                        double arccos = (VectorUtilities.findDotProduct(leftVector, rightVector))
+                                / magnitudes;
+                        //Fixes the rounding issue when the result is close to 1
+                        if (Math.abs(1 - arccos) < 1e-5) {
+                            arccos = 1;
+                        }
+                        result = Math.acos(arccos);
                         //Switched depending on angle mode
                         if (Double.isNaN(result)) {
                             result = 0d;
                         }
-                        switch (((VectorMode) VectorMode.getInstance()).getAngleMode()) {
-                            case VectorMode.DEGREE:
+                        switch (Function.angleMode) {
+                            case Function.DEGREE:
                                 result *= (180 / Math.PI);
                                 break;
-                            case VectorMode.RADIAN:
+                            case Function.RADIAN:
                                 //Deos nothing
                                 break;
-                            case VectorMode.GRADIAN:
+                            case Function.GRADIAN:
                                 result *= (200 / Math.PI);
                                 break;
                         }

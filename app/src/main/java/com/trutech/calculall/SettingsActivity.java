@@ -32,7 +32,7 @@ public class SettingsActivity extends Activity implements CompoundButton.OnCheck
 
 
     //Constants
-    public static final int DAVID = 0, ALSTON = 1, PANDA = 2, TRAILBLAZER = 3;
+    public static final int DAVID = 0, ALSTON = 1, PANDA = 2, TRAILBLAZER = 3, HAWKS = 4, GEESE = 5, SUNSET = 6;
     public static final int MIN_DIGITS = 5, MAX_DIGITS = 12;
     public static final Integer[] FONT_SIZES = {42, 48, 64, 72, 84, 96, 108, 120};
     public static final String TRUTECH_URL = "http://www.trutechinnovations.com", REPORT_URL = "http://www.trutechinnovations.com/report", UPGRADE_URL = "http://www.trutechinnovations.com";
@@ -72,8 +72,17 @@ public class SettingsActivity extends Activity implements CompoundButton.OnCheck
             case TRAILBLAZER:
                 setTheme(R.style.trailblazer);
                 break;
+            case HAWKS:
+                setTheme(R.style.hawks);
+                break;
+            case GEESE:
+                setTheme(R.style.geese);
+                break;
+            case SUNSET:
+                setTheme(R.style.sunset);
+                break;
             default:
-                throw new IllegalStateException();
+                throw new IllegalStateException("Illegal Theme");
         }
         setContentView(R.layout.settings);
         setupDecimalSpinner();
@@ -100,6 +109,7 @@ public class SettingsActivity extends Activity implements CompoundButton.OnCheck
                 editor.putInt(getString(R.string.round_to), roundTo);
                 editor.apply();
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
@@ -214,7 +224,7 @@ public class SettingsActivity extends Activity implements CompoundButton.OnCheck
         popup.showAtLocation(findViewById(R.id.container), Gravity.CENTER, 0, 0);
         //Sets up the theme
         GridView gv = (GridView) layout.findViewById(R.id.themes_grid);
-        adapter =new ImageAdapter(currentTheme);
+        adapter = new ImageAdapter(currentTheme);
         gv.setAdapter(adapter);
         gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -233,14 +243,14 @@ public class SettingsActivity extends Activity implements CompoundButton.OnCheck
      *
      * @param v Not Used
      */
-    public void clickExitTheme(View v){
-        if (adapter.currentTheme != currentTheme){ //Need to change themes
+    public void clickExitTheme(View v) {
+        if (adapter.currentTheme != currentTheme) { //Need to change themes
             SharedPreferences.Editor editor = pref.edit();
             editor.putInt(getString(R.string.theme), adapter.currentTheme);
             editor.apply();
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
-        }else{
+        } else {
             popup.dismiss();
         }
     }
@@ -262,7 +272,8 @@ public class SettingsActivity extends Activity implements CompoundButton.OnCheck
     private class ImageAdapter extends BaseAdapter {
         private LayoutInflater mInflater;
         private int currentTheme;
-        private int[] images = {R.drawable.david_theme, R.drawable.alston_theme, R.drawable.panda_theme, R.drawable.trailblazer_theme};
+        private int[] images = {R.drawable.david_theme, R.drawable.alston_theme, R.drawable.panda_theme, R.drawable.trailblazer_theme, R.drawable.hawks_theme,
+                R.drawable.geese_theme, R.drawable.sunset_theme};
         private CheckBox[] boxes = new CheckBox[images.length];
 
         public ImageAdapter(int currentTheme) {
@@ -290,8 +301,7 @@ public class SettingsActivity extends Activity implements CompoundButton.OnCheck
                 holder.imageview = (ImageView) convertView.findViewById(R.id.thumbImage);
                 holder.checkbox = (CheckBox) convertView.findViewById(R.id.itemCheckBox);
                 convertView.setTag(holder);
-            }
-            else {
+            } else {
                 holder = (ViewHolder) convertView.getTag();
             }
 
@@ -311,7 +321,7 @@ public class SettingsActivity extends Activity implements CompoundButton.OnCheck
             holder.imageview.setImageResource(images[position]);
 
             //Special case for if it is the default
-            if (currentTheme == position){
+            if (currentTheme == position) {
                 holder.checkbox.setChecked(true);
             }
             if (boxes[position] == null) { //Bug Fix
@@ -323,6 +333,7 @@ public class SettingsActivity extends Activity implements CompoundButton.OnCheck
         }
 
     }
+
     class ViewHolder {
         ImageView imageview;
         CheckBox checkbox;

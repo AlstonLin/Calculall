@@ -98,20 +98,26 @@ public class FunctionFactory {
             }
         };
     }
-    ////////////////////////////////////////////////////
-    ////////////////////SIN and ARCSIN//////////////////
-    ////////////////////////////////////////////////////
 
-    public static Function makeSinD() { //In degrees
+    public static Function makeSin() { //In degrees
         return new Function("sin", Function.SIN) {
             @Override
             public double perform(double input) {
-                return sin(Math.toRadians(input));
+                switch (Function.angleMode) {
+                    case Function.DEGREE:
+                        return sin(Math.toRadians(input));
+                    case Function.RADIAN:
+                        return sin(input);
+                    case Function.GRADIAN:
+                        return sin(input * (Math.PI / 200));
+                    default:
+                        throw new IllegalArgumentException("Illegal Angle Mode!");
+                }
             }
         };
     }
 
-    public static Function makeASinD() { //Result will be in degrees
+    public static Function makeASin() { //Result will be in degrees
         //TODO: MAKE IT SIN-1
         return new Function("arcsin", Function.ARCSIN) {
             @Override
@@ -119,203 +125,104 @@ public class FunctionFactory {
                 if (Math.abs(input) > 1) {//Makes sure the input is within the range of sin
                     throw new IllegalArgumentException("The answer involves Imaginary numbers (currently not supported)");
                 } else {
-                    return Math.toDegrees(Math.asin(input));
+                    switch (Function.angleMode) {
+                        case Function.DEGREE:
+                            return Math.toDegrees(Math.asin(input));
+                        case Function.RADIAN:
+                            return Math.asin(input);
+                        case Function.GRADIAN:
+                            return ((Math.asin(input)) * (200 / Math.PI));
+                        default:
+                            throw new IllegalArgumentException("Illegal Angle Mode!");
+                    }
                 }
             }
         };
     }
 
-    ////////////////////////////////////////////////////
-    public static Function makeSinR() { //In radians
-        return new Function("sin", Function.SIN) {
+
+    public static Function makeCos() { //In degrees
+        return new Function("cos", Function.COS) {
             @Override
             public double perform(double input) {
-                return sin(input);
+                switch (Function.angleMode) {
+                    case Function.DEGREE:
+                        return cos(Math.toRadians(input));
+                    case Function.RADIAN:
+                        return cos(input);
+                    case Function.GRADIAN:
+                        return cos(input * (Math.PI / 200));
+                    default:
+                        throw new IllegalArgumentException("Illegal Angle Mode!");
+                }
             }
         };
     }
 
-    public static Function makeASinR() { //Result will be in radians
-        return new Function("arcsin", Function.ARCSIN) {
+    public static Function makeACos() { //Result will be in degrees
+        //TODO: MAKE IT SIN-1
+        return new Function("arccos", Function.ARCCOS) {
             @Override
             public double perform(double input) {
                 if (Math.abs(input) > 1) {//Makes sure the input is within the range of sin
                     throw new IllegalArgumentException("The answer involves Imaginary numbers (currently not supported)");
                 } else {
-                    return Math.asin(input);
+                    switch (Function.angleMode) {
+                        case Function.DEGREE:
+                            return Math.toDegrees(Math.acos(input));
+                        case Function.RADIAN:
+                            return Math.acos(input);
+                        case Function.GRADIAN:
+                            return ((Math.acos(input)) * (200 / Math.PI));
+                        default:
+                            throw new IllegalArgumentException("Illegal Angle Mode!");
+                    }
                 }
             }
         };
     }
 
-    ////////////////////////////////////////////////////
-    public static Function makeSinG() { //In gradians
-        return new Function("sin", Function.SIN) {
-            @Override
-            public double perform(double input) {
-                return sin(input * (Math.PI / 200));
-            }
-        };
-    }
 
-    public static Function makeASinG() { //Result will be in gradians
-        return new Function("arcsin", Function.ARCSIN) {
-            @Override
-            public double perform(double input) {
-                if (Math.abs(input) > 1) {//Makes sure the input is within the range of sin
-                    throw new IllegalArgumentException("The answer involves Imaginary numbers (currently not supported)");
-                } else {
-                    return ((Math.asin(input)) * (200 / Math.PI));
-                }
-            }
-        };
-    }
-
-    ////////////////////////////////////////////////////
-    ////////////////////COS and ARCCOS//////////////////
-    ////////////////////////////////////////////////////
-    public static Function makeCosD() {//In  degrees
-        return new Function("cos", Function.COS) {
-            @Override
-            public double perform(double input) {
-                return cos(Math.toRadians(input));
-            }
-        };
-    }
-
-    public static Function makeACosD() { //Result will be in degrees
-        return new Function("arccos", Function.ARCCOS) {
-            @Override
-            public double perform(double input) {
-                if (Math.abs(input) > 1) {//Makes sure the input is within the range of cos
-                    throw new IllegalArgumentException("The answer involves Imaginary numbers (currently not supported)");
-                } else {
-                    return Math.toDegrees(Math.acos(input));
-                }
-            }
-        };
-    }
-
-    ////////////////////////////////////////////////////
-    public static Function makeCosR() { //In radians
-        return new Function("cos", Function.COS) {
-            @Override
-            public double perform(double input) {
-                return cos(input);
-            }
-        };
-    }
-
-    public static Function makeACosR() { //Result will be in radians
-        return new Function("arccos", Function.ARCCOS) {
-            @Override
-            public double perform(double input) {
-                if (Math.abs(input) > 1) {//Makes sure the input is within the range of cos
-                    throw new IllegalArgumentException("The answer involves Imaginary numbers (currently not supported)");
-                } else {
-                    return Math.acos(input);
-                }
-            }
-        };
-    }
-
-    ////////////////////////////////////////////////////
-    public static Function makeCosG() { //In gradians
-        return new Function("cos", Function.COS) {
-            @Override
-            public double perform(double input) {
-                return cos(input * (Math.PI / 200));
-            }
-        };
-    }
-
-    public static Function makeACosG() { //Result will be in gradians
-        return new Function("arccos", Function.ARCCOS) {
-            @Override
-            public double perform(double input) {
-                if (Math.abs(input) > 1) {//Makes sure the input is within the range of cos
-                    throw new IllegalArgumentException("The answer involves Imaginary numbers (currently not supported)");
-                } else {
-                    return ((Math.acos(input)) * (200 / Math.PI));
-                }
-            }
-        };
-    }
-
-    ////////////////////////////////////////////////////
-    ////////////////////TAN and ARCTAN//////////////////
-    ////////////////////////////////////////////////////
-    public static Function makeTanD() {//In degrees
+    public static Function makeTan() { //In degrees
         return new Function("tan", Function.TAN) {
             @Override
             public double perform(double input) {
-                if (Math.toRadians(input) % (Math.PI / 2) == 0) {//Makes sure the input is within the domain of tan
-                    throw new IllegalArgumentException("The answer involves Imaginary numbers (currently not supported)");
-                } else {
-                    return tan(Math.toRadians(input));
+                switch (Function.angleMode) {
+                    case Function.DEGREE:
+                        return tan(Math.toRadians(input));
+                    case Function.RADIAN:
+                        return tan(input);
+                    case Function.GRADIAN:
+                        return tan(input * (Math.PI / 200));
+                    default:
+                        throw new IllegalArgumentException("Illegal Angle Mode!");
                 }
             }
         };
     }
 
-    public static Function makeATanD() { //Result will be in degrees
+    public static Function makeATan() { //Result will be in degrees
         return new Function("arctan", Function.ARCTAN) {
-            @Override
-            public double perform(double input) {
-                return Math.toDegrees(Math.atan(input));
-            }
-        };
-    }
-
-    ////////////////////////////////////////////////////
-    public static Function makeTanR() { //In radians
-        return new Function("tan", Function.TAN) {
             @Override
             public double perform(double input) {
                 if (input % (Math.PI / 2) == 0 && input % Math.PI != 0) {//Makes sure the input is within the domain of tan
-                    throw new ArithmeticException();
-                } else {
-                    return tan(input);
-                }
-            }
-        };
-    }
-
-    public static Function makeATanR() { //Result will be in radians
-        return new Function("arctan", Function.ARCTAN) {
-            @Override
-            public double perform(double input) {
-                return Math.atan(input);
-            }
-        };
-    }
-
-    ////////////////////////////////////////////////////
-    public static Function makeTanG() { //In gradians
-        return new Function("tan", Function.TAN) {
-            @Override
-            public double perform(double input) {
-                if ((input * (Math.PI / 200)) % (Math.PI / 2) == 0) {//Makes sure the input is within the domain of tan
                     throw new IllegalArgumentException("The answer involves Imaginary numbers (currently not supported)");
                 } else {
-                    return tan(input * (Math.PI / 200));
+                    switch (Function.angleMode) {
+                        case Function.DEGREE:
+                            return Math.toDegrees(Math.atan(input));
+                        case Function.RADIAN:
+                            return Math.atan(input);
+                        case Function.GRADIAN:
+                            return ((Math.atan(input)) * (200 / Math.PI));
+                        default:
+                            throw new IllegalArgumentException("Illegal Angle Mode!");
+                    }
                 }
             }
         };
     }
 
-    public static Function makeATanG() { //Result will be in gradians
-        return new Function("arctan", Function.ARCTAN) {
-            @Override
-            public double perform(double input) {
-                return ((Math.atan(input)) * (200 / Math.PI));
-            }
-        };
-    }
-
-    ////////////////////////////////////////////////////
-    ////////////////HYPERBOLIC FUNCTIONS////////////////
-    ////////////////////////////////////////////////////
 
     //NOTE: Hyperbolic functions do not use angles
     public static Function makeSinh() {

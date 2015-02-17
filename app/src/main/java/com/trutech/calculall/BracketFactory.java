@@ -3,8 +3,8 @@ package com.trutech.calculall;
 /**
  * Contains static methods that will create Brackets.
  *
- * @version Alpha 2.0
  * @author Alston Lin, Ejaaz Merali, Jason Fok
+ * @version Alpha 2.0
  */
 public class BracketFactory {
 
@@ -55,5 +55,14 @@ public class BracketFactory {
     public static Bracket makeDenomClose() {
         return new Bracket("", Bracket.DENOM_CLOSE);
     }
+
+    public static Bracket makeFracOpen() {
+        return new Bracket("", Bracket.FRACTION_OPEN);
+    }
+
+    public static Bracket makeFracClose() {
+        return new Bracket("", Bracket.FRACTION_CLOSE);
+    }
+
 
 }

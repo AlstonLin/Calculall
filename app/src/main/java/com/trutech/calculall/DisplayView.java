@@ -765,6 +765,8 @@ public class DisplayView extends View {
             } else if ((token instanceof Operator && token.getType() == Operator.VARROOT) ||
                     (token instanceof Bracket && token.getType() == Bracket.SUPERSCRIPT_OPEN) ||
                     (token instanceof Bracket && token.getType() == Bracket.DENOM_OPEN) ||
+                    (token instanceof Bracket && token.getType() == Bracket.FRACTION_OPEN) ||
+                    (token instanceof Bracket && token.getType() == Bracket.FRACTION_CLOSE) ||
                     (token instanceof Operator && token.getType() == Operator.FRACTION)) {
                 doNotCount = true;
             }

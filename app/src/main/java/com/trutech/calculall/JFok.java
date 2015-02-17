@@ -154,6 +154,9 @@ public class JFok {
                 return simplify(o);
             }
         };
+        root = evaluateDecimalFractions(root);
+        root = applyTrigSpecialValues(root);
+        root = applyInvTrigSpecialValues(root);
         root = processMultipleFractions(root, command);
         root = applySquareRootRules(root);
         root = applyCommutativeProperty(root);
@@ -165,6 +168,220 @@ public class JFok {
         root = simplifyFraction(root);
         root = simplifyIdenticalNumDenom(root);
         root = removeMultiplicationsOfOne(root);
+        root = applyTrigRules(root);
+        return root;
+    }
+
+    /**
+     * Applies special values of inverse trig functions in Radians.
+     *
+     * @param root The node to apply this rule to
+     * @return The new node
+     */
+    private static Node<Token> applyInvTrigSpecialValues(Node<Token> root) {
+        if (Function.angleMode == Function.RADIAN && root.getContent() instanceof Function) {
+            ArrayList<Token> expression = traverseTree(root.getChildren().get(0));
+            double value = Utility.process(expression);
+            double tolerance = 1e-7;
+            value = Math.floor(value / tolerance) * tolerance;
+            if (root.getContent().getType() == Function.ARCSIN) {
+                if (value == -1) { //arcsin(-1) = -pi / 2
+                    return ExpressionFactory.makePiOverN(true, 2);
+                } else if (value == -0.8660254) {//arcsin(-sqrt3/2) = -pi / 3
+                    return ExpressionFactory.makePiOverN(true, 3);
+                } else if (value == -0.7071067) {//arcsin(-sqrt2/2) = -pi / 4
+                    return ExpressionFactory.makePiOverN(true, 4);
+                } else if (value == -0.5) {//arcsin(-1/2) = -pi / 6
+                    return ExpressionFactory.makePiOverN(true, 6);
+                } else if (value == 0) { //arcsin(0) = 0
+                    return new Node<Token>(new Number(0));
+                } else if (value == 0.5) {//arcsin(1/2) = pi / 6
+                    return ExpressionFactory.makePiOverN(false, 6);
+                } else if (value == 0.7071067) {//arcsin(sqrt2/2) = pi / 4
+                    return ExpressionFactory.makePiOverN(false, 4);
+                } else if (value == 0.8660254) {//arcsin(sqrt3/2) = pi / 3
+                    return ExpressionFactory.makePiOverN(false, 3);
+                } else if (value == 1) { //arcsin(1) = pi / 2
+                    return ExpressionFactory.makePiOverN(false, 2);
+                }
+            } else if (root.getContent().getType() == Function.ARCCOS) {
+                if (value == -1) { //arccos(-1) = pi
+                    return new Node<Token>(VariableFactory.makePI());
+                } else if (value == -0.8660254) {//arccos(-sqrt3/2) = 5pi / 6
+                    return ExpressionFactory.makeNPiOverM(5, 6);
+                } else if (value == -0.7071067) {//arccos(-sqrt2/2) = 3pi / 4
+                    return ExpressionFactory.makeNPiOverM(3, 4);
+                } else if (value == -0.5) {//arccos(-1/2) = 2pi / 3
+                    return ExpressionFactory.makeNPiOverM(2, 3);
+                } else if (value == 0) { //arccos(0) = pi / 2
+                    return ExpressionFactory.makePiOverN(true, 2);
+                } else if (value == 0.5) {//arccos(1/2) = pi / 3
+                    return ExpressionFactory.makePiOverN(false, 3);
+                } else if (value == 0.7071067) {//arccos(sqrt2/2) = pi / 4
+                    return ExpressionFactory.makePiOverN(false, 4);
+                } else if (value == 0.8660254) {//arccos(sqrt3/2) = pi / 6
+                    return ExpressionFactory.makePiOverN(false, 6);
+                } else if (value == 1) { //arccos(1) = 0
+                    return new Node<Token>(new Number(0));
+                }
+            } else if (root.getContent().getType() == Function.ARCTAN) {
+                if (value == -1.7320508) { //arctan(-sqrt3) = -pi / 3
+                    return ExpressionFactory.makePiOverN(true, 3);
+                } else if (value == -1) { //arctan(-1) = -pi / 4
+                    return ExpressionFactory.makePiOverN(true, 4);
+                } else if (value == -0.5773502) { //arctan(-sqrt3/3) = -pi / 6
+                    return ExpressionFactory.makePiOverN(true, 6);
+                } else if (value == 0) { //arctan(0) = 0
+                    return new Node<Token>(new Number(0));
+                } else if (value == 0.5773502) { //arctan(sqrt3/3) = pi / 6
+                    return ExpressionFactory.makePiOverN(false, 6);
+                } else if (value == -1) { //arctan(1) = pi / 4
+                    return ExpressionFactory.makePiOverN(false, 4);
+                } else if (value == 1.7320508) { //arctan(sqrt3) = pi / 3
+                    return ExpressionFactory.makePiOverN(false, 3);
+                }
+            } else {
+                return root;
+            }
+        }
+        return root;
+    }
+
+    /**
+     * Evaluates fractions that has a decimal over decimals, since fractions should only be in integers/
+     *
+     * @param root The root of the fraction to evaluate
+     * @return The new root
+     */
+    private static Node<Token> evaluateDecimalFractions(Node<Token> root) {
+        if (root.getContent() instanceof Operator && (root.getContent().getType() == Operator.FRACTION || root.getContent().getType() == Operator.DIVIDE)) {
+            Token child1 = root.getChildren().get(0).getContent();
+            Token child2 = root.getChildren().get(1).getContent();
+            if (child1 instanceof Number && child2 instanceof Number && (((Number) child1).getValue() % 1 != 0 || ((Number) child2).getValue() % 1 != 0)) {
+                return new Node<Token>(new Number(((Operator) root.getContent()).operate(((Number) child1).getValue(), ((Number) child2).getValue())));
+            }
+        }
+        return root;
+    }
+
+    private static Node<Token> applyTrigSpecialValues(Node<Token> root) {
+        if (root.getContent() instanceof Function && root.getChildren().get(0).getContent() instanceof Number) {
+            double num = ((Number) root.getChildren().get(0).getContent()).getValue();
+
+            //Converts to degrees
+            if (Function.angleMode == Function.RADIAN) {
+                num = Math.toDegrees(num);
+            } else if (Function.angleMode == Function.GRADIAN) {
+                num = 0.9 * num;
+            }
+
+            //Converts it into a positive number
+            if (num < 0) {
+                int multiple = (int) (-(num / 360) + 1);
+                num += multiple * 360;
+            }
+            //Rounds to 1e-7 tolerance
+            double tolerance = 1e-7;
+            num = Math.round(num / tolerance) * tolerance;
+            if (root.getContent().getType() == Function.SIN) {
+                double degree = num % 360;
+                boolean negative = false;
+                //Convets to <90 degree
+                if (degree > 90 && degree < 180) { // Q2 -> 180 - angle
+                    degree = 180 - degree;
+                } else if (degree > 180 && degree < 270) { // Q3 -> angle - 180 & negative
+                    degree = degree - 180;
+                    negative = true;
+                } else if (degree > 270) { //Q4 -> 360 - angle & negative
+                    degree = 360 - degree;
+                    negative = true;
+                }
+
+                if (degree == 30) { //sin(30) = 1/2
+                    return ExpressionFactory.makeOneHalf(negative);
+                } else if (degree == 45) { //sin(45) = sqrt2 / 2
+                    return ExpressionFactory.makeSqrt2Over2(negative);
+                } else if (degree == 60) { //sin(60) = sqrt3 / 2
+                    return ExpressionFactory.makeSqrt3Over2(negative);
+                }
+            } else if (root.getContent().getType() == Function.COS) {
+                double degree = num % 360;
+                boolean negative = false;
+                //Convets to <90 degree
+                if (degree > 90 && degree < 180) { // Q2 -> 180 - angle & negative
+                    degree = 180 - degree;
+                    negative = true;
+                } else if (degree > 180 && degree < 270) { // Q3 -> angle - 180 & negative
+                    degree = degree - 180;
+                    negative = true;
+                } else if (degree > 270) { //Q4 -> 360 - angle
+                    degree = 360 - degree;
+                }
+
+                if (degree == 30) { //cos(30) = sqrt3 / 2
+                    return ExpressionFactory.makeSqrt3Over2(negative);
+                } else if (degree == 45) { //cos(45) = sqrt2 / 2
+                    return ExpressionFactory.makeSqrt2Over2(negative);
+                } else if (degree == 60) { //cos(60) = 1 / 2
+                    return ExpressionFactory.makeOneHalf(negative);
+                }
+            } else if (root.getContent().getType() == Function.TAN) {
+                double degree = num % 360;
+                boolean negative = false;
+                //Convets to <90 degree
+                if (degree > 90 && degree < 180) { // Q2 -> 180 - angle & negative
+                    degree = 180 - degree;
+                    negative = true;
+                } else if (degree > 180 && degree < 270) { // Q3 -> angle - 180
+                    degree = degree - 180;
+                } else if (degree > 270) { //Q4 -> 360 - angle & negative
+                    degree = 360 - degree;
+                    negative = true;
+                }
+
+                if (degree == 30) { //tan(30) = sqrt 3 / 3
+                    return ExpressionFactory.makeSqrt3Over3(negative);
+                } else if (degree == 60) { //tan(30) = sqrt 3
+                    return ExpressionFactory.makeSqrt3(negative);
+                }
+            }
+        }
+        return root;
+    }
+
+    /**
+     * Applies simplifying trig rules to the treee if it applies.
+     *
+     * @param root The root to apply trig rules
+     * @return The new tree
+     */
+    private static Node<Token> applyTrigRules(Node<Token> root) {
+        if (root.getContent() instanceof Operator && root.getContent().getType() == Operator.DIVIDE) {
+            Node child1 = root.getChildren().get(0);
+            Node child2 = root.getChildren().get(1);
+            if (child1.getContent() instanceof Function && child2.getContent() instanceof Function) {
+                if ((((Function) child1.getContent()).getType() == Function.SIN && ((Function) child2.getContent()).getType() == Function.COS)) { //sin / cos -> tan
+                    Node<Token> inside1 = (Node<Token>) child1.getChildren().get(0);
+                    Node inside2 = (Node) child2.getChildren().get(0);
+                    if (isBranchesEqual(inside1, inside2)) {
+                        Node<Token> tan = new Node<Token>(FunctionFactory.makeTan());
+                        tan.addChild(inside1);
+                        return tan;
+                    }
+                } else if ((((Function) child1.getContent()).getType() == Function.COS && ((Function) child2.getContent()).getType() == Function.SIN)) { //cos / sin -> 1/tan
+                    Node<Token> inside1 = (Node<Token>) child1.getChildren().get(0);
+                    Node<Token> inside2 = (Node<Token>) child2.getChildren().get(0);
+                    if (isBranchesEqual(inside1, inside2)) {
+                        Node<Token> div = new Node<Token>(OperatorFactory.makeDivide());
+                        Node<Token> tan = new Node<Token>(FunctionFactory.makeTan());
+                        tan.addChild(inside1);
+                        div.addChild(new Node<Token>(new Number(1)));
+                        div.addChild(tan);
+                        return div;
+                    }
+                }
+            }
+        }
         return root;
     }
 
@@ -204,8 +421,12 @@ public class JFok {
             boolean equal = root1.getContent().getClass().equals(root2.getContent().getClass()) && root1.getContent().getType() == root2.getContent().getType()
                     && (root1.getContent().getType() != -1 || ((Number) root1.getContent()).getValue() == ((Number) root2.getContent()).getValue());
             if (equal && root1.getNumOfChildren() == root2.getNumOfChildren()) { //Same number of subbranches
-                for (int i = 0; i < root1.getNumOfChildren(); i++) { //Compares all the subbranches
-                    equal = equal && isBranchesEqual(root1.getChildren().get(i), root2.getChildren().get(i));
+                if (root1.getNumOfChildren() == 1) {
+                    equal = equal && isBranchesEqual(root1.getChildren().get(0), root2.getChildren().get(0));
+                } else if (root1.getNumOfChildren() == 2) {
+                    equal = equal && ((isBranchesEqual(root1.getChildren().get(0), root2.getChildren().get(0)) && isBranchesEqual(root1.getChildren().get(1), root2.getChildren().get(1)))
+                            || (root1.getContent() instanceof Operator && (root1.getContent().getType() == Operator.ADD || root1.getContent().getType() == Operator.MULTIPLY)
+                            && (isBranchesEqual(root1.getChildren().get(1), root2.getChildren().get(0)) && isBranchesEqual(root1.getChildren().get(0), root2.getChildren().get(1)))));
                 }
                 return equal;
             } else {

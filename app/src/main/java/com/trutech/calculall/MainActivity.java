@@ -32,8 +32,8 @@ import java.util.Random;
  * Entry point to the application as well as the only Activity. Sets
  * up the fragments and the entry point for UI events.
  *
- * @version Alpha 2.0
  * @author Alston Lin, David Liu
+ * @version Alpha 2.0
  */
 public class MainActivity extends FragmentActivity implements ViewPager.OnPageChangeListener, MoPubInterstitial.InterstitialAdListener {
 
@@ -88,7 +88,7 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
         display.setFontSize(fontSize);
         HistoryView.fontSize = fontSize;
         //Checks if the Theme has changes
-        if (theme != currentTheme){
+        if (theme != currentTheme) {
             //Needs to restart the activity
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
@@ -98,11 +98,11 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
     /**
      * Sets the current theme.
      */
-    private void setupThemes(){
+    private void setupThemes() {
         SharedPreferences pref = getSharedPreferences(getString(R.string.preference_key), Context.MODE_PRIVATE);
         currentTheme = pref.getInt(getString(R.string.theme), SettingsActivity.DEFAULT_THEME);
         //Sets Theme
-        switch (currentTheme){
+        switch (currentTheme) {
             case SettingsActivity.DAVID:
                 setTheme(R.style.david);
                 break;
@@ -115,12 +115,21 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
             case SettingsActivity.TRAILBLAZER:
                 setTheme(R.style.trailblazer);
                 break;
+            case SettingsActivity.HAWKS:
+                setTheme(R.style.hawks);
+                break;
+            case SettingsActivity.GEESE:
+                setTheme(R.style.geese);
+                break;
+            case SettingsActivity.SUNSET:
+                setTheme(R.style.sunset);
+                break;
             default:
-                throw new IllegalArgumentException("Illegal theme value!");
+                throw new IllegalStateException("Illegal Theme");
         }
     }
 
-    public void onPause(){
+    public void onPause() {
         //Saves mode
         SharedPreferences pref = getSharedPreferences(getString(R.string.preference_key), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
@@ -140,7 +149,7 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
         super.onPause();
     }
 
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         mPager = (ViewPager) findViewById(R.id.pager);
         PagerAdapter mPagerAdapter = new ScreenSlidePagerAdapter(mg);
@@ -196,7 +205,7 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
                     MatrixMode.getInstance().setTokens(tokens);
                     break;
             }
-        }catch (ClassNotFoundException | IOException ignored) {
+        } catch (ClassNotFoundException | IOException ignored) {
         }
     }
 
@@ -206,7 +215,7 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
      *
      * @param v Not Used
      */
-    public void clickSettings(View v){
+    public void clickSettings(View v) {
         Intent intent = new Intent(this, SettingsActivity.class);
         intent.putExtra("Mode", mPager.getCurrentItem());
         startActivity(intent);
@@ -248,9 +257,9 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
      *
      * @param v The Button Clicked
      */
-    public void onClick(View v){
+    public void onClick(View v) {
         int mode = mPager.getCurrentItem();
-        switch(mode){
+        switch (mode) {
             case 0:
                 Basic.getInstance().onClick(v);
                 break;
@@ -270,7 +279,7 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
                 throw new IllegalArgumentException("The current pager item index could not be handled");
         }
         //Haptic Feedback
-        if (feedbackOn){
+        if (feedbackOn) {
             // Get instance of Vibrator from current Context
             Vibrator mVibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
             mVibrator.vibrate(VIRBRATE_DURATION);
@@ -339,7 +348,7 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
         ToggleButton vector = (ToggleButton) findViewById(R.id.vector_button);
         //ToggleButton matrix = (ToggleButton) findViewById(R.id.matrix_button);
 
-        switch(position){
+        switch (position) {
             case 0:
                 basic.setChecked(true);
                 advanced.setChecked(false);
@@ -399,11 +408,11 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
 
     }
 
-    public DisplayView getDisplay(){
+    public DisplayView getDisplay() {
         return display;
     }
 
-    public int getFontSize(){
+    public int getFontSize() {
         return fontSize;
     }
 
