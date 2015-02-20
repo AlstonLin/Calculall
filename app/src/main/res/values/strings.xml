@@ -2,6 +2,7 @@
 <resources>
     <string name="graph_note">Note: All angles are in radians</string>
     <string name="font_size">Font Size</string>
+    <string name="history">Calculation History</string>
     <string name="mode_key">Mode</string>
     <string name="tokens_key">Tokens</string>
     <string name="about_us">About Us</string>

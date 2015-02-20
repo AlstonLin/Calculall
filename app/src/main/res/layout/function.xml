@@ -104,7 +104,7 @@
             android:textSize="16sp" />
 
 
-        <com.trutech.calculall.MultiButton
+        <com.trutechinnovations.calculall.MultiButton
             android:id="@+id/square_button_function"
             style="?attr/buttonFunction"
             android:layout_width="0dp"
@@ -114,7 +114,7 @@
             android:text="@string/square"
             android:textSize="16sp" />
 
-        <com.trutech.calculall.MultiButton
+        <com.trutechinnovations.calculall.MultiButton
             android:id="@+id/power_button"
             style="?attr/buttonFunction"
             android:layout_width="0dp"
@@ -123,7 +123,7 @@
             android:onClick="onClick"
             android:textSize="16sp" />
 
-        <com.trutech.calculall.MultiButton
+        <com.trutechinnovations.calculall.MultiButton
             android:id="@+id/sqrt_button"
             style="?attr/buttonFunction"
             android:layout_width="0dp"
@@ -133,14 +133,14 @@
             android:text="@string/sqrt"
             android:textSize="16sp" />
 
-        <com.trutech.calculall.MultiButton
+        <Button
             android:id="@+id/log_button"
             style="?attr/buttonFunction"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:onClick="onClick"
-            android:text="@string/log10"
+            android:text="@string/ln"
             android:textSize="16sp" />
 
     </LinearLayout>
@@ -171,7 +171,7 @@
             android:src="?attr/frac_img"
             android:textSize="16sp" />
 
-        <com.trutech.calculall.MultiButton
+        <com.trutechinnovations.calculall.MultiButton
             android:id="@+id/sin_button"
             style="?attr/buttonFunction"
             android:layout_width="0dp"
@@ -181,7 +181,7 @@
             android:text="@string/sin"
             android:textSize="16sp" />
 
-        <com.trutech.calculall.MultiButton
+        <com.trutechinnovations.calculall.MultiButton
             android:id="@+id/cos_button"
             style="?attr/buttonFunction"
             android:layout_width="0dp"
@@ -191,7 +191,7 @@
             android:text="@string/cos"
             android:textSize="16sp" />
 
-        <com.trutech.calculall.MultiButton
+        <com.trutechinnovations.calculall.MultiButton
             android:id="@+id/tan_button"
             style="?attr/buttonFunction"
             android:layout_width="0dp"

@@ -3,15 +3,10 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <com.trutech.calculall.GridViewItem android:id="@+id/thumbImage"
+    <com.trutechinnovations.calculall.GridViewItem
+        android:id="@+id/thumbImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="fitCenter"
-        android:src="@drawable/alston_theme"/>
-
-    <CheckBox android:id="@+id/itemCheckBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="left|center_vertical" />
+        android:src="@drawable/alston_theme" />
 </FrameLayout>

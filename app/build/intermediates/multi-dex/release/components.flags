@@ -16,7 +16,7 @@
     void attachBaseContext(android.content.Context);
 }
 
--keep class com.trutech.calculall.MainActivity {
+-keep class com.trutechinnovations.calculall.MainActivity {
     <init>();
 }
 
@@ -44,7 +44,7 @@
     <init>();
 }
 
--keep class com.trutech.calculall.SettingsActivity {
+-keep class com.trutechinnovations.calculall.SettingsActivity {
     <init>();
 }
 
