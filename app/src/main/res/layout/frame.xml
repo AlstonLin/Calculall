@@ -36,7 +36,7 @@
 
                 <view xmlns:android="http://schemas.android.com/apk/res/android"
                     android:id="@+id/display"
-                    class="com.trutech.calculall.DisplayView"
+                    class="com.trutechinnovations.calculall.DisplayView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
@@ -51,7 +51,7 @@
 
                     <view xmlns:android="http://schemas.android.com/apk/res/android"
                         android:id="@+id/output"
-                        class="com.trutech.calculall.OutputView"
+                        class="com.trutechinnovations.calculall.OutputView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"

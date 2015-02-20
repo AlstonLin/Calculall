@@ -75,7 +75,7 @@
             android:text="@string/plusminus"
             android:textSize="36sp" />
 
-        <com.trutech.calculall.MultiButton
+        <com.trutechinnovations.calculall.MultiButton
             android:id="@+id/sqrt_button"
             style="?attr/buttonFunction"
             android:layout_width="0dp"
