@@ -41,19 +41,19 @@ public class BracketFactory {
     }
 
     public static Bracket makeNumOpen() {
-        return new Bracket("", Bracket.NUM_OPEN);
+        return new Bracket(" ", Bracket.NUM_OPEN);
     }
 
     public static Bracket makeNumClose() {
-        return new Bracket("", Bracket.NUM_CLOSE);
+        return new Bracket(" ", Bracket.NUM_CLOSE);
     }
 
     public static Bracket makeDenomOpen() {
-        return new Bracket("", Bracket.DENOM_OPEN);
+        return new Bracket(" ", Bracket.DENOM_OPEN);
     }
 
     public static Bracket makeDenomClose() {
-        return new Bracket("", Bracket.DENOM_CLOSE);
+        return new Bracket(" ", Bracket.DENOM_CLOSE);
     }
 
     public static Bracket makeFracOpen() {

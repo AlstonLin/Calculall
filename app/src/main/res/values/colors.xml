@@ -10,6 +10,7 @@
     <color name="backgroundAlston">#F5F5F5</color>
     <color name="backgroundMaterial">#F5F5F5</color>
     <color name="backgroundOcean">#03A9F4</color>
+    <color name="backgroundDress">#8F9CC6</color>
 
     <color name="displayTextForest">#FFD54F</color>
     <color name="displayTextDavid">#F64B55</color>
@@ -21,4 +22,5 @@
     <color name="displayTextAlston">#1B5E20</color>
     <color name="displayTextMaterial">#B71C1C</color>
     <color name="displayTextOcean">#FFFFFF</color>
+    <color name="displayTextDress">#745E39</color>
 </resources>

@@ -75,9 +75,17 @@ public class VectorUtilities {
         //line is in the form [a,b] + t[c,d] where [a,b] is the point and [c,d] is the direction vector
         double a = point.getValues()[0];
         double b = point.getValues()[1];
-        double c = direction.getValues()[0];
-        double d = direction.getValues()[1];
-        double z = -1 * c * b + d * a;
+
+        double[] values = new double[3];
+        values[0] = direction.getValues()[0];
+        values[1] = direction.getValues()[1];
+        values[2] = -values[0] * b + values[1] * a;
+
+        values = Utility.reduce(values);
+
+        double c = values[0];
+        double d = values[1];
+        double z = values[2];
 
         if (c == 0 && d == 0) {
             throw new IllegalArgumentException("Error: Not a line!");
@@ -105,33 +113,39 @@ public class VectorUtilities {
 
         //for first term
         if (c != 0) {
-            output.add(new Number(c));
+            if (c != 1 && c != -1) {
+                output.add(new Number(c));
+            } else if (c == -1) {
+                output.add(OperatorFactory.makeSubtract());
+            }
             output.add(VariableFactory.makeY());
         }
 
         //for second term
         if (d > 0) {
             output.add(OperatorFactory.makeSubtract());
-            output.add(new Number(Math.abs(d)));
+            if (d != 1) {
+                output.add(new Number(Math.abs(d)));
+            }
+            output.add(VariableFactory.makeX());
         } else if (d < 0) {
             if (c != 0) {
                 output.add(OperatorFactory.makeAdd());
             }
-            output.add(new Number(Math.abs(d)));
-        }
-        if (d != 0) {
+            if (d != -1) {
+                output.add(new Number(Math.abs(d)));
+            }
             output.add(VariableFactory.makeX());
         }
 
         //for third term
         if (z > 0) {
-            output.add(OperatorFactory.makeAdd());
-        }
-        if (z < 0) {
+            if (!(d == 0 && c == 0)) {
+                output.add(OperatorFactory.makeAdd());
+            }
+            output.add(new Number(Math.abs(z)));
+        } else if (z < 0) {
             output.add(OperatorFactory.makeSubtract());
-        }
-
-        if (z != 0) {
             output.add(new Number(Math.abs(z)));
         }
 
@@ -155,44 +169,54 @@ public class VectorUtilities {
             throw new IllegalArgumentException("The two direction vectors cannot be collinear");
         }
         Vector normal = findCrossProduct(d1, d2);
+        //Constant
+        double constant = findDotProduct(normal, point);
+
+        double values[] = new double[4];
+        values[0] = normal.getValues()[0];
+        values[1] = normal.getValues()[1];
+        values[2] = normal.getValues()[2];
+        values[3] = constant;
+        values = Utility.reduce(values);
+
         ArrayList<Token> scalar = new ArrayList<>();
         //X
-        if (normal.getValues()[0] != 0) {
-            scalar.add(new Number(normal.getValues()[0]));
+        if (values[0] != 0) {
+            if (values[0] != 1 && values[0] != -1) {
+                scalar.add(new Number(values[0]));
+            } else if (values[0] == -1) {
+                scalar.add(OperatorFactory.makeSubtract());
+            }
             scalar.add(new StringToken("X"));
         }
         //Y
-        if (normal.getValues()[1] != 0) {
-            if (normal.getValues()[1] > 0) {
+        if (values[1] != 0) {
+            if (values[1] > 0 && values[0] != 0) {
                 scalar.add(OperatorFactory.makeAdd());
             } else {
                 scalar.add(OperatorFactory.makeSubtract());
             }
-            scalar.add(new Number(Math.abs(normal.getValues()[1])));
+            if (Math.abs(values[1]) != 1) {
+                scalar.add(new Number(Math.abs(values[1])));
+            }
             scalar.add(new StringToken("Y"));
         }
         //Z
-        if (normal.getValues()[2] != 0) {
-            if (normal.getValues()[2] > 0) {
+        if (values[2] != 0) {
+            if (values[2] > 0 && !(values[0] == 0 && values[1] == 0)) {
                 scalar.add(OperatorFactory.makeAdd());
             } else {
                 scalar.add(OperatorFactory.makeSubtract());
             }
-            scalar.add(new Number(Math.abs(normal.getValues()[2])));
+            if (Math.abs(values[2]) != 1) {
+                scalar.add(new Number(Math.abs(values[2])));
+            }
             scalar.add(new StringToken("Z"));
         }
-        //Constant
-        double constant = findDotProduct(normal, point) * -1;
-        if (constant > 0) {
-            scalar.add(OperatorFactory.makeAdd());
-            scalar.add(new Number(constant));
-        } else if (constant < 0) {
-            scalar.add(OperatorFactory.makeSubtract());
-            scalar.add(new Number(-1 * constant));
-        }
+
         scalar.add(new Token(" = ") {
         });
-        scalar.add(new Number(0));
+        scalar.add(new Number(values[3]));
         return scalar;
     }
 

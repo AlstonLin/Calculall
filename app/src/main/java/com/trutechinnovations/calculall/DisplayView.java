@@ -240,7 +240,7 @@ public class DisplayView extends View {
                         fraction.add(BracketFactory.makeDenomClose());
 
                         if (getMaxLinesHeight(num) == 1) {
-                            yModifier += -getHeight(fraction, true) / 2 + getHeight(num, true);
+                            yModifier += -getHeight(fraction, true) / 4; //HEREEEEE!!!!!
                         } else {
                             yModifier += -getHeight(fraction, true) / 2 + getHeight(num, true) / 2;
                         }
@@ -462,7 +462,7 @@ public class DisplayView extends View {
                         fraction.add(BracketFactory.makeDenomClose());
 
                         if (getMaxLinesHeight(num) == 1) {
-                            yModifier += -getHeight(fraction, true) / 2 + getHeight(num, true);
+                            yModifier += -getHeight(fraction, true) / 4; //HEREEEEE!!!!!
                         } else {
                             yModifier += -getHeight(fraction, true) / 2 + getHeight(num, true) / 2;
                         }
@@ -809,10 +809,6 @@ public class DisplayView extends View {
                 scriptBracketCount++;
             } else if (token instanceof Bracket && token.getType() == Bracket.NUM_OPEN) {
                 fracStarts.push(x);
-            } else if (token instanceof Bracket && token.getType() == Bracket.NUM_CLOSE) {
-                if (!fracStarts.isEmpty()) {
-                    x = fracStarts.pop();
-                }
             } else if (token instanceof Bracket && token.getType() == Bracket.DENOM_CLOSE) {
                 //Finds index where the numerator ends
                 int j = i - 1;
@@ -870,6 +866,12 @@ public class DisplayView extends View {
                 paint.getTextWidths(token.getSymbol(), widths);
                 float widthSum = sum(widths);
                 x += widthSum;
+            }
+
+            if (token instanceof Bracket && token.getType() == Bracket.NUM_CLOSE) {
+                if (!fracStarts.isEmpty()) {
+                    x = fracStarts.pop();
+                }
             }
         }
         drawX.add(x);

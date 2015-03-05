@@ -430,6 +430,48 @@
     </style>
 
 
+    <!-- THEME DRESS -->
+    <style name="buttonDarkDress" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_dark_dress</item>
+        <item name="android:textColor">#8F9CC6</item>
+    </style>
+
+    <style name="buttonLightDress" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_light_dress</item>
+        <item name="android:textColor">#745E39</item>
+    </style>
+
+    <style name="buttonSpecialDress" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_special_dress</item>
+        <item name="android:textColor">#8F9CC6</item>
+    </style>
+
+    <style name="buttonNumDress" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_light_dress</item>
+        <item name="android:textColor">#000000</item>
+    </style>
+
+    <style name="toggleDress" parent="android:Widget.Holo.Button.Toggle">
+        <item name="android:background">@drawable/toggle_dress</item>
+    </style>
+
+    <style name="dress" parent="android:Theme.Holo">
+        <item name="android:colorBackground">@color/backgroundDress</item>
+        <item name="buttonFunction">@style/buttonDarkDress</item>
+        <item name="buttonOperator">@style/buttonLightDress</item>
+        <item name="buttonSpecial">@style/buttonSpecialDress</item>
+        <item name="android:textColor">#8F9CC6</item>
+        <item name="buttonNum">@style/buttonNumDress</item>
+        <item name="displayColor">@color/displayTextDress</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:buttonStyle">@style/buttonLightDress</item>
+        <item name="android:buttonStyleToggle">@style/toggleDress</item>
+        <item name="change_img">@drawable/change_white</item>
+        <item name="frac_img">@drawable/frac_white</item>
+        <item name="history_img">@drawable/history_white</item>
+        <item name="settings_img">@drawable/settings_white</item>
+    </style>
+
     <style name="CustomAlertDialog" parent="android:style/Theme.Dialog">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsFloating">true</item>
