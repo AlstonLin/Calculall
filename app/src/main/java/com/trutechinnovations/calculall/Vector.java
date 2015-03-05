@@ -45,5 +45,4 @@ public class Vector extends Token implements Serializable {
         s += "]";
         return s;
     }
-
 }

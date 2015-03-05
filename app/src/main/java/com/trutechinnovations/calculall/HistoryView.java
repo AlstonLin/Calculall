@@ -20,6 +20,7 @@ public class HistoryView extends View {
     //CONSTANTS
     private float entry_padding;
     private float textHeight;
+    private float paddingAfterMatrix;
     private float superscriptYOffset;
     private float fracPadding;
     private float matrixPadding;
@@ -61,6 +62,7 @@ public class HistoryView extends View {
         matrixPadding = textPaint.measureText("  ");
         xPadding = textHeight / 3;
         //LINE_HEIGHT_NORMAL = textHeight;
+        matrixPadding = textPaint.measureText("  ");
         fracPadding = textHeight / 8;
         superscriptYOffset = textHeight / 2;
         entry_padding = textHeight;
@@ -167,7 +169,7 @@ public class HistoryView extends View {
                             j--;
                         }
 
-                        if (j == 0) { //Some idiot did ^E (with no base)
+                        if (j == -1) { //Some idiot did ^E (with no base)
                             yModifier = INITIAL_MODIFIER;
                         } else {
                             yModifier = heights.get(j);
@@ -202,7 +204,7 @@ public class HistoryView extends View {
                         fraction.add(BracketFactory.makeDenomClose());
 
                         if (getMaxLinesHeight(num) == 1) {
-                            yModifier += -getHeight(fraction, true) / 2 + getHeight(num, true);
+                            yModifier += -getHeight(fraction, true) / 4; //HEREEEEE!!!!!
                         } else {
                             yModifier += -getHeight(fraction, true) / 2 + getHeight(num, true) / 2;
                         }
@@ -210,11 +212,7 @@ public class HistoryView extends View {
                     }
                     case Bracket.DENOM_OPEN: {
                         ArrayList<Token> denom = getDenominator(expression, i - 1);
-                        if (getMaxLinesHeight(denom) == 1) {
-                            yModifier += getHeight(denom, true);
-                        } else {
-                            yModifier += getHeight(denom, true) / 2;
-                        }
+                        yModifier += -getMostNeg(denom) + textHeight;
                         break;
                     }
                     case Bracket.DENOM_CLOSE: {
@@ -342,6 +340,7 @@ public class HistoryView extends View {
     private float getMostNeg(ArrayList<Token> expression) {
         float mostNeg = Float.POSITIVE_INFINITY;
         float yModifier = 0;
+        ArrayList<Float> heights = new ArrayList<>();
         for (int i = 0; i < expression.size(); i++) {
             Token token = expression.get(i);
             if (token instanceof Bracket) {
@@ -397,7 +396,7 @@ public class HistoryView extends View {
                         fraction.add(BracketFactory.makeDenomClose());
 
                         if (getMaxLinesHeight(num) == 1) {
-                            yModifier += -getHeight(fraction, true) / 2 + getHeight(num, true);
+                            yModifier += -getHeight(fraction, true) / 4; //HEREEEEE!!!!!
                         } else {
                             yModifier += -getHeight(fraction, true) / 2 + getHeight(num, true) / 2;
                         }
@@ -474,7 +473,6 @@ public class HistoryView extends View {
                 heights.add(yModifier);
             }
         }
-        heights.clear();
         return mostNeg;
     }
 
@@ -803,7 +801,7 @@ public class HistoryView extends View {
      */
     private ArrayList<Float> calculateDrawX(ArrayList<Token> expression) {
         ArrayList<Float> drawX = new ArrayList<Float>();
-
+        drawX.clear();
         Paint paint;
         int scriptLevel = 0; //superscript = 1, any additional levels would +1
         int scriptBracketCount = 0; //Counts the brackets for any exponents
@@ -814,18 +812,12 @@ public class HistoryView extends View {
             Token token = expression.get(i);
             //Stores the width of this draw count into the array
             drawX.add(x);
-            if (x > maxX) {
-                maxX = x;
-            }
+
             if (token instanceof Bracket && token.getType() == Bracket.SUPERSCRIPT_OPEN) {
                 scriptLevel++;
                 scriptBracketCount++;
             } else if (token instanceof Bracket && token.getType() == Bracket.NUM_OPEN) {
                 fracStarts.push(x);
-            } else if (token instanceof Bracket && token.getType() == Bracket.NUM_CLOSE) {
-                if (!fracStarts.isEmpty()) {
-                    x = fracStarts.pop();
-                }
             } else if (token instanceof Bracket && token.getType() == Bracket.DENOM_CLOSE) {
                 //Finds index where the numerator ends
                 int j = i - 1;
@@ -843,7 +835,6 @@ public class HistoryView extends View {
                 //NUM
                 j -= 1;
                 int endNum = j;
-
                 float newX = x > drawX.get(endNum) ? x : drawX.get(endNum); //Takes bigger of two
                 x = newX;
             } else if (scriptLevel > 0) { //Counts brackets if its writing in superscript
@@ -860,12 +851,37 @@ public class HistoryView extends View {
                 }
             }
 
-            paint = textPaint;
-            //Determines the width of the symbol in text
-            float[] widths = new float[token.getSymbol().length()];
-            paint.getTextWidths(token.getSymbol(), widths);
-            float widthSum = sum(widths);
-            x += widthSum;
+            if (token instanceof Matrix) {
+                ArrayList<Token>[][] entries = ((Matrix) token).getEntries();
+                //Calculates at what x value to start drawing each column
+                float[] columnX = new float[entries[0].length + 1];
+                columnX[0] = x;
+                for (int j = 1; j < columnX.length; j++) {
+                    float maxWidth = 0;
+                    for (int k = 0; k < entries.length; k++) {
+                        float width = textPaint.measureText(Utility.printExpression(entries[k][j - 1]));
+                        if (width > maxWidth) {
+                            maxWidth = width;
+                        }
+                    }
+                    columnX[j] = columnX[j - 1] + maxWidth;
+                }
+                x = columnX[columnX.length - 1] + entries.length * matrixPadding + paddingAfterMatrix;
+            } else {
+                //Changes paint for superscript
+                paint = textPaint;
+                //Determines the width of the symbol in text
+                float[] widths = new float[token.getSymbol().length()];
+                paint.getTextWidths(token.getSymbol(), widths);
+                float widthSum = sum(widths);
+                x += widthSum;
+            }
+
+            if (token instanceof Bracket && token.getType() == Bracket.NUM_CLOSE) {
+                if (!fracStarts.isEmpty()) {
+                    x = fracStarts.pop();
+                }
+            }
         }
         drawX.add(x);
         return drawX;

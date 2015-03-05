@@ -120,7 +120,7 @@ public class Advanced extends Basic {
             if (fracMode == DEC) {
                 super.clickEquals();
             } else if (fracMode == FRAC) {
-                ArrayList<Token> output = Utility.subVariables(tokens);
+                ArrayList<Token> output = Utility.subVariables(tokens, false);
                 output = JFok.simplifyExpression(output);
                 display.displayOutput(output);
                 saveEquation(tokens, output, FILENAME);

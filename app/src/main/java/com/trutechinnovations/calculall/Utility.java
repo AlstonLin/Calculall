@@ -899,4 +899,78 @@ public class Utility {
         }
         return newTokens;
     }
+
+    /**
+     * Reduces the value such that there is no common denom between the values (if they
+     * are all integer doubles).
+     *
+     * @param dvalues The values to reduce
+     * @return The reduced values
+     */
+    public static double[] reduce(double[] dvalues) {
+        int[] values = new int[dvalues.length];
+        int i = 0;
+        while (i < values.length && dvalues[i] % 1 == 0d) {
+            values[i] = (int) dvalues[i];
+            i++;
+        }
+        if (i == values.length) {
+            int gcd = Utility.gcd(values);
+            for (int j = 0; j < dvalues.length; j++) {
+                dvalues[j] /= gcd;
+            }
+        }
+        return dvalues;
+    }
+
+
+    /**
+     * Returns the gcd of all the values
+     *
+     * @param values The values to find the gcd
+     * @return The gcd
+     */
+    public static int gcd(int[] values) {
+        //Finds min value
+        int min = Integer.MAX_VALUE;
+        for (int value : values) {
+            value = Math.abs(value);
+            if (value < min && value != 0) {
+                min = value;
+            }
+        }
+        boolean finished = false;
+        int i = min;
+        while (!finished && i > 0) {
+            finished = true;
+            for (int value : values) {
+                if (value % i != 0) {
+                    finished = false;
+                }
+            }
+            i--;
+        }
+        return i + 1;
+    }
+
+    /**
+     * Substitutes all the variables on the tokens list with the defined values
+     *
+     * @param tokens    The tokens to sub variables
+     * @param constants If constants shall be subbed in too
+     * @return The list of tokens with the variables substituted
+     */
+    public static ArrayList<Token> subVariables(ArrayList<Token> tokens, boolean constants) {
+        ArrayList<Token> newTokens = new ArrayList<>();
+        for (Token token : tokens) {
+            if (token instanceof Variable && ((token.getType() != Variable.PI && token.getType() != Variable.E) || constants)) {
+                int index = tokens.indexOf(token);
+                Variable v = (Variable) token;
+                newTokens.add(index, new Number(v.getValue()));
+            } else {
+                newTokens.add(token);
+            }
+        }
+        return newTokens;
+    }
 }

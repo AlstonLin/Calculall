@@ -154,7 +154,7 @@ public class JFok {
                 return simplify(o);
             }
         };
-        root = evaluateDecimalFractions(root);
+        root = multiplyDecimalFractions(root);
         root = applyTrigSpecialValues(root);
         root = applyInvTrigSpecialValues(root);
         root = processMultipleFractions(root, command);
@@ -247,21 +247,36 @@ public class JFok {
     }
 
     /**
-     * Evaluates fractions that has a decimal over decimals, since fractions should only be in integers/
+     * Multiplies decimals so that there would be no decimal fractions
      *
      * @param root The root of the fraction to evaluate
      * @return The new root
      */
-    private static Node<Token> evaluateDecimalFractions(Node<Token> root) {
+    private static Node<Token> multiplyDecimalFractions(Node<Token> root) {
         if (root.getContent() instanceof Operator && (root.getContent().getType() == Operator.FRACTION || root.getContent().getType() == Operator.DIVIDE)) {
             Token child1 = root.getChildren().get(0).getContent();
             Token child2 = root.getChildren().get(1).getContent();
-            if (child1 instanceof Number && child2 instanceof Number && (((Number) child1).getValue() % 1 != 0 || ((Number) child2).getValue() % 1 != 0)) {
-                return new Node<Token>(new Number(((Operator) root.getContent()).operate(((Number) child1).getValue(), ((Number) child2).getValue())));
+            if (child1 instanceof Number && child2 instanceof Number) {
+                double value1 = ((Number) child1).getValue();
+                double value2 = ((Number) child2).getValue();
+                if (value1 % 1 != 0 || value2 % 1 != 0) {
+                    String s1 = Double.toString(Math.abs(value1));
+                    String s2 = Double.toString(Math.abs(value2));
+                    int decimals1 = s1.length() - s1.indexOf('.') - 1;
+                    int decimals2 = s2.length() - s2.indexOf('.') - 1;
+                    double multiplier = decimals1 > decimals2 ? Math.pow(10, decimals1) : Math.pow(10, decimals2);
+                    value1 *= multiplier;
+                    value2 *= multiplier;
+                    Node<Token> div = new Node<Token>(OperatorFactory.makeFraction());
+                    div.addChild(new Node<Token>(new Number(value1)));
+                    div.addChild(new Node<Token>(new Number(value2)));
+                    return div;
+                }
             }
         }
         return root;
     }
+
 
     private static Node<Token> applyTrigSpecialValues(Node<Token> root) {
         if (root.getContent() instanceof Function && root.getChildren().get(0).getContent() instanceof Number) {
@@ -926,8 +941,8 @@ public class JFok {
                             Node<Token> outsideNode = new Node<Token>(new Number(outside));
                             Node<Token> insideNode = new Node<Token>(new Number(inside));
                             squareRoot.addChild(insideNode);
-                            root.addChild(squareRoot);
                             root.addChild(outsideNode);
+                            root.addChild(squareRoot);
                         }
                         return root;
                     } else {
@@ -1278,38 +1293,28 @@ public class JFok {
                 newRoot = new Node<Token>(OperatorFactory.makeDivide());
                 if (num.getContent() instanceof Number && denom.getContent() instanceof Number) {
                     if (((Number) num.getContent()).getValue() % 1 == 0 && ((Number) denom.getContent()).getValue() % 1 == 0) {//checks to make sure num and denom are integers
-                        int gcd = gcd((int) ((Number) num.getContent()).getValue(), (int) ((Number) denom.getContent()).getValue());
-                        int numerator = (int) ((Number) num.getContent()).getValue() / gcd;
-                        int denominator = (int) ((Number) denom.getContent()).getValue() / gcd;
-                        temp = num;
+                        double gcd = gcd(((Number) num.getContent()).getValue(), ((Number) denom.getContent()).getValue());
+                        double numerator = ((Number) num.getContent()).getValue() / gcd;
+                        double denominator = ((Number) denom.getContent()).getValue() / gcd;
                         num = new Node<Token>(new Number(numerator));
-                        /*
-                         for(int i=0; i<temp.getNumOfChildren();i++){
-                         num.addChild(temp.getChildren().get(i));
-                         }*/
-                        temp = denom;
                         denom = new Node<Token>(new Number(denominator));
-                        /*
-                         for(int i=0; i<temp.getNumOfChildren();i++){
-                         denom.addChild(temp.getChildren().get(i));
-                         }*/
                     }
                 } else if (num.getContent() instanceof Operator && num.getContent().getType() == Operator.MULTIPLY && denom.getContent() instanceof Number) {
-                    int gcd;
-                    int numerator = 1;
-                    int denominator = (int) ((Number) denom.getContent()).getValue();
+                    double gcd;
+                    double numerator = 1;
+                    double denominator = ((Number) denom.getContent()).getValue();
                     int childNum;//which child branch was a number: -1 both, 0 the first, 1 the second, -2 neither
                     if (num.getChildren().get(0).getContent() instanceof Number && num.getChildren().get(1).getContent() instanceof Number) {
                         double product = ((Number) num.getChildren().get(0).getContent()).getValue() * ((Number) num.getChildren().get(1).getContent()).getValue();
                         if (product % 1 == 0) {
-                            numerator = (int) product;
+                            numerator = product;
                         }
                         childNum = -1;
                     } else if (num.getChildren().get(0).getContent() instanceof Number && (((Number) num.getChildren().get(0).getContent()).getValue() % 1 == 0)) {
-                        numerator = (int) ((Number) num.getChildren().get(0).getContent()).getValue();
+                        numerator = ((Number) num.getChildren().get(0).getContent()).getValue();
                         childNum = 0;
                     } else if (num.getChildren().get(1).getContent() instanceof Number && (((Number) num.getChildren().get(1).getContent()).getValue() % 1 == 0)) {
-                        numerator = (int) ((Number) num.getChildren().get(1).getContent()).getValue();
+                        numerator = ((Number) num.getChildren().get(1).getContent()).getValue();
                         childNum = 1;
                     } else {
                         childNum = -2;
@@ -1341,10 +1346,10 @@ public class JFok {
                      denom.addChild(temp.getChildren().get(i));
                      }*/
                 } else if (denom.getContent() instanceof Operator && denom.getContent().getType() == Operator.MULTIPLY && num.getContent() instanceof Number) {
-                    int gcd;
-                    int denominator = 1;
-                    int numerator = (int) ((Number) num.getContent()).getValue();
-                    int childNum;//which child branch was a number: -1 both, 0 the first, 1 the second, -2 neither
+                    double gcd;
+                    double denominator = 1;
+                    double numerator = ((Number) num.getContent()).getValue();
+                    double childNum;//which child branch was a number: -1 both, 0 the first, 1 the second, -2 neither
                     if (denom.getChildren().get(0).getContent() instanceof Number && denom.getChildren().get(1).getContent() instanceof Number) {
                         double product = ((Number) denom.getChildren().get(0).getContent()).getValue() * ((Number) denom.getChildren().get(1).getContent()).getValue();
                         if (product % 1 == 0) {
@@ -1352,10 +1357,10 @@ public class JFok {
                         }
                         childNum = -1;
                     } else if (denom.getChildren().get(0).getContent() instanceof Number && (((Number) denom.getChildren().get(0).getContent()).getValue() % 1 == 0)) {
-                        denominator = (int) ((Number) denom.getChildren().get(0).getContent()).getValue();
+                        denominator = ((Number) denom.getChildren().get(0).getContent()).getValue();
                         childNum = 0;
                     } else if (denom.getChildren().get(1).getContent() instanceof Number && (((Number) denom.getChildren().get(1).getContent()).getValue() % 1 == 0)) {
-                        denominator = (int) ((Number) denom.getChildren().get(1).getContent()).getValue();
+                        denominator = ((Number) denom.getChildren().get(1).getContent()).getValue();
                         childNum = 1;
                     } else {
                         childNum = -2;
@@ -1428,7 +1433,7 @@ public class JFok {
      * @param denom The denominator of a fraction
      * @return The greatest common factor of num and denom
      */
-    private static int gcd(int num, int denom) {
+    private static double gcd(double num, double denom) {
         return denom == 0 ? num : gcd(denom, num % denom);
     }
 
