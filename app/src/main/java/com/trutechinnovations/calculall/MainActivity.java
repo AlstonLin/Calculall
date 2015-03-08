@@ -53,6 +53,7 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
     private int roundTo;
     private int lastMode;
     private int fontSize;
+    private boolean swipeOnly;
     private MoPubInterstitial interstitial;
     private int currentTheme;
 
@@ -81,6 +82,7 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
         feedbackOn = pref.getBoolean(getString(R.string.haptic), SettingsActivity.DEFAULT_FEEDBACK);
         roundTo = pref.getInt(getString(R.string.round_to), SettingsActivity.DEFAULT_ROUND);
         fontSize = pref.getInt(getString(R.string.font_size), SettingsActivity.DEFAULT_FONT_SIZE);
+        swipeOnly = pref.getBoolean(getString(R.string.mode_switch), SettingsActivity.DEFAULT_SWIPE);
         int theme = pref.getInt(getString(R.string.theme), SettingsActivity.DEFAULT_THEME);
         //Sets the decimal rounding
         Number.roundTo = roundTo;
@@ -92,6 +94,16 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
             //Needs to restart the activity
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
+        }
+        if (swipeOnly) {
+            ToggleButton basic = (ToggleButton) findViewById(R.id.basic_button);
+            ToggleButton advanced = (ToggleButton) findViewById(R.id.advanced_button);
+            ToggleButton function = (ToggleButton) findViewById(R.id.function_button);
+            ToggleButton vector = (ToggleButton) findViewById(R.id.vector_button);
+            basic.setEnabled(false);
+            advanced.setEnabled(false);
+            function.setEnabled(false);
+            vector.setEnabled(false);
         }
     }
 

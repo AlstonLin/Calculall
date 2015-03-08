@@ -365,7 +365,7 @@ public class DisplayView extends View {
                     }
                     j++;
                 }
-                canvas.drawLine(x, y + fracPadding, drawX.get(j), y + fracPadding, fracPaint);
+                canvas.drawLine(x, y + fracPadding, drawX.get(j) + xModifier, y + fracPadding, fracPaint);
             }
 
             //Draws cursor

@@ -4,22 +4,22 @@
     <!-- THEME DAVID -->
     <style name="buttonDarkDavid" parent="android:Widget.Holo.Button.Borderless.Small">
         <item name="android:background">@drawable/button_dark_david</item>
-        <item name="android:textColor">#ffffff</item>
+        <item name="android:textColor">#fff</item>
     </style>
 
     <style name="buttonLightDavid" parent="android:Widget.Holo.Button.Borderless.Small">
         <item name="android:background">@drawable/button_light_david</item>
-        <item name="android:textColor">#ffffff</item>
+        <item name="android:textColor">#fff</item>
     </style>
 
     <style name="buttonSpecialDavid" parent="android:Widget.Holo.Button.Borderless.Small">
         <item name="android:background">@drawable/button_special_david</item>
-        <item name="android:textColor">#ffffff</item>
+        <item name="android:textColor">#ff61c2ed</item>
     </style>
 
     <style name="buttonNumDavid" parent="android:Widget.Holo.Button.Borderless.Small">
         <item name="android:background">@drawable/button_light_david</item>
-        <item name="android:textColor">#F64B55</item>
+        <item name="android:textColor">#2A8DB6</item>
     </style>
 
     <style name="toggleDavid" parent="android:Widget.Holo.Button.Toggle">
@@ -31,7 +31,7 @@
         <item name="buttonFunction">@style/buttonDarkDavid</item>
         <item name="buttonOperator">@style/buttonLightDavid</item>
         <item name="buttonSpecial">@style/buttonSpecialDavid</item>
-        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textColor">#DAE690</item>
         <item name="buttonNum">@style/buttonNumDavid</item>
         <item name="displayColor">@color/displayTextDavid</item>
         <item name="android:windowNoTitle">true</item>
@@ -143,12 +143,12 @@
 
     <style name="buttonSpecialTrailblazer" parent="android:Widget.Holo.Button.Borderless.Small">
         <item name="android:background">@drawable/button_special_trailblazer</item>
-        <item name="android:textColor">#ffffff</item>
+        <item name="android:textColor">#DCA3AB</item>
     </style>
 
     <style name="buttonNumTrailblazer" parent="android:Widget.Holo.Button.Borderless.Small">
         <item name="android:background">@drawable/button_light_trailblazer</item>
-        <item name="android:textColor">#FF9100</item>
+        <item name="android:textColor">#DCA3AB</item>
     </style>
 
     <style name="toggleTrailblazer" parent="android:Widget.Holo.Button.Toggle">

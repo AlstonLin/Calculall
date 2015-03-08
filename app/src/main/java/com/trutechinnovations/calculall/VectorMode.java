@@ -395,11 +395,11 @@ public class VectorMode extends Advanced {
                     display.displayOutput(scalar);
                     activity.scrollDown();
                     //Saves the output
-                    ArrayList<Token> toOutput = new ArrayList<>();
-                    toOutput.add(new StringToken("Scalar of "));
-                    toOutput.addAll(scalar);
+                    ArrayList<Token> toInput = new ArrayList<>();
+                    toInput.add(new StringToken("Scalar of "));
+                    toInput.addAll(tokens);
                     try {
-                        saveEquation(tokens, toOutput, FILENAME);
+                        saveEquation(toInput, scalar, FILENAME);
                     } catch (Exception e) { //User did a mistake
                         handleExceptions(e);
                     }
@@ -415,11 +415,11 @@ public class VectorMode extends Advanced {
                     display.displayOutput(scalar);
                     activity.scrollDown();
                     //Saves the output
-                    ArrayList<Token> toOutput = new ArrayList<>();
-                    toOutput.add(new StringToken("Scalar of "));
-                    toOutput.addAll(scalar);
+                    ArrayList<Token> toInput = new ArrayList<>();
+                    toInput.add(new StringToken("Scalar of "));
+                    toInput.addAll(tokens);
                     try {
-                        saveEquation(tokens, toOutput, FILENAME);
+                        saveEquation(toInput, scalar, FILENAME);
                     } catch (Exception e) { //User did a mistake
                         handleExceptions(e);
                     }
@@ -435,11 +435,11 @@ public class VectorMode extends Advanced {
                     display.displayOutput(scalar);
                     activity.scrollDown();
                     //Saves the output
-                    ArrayList<Token> toOutput = new ArrayList<>();
-                    toOutput.add(new StringToken("Scalar of "));
-                    toOutput.addAll(scalar);
+                    ArrayList<Token> toInput = new ArrayList<>();
+                    toInput.add(new StringToken("Scalar of "));
+                    toInput.addAll(tokens);
                     try {
-                        saveEquation(tokens, toOutput, FILENAME);
+                        saveEquation(toInput, scalar, FILENAME);
                     } catch (Exception e) { //User did a mistake
                         handleExceptions(e);
                     }

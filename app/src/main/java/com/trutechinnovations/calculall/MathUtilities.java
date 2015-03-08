@@ -118,7 +118,7 @@ public class MathUtilities {
      * @return The indefinite integral of the function
      */
     public static String integrateStr(String function) {
-        String str = "Simplify(integrate(" + function + ",x))";
+        String str = "Factor(integrate(" + function + ",x))";
         IExpr integral = util.evaluate(str);
         if (integral.toString().contains("Integrate")) { //Could not integrate into an elementary funct
             // ion

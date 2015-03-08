@@ -46,13 +46,14 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:adjustViewBounds="true"
+            android:nestedScrollingEnabled="true"
             android:onClick="clickSettings"
             android:paddingBottom="5dp"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:paddingTop="5dp"
             android:scaleType="fitCenter"
-            android:src="?settings_img"
+            android:src="@drawable/ic_action_settings"
             android:textSize="20sp" />
 
 
@@ -69,7 +70,7 @@
             android:paddingRight="5dp"
             android:paddingTop="5dp"
             android:scaleType="fitCenter"
-            android:src="?history_img"
+            android:src="@drawable/ic_action_assignment"
             android:textSize="20sp" />
 
         <Button
@@ -168,7 +169,7 @@
             android:paddingRight="5dp"
             android:paddingTop="5dp"
             android:scaleType="fitCenter"
-            android:src="?attr/frac_img"
+            android:src="@drawable/ic_frac_white"
             android:textSize="16sp" />
 
         <com.trutechinnovations.calculall.MultiButton
