@@ -5,4 +5,4 @@
     android:background="?android:colorBackground"
     android:gravity="center"
     android:textColor="?displayColor"
-    android:textSize="32sp" />
+    android:textSize="26sp" />

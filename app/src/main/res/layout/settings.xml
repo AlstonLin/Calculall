@@ -101,6 +101,15 @@
         android:textSize="26sp" />
 
     <Switch
+        android:id="@+id/swipe_only_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/mode_switch"
+        android:textColor="?displayColor"
+        android:textSize="21sp" />
+
+    <Switch
         android:id="@+id/haptic_switch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

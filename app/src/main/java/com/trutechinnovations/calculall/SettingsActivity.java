@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * When the Settings Button has been pressed.
  */
-public class SettingsActivity extends Activity implements CompoundButton.OnCheckedChangeListener {
+public class SettingsActivity extends Activity {
 
 
     //Constants
@@ -41,11 +41,12 @@ public class SettingsActivity extends Activity implements CompoundButton.OnCheck
     public static final int DEFAULT_ROUND = 6;
     public static final int DEFAULT_FONT_SIZE = 96;
     public static final boolean DEFAULT_FEEDBACK = false;
+    public static final boolean DEFAULT_SWIPE = false;
     private int currentTheme;
     private PopupWindow popup;
     private ImageAdapter adapter;
     private SharedPreferences pref;
-    private boolean feedbackOn;
+    private boolean feedbackOn, swipe_only;
     private int roundTo;
     private int fontSize;
 
@@ -58,6 +59,7 @@ public class SettingsActivity extends Activity implements CompoundButton.OnCheck
         feedbackOn = pref.getBoolean(getString(R.string.haptic), DEFAULT_FEEDBACK);
         roundTo = pref.getInt(getString(R.string.round_to), DEFAULT_ROUND);
         fontSize = pref.getInt(getString(R.string.font_size), DEFAULT_FONT_SIZE);
+        swipe_only = pref.getBoolean(getString(R.string.mode_switch), DEFAULT_SWIPE);
         //Sets up the current theme
         switch (currentTheme) {
             case DAVID:
@@ -155,8 +157,38 @@ public class SettingsActivity extends Activity implements CompoundButton.OnCheck
      */
     public void setupSwitch() {
         Switch switc = (Switch) findViewById(R.id.haptic_switch);
-        switc.setOnCheckedChangeListener(this);
-        switc.setChecked(feedbackOn);
+        Switch swipe = (Switch) findViewById(R.id.swipe_only_switch);
+        switc.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            /**
+             * When the check has been changed.
+             *
+             * @param buttonView Not Used
+             * @param isChecked  If it is now checked
+             */
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                feedbackOn = isChecked;
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putBoolean(getString(R.string.haptic), isChecked);
+                editor.apply();
+            }
+        });
+        swipe.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            /**
+             * When the check has been changed.
+             *
+             * @param buttonView Not Used
+             * @param isChecked  If it is now checked
+             */
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                swipe_only = isChecked;
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putBoolean(getString(R.string.mode_switch), isChecked);
+                editor.apply();
+            }
+        });
+        switc.setChecked(swipe_only);
     }
 
     /**
@@ -256,20 +288,6 @@ public class SettingsActivity extends Activity implements CompoundButton.OnCheck
      */
     public void clickExitTheme(View v) {
         popup.dismiss();
-    }
-
-    /**
-     * When the check has been changed.
-     *
-     * @param buttonView Not Used
-     * @param isChecked  If it is now checked
-     */
-    @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        feedbackOn = isChecked;
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putBoolean(getString(R.string.haptic), isChecked);
-        editor.apply();
     }
 
     public class ImageAdapter extends BaseAdapter {

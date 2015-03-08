@@ -42,7 +42,6 @@ android/support/multidex/MultiDex.class
 org/apache/commons/math3/optimization/univariate/BracketFinder.class
 com/google/android/gms/games/leaderboard/LeaderboardScore.class
 org/apache/commons/math3/optimization/general/ConjugateGradientFormula.class
-org/apache/commons/math3/optim/nonlinear/scalar/gradient/NonLinearConjugateGradientOptimizer.class
 android/support/v4/app/FragmentTabHost.class
 com/mopub/common/util/ManifestUtils.class
 com/google/common/collect/Multimaps.class
@@ -90,6 +89,7 @@ android/support/v4/widget/SlidingPaneLayout.class
 org/apache/commons/math3/optimization/GoalType.class
 edu/jas/poly/GenPolynomial.class
 com/google/android/gms/internal/cu.class
+com/trutechinnovations/calculall/SettingsActivity$4.class
 com/google/common/base/Equivalence$EquivalentToPredicate.class
 org/apache/commons/math3/analysis/function/HarmonicOscillator.class
 com/google/android/gms/internal/ae.class
@@ -281,6 +281,7 @@ com/google/android/gms/internal/cv.class
 com/google/android/gms/internal/fh$a.class
 com/google/android/gms/internal/ek.class
 org/apache/commons/math3/analysis/function/Sqrt.class
+com/trutechinnovations/calculall/SettingsActivity$5.class
 com/google/common/base/Converter$ConverterComposition.class
 com/google/android/gms/internal/ga.class
 android/support/v4/widget/MaterialProgressDrawable$Ring.class
@@ -709,7 +710,6 @@ com/google/common/collect/LinkedHashMultimap$ValueEntry.class
 org/apache/commons/math3/analysis/function/Log.class
 org/apache/commons/math3/linear/SparseFieldVector.class
 org/apache/commons/math3/analysis/interpolation/SmoothingPolynomialBicubicSplineInterpolator.class
-org/apache/commons/math3/optim/nonlinear/scalar/gradient/NonLinearConjugateGradientOptimizer$BracketingStep.class
 org/apache/commons/math3/optimization/direct/MultivariateFunctionPenaltyAdapter.class
 org/apache/commons/math3/analysis/function/Inverse.class
 com/mopub/mobileads/factories/VastVideoDownloadTaskFactory.class

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="backgroundDavid">#ff093e53</color>
+    <color name="backgroundDavid">#152131</color>
     <color name="backgroundForest">#2E7D32</color>
     <color name="backgroundPanda">#9E9E9E</color>
-    <color name="backgroundTrailblazer">#B71C1C</color>
+    <color name="backgroundTrailblazer">#C83843</color>
     <color name="backgroundHawks">#4527A0</color>
     <color name="backgroundGeese">#FFEB3B</color>
     <color name="backgroundSunset">#B71C1C</color>
@@ -13,7 +13,7 @@
     <color name="backgroundDress">#8F9CC6</color>
 
     <color name="displayTextForest">#FFD54F</color>
-    <color name="displayTextDavid">#F64B55</color>
+    <color name="displayTextDavid">#FFFBC3</color>
     <color name="displayTextPanda">#000000</color>
     <color name="displayTextTrailblazer">#FFFFFF</color>
     <color name="displayTextHawks">#FFD700</color>
