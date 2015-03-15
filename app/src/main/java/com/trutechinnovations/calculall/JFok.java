@@ -264,12 +264,12 @@ public class JFok {
                     String s2 = Double.toString(Math.abs(value2));
                     int decimals1 = s1.length() - s1.indexOf('.') - 1;
                     int decimals2 = s2.length() - s2.indexOf('.') - 1;
-                    double multiplier = decimals1 > decimals2 ? Math.pow(10, decimals1) : Math.pow(10, decimals2);
+                    int multiplier = (int) (decimals1 > decimals2 ? Math.pow(10, decimals1) : Math.pow(10, decimals2));
                     value1 *= multiplier;
                     value2 *= multiplier;
                     Node<Token> div = new Node<Token>(OperatorFactory.makeFraction());
-                    div.addChild(new Node<Token>(new Number(value1)));
-                    div.addChild(new Node<Token>(new Number(value2)));
+                    div.addChild(new Node<Token>(new Number(Math.round(value1))));
+                    div.addChild(new Node<Token>(new Number(Math.round(value2))));
                     return div;
                 }
             }

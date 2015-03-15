@@ -188,7 +188,8 @@ public class SettingsActivity extends Activity {
                 editor.apply();
             }
         });
-        switc.setChecked(swipe_only);
+        switc.setChecked(feedbackOn);
+        swipe.setChecked(swipe_only);
     }
 
     /**

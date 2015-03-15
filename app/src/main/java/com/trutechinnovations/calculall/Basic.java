@@ -381,6 +381,7 @@ public class Basic implements View.OnClickListener {
             ArrayList<Token> list = new ArrayList<Token>();
             list.add(num);
             display.displayOutput(list);
+            VariableFactory.ans_value = list;
             saveEquation(tokens, list, filename);
         } catch (Exception e) { //User did a mistake
             handleExceptions(e);

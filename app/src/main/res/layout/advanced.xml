@@ -93,16 +93,6 @@
         android:layout_weight="1"
         android:orientation="horizontal">
 
-        <com.trutechinnovations.calculall.MultiButton
-            android:id="@+id/sqrt_button"
-            style="?attr/buttonFunction"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:onClick="onClick"
-            android:text="@string/sqrt"
-            android:textSize="16sp" />
-
         <Button
             android:id="@+id/var_a"
             style="?attr/buttonFunction"
@@ -156,6 +146,17 @@
             android:text="@string/e"
             android:textSize="16sp" />
 
+        <Button
+            android:id="@+id/ans_button"
+            style="?attr/buttonFunction"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:text="@string/ans"
+            android:textSize="16sp" />
+
+
     </LinearLayout>
 
     <LinearLayout
@@ -164,7 +165,6 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="horizontal">
-
 
         <Button
             android:id="@+id/angle_mode"
@@ -203,6 +203,16 @@
             android:layout_weight="1"
             android:onClick="onClick"
             android:text="@string/tan"
+            android:textSize="16sp" />
+
+        <com.trutechinnovations.calculall.MultiButton
+            android:id="@+id/sqrt_button"
+            style="?attr/buttonFunction"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:text="@string/sqrt"
             android:textSize="16sp" />
 
         <com.trutechinnovations.calculall.MultiButton
