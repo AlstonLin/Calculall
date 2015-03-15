@@ -377,6 +377,8 @@ public class Basic implements View.OnClickListener {
             Number num = new Number(Utility.process(tokens));
             if (Double.isInfinite(num.getValue())) {
                 throw new NumberTooLargeException();
+            } else if (num.getValue() == 9001) {
+                Toast.makeText(activity, "IT'S OVER 9000!!", Toast.LENGTH_LONG).show();
             }
             ArrayList<Token> list = new ArrayList<Token>();
             list.add(num);
@@ -407,7 +409,9 @@ public class Basic implements View.OnClickListener {
                 message = e.getMessage();
             }
         }
-        Toast.makeText(activity, message, Toast.LENGTH_LONG).show();
+        if (message != "") {
+            Toast.makeText(activity, message, Toast.LENGTH_LONG).show();
+        }
     }
 
     /**
