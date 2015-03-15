@@ -95,16 +95,14 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }
-        if (swipeOnly) {
-            ToggleButton basic = (ToggleButton) findViewById(R.id.basic_button);
-            ToggleButton advanced = (ToggleButton) findViewById(R.id.advanced_button);
-            ToggleButton function = (ToggleButton) findViewById(R.id.function_button);
-            ToggleButton vector = (ToggleButton) findViewById(R.id.vector_button);
-            basic.setEnabled(false);
-            advanced.setEnabled(false);
-            function.setEnabled(false);
-            vector.setEnabled(false);
-        }
+        ToggleButton basic = (ToggleButton) findViewById(R.id.basic_button);
+        ToggleButton advanced = (ToggleButton) findViewById(R.id.advanced_button);
+        ToggleButton function = (ToggleButton) findViewById(R.id.function_button);
+        ToggleButton vector = (ToggleButton) findViewById(R.id.vector_button);
+        basic.setEnabled(!swipeOnly);
+        advanced.setEnabled(!swipeOnly);
+        function.setEnabled(!swipeOnly);
+        vector.setEnabled(!swipeOnly);
     }
 
     /**

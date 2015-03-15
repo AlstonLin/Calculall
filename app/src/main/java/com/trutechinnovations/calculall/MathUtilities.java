@@ -51,7 +51,7 @@ public class MathUtilities {
             integral = JFok.jFokExpression(integral);
             //Constant of Integration
             integral.add(OperatorFactory.makeAdd());
-            integral.add(VariableFactory.makeC());
+            integral.add(VariableFactory.makeConstant());
             return integral;
         } catch (SyntaxError e) { //Malformed expression
             e.printStackTrace();
@@ -120,11 +120,14 @@ public class MathUtilities {
     public static String integrateStr(String function) {
         String str = "Factor(integrate(" + function + ",x))";
         IExpr integral = util.evaluate(str);
-        if (integral.toString().contains("Integrate")) { //Could not integrate into an elementary funct
-            // ion
+        String integralStr = integral.toString();
+        if (integral.toString().contains("Integrate")) { //Could not integrate into an elementary function
             throw new UnsupportedOperationException();
         }
-        return integral.toString();
+        if (integralStr.contains("Factor")) { //Cannot factor further
+            integralStr = integralStr.substring(7, integralStr.length() - 1);
+        }
+        return integralStr;
     }
 
     /**
@@ -134,7 +137,7 @@ public class MathUtilities {
      * @return The expression tree
      */
     public static ArrayList<Token> convertStringToTokens(String str) {
-        ArrayList<Token> tokens = new ArrayList();
+        ArrayList<Token> tokens = new ArrayList<>();
         int charIndex = 0;
         boolean processingDigits = false;
         boolean handled = false; //If the character has been handled

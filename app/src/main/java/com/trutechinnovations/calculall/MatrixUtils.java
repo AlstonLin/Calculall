@@ -66,7 +66,7 @@ public class MatrixUtils {
             if (token instanceof Variable) {
                 int index = tokens.indexOf(token);
                 Variable v = (Variable) token;
-                newTokens.add(index, new Number(v.getValue()));
+                newTokens.addAll(index, v.getValue());
             } else {
                 newTokens.add(token);
             }

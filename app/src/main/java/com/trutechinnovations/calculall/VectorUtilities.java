@@ -475,7 +475,7 @@ public class VectorUtilities {
                     toReturn.add(t);
                 }
             } else if (t instanceof Variable) {
-                toReturn.add(new Number(((Variable) t).getValue()));
+                toReturn.add(new Number(Utility.process(((Variable) t).getValue())));
             } else {
                 toReturn.add(t);
             }

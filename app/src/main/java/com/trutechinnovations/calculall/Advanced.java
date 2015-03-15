@@ -107,6 +107,9 @@ public class Advanced extends Basic {
             case R.id.closed_bracket_button:
                 clickCloseBracket();
                 break;
+            case R.id.ans_button:
+                clickAns();
+                break;
             default:
                 super.onClick(v);
         }
@@ -124,12 +127,14 @@ public class Advanced extends Basic {
                 output = JFok.simplifyExpression(output);
                 display.displayOutput(output);
                 saveEquation(tokens, output, FILENAME);
+                VariableFactory.ans_value = output;
             }
         } catch (Exception e) { //User did a mistake
             handleExceptions(e);
         }
         activity.scrollDown();
     }
+
 
     public void clickAngleMode() {
         Button angleModeButton = (Button) activity.findViewById(R.id.angle_mode);
@@ -202,14 +207,16 @@ public class Advanced extends Basic {
      * @param addToOutput The String that will be shown in the output along with the value
      * @param assignment  The assignment command that would be executed
      */
-    protected void storeVariable(String addToOutput, Command<Void, Double> assignment) {
+    protected void storeVariable(String addToOutput, Command<Void, ArrayList<Token>> assignment) {
         ToggleButton memButton = (ToggleButton) activity.findViewById(R.id.mem_button);
         try {
-            double val = Utility.process(tokens);
             ArrayList<Token> outputList = new ArrayList<>();
-            outputList.add(new Number(val));
+            outputList.addAll(tokens);
             outputList.add(new StringToken(addToOutput));
             display.displayOutput(outputList);
+
+            ArrayList<Token> val = new ArrayList<>();
+            val.addAll(tokens);
             assignment.execute(val);
             mem = false;
             memButton.setChecked(false);
@@ -219,14 +226,23 @@ public class Advanced extends Basic {
     }
 
     /**
+     * When the user presses the ANS button
+     */
+    public void clickAns() {
+        tokens.add(display.getRealCursorIndex(), VariableFactory.makeAns());
+        display.setCursorIndex(display.getCursorIndex() + 1);
+        updateInput();
+    }
+
+    /**
      * When the user presses the A button
      */
     public void clickA() {
         if (mem) {
-            storeVariable("→ A", new Command<Void, Double>() {
+            storeVariable("→ A", new Command<Void, ArrayList<Token>>() {
                 @Override
-                public Void execute(Double val) {
-                    Variable.a_value = val;
+                public Void execute(ArrayList<Token> val) {
+                    VariableFactory.a_value = val;
                     return null;
                 }
             });
@@ -242,10 +258,10 @@ public class Advanced extends Basic {
      */
     public void clickB() {
         if (mem) {
-            storeVariable("→ B", new Command<Void, Double>() {
+            storeVariable("→ B", new Command<Void, ArrayList<Token>>() {
                 @Override
-                public Void execute(Double val) {
-                    Variable.b_value = val;
+                public Void execute(ArrayList<Token> val) {
+                    VariableFactory.b_value = val;
                     return null;
                 }
             });
@@ -261,10 +277,10 @@ public class Advanced extends Basic {
      */
     public void clickC() {
         if (mem) {
-            storeVariable("→ C", new Command<Void, Double>() {
+            storeVariable("→ C", new Command<Void, ArrayList<Token>>() {
                 @Override
-                public Void execute(Double val) {
-                    Variable.c_value = val;
+                public Void execute(ArrayList<Token> val) {
+                    VariableFactory.c_value = val;
                     return null;
                 }
             });

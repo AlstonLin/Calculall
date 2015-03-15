@@ -1,6 +1,7 @@
 package com.trutechinnovations.calculall;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Represents either a user-defined value or a variable for a function, represented by
@@ -12,9 +13,8 @@ import java.io.Serializable;
 public abstract class Variable extends Token implements Serializable {
 
 
-    public static final int A = 1, B = 2, C = 3, X = 4, Y = 5, Z = 6, PI = 7, E = 8;
+    public static final int A = 1, B = 2, C = 3, X = 4, Y = 5, PI = 7, E = 8, ANS = 9, CONSTANT = 10;
     public static final double PI_VALUE = Math.PI, E_VALUE = Math.E;
-    public static double a_value = 0, b_value = 0, c_value = 0, x_value = 0, y_value = 0, z_value = 0; //Values of the variables
     public boolean negative = false;
 
     /**
@@ -53,5 +53,5 @@ public abstract class Variable extends Token implements Serializable {
     /**
      * @return The value of the variable/constant
      */
-    public abstract double getValue();
+    public abstract ArrayList<Token> getValue();
 }

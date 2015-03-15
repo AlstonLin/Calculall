@@ -166,7 +166,7 @@ public class FunctionMode extends Advanced {
             @Override
             protected ArrayList<ArrayList<Token>> doInBackground(ArrayList<Token>... params) {
                 try {
-                    return MathUtilities.findRoots(params[0]);
+                    return MathUtilities.findRoots(subAns(params[0]));
                 } catch (Exception e) {
                     error = e;
                     return null;
@@ -205,7 +205,7 @@ public class FunctionMode extends Advanced {
                         //Saves to history
                         try {
                             ArrayList<Token> saveInput = new ArrayList<>();
-                            saveInput.addAll(tokens);
+                            saveInput.addAll(subAns(tokens));
                             saveInput.add(0, new StringToken("Roots of "));
                             saveEquation(saveInput, toOutput, filename);
                         } catch (IOException | ClassNotFoundException e) {
@@ -233,7 +233,7 @@ public class FunctionMode extends Advanced {
         Command<ArrayList<Token>, ArrayList<Token>> task = new Command<ArrayList<Token>, ArrayList<Token>>() {
             @Override
             public ArrayList<Token> execute(ArrayList<Token> tokens) {
-                return MathUtilities.differentiate(tokens);
+                return MathUtilities.differentiate(subAns(tokens));
             }
         };
 
@@ -259,7 +259,7 @@ public class FunctionMode extends Advanced {
         params[0] = tokens;
         ArrayList<Token> input = new ArrayList<>();
         input.add(new StringToken("d/dx "));
-        input.addAll(tokens);
+        input.addAll(subAns(tokens));
         //Passes the rest onto the Thread
         MathThread thread = new MathThread(task, errorHandler, input);
         thread.executeOnExecutor(EXECUTOR, params);
@@ -272,7 +272,7 @@ public class FunctionMode extends Advanced {
         Command<ArrayList<Token>, ArrayList<Token>> task = new Command<ArrayList<Token>, ArrayList<Token>>() {
             @Override
             public ArrayList<Token> execute(ArrayList<Token> tokens) {
-                return MathUtilities.integrate(tokens);
+                return MathUtilities.integrate(subAns(tokens));
             }
         };
 
@@ -304,7 +304,7 @@ public class FunctionMode extends Advanced {
         params[0] = tokens;
         ArrayList<Token> input = new ArrayList<>();
         input.add(0, new StringToken("∫ "));
-        input.addAll(tokens);
+        input.addAll(subAns(tokens));
         //Passes the rest onto the Thread
         MathThread thread = new MathThread(task, errorHandler, input);
         thread.executeOnExecutor(EXECUTOR, params);
@@ -319,7 +319,7 @@ public class FunctionMode extends Advanced {
         Command<ArrayList<Token>, ArrayList<Token>> task = new Command<ArrayList<Token>, ArrayList<Token>>() {
             @Override
             public ArrayList<Token> execute(ArrayList<Token> tokens) {
-                return MathUtilities.expand(tokens);
+                return MathUtilities.expand(subAns(tokens));
             }
         };
 
@@ -348,7 +348,7 @@ public class FunctionMode extends Advanced {
         params[0] = tokens;
         ArrayList<Token> input = new ArrayList<>();
         input.add(0, new StringToken("Expand "));
-        input.addAll(tokens);
+        input.addAll(subAns(tokens));
         //Passes the rest onto the Thread
         MathThread thread = new MathThread(task, errorHandler, input);
         thread.executeOnExecutor(EXECUTOR, params);
@@ -363,7 +363,7 @@ public class FunctionMode extends Advanced {
         Command<ArrayList<Token>, ArrayList<Token>> task = new Command<ArrayList<Token>, ArrayList<Token>>() {
             @Override
             public ArrayList<Token> execute(ArrayList<Token> tokens) {
-                return MathUtilities.factor(tokens);
+                return MathUtilities.factor(subAns(tokens));
             }
         };
 
@@ -391,7 +391,7 @@ public class FunctionMode extends Advanced {
         params[0] = tokens;
         ArrayList<Token> input = new ArrayList<>();
         input.add(0, new StringToken("Factor "));
-        input.addAll(tokens);
+        input.addAll(subAns(tokens));
         //Passes the rest onto the Thread
         MathThread thread = new MathThread(task, errorHandler, input);
         thread.executeOnExecutor(EXECUTOR, params);
@@ -452,12 +452,12 @@ public class FunctionMode extends Advanced {
 
             //Makes sure that the floats are valid
             if (xMin >= xMax) {
-                Toast.makeText(activity, "The min x must be greater than max x", Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, "The min x must be smaller than max x", Toast.LENGTH_SHORT).show();
                 return;
             }
 
             if (yMin >= yMax) {
-                Toast.makeText(activity, "The min y must be greater than max y", Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, "The min y must be smaller than max y", Toast.LENGTH_SHORT).show();
                 return;
             }
             //Saves to preferences
@@ -494,13 +494,32 @@ public class FunctionMode extends Advanced {
         View layout = inflater.inflate(R.layout.graph_view, null, false);
 
         GraphView gv = (GraphView) layout.findViewById(R.id.graph_content);
-        gv.setFunction(tokens);
+        gv.setFunction(subAns(tokens));
         gv.setBounds(minX, maxX, minY, maxY);
         pw = new PopupWindow(layout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
         gv.setPopupWindow(pw);
         pw.showAtLocation(activity.findViewById(R.id.frame), Gravity.CENTER, 0, 0);
     }
 
+
+    private ArrayList<Token> subAns(ArrayList<Token> tokens) {
+        ArrayList<Token> function = new ArrayList<>();
+
+        for (Token token : tokens) {
+            if (token instanceof Variable && token.getType() == Variable.ANS) {
+                for (Token t : VariableFactory.ans_value) {
+                    if (t instanceof Variable && t.getType() == Variable.CONSTANT) {
+                        function.add(new Number(0));
+                    } else {
+                        function.add(t);
+                    }
+                }
+            } else {
+                function.add(token);
+            }
+        }
+        return function;
+    }
 
     /**
      * A generalization of the Thread that all the heavy worload calculus functions will use.
@@ -573,6 +592,7 @@ public class FunctionMode extends Advanced {
                         Toast.makeText(activity, "Error saving to history", Toast.LENGTH_LONG).show();
                     }
                     display.displayOutput(result);
+                    VariableFactory.ans_value = result;
                 }
                 super.onPostExecute(tokens);
             }

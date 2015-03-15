@@ -1,5 +1,7 @@
 package com.trutechinnovations.calculall;
 
+import java.util.ArrayList;
+
 /**
  * Contains static methods that will create Variable tokens.
  *
@@ -7,9 +9,16 @@ package com.trutechinnovations.calculall;
  * @version Alpha 2.0
  */
 public class VariableFactory {
+    public static ArrayList<Token> a_value = new ArrayList<>();
+    public static ArrayList<Token> b_value = new ArrayList<>();
+    public static ArrayList<Token> c_value = new ArrayList<>();
+    public static ArrayList<Token> x_value = new ArrayList<>();
+    public static ArrayList<Token> y_value = new ArrayList<>();
+    public static ArrayList<Token> ans_value = new ArrayList<>(); //Values of the variables
+
     public static Variable makeA() {
         return new Variable(Variable.A, "A") {
-            public double getValue() {
+            public ArrayList<Token> getValue() {
                 return a_value;
             }
         };
@@ -17,7 +26,7 @@ public class VariableFactory {
 
     public static Variable makeB() {
         return new Variable(Variable.B, "B") {
-            public double getValue() {
+            public ArrayList<Token> getValue() {
                 return b_value;
             }
         };
@@ -25,7 +34,15 @@ public class VariableFactory {
 
     public static Variable makeC() {
         return new Variable(Variable.C, "C") {
-            public double getValue() {
+            public ArrayList<Token> getValue() {
+                return c_value;
+            }
+        };
+    }
+
+    public static Variable makeConstant() {
+        return new Variable(Variable.CONSTANT, "Constant") {
+            public ArrayList<Token> getValue() {
                 return c_value;
             }
         };
@@ -33,7 +50,7 @@ public class VariableFactory {
 
     public static Variable makeX() {
         return new Variable(Variable.X, "X") {
-            public double getValue() {
+            public ArrayList<Token> getValue() {
                 return x_value;
             }
         };
@@ -41,7 +58,7 @@ public class VariableFactory {
 
     public static Variable makeY() {
         return new Variable(Variable.Y, "Y") {
-            public double getValue() {
+            public ArrayList<Token> getValue() {
                 return y_value;
             }
         };
@@ -49,16 +66,28 @@ public class VariableFactory {
 
     public static Variable makePI() {
         return new Variable(Variable.PI, "π") {
-            public double getValue() {
-                return PI_VALUE;
+            public ArrayList<Token> getValue() {
+                ArrayList<Token> tokens = new ArrayList<>();
+                tokens.add(new Number(PI_VALUE));
+                return tokens;
             }
         };
     }
 
     public static Variable makeE() {
         return new Variable(Variable.E, "e") {
-            public double getValue() {
-                return E_VALUE;
+            public ArrayList<Token> getValue() {
+                ArrayList<Token> tokens = new ArrayList<>();
+                tokens.add(new Number(E_VALUE));
+                return tokens;
+            }
+        };
+    }
+
+    public static Variable makeAns() {
+        return new Variable(Variable.ANS, "ANS") {
+            public ArrayList<Token> getValue() {
+                return ans_value;
             }
         };
     }
