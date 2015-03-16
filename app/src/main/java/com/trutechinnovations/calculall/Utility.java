@@ -261,7 +261,7 @@ public class Utility {
             } else if (digit.getValue() == DigitFactory.NEGATIVE) {
                 throw new IllegalArgumentException("Invalid placement of negatives in Digits");
             } else {
-                value += digit.getValue() * Math.pow(10, power);
+                value += digit.getValue() * round(Math.pow(10, power), Math.abs(power) + 1);
                 power--;
             }
         }
@@ -582,7 +582,9 @@ public class Utility {
             if (token instanceof Variable && token.getType() == Variable.X) {
                 expression.add(((Variable) token).isNegative() ? new Number(-x) : new Number(x));
             } else if (token instanceof Variable) {
-                expression.add(new Number(((Variable) token).getValue()));
+                ArrayList<Token> value = ((Variable) token).getValue();
+                double result = Utility.process(value);
+                expression.add(new Number(result));
             } else {
                 expression.add(token);
             }
@@ -876,7 +878,7 @@ public class Utility {
      * @throws IllegalArgumentException If the user has input a invalid expression
      */
     public static double process(ArrayList<Token> tokens) {
-        tokens = setupExpression(condenseDigits(addMissingBrackets(subVariables(tokens))));
+        tokens = setupExpression(subVariables(condenseDigits(addMissingBrackets(tokens))));
         return evaluateExpression(convertToReversePolish(tokens));
     }
 
@@ -892,7 +894,12 @@ public class Utility {
             if (token instanceof Variable) {
                 int index = tokens.indexOf(token);
                 Variable v = (Variable) token;
-                newTokens.add(index, new Number(v.getValue()));
+                ArrayList<Token> val = v.getValue();
+                val = condenseDigits(val);
+                if (val.isEmpty()) {
+                    val.add(new Number(0));
+                }
+                newTokens.addAll(index, val);
             } else {
                 newTokens.add(token);
             }
@@ -966,7 +973,7 @@ public class Utility {
             if (token instanceof Variable && ((token.getType() != Variable.PI && token.getType() != Variable.E) || constants)) {
                 int index = tokens.indexOf(token);
                 Variable v = (Variable) token;
-                newTokens.add(index, new Number(v.getValue()));
+                newTokens.addAll(index, v.getValue());
             } else {
                 newTokens.add(token);
             }
