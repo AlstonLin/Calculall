@@ -123,6 +123,10 @@ public class Advanced extends Basic {
             if (fracMode == DEC) {
                 super.clickEquals();
             } else if (fracMode == FRAC) {
+                double value = Utility.process(tokens);
+                if (Double.isInfinite(value)) {
+                    throw new ArithmeticException("Math Error");
+                }
                 ArrayList<Token> output = Utility.subVariables(tokens, false);
                 output = JFok.simplifyExpression(output);
                 display.displayOutput(output);
