@@ -1,9 +1,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.trutech.calculall.MatrixMode" >
-    <item android:id="@+id/action_settings"
-        android:title="@string/action_settings"
+    tools:context="com.trutechinnovations.calculall.MatrixMode">
+    <item
+        android:id="@+id/action_settings"
         android:orderInCategory="100"
-        android:showAsAction="never" />
+        android:showAsAction="never"
+        android:title="@string/action_settings" />
 </menu>
-<!-- From: file:/C:/Users/Alston/Calculall/app/src/main/res/menu/matrix_mode.xml -->
+<!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/menu/matrix_mode.xml -->

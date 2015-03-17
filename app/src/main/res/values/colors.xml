@@ -2,24 +2,24 @@
 <resources>
     <color name="backgroundDavid">#152131</color>
     <color name="backgroundForest">#2E7D32</color>
-    <color name="backgroundPanda">#9E9E9E</color>
+    <color name="backgroundPanda">#ff454a4f</color>
     <color name="backgroundTrailblazer">#C83843</color>
     <color name="backgroundHawks">#4527A0</color>
     <color name="backgroundGeese">#FFEB3B</color>
     <color name="backgroundSunset">#B71C1C</color>
-    <color name="backgroundAlston">#F5F5F5</color>
+    <color name="backgroundAlston">#749BBB</color>
     <color name="backgroundMaterial">#F5F5F5</color>
     <color name="backgroundOcean">#03A9F4</color>
     <color name="backgroundDress">#8F9CC6</color>
 
     <color name="displayTextForest">#FFD54F</color>
     <color name="displayTextDavid">#FFFBC3</color>
-    <color name="displayTextPanda">#000000</color>
+    <color name="displayTextPanda">#ffc5c5c5</color>
     <color name="displayTextTrailblazer">#FFFFFF</color>
     <color name="displayTextHawks">#FFD700</color>
     <color name="displayTextGeese">#000000</color>
     <color name="displayTextSunset">#FFC107</color>
-    <color name="displayTextAlston">#1B5E20</color>
+    <color name="displayTextAlston">#fff</color>
     <color name="displayTextMaterial">#B71C1C</color>
     <color name="displayTextOcean">#FFFFFF</color>
     <color name="displayTextDress">#745E39</color>

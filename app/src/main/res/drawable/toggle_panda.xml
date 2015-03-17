@@ -4,13 +4,13 @@
     <item
         android:state_checked="false">
         <shape android:shape="rectangle"  >
-            <solid android:color="#212121"/>
+            <solid android:color="#ff595f66"/>
         </shape>
     </item>
     <item
         android:state_checked="true">
         <shape android:shape="rectangle"  >
-            <solid android:color="#424242"/>
+            <solid android:color="#FF454A4F"/>
         </shape>
     </item>
 </selector>
