@@ -4,7 +4,7 @@ android {
     buildToolsVersion '21.1.2'
 
     dexOptions {
-        javaMaxHeapSize "2g"
+        javaMaxHeapSize "4g"
         preDexLibraries = true
     }
 
