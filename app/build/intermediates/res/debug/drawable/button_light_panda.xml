@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:state_pressed="true" >
+        <shape android:shape="rectangle"  >
+            <solid android:color="#ff4e5b5c"/>
+        </shape>
+    </item>
+    <item android:state_focused="true">
+        <shape android:shape="rectangle"  >
+            <solid android:color="#ff4e5b5c"/>
+        </shape>
+    </item>
+    <item >
+        <shape android:shape="rectangle"  >
+            <solid android:color="#ff3f494a"/>
+        </shape>
+    </item>
+</selector><!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/drawable/button_light_panda.xml -->

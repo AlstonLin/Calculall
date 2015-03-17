@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="common_google_play_services_notification_ticker" msgid="1852570676146674985">"កំហុស​​សេវាកម្ម​ Google កម្សាន្ត"</string>
     <string name="common_google_play_services_notification_needs_installation_title" msgid="8120534356798772974">"កម្មវិធី​ទាមទារ​ឲ្យ​ដំឡើង​សេវាកម្ម​ Google កម្សាន្ត។"</string>
     <string name="common_google_play_services_notification_needs_update_title" msgid="1388129345631079938">"កម្មវិធី​ទាមទារ​​ធ្វើ​បច្ចុប្បន្នភាព​សេវាកម្ម ​Google កម្សាន្ត។"</string>

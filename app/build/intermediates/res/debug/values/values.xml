@@ -1,21 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-    <!-- From: file:/C:/Users/Alston/Calculall/app/src/main/res/values/dimens.xml -->
-    <eat-comment />
-
+<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/values/attr.xml -->
+    <eat-comment/>
+    <attr format="reference" name="buttonFunction"/>
+    <attr format="reference" name="buttonNum"/>
+    <attr format="reference" name="buttonOperator"/>
+    <attr format="reference" name="buttonSpecial"/>
+    <attr format="reference" name="change_img"/>
+    <attr format="reference" name="displayColor"/>
+    <attr format="reference" name="frac_img"/>
+    <attr format="reference" name="history_img"/>
+    <attr format="reference" name="settings_img"/>
+    <attr format="reference" name="toggle"/>
+    <!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/values/colors.xml -->
+    <eat-comment/>
+    <color name="backgroundAlston">#749BBB</color>
+    <color name="backgroundDavid">#152131</color>
+    <color name="backgroundDress">#8F9CC6</color>
+    <color name="backgroundForest">#2E7D32</color>
+    <color name="backgroundGeese">#FFEB3B</color>
+    <color name="backgroundHawks">#4527A0</color>
+    <color name="backgroundMaterial">#F5F5F5</color>
+    <color name="backgroundOcean">#03A9F4</color>
+    <color name="backgroundPanda">#ff454a4f</color>
+    <color name="backgroundSunset">#B71C1C</color>
+    <color name="backgroundTrailblazer">#C83843</color>
+    <!-- From: file:/D:/App%20dev/Calculall/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/common_colors.xml -->
+    <eat-comment/>
+    <color name="common_action_bar_splitter">#d2d2d2</color>
+    <color name="common_signin_btn_dark_text_default">@android:color/white</color>
+    <color name="common_signin_btn_dark_text_disabled">#FFAAAAAA</color>
+    <color name="common_signin_btn_dark_text_focused">@android:color/white</color>
+    <color name="common_signin_btn_dark_text_pressed">@android:color/white</color>
+    <color name="common_signin_btn_default_background">#FFDD4B39</color>
+    <color name="common_signin_btn_light_text_default">#FF737373</color>
+    <color name="common_signin_btn_light_text_disabled">#FFAAAAAA</color>
+    <color name="common_signin_btn_light_text_focused">#FF737373</color>
+    <color name="common_signin_btn_light_text_pressed">@android:color/white</color>
+    <!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/values/colors.xml -->
+    <eat-comment/>
+    <color name="displayTextAlston">#fff</color>
+    <color name="displayTextDavid">#FFFBC3</color>
+    <color name="displayTextDress">#745E39</color>
+    <color name="displayTextForest">#FFD54F</color>
+    <color name="displayTextGeese">#000000</color>
+    <color name="displayTextHawks">#FFD700</color>
+    <color name="displayTextMaterial">#B71C1C</color>
+    <color name="displayTextOcean">#FFFFFF</color>
+    <color name="displayTextPanda">#ffc5c5c5</color>
+    <color name="displayTextSunset">#FFC107</color>
+    <color name="displayTextTrailblazer">#FFFFFF</color>
+    <!-- From: file:/D:/App%20dev/Calculall/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/wallet_colors.xml -->
+    <eat-comment/>
+    <color name="wallet_bright_foreground_disabled_holo_light">#ffb2b2b2</color>
+    <color name="wallet_bright_foreground_holo_dark">#fff3f3f3</color>
+    <color name="wallet_bright_foreground_holo_light">#ff000000</color>
+    <color name="wallet_dim_foreground_disabled_holo_dark">#80bebebe</color>
+    <color name="wallet_dim_foreground_holo_dark">#bebebe</color>
+    <color name="wallet_dim_foreground_inverse_disabled_holo_dark">#80323232</color>
+    <color name="wallet_dim_foreground_inverse_holo_dark">#323232</color>
+    <color name="wallet_highlighted_text_holo_dark">#6633b5e5</color>
+    <color name="wallet_highlighted_text_holo_light">#6633b5e5</color>
+    <color name="wallet_hint_foreground_holo_dark">#808080</color>
+    <color name="wallet_hint_foreground_holo_light">#808080</color>
+    <color name="wallet_holo_blue_light">#ff33b5e5</color>
+    <color name="wallet_link_text_light">#0000ee</color>
+    <declare-styleable name="AdsAttrs"><attr format="string" name="adSize"/><attr format="string" name="adSizes"/><attr format="string" name="adUnitId"/></declare-styleable>
+    <declare-styleable name="LoadingImageView"><attr format="enum" name="imageAspectRatioAdjust"><enum name="none" value="0"/><enum name="adjust_width" value="1"/><enum name="adjust_height" value="2"/></attr><attr format="float" name="imageAspectRatio"/><attr format="boolean" name="circleCrop"/></declare-styleable>
+    <declare-styleable name="MapAttrs"><attr format="enum" name="mapType"><enum name="none" value="0"/><enum name="normal" value="1"/><enum name="satellite" value="2"/><enum name="terrain" value="3"/><enum name="hybrid" value="4"/></attr><attr format="float" name="cameraBearing"/><attr format="float" name="cameraTargetLat"/><attr format="float" name="cameraTargetLng"/><attr format="float" name="cameraTilt"/><attr format="float" name="cameraZoom"/><attr format="boolean" name="liteMode"/><attr format="boolean" name="uiCompass"/><attr format="boolean" name="uiRotateGestures"/><attr format="boolean" name="uiScrollGestures"/><attr format="boolean" name="uiTiltGestures"/><attr format="boolean" name="uiZoomControls"/><attr format="boolean" name="uiZoomGestures"/><attr format="boolean" name="useViewLifecycle"/><attr format="boolean" name="zOrderOnTop"/><attr format="boolean" name="uiMapToolbar"/></declare-styleable>
+    <declare-styleable name="WalletFragmentOptions"><attr format="enum" name="appTheme"><enum name="holo_dark" value="0"/><enum name="holo_light" value="1"/></attr><attr format="enum" name="environment"><enum name="production" value="1"/><enum name="sandbox" value="0"/><enum name="strict_sandbox" value="2"/></attr><attr format="reference" name="fragmentStyle"/><attr format="enum" name="fragmentMode"><enum name="buyButton" value="1"/><enum name="selectionDetails" value="2"/></attr></declare-styleable>
+    <declare-styleable name="WalletFragmentStyle"><attr format="dimension" name="buyButtonHeight"><enum name="match_parent" value="-1"/><enum name="wrap_content" value="-2"/></attr><attr format="dimension" name="buyButtonWidth"><enum name="match_parent" value="-1"/><enum name="wrap_content" value="-2"/></attr><attr format="enum" name="buyButtonText"><enum name="buy_with_google" value="1"/><enum name="buy_now" value="2"/><enum name="book_now" value="3"/><enum name="donate_with_google" value="4"/></attr><attr format="enum" name="buyButtonAppearance"><enum name="classic" value="1"/><enum name="grayscale" value="2"/><enum name="monochrome" value="3"/></attr><attr format="reference" name="maskedWalletDetailsTextAppearance"/><attr format="reference" name="maskedWalletDetailsHeaderTextAppearance"/><attr format="reference|color" name="maskedWalletDetailsBackground"/><attr format="reference" name="maskedWalletDetailsButtonTextAppearance"/><attr format="reference|color" name="maskedWalletDetailsButtonBackground"/><attr format="color" name="maskedWalletDetailsLogoTextColor"/><attr format="enum" name="maskedWalletDetailsLogoImageType"><enum name="classic" value="1"/><enum name="monochrome" value="2"/></attr></declare-styleable>
+    <!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/values/dimens.xml -->
+    <eat-comment/>
     <dimen name="activity_horizontal_margin">0dp</dimen>
     <dimen name="activity_vertical_margin">0dp</dimen>
-    <!-- From: file:/C:/Users/Alston/Calculall/app/src/main/res/values/strings.xml -->
-    <eat-comment />
-
+    <!-- From: file:/D:/App%20dev/Calculall/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/version.xml -->
+    <eat-comment/>
+    <integer name="google_play_services_version">6587000</integer>
+    <!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
     <string name="AC">AC</string>
     <string name="C">CLR</string>
+    <string name="about">About</string>
+    <string name="about_content">Calculall is a mobile application developed by TruTech Innovations, a startup
+    started by students in the Waterloo area to create tools for other students.</string>
+    <string name="about_us">About Us</string>
+    <!-- From: file:/D:/App%20dev/Calculall/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_strings.xml -->
+    <eat-comment/>
+    <string name="accept">Accept</string>
+    <!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
     <string name="action_settings">Settings</string>
     <string name="advanced">Advanced</string>
-    <string name="angleBetweenVectors">∠</string>
+    <string name="angle_between_vectors">∠</string>
+    <string name="ans">ANS</string>
     <string name="app_name">Calculall</string>
+    <string name="arccos"><![CDATA[cos<sup><small>-1</small></sup>]]></string>
+    <string name="arccosh"><![CDATA[cosh<sup><small>-1</small></sup>]]></string>
+    <string name="arcsin"><![CDATA[sin<sup><small>-1</small></sup>]]></string>
+    <string name="arcsinh"><![CDATA[sinh<sup><small>-1</small></sup>]]></string>
+    <string name="arctan"><![CDATA[tan<sup><small>-1</small></sup>]]></string>
+    <string name="arctanh"><![CDATA[tanh<sup><small>-1</small></sup>]]></string>
     <string name="argument">Arg</string>
+    <string name="augment">[A|B]</string>
     <string name="backspace">←</string>
     <string name="base10">DEC</string>
     <string name="base16">HEX</string>
@@ -23,128 +110,635 @@
     <string name="base8">OCT</string>
     <string name="basic">Basic</string>
     <string name="bear">Bea</string>
+    <string name="cancel">Cancel</string>
     <string name="cbrt">³√</string>
-    <string name="closedBracket">)</string>
-    <string name="closedSquareBracket">]</string>
+    <string name="closed_bracket">)</string>
+    <string name="closed_square_bracket">]</string>
     <string name="combination">n<b><b>C</b></b>r</string>
     <string name="comma">,</string>
+    <!-- From: file:/D:/App%20dev/Calculall/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/common_strings.xml -->
+    <eat-comment/>
+    <string name="common_android_wear_notification_needs_update_text">An application requires an update to the Android Wear app.</string>
+    <string name="common_android_wear_update_text">This app won\'t run unless you update the Android Wear app.</string>
+    <string msgid="6006316683626838685" name="common_android_wear_update_title">Update Android Wear</string>
+    <string msgid="2523291102206661146" name="common_google_play_services_enable_button">Enable Google Play services</string>
+    <string msgid="227660514972886228" name="common_google_play_services_enable_text">This app won\'t work unless you enable Google Play services.</string>
+    <string msgid="5122002158466380389" name="common_google_play_services_enable_title">Enable Google Play services</string>
+    <string name="common_google_play_services_error_notification_requested_by_msg">Requested by <ns1:g id="app_name">%1$s</ns1:g></string>
+    <string msgid="7153882981874058840" name="common_google_play_services_install_button">Get Google Play services</string>
+    <string msgid="2122112764540849864" name="common_google_play_services_install_text_phone">This app won\'t run without Google Play services, which are missing from your phone.</string>
+    <string msgid="7351599665250191022" name="common_google_play_services_install_text_tablet">This app won\'t run without Google Play services, which are missing from your tablet.</string>
+    <string msgid="7215213145546190223" name="common_google_play_services_install_title">Get Google Play services</string>
+    <string name="common_google_play_services_invalid_account_text">The specified account does not exist on this device. Please choose a different account.</string>
+    <string name="common_google_play_services_invalid_account_title">Invalid Account</string>
+    <string name="common_google_play_services_needs_enabling_title">An application requires Google Play services to be enabled.</string>
+    <string name="common_google_play_services_network_error_text">A data connection is required to connect to Google Play services.</string>
+    <string name="common_google_play_services_network_error_title">Network Error</string>
+    <string name="common_google_play_services_notification_needs_installation_title">An application requires installation of Google Play services.</string>
+    <string name="common_google_play_services_notification_needs_update_title">An application requires an update for Google Play services.</string>
+    <string name="common_google_play_services_notification_ticker">Google Play services error</string>
+    <string name="common_google_play_services_unknown_issue">Unknown issue with Google Play services.</string>
+    <string name="common_google_play_services_unsupported_text">Google Play services, which some of your applications rely on, is not supported by your device. Please contact the manufacturer for assistance.</string>
+    <string name="common_google_play_services_unsupported_title">Google Play services</string>
+    <string msgid="6556509956452265614" name="common_google_play_services_update_button">Update</string>
+    <string msgid="9053896323427875356" name="common_google_play_services_update_text">This app won\'t run unless you update Google Play services.</string>
+    <string msgid="6006316683626838685" name="common_google_play_services_update_title">Update Google Play services</string>
+    <string name="common_open_on_phone">Open on phone</string>
+    <string name="common_signin_button_text">Sign in</string>
+    <string name="common_signin_button_text_long">Sign in with Google</string>
+    <!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
     <string name="cos">cos</string>
+    <!-- From: file:/D:/App%20dev/Calculall/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_strings.xml -->
+    <eat-comment/>
+    <string name="create_calendar_message">Allow Ad to create a calendar event?</string>
+    <string name="create_calendar_title">Create calendar event</string>
+    <!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="credits">CEO and Software Architect - Alston Lin\nCFO and Designer - David Liu\nSenior Developer - Ejaaz Merali\n
+    Junior Developer - Jason Fok\nJunior Developer - Keith Wong\nQuality Assurance Analyst - Tyler Wang</string>
     <string name="cross">×</string>
     <string name="cube">x³</string>
     <string name="decimal">.</string>
-    <string name="deg">DEG</string>
+    <string name="decimals">Digits</string>
+    <!-- From: file:/D:/App%20dev/Calculall/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_strings.xml -->
+    <eat-comment/>
+    <string name="decline">Decline</string>
+    <!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="decomp">DECOMP</string>
     <string name="degrees">Degrees</string>
-    <string name="derivative">dy/dx</string>
+    <string name="derivative">d/dx</string>
+    <string name="det">DET</string>
+    <string name="diag">DIAG</string>
     <string name="divide">/</string>
+    <string name="done">✔</string>
     <string name="dot">•</string>
     <string name="e">e</string>
+    <string name="edit">Edit</string>
     <string name="eight">8</string>
+    <string name="empty"> </string>
     <string name="equals">=</string>
-    <string name="exponent"><![CDATA[<p>x<sup><small><small><i>y</i></small></small></sup></p>]]></string>
-    <string name="factorial">n!</string>
+    <string name="ev">Ev</string>
+    <string name="expand">Expand</string>
+    <string name="exponent"><![CDATA[x<sup><small><i>□</i></small></sup>]]></string>
+    <string name="factor">Factor</string>
+    <string name="factorial">x!</string>
     <string name="findRoots">Roots</string>
     <string name="five">5</string>
+    <string name="font_size">Font Size</string>
     <string name="four">4</string>
     <string name="function">Function</string>
-    <string name="grad">GRAD</string>
     <string name="gradians">Gradians</string>
     <string name="graph">Graph</string>
+    <string name="graph_note">Note: All angles are in radians</string>
     <string name="graphing">Graphing</string>
+    <string name="haptic">Vibrate</string>
     <string name="hello_world">Hello world!</string>
+    <string name="history">Calculation History</string>
     <string name="hyp">hyp</string>
-    <string name="impFrac">d/e</string>
+    <string name="imp_frac">d/e</string>
     <string name="integrate">∫</string>
-    <string name="leftscroll"><![CDATA[<-]]></string>
+    <string name="inverse_a"><![CDATA[A<sup><small><i>-1</i></small></sup>]]></string>
+    <string name="lambda">λ</string>
+    <string name="leftscroll">⇦</string>
     <string name="ln">ln</string>
     <string name="log10">log</string>
     <string name="log_b">log_b</string>
-    <string name="magnitude">|v|</string>
+    <string name="magnitude_close">)‖</string>
+    <string name="magnitude_open">‖(</string>
     <string name="matrix">Matrix</string>
+    <string name="matrix_pow"><![CDATA[A<sup><small><i>y</i></small></sup>]]></string>
     <string name="minus">-</string>
-    <string name="mixedFrac">A b/c</string>
+    <string name="mode_key">Mode</string>
+    <string name="mode_switch">Mode Switch - Swipe Only</string>
     <string name="more">More</string>
     <string name="multiply">x</string>
+    <string name="newe"><![CDATA[[ ]<sup><small>+</small></sup>]]></string>
     <string name="nine">9</string>
+    <string name="num">#</string>
     <string name="one">1</string>
-    <string name="openBracket">(</string>
-    <string name="openSquareBracket">[</string>
+    <string name="open_bracket">(</string>
+    <string name="open_square_bracket">[</string>
+    <string name="our_team">Our Team</string>
     <string name="permutation">n<b><b>P</b></b>r</string>
     <string name="pi">"π"</string>
     <string name="plus">+</string>
     <string name="plusminus">±</string>
-    <string name="powOfE"><![CDATA[<p>e<sup><small><small><i>x</i></small></small></sup></p>]]></string>
-    <string name="powOfTen"><![CDATA[<p>10<sup><small><small><i>x</i></small></small></sup></p>]]></string>
-    <string name="powerTen">Exp</string>
+    <string name="pow_of_e"><![CDATA[e<sup><small><i>□</i></small></sup>]]></string>
+    <string name="pow_of_ten"><![CDATA[10<sup><small><i>□</i></small></sup>]]></string>
+    <string name="power_ten">Exp</string>
+    <string name="preference_key">com.trutechinnovations.calculall.PREFERENCES</string>
     <string name="projection">proj</string>
-    <string name="rad">RAD</string>
     <string name="radians">Radians</string>
     <string name="radix">CHANGE</string>
-    <string name="reciprocal">x^-1</string>
+    <string name="rank">Rank</string>
+    <string name="recip"><![CDATA[x<sup><small>-1</small></sup>]]></string>
+    <string name="ref">REF</string>
+    <string name="report">Report a Bug</string>
     <string name="rightArrow">→</string>
-    <string name="rightscroll"><![CDATA[->]]></string>
+    <string name="rightscroll">⇨</string>
+    <string name="round_to">Round to</string>
+    <string name="rref">RREF</string>
     <string name="s">s</string>
-    <string name="scalarEquationOfALine">Scalar</string>
+    <string name="scalar">Scalar</string>
+    <string name="select_bounds">Select the Bounds</string>
     <string name="seven">7</string>
     <string name="shift">2nd</string>
+    <string name="simplify">Simplify</string>
     <string name="sin">sin</string>
     <string name="six">6</string>
+    <string name="special_thanks">Other collaborators\n Ernest Wong, Brenden Chiu, Ahsen Husain, David Lin</string>
     <string name="sqrt">√</string>
     <string name="square">x²</string>
     <string name="store">STO</string>
+    <!-- From: file:/D:/App%20dev/Calculall/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_strings.xml -->
+    <eat-comment/>
+    <string name="store_picture_message">"Allow Ad to store image in Picture gallery?"</string>
+    <string name="store_picture_title">Save image</string>
+    <!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
     <string name="t">t</string>
     <string name="tan">tan</string>
+    <string name="theme">Change Themes</string>
     <string name="three">3</string>
     <string name="title_activity_advanced">Advanced</string>
     <string name="title_activity_basic">Basic</string>
     <string name="title_activity_graphing">Graphing</string>
     <string name="title_activity_matrix_mode">MatrixMode</string>
+    <string name="title_activity_ocrmode">OCRMode</string>
+    <string name="title_activity_settings">SettingsActivity</string>
     <string name="title_activity_vector">Vector</string>
+    <string name="tokens_key">Tokens</string>
+    <string name="tr">tr</string>
+    <string name="transpose"><![CDATA[A<sup><small><i>t</i></small></sup>]]></string>
     <string name="trueB">Tru</string>
     <string name="two">2</string>
-    <string name="unitVector">û</string>
+    <string name="unit_vector">Û</string>
+    <string name="upgrade">Upgrade to Ad-Free</string>
     <string name="varA">A</string>
     <string name="varB">B</string>
     <string name="varC">C</string>
-    <string name="varRoot"><![CDATA[<p><sup><small><small><i>y</i></small></small></sup>√x</p>]]></string>
     <string name="varX">X</string>
     <string name="varY">Y</string>
     <string name="varZ">Z</string>
-    <string name="vectU">u</string>
-    <string name="vectV">v</string>
-    <string name="vectW">w</string>
+    <string name="var_root"><![CDATA[<sup><small><i>□</i></small></sup>√x]]></string>
+    <string name="vect_u">U</string>
+    <string name="vect_v">V</string>
     <string name="vector">Vector</string>
+    <string name="visit">Visit our website</string>
+    <!-- From: file:/D:/App%20dev/Calculall/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/wallet_strings.xml -->
+    <eat-comment/>
+    <string name="wallet_buy_button_place_holder" translation_description="Text on a button that allows a user to make a payment with Google Wallet [CHAR LIMIT=30]">Buy with Google</string>
+    <!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="x_max">X max</string>
+    <string name="x_min">X min</string>
+    <string name="y_max">Y max</string>
+    <string name="y_min">Y min</string>
     <string name="zero">0</string>
-    <!-- From: file:/C:/Users/Alston/Calculall/app/src/main/res/values/values.xml -->
-    <eat-comment />
-
-    <style name="Main" parent="android:Theme.Holo">
-        <item name="android:buttonStyle">@style/button</item>
-        <item name="android:buttonStyleSmall">@style/button</item>
-        <item name="android:buttonStyleToggle">@style/toggle</item>
+    <!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/values/values.xml -->
+    <eat-comment/>
+    <style name="CustomAlertDialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:textColor">#9E9E9E</item>
     </style>
-
-    <style name="button" parent="android:Widget.Holo.Button.Borderless.Small">
-        <item name="android:background">@drawable/mybutton</item>
+    <!-- From: file:/D:/App%20dev/Calculall/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_iap_style.xml -->
+    <eat-comment/>
+    <style name="Theme.IAPTheme" parent="android:Theme">
+    <item name="android:windowIsTranslucent">true</item>
+    <item name="android:windowBackground">@android:color/transparent</item>
+    <item name="android:windowContentOverlay">@null</item>
+    <item name="android:windowNoTitle">true</item>
+    <item name="android:windowIsFloating">true</item>
+    <item name="android:backgroundDimEnabled">false</item>
+  </style>
+    <!-- From: file:/D:/App%20dev/Calculall/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/wallet_styles.xml -->
+    <eat-comment/>
+    <style name="WalletFragmentDefaultButtonTextAppearance">
+        <item name="android:textColor">@color/wallet_primary_text_holo_light</item>
+        <item name="android:textColorHighlight">@color/wallet_highlighted_text_holo_light</item>
+        <item name="android:textColorHint">@color/wallet_hint_foreground_holo_light</item>
+        <item name="android:textColorLink">@color/wallet_link_text_light</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+    <style name="WalletFragmentDefaultDetailsHeaderTextAppearance" parent="WalletFragmentDefaultDetailsTextAppearance">
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="WalletFragmentDefaultDetailsTextAppearance">
+        <item name="android:textColor">@color/wallet_secondary_text_holo_dark</item>
+        <item name="android:textColorHighlight">@color/wallet_highlighted_text_holo_dark</item>
+        <item name="android:textColorHint">@color/wallet_hint_foreground_holo_dark</item>
+        <item name="android:textColorLink">@color/wallet_holo_blue_light</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+    <style name="WalletFragmentDefaultStyle">
+        <item name="buyButtonHeight">48dp</item>
+        <item name="buyButtonWidth">match_parent</item>
+        <item name="buyButtonText">buy_with_google</item>
+        <item name="buyButtonAppearance">classic</item>
+        <item name="maskedWalletDetailsTextAppearance">@style/WalletFragmentDefaultDetailsTextAppearance</item>
+        <item name="maskedWalletDetailsHeaderTextAppearance">@style/WalletFragmentDefaultDetailsHeaderTextAppearance</item>
+        <item name="maskedWalletDetailsBackground">@color/wallet_bright_foreground_holo_light</item>
+        <item name="maskedWalletDetailsButtonBackground">@android:drawable/btn_default</item>
+        <item name="maskedWalletDetailsButtonTextAppearance">@style/WalletFragmentDefaultButtonTextAppearance</item>
+        <item name="maskedWalletDetailsLogoTextColor">@color/wallet_bright_foreground_holo_dark</item>
+        <item name="maskedWalletDetailsLogoImageType">classic</item>
+    </style>
+    <!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/values/values.xml -->
+    <eat-comment/>
+    <style name="alston" parent="android:Theme.Holo">
+        <item name="android:colorBackground">@color/backgroundAlston</item>
+        <item name="buttonFunction">@style/buttonDarkAlston</item>
+        <item name="buttonOperator">@style/buttonLightAlston</item>
+        <item name="buttonSpecial">@style/buttonSpecialAlston</item>
+        <item name="android:textColor">#000000</item>
+        <item name="buttonNum">@style/buttonNumAlston</item>
+        <item name="displayColor">@color/displayTextAlston</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:buttonStyle">@style/buttonLightAlston</item>
+        <item name="android:buttonStyleToggle">@style/toggleAlston</item>
+        <item name="change_img">@drawable/change_white</item>
+        <item name="frac_img">@drawable/frac_white</item>
+        <item name="history_img">@drawable/history_white</item>
+        <item name="settings_img">@drawable/settings_white</item>
+    </style>
+    <style name="buttonDarkAlston" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_dark_alston</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+    <style name="buttonDarkDavid" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_dark_david</item>
+        <item name="android:textColor">#fff</item>
+    </style>
+    <style name="buttonDarkDress" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_dark_dress</item>
+        <item name="android:textColor">#8F9CC6</item>
+    </style>
+    <style name="buttonDarkForest" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_dark_forest</item>
         <item name="android:textColor">#ffffff</item>
     </style>
-
-    <style name="button2" parent="android:Widget.Holo.Button.Borderless.Small">
-        <item name="android:background">@drawable/mybutton2</item>
+    <style name="buttonDarkGeese" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_dark_geese</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+    <style name="buttonDarkHawks" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_dark_hawks</item>
+        <item name="android:textColor">#FF9100</item>
+    </style>
+    <style name="buttonDarkMaterial" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_dark_material</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+    <style name="buttonDarkOcean" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_dark_ocean</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+    <style name="buttonDarkPanda" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_dark_panda</item>
+        <item name="android:textColor">#ffc5c5c5</item>
+    </style>
+    <style name="buttonDarkSunset" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_dark_sunset</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+    <style name="buttonDarkTrailblazer" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_dark_trailblazer</item>
         <item name="android:textColor">#ffffff</item>
     </style>
-
-    <style name="button3" parent="android:Widget.Holo.Button.Borderless.Small">
-        <item name="android:background">@drawable/mybutton3</item>
-        <item name="android:textColor">#F64B55</item>
+    <style name="buttonLightAlston" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_light_alston</item>
+        <item name="android:textColor">#FFFFFF</item>
     </style>
-
-    <style name="button4" parent="android:Widget.Holo.Button.Borderless.Small">
-        <item name="android:background">@drawable/mybutton3</item>
+    <style name="buttonLightDavid" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_light_david</item>
+        <item name="android:textColor">#fff</item>
+    </style>
+    <style name="buttonLightDress" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_light_dress</item>
+        <item name="android:textColor">#745E39</item>
+    </style>
+    <style name="buttonLightForest" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_light_forest</item>
         <item name="android:textColor">#ffffff</item>
     </style>
-
-    <style name="toggle" parent="android:Widget.Holo.Button.Toggle">
-        <item name="android:background">@drawable/toggle</item>
+    <style name="buttonLightGeese" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_light_geese</item>
+        <item name="android:textColor">#000000</item>
     </style>
+    <style name="buttonLightHawks" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_light_hawks</item>
+        <item name="android:textColor">#000000</item>
+    </style>
+    <style name="buttonLightMaterial" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_light_material</item>
+        <item name="android:textColor">#616161</item>
+    </style>
+    <style name="buttonLightOcean" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_light_ocean</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+    <style name="buttonLightPanda" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_light_panda</item>
+        <item name="android:textColor">#ffc5c5c5</item>
+    </style>
+    <style name="buttonLightSunset" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_light_sunset</item>
+        <item name="android:textColor">#000000</item>
+    </style>
+    <style name="buttonLightTrailblazer" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_light_trailblazer</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+    <style name="buttonNumAlston" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_light_alston</item>
+        <item name="android:textColor">#ECF9B9</item>
+    </style>
+    <style name="buttonNumDavid" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_light_david</item>
+        <item name="android:textColor">#2A8DB6</item>
+    </style>
+    <style name="buttonNumDress" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_light_dress</item>
+        <item name="android:textColor">#000000</item>
+    </style>
+    <style name="buttonNumForest" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_dark_forest</item>
+        <item name="android:textColor">#FFD54F</item>
+    </style>
+    <style name="buttonNumGeese" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_light_geese</item>
+        <item name="android:textColor">#FF9100</item>
+    </style>
+    <style name="buttonNumHawks" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_dark_hawks</item>
+        <item name="android:textColor">#FF9100</item>
+    </style>
+    <style name="buttonNumMaterial" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_light_material</item>
+        <item name="android:textColor">#B71C1C</item>
+    </style>
+    <style name="buttonNumOcean" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_light_ocean</item>
+        <item name="android:textColor">#000000</item>
+    </style>
+    <style name="buttonNumPanda" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_light_panda</item>
+        <item name="android:textColor">#fff</item>
+    </style>
+    <style name="buttonNumSunset" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_dark_sunset</item>
+        <item name="android:textColor">#FFEB3B</item>
+    </style>
+    <style name="buttonNumTrailblazer" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_light_trailblazer</item>
+        <item name="android:textColor">#DCA3AB</item>
+    </style>
+    <style name="buttonSpecialAlston" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_special_alston</item>
+        <item name="android:textColor">#ECF9B9</item>
+    </style>
+    <style name="buttonSpecialDavid" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_special_david</item>
+        <item name="android:textColor">#ff61c2ed</item>
+    </style>
+    <style name="buttonSpecialDress" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_special_dress</item>
+        <item name="android:textColor">#8F9CC6</item>
+    </style>
+    <style name="buttonSpecialForest" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_special_forest</item>
+        <item name="android:textColor">#000000</item>
+    </style>
+    <style name="buttonSpecialGeese" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_special_geese</item>
+        <item name="android:textColor">#FFEB3B</item>
+    </style>
+    <style name="buttonSpecialHawks" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_special_hawks</item>
+        <item name="android:textColor">#4527A0</item>
+    </style>
+    <style name="buttonSpecialMaterial" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_special_material</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+    <style name="buttonSpecialOcean" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_special_ocean</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+    <style name="buttonSpecialPanda" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_special_panda</item>
+        <item name="android:textColor">#ffc5c5c5</item>
+    </style>
+    <style name="buttonSpecialSunset" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_special_sunset</item>
+        <item name="android:textColor">#DD2C00</item>
+    </style>
+    <style name="buttonSpecialTrailblazer" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:background">@drawable/button_special_trailblazer</item>
+        <item name="android:textColor">#DCA3AB</item>
+    </style>
+    <style name="david" parent="android:Theme.Holo">
+        <item name="android:colorBackground">@color/backgroundDavid</item>
+        <item name="buttonFunction">@style/buttonDarkDavid</item>
+        <item name="buttonOperator">@style/buttonLightDavid</item>
+        <item name="buttonSpecial">@style/buttonSpecialDavid</item>
+        <item name="android:textColor">#DAE690</item>
+        <item name="buttonNum">@style/buttonNumDavid</item>
+        <item name="displayColor">@color/displayTextDavid</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="change_img">@drawable/change_white</item>
+        <item name="frac_img">@drawable/frac_white</item>
+        <item name="history_img">@drawable/history_white</item>
+        <item name="settings_img">@drawable/settings_white</item>
+        <item name="android:buttonStyle">@style/buttonLightDavid</item>
+        <item name="android:buttonStyleToggle">@style/toggleDavid</item>
 
+    </style>
+    <style name="dress" parent="android:Theme.Holo">
+        <item name="android:colorBackground">@color/backgroundDress</item>
+        <item name="buttonFunction">@style/buttonDarkDress</item>
+        <item name="buttonOperator">@style/buttonLightDress</item>
+        <item name="buttonSpecial">@style/buttonSpecialDress</item>
+        <item name="android:textColor">#8F9CC6</item>
+        <item name="buttonNum">@style/buttonNumDress</item>
+        <item name="displayColor">@color/displayTextDress</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:buttonStyle">@style/buttonLightDress</item>
+        <item name="android:buttonStyleToggle">@style/toggleDress</item>
+        <item name="change_img">@drawable/change_white</item>
+        <item name="frac_img">@drawable/frac_white</item>
+        <item name="history_img">@drawable/history_white</item>
+        <item name="settings_img">@drawable/settings_white</item>
+    </style>
+    <style name="forest" parent="android:Theme.Holo">
+        <item name="android:colorBackground">@color/backgroundForest</item>
+        <item name="buttonFunction">@style/buttonLightForest</item>
+        <item name="buttonOperator">@style/buttonDarkForest</item>
+        <item name="buttonSpecial">@style/buttonSpecialForest</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="buttonNum">@style/buttonNumForest</item>
+        <item name="displayColor">@color/displayTextForest</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:buttonStyle">@style/buttonDarkForest</item>
+        <item name="android:buttonStyleToggle">@style/toggleForest</item>
+        <item name="change_img">@drawable/change_black</item>
+        <item name="frac_img">@drawable/frac_white</item>
+        <item name="history_img">@drawable/history_white</item>
+        <item name="settings_img">@drawable/settings_white</item>
+    </style>
+    <style name="geese" parent="android:Theme.Holo">
+        <item name="android:colorBackground">@color/backgroundGeese</item>
+        <item name="buttonFunction">@style/buttonDarkGeese</item>
+        <item name="buttonOperator">@style/buttonLightGeese</item>
+        <item name="buttonSpecial">@style/buttonSpecialGeese</item>
+        <item name="android:textColor">#000000</item>
+        <item name="buttonNum">@style/buttonNumGeese</item>
+        <item name="displayColor">@color/displayTextGeese</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:buttonStyle">@style/buttonLightGeese</item>
+        <item name="android:buttonStyleToggle">@style/toggleGeese</item>
+        <item name="change_img">@drawable/change_white</item>
+        <item name="frac_img">@drawable/frac_white</item>
+        <item name="history_img">@drawable/history_white</item>
+        <item name="settings_img">@drawable/settings_white</item>
+    </style>
+    <style name="hawks" parent="android:Theme.Holo">
+        <item name="android:colorBackground">@color/backgroundHawks</item>
+        <item name="buttonFunction">@style/buttonLightHawks</item>
+        <item name="buttonOperator">@style/buttonDarkHawks</item>
+        <item name="buttonSpecial">@style/buttonSpecialHawks</item>
+        <item name="android:textColor">#000000</item>
+        <item name="buttonNum">@style/buttonNumHawks</item>
+        <item name="displayColor">@color/displayTextHawks</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:buttonStyle">@style/buttonDarkHawks</item>
+        <item name="android:buttonStyleToggle">@style/toggleHawks</item>
+        <item name="change_img">@drawable/change_black</item>
+        <item name="frac_img">@drawable/frac_black</item>
+        <item name="history_img">@drawable/history_black</item>
+        <item name="settings_img">@drawable/settings_black</item>
+    </style>
+    <style name="material" parent="android:Theme.Holo">
+        <item name="android:colorBackground">@color/backgroundMaterial</item>
+        <item name="buttonFunction">@style/buttonDarkMaterial</item>
+        <item name="buttonOperator">@style/buttonLightMaterial</item>
+        <item name="buttonSpecial">@style/buttonSpecialMaterial</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="buttonNum">@style/buttonNumMaterial</item>
+        <item name="displayColor">@color/displayTextMaterial</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:buttonStyle">@style/buttonLightMaterial</item>
+        <item name="android:buttonStyleToggle">@style/toggleMaterial</item>
+        <item name="change_img">@drawable/change_white</item>
+        <item name="frac_img">@drawable/frac_white</item>
+        <item name="history_img">@drawable/history_white</item>
+        <item name="settings_img">@drawable/settings_white</item>
+    </style>
+    <style name="ocean" parent="android:Theme.Holo">
+        <item name="android:colorBackground">@color/backgroundOcean</item>
+        <item name="buttonFunction">@style/buttonDarkOcean</item>
+        <item name="buttonOperator">@style/buttonLightOcean</item>
+        <item name="buttonSpecial">@style/buttonSpecialOcean</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="buttonNum">@style/buttonNumOcean</item>
+        <item name="displayColor">@color/displayTextOcean</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:buttonStyle">@style/buttonLightOcean</item>
+        <item name="android:buttonStyleToggle">@style/toggleOcean</item>
+        <item name="change_img">@drawable/change_white</item>
+        <item name="frac_img">@drawable/frac_white</item>
+        <item name="history_img">@drawable/history_white</item>
+        <item name="settings_img">@drawable/settings_white</item>
+    </style>
+    <style name="panda" parent="android:Theme.Holo">
+        <item name="android:colorBackground">@color/backgroundPanda</item>
+        <item name="buttonFunction">@style/buttonDarkPanda</item>
+        <item name="buttonOperator">@style/buttonLightPanda</item>
+        <item name="buttonSpecial">@style/buttonSpecialPanda</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="buttonNum">@style/buttonNumPanda</item>
+        <item name="displayColor">@color/displayTextPanda</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:buttonStyle">@style/buttonLightPanda</item>
+        <item name="android:buttonStyleToggle">@style/togglePanda</item>
+        <item name="change_img">@drawable/change_white</item>
+        <item name="frac_img">@drawable/frac_white</item>
+        <item name="history_img">@drawable/history_white</item>
+        <item name="settings_img">@drawable/settings_white</item>
+    </style>
+    <style name="sunset" parent="android:Theme.Holo">
+        <item name="android:colorBackground">@color/backgroundSunset</item>
+        <item name="buttonFunction">@style/buttonLightSunset</item>
+        <item name="buttonOperator">@style/buttonDarkSunset</item>
+        <item name="buttonSpecial">@style/buttonSpecialSunset</item>
+        <item name="android:textColor">#000000</item>
+        <item name="buttonNum">@style/buttonNumSunset</item>
+        <item name="displayColor">@color/displayTextSunset</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:buttonStyle">@style/buttonDarkSunset</item>
+        <item name="android:buttonStyleToggle">@style/toggleSunset</item>
+        <item name="change_img">@drawable/change_black</item>
+        <item name="frac_img">@drawable/frac_black</item>
+        <item name="history_img">@drawable/history_black</item>
+        <item name="settings_img">@drawable/settings_black</item>
+    </style>
+    <style name="toggleAlston" parent="android:Widget.Holo.Button.Toggle">
+        <item name="android:background">@drawable/toggle_alston</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+    <style name="toggleDavid" parent="android:Widget.Holo.Button.Toggle">
+        <item name="android:background">@drawable/toggle_david</item>
+    </style>
+    <style name="toggleDress" parent="android:Widget.Holo.Button.Toggle">
+        <item name="android:background">@drawable/toggle_dress</item>
+    </style>
+    <style name="toggleForest" parent="android:Widget.Holo.Button.Toggle">
+        <item name="android:background">@drawable/toggle_forest</item>
+    </style>
+    <style name="toggleGeese" parent="android:Widget.Holo.Button.Toggle">
+        <item name="android:background">@drawable/toggle_geese</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+    <style name="toggleHawks" parent="android:Widget.Holo.Button.Toggle">
+        <item name="android:background">@drawable/toggle_hawks</item>
+        <item name="android:textColor">#000000</item>
+    </style>
+    <style name="toggleMaterial" parent="android:Widget.Holo.Button.Toggle">
+        <item name="android:background">@drawable/toggle_material</item>
+    </style>
+    <style name="toggleOcean" parent="android:Widget.Holo.Button.Toggle">
+        <item name="android:background">@drawable/toggle_ocean</item>
+    </style>
+    <style name="togglePanda" parent="android:Widget.Holo.Button.Toggle">
+        <item name="android:background">@drawable/toggle_panda</item>
+    </style>
+    <style name="toggleSunset" parent="android:Widget.Holo.Button.Toggle">
+        <item name="android:background">@drawable/toggle_sunset</item>
+        <item name="android:textColor">#000000</item>
+    </style>
+    <style name="toggleTrailblazer" parent="android:Widget.Holo.Button.Toggle">
+        <item name="android:background">@drawable/toggle_trailblazer</item>
+    </style>
+    <style name="trailblazer" parent="android:Theme.Holo">
+        <item name="android:colorBackground">@color/backgroundTrailblazer</item>
+        <item name="buttonFunction">@style/buttonDarkTrailblazer</item>
+        <item name="buttonOperator">@style/buttonLightTrailblazer</item>
+        <item name="buttonSpecial">@style/buttonSpecialTrailblazer</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="buttonNum">@style/buttonNumTrailblazer</item>
+        <item name="displayColor">@color/displayTextTrailblazer</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:buttonStyle">@style/buttonLightTrailblazer</item>
+        <item name="android:buttonStyleToggle">@style/toggleTrailblazer</item>
+        <item name="change_img">@drawable/change_white</item>
+        <item name="frac_img">@drawable/frac_white</item>
+        <item name="history_img">@drawable/history_white</item>
+        <item name="settings_img">@drawable/settings_white</item>
+    </style>
 </resources>
