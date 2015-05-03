@@ -99,7 +99,7 @@
             android:onClick="clickBasic"
             android:textOff="@string/basic"
             android:textOn="@string/basic"
-            android:textSize="14sp" />
+            android:textSize="16sp" />
 
         <ToggleButton
             android:id="@+id/advanced_button"
@@ -109,7 +109,7 @@
             android:onClick="clickAdvanced"
             android:textOff="@string/advanced"
             android:textOn="@string/advanced"
-            android:textSize="14sp" />
+            android:textSize="12sp" />
 
         <ToggleButton
             android:id="@+id/function_button"
@@ -129,28 +129,16 @@
             android:onClick="clickVector"
             android:textOff="@string/vector"
             android:textOn="@string/vector"
-            android:textSize="14sp" />
+            android:textSize="16sp" />
 
-        <ImageButton
-            android:id="@+id/imageButton"
-            style="?attr/buttonFunction"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:adjustViewBounds="true"
-            android:onClick="clickSettings"
-            android:scaleType="centerInside"
-            android:src="@drawable/ic_action_settings"
-            android:textSize="14sp" />
-        <!--
         <ToggleButton
             android:id="@+id/matrix_button"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:textOn="@string/matrix"
-            android:textOff="@string/matrix"
             android:onClick="clickMatrix"
+            android:textOff="@string/matrix"
+            android:textOn="@string/matrix"
             android:textSize="16sp" />
-       -->
     </LinearLayout>
 </LinearLayout>

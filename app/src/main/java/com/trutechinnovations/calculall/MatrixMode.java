@@ -133,9 +133,6 @@ public class MatrixMode extends FunctionMode {
             case R.id.multiply_button:
                 clickMultiply();
                 break;
-            case R.id.augment_button:
-                clickAugment();
-                break;
             case R.id.equals_button:
                 clickEquals();
                 break;

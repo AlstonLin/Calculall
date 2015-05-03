@@ -17,16 +17,17 @@ import android.view.WindowManager;
 import android.widget.ScrollView;
 import android.widget.ToggleButton;
 
-import com.mopub.mobileads.MoPubErrorCode;
-import com.mopub.mobileads.MoPubInterstitial;
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Random;
+
+/**
+ import com.mopub.mobileads.MoPubErrorCode;
+ import com.mopub.mobileads.MoPubInterstitial;
+ **/
 
 /**
  * Entry point to the application as well as the only Activity. Sets
@@ -35,13 +36,13 @@ import java.util.Random;
  * @author Alston Lin, David Liu
  * @version Alpha 2.0
  */
-public class MainActivity extends FragmentActivity implements ViewPager.OnPageChangeListener, MoPubInterstitial.InterstitialAdListener {
+public class MainActivity extends FragmentActivity implements ViewPager.OnPageChangeListener { //, MoPubInterstitial.InterstitialAdListener {
 
     //Fragment Objects
     public static final int AD_RATE = 2; //Ads will show 1 in 2 activity opens
     private static final String AD_ID = "3ae32e9f72e2402cb01bbbaf1d6ba1f4";
     private static final String TOKENS_FILENAME = "tokens";
-    private static final int NUM_PAGES = 4; //TO ENABLE MATRIX MODE - CHANGES NUM_PAGES TO 5 + uncomment things here and in XML
+    private static final int NUM_PAGES = 5;
     private static final int VIRBRATE_DURATION = 17;
     //Display Objects
     protected DisplayView display;
@@ -54,7 +55,7 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
     private int lastMode;
     private int fontSize;
     private boolean swipeOnly;
-    private MoPubInterstitial interstitial;
+    //private MoPubInterstitial interstitial;
     private int currentTheme;
 
     @Override
@@ -365,7 +366,7 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
         ToggleButton advanced = (ToggleButton) findViewById(R.id.advanced_button);
         ToggleButton function = (ToggleButton) findViewById(R.id.function_button);
         ToggleButton vector = (ToggleButton) findViewById(R.id.vector_button);
-        //ToggleButton matrix = (ToggleButton) findViewById(R.id.matrix_button);
+        ToggleButton matrix = (ToggleButton) findViewById(R.id.matrix_button);
 
         switch (position) {
             case 0:
@@ -373,39 +374,40 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
                 advanced.setChecked(false);
                 function.setChecked(false);
                 vector.setChecked(false);
-                //matrix.setChecked(false);
+                matrix.setChecked(false);
                 break;
             case 1:
                 basic.setChecked(false);
                 advanced.setChecked(true);
                 function.setChecked(false);
                 vector.setChecked(false);
-                //matrix.setChecked(false);
+                matrix.setChecked(false);
                 break;
             case 2:
                 basic.setChecked(false);
                 advanced.setChecked(false);
                 function.setChecked(true);
                 vector.setChecked(false);
-                //matrix.setChecked(false);
+                matrix.setChecked(false);
                 break;
             case 3:
                 basic.setChecked(false);
                 advanced.setChecked(false);
                 function.setChecked(false);
                 vector.setChecked(true);
-                //matrix.setChecked(false);
+                matrix.setChecked(false);
                 break;
             case 4:
                 basic.setChecked(false);
                 advanced.setChecked(false);
                 function.setChecked(false);
                 vector.setChecked(false);
-                //matrix.setChecked(true);
+                matrix.setChecked(true);
                 break;
             default:
                 throw new IllegalArgumentException("The current pager item index could not be handled");
         }
+        /**
         //Possibly shows ads
         if (interstitial != null) {
             interstitial.destroy(); //Prevents Ads from other activities appearing if it is not loaded before switching between them
@@ -420,6 +422,7 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
                 interstitial.load();
             }
         }
+         **/
     }
 
     @Override
@@ -439,6 +442,7 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
         this.showAd = showAd;
     }
 
+    /**
     @Override
     public void onInterstitialLoaded(MoPubInterstitial interstitial) {
         showAd = false;
@@ -466,6 +470,7 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
     public void onInterstitialDismissed(MoPubInterstitial interstitial) {
 
     }
+     **/
 
     /**
      * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in
