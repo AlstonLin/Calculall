@@ -63,34 +63,34 @@ public class SettingsActivity extends Activity {
         //Sets up the current theme
         switch (currentTheme) {
             case DAVID:
-                setTheme(R.style.Theme1);
+                setTheme(R.style.david);
                 break;
             case ALSTON:
-                setTheme(R.style.Theme1);
+                setTheme(R.style.alston);
                 break;
             case PANDA:
-                setTheme(R.style.Theme1);
+                setTheme(R.style.panda);
                 break;
             case TRAILBLAZER:
-                setTheme(R.style.Theme1);
+                setTheme(R.style.trailblazer);
                 break;
             case HAWKS:
-                setTheme(R.style.Theme1);
+                setTheme(R.style.hawks);
                 break;
             case GEESE:
-                setTheme(R.style.Theme1);
+                setTheme(R.style.geese);
                 break;
             case SUNSET:
-                setTheme(R.style.Theme1);
+                setTheme(R.style.sunset);
                 break;
             case FOREST:
-                setTheme(R.style.Theme1);
+                setTheme(R.style.forest);
                 break;
             case MATERIAL:
-                setTheme(R.style.Theme1);
+                setTheme(R.style.material);
                 break;
             case OCEAN:
-                setTheme(R.style.Theme1);
+                setTheme(R.style.ocean);
                 break;
             default:
                 throw new IllegalStateException("Illegal Theme");
