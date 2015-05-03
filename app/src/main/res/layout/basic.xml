@@ -6,17 +6,34 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/row2"
+        android:id="@+id/row1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_weight="3"
         android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/settings_button"
+            style="?attr/buttonFunction"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:onClick="clickSettings"
+            android:paddingBottom="5dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_action_settings"
+            android:textSize="20sp" />
+
 
         <ImageButton
             android:id="@+id/history_button"
             style="?attr/buttonFunction"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:layout_weight="1"
             android:adjustViewBounds="true"
             android:onClick="onClick"
@@ -28,6 +45,26 @@
             android:src="@drawable/ic_action_assignment"
             android:textSize="20sp" />
 
+
+        <Button
+            android:id="@+id/clear_button"
+            style="?attr/buttonFunction"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:text="@string/C"
+            android:textSize="36sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/row2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:orientation="horizontal">
+
         <Button
             android:id="@+id/negative_button"
             style="?attr/buttonFunction"
@@ -36,7 +73,7 @@
             android:layout_weight="1"
             android:onClick="onClick"
             android:text="@string/plusminus"
-            android:textSize="24dp" />
+            android:textSize="36sp" />
 
         <com.trutechinnovations.calculall.MultiButton
             android:id="@+id/sqrt_button"
@@ -46,7 +83,7 @@
             android:layout_weight="1"
             android:onClick="onClick"
             android:text="@string/sqrt"
-            android:textSize="24dp" />
+            android:textSize="36sp" />
 
         <Button
             android:id="@+id/back_button"
@@ -57,17 +94,7 @@
             android:gravity="center"
             android:onClick="onClick"
             android:text="@string/backspace"
-            android:textSize="24dp" />
-
-        <Button
-            android:id="@+id/clear_button"
-            style="?attr/buttonFunction"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:onClick="onClick"
-            android:text="@string/C"
-            android:textSize="24dp" />
+            android:textSize="36sp" />
 
     </LinearLayout>
 

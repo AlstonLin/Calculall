@@ -43,7 +43,7 @@ containing a value of this type.
 <tr><td><code>holo_light</code></td><td>1</td><td></td></tr>
 </table>
          */
-        public static final int appTheme=0x7f010020;
+        public static final int appTheme=0x7f01002c;
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
@@ -71,7 +71,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 <tr><td><code>monochrome</code></td><td>3</td><td></td></tr>
 </table>
          */
-        public static final int buyButtonAppearance=0x7f010027;
+        public static final int buyButtonAppearance=0x7f010033;
         /** <p>May be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
 in (inches), mm (millimeters).
@@ -90,7 +90,7 @@ containing a value of this type.
 <tr><td><code>wrap_content</code></td><td>-2</td><td></td></tr>
 </table>
          */
-        public static final int buyButtonHeight=0x7f010024;
+        public static final int buyButtonHeight=0x7f010030;
         /** <p>Must be one of the following constant values.</p>
 <table>
 <colgroup align="left" />
@@ -103,7 +103,7 @@ containing a value of this type.
 <tr><td><code>donate_with_google</code></td><td>4</td><td></td></tr>
 </table>
          */
-        public static final int buyButtonText=0x7f010026;
+        public static final int buyButtonText=0x7f010032;
         /** <p>May be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
 Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
 in (inches), mm (millimeters).
@@ -122,7 +122,7 @@ containing a value of this type.
 <tr><td><code>wrap_content</code></td><td>-2</td><td></td></tr>
 </table>
          */
-        public static final int buyButtonWidth=0x7f010025;
+        public static final int buyButtonWidth=0x7f010031;
         /** <p>Must be a floating point value, such as "<code>1.2</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -190,7 +190,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 <tr><td><code>strict_sandbox</code></td><td>2</td><td></td></tr>
 </table>
          */
-        public static final int environment=0x7f010021;
+        public static final int environment=0x7f01002d;
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
@@ -205,11 +205,11 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 <tr><td><code>selectionDetails</code></td><td>2</td><td></td></tr>
 </table>
          */
-        public static final int fragmentMode=0x7f010023;
+        public static final int fragmentMode=0x7f01002f;
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
-        public static final int fragmentStyle=0x7f010022;
+        public static final int fragmentStyle=0x7f01002e;
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
@@ -261,21 +261,21 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 <p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
          */
-        public static final int maskedWalletDetailsBackground=0x7f01002a;
+        public static final int maskedWalletDetailsBackground=0x7f010036;
         /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
 <p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
          */
-        public static final int maskedWalletDetailsButtonBackground=0x7f01002c;
+        public static final int maskedWalletDetailsButtonBackground=0x7f010038;
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
-        public static final int maskedWalletDetailsButtonTextAppearance=0x7f01002b;
+        public static final int maskedWalletDetailsButtonTextAppearance=0x7f010037;
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
-        public static final int maskedWalletDetailsHeaderTextAppearance=0x7f010029;
+        public static final int maskedWalletDetailsHeaderTextAppearance=0x7f010035;
         /** <p>Must be one of the following constant values.</p>
 <table>
 <colgroup align="left" />
@@ -286,7 +286,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 <tr><td><code>monochrome</code></td><td>2</td><td></td></tr>
 </table>
          */
-        public static final int maskedWalletDetailsLogoImageType=0x7f01002e;
+        public static final int maskedWalletDetailsLogoImageType=0x7f01003a;
         /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
 <p>This may also be a reference to a resource (in the form
@@ -295,11 +295,113 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int maskedWalletDetailsLogoTextColor=0x7f01002d;
+        public static final int maskedWalletDetailsLogoTextColor=0x7f010039;
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
-        public static final int maskedWalletDetailsTextAppearance=0x7f010028;
+        public static final int maskedWalletDetailsTextAppearance=0x7f010034;
+        /** <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int mrl_rippleAlpha=0x7f010023;
+        /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int mrl_rippleBackground=0x7f010027;
+        /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int mrl_rippleColor=0x7f010020;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int mrl_rippleDelayClick=0x7f010028;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int mrl_rippleDimension=0x7f010021;
+        /** <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int mrl_rippleDuration=0x7f010024;
+        /** <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int mrl_rippleFadeDuration=0x7f010025;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int mrl_rippleHover=0x7f010026;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int mrl_rippleInAdapter=0x7f01002a;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int mrl_rippleOverlay=0x7f010022;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int mrl_ripplePersistent=0x7f010029;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int mrl_rippleRoundedCorners=0x7f01002b;
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
@@ -403,8 +505,8 @@ containing a value of this type.
         public static final int common_signin_btn_light_text_disabled=0x7f050012;
         public static final int common_signin_btn_light_text_focused=0x7f050013;
         public static final int common_signin_btn_light_text_pressed=0x7f050014;
-        public static final int common_signin_btn_text_dark=0x7f05002d;
-        public static final int common_signin_btn_text_light=0x7f05002e;
+        public static final int common_signin_btn_text_dark=0x7f05002e;
+        public static final int common_signin_btn_text_light=0x7f05002f;
         public static final int displayTextAlston=0x7f050015;
         public static final int displayTextDavid=0x7f050016;
         public static final int displayTextDress=0x7f050017;
@@ -416,21 +518,22 @@ containing a value of this type.
         public static final int displayTextPanda=0x7f05001d;
         public static final int displayTextSunset=0x7f05001e;
         public static final int displayTextTrailblazer=0x7f05001f;
-        public static final int wallet_bright_foreground_disabled_holo_light=0x7f050020;
-        public static final int wallet_bright_foreground_holo_dark=0x7f050021;
-        public static final int wallet_bright_foreground_holo_light=0x7f050022;
-        public static final int wallet_dim_foreground_disabled_holo_dark=0x7f050023;
-        public static final int wallet_dim_foreground_holo_dark=0x7f050024;
-        public static final int wallet_dim_foreground_inverse_disabled_holo_dark=0x7f050025;
-        public static final int wallet_dim_foreground_inverse_holo_dark=0x7f050026;
-        public static final int wallet_highlighted_text_holo_dark=0x7f050027;
-        public static final int wallet_highlighted_text_holo_light=0x7f050028;
-        public static final int wallet_hint_foreground_holo_dark=0x7f050029;
-        public static final int wallet_hint_foreground_holo_light=0x7f05002a;
-        public static final int wallet_holo_blue_light=0x7f05002b;
-        public static final int wallet_link_text_light=0x7f05002c;
-        public static final int wallet_primary_text_holo_light=0x7f05002f;
-        public static final int wallet_secondary_text_holo_dark=0x7f050030;
+        public static final int transparent=0x7f050020;
+        public static final int wallet_bright_foreground_disabled_holo_light=0x7f050021;
+        public static final int wallet_bright_foreground_holo_dark=0x7f050022;
+        public static final int wallet_bright_foreground_holo_light=0x7f050023;
+        public static final int wallet_dim_foreground_disabled_holo_dark=0x7f050024;
+        public static final int wallet_dim_foreground_holo_dark=0x7f050025;
+        public static final int wallet_dim_foreground_inverse_disabled_holo_dark=0x7f050026;
+        public static final int wallet_dim_foreground_inverse_holo_dark=0x7f050027;
+        public static final int wallet_highlighted_text_holo_dark=0x7f050028;
+        public static final int wallet_highlighted_text_holo_light=0x7f050029;
+        public static final int wallet_hint_foreground_holo_dark=0x7f05002a;
+        public static final int wallet_hint_foreground_holo_light=0x7f05002b;
+        public static final int wallet_holo_blue_light=0x7f05002c;
+        public static final int wallet_link_text_light=0x7f05002d;
+        public static final int wallet_primary_text_holo_light=0x7f050030;
+        public static final int wallet_secondary_text_holo_dark=0x7f050031;
     }
     public static final class dimen {
         public static final int activity_horizontal_margin=0x7f060000;
@@ -1446,6 +1549,217 @@ containing a value of this type.
           @attr name com.trutechinnovations.calculall:zOrderOnTop
         */
         public static final int MapAttrs_zOrderOnTop = 14;
+        /** Attributes that can be used with a MaterialRippleLayout.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #MaterialRippleLayout_mrl_rippleAlpha com.trutechinnovations.calculall:mrl_rippleAlpha}</code></td><td></td></tr>
+           <tr><td><code>{@link #MaterialRippleLayout_mrl_rippleBackground com.trutechinnovations.calculall:mrl_rippleBackground}</code></td><td></td></tr>
+           <tr><td><code>{@link #MaterialRippleLayout_mrl_rippleColor com.trutechinnovations.calculall:mrl_rippleColor}</code></td><td></td></tr>
+           <tr><td><code>{@link #MaterialRippleLayout_mrl_rippleDelayClick com.trutechinnovations.calculall:mrl_rippleDelayClick}</code></td><td></td></tr>
+           <tr><td><code>{@link #MaterialRippleLayout_mrl_rippleDimension com.trutechinnovations.calculall:mrl_rippleDimension}</code></td><td></td></tr>
+           <tr><td><code>{@link #MaterialRippleLayout_mrl_rippleDuration com.trutechinnovations.calculall:mrl_rippleDuration}</code></td><td></td></tr>
+           <tr><td><code>{@link #MaterialRippleLayout_mrl_rippleFadeDuration com.trutechinnovations.calculall:mrl_rippleFadeDuration}</code></td><td></td></tr>
+           <tr><td><code>{@link #MaterialRippleLayout_mrl_rippleHover com.trutechinnovations.calculall:mrl_rippleHover}</code></td><td></td></tr>
+           <tr><td><code>{@link #MaterialRippleLayout_mrl_rippleInAdapter com.trutechinnovations.calculall:mrl_rippleInAdapter}</code></td><td></td></tr>
+           <tr><td><code>{@link #MaterialRippleLayout_mrl_rippleOverlay com.trutechinnovations.calculall:mrl_rippleOverlay}</code></td><td></td></tr>
+           <tr><td><code>{@link #MaterialRippleLayout_mrl_ripplePersistent com.trutechinnovations.calculall:mrl_ripplePersistent}</code></td><td></td></tr>
+           <tr><td><code>{@link #MaterialRippleLayout_mrl_rippleRoundedCorners com.trutechinnovations.calculall:mrl_rippleRoundedCorners}</code></td><td></td></tr>
+           </table>
+           @see #MaterialRippleLayout_mrl_rippleAlpha
+           @see #MaterialRippleLayout_mrl_rippleBackground
+           @see #MaterialRippleLayout_mrl_rippleColor
+           @see #MaterialRippleLayout_mrl_rippleDelayClick
+           @see #MaterialRippleLayout_mrl_rippleDimension
+           @see #MaterialRippleLayout_mrl_rippleDuration
+           @see #MaterialRippleLayout_mrl_rippleFadeDuration
+           @see #MaterialRippleLayout_mrl_rippleHover
+           @see #MaterialRippleLayout_mrl_rippleInAdapter
+           @see #MaterialRippleLayout_mrl_rippleOverlay
+           @see #MaterialRippleLayout_mrl_ripplePersistent
+           @see #MaterialRippleLayout_mrl_rippleRoundedCorners
+         */
+        public static final int[] MaterialRippleLayout = {
+            0x7f010020, 0x7f010021, 0x7f010022, 0x7f010023,
+            0x7f010024, 0x7f010025, 0x7f010026, 0x7f010027,
+            0x7f010028, 0x7f010029, 0x7f01002a, 0x7f01002b
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.trutechinnovations.calculall.R.attr#mrl_rippleAlpha}
+          attribute's value can be found in the {@link #MaterialRippleLayout} array.
+
+
+          <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.trutechinnovations.calculall:mrl_rippleAlpha
+        */
+        public static final int MaterialRippleLayout_mrl_rippleAlpha = 3;
+        /**
+          <p>This symbol is the offset where the {@link com.trutechinnovations.calculall.R.attr#mrl_rippleBackground}
+          attribute's value can be found in the {@link #MaterialRippleLayout} array.
+
+
+          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.trutechinnovations.calculall:mrl_rippleBackground
+        */
+        public static final int MaterialRippleLayout_mrl_rippleBackground = 7;
+        /**
+          <p>This symbol is the offset where the {@link com.trutechinnovations.calculall.R.attr#mrl_rippleColor}
+          attribute's value can be found in the {@link #MaterialRippleLayout} array.
+
+
+          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.trutechinnovations.calculall:mrl_rippleColor
+        */
+        public static final int MaterialRippleLayout_mrl_rippleColor = 0;
+        /**
+          <p>This symbol is the offset where the {@link com.trutechinnovations.calculall.R.attr#mrl_rippleDelayClick}
+          attribute's value can be found in the {@link #MaterialRippleLayout} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.trutechinnovations.calculall:mrl_rippleDelayClick
+        */
+        public static final int MaterialRippleLayout_mrl_rippleDelayClick = 8;
+        /**
+          <p>This symbol is the offset where the {@link com.trutechinnovations.calculall.R.attr#mrl_rippleDimension}
+          attribute's value can be found in the {@link #MaterialRippleLayout} array.
+
+
+          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.trutechinnovations.calculall:mrl_rippleDimension
+        */
+        public static final int MaterialRippleLayout_mrl_rippleDimension = 1;
+        /**
+          <p>This symbol is the offset where the {@link com.trutechinnovations.calculall.R.attr#mrl_rippleDuration}
+          attribute's value can be found in the {@link #MaterialRippleLayout} array.
+
+
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.trutechinnovations.calculall:mrl_rippleDuration
+        */
+        public static final int MaterialRippleLayout_mrl_rippleDuration = 4;
+        /**
+          <p>This symbol is the offset where the {@link com.trutechinnovations.calculall.R.attr#mrl_rippleFadeDuration}
+          attribute's value can be found in the {@link #MaterialRippleLayout} array.
+
+
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.trutechinnovations.calculall:mrl_rippleFadeDuration
+        */
+        public static final int MaterialRippleLayout_mrl_rippleFadeDuration = 5;
+        /**
+          <p>This symbol is the offset where the {@link com.trutechinnovations.calculall.R.attr#mrl_rippleHover}
+          attribute's value can be found in the {@link #MaterialRippleLayout} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.trutechinnovations.calculall:mrl_rippleHover
+        */
+        public static final int MaterialRippleLayout_mrl_rippleHover = 6;
+        /**
+          <p>This symbol is the offset where the {@link com.trutechinnovations.calculall.R.attr#mrl_rippleInAdapter}
+          attribute's value can be found in the {@link #MaterialRippleLayout} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.trutechinnovations.calculall:mrl_rippleInAdapter
+        */
+        public static final int MaterialRippleLayout_mrl_rippleInAdapter = 10;
+        /**
+          <p>This symbol is the offset where the {@link com.trutechinnovations.calculall.R.attr#mrl_rippleOverlay}
+          attribute's value can be found in the {@link #MaterialRippleLayout} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.trutechinnovations.calculall:mrl_rippleOverlay
+        */
+        public static final int MaterialRippleLayout_mrl_rippleOverlay = 2;
+        /**
+          <p>This symbol is the offset where the {@link com.trutechinnovations.calculall.R.attr#mrl_ripplePersistent}
+          attribute's value can be found in the {@link #MaterialRippleLayout} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.trutechinnovations.calculall:mrl_ripplePersistent
+        */
+        public static final int MaterialRippleLayout_mrl_ripplePersistent = 9;
+        /**
+          <p>This symbol is the offset where the {@link com.trutechinnovations.calculall.R.attr#mrl_rippleRoundedCorners}
+          attribute's value can be found in the {@link #MaterialRippleLayout} array.
+
+
+          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.trutechinnovations.calculall:mrl_rippleRoundedCorners
+        */
+        public static final int MaterialRippleLayout_mrl_rippleRoundedCorners = 11;
         /** Attributes that can be used with a WalletFragmentOptions.
            <p>Includes the following attributes:</p>
            <table>
@@ -1463,7 +1777,7 @@ containing a value of this type.
            @see #WalletFragmentOptions_fragmentStyle
          */
         public static final int[] WalletFragmentOptions = {
-            0x7f010020, 0x7f010021, 0x7f010022, 0x7f010023
+            0x7f01002c, 0x7f01002d, 0x7f01002e, 0x7f01002f
         };
         /**
           <p>This symbol is the offset where the {@link com.trutechinnovations.calculall.R.attr#appTheme}
@@ -1558,9 +1872,9 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
            @see #WalletFragmentStyle_maskedWalletDetailsTextAppearance
          */
         public static final int[] WalletFragmentStyle = {
-            0x7f010024, 0x7f010025, 0x7f010026, 0x7f010027,
-            0x7f010028, 0x7f010029, 0x7f01002a, 0x7f01002b,
-            0x7f01002c, 0x7f01002d, 0x7f01002e
+            0x7f010030, 0x7f010031, 0x7f010032, 0x7f010033,
+            0x7f010034, 0x7f010035, 0x7f010036, 0x7f010037,
+            0x7f010038, 0x7f010039, 0x7f01003a
         };
         /**
           <p>This symbol is the offset where the {@link com.trutechinnovations.calculall.R.attr#buyButtonAppearance}

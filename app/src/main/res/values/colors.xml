@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="backgroundDavid">#21303f</color>
-    <color name="displayDavid">#ecf0f0</color>
-    <color name="color1David">#ff34495d</color>
-    <color name="color2David">#ff1a2531</color>
-    <color name="textColorDavid">#fff</color>
-    <color name="numPadColorDavid">#ef4848</color>
-
-
+    <color name="backgroundDavid">#152131</color>
     <color name="backgroundForest">#2E7D32</color>
     <color name="backgroundPanda">#ff454a4f</color>
     <color name="backgroundTrailblazer">#C83843</color>
@@ -20,6 +13,7 @@
     <color name="backgroundDress">#8F9CC6</color>
 
     <color name="displayTextForest">#FFD54F</color>
+    <color name="displayTextDavid">#FFFBC3</color>
     <color name="displayTextPanda">#ffc5c5c5</color>
     <color name="displayTextTrailblazer">#FFFFFF</color>
     <color name="displayTextHawks">#FFD700</color>
