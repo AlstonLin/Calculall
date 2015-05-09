@@ -130,17 +130,16 @@
             android:textOff="@string/vector"
             android:textOn="@string/vector"
             android:textSize="16sp" />
-        <!--
+
         <ToggleButton
             android:id="@+id/matrix_button"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:textOn="@string/matrix"
-            android:textOff="@string/matrix"
             android:onClick="clickMatrix"
+            android:textOff="@string/matrix"
+            android:textOn="@string/matrix"
             android:textSize="16sp" />
-       -->
     </LinearLayout>
 </LinearLayout>
-<!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/layout/frame.xml -->
+<!-- From: file:/C:/Users/Alston/Calculall/app/src/main/res/layout/frame.xml -->
