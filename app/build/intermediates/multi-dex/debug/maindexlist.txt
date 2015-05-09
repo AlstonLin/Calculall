@@ -384,7 +384,6 @@ com/google/common/collect/ImmutableTable.class
 org/apache/commons/math3/optimization/SimpleVectorValueChecker.class
 com/google/common/collect/GeneralRange.class
 com/google/android/gms/internal/fq.class
-com/google/android/gms/ads/AdActivity.class
 com/google/ads/mediation/MediationInterstitialAdapter.class
 com/trutechinnovations/calculall/DisplayView.class
 com/google/android/gms/internal/dp$a.class
@@ -466,7 +465,6 @@ android/support/v4/app/SuperNotCalledException.class
 com/google/android/gms/internal/el.class
 com/google/android/gms/internal/dd.class
 com/google/android/gms/wallet/FullWallet.class
-com/google/android/gms/dynamic/g.class
 android/support/multidex/MultiDex$V19.class
 com/google/common/base/Converter$ReverseConverter.class
 org/apache/commons/math3/optimization/DifferentiableMultivariateVectorMultiStartOptimizer.class
@@ -582,7 +580,6 @@ com/google/common/collect/TreeRangeSet$SubRangeSet.class
 android/support/v4/app/BackStackRecord$TransitionState.class
 android/support/annotation/FractionRes.class
 android/support/annotation/PluralsRes.class
-com/google/android/gms/internal/dx.class
 org/apache/commons/math3/optimization/BaseMultivariateOptimizer.class
 org/apache/commons/math3/analysis/function/Sigmoid.class
 android/support/v4/app/FragmentActivity$1.class
@@ -645,8 +642,8 @@ com/google/android/gms/drive/DriveStatusCodes.class
 com/google/common/collect/GwtTransient.class
 android/support/v4/view/ViewPager.class
 org/apache/commons/math3/optimization/DifferentiableMultivariateOptimizer.class
-com/google/android/gms/internal/dw.class
 com/google/android/gms/internal/al.class
+com/google/android/gms/internal/dw.class
 com/google/common/base/CharMatcher.class
 org/apache/commons/math3/optimization/linear/SimplexTableau.class
 com/google/ads/mediation/customevent/CustomEventBanner.class

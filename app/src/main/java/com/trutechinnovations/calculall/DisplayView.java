@@ -84,7 +84,7 @@ public class DisplayView extends View {
         fracPadding = textHeight / 8;
         superscriptYOffset = textHeight / 2;
         matrixPadding = textPaint.measureText("  ");
-        paddingAfterMatrix = matrixPadding * 1.5f;
+        paddingAfterMatrix = 0;
     }
 
     public ArrayList<Token> getExpression() {
@@ -857,7 +857,7 @@ public class DisplayView extends View {
                     }
                     columnX[j] = columnX[j - 1] + maxWidth;
                 }
-                x = columnX[columnX.length - 1] + entries.length * matrixPadding + paddingAfterMatrix;
+                x = columnX[columnX.length - 1] + (entries.length - 1) * matrixPadding + paddingAfterMatrix;
             } else {
                 //Changes paint for superscript
                 paint = textPaint;

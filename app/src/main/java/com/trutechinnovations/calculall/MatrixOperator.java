@@ -39,7 +39,7 @@ public abstract class MatrixOperator extends Token {
      * @param right The matrix right of the operation
      * @return The result of the operation
      */
-    public abstract Token operate(Object left, Object right);
+    public abstract Object operate(Object left, Object right);
 
 
     /**

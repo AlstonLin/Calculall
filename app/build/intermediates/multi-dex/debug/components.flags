@@ -20,30 +20,6 @@
     <init>();
 }
 
--keep class com.mopub.mobileads.MoPubActivity {
-    <init>();
-}
-
--keep class com.mopub.mobileads.MraidActivity {
-    <init>();
-}
-
--keep class com.mopub.common.MoPubBrowser {
-    <init>();
-}
-
--keep class com.mopub.mobileads.MraidVideoPlayerActivity {
-    <init>();
-}
-
--keep class com.google.android.gms.ads.AdActivity {
-    <init>();
-}
-
--keep class com.millennialmedia.android.MMActivity {
-    <init>();
-}
-
 -keep class com.trutechinnovations.calculall.SettingsActivity {
     <init>();
 }

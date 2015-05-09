@@ -311,12 +311,16 @@ public class JFok {
                     negative = true;
                 }
 
-                if (degree == 30) { //sin(30) = 1/2
+                if (degree == 0) { //sin(0) = 0
+                    return new Node<Token>(new Number(0));
+                } else if (degree == 30) { //sin(30) = 1/2
                     return ExpressionFactory.makeOneHalf(negative);
                 } else if (degree == 45) { //sin(45) = sqrt2 / 2
                     return ExpressionFactory.makeSqrt2Over2(negative);
                 } else if (degree == 60) { //sin(60) = sqrt3 / 2
                     return ExpressionFactory.makeSqrt3Over2(negative);
+                } else if (degree == 90) { //sin(90) = 1
+                    return new Node<Token>(new Number(1));
                 }
             } else if (root.getContent().getType() == Function.COS) {
                 double degree = num % 360;
@@ -331,13 +335,16 @@ public class JFok {
                 } else if (degree > 270) { //Q4 -> 360 - angle
                     degree = 360 - degree;
                 }
-
-                if (degree == 30) { //cos(30) = sqrt3 / 2
+                if (degree == 0) { //cos(0) = 1
+                    return new Node<Token>(new Number(1));
+                } else if (degree == 30) { //cos(30) = sqrt3 / 2
                     return ExpressionFactory.makeSqrt3Over2(negative);
                 } else if (degree == 45) { //cos(45) = sqrt2 / 2
                     return ExpressionFactory.makeSqrt2Over2(negative);
                 } else if (degree == 60) { //cos(60) = 1 / 2
                     return ExpressionFactory.makeOneHalf(negative);
+                } else if (degree == 90) { //cos(90) = 0
+                    return new Node<Token>(new Number(0));
                 }
             } else if (root.getContent().getType() == Function.TAN) {
                 double degree = num % 360;
@@ -352,11 +359,15 @@ public class JFok {
                     degree = 360 - degree;
                     negative = true;
                 }
-
+                if (degree == 0) { //tan(0) = 0
+                    return new Node<Token>(new Number(1));
+                }
                 if (degree == 30) { //tan(30) = sqrt 3 / 3
                     return ExpressionFactory.makeSqrt3Over3(negative);
                 } else if (degree == 60) { //tan(30) = sqrt 3
                     return ExpressionFactory.makeSqrt3(negative);
+                } else if (degree == 90) { //tan(90) = UNDEFINED
+                    throw new IllegalArgumentException("tan is not defined at this value!");
                 }
             }
         }
