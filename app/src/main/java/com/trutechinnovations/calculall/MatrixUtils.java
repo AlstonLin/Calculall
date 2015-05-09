@@ -104,7 +104,7 @@ public class MatrixUtils {
         }
         if (a.length == a[0].length) {
             double[][] c = a.clone();
-            for (int i = 1; i <= b; i++) {
+            for (int i = 1; i < b; i++) {
                 c = multiply(c, a);
             }
             return c;
@@ -151,20 +151,39 @@ public class MatrixUtils {
     }
 
     public static double determinant(double[][] a) {
-        double det = 0d;
-        for (int j = 0; j < a[0].length; j++) {
-            det += (a[0][j]) * (((j % 2 == 0) ? 1 : -1)) * determinant(minorMatrix(a, 0, j));
+        if (a.length > 2) {
+            double det = 0d;
+            for (int j = 0; j < a[0].length; j++) {
+                double coefficient = (a[0][j]) * (((j % 2 == 0) ? 1 : -1));
+                double minorDet = determinant(minorMatrix(a, 0, j));
+                det += coefficient * minorDet;
+            }
+            return det;
+        } else if (a.length == 2) {
+            return ((a[0][0]) * (a[1][1])) - ((a[1][0]) * (a[0][1]));
+        } else if (a.length == 1) {
+            return a[0][0];
+        } else {
+            throw new IllegalArgumentException("Invalid matrix size");
         }
-        return det;
+
     }
 
     private static double[][] minorMatrix(double[][] input, int row, int column) {
-        double[][] minor = new double[input.length - 1][input[0].length - 1];
-        for (int i = 0; i < minor.length; i++) {
-            for (int j = 0; j < minor[0].length; j++) {
-                if (i != row || j != column) {
-                    minor[i][j] = input[i + (i > row ? 1 : 0)][j + (j > column ? 1 : 0)];
+        int rowIndex = 0;
+        int colIndex = 0;
+        double[][] minor = new double[input.length - 1][input.length - 1];
+
+        for (int i = 0; i < input.length; i++) {
+            if (i != row) {
+                for (int j = 0; j < input.length; j++) {
+                    if (j != column) {
+                        minor[rowIndex][colIndex] = input[i][j];
+                        colIndex++;
+                    }
                 }
+                rowIndex++;
+                colIndex = 0;
             }
         }
         return minor;
@@ -308,8 +327,10 @@ public class MatrixUtils {
             } else if (token instanceof MatrixOperator) {
                 if (!stack.empty()) { //Make sure it's not empty to prevent bugs
                     Token top = stack.lastElement();
-                    while (top != null && ((top instanceof MatrixOperator && ((MatrixOperator) token).isLeftAssociative()
-                            && ((MatrixOperator) top).getPrecedence() >= ((MatrixOperator) token).getPrecedence()) || top instanceof MatrixFunction)) { //Operator is left associative and has higher precedence / is a function
+                    while (top != null
+                            && ((top instanceof MatrixOperator && ((MatrixOperator) token).isLeftAssociative()
+                            && ((MatrixOperator) top).getPrecedence() >= ((MatrixOperator) token).getPrecedence())
+                            || top instanceof MatrixFunction)) { //Operator is left associative and has higher precedence / is a function
                         reversePolish.add(stack.pop()); //Pops top element to the queue
                         top = stack.isEmpty() ? null : stack.lastElement(); //Assigns the top element of the stack if it exists
                     }
