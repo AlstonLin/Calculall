@@ -717,7 +717,7 @@ public class OutputView extends View {
                     }
                     columnX[j] = columnX[j - 1] + maxWidth;
                 }
-                x = columnX[columnX.length - 1] + entries.length * matrixPadding + paddingAfterMatrix;
+                x = columnX[columnX.length - 1] + (entries.length - 1) * matrixPadding + paddingAfterMatrix;
             } else {
                 //Changes paint for superscript
                 paint = textPaint;

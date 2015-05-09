@@ -29,7 +29,7 @@ public abstract class MatrixFunction extends Token {
      * @param input The input that is given for the function
      * @return The output of the performed function
      */
-    public abstract Token perform(Matrix input);
+    public abstract double[][] perform(double[][] input);
 
     /**
      * @return The type of Function this is, as defined by the class constants
