@@ -110,6 +110,9 @@ public class Advanced extends Basic {
             case R.id.ans_button:
                 clickAns();
                 break;
+            case R.id.const_button:
+                clickConst();
+                break;
             default:
                 super.onClick(v);
         }
@@ -859,6 +862,14 @@ public class Advanced extends Basic {
         tokens.add(display.getRealCursorIndex(), t);
         tokens.add(display.getRealCursorIndex() + 1, b);
         display.setCursorIndex(display.getCursorIndex() + 2);
+    }
+
+    /**
+     * When the user presses the CONST button
+     */
+    //TODO: Implement by looking at how the settings are implmented
+    public void clickConst() {
+
     }
 
     /**
