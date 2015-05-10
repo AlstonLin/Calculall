@@ -91,4 +91,24 @@ public class VariableFactory {
             }
         };
     }
+
+    public static Variable makeSpeedOfLight() {
+        return new Variable(Variable.C0, "c") {
+            public ArrayList<Token> getValue() {
+                ArrayList<Token> tokens = new ArrayList<>();
+                tokens.add(new Number(SPEED_OF_LIGHT_VAL));
+                return tokens;
+            }
+        };
+    }
+
+    public static Variable makeMagnetic() {
+        return new Variable(Variable.MU0, "μ0") {
+            public ArrayList<Token> getValue() {
+                ArrayList<Token> tokens = new ArrayList<>();
+                tokens.add(new Number(MAGNETIC_VAL));
+                return tokens;
+            }
+        };
+    }
 }
