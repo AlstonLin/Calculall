@@ -21,8 +21,7 @@ public class MatrixFunctionFactory {
         return new MatrixFunction("REF", MatrixFunction.REF) {
             @Override
             public double[][] perform(double[][] input) {
-                //TODO: FINISH THIS
-                return null;
+                return MatrixUtils.toREF(input);
             }
         };
     }
@@ -31,8 +30,7 @@ public class MatrixFunctionFactory {
         return new MatrixFunction("RREF", MatrixFunction.RREF) {
             @Override
             public double[][] perform(double[][] input) {
-                //TODO: FINISH THIS
-                return null;
+                return MatrixUtils.toRREF(input);
             }
         };
     }
@@ -71,8 +69,9 @@ public class MatrixFunctionFactory {
         return new MatrixFunction("rank", MatrixFunction.RANK) {
             @Override
             public double[][] perform(double[][] input) {
-                //TODO: FINISH THIS
-                return null;
+                double[][] output = new double[1][1];
+                output[0][0] = MatrixUtils.rank(input);
+                return output;
             }
         };
     }
