@@ -96,7 +96,7 @@ public class VariableFactory {
         return new Variable(Variable.C0, "c") {
             public ArrayList<Token> getValue() {
                 ArrayList<Token> tokens = new ArrayList<>();
-                tokens.add(new Number(SPEED_OF_LIGHT_VAL));
+                tokens.add(new Number(Constant.SPEED_OF_LIGHT.getValue()));
                 return tokens;
             }
         };
@@ -106,7 +106,7 @@ public class VariableFactory {
         return new Variable(Variable.MU0, "μ0") {
             public ArrayList<Token> getValue() {
                 ArrayList<Token> tokens = new ArrayList<>();
-                tokens.add(new Number(MAGNETIC_VAL));
+                tokens.add(new Number(Constant.MAGNETIC_VAL.getValue()));
                 return tokens;
             }
         };

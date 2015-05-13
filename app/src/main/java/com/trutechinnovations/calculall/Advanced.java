@@ -1,7 +1,11 @@
 package com.trutechinnovations.calculall;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.PopupWindow;
 import android.widget.ToggleButton;
 
 import java.util.ArrayList;
@@ -18,6 +22,7 @@ public class Advanced extends Basic {
 
     public static final int DEC = 1, FRAC = 2;
     private int fracMode = DEC;
+    private Dialog graphDialog;
 
     { //pseudo-constructor
         filename = "history_advanced";
@@ -869,7 +874,12 @@ public class Advanced extends Basic {
      */
     //TODO: Implement by looking at how the settings are implmented
     public void clickConst() {
-
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        LayoutInflater inflater = activity.getLayoutInflater();
+        View layout = inflater.inflate(R.layout.graph_dialog, null);
+        builder.setView(layout);
+        graphDialog = builder.create();
+        graphDialog.show();
     }
 
     /**
@@ -915,4 +925,5 @@ public class Advanced extends Basic {
     public boolean isHyperbolic() {
         return hyperbolic;
     }
+
 }
