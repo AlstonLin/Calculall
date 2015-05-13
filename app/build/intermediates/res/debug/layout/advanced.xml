@@ -147,6 +147,16 @@
             android:textSize="16sp" />
 
         <Button
+            android:id="@+id/const_button"
+            style="?attr/buttonFunction"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:text="@string/constant"
+            android:textSize="16sp" />
+
+        <Button
             android:id="@+id/ans_button"
             style="?attr/buttonFunction"
             android:layout_width="0dp"
