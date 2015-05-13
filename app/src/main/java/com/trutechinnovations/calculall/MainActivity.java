@@ -34,7 +34,7 @@ import java.util.ArrayList;
  * up the fragments and the entry point for UI events.
  *
  * @author Alston Lin, David Liu
- * @version Alpha 2.0
+ * @version 3.0
  */
 public class MainActivity extends FragmentActivity implements ViewPager.OnPageChangeListener { //, MoPubInterstitial.InterstitialAdListener {
 

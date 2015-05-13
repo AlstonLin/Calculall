@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * Utilities specifically for calculus related functions.
  *
  * @author Alston Lin
- * @version Alpha 2.0
+ * @version 3.0
  */
 public class MathUtilities {
     private static EvalUtilities util = new EvalUtilities(false, true);

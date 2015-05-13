@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * A custom view that will show the graph of a function.
  *
  * @author Alston Lin, Jason Fok
- * @version Alpha 2.0
+ * @version 3.0
  */
 public class GraphView extends View {
 

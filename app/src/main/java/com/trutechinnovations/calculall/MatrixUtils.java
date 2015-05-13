@@ -8,12 +8,12 @@ import java.util.Stack;
 /**
  * Contains the Matrix Utilities (row reduction algorithms, matrix entry simplifier, etc.)
  *
- * @author Ejaaz Merali
- * @version Alpha 2.0
+ * @author Alston Lin, Ejaaz Merali
+ * @version 3.0
  */
 public class MatrixUtils {
 
-    static Command<Double, double[]> addCommand = new Command<Double, double[]>() {
+    private static Command<Double, double[]> addCommand = new Command<Double, double[]>() {
         @Override
         public Double execute(double[] o) {
             return o[0] + o[1];
@@ -21,7 +21,7 @@ public class MatrixUtils {
     };
 
 
-    static Command<Double, double[]> subtractCommand = new Command<Double, double[]>() {
+    private static Command<Double, double[]> subtractCommand = new Command<Double, double[]>() {
         @Override
         public Double execute(double[] o) {
             return o[0] - o[1];
@@ -31,8 +31,8 @@ public class MatrixUtils {
     /**
      * Applies the given Command the two given Matrices and returns the resultant, or null if they are no the same dimensions.
      *
-     * @param a The first Matrix as an array of doubles
-     * @param b The second Matrix as an array of doubles
+     * @param a       The first Matrix as an array of doubles
+     * @param b       The second Matrix as an array of doubles
      * @param command The command to apply to the operation
      * @return The resultant Matrix, or null if the command is not possible.
      */
@@ -295,7 +295,7 @@ public class MatrixUtils {
      * Row Echelon Form(REF)
      * Swap step: 1, Add step: 2, Scale step: 3
      *
-     * @param a The Matrix which will be Row Reduced to REF
+     * @param a         The Matrix which will be Row Reduced to REF
      * @param minorNess Total number of rows/columns that have been stripped away from the original matrix
      * @return the row reduction steps
      */

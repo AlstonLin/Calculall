@@ -5,7 +5,7 @@ package com.trutechinnovations.calculall;
  * Note: E is the return Object, F is the param Object.
  *
  * @author Alston Lin
- * @version Alpha 2.0
+ * @version 3.0
  */
 public interface Command<E, F> {
     public E execute(F o);

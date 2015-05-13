@@ -9,7 +9,7 @@ import android.widget.Button;
  * A Button that will have multiple functions.
  *
  * @author Alston Lin
- * @version Alpha 2.0
+ * @version 3.0
  */
 public class MultiButton extends Button {
 

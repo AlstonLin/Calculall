@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * english letters (ex. x, y, z). It also includes constants as well (such as Pi and e)
  *
  * @author Alston Lin
- * @version Alpha 2.0
+ * @version 3.0
  */
 public abstract class Variable extends Token implements Serializable {
 

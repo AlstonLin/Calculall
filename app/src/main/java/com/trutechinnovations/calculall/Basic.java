@@ -24,7 +24,7 @@ import java.util.ArrayList;
  * This class contains all the back-end of the Basic Mode.
  *
  * @author Alston Lin
- * @version Alpha 2.0
+ * @version 3.0
  */
 public class Basic implements View.OnClickListener {
 

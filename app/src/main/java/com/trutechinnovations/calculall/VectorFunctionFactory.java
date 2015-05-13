@@ -4,7 +4,7 @@ package com.trutechinnovations.calculall;
  * Contains static factory methods for Functions used by Vector Mode.
  *
  * @author Alston Lin
- * @version Alpha 2.0
+ * @version 3.0
  */
 public class VectorFunctionFactory {
     public static VectorFunction makeMagnitude() {

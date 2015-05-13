@@ -4,7 +4,7 @@ package com.trutechinnovations.calculall;
  * Contains static methods that will create Digit pieces.
  *
  * @author Alston Lin
- * @version Alpha 2.0
+ * @version 3.0
  */
 public class DigitFactory {
 

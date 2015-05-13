@@ -13,7 +13,10 @@ import android.widget.ToggleButton;
 import java.util.ArrayList;
 
 /**
- * Handles the UI for Advanced Mode
+ * Handles the UI for Advanced Mode.
+ *
+ * @author Alston Lin
+ * @version 3.0
  */
 public class AdvancedFragment extends BasicFragment {
 

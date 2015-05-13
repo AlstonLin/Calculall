@@ -4,7 +4,7 @@ package com.trutechinnovations.calculall;
  * Contains static methods that will create Brackets.
  *
  * @author Alston Lin, Ejaaz Merali, Jason Fok
- * @version Alpha 2.0
+ * @version 3.0
  */
 public class BracketFactory {
 

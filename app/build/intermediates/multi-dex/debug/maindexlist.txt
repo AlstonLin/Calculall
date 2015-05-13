@@ -264,6 +264,7 @@ com/google/android/gms/games/achievement/Achievement.class
 com/google/ads/mediation/MediationAdRequest.class
 com/google/android/gms/internal/gs.class
 com/google/android/gms/internal/bu.class
+com/trutechinnovations/calculall/NaturalView.class
 com/google/android/gms/internal/bg$a.class
 com/google/android/gms/internal/eg.class
 android/support/annotation/NonNull.class
