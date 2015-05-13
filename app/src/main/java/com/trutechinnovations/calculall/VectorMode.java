@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * problems in a grade twelve level.
  *
  * @author Alston Lin, Keith Wong, Jason Fok
- * @version Alpha 2.0
+ * @version 3.0
  */
 
 public class VectorMode extends Advanced {

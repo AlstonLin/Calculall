@@ -25,7 +25,7 @@ import java.util.ArrayList;
  * tasks relating to Linear Algebra.
  *
  * @author Alston Lin, Ejaaz Merali
- * @version Alpha 2.0
+ * @version 3.0
  */
 public class MatrixMode extends FunctionMode {
     public static final int DEFAULT_ROWS = 3;

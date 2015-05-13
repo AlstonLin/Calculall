@@ -45,7 +45,7 @@
     <string name="rref">RREF</string>
     <string name="det">DET</string>
     <string name="diag">DIAG</string>
-    <string name="decomp">DECOMP</string>
+    <string name="decomp">LUP</string>
     <string name="tr">tr</string>
     <string name="lambda">λ</string>
     <string name="ev">Ev</string>

@@ -33,7 +33,7 @@ import java.util.concurrent.TimeUnit;
  * actions with them, such as finding roots, integration, differentiation, and graphing.
  *
  * @author Alston Lin
- * @version Alpha 2.0
+ * @version 3.0
  */
 public class FunctionMode extends Advanced {
 

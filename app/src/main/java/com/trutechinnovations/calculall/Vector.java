@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Represents a Vector for Vector Mode.
  *
  * @author Alston Lin
- * @version Alpha 2.0
+ * @version 3.0
  */
 public class Vector extends Token implements Serializable {
     private double[] values;

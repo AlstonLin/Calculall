@@ -6,7 +6,7 @@ import org.apache.commons.math3.special.Erf;
  * Contains static methods that will create function pieces.
  *
  * @author Ejaaz Merali
- * @version Alpha 2.0
+ * @version 3.0
  */
 
 public class FunctionFactory {

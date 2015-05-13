@@ -680,10 +680,10 @@ containing a value of this type.
         public static final int decimal_button=0x7f0b004a;
         public static final int decimal_spinner=0x7f0b00ae;
         public static final int decimals_text=0x7f0b00af;
-        public static final int decomp_button=0x7f0b009f;
+        public static final int decomp_button=0x7f0b00a0;
         public static final int derivative_button=0x7f0b0089;
-        public static final int det_button=0x7f0b009d;
-        public static final int diag_button=0x7f0b009e;
+        public static final int det_button=0x7f0b00a2;
+        public static final int diag_button=0x7f0b009f;
         public static final int display=0x7f0b0077;
         public static final int divide_button=0x7f0b0054;
         public static final int donate_with_google=0x7f0b0013;
@@ -701,7 +701,7 @@ containing a value of this type.
         public static final int entry_sqrt_button=0x7f0b0069;
         public static final int entry_subtract_button=0x7f0b006e;
         public static final int equals_button=0x7f0b0059;
-        public static final int ev_button=0x7f0b00a3;
+        public static final int ev_button=0x7f0b009e;
         public static final int exit_button=0x7f0b0096;
         public static final int expand=0x7f0b0088;
         public static final int factor=0x7f0b0087;
@@ -715,7 +715,7 @@ containing a value of this type.
         public static final int frame=0x7f0b0076;
         public static final int function_button=0x7f0b007c;
         public static final int function_row1=0x7f0b0084;
-        public static final int function_row2=0x7f0b00a0;
+        public static final int function_row2=0x7f0b00a1;
         public static final int function_row_1=0x7f0b002b;
         public static final int function_row_2=0x7f0b0033;
         public static final int functions_row=0x7f0b006a;
@@ -733,7 +733,7 @@ containing a value of this type.
         public static final int hyp_button=0x7f0b0020;
         public static final int integral_button=0x7f0b008a;
         public static final int inverse_button=0x7f0b00a7;
-        public static final int lambda_button=0x7f0b00a2;
+        public static final int lambda_button=0x7f0b009d;
         public static final int left_scroll=0x7f0b0061;
         public static final int log_button=0x7f0b0031;
         public static final int magnitude_close_button=0x7f0b00c0;
@@ -823,7 +823,7 @@ containing a value of this type.
         public static final int themes_grid=0x7f0b00b8;
         public static final int three_button=0x7f0b0047;
         public static final int thumbImage=0x7f0b00b7;
-        public static final int tr_button=0x7f0b00a1;
+        public static final int tr_button=0x7f0b00a3;
         public static final int transpose_button=0x7f0b00a5;
         public static final int trutech_logo=0x7f0b0018;
         public static final int two_button=0x7f0b0046;

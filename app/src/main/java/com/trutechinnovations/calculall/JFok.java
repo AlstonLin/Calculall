@@ -8,7 +8,7 @@ import java.util.Stack;
  * Contains the JFok Algorithm and the core of the mathematical system.
  *
  * @author J(ason)Fok, Ejaaz Merali, Alston Lin
- * @version Alpha 2.0
+ * @version 3.0
  */
 public class JFok {
 

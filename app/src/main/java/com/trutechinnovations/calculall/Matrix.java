@@ -6,10 +6,9 @@ import java.util.ArrayList;
  * The Object representation of a mathematical Matrix.
  *
  * @author Ejaaz Merali
- * @version Alpha 2.0
+ * @version 3.0
  */
 
-@SuppressWarnings("unused")
 public class Matrix extends Token {
 
     private ArrayList<Token>[][] entries;
