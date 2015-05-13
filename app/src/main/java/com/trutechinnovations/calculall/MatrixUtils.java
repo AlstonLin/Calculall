@@ -244,60 +244,118 @@ public class MatrixUtils {
     private static double[][] applySteps(double[][] a, double[][] steps) {
         if (steps.length == 0) {
             return a;
-        } else if (steps[0][0] == 1) {
-            return applySteps(swapRows(a, (int) steps[0][1], (int) steps[0][2]), Arrays.copyOfRange(steps, 1, steps.length - 1));
-        } else if (steps[0][0] == 2) {
-            return applySteps(addRows(a, (int) steps[0][1], (int) steps[0][2], (int) steps[0][3]), Arrays.copyOfRange(steps, 1, steps.length - 1));
-        } else if (steps[0][0] == 3) {
-            return applySteps(scaleRow(a, (int) steps[0][1], steps[0][2]), Arrays.copyOfRange(steps, 1, steps.length - 1));
+        } else if (steps.length == 1) {
+            if (steps[0][0] == 1) {
+                return swapRows(a, (int) steps[0][1], (int) steps[0][2]);
+            } else if (steps[0][0] == 2) {
+                return addRows(a, (int) steps[0][1], (int) steps[0][2], steps[0][3]);
+            } else if (steps[0][0] == 3) {
+                return scaleRow(a, (int) steps[0][1], steps[0][2]);
+            } else {
+                throw new IllegalArgumentException("Invalid steps");
+            }
+        } else if (steps.length > 1) {
+            if (steps[0][0] == 1) {
+                return applySteps(swapRows(a, (int) steps[0][1], (int) steps[0][2]), Arrays.copyOfRange(steps, 1, steps.length));
+            } else if (steps[0][0] == 2) {
+                return applySteps(addRows(a, (int) steps[0][1], (int) steps[0][2], steps[0][3]), Arrays.copyOfRange(steps, 1, steps.length));
+            } else if (steps[0][0] == 3) {
+                return applySteps(scaleRow(a, (int) steps[0][1], steps[0][2]), Arrays.copyOfRange(steps, 1, steps.length));
+            } else {
+                throw new IllegalArgumentException("Invalid steps");
+            }
+        } else if (steps[0][0] == 0) {
+            return applySteps(a, Arrays.copyOfRange(steps, 1, steps.length));
         } else {
             throw new IllegalArgumentException("Invalid steps");
         }
     }
 
+    private static double[][] deepCopyDblMatrix(double[][] input) {
+        if (input == null) {
+            return null;
+        }
+        double[][] output = new double[input.length][];
+        for (int i = 0; i < input.length; i++) {
+            output[i] = input[i].clone();
+        }
+        return output;
+    }
+
+    private static double[][] trimMatrix(double[][] input, int lastRow, int lastCol) {
+        double[][] output = Arrays.copyOfRange(input, 0, lastRow);
+        for (int i = 0; i < output.length; i++) {
+            output[i] = Arrays.copyOfRange(input[i], 0, lastCol);
+        }
+        return output;
+    }
+
     /**
-     * Returns the Row Operations required to reduce the given Matrix(m) to
+     * Returns the Row Operations required to reduce the given Matrix(a) to
      * Row Echelon Form(REF)
      * Swap step: 1, Add step: 2, Scale step: 3
      *
      * @param a The Matrix which will be Row Reduced to REF
+     * @param minorNess Total number of rows/columns that have been stripped away from the original matrix
      * @return the row reduction steps
      */
-    private static double[][] getREFSteps(double[][] a) {
+    private static double[][] getREFSteps(double[][] a, int minorNess) {
         ArrayList<Double[]> steps = new ArrayList<>();
-        double[][] temp = a;
-        if (!onlyZeroes(getColumn(temp, 0))) {
-            int pivot = getFirstNonZero(getColumn(temp, 0));
-            if (pivot != 0) {
-                temp = swapRows(temp, 0, pivot);
-                Double[] swapStep = {1d, 0d, (double) pivot};
-                steps.add(swapStep);
-                pivot = 0;
-            }
-            double[] restOfCol = Arrays.copyOfRange(getColumn(temp, 0), 1, a.length);
-            for (int i = 1; !onlyZeroes(restOfCol) && i < a.length; i++) {
-                if (temp[i][0] != 0) {
-                    double scalar = -1 * temp[i][0] / temp[0][0];
-                    temp = addRows(temp, i, pivot, scalar);
-                    Double[] addStep = {2d, (double) i, (double) pivot, scalar};
-                    steps.add(addStep);
+        if (a.length > 1) {
+            double[][] temp = deepCopyDblMatrix(a);
+            if (!onlyZeroes(getColumn(temp, 0))) {
+                int pivot = getFirstNonZero(getColumn(temp, 0));
+                if (pivot != 0) {
+                    temp = swapRows(temp, 0, pivot);
+                    Double[] swapStep = {1d, 0d, (double) pivot};
+                    steps.add(swapStep);
+                    pivot = 0;
+                }
+                double[] restOfCol = Arrays.copyOfRange(getColumn(temp, 0), 1, temp.length);
+                for (int i = 1; !onlyZeroes(restOfCol) && i < temp.length; i++) {
+                    if (temp[i][0] != 0) {
+                        double scalar = -1 * temp[i][0] / temp[0][0];
+                        temp = addRows(temp, i, pivot, scalar);
+                        Double[] addStep = {2d, (double) i, (double) pivot, scalar};
+                        steps.add(addStep);
+                    }
                 }
             }
-        }
-        double[][] minorSteps = getREFSteps(minorMatrix(temp, 0, 0));
-        Double[] tempStep;
-        for (int i = 0; i < minorSteps.length; i++) {
-            tempStep = new Double[minorSteps[i].length];
-            for (int j = 0; j < minorSteps[i].length; j++) {
-                tempStep[j] = minorSteps[i][j];
+            double[][] minorSteps = getREFSteps(minorMatrix(temp, 0, 0), minorNess++);
+            Double[] tempStep;
+            for (int i = 0; i < minorSteps.length; i++) {
+                if (minorSteps[i][0] == 1) {
+                    minorSteps[i][1] += minorNess;
+                    minorSteps[i][2] += minorNess;
+                } else if (minorSteps[i][0] == 2) {
+                    minorSteps[i][1] += minorNess;
+                    minorSteps[i][2] += minorNess;
+                } else if (minorSteps[i][0] == 3) {
+                    minorSteps[i][1] += minorNess;
+                } else {
+                    throw new IllegalArgumentException("Invalid steps");
+                }
             }
-            steps.add(tempStep);
+            for (int i = 0; i < minorSteps.length; i++) {
+                tempStep = new Double[minorSteps[i].length];
+                for (int j = 0; j < minorSteps[i].length; j++) {
+                    tempStep[j] = minorSteps[i][j];
+                }
+                steps.add(tempStep);
+            }
         }
-        return (double[][]) steps.toArray();
+        double[][] stepsArray = new double[steps.size()][3];
+        for (int i = 0; i < stepsArray.length; i++) {
+            stepsArray[i] = new double[steps.get(i).length];
+            for (int j = 0; j < stepsArray[i].length; j++) {
+                stepsArray[i][j] = steps.get(i)[j];
+            }
+        }
+        return stepsArray;
     }
 
     public static double[][] toREF(double[][] a) {
-        return applySteps(a, getREFSteps(a));
+        return applySteps(a, getREFSteps(a, 0));
     }
 
     /**
@@ -309,58 +367,71 @@ public class MatrixUtils {
      */
     private static double[][] getRREFSteps(double[][] a) {
         ArrayList<Double[]> steps = new ArrayList<>();
-        double[][] refSteps = getREFSteps(a);
-        Double[] tempStep;
-        for (int i = 0; i < refSteps.length; i++) {
-            tempStep = new Double[refSteps[i].length];
-            for (int j = 0; j < refSteps.length; j++) {
-                tempStep[j] = refSteps[i][j];
-            }
-            steps.add(tempStep);
-        }
-        double[][] temp = applySteps(a, refSteps);
-        if (!onlyZeroes(getColumn(temp, temp[0].length - 1))) {
-            for (int j = temp[0].length - 1; j >= 0; j--) {
-                int pivot = getLastNonZero(getColumn(temp, j));
-                if (pivot == -1) { // all entries in the column are zero
-                    continue;
-                } else if (pivot != 0) {
-                    temp = swapRows(temp, 0, pivot);
-                    Double[] swapStep = {1d, 0d, (double) pivot};
-                    steps.add(swapStep);
-                    pivot = 0;
+        double[][] dummyArray = {{0d, 0d, 0d}};
+        if (a.length > 1) {
+            double[][] refSteps = getREFSteps(a, 0);
+            Double[] tempStep;
+            double[][] temp;
+            for (int i = 0; i < refSteps.length; i++) {
+                tempStep = new Double[refSteps[i].length];
+                for (int j = 0; j < refSteps[i].length; j++) {
+                    tempStep[j] = refSteps[i][j];
                 }
-                double[] restOfCol = Arrays.copyOfRange(getColumn(temp, j), 0, temp[0].length - 2);
-                for (int i = 1; !onlyZeroes(restOfCol); i++) {
-                    if (temp[i][j] != 0) {
-                        double scalar = -1 * temp[i][j] / temp[0][j];
-                        temp = addRows(temp, i, pivot, scalar);
-                        Double[] addStep = {2d, (double) i, (double) pivot, scalar};
+                steps.add(tempStep);
+            }
+            temp = applySteps(deepCopyDblMatrix(a), refSteps);
+
+            int pivotRowIndex = -1;
+            for (int i = 1; pivotRowIndex == -1 && i < temp[0].length; i++) {
+                pivotRowIndex = getLastNonZero(getColumn(temp, temp[0].length - i));
+            }
+            int pivotColIndex = getFirstNonZero(getRow(temp, pivotRowIndex));
+            if (!onlyZeroes(getColumn(temp, pivotRowIndex))) {
+                double[] restOfCol = Arrays.copyOfRange(getColumn(temp, pivotColIndex), 0, pivotRowIndex);
+                for (int i = 0; !onlyZeroes(restOfCol) && i < pivotRowIndex; i++) {
+                    if (temp[i][pivotColIndex] != 0) {
+                        double scalar = -1 * temp[i][pivotColIndex] / temp[pivotRowIndex][pivotColIndex];
+                        temp = addRows(temp, i, pivotRowIndex, scalar);
+                        Double[] addStep = {2d, (double) i, (double) pivotRowIndex, scalar};
                         steps.add(addStep);
                     }
                 }
             }
-        }
 
-        for (int i = 0; i < temp.length; i++) {
-            if (temp[i][getFirstNonZero(getRow(temp, i))] != 1) {
-                double scalar = temp[i][getFirstNonZero(getRow(temp, i))];
-                scaleRow(temp, i, scalar);
-                Double[] scaleStep = {3d, (double) i, scalar};
-                steps.add(scaleStep);
+            for (int i = 0; i < temp.length; i++) {
+                int pivot = getFirstNonZero(getRow(temp, i));
+                if (pivot != -1 && temp[i][pivot] != 1) {
+                    double scalar = 1 / (temp[i][pivot]);
+                    scaleRow(temp, i, scalar);
+                    Double[] scaleStep = {3d, (double) i, scalar};
+                    steps.add(scaleStep);
+                }
             }
-        }
 
-        double[][] minorSteps = getRREFSteps(minorMatrix(temp, temp.length - 1, temp[0].length - 1));
-        for (int i = 0; i < minorSteps.length; i++) {
-            tempStep = new Double[minorSteps[i].length];
-            for (int j = 0; j < minorSteps[i].length; j++) {
-                tempStep[j] = minorSteps[i][j];
+            if (a.length > 2) {
+                double[][] minorSteps = getRREFSteps(trimMatrix(temp, temp.length - 1, temp[0].length - 1));
+                if (minorSteps.length == 1 && !Arrays.equals(minorSteps[0], dummyArray[0])) {
+                    for (int i = 0; i < minorSteps.length; i++) {
+                        tempStep = new Double[minorSteps[i].length];
+                        for (int j = 0; j < minorSteps[i].length; j++) {
+                            tempStep[j] = minorSteps[i][j];
+                        }
+                        steps.add(tempStep);
+                    }
+                }
             }
-            steps.add(tempStep);
-        }
 
-        return (double[][]) steps.toArray();
+            double[][] stepsArray = new double[steps.size()][3];
+            for (int i = 0; i < stepsArray.length; i++) {
+                stepsArray[i] = new double[steps.get(i).length];
+                for (int j = 0; j < stepsArray[i].length; j++) {
+                    stepsArray[i][j] = steps.get(i)[j];
+                }
+            }
+            return stepsArray;
+        } else {
+            return dummyArray;
+        }
     }
 
     public static double[][] toRREF(double[][] a) {
