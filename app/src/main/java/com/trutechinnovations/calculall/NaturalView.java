@@ -60,9 +60,9 @@ public abstract class NaturalView extends View {
      * @param context The context of the app
      * @return The color integer of the display color
      */
-    private int getDisplayColor(Context context){
+    private int getDisplayColor(Context context) {
         TypedValue typedValue = new TypedValue();
-        context.getTheme().resolveAttribute(R.attr.displayColor, typedValue, true);
+        context.getTheme().resolveAttribute(R.attr.displayTextColor, typedValue, true);
         return typedValue.data;
     }
 
@@ -71,7 +71,7 @@ public abstract class NaturalView extends View {
      *
      * @param displayColor The color of the paints
      */
-    private void setupPaints(int displayColor){
+    private void setupPaints(int displayColor) {
         textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         textPaint.setColor(displayColor);
         fracPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -804,7 +804,7 @@ public abstract class NaturalView extends View {
     /**
      * Finds the index where the denominator of the fraction Token at index i ends.
      *
-     * @param i The index of the fraction Token
+     * @param i          The index of the fraction Token
      * @param expression The expression to find the denominator end
      * @return The index of the end of the denominator
      */

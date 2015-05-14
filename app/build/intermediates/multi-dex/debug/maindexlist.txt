@@ -27,7 +27,6 @@ com/google/ads/mediation/MediationBannerListener.class
 com/google/android/gms/internal/dl.class
 com/trutechinnovations/calculall/Basic.class
 org/apache/commons/math3/optimization/linear/NoFeasibleSolutionException.class
-com/trutechinnovations/calculall/MatrixMode$12.class
 android/support/v4/widget/MaterialProgressDrawable$3.class
 com/google/common/collect/RegularImmutableMap$NonTerminalMapEntry.class
 android/support/multidex/MultiDexExtractor.class
