@@ -4,12 +4,12 @@ package com.trutechinnovations.calculall;
  * The Object representation of a mathematical Function that has a Matrix as the input.
  *
  * @author Ejaaz Merali
- * @version Alpha 2.0
+ * @version 3.0
  */
 public abstract class MatrixFunction extends Token {
 
     public static final int REF = 1, RREF = 2, DET = 3, TRANSPOSE = 4, INVERSE = 5, DIAG = 6,
-            EIGENVECT = 7, EIGENVAL = 8, TRACE = 9, RANK = 10, LU = 11, SQRT = 12;
+            EIGENVECT = 7, EIGENVAL = 8, TRACE = 9, RANK = 10, LU = 11;
 
     /**
      * Should not be used outside of a factory; to create a type of function,
@@ -29,7 +29,7 @@ public abstract class MatrixFunction extends Token {
      * @param input The input that is given for the function
      * @return The output of the performed function
      */
-    public abstract Token perform(Matrix input);
+    public abstract double[][] perform(double[][] input);
 
     /**
      * @return The type of Function this is, as defined by the class constants

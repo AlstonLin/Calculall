@@ -5,7 +5,7 @@ package com.trutechinnovations.calculall;
  * Object which represents a complex number
  *
  * @author Ejaaz Merali
- * @version Alpha 2.0
+ * @version 3.0
  */
 public class Complex {
     private static final double e = Math.E;

@@ -24,7 +24,7 @@ import java.util.ArrayList;
  * This class contains all the back-end of the Basic Mode.
  *
  * @author Alston Lin
- * @version Alpha 2.0
+ * @version 3.0
  */
 public class Basic implements View.OnClickListener {
 
@@ -336,6 +336,9 @@ public class Basic implements View.OnClickListener {
         } else if (toRemove instanceof Bracket && toRemove.getType() == Bracket.SUPERSCRIPT_OPEN) { //Removes whatever was before it instead
             toRemove = tokens.get(display.getRealCursorIndex() - 2);
         } else if (toRemove instanceof Bracket && toRemove.getType() == Bracket.NUM_OPEN) {
+            if (display.getRealCursorIndex() - 3 < 0) {
+                return;
+            }
             toRemove = tokens.get(display.getRealCursorIndex() - 3);
             display.setCursorIndex(display.getCursorIndex() - 1);
         } else if (toRemove instanceof Bracket && toRemove.getType() == Bracket.FRACTION_OPEN) {

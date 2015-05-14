@@ -12,10 +12,11 @@ import java.util.LinkedList;
  * perform the most of the operations of a standard scientific calculator.
  *
  * @author Alston Lin, Ejaaz Merali
- * @version Alpha 2.0
+ * @version 3.0
  */
 public class Advanced extends Basic {
 
+    //Constants
     public static final int DEC = 1, FRAC = 2;
     private int fracMode = DEC;
 
@@ -24,7 +25,7 @@ public class Advanced extends Basic {
     }
 
     private static final String FILENAME = "history_advanced";
-    private static final Basic INSTANCE = new Advanced();
+    private static final Basic INSTANCE = new Advanced(); //Singleton Constant
     //Fields
     protected ArrayList<MultiButton> multiButtons;
     protected boolean hyperbolic = false, shift = false, mem = false;
@@ -36,10 +37,6 @@ public class Advanced extends Basic {
      */
     public static Basic getInstance() {
         return INSTANCE;
-    }
-
-    public void setMultiButtons(ArrayList<MultiButton> multiButtons) {
-        this.multiButtons = multiButtons;
     }
 
     /**
@@ -903,5 +900,9 @@ public class Advanced extends Basic {
 
     public boolean isHyperbolic() {
         return hyperbolic;
+    }
+
+    public void setMultiButtons(ArrayList<MultiButton> multiButtons) {
+        this.multiButtons = multiButtons;
     }
 }

@@ -8,7 +8,7 @@ import android.widget.ImageView;
  * A square item on the GridView.
  *
  * @author Alston Lin
- * @version Alpha 2.2
+ * @version 3.0
  */
 public class GridViewItem extends ImageView {
 

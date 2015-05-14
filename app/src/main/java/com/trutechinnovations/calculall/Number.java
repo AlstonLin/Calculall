@@ -7,7 +7,7 @@ import java.io.Serializable;
  * the setting then go to the basic activity.
  *
  * @author Alston Lin
- * @version Alpha 2.0
+ * @version 3.0
  */
 public class Number extends Token implements Serializable {
 

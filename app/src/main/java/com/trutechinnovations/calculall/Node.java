@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * Used as an unit within a tree.
  *
  * @author Alston Lin
- * @version Alpha 2.0
+ * @version 3.0
  */
 public class Node<E> {
 

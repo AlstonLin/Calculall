@@ -4,7 +4,7 @@ package com.trutechinnovations.calculall;
  * Contains methods that builds commonly used expressions as subtrees.
  *
  * @author Alston Lin
- * @version Beta 3.0
+ * @version 3.0
  */
 public class ExpressionFactory {
 
