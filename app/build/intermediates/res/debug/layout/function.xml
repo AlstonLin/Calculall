@@ -16,7 +16,7 @@
 
         <ToggleButton
             android:id="@+id/shift_button"
-            style="?android:attr/buttonStyleToggle"
+            style="?attr/buttonSpecial"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
@@ -29,7 +29,7 @@
 
         <ToggleButton
             android:id="@+id/hyp_button"
-            style="?android:attr/buttonStyleToggle"
+            style="?attr/buttonSpecial"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
@@ -39,27 +39,10 @@
             android:textOn="@string/hyp"
             android:textSize="16sp" />
 
-        <ImageButton
-            android:id="@+id/settings_button"
-            style="?attr/buttonFunction"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:adjustViewBounds="true"
-            android:nestedScrollingEnabled="true"
-            android:onClick="clickSettings"
-            android:paddingBottom="5dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:paddingTop="5dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_action_settings"
-            android:textSize="20sp" />
-
 
         <ImageButton
             android:id="@+id/history_button"
-            style="?attr/buttonFunction"
+            style="?attr/buttonSpecial"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
@@ -74,14 +57,15 @@
             android:textSize="20sp" />
 
         <Button
-            android:id="@+id/graph"
+            android:id="@+id/var_x"
             style="?attr/buttonSpecial"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
+            android:checked="false"
             android:onClick="onClick"
-            android:text="@string/graph"
-            android:textSize="18sp" />
+            android:text="@string/varX"
+            android:textSize="16sp" />
 
     </LinearLayout>
 
@@ -92,17 +76,6 @@
         android:layout_marginBottom="0dp"
         android:layout_weight="1"
         android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/var_x"
-            style="?attr/buttonSpecial"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:checked="false"
-            android:onClick="onClick"
-            android:text="@string/varX"
-            android:textSize="16sp" />
 
 
         <com.trutechinnovations.calculall.MultiButton
@@ -123,6 +96,16 @@
             android:layout_weight="1"
             android:onClick="onClick"
             android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/negative_button"
+            style="?attr/buttonFunction"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:text="@string/plusminus"
+            android:textSize="30sp" />
 
         <com.trutechinnovations.calculall.MultiButton
             android:id="@+id/sqrt_button"
@@ -506,16 +489,6 @@
             android:textSize="30sp" />
 
         <Button
-            android:id="@+id/negative_button"
-            style="?attr/buttonOperator"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:onClick="onClick"
-            android:text="@string/plusminus"
-            android:textSize="30sp" />
-
-        <Button
             android:id="@+id/add_button"
             style="?attr/buttonOperator"
             android:layout_width="0dp"
@@ -534,6 +507,16 @@
             android:onClick="onClick"
             android:text="@string/minus"
             android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/graph"
+            style="@style/buttonNumDavid"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:text="@string/graph"
+            android:textSize="18sp" />
 
     </LinearLayout>
 </LinearLayout><!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/layout/function.xml -->

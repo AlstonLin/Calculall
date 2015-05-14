@@ -310,6 +310,7 @@ com/google/android/gms/internal/ee.class
 org/apache/commons/math3/analysis/function/Logistic.class
 org/apache/commons/math3/optimization/SimpleValueChecker.class
 android/support/v4/app/FragmentManagerImpl$5.class
+com/trutechinnovations/calculall/R$attr.class
 com/google/android/gms/common/GooglePlayServicesClient.class
 com/google/android/gms/internal/dj.class
 com/google/android/gms/internal/co.class

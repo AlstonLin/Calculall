@@ -92,6 +92,7 @@
 
         <ToggleButton
             android:id="@+id/basic_button"
+            style="?attr/buttonFunction"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
@@ -99,10 +100,11 @@
             android:onClick="clickBasic"
             android:textOff="@string/basic"
             android:textOn="@string/basic"
-            android:textSize="16sp" />
+            android:textSize="12sp" />
 
         <ToggleButton
             android:id="@+id/advanced_button"
+            style="?attr/buttonFunction"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
@@ -113,32 +115,46 @@
 
         <ToggleButton
             android:id="@+id/function_button"
+            style="?attr/buttonFunction"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:onClick="clickFunction"
             android:textOff="@string/function"
             android:textOn="@string/function"
-            android:textSize="14sp" />
+            android:textSize="12sp" />
 
         <ToggleButton
             android:id="@+id/vector_button"
+            style="?attr/buttonFunction"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:onClick="clickVector"
             android:textOff="@string/vector"
             android:textOn="@string/vector"
-            android:textSize="16sp" />
+            android:textSize="12sp" />
 
         <ToggleButton
             android:id="@+id/matrix_button"
+            style="?attr/buttonFunction"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:onClick="clickMatrix"
             android:textOff="@string/matrix"
             android:textOn="@string/matrix"
-            android:textSize="16sp" />
+            android:textSize="12sp" />
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            style="?attr/buttonFunction"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:adjustViewBounds="true"
+            android:onClick="clickSettings"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_action_settings"
+            android:textSize="12sp" />
     </LinearLayout>
 </LinearLayout>

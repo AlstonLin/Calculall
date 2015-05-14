@@ -316,6 +316,16 @@
         android:baselineAligned="true"
         android:orientation="horizontal">
 
+        <Button
+            android:id="@+id/num_button"
+            style="?buttonNum"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:text="@string/num"
+            android:textSize="30sp" />
+
         <LinearLayout
             android:id="@+id/operator_container"
             android:layout_width="0dp"
@@ -363,16 +373,6 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/num_button"
-                    style="?buttonNum"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:onClick="onClick"
-                    android:text="@string/num"
-                    android:textSize="30sp" />
-
-                <Button
                     android:id="@+id/multiply_button"
                     style="?attr/buttonOperator"
                     android:layout_width="0dp"
@@ -380,6 +380,16 @@
                     android:layout_weight="1"
                     android:onClick="onClick"
                     android:text="@string/multiply"
+                    android:textSize="30sp" />
+
+                <Button
+                    android:id="@+id/augment_button"
+                    style="?attr/buttonOperator"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:onClick="onClick"
+                    android:text="@string/augment"
                     android:textSize="30sp" />
 
             </LinearLayout>

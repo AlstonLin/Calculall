@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:colorBackground"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        style="?attr/buttonFunction"
+        android:layout_width="match_parent"
+        android:layout_height="?android:actionBarSize"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/exit_button"
+            style="?attr/buttonFunction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:onClick="onClick"
+            android:text="Back"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            style="?attr/buttonNum"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="25"
+            android:gravity="center"
+            android:text="@string/history"
+            android:textColor="#fff"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/outputScroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="horizontal">
+
+            <view xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/history"
+                class="com.trutechinnovations.calculall.HistoryView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:fadingEdge="vertical"
+                android:scrollbars="vertical"></view>
+
+        </HorizontalScrollView>
+    </ScrollView>
+</LinearLayout><!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/layout/history_view.xml -->

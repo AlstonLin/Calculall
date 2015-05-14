@@ -48,7 +48,7 @@ public class DisplayView extends View {
     public DisplayView(Context context, AttributeSet attr) {
         super(context, attr);
         TypedValue typedValue = new TypedValue();
-        context.getTheme().resolveAttribute(R.attr.displayColor, typedValue, true);
+        context.getTheme().resolveAttribute(R.attr.displayTextColor, typedValue, true);
         int displayColor = typedValue.data;
         //Setup the paints
         textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);

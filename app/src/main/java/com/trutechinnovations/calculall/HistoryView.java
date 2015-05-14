@@ -37,7 +37,7 @@ public class HistoryView extends View {
         super(context, attr);
         TypedValue typedValue1 = new TypedValue();
         TypedValue typedValue2 = new TypedValue();
-        context.getTheme().resolveAttribute(R.attr.displayColor, typedValue1, true);
+        context.getTheme().resolveAttribute(R.attr.displayTextColor, typedValue1, true);
         int displayColor = typedValue1.data;
         context.getTheme().resolveAttribute(android.R.attr.colorBackground, typedValue2, true);
         backgroundColor = typedValue2.data;
@@ -68,6 +68,7 @@ public class HistoryView extends View {
         entry_padding = textHeight;
         matrixPadding = textPaint.measureText("  ");
         setWillNotDraw(false);
+
     }
 
     /**
