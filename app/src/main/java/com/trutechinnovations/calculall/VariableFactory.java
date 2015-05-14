@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Contains static methods that will create Variable tokens.
  *
  * @author Alston Lin, Ejaaz Merali
- * @version Alpha 2.0
+ * @version 3.0
  */
 public class VariableFactory {
     public static ArrayList<Token> a_value = new ArrayList<>();

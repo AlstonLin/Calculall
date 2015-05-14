@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * Defines the UI ofr VectorMode.
  *
  * @author Alston Lin
- * @version Alpha 2.0
+ * @version Alpha 3.0
  */
 public class VectorFragment extends BasicFragment {
     @Override

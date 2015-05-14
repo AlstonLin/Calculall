@@ -28,6 +28,9 @@ import java.util.List;
 
 /**
  * When the Settings Button has been pressed.
+ *
+ * @author Alston Lin
+ * @version 3.0
  */
 public class SettingsActivity extends Activity {
 

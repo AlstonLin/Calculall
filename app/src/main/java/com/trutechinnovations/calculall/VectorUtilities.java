@@ -7,7 +7,7 @@ import java.util.Stack;
  * Contains various static utility methods for Vector Mode.
  *
  * @author Alston Lin, Keith Wong, Jason Fok
- * @version Alpha 2.2
+ * @version 3.0
  */
 public class VectorUtilities {
 

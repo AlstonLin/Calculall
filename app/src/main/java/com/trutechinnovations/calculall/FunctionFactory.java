@@ -6,7 +6,7 @@ import org.apache.commons.math3.special.Erf;
  * Contains static methods that will create function pieces.
  *
  * @author Ejaaz Merali
- * @version Alpha 2.0
+ * @version 3.0
  */
 
 public class FunctionFactory {
@@ -202,6 +202,9 @@ public class FunctionFactory {
                         }
                         return tan(Math.toRadians(input));
                     case RADIAN:
+                        if ((input % (Math.PI / 2) == 0) && (input % Math.PI != 0)) {
+                            throw new IllegalArgumentException("tan is not defined at this value!");
+                        }
                         return tan(input);
                     case GRADIAN:
                         if ((input % 100 == 0) && (input % 200 != 0)) {

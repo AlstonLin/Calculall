@@ -4,7 +4,7 @@ package com.trutechinnovations.calculall;
  * A piece that receives a collection of pieces as an input, and then outputs a resulting number.
  *
  * @author Ejaaz Merali, Alston Lin
- * @version Alpha 2.0
+ * @version 3.0
  */
 
 public abstract class Function extends Token {

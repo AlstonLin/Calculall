@@ -4,7 +4,7 @@ package com.trutechinnovations.calculall;
  * The Factory that creates instances of Vector Variables.
  *
  * @author Alston Lin
- * @version Alpha 2.2
+ * @version 3.0
  */
 public class VectorVariableFactory {
 

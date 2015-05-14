@@ -33,7 +33,7 @@ import java.util.concurrent.TimeUnit;
  * actions with them, such as finding roots, integration, differentiation, and graphing.
  *
  * @author Alston Lin
- * @version Alpha 2.0
+ * @version 3.0
  */
 public class FunctionMode extends Advanced {
 
@@ -130,7 +130,7 @@ public class FunctionMode extends Advanced {
      */
     public void clickHistory() {
         try {
-            openHistory(FILENAME);
+            openHistory(filename);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -415,10 +415,10 @@ public class FunctionMode extends Advanced {
         graphDialog = builder.create();
         //Sets the numbers from the previous graph, if any
         SharedPreferences pref = activity.getSharedPreferences(activity.getString(R.string.preference_key), Context.MODE_PRIVATE);
-        float minX = pref.getFloat(activity.getString(R.string.x_min), 0f);
-        float minY = pref.getFloat(activity.getString(R.string.y_min), 0f);
-        float maxX = pref.getFloat(activity.getString(R.string.x_max), 0f);
-        float maxY = pref.getFloat(activity.getString(R.string.y_max), 0f);
+        float minX = pref.getFloat(activity.getString(R.string.x_min), -10f);
+        float minY = pref.getFloat(activity.getString(R.string.y_min), -10f);
+        float maxX = pref.getFloat(activity.getString(R.string.x_max), 10f);
+        float maxY = pref.getFloat(activity.getString(R.string.y_max), 10f);
         ((EditText) layout.findViewById(R.id.x_min)).setText(Float.toString(minX));
         ((EditText) layout.findViewById(R.id.y_min)).setText(Float.toString(minY));
         ((EditText) layout.findViewById(R.id.x_max)).setText(Float.toString(maxX));

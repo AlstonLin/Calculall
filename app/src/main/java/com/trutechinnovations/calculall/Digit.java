@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Represents a single Digit of a number.
  *
  * @author Alston Lin
- * @version Alpha 2.0
+ * @version 3.0
  */
 public class Digit extends Token implements Serializable {
     private static final long serialVersionUID = 752647221;
