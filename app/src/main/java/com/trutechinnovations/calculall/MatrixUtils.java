@@ -457,13 +457,20 @@ public class MatrixUtils {
         return tr;
     }
 
-    public static double determinant(double[][] a) {
+    /**
+     * Finds the determinant of the given matrix using a cofactor expansion of row 0.
+     *
+     * @param a The matrix
+     * @return The determinant of the matrix
+     */
+    public static double findDeterminant(double[][] a) {
+        final int ROW = 0;
         if (a.length > 2) {
-            double det = 0d;
-            for (int j = 0; j < a[0].length; j++) {
-                double coefficient = (a[0][j]) * (((j % 2 == 0) ? 1 : -1));
-                double minorDet = determinant(minorMatrix(a, 0, j));
-                det += coefficient * minorDet;
+            double det = 0;
+            for (int j = 0; j < a[ROW].length; j++) {
+                double entry = a[ROW][j];
+                double cofactor = findCofactor(a, ROW, j);
+                det += entry * cofactor;
             }
             return det;
         } else if (a.length == 2) {
@@ -474,6 +481,66 @@ public class MatrixUtils {
             throw new IllegalArgumentException("Invalid matrix size");
         }
 
+    }
+
+    /**
+     * Finds the cofactor of a specific entry of the given matrix.
+     *
+     * @param matrix The matrix
+     * @param i      The row number
+     * @param j      The column number
+     * @return The cofactor value
+     */
+    public static double findCofactor(double[][] matrix, int i, int j) {
+        return Math.pow(-1, i + j) * findDeterminant(minorMatrix(matrix, i, j));
+    }
+
+    /**
+     * Finds the cofactor matrix of the given matrix.
+     *
+     * @param matrix The matrix to find the cofactor matrix
+     * @return The cofactor matrix of the matrix
+     */
+    public static double[][] getCofactorMatrix(double[][] matrix) {
+        double[][] cofactorMatrix = new double[matrix.length][matrix[0].length];
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                double cofactor = findCofactor(matrix, i, j);
+                cofactorMatrix[i][j] = cofactor;
+            }
+        }
+        return cofactorMatrix;
+    }
+
+    /**
+     * Finds the adjoint (transpose of cofactor) matrix of the given matrix
+     *
+     * @param matrix The matrix to find the adjoint
+     * @return The adjoint matrix
+     */
+    public static double[][] getAdjointMatrix(double[][] matrix) {
+        return transpose(getCofactorMatrix(matrix));
+    }
+
+
+    /**
+     * Finds the inverse matrix by using the adjoint method.
+     *
+     * @param matrix The matrix to find the inverse
+     * @return The inverse matrix
+     */
+    public static double[][] findInverse(double[][] matrix) {
+        double[][] adjoint = getAdjointMatrix(matrix);
+        double determinant = findDeterminant(matrix);
+        if (determinant == 0) { //Uninvertible Matrix
+            throw new IllegalArgumentException("The matrix is non-invertible!");
+        }
+        for (int i = 0; i < adjoint.length; i++) {
+            for (int j = 0; j < adjoint[i].length; j++) {
+                adjoint[i][j] *= 1 / determinant;
+            }
+        }
+        return adjoint;
     }
 
     private static double[][] minorMatrix(double[][] input, int row, int column) {

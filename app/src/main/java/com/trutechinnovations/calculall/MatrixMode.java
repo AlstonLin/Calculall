@@ -1,6 +1,5 @@
 package com.trutechinnovations.calculall;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.text.Html;
 import android.text.Spanned;
@@ -38,8 +37,6 @@ public class MatrixMode extends FunctionMode {
     private ArrayList<Token> storedTokens; //Used to store Tokens when switched to the ElementView
     private Matrix matrix;
     private int x, y;
-
-    private ProgressDialog pd;
 
     { //pseudo-constructor
         filename = "history_matrix";
@@ -250,15 +247,19 @@ public class MatrixMode extends FunctionMode {
         ViewGroup v = (ViewGroup) fragment.getView();
         LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View numView = inflater.inflate(R.layout.matrix_num, null, false);
-        v.removeAllViews();
-        v.addView(numView);
+        if (v != null) {
+            v.removeAllViews();
+            v.addView(numView);
+        }
     }
 
     public void clickDoneNum() {
         ViewGroup v = (ViewGroup) fragment.getView();
         LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View matrixView = inflater.inflate(R.layout.matrix, null, false);
-        v.removeAllViews();
+        if (v != null) {
+            v.removeAllViews();
+        }
         v.addView(matrixView);
         Button transButton = (Button) matrixView.findViewById(R.id.transpose_button);
         Button powButton = (Button) matrixView.findViewById(R.id.pow_button);
@@ -293,7 +294,7 @@ public class MatrixMode extends FunctionMode {
      */
     public void clickNew() {
         //Creates a new empty matrix and edits it
-        ArrayList<Token>[][] entries = new ArrayList[DEFAULT_ROWS][DEFAULT_COLS];
+        ArrayList[][] entries = new ArrayList[DEFAULT_ROWS][DEFAULT_COLS];
         for (int i = 0; i < entries.length; i++) {
             for (int j = 0; j < entries[i].length; j++) {
                 ArrayList<Token> entry = new ArrayList<>();
@@ -355,7 +356,7 @@ public class MatrixMode extends FunctionMode {
         //Edits the GridView
         GridView gv = (GridView) layout.findViewById(R.id.elements_grid);
         gv.setNumColumns(m.getNumOfCols());
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity, R.layout.element, strs);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(activity, R.layout.element, strs);
         gv.setAdapter(adapter);
         //Sets what happens when an element is clicked
         gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -373,8 +374,8 @@ public class MatrixMode extends FunctionMode {
             items[i] = i + 1;
         }
 
-        ArrayAdapter<Integer> spinnerAdapterX = new ArrayAdapter<Integer>(fragment.getActivity(), R.layout.spinner_item, items);
-        ArrayAdapter<Integer> spinnerAdapterY = new ArrayAdapter<Integer>(fragment.getActivity(), R.layout.spinner_item, items);
+        ArrayAdapter<Integer> spinnerAdapterX = new ArrayAdapter<>(fragment.getActivity(), R.layout.spinner_item, items);
+        ArrayAdapter<Integer> spinnerAdapterY = new ArrayAdapter<>(fragment.getActivity(), R.layout.spinner_item, items);
         xSpinner.setAdapter(spinnerAdapterX);
         ySpinner.setAdapter(spinnerAdapterY);
 
@@ -816,16 +817,12 @@ public class MatrixMode extends FunctionMode {
             ArrayList<Token> temp = MatrixUtils.setupExpression(Utility.condenseDigits(tokens));
             temp = MatrixUtils.convertToReversePolish(temp);
             Token t = MatrixUtils.evaluateExpression(temp);
-            ArrayList<Token> output = new ArrayList<Token>();
+            ArrayList<Token> output = new ArrayList<>();
             output.add(t);
             display.displayOutput(output);
             saveEquation(tokens, output, filename);
         } catch (Exception e) { //an error was thrown
-            if (e.getMessage() == null || e.getMessage() == "") {
-                Toast.makeText(activity, e.getClass().getCanonicalName(), Toast.LENGTH_LONG).show();
-            } else {
-                Toast.makeText(activity, e.getMessage().concat(" from: " + e.getClass().getCanonicalName()), Toast.LENGTH_LONG).show();
-            }
+            super.handleExceptions(e);
         }
         activity.scrollDown();
     }
