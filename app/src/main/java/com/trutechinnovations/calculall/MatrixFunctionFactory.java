@@ -41,7 +41,7 @@ public class MatrixFunctionFactory {
             public double[][] perform(double[][] input) {
                 if (input.length == input[0].length) {
                     double[][] output = new double[1][1];
-                    output[0][0] = MatrixUtils.determinant(input);
+                    output[0][0] = MatrixUtils.findDeterminant(input);
                     return output;
                 } else {
                     throw new IllegalArgumentException("Determinant is only defined for square matrices");
@@ -80,8 +80,10 @@ public class MatrixFunctionFactory {
         return new MatrixFunction("A⁻¹", MatrixFunction.INVERSE) {
             @Override
             public double[][] perform(double[][] input) {
-                //TODO: FINISH THIS
-                return null;
+                if (input.length != input[0].length) {
+                    throw new IllegalArgumentException("Matrix must be n*n to be invertible");
+                }
+                return MatrixUtils.findInverse(input);
             }
         };
     }
