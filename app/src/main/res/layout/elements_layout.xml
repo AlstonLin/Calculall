@@ -40,8 +40,8 @@
             android:id="@+id/x_spinner"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:spinnerMode="dialog"
-            android:layout_weight="2" />
+            android:layout_weight="2"
+            android:spinnerMode="dialog" />
 
         <TextView
             android:id="@+id/text_view"
@@ -57,8 +57,8 @@
             android:id="@+id/y_spinner"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:spinnerMode="dialog"
-            android:layout_weight="2" />
+            android:layout_weight="2"
+            android:spinnerMode="dialog" />
 
         <Button
             android:id="@+id/return_button"

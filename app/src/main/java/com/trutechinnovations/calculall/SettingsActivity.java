@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -63,34 +64,34 @@ public class SettingsActivity extends Activity {
         //Sets up the current theme
         switch (currentTheme) {
             case DAVID:
-                setTheme(R.style.david);
+                setTheme(R.style.Theme1);
                 break;
             case ALSTON:
-                setTheme(R.style.alston);
+                setTheme(R.style.Theme1);
                 break;
             case PANDA:
-                setTheme(R.style.panda);
+                setTheme(R.style.Theme1);
                 break;
             case TRAILBLAZER:
-                setTheme(R.style.trailblazer);
+                setTheme(R.style.Theme1);
                 break;
             case HAWKS:
-                setTheme(R.style.hawks);
+                setTheme(R.style.Theme1);
                 break;
             case GEESE:
-                setTheme(R.style.geese);
+                setTheme(R.style.Theme1);
                 break;
             case SUNSET:
-                setTheme(R.style.sunset);
+                setTheme(R.style.Theme1);
                 break;
             case FOREST:
-                setTheme(R.style.forest);
+                setTheme(R.style.Theme1);
                 break;
             case MATERIAL:
-                setTheme(R.style.material);
+                setTheme(R.style.Theme1);
                 break;
             case OCEAN:
-                setTheme(R.style.ocean);
+                setTheme(R.style.Theme1);
                 break;
             default:
                 throw new IllegalStateException("Illegal Theme");
@@ -156,8 +157,13 @@ public class SettingsActivity extends Activity {
      * Sets up the haptic feedback switch.
      */
     public void setupSwitch() {
+        TypedValue typedValue2 = new TypedValue();
+        getTheme().resolveAttribute(R.attr.displayTextColor, typedValue2, true);
+        int backgroundColor = typedValue2.data;
         Switch switc = (Switch) findViewById(R.id.haptic_switch);
         Switch swipe = (Switch) findViewById(R.id.swipe_only_switch);
+        switc.setTextColor(backgroundColor);
+        swipe.setTextColor(backgroundColor);
         switc.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             /**
              * When the check has been changed.

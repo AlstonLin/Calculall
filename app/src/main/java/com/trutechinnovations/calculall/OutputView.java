@@ -37,7 +37,7 @@ public class OutputView extends View {
     public OutputView(Context context, AttributeSet attr) {
         super(context, attr);
         TypedValue typedValue = new TypedValue();
-        context.getTheme().resolveAttribute(R.attr.displayColor, typedValue, true);
+        context.getTheme().resolveAttribute(R.attr.displayTextColor, typedValue, true);
         int displayColor = typedValue.data;
         //Setup the paints
         textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -72,7 +72,7 @@ public class OutputView extends View {
         textHeight = textRect.height() * 1.25f;
         //Sets variables that are based on the text height
         xPadding = textHeight / 3;
-        fracPadding = textHeight / 8;
+        fracPadding = textHeight / 3;
         matrixPadding = textPaint.measureText("  ");
         superscriptYOffset = textHeight / 2;
         matrixPadding = textPaint.measureText("  ");

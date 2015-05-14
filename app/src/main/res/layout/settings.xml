@@ -6,135 +6,170 @@
     android:background="?android:colorBackground"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/back_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="clickBack"
-        android:text="@string/backspace"
-        android:textColor="?displayColor"
-        android:textSize="48sp" />
+    <LinearLayout
+        style="?attr/buttonFunction"
+        android:layout_width="match_parent"
+        android:layout_height="?android:actionBarSize"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/exit_button"
+            style="?attr/buttonFunction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:onClick="clickBack"
+            android:text="Back"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            style="?attr/buttonNum"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="25"
+            android:gravity="center"
+            android:text="Settings"
+            android:textColor="#fff"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:weightSum="8">
 
     <Button
         android:id="@+id/theme_button"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
         android:onClick="clickTheme"
         android:text="@string/theme"
-        android:textColor="?displayColor"
-        android:textSize="26sp" />
+        android:textSize="14sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/round_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="2"
             android:gravity="right"
             android:text="@string/round_to"
-            android:textColor="?displayColor"
-            android:textSize="26sp" />
+            android:textSize="14sp" />
 
         <Spinner
             android:id="@+id/decimal_spinner"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:textColor="?displayColor"
-            android:textSize="26sp" />
+            android:spinnerMode="dropdown"
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/decimals_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="2"
             android:text="@string/decimals"
-            android:textColor="?displayColor"
-            android:textSize="26sp" />
+            android:textSize="14sp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="8">
 
         <TextView
             android:id="@+id/font_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="4"
             android:gravity="right"
             android:text="@string/font_size"
-            android:textColor="?displayColor"
-            android:textSize="26sp" />
+            android:textSize="14sp" />
 
         <Spinner
             android:id="@+id/font_spinner"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="2"
-            android:textColor="?displayColor"
-            android:textSize="36sp" />
+            android:textSize="14sp" />
 
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:textColor="?displayColor"
-            android:textSize="26sp" />
+            android:textSize="14sp" />
     </LinearLayout>
 
     <Button
         android:id="@+id/upgrade_button"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
         android:onClick="clickUpgrade"
         android:text="@string/upgrade"
-        android:textColor="?displayColor"
-        android:textSize="26sp" />
+        android:textSize="14sp" />
 
     <Switch
         android:id="@+id/swipe_only_switch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
         android:layout_gravity="center"
+        android:layout_weight="1"
         android:text="@string/mode_switch"
-        android:textColor="?displayColor"
-        android:textSize="21sp" />
+        android:textSize="14sp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp" />
 
     <Switch
         android:id="@+id/haptic_switch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
         android:layout_gravity="center"
+        android:layout_weight="1"
         android:text="@string/haptic"
-        android:textColor="?displayColor"
-        android:textSize="26sp" />
+        android:textSize="14sp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp" />
 
     <Button
         android:id="@+id/report_button"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
         android:onClick="clickReport"
         android:text="@string/report"
-        android:textColor="?displayColor"
-        android:textSize="26sp" />
+        android:textSize="14sp" />
 
     <Button
         android:id="@+id/about_button"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
         android:onClick="clickAbout"
         android:text="@string/about"
-        android:textColor="?displayColor"
-        android:textSize="26sp" />
+        android:textSize="14sp" />
+    </LinearLayout>
 </LinearLayout>
