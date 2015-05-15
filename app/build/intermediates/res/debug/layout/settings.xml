@@ -137,7 +137,9 @@
         android:layout_gravity="center"
         android:layout_weight="1"
         android:text="@string/mode_switch"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp" />
 
     <Switch
         android:id="@+id/haptic_switch"
@@ -146,7 +148,9 @@
         android:layout_gravity="center"
         android:layout_weight="1"
         android:text="@string/haptic"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp" />
 
     <Button
         android:id="@+id/report_button"
@@ -169,4 +173,4 @@
         android:textSize="14sp" />
     </LinearLayout>
 </LinearLayout>
-<!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/layout/settings.xml -->
+<!-- From: file:/C:/Users/Ejaaz/TruTech/Calculall/Calculall/app/src/main/res/layout/settings.xml -->

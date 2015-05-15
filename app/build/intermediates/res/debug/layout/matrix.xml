@@ -194,19 +194,29 @@
             android:textSize="16sp" />
 
         <Button
-            android:id="@+id/det_button"
-            style="?attr/buttonFunction"
+            android:id="@+id/lambda_button"
+            style="?attr/buttonSpecial"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:text="@string/lambda"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/ev_button"
+            style="?attr/buttonSpecial"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_marginRight="0dp"
             android:layout_weight="1"
             android:onClick="onClick"
-            android:text="@string/det"
+            android:text="@string/ev"
             android:textSize="16sp" />
 
         <Button
             android:id="@+id/diag_button"
-            style="?attr/buttonFunction"
+            style="?attr/buttonSpecial"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_marginRight="0dp"
@@ -217,7 +227,7 @@
 
         <Button
             android:id="@+id/decomp_button"
-            style="?attr/buttonFunction"
+            style="?attr/buttonSpecial"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_marginRight="0dp"
@@ -235,6 +245,17 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/det_button"
+            style="?attr/buttonFunction"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_marginRight="0dp"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:text="@string/det"
+            android:textSize="16sp" />
+
+        <Button
             android:id="@+id/tr_button"
             style="?attr/buttonFunction"
             android:layout_width="0dp"
@@ -244,27 +265,6 @@
             android:layout_weight="1"
             android:onClick="onClick"
             android:text="@string/tr"
-            android:textSize="16sp" />
-
-        <Button
-            android:id="@+id/lambda_button"
-            style="?attr/buttonFunction"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:onClick="onClick"
-            android:text="@string/lambda"
-            android:textSize="16sp" />
-
-        <Button
-            android:id="@+id/ev_button"
-            style="?attr/buttonFunction"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_marginRight="0dp"
-            android:layout_weight="1"
-            android:onClick="onClick"
-            android:text="@string/ev"
             android:textSize="16sp" />
 
         <Button
@@ -407,4 +407,4 @@
             android:textSize="30sp" />
 
     </LinearLayout>
-</LinearLayout><!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/layout/matrix.xml -->
+</LinearLayout><!-- From: file:/C:/Users/Ejaaz/TruTech/Calculall/Calculall/app/src/main/res/layout/matrix.xml -->

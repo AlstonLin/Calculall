@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Stack;
 
+//import static java.util.Arrays.copyOfRange;
+
 
 /**
  * Contains the Matrix Utilities (row reduction algorithms, matrix entry simplifier, etc.)
@@ -251,6 +253,8 @@ public class MatrixUtils {
                 return addRows(a, (int) steps[0][1], (int) steps[0][2], steps[0][3]);
             } else if (steps[0][0] == 3) {
                 return scaleRow(a, (int) steps[0][1], steps[0][2]);
+            } else if (steps[0][0] == 0) {
+                return a;
             } else {
                 throw new IllegalArgumentException("Invalid steps");
             }
@@ -282,7 +286,15 @@ public class MatrixUtils {
         return output;
     }
 
-    private static double[][] trimMatrix(double[][] input, int lastRow, int lastCol) {
+    private static double[][] frontTrimMatrix(double[][] input, int firstRow, int firstCol) {
+        double[][] output = Arrays.copyOfRange(input, firstRow, input.length);
+        for (int i = 0; i < output.length; i++) {
+            output[i] = Arrays.copyOfRange(input[i], firstCol, input[i].length);
+        }
+        return output;
+    }
+
+    private static double[][] endTrimMatrix(double[][] input, int lastRow, int lastCol) {
         double[][] output = Arrays.copyOfRange(input, 0, lastRow);
         for (int i = 0; i < output.length; i++) {
             output[i] = Arrays.copyOfRange(input[i], 0, lastCol);
@@ -296,14 +308,15 @@ public class MatrixUtils {
      * Swap step: 1, Add step: 2, Scale step: 3
      *
      * @param a         The Matrix which will be Row Reduced to REF
-     * @param minorNess Total number of rows/columns that have been stripped away from the original matrix
      * @return the row reduction steps
      */
-    private static double[][] getREFSteps(double[][] a, int minorNess) {
+    private static double[][] getREFSteps(double[][] a) {
         ArrayList<Double[]> steps = new ArrayList<>();
-        if (a.length > 1) {
+        if (a.length > 1 && a[0].length > 0) {
             double[][] temp = deepCopyDblMatrix(a);
+
             if (!onlyZeroes(getColumn(temp, 0))) {
+
                 int pivot = getFirstNonZero(getColumn(temp, 0));
                 if (pivot != 0) {
                     temp = swapRows(temp, 0, pivot);
@@ -311,8 +324,9 @@ public class MatrixUtils {
                     steps.add(swapStep);
                     pivot = 0;
                 }
-                double[] restOfCol = Arrays.copyOfRange(getColumn(temp, 0), 1, temp.length);
-                for (int i = 1; !onlyZeroes(restOfCol) && i < temp.length; i++) {
+
+                //double[] restOfCol = Arrays.copyOfRange(getColumn(temp, 0), 1, temp.length);
+                for (int i = 1; i < temp.length; i++) {
                     if (temp[i][0] != 0) {
                         double scalar = -1 * temp[i][0] / temp[0][0];
                         temp = addRows(temp, i, pivot, scalar);
@@ -321,30 +335,35 @@ public class MatrixUtils {
                     }
                 }
             }
-            double[][] minorSteps = getREFSteps(minorMatrix(temp, 0, 0), minorNess++);
-            Double[] tempStep;
-            for (int i = 0; i < minorSteps.length; i++) {
-                if (minorSteps[i][0] == 1) {
-                    minorSteps[i][1] += minorNess;
-                    minorSteps[i][2] += minorNess;
-                } else if (minorSteps[i][0] == 2) {
-                    minorSteps[i][1] += minorNess;
-                    minorSteps[i][2] += minorNess;
-                } else if (minorSteps[i][0] == 3) {
-                    minorSteps[i][1] += minorNess;
-                } else {
-                    throw new IllegalArgumentException("Invalid steps");
+
+            if (temp[0].length > 1) {
+                double[][] minorSteps = getREFSteps(minorMatrix(temp, 0, 0));
+                Double[] tempStep;
+                for (int i = 0; i < minorSteps.length; i++) {
+                    if (minorSteps[i][0] == 1) {
+                        minorSteps[i][1]++;
+                        minorSteps[i][2]++;
+                    } else if (minorSteps[i][0] == 2) {
+                        minorSteps[i][1]++;
+                        minorSteps[i][2]++;
+                    } else if (minorSteps[i][0] == 3) {
+                        minorSteps[i][1]++;
+                    } else {
+                        throw new IllegalArgumentException("Invalid steps");
+                    }
                 }
-            }
-            for (int i = 0; i < minorSteps.length; i++) {
-                tempStep = new Double[minorSteps[i].length];
-                for (int j = 0; j < minorSteps[i].length; j++) {
-                    tempStep[j] = minorSteps[i][j];
+
+                for (int i = 0; i < minorSteps.length; i++) {
+                    tempStep = new Double[minorSteps[i].length];
+                    for (int j = 0; j < minorSteps[i].length; j++) {
+                        tempStep[j] = minorSteps[i][j];
+                    }
+                    steps.add(tempStep);
                 }
-                steps.add(tempStep);
             }
         }
-        double[][] stepsArray = new double[steps.size()][3];
+
+        double[][] stepsArray = new double[steps.size()][0];
         for (int i = 0; i < stepsArray.length; i++) {
             stepsArray[i] = new double[steps.get(i).length];
             for (int j = 0; j < stepsArray[i].length; j++) {
@@ -355,8 +374,9 @@ public class MatrixUtils {
     }
 
     public static double[][] toREF(double[][] a) {
-        return applySteps(a, getREFSteps(a, 0));
+        return roundInfinitesimals(applySteps(a, getREFSteps(a)));
     }
+
 
     /**
      * Returns the Row Operations required to reduce the given Matrix(m) to
@@ -369,7 +389,7 @@ public class MatrixUtils {
         ArrayList<Double[]> steps = new ArrayList<>();
         double[][] dummyArray = {{0d, 0d, 0d}};
         if (a.length > 1) {
-            double[][] refSteps = getREFSteps(a, 0);
+            double[][] refSteps = getREFSteps(a);
             Double[] tempStep;
             double[][] temp;
             for (int i = 0; i < refSteps.length; i++) {
@@ -379,16 +399,21 @@ public class MatrixUtils {
                 }
                 steps.add(tempStep);
             }
-            temp = applySteps(deepCopyDblMatrix(a), refSteps);
+            temp = roundInfinitesimals(applySteps(deepCopyDblMatrix(a), refSteps));
+
 
             int pivotRowIndex = -1;
-            for (int i = 1; pivotRowIndex == -1 && i < temp[0].length; i++) {
+            for (int i = 1; pivotRowIndex == -1 && i <= temp[0].length; i++) {
                 pivotRowIndex = getLastNonZero(getColumn(temp, temp[0].length - i));
             }
+            if (pivotRowIndex == -1) {//what if they're ALL ZERO....dun dun dun
+                pivotRowIndex = 0;
+            }
+
             int pivotColIndex = getFirstNonZero(getRow(temp, pivotRowIndex));
             if (!onlyZeroes(getColumn(temp, pivotRowIndex))) {
-                double[] restOfCol = Arrays.copyOfRange(getColumn(temp, pivotColIndex), 0, pivotRowIndex);
-                for (int i = 0; !onlyZeroes(restOfCol) && i < pivotRowIndex; i++) {
+                //double[] restOfCol = Arrays.copyOfRange(getColumn(temp, pivotColIndex), 0, pivotRowIndex);
+                for (int i = 0; i < pivotRowIndex; i++) {
                     if (temp[i][pivotColIndex] != 0) {
                         double scalar = -1 * temp[i][pivotColIndex] / temp[pivotRowIndex][pivotColIndex];
                         temp = addRows(temp, i, pivotRowIndex, scalar);
@@ -408,10 +433,15 @@ public class MatrixUtils {
                 }
             }
 
-            if (a.length > 2) {
-                double[][] minorSteps = getRREFSteps(trimMatrix(temp, temp.length - 1, temp[0].length - 1));
-                if (minorSteps.length == 1 && !Arrays.equals(minorSteps[0], dummyArray[0])) {
-                    for (int i = 0; i < minorSteps.length; i++) {
+            if (pivotRowIndex > 1 && a.length > 2) {
+                double[][] minorSteps;
+                if (pivotColIndex > 0) {
+                    minorSteps = getRREFSteps(endTrimMatrix(temp, pivotRowIndex, pivotColIndex));
+                } else {
+                    minorSteps = getRREFSteps(endTrimMatrix(temp, pivotRowIndex, temp[0].length - 1));
+                }
+                for (int i = 0; i < minorSteps.length; i++) {
+                    if (!Arrays.equals(minorSteps[i], dummyArray[0])) {
                         tempStep = new Double[minorSteps[i].length];
                         for (int j = 0; j < minorSteps[i].length; j++) {
                             tempStep[j] = minorSteps[i][j];
@@ -421,7 +451,7 @@ public class MatrixUtils {
                 }
             }
 
-            double[][] stepsArray = new double[steps.size()][3];
+            double[][] stepsArray = new double[steps.size()][0];
             for (int i = 0; i < stepsArray.length; i++) {
                 stepsArray[i] = new double[steps.get(i).length];
                 for (int j = 0; j < stepsArray[i].length; j++) {
@@ -435,14 +465,26 @@ public class MatrixUtils {
     }
 
     public static double[][] toRREF(double[][] a) {
-        return applySteps(a, getRREFSteps(a));
+        return roundInfinitesimals(applySteps(a, getRREFSteps(a)));
+    }
+
+    private static double[][] roundInfinitesimals(double[][] input) {
+        double[][] temp = deepCopyDblMatrix(input);
+        for (int i = 0; i < temp.length; i++) {
+            for (int j = 0; j < temp[0].length; j++) {
+                if (Math.log10(Math.abs(temp[i][j])) <= -15) {
+                    temp[i][j] = 0;
+                }
+            }
+        }
+        return temp;
     }
 
     public static int rank(double[][] a) {
         double[][] rowReduced = toREF(a);
         int rank = 0;
         for (int i = 0; i < a.length; i++) {
-            if (!onlyZeroes(getRow(a, i))) {
+            if (!onlyZeroes(getRow(rowReduced, i))) {
                 rank++;
             }
         }
@@ -546,11 +588,11 @@ public class MatrixUtils {
     private static double[][] minorMatrix(double[][] input, int row, int column) {
         int rowIndex = 0;
         int colIndex = 0;
-        double[][] minor = new double[input.length - 1][input.length - 1];
+        double[][] minor = new double[input.length - 1][input[0].length - 1];
 
         for (int i = 0; i < input.length; i++) {
             if (i != row) {
-                for (int j = 0; j < input.length; j++) {
+                for (int j = 0; j < input[0].length; j++) {
                     if (j != column) {
                         minor[rowIndex][colIndex] = input[i][j];
                         colIndex++;
