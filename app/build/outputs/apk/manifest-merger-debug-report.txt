@@ -16,9 +16,9 @@ ADDED from AndroidManifest.xml:2:1
 	android:theme
 		ADDED from AndroidManifest.xml:4:5
 uses-permission#android.permission.INTERNET
-ADDED from AndroidManifest.xml:8:1
+ADDED from AndroidManifest.xml:8:5
 	android:name
-		ADDED from AndroidManifest.xml:8:18
+		ADDED from AndroidManifest.xml:8:22
 uses-permission#android.permission.ACCESS_NETWORK_STATE
 ADDED from AndroidManifest.xml:9:5
 	android:name
@@ -73,52 +73,14 @@ category#android.intent.category.LAUNCHER
 ADDED from AndroidManifest.xml:30:17
 	android:name
 		ADDED from AndroidManifest.xml:30:27
-activity#com.mopub.mobileads.MoPubActivity
+activity#com.trutechinnovations.calculall.SettingsActivity
 ADDED from AndroidManifest.xml:33:9
-	android:configChanges
+	android:screenOrientation
+		ADDED from AndroidManifest.xml:36:13
+	android:label
 		ADDED from AndroidManifest.xml:35:13
 	android:name
 		ADDED from AndroidManifest.xml:34:13
-activity#com.mopub.mobileads.MraidActivity
-ADDED from AndroidManifest.xml:36:9
-	android:configChanges
-		ADDED from AndroidManifest.xml:38:13
-	android:name
-		ADDED from AndroidManifest.xml:37:13
-activity#com.mopub.common.MoPubBrowser
-ADDED from AndroidManifest.xml:39:9
-	android:configChanges
-		ADDED from AndroidManifest.xml:41:13
-	android:name
-		ADDED from AndroidManifest.xml:40:13
-activity#com.mopub.mobileads.MraidVideoPlayerActivity
-ADDED from AndroidManifest.xml:42:9
-	android:configChanges
-		ADDED from AndroidManifest.xml:44:13
-	android:name
-		ADDED from AndroidManifest.xml:43:13
-activity#com.google.android.gms.ads.AdActivity
-ADDED from AndroidManifest.xml:45:9
-	android:configChanges
-		ADDED from AndroidManifest.xml:47:13
-	android:name
-		ADDED from AndroidManifest.xml:46:13
-activity#com.millennialmedia.android.MMActivity
-ADDED from AndroidManifest.xml:48:9
-	android:configChanges
-		ADDED from AndroidManifest.xml:50:13
-	android:theme
-		ADDED from AndroidManifest.xml:51:13
-	android:name
-		ADDED from AndroidManifest.xml:49:13
-activity#com.trutechinnovations.calculall.SettingsActivity
-ADDED from AndroidManifest.xml:52:9
-	android:screenOrientation
-		ADDED from AndroidManifest.xml:55:13
-	android:label
-		ADDED from AndroidManifest.xml:54:13
-	android:name
-		ADDED from AndroidManifest.xml:53:13
 uses-sdk
 INJECTED from AndroidManifest.xml:0:0 reason: use-sdk injection requested
 MERGED from com.android.support:multidex:1.0.0:18:5
