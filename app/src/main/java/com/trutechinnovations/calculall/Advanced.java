@@ -4,12 +4,15 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.ToggleButton;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Contains the back-end of the advanced calculator mode. The advanced mode will be able to
@@ -33,6 +36,24 @@ public class Advanced extends Basic {
     //Fields
     protected ArrayList<MultiButton> multiButtons;
     protected boolean hyperbolic = false, shift = false, mem = false;
+
+    private PopupWindow pw;
+    private Dialog constantsDialog;
+
+    public enum Constant {
+        SPEED_OF_LIGHT(299792458), MAGNETIC_VAL((4*Math.PI)*1e-7);
+        private double value;
+
+        Constant(double value) {
+            this.value = value;
+        }
+
+        public double getValue () {
+            return value;
+        }
+
+    }
+
 
     /**
      * Allows for the Singleton pattern so there would be only one instance.
@@ -114,6 +135,9 @@ public class Advanced extends Basic {
                 break;
             case R.id.ans_button:
                 clickAns();
+                break;
+            case R.id.exit_const_button:
+                clickExitConst();
                 break;
             case R.id.const_button:
                 clickConst();
@@ -870,17 +894,29 @@ public class Advanced extends Basic {
     }
 
     /**
+     * Exits the constants view.
+     */
+    public void clickExitConst() {
+        constantsDialog.dismiss();
+    }
+
+    /**
      * When the user presses the CONST button
      */
     //TODO: Implement by looking at how the settings are implmented
     public void clickConst() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+       AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         LayoutInflater inflater = activity.getLayoutInflater();
-        View layout = inflater.inflate(R.layout.graph_dialog, null);
+        View layout = inflater.inflate(R.layout.constants, null);
         builder.setView(layout);
-        graphDialog = builder.create();
-        graphDialog.show();
-    }
+        constantsDialog = builder.create();
+        constantsDialog.show();
+
+
+        //List<Constant> cnts = new ArrayList<>(Arrays.asList(Constant.values()));
+        //ArrayAdapter<Constant> constAdapter = new ArrayAdapter<Integer>(this, R.layout.constants, Constant.values());
+
+}
 
     /**
      * Adds all the tokens in the expression into an exponent.
