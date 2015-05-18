@@ -152,7 +152,7 @@
     <string name="common_signin_button_text_long">Sign in with Google</string>
     <!-- From: file:/C:/Users/Jason/AndroidStudioProjects/Calculall/app/src/main/res/values/strings.xml -->
     <eat-comment/>
-    <string name="constant">const</string>
+    <string name="constant">CNST</string>
     <string name="cos">cos</string>
     <!-- From: file:/C:/Users/Jason/AndroidStudioProjects/Calculall/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_strings.xml -->
     <eat-comment/>
@@ -207,6 +207,7 @@
     <string name="inverse_a"><![CDATA[A<sup><small><i>-1</i></small></sup>]]></string>
     <string name="lambda">λ</string>
     <string name="leftscroll">⇦</string>
+    <string name="listOfConstants">List of Constants</string>
     <string name="ln">ln</string>
     <string name="log10">log</string>
     <string name="log_b">log_b</string>

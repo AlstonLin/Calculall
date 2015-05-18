@@ -31,7 +31,6 @@ public abstract class Variable extends Token implements Serializable {
             return value;
         }
 
-
     }
 
 
