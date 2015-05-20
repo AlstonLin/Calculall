@@ -1,5 +1,9 @@
 package com.trutechinnovations.calculall;
 
+import org.apache.commons.math3.linear.Array2DRowRealMatrix;
+import org.apache.commons.math3.linear.EigenDecomposition;
+import org.apache.commons.math3.linear.LUDecomposition;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Stack;
@@ -325,7 +329,6 @@ public class MatrixUtils {
                     pivot = 0;
                 }
 
-                //double[] restOfCol = Arrays.copyOfRange(getColumn(temp, 0), 1, temp.length);
                 for (int i = 1; i < temp.length; i++) {
                     if (temp[i][0] != 0) {
                         double scalar = -1 * temp[i][0] / temp[0][0];
@@ -376,7 +379,6 @@ public class MatrixUtils {
     public static double[][] toREF(double[][] a) {
         return roundInfinitesimals(applySteps(a, getREFSteps(a)));
     }
-
 
     /**
      * Returns the Row Operations required to reduce the given Matrix(m) to
@@ -491,6 +493,8 @@ public class MatrixUtils {
         return rank;
     }
 
+    //Easter egg:
+    //TRACE ON! - if a is an identity matrix :P
     public static double trace(double[][] a) {
         double tr = 0d;
         for (int i = 0; i < a.length; i++) {
@@ -555,12 +559,12 @@ public class MatrixUtils {
     }
 
     /**
-     * Finds the adjoint (transpose of cofactor) matrix of the given matrix
+     * Finds the adjugate (transpose of cofactor) matrix of the given matrix
      *
-     * @param matrix The matrix to find the adjoint
-     * @return The adjoint matrix
+     * @param matrix The matrix to find the adjugate
+     * @return The adjugate matrix
      */
-    public static double[][] getAdjointMatrix(double[][] matrix) {
+    public static double[][] getAdjugateMatrix(double[][] matrix) {
         return transpose(getCofactorMatrix(matrix));
     }
 
@@ -572,7 +576,7 @@ public class MatrixUtils {
      * @return The inverse matrix
      */
     public static double[][] findInverse(double[][] matrix) {
-        double[][] adjoint = getAdjointMatrix(matrix);
+        double[][] adjoint = getAdjugateMatrix(matrix);
         double determinant = findDeterminant(matrix);
         if (determinant == 0) { //Uninvertible Matrix
             throw new IllegalArgumentException("The matrix is non-invertible!");
@@ -603,6 +607,76 @@ public class MatrixUtils {
             }
         }
         return minor;
+    }
+
+
+    public static double[][][] getLUDecomposition(double[][] a) {
+        if (findDeterminant(a) == 0) {
+            throw new IllegalArgumentException("Matrix must be nonsingular/invertible in order to be LU factorizable");
+        }
+        LUDecomposition lu = new LUDecomposition(new Array2DRowRealMatrix(a));
+        double[][][] output = new double[3][][];
+        output[0] = lu.getU().getData();
+        output[1] = lu.getL().getData();
+        output[2] = lu.getP().getData();
+        return output;
+    }
+
+    /**
+     * Converts a Row Operation into an Elementary Matrix
+     * Swap step: 1, Add step: 2, Scale step: 3
+     *
+     * @param step The Row Operation to be converted into an Elementary Matrix
+     * @param dim  The Dimension of the Elementary Matrix
+     * @return An Elementary Matrix corresponding to the given row operation
+     */
+    public static double[][] getElementaryMatrix(double[] step, int dim) {
+        if (step[0] == 1) {
+            return makeRowSwapMatrix((int) step[1], (int) step[2], dim);
+        } else if (step[0] == 2) {
+            return makeRowAddMatrix((int) step[1], (int) step[2], step[3], dim);
+        } else if (step[0] == 3) {
+            return makeRowScaleMatrix((int) step[1], step[2], dim);
+        } else {
+            throw new IllegalArgumentException("Invalid steps");
+        }
+    }
+
+    private static double[][] makeRowScaleMatrix(int row, double scalar, int dim) {
+        if (row < dim && row >= 0) {
+            double[][] a = makeIdentity(dim);
+            return scaleRow(a, row, scalar);
+        } else {
+            throw new IllegalArgumentException("Row index is invalid");
+        }
+    }
+
+    private static double[][] makeRowAddMatrix(int row1, int row2, double scalar, int dim) {
+        if (row1 < dim && row2 < dim && row1 >= 0 && row2 >= 0) {
+            double[][] a = makeIdentity(dim);
+            return addRows(a, row1, row2, scalar);
+        } else {
+            throw new IllegalArgumentException("Row indices are invalid");
+        }
+    }
+
+    private static double[][] makeRowSwapMatrix(int row1, int row2, int dim) {
+        if (row1 < dim && row2 < dim && row1 >= 0 && row2 >= 0) {
+            double[][] a = makeIdentity(dim);
+            return swapRows(a, row1, row2);
+        } else {
+            throw new IllegalArgumentException("Row indices are invalid");
+        }
+    }
+
+
+    public static double[][][] getEigenDecomposition(double[][] a) {
+        EigenDecomposition ed = new EigenDecomposition(new Array2DRowRealMatrix(a));
+        double[][][] output = new double[3][][];
+        output[0] = ed.getV().getData();
+        output[1] = ed.getD().getData();
+        output[2] = ed.getVT().getData();
+        return output;
     }
 
     /**

@@ -832,6 +832,19 @@ public class MatrixMode extends FunctionMode {
      * When the user presses the LUP button
      */
     public void clickLUP() {
+        Token t = MatrixFunctionFactory.makeLU();
+        Bracket b = BracketFactory.makeOpenBracket();
+        if (t != null) {
+            t.addDependency(b);
+            b.addDependency(t);
+        }
+        tokens.add(display.getRealCursorIndex(), t);
+        tokens.add(display.getRealCursorIndex() + 1, b);
+        display.setCursorIndex(display.getCursorIndex() + 2);
+        updateInput();
+    }
+
+//  public void clickLUP() {
 //        final Context context = activity;
 //        AsyncTask<ArrayList<Token>, Void, ArrayList<Token>> task;
 //        task = new AsyncTask<ArrayList<Token>, Void, ArrayList<Token>>() {
@@ -929,7 +942,7 @@ public class MatrixMode extends FunctionMode {
 //        ArrayList<Token> tokens = Utility.condenseDigits(this.tokens);
 //        tokens = Utility.setupExpression(tokens);
 //        task.execute(tokens);
-    }
+//  }
 
 
     /**
@@ -1134,6 +1147,18 @@ public class MatrixMode extends FunctionMode {
      * When the user presses the diag() button
      */
     public void clickDiagonalize() {
+        Token t = MatrixFunctionFactory.makeDiag();
+        Bracket b = BracketFactory.makeOpenBracket();
+        if (t != null) {
+            t.addDependency(b);
+            b.addDependency(t);
+        }
+        tokens.add(display.getRealCursorIndex(), t);
+        tokens.add(display.getRealCursorIndex() + 1, b);
+        display.setCursorIndex(display.getCursorIndex() + 2);
+        updateInput();
+    }
+//  public void clickDiagonalize() {
 //        final Context context = activity;
 //        AsyncTask<ArrayList<Token>, Void, ArrayList<Token>> task;
 //        task = new AsyncTask<ArrayList<Token>, Void, ArrayList<Token>>() {
@@ -1231,6 +1256,6 @@ public class MatrixMode extends FunctionMode {
 //        ArrayList<Token> tokens = Utility.condenseDigits(this.tokens);
 //        tokens = Utility.setupExpression(tokens);
 //        task.execute(tokens);
-    }
+//  }
 
 }
