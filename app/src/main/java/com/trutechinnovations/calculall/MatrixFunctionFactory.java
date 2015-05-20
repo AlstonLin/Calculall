@@ -1,5 +1,7 @@
 package com.trutechinnovations.calculall;
 
+import java.util.Random;
+
 /**
  * Contains a static Factory to create Functions for Matrix Mode.
  *
@@ -54,12 +56,12 @@ public class MatrixFunctionFactory {
         return new MatrixFunction("tr", MatrixFunction.TRACE) {
             @Override
             public double[][] perform(double[][] input) {
-                if (input.length == input[0].length) {
+                if (input.length != input[0].length) {
+                    throw new IllegalArgumentException("Trace is only defined for square matrices");
+                } else {
                     double[][] trace = new double[1][1];
                     trace[0][0] = MatrixUtils.trace(input);
                     return trace;
-                } else {
-                    throw new IllegalArgumentException("Trace is only defined for square matrices");
                 }
             }
         };
@@ -84,6 +86,34 @@ public class MatrixFunctionFactory {
                     throw new IllegalArgumentException("Matrix must be n*n to be invertible");
                 }
                 return MatrixUtils.findInverse(input);
+            }
+        };
+    }
+
+    public static MatrixFunction makeLU() {
+        return new MatrixFunction("LU", MatrixFunction.LU) {
+            @Override
+            public double[][] perform(double[][] input) {
+                if (input.length != input[0].length) {
+                    throw new IllegalArgumentException("Matrix must be n*n to be LU factorizable");
+                }
+                Random r = new Random();
+                double[][][] m = MatrixUtils.getLUDecomposition(input);
+                return m[r.nextInt(m.length)];
+            }
+        };
+    }
+
+    public static MatrixFunction makeDiag() {
+        return new MatrixFunction("diag", MatrixFunction.DIAG) {
+            @Override
+            public double[][] perform(double[][] input) {
+                if (input.length != input[0].length) {
+                    throw new IllegalArgumentException("Matrix must be n*n to be diagonalizable");
+                }
+                Random r = new Random();
+                double[][][] m = MatrixUtils.getEigenDecomposition(input);
+                return m[r.nextInt(m.length)];
             }
         };
     }

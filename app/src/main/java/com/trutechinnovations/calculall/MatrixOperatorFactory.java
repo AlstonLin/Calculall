@@ -74,6 +74,29 @@ public class MatrixOperatorFactory {
         };
     }
 
+    public static MatrixOperator makeMatrixDivide() {
+        return new MatrixOperator("·", MatrixOperator.DIVIDE, 2, true, 1, true) {
+            @Override
+            public Object operate(Object left, Object right) {
+                if (left instanceof double[][] && right instanceof double[][]) {//matrix-matrix multiplication
+                    try {
+                        return MatrixUtils.multiply((double[][]) left, MatrixUtils.findInverse((double[][]) right));
+                    } catch (Exception e) {
+                        throw e;
+                    }
+                } else if (left instanceof Number && right instanceof double[][]) {//scalar multiplication + inversion
+                    return MatrixUtils.scalarMultiply(MatrixUtils.findInverse((double[][]) right), ((Number) left).getValue());
+                } else if (right instanceof Number && left instanceof double[][]) {//scalar multiplication
+                    return MatrixUtils.scalarMultiply((double[][]) left, 1 / (((Number) right).getValue()));
+                } else if (left instanceof Number && right instanceof Number) {
+                    return new Number(OperatorFactory.makeDivide().operate(((Number) left).getValue(), ((Number) right).getValue()));
+                } else {
+                    throw new IllegalArgumentException("Invalid Input");
+                }
+            }
+        };
+    }
+
     public static MatrixOperator makeMatrixExponent() {
         return new MatrixOperator("^", MatrixOperator.EXPONENT, 2, true, 1, true) {
             @Override

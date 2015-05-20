@@ -8,7 +8,7 @@ package com.trutechinnovations.calculall;
 
 
 public abstract class MatrixOperator extends Token {
-    public static final int ADD = 1, SUBTRACT = 2, MULTIPLY = 3, EXPONENT = 4;
+    public static final int ADD = 1, SUBTRACT = 2, MULTIPLY = 3, DIVIDE = 4, EXPONENT = 5;
     private int precedence;
     private boolean leftAssociative, commutative, anticommutative, associative;
 
