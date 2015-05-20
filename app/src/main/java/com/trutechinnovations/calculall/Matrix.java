@@ -113,4 +113,19 @@ public class Matrix extends Token {
         }
         return s;
     }
+
+    /**
+     * Converts decimal entries into fractions if practical.
+     */
+    public void fractionalize() {
+        for (int i = 0; i < entries.length; i++) {
+            for (int j = 0; j < entries[i].length; j++) {
+                ArrayList<Token> entry = entries[i][j];
+                if (entry.size() == 1 && entry.get(0) instanceof Number) { //A single number entry
+                    Number n = (Number) entry.get(0);
+                    entries[i][j] = JFok.fractionalize(n);
+                }
+            }
+        }
+    }
 }

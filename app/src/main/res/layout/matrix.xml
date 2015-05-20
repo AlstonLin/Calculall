@@ -383,13 +383,13 @@
                     android:textSize="30sp" />
 
                 <Button
-                    android:id="@+id/augment_button"
+                    android:id="@+id/divide_button"
                     style="?attr/buttonOperator"
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:layout_weight="1"
                     android:onClick="onClick"
-                    android:text="@string/augment"
+                    android:text="@string/divide"
                     android:textSize="30sp" />
 
             </LinearLayout>

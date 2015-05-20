@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Stack;
 
-//import static java.util.Arrays.copyOfRange;
-
 
 /**
  * Contains the Matrix Utilities (row reduction algorithms, matrix entry simplifier, etc.)
@@ -103,6 +101,56 @@ public class MatrixUtils {
             }
         }
         return matrix;
+    }
+
+    /**
+     * Computes the matrix that corresponds to the given eigenvalue for the given matrix. Uses
+     * the formal A - lambda I
+     *
+     * @param matrix The matrix to find the eigenvector matrix of
+     * @param value  The eigenvalue
+     * @return The eigen matrix
+     */
+    public static double[][] getEigenMatrix(double[][] matrix, double value) {
+        double[][] eigen = new double[matrix.length][matrix[0].length];
+        for (int i = 0; i < eigen.length; i++) {
+            for (int j = 0; j < eigen[i].length; j++) {
+                double entry = matrix[i][j];
+                if (i == j) {
+                    entry -= value;
+                }
+                eigen[i][j] = entry;
+            }
+        }
+        return eigen;
+    }
+
+    /**
+     * Finds the Eigenvectors of the givem matrix.
+     *
+     * @param matrix The matrix to find the eigenvectors
+     * @return The resulting eigenvectors
+     */
+    public static ArrayList<Vector> getEigenVectors(double[][] matrix) {
+        double[] eigenValues = MathUtilities.getEigenValues(matrix);
+        ArrayList<Vector> eigenVectors = new ArrayList<>();
+        for (double val : eigenValues) {
+            double[][] eigenMatrix = getEigenMatrix(matrix, val);
+            eigenVectors.addAll(getSolutionBasis(eigenMatrix));
+        }
+        return eigenVectors;
+    }
+
+    /**
+     * Determines the basis of the solution space for the given matrix.
+     *
+     * @param matrix The matrix
+     * @return A list of vectors containing the basis of the solution space
+     */
+    public static ArrayList<Vector> getSolutionBasis(double[][] matrix) {
+        ArrayList<Vector> solution = new ArrayList<>();
+        matrix = toRREF(matrix); //Row reduces it
+        return solution;
     }
 
     public static double[][] exponentiate(double[][] a, double b) {
@@ -856,10 +904,11 @@ public class MatrixUtils {
      * Takes a given Matrix expression in reverse polish form and returns the resulting value.
      *
      * @param tokens The matrix expression in reverse polish
+     * @param fractionalize If the output would be in fractions
      * @return The value of the expression
      * @throws java.lang.IllegalArgumentException The user entered an invalid expression
      */
-    public static Token evaluateExpression(ArrayList<Token> tokens) {
+    public static Token evaluateExpression(ArrayList<Token> tokens, boolean fractionalize) {
         Stack<Object> stack = new Stack();
         for (Token token : tokens) {
             if (token instanceof Matrix || token instanceof Number) { //Adds all Matrices directly to the stack
@@ -891,14 +940,18 @@ public class MatrixUtils {
                 return (Token) o;
             } else if (o instanceof double[][]) {
                 double[][] numbers = (double[][]) o;
-                ArrayList<Token>[][] matrix = new ArrayList[numbers.length][numbers[0].length];
+                ArrayList<Token>[][] matrixEntries = new ArrayList[numbers.length][numbers[0].length];
                 for (int i = 0; i < numbers.length; i++) {
                     for (int j = 0; j < numbers[i].length; j++) {
-                        matrix[i][j] = new ArrayList<>();
-                        matrix[i][j].add(new Number(numbers[i][j]));
+                        matrixEntries[i][j] = new ArrayList<>();
+                        matrixEntries[i][j].add(new Number(numbers[i][j]));
                     }
                 }
-                return new Matrix(matrix);
+                Matrix matrix = new Matrix(matrixEntries);
+                if (fractionalize) {
+                    matrix.fractionalize();
+                }
+                return matrix;
             } else {
                 throw new IllegalStateException("Object that is not a Token nor a double[][] popped from Stack!");
             }

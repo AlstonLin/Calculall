@@ -158,6 +158,9 @@ public class MatrixMode extends FunctionMode {
             case R.id.var_c:
                 clickC();
                 break;
+            case R.id.divide_button:
+                clickDivide();
+                break;
             default:
                 super.onClick(v);
         }
@@ -274,6 +277,7 @@ public class MatrixMode extends FunctionMode {
     public void clickMem() {
         //TODO: FINISH
     }
+
 
     /**
      * When the user presses the shift button. Switches the state of the boolean variable shift.
@@ -549,39 +553,6 @@ public class MatrixMode extends FunctionMode {
         setMultiButtons(buttons);
     }
 
-
-    /**
-     * When the user presses the shift button. Switches the state of the boolean variable shift
-     */
-    /*
-    @Override
-    public void clickShift() {
-        Button sinButton = (Button) activity.findViewById(R.id.sin_button);
-        Button cosButton = (Button) activity.findViewById(R.id.cos_button);
-        Button tanButton = (Button) activity.findViewById(R.id.tan_button);
-        ToggleButton shiftButton = (ToggleButton) activity.findViewById(R.id.shift_button);
-        if (shift) {
-            shift = false;
-            sinButton.setText("sin");
-            sinButton.setTextSize(36);
-            cosButton.setText("cos");
-            cosButton.setTextSize(36);
-            tanButton.setText("tan");
-            tanButton.setTextSize(36);
-        } else {
-            shift = true;
-            sinButton.setText("arcsin");
-            sinButton.setTextSize(21);
-            cosButton.setText("arccos");
-            cosButton.setTextSize(21);
-            tanButton.setText("arctan");
-            tanButton.setTextSize(21);
-        }
-        shiftButton.setChecked(shift);
-        updateInput();
-    }
-    */
-
     /**
      * When the user presses the x Button.
      */
@@ -800,6 +771,15 @@ public class MatrixMode extends FunctionMode {
     }
 
     /**
+     * When the user presses the * button
+     */
+    public void clickDivide() {
+        tokens.add(display.getRealCursorIndex(), MatrixOperatorFactory.makeMatrixDivide());
+        display.setCursorIndex(display.getRealCursorIndex() + 1);
+        updateInput();
+    }
+
+    /**
      * When the user presses the A^y button
      */
     public void clickExponent() {
@@ -816,15 +796,15 @@ public class MatrixMode extends FunctionMode {
         try {
             ArrayList<Token> temp = MatrixUtils.setupExpression(Utility.condenseDigits(tokens));
             temp = MatrixUtils.convertToReversePolish(temp);
-            Token t = MatrixUtils.evaluateExpression(temp);
+            Token t = MatrixUtils.evaluateExpression(temp, true);
             ArrayList<Token> output = new ArrayList<>();
             output.add(t);
             display.displayOutput(output);
             saveEquation(tokens, output, filename);
+            activity.scrollDown();
         } catch (Exception e) { //an error was thrown
             super.handleExceptions(e);
         }
-        activity.scrollDown();
     }
 
 
@@ -844,302 +824,86 @@ public class MatrixMode extends FunctionMode {
         updateInput();
     }
 
-//  public void clickLUP() {
-//        final Context context = activity;
-//        AsyncTask<ArrayList<Token>, Void, ArrayList<Token>> task;
-//        task = new AsyncTask<ArrayList<Token>, Void, ArrayList<Token>>() {
-//
-//            private Exception error;
-//
-//            @Override
-//            protected void onPreExecute() {
-//                if (pd == null) { //Lazy Initialization
-//                    //Loading dialog
-//                    pd = new ProgressDialog(activity);
-//                    pd.setTitle("Calculating...");
-//                    pd.setMessage("This may take a while. ");
-//                    pd.setCancelable(false);
-//                }
-//                pd.show();
-//                super.onPreExecute();
-//            }
-//
-//            @Override
-//            protected ArrayList<Token> doInBackground(ArrayList<Token>... params) {
-//                try {
-//                    Token t = MatrixUtils.evaluateExpression(MatrixUtils.convertToReversePolish(MatrixUtils.setupExpression(params[0])));
-//                    if (!(t instanceof Matrix)) {
-//                        Toast.makeText(context, "Input is not a Matrix", Toast.LENGTH_LONG).show();
-//                        return null;
-//                    } else {
-//                        Matrix m = (Matrix) t;
-//                        Matrix l = MatrixUtils.getLowerTriangularMatrix(m);
-//                        Matrix u = MatrixUtils.getUpperTriangularMatrix(m);
-//                        Matrix p = MatrixUtils.getPermutationMatrix(m);
-//                        ArrayList<Token> matrices = new ArrayList<Token>(3);
-//                        matrices.add(l);
-//                        matrices.add(u);
-//                        matrices.add(p);
-//                        return matrices;
-//                    }
-//                } catch (Exception e) {
-//                    error = e;
-//                    return null;
-//                }
-//            }
-//
-//            @Override
-//            protected void onPostExecute(ArrayList<Token> matrices) {
-//                pd.dismiss();
-//
-//                if (matrices == null) {
-//                    if (error == null) {
-//                        showMalformedExpressionToast();
-//                    } else if (error instanceof UnsupportedOperationException) {
-//                        Toast.makeText(context, "Sorry, we were unable to LUP factorize this matrix. LUP factorization for this matrix may not be supported yet.", Toast.LENGTH_SHORT).show();
-//                    } else {
-//                        Toast.makeText(context, "Something weird happened in our system, and we can't LUP factorize this matrix. We'll try to fix this as soon as we can. Sorry! :( ".concat(error.getMessage()), Toast.LENGTH_LONG).show();
-//                    }//TODO: REMOVE ERROR MSG BEFORE RELEASE
-//                } else {
-//                    ArrayList<Token> toOutput = new ArrayList<>();
-//                    int counter = 0;
-//                    while (counter < 3) {
-//                        Token m = matrices.get(counter);
-//                        if (counter == 0) {
-//                            toOutput.add(new StringToken("L = "));
-//                        } else if (counter == 1) {
-//                            toOutput.add(new StringToken("U = "));
-//                        } else if (counter == 2) {
-//                            toOutput.add(new StringToken("P = "));
-//                        }
-//                        toOutput.add(m);
-//                        counter++;
-//                    }
-////                    if (counter == 0) { //No eigenvalues
-////                        toOutput.add(new StringToken("No Real Eigenvalues "));
-////                    }
-//                    display.displayOutput(toOutput);
-//                    activity.scrollDown();
-//                    //Saves to history
-//                    try {
-//                        ArrayList<Token> saveInput = new ArrayList<>();
-//                        saveInput.addAll(tokens);
-//                        saveInput.add(0, new StringToken("LUP factorized form of "));
-//                        saveEquation(saveInput, toOutput, filename);
-//                    } catch (IOException | ClassNotFoundException e) {
-//                        Toast.makeText(activity, "Error saving to history", Toast.LENGTH_LONG).show();
-//                    }
-//                    super.onPostExecute(matrices);
-//                }
-//            }
-//        };
-//
-//        if (tokens.size() == 0) { //No tokens
-//            Toast.makeText(activity, "There is no matrix. You would need to enter an matrix first, then press the decomposition button.", Toast.LENGTH_LONG).show();
-//            return;
-//        }
-//
-//        ArrayList<Token> tokens = Utility.condenseDigits(this.tokens);
-//        tokens = Utility.setupExpression(tokens);
-//        task.execute(tokens);
-//  }
-
-
     /**
      * When the user presses the λ button
      */
     public void clickLambda() {
-//        final Context context = activity;
-//        AsyncTask<ArrayList<Token>, Void, ArrayList<Token>> task;
-//        task = new AsyncTask<ArrayList<Token>, Void, ArrayList<Token>>() {
-//
-//            private Exception error;
-//
-//            @Override
-//            protected void onPreExecute() {
-//                if (pd == null) { //Lazy Initialization
-//                    //Loading dialog
-//                    pd = new ProgressDialog(activity);
-//                    pd.setTitle("Calculating...");
-//                    pd.setMessage("This may take a while. ");
-//                    pd.setCancelable(false);
-//                }
-//                pd.show();
-//                super.onPreExecute();
-//            }
-//
-//            @Override
-//            protected ArrayList<Token> doInBackground(ArrayList<Token>... params) {
-//                try {
-//                    Token t = MatrixUtils.evaluateExpression(MatrixUtils.convertToReversePolish(MatrixUtils.setupExpression(params[0])));
-//                    if (!(t instanceof Matrix)) {
-//                        Toast.makeText(context, "Input is not a Matrix", Toast.LENGTH_LONG).show();
-//                        return null;
-//                    } else {
-//                        Matrix m = (Matrix) t;
-//                        double[] ev = MatrixUtils.getRealEigenValues(m);
-//                        ArrayList<Token> evs = new ArrayList<Token>(ev.length);
-//                        for (int i = 0; i < ev.length; i++) {
-//                            evs.add(i, new Number(ev[i]));
-//                        }
-//                        return evs;
-//                    }
-//                } catch (Exception e) {
-//                    error = e;
-//                    return null;
-//                }
-//            }
-//
-//            @Override
-//            protected void onPostExecute(ArrayList<Token> eigenvals) {
-//                pd.dismiss();
-//
-//                if (eigenvals == null) {
-//                    if (error == null) {
-//                        showMalformedExpressionToast();
-//                    } else if (error instanceof UnsupportedOperationException) {
-//                        Toast.makeText(context, "Sorry, we were unable to find the eigenvalue(s) of this matrix. Eigenvalue finding for this matrix may not be supported yet.", Toast.LENGTH_SHORT).show();
-//                    } else {
-//                        Toast.makeText(context, "Something weird happened in our system, and we can't find the eigenvalues. We'll try to fix this as soon as we can. Sorry! :(".concat(error.getMessage()), Toast.LENGTH_LONG).show();
-//                    }
-//                } else {
-//                    ArrayList<Token> toOutput = new ArrayList<>();
-//                    int counter = 0;
-//                    toOutput.add(new StringToken("λ = "));
-//                    while (counter < eigenvals.size()) {
-//                        Token eigenvalue = eigenvals.get(counter);
-//                        if (counter != 0) {
-//                            toOutput.add(new StringToken(", "));
-//                        }
-//                        toOutput.add(eigenvalue);
-//                        counter++;
-//                    }
-//                    if (counter == 0) { //No roots
-//                        toOutput.add(new StringToken("No Real Eigenvalues"));
-//                    }
-//                    display.displayOutput(toOutput);
-//                    activity.scrollDown();
-//                    //Saves to history
-//                    try {
-//                        ArrayList<Token> saveInput = new ArrayList<>();
-//                        saveInput.addAll(tokens);
-//                        saveInput.add(0, new StringToken("Eigenvalues of "));
-//                        saveEquation(saveInput, toOutput, filename);
-//                    } catch (IOException | ClassNotFoundException e) {
-//                        Toast.makeText(activity, "Error saving to history", Toast.LENGTH_LONG).show();
-//                    }
-//                    super.onPostExecute(eigenvals);
-//                }
-//            }
-//        };
-//
-//        if (tokens.size() == 0) { //No tokens
-//            Toast.makeText(activity, "There is no matrix. You would need to enter an matrix first, then press the λ button.", Toast.LENGTH_LONG).show();
-//            return;
-//        }
-//
-//        ArrayList<Token> tokens = Utility.condenseDigits(this.tokens);
-//        tokens = Utility.setupExpression(tokens);
-//        task.execute(tokens);
+        DisplayView display = (DisplayView) activity.findViewById(R.id.display);
+        try {
+            ArrayList<Token> temp = MatrixUtils.setupExpression(Utility.condenseDigits(tokens));
+            temp = MatrixUtils.convertToReversePolish(temp);
+            Token t = MatrixUtils.evaluateExpression(temp, false);
+            if (t instanceof Matrix) {
+                double[] eigenValues = MathUtilities.getEigenValues(MatrixUtils.evaluateMatrixEntries((Matrix) t));
+
+                String outputStr = "Eigen Values: ";
+                boolean first = true;
+                for (double eigVal : eigenValues) {
+                    if (!first) {
+                        outputStr += " , ";
+                    }
+                    outputStr += new Number(eigVal).getSymbol();
+                    first = false;
+                }
+
+                ArrayList<Token> input = new ArrayList<>();
+                input.addAll(tokens);
+                input.add(0, new StringToken("Eigen Values of "));
+
+                ArrayList<Token> output = new ArrayList<>();
+                output.add(new StringToken(outputStr));
+
+                display.displayOutput(output);
+
+                saveEquation(input, output, filename);
+                activity.scrollDown();
+            } else {
+                throw new IllegalArgumentException("The result must be a single Matrix to find the eigenvalue!");
+            }
+        } catch (Exception e) { //an error was thrown
+            super.handleExceptions(e);
+        }
     }
 
     /**
      * When the user presses the eigenvect button
      */
     public void clickEigenVect() {
-//        final Context context = activity;
-//        AsyncTask<ArrayList<Token>, Void, ArrayList<Token>> task;
-//        task = new AsyncTask<ArrayList<Token>, Void, ArrayList<Token>>() {
-//
-//            private Exception error;
-//
-//            @Override
-//            protected void onPreExecute() {
-//                if (pd == null) { //Lazy Initialization
-//                    //Loading dialog
-//                    pd = new ProgressDialog(activity);
-//                    pd.setTitle("Calculating...");
-//                    pd.setMessage("This may take a while. ");
-//                    pd.setCancelable(false);
-//                }
-//                pd.show();
-//                super.onPreExecute();
-//            }
-//
-//            @SafeVarargs
-//            @Override
-//            protected final ArrayList<Token> doInBackground(ArrayList<Token>... params) {
-//                try {
-//                    Token t = MatrixUtils.evaluateExpression(MatrixUtils.convertToReversePolish(MatrixUtils.setupExpression(params[0])));
-//                    if (!(t instanceof Matrix)) {
-//                        Toast.makeText(context, "Input is not a Matrix", Toast.LENGTH_LONG).show();
-//                        return null;
-//                    } else {
-//                        Matrix m = (Matrix) t;
-//                        Matrix[] evects = MatrixUtils.getEigenVectors(m);
-//                        ArrayList<Token> vectors = new ArrayList<Token>(evects.length);
-//                        for (int i = 0; i < evects.length; i++) {
-//                            vectors.add(i, evects[i]);
-//                        }
-//                        return vectors;
-//                    }
-//                } catch (Exception e) {
-//                    error = e;
-//                    return null;
-//                }
-//            }
-//
-//            @Override
-//            protected void onPostExecute(ArrayList<Token> vectors) {
-//                pd.dismiss();
-//
-//                if (vectors == null) {
-//                    if (error == null) {
-//                        showMalformedExpressionToast();
-//                    } else if (error instanceof UnsupportedOperationException) {
-//                        Toast.makeText(context, "Sorry, we were unable to find the eigenvector(s) of this matrix. Eigenvector finding for this matrix may not be supported yet.", Toast.LENGTH_SHORT).show();
-//                    } else {
-//                        Toast.makeText(context, "Something weird happened in our system, and we can't find the eigenvectors. We'll try to fix this as soon as we can. Sorry! :(".concat(error.getMessage()), Toast.LENGTH_LONG).show();
-//                    }
-//                } else {
-//                    ArrayList<Token> toOutput = new ArrayList<>();
-//                    int counter = 0;
-//                    toOutput.add(new StringToken("Eigenvectors: "));
-//                    while (counter < vectors.size()) {
-//                        Token eigenvalue = vectors.get(counter);
-//                        if (counter != 0) {
-//                            toOutput.add(new StringToken(", "));
-//                        }
-//                        toOutput.add(eigenvalue);
-//                        counter++;
-//                    }
-//                    if (counter == 0) { //No eigenvectors
-//                        toOutput.add(new StringToken("No eigenvectors were found"));
-//                    }
-//                    display.displayOutput(toOutput);
-//                    activity.scrollDown();
-//                    //Saves to history
-//                    try {
-//                        ArrayList<Token> saveInput = new ArrayList<>();
-//                        saveInput.addAll(tokens);
-//                        //saveInput.add(0, new StringToken("Eigenvectors of "));
-//                        saveEquation(saveInput, toOutput, filename);
-//                    } catch (IOException | ClassNotFoundException e) {
-//                        Toast.makeText(activity, "Error saving to history", Toast.LENGTH_LONG).show();
-//                    }
-//                    super.onPostExecute(vectors);
-//                }
-//            }
-//        };
-//
-//        if (tokens.size() == 0) { //No tokens
-//            Toast.makeText(activity, "There is no matrix. You would need to enter an matrix first, then press the eigenvector button.", Toast.LENGTH_LONG).show();
-//            return;
-//        }
-//
-//        ArrayList<Token> tokens = Utility.condenseDigits(this.tokens);
-//        tokens = Utility.setupExpression(tokens);
-//        task.execute(tokens);
+        DisplayView display = (DisplayView) activity.findViewById(R.id.display);
+        try {
+            ArrayList<Token> temp = MatrixUtils.setupExpression(Utility.condenseDigits(tokens));
+            temp = MatrixUtils.convertToReversePolish(temp);
+            Token t = MatrixUtils.evaluateExpression(temp, false);
+            if (t instanceof Matrix) {
+                ArrayList<Vector> ev = MatrixUtils.getEigenVectors(MatrixUtils.evaluateMatrixEntries((Matrix) t));
+
+                String outputStr = "Eigenspace Basis: ";
+                boolean first = true;
+                for (Vector v : ev) {
+                    if (!first) {
+                        outputStr += " , ";
+                    }
+                    outputStr += v.getSymbol();
+                    first = false;
+                }
+
+                ArrayList<Token> input = new ArrayList<>();
+                input.addAll(tokens);
+                input.add(0, new StringToken("Eigenspace Basis of "));
+
+                ArrayList<Token> output = new ArrayList<>();
+                output.add(new StringToken(outputStr));
+
+                display.displayOutput(output);
+
+                saveEquation(input, output, filename);
+                activity.scrollDown();
+            } else {
+                throw new IllegalArgumentException("The result must be a single Matrix to find the Eigen Vectors");
+            }
+        } catch (Exception e) { //an error was thrown
+            super.handleExceptions(e);
+        }
     }
 
 
@@ -1158,104 +922,4 @@ public class MatrixMode extends FunctionMode {
         display.setCursorIndex(display.getCursorIndex() + 2);
         updateInput();
     }
-//  public void clickDiagonalize() {
-//        final Context context = activity;
-//        AsyncTask<ArrayList<Token>, Void, ArrayList<Token>> task;
-//        task = new AsyncTask<ArrayList<Token>, Void, ArrayList<Token>>() {
-//
-//            private Exception error;
-//
-//            @Override
-//            protected void onPreExecute() {
-//                if (pd == null) { //Lazy Initialization
-//                    //Loading dialog
-//                    pd = new ProgressDialog(activity);
-//                    pd.setTitle("Calculating...");
-//                    pd.setMessage("This may take a while. ");
-//                    pd.setCancelable(false);
-//                }
-//                pd.show();
-//                super.onPreExecute();
-//            }
-//
-//            @Override
-//            protected ArrayList<Token> doInBackground(ArrayList<Token>... params) {
-//                try {
-//                    Token t = MatrixUtils.evaluateExpression(MatrixUtils.convertToReversePolish(MatrixUtils.setupExpression(params[0])));
-//                    if (!(t instanceof Matrix)) {
-//                        Toast.makeText(context, "Input is not a Matrix", Toast.LENGTH_LONG).show();
-//                        return null;
-//                    } else {
-//                        Matrix m = (Matrix) t;
-//                        Matrix d = MatrixUtils.getDiagonalMatrix(m);
-//                        Matrix p = MatrixUtils.getDiagonalizingMatrix(m);
-//                        Matrix p_inverse = MatrixUtils.findInverse(p);
-//                        ArrayList<Token> matrices = new ArrayList<Token>(3);
-//                        matrices.add(p);
-//                        matrices.add(d);
-//                        matrices.add(p_inverse);
-//                        return matrices;
-//                    }
-//                } catch (Exception e) {
-//                    error = e;
-//                    return null;
-//                }
-//            }
-//
-//            @Override
-//            protected void onPostExecute(ArrayList<Token> matrices) {
-//                pd.dismiss();
-//
-//                if (matrices == null) {
-//                    if (error == null) {
-//                        showMalformedExpressionToast();
-//                    } else if (error instanceof UnsupportedOperationException) {
-//                        Toast.makeText(context, "Sorry, we were unable to diagionalize this matrix. Diagonalization for this matrix may not be supported yet.", Toast.LENGTH_SHORT).show();
-//                    } else {
-//                        Toast.makeText(context, "Something weird happened in our system, and we can't diagonalize this matrix. We'll try to fix this as soon as we can. Sorry! :( ".concat(error.getMessage()), Toast.LENGTH_LONG).show();
-//                    }//TODO: REMOVE ERROR MSG BEFORE RELEASE
-//                } else {
-//                    ArrayList<Token> toOutput = new ArrayList<>();
-//                    int counter = 0;
-//                    while (counter < 3) {
-//                        Token m = matrices.get(counter);
-//                        if (counter == 0) {
-//                            toOutput.add(new StringToken("P = "));
-//                        } else if (counter == 1) {
-//                            toOutput.add(new StringToken("D = "));
-//                        } else if (counter == 2) {
-//                            toOutput.add(new StringToken("P^-1 = "));
-//                        }
-//                        toOutput.add(m);
-//                        counter++;
-//                    }
-////                    if (counter == 0) { //No eigenvalues
-////                        toOutput.add(new StringToken("No Real Eigenvalues "));
-////                    }
-//                    display.displayOutput(toOutput);
-//                    activity.scrollDown();
-//                    //Saves to history
-//                    try {
-//                        ArrayList<Token> saveInput = new ArrayList<>();
-//                        saveInput.addAll(tokens);
-//                        saveInput.add(0, new StringToken("Diagonalized form of "));
-//                        saveEquation(saveInput, toOutput, filename);
-//                    } catch (IOException | ClassNotFoundException e) {
-//                        Toast.makeText(activity, "Error saving to history", Toast.LENGTH_LONG).show();
-//                    }
-//                    super.onPostExecute(matrices);
-//                }
-//            }
-//        };
-//
-//        if (tokens.size() == 0) { //No tokens
-//            Toast.makeText(activity, "There is no matrix. You would need to enter an matrix first, then press the diagonalize button.", Toast.LENGTH_LONG).show();
-//            return;
-//        }
-//
-//        ArrayList<Token> tokens = Utility.condenseDigits(this.tokens);
-//        tokens = Utility.setupExpression(tokens);
-//        task.execute(tokens);
-//  }
-
 }
