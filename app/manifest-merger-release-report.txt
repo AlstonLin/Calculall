@@ -37,11 +37,9 @@ ADDED from AndroidManifest.xml:12:5
 		ADDED from AndroidManifest.xml:12:22
 application
 ADDED from AndroidManifest.xml:14:5
-MERGED from com.android.support:support-v4:21.0.0:16:5
 MERGED from com.google.android.gms:play-services:6.5.87:20:5
 MERGED from com.android.support:support-v4:21.0.0:16:5
-MERGED from com.google.android.gms:play-services:6.5.87:20:5
-MERGED from com.android.support:support-v4:21.0.0:16:5
+MERGED from com.balysv:material-ripple:1.0.2:12:5
 	android:allowBackup
 		ADDED from AndroidManifest.xml:16:9
 	android:icon
@@ -52,7 +50,6 @@ MERGED from com.android.support:support-v4:21.0.0:16:5
 		ADDED from AndroidManifest.xml:15:9
 meta-data#com.google.android.gms.version
 ADDED from AndroidManifest.xml:19:9
-MERGED from com.google.android.gms:play-services:6.5.87:21:9
 MERGED from com.google.android.gms:play-services:6.5.87:21:9
 	android:value
 		ADDED from AndroidManifest.xml:21:13
@@ -76,62 +73,20 @@ category#android.intent.category.LAUNCHER
 ADDED from AndroidManifest.xml:30:17
 	android:name
 		ADDED from AndroidManifest.xml:30:27
-activity#com.mopub.mobileads.MoPubActivity
+activity#com.trutechinnovations.calculall.SettingsActivity
 ADDED from AndroidManifest.xml:33:9
-	android:configChanges
+	android:screenOrientation
+		ADDED from AndroidManifest.xml:36:13
+	android:label
 		ADDED from AndroidManifest.xml:35:13
 	android:name
 		ADDED from AndroidManifest.xml:34:13
-activity#com.mopub.mobileads.MraidActivity
-ADDED from AndroidManifest.xml:36:9
-	android:configChanges
-		ADDED from AndroidManifest.xml:38:13
-	android:name
-		ADDED from AndroidManifest.xml:37:13
-activity#com.mopub.common.MoPubBrowser
-ADDED from AndroidManifest.xml:39:9
-	android:configChanges
-		ADDED from AndroidManifest.xml:41:13
-	android:name
-		ADDED from AndroidManifest.xml:40:13
-activity#com.mopub.mobileads.MraidVideoPlayerActivity
-ADDED from AndroidManifest.xml:42:9
-	android:configChanges
-		ADDED from AndroidManifest.xml:44:13
-	android:name
-		ADDED from AndroidManifest.xml:43:13
-activity#com.google.android.gms.ads.AdActivity
-ADDED from AndroidManifest.xml:45:9
-	android:configChanges
-		ADDED from AndroidManifest.xml:47:13
-	android:name
-		ADDED from AndroidManifest.xml:46:13
-activity#com.millennialmedia.android.MMActivity
-ADDED from AndroidManifest.xml:48:9
-	android:configChanges
-		ADDED from AndroidManifest.xml:50:13
-	android:theme
-		ADDED from AndroidManifest.xml:51:13
-	android:name
-		ADDED from AndroidManifest.xml:49:13
-activity#com.trutechinnovations.calculall.SettingsActivity
-ADDED from AndroidManifest.xml:52:9
-	android:screenOrientation
-		ADDED from AndroidManifest.xml:55:13
-	android:label
-		ADDED from AndroidManifest.xml:54:13
-	android:name
-		ADDED from AndroidManifest.xml:53:13
 uses-sdk
 INJECTED from AndroidManifest.xml:0:0 reason: use-sdk injection requested
 MERGED from com.android.support:multidex:1.0.0:18:5
-MERGED from com.mopub:mopub-sdk:unspecified:7:5
-MERGED from com.android.support:multidex:1.0.0:18:5
-MERGED from com.android.support:support-v4:21.0.0:15:5
 MERGED from com.google.android.gms:play-services:6.5.87:18:5
 MERGED from com.android.support:support-v4:21.0.0:15:5
-MERGED from com.google.android.gms:play-services:6.5.87:18:5
-MERGED from com.android.support:support-v4:21.0.0:15:5
+MERGED from com.balysv:material-ripple:1.0.2:8:5
 	android:targetSdkVersion
 		INJECTED from AndroidManifest.xml:0:0
 		INJECTED from AndroidManifest.xml:0:0

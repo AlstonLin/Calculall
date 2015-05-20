@@ -48,7 +48,7 @@
     <string name="decomp">LUP</string>
     <string name="tr">tr</string>
     <string name="lambda">λ</string>
-    <string name="ev">Ev</string>
+    <string name="ev">A-λI</string>
     <string name="augment">[A|B]</string>
     <string name="transpose"><![CDATA[A<sup><small><i>t</i></small></sup>]]></string>
     <string name="matrix_pow"><![CDATA[A<sup><small><i>y</i></small></sup>]]></string>

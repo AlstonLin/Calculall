@@ -1,1 +1,1 @@
-C:\Users\Ejaaz\TruTech\Calculall\Calculall\app\build\intermediates\multi-dex\debug\allclasses.jar
+C:\Users\Alston\Calculall\app\build\intermediates\multi-dex\debug\allclasses.jar

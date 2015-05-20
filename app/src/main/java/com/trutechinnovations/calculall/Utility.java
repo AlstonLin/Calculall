@@ -213,7 +213,11 @@ public class Utility {
     public static String printExpression(ArrayList<Token> expression) {
         String s = "";
         for (Token t : expression) {
-            s += t.getSymbol();
+            if (t instanceof Operator && t.getType() == Operator.FRACTION) {
+                s += "/";
+            } else {
+                s += t.getSymbol();
+            }
         }
         return s;
     }

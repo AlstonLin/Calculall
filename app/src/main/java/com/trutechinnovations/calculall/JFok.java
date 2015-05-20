@@ -64,6 +64,66 @@ public class JFok {
         return expression;
     }
 
+
+    /**
+     * Converts the given Number into a fraction.
+     *
+     * @param number The number Token
+     * @return An equivalent fraction
+     */
+    public static ArrayList<Token> fractionalize(Number number) {
+        double value = number.getValue();
+        final double ERROR = 1e-12;
+        int n = (int) Math.floor(value);
+        ArrayList<Token> output = new ArrayList<>();
+        value -= n;
+
+        //Checks if it is an integer
+        if (value < ERROR) {
+            output.add(new Number(n));
+            return output;
+        } else if (1 - ERROR < value) {
+            output.add(new Number(n + 1));
+            return output;
+        }
+
+        //The lower fraction starts at 0 / 1
+        int lowerN = 0;
+        int lowerD = 1;
+        //The upper fraction starts at 1 / 1
+        int upperN = 1;
+        int upperD = 1;
+
+        while (true) { //Continues until returns
+
+            //Finds the average of the upper and lower fractions
+            int middleN = lowerN + upperN;
+            int middleD = lowerD + upperD;
+
+            if (middleD * (value + ERROR) < middleN) {
+                upperN = middleN;
+                upperD = middleD;
+            } else if (middleN < (value - ERROR) * middleD) {
+                lowerN = middleN;
+                lowerD = middleD;
+            } else {
+                Number num = new Number(n * middleD + middleN);
+                Number denom = new Number(middleD);
+
+                output.add(BracketFactory.makeFracOpen());
+                output.add(BracketFactory.makeNumOpen());
+                output.add(num);
+                output.add(BracketFactory.makeNumClose());
+                output.add(OperatorFactory.makeFraction());
+                output.add(BracketFactory.makeDenomOpen());
+                output.add(denom);
+                output.add(BracketFactory.makeDenomClose());
+                output.add(BracketFactory.makeFracClose());
+                return output;
+            }
+        }
+    }
+
     /**
      * Calls all the preparation methods for the expression and then converts the list
      * of tokens into a expression tree.
