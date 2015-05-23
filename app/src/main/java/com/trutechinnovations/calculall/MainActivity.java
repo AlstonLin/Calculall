@@ -120,7 +120,7 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
                 setTheme(R.style.Theme1);
                 break;
             case SettingsActivity.ALSTON:
-                setTheme(R.style.Theme1);
+                setTheme(R.style.Theme2);
                 break;
             case SettingsActivity.PANDA:
                 setTheme(R.style.Theme1);

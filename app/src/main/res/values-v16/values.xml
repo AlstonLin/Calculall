@@ -28,4 +28,33 @@
         <item name="android:gravity">center</item>
         <item name="android:fontFamily">"sans-serif-light"</item>
     </style>
+
+    <!--Theme2-->
+    <style name="buttonDarkTheme2" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:textColor">@color/textColorTheme2</item>
+        <item name="android:background">@color/backgroundTheme2</item>
+        <item name="android:fontFamily">"sans-serif-thin"</item>
+    </style>
+
+    <style name="buttonLightTheme2" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:textColor">@color/textColorTheme2</item>
+        <item name="android:background">@color/color1Theme2</item>
+        <item name="android:fontFamily">"sans-serif-thin"</item>
+    </style>
+
+    <style name="buttonSpecialTheme2" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:textColor">@color/textColorTheme2</item>
+        <item name="android:background">@color/color2Theme2</item>
+        <item name="android:fontFamily">"sans-serif-medium"</item>
+    </style>
+
+
+    <style name="buttonNumTheme2" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:textColor">@color/numPadColorTheme2</item>
+        <item name="android:background">@color/color1Theme2</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:fontFamily">"sans-serif-light"</item>
+    </style>
 </resources>
