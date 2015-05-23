@@ -43,18 +43,14 @@
     <option name="TOOL_WINDOW_LOG_LEVEL" value="ERROR" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="377a07f7-27dc-473a-a96c-fb1ac73664cb" name="Default" comment="2.13 - Added Eigen values, started Eigen Vector, enabled fractionalization for matrices">
+    <list default="true" id="377a07f7-27dc-473a-a96c-fb1ac73664cb" name="Default" comment="2.15 - Merged with branch david">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/multi-dex/debug/allclasses.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/multi-dex/debug/allclasses.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/multi-dex/debug/componentClasses.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/multi-dex/debug/componentClasses.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/Advanced.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/Advanced.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.android.support/multidex/1.0.0/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.android.support/multidex/1.0.0/AndroidManifest.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.0/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.0/AndroidManifest.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.balysv/material-ripple/1.0.2/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.balysv/material-ripple/1.0.2/AndroidManifest.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/AndroidManifest.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MatrixMode.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MatrixMode.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MatrixOperatorFactory.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MatrixOperatorFactory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/balysv/materialripple/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/balysv/materialripple/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/google/android/gms/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/google/android/gms/R.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_ads_attrs.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_ads_attrs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_iap_style.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_iap_style.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/drawable/common_signin_btn_icon_dark.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/drawable/common_signin_btn_icon_dark.xml" />
@@ -137,9 +133,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-zh-rHK/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-zh-rHK/common_strings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-zh-rTW/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-zh-rTW/common_strings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-zu/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-zu/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/function.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/function.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/maps_attrs.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/maps_attrs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/matrix.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/matrix.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.balysv/material-ripple/1.0.2/res/values/values.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.balysv/material-ripple/1.0.2/res/values/values.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/wallet_attrs.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/wallet_attrs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/wallet_colors.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/wallet_colors.xml" />
@@ -203,7 +197,7 @@
       <file leaf-file-name="MatrixUtils.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MatrixUtils.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="14858" max-vertical-offset="22270">
+            <state vertical-scroll-proportion="0.0" vertical-offset="14620" max-vertical-offset="22032">
               <caret line="874" column="0" selection-start-line="874" selection-start-column="0" selection-end-line="874" selection-end-column="0" />
               <folding />
             </state>
@@ -213,24 +207,27 @@
       <file leaf-file-name="Advanced.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/Advanced.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="408" max-vertical-offset="15674">
-              <caret line="24" column="5" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1683" max-vertical-offset="15266">
+              <caret line="244" column="5" selection-start-line="244" selection-start-column="5" selection-end-line="244" selection-end-column="5" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MatrixMode.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="MatrixMode.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MatrixMode.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="14229" max-vertical-offset="15606">
-              <caret line="826" column="9" selection-start-line="826" selection-start-column="9" selection-end-line="826" selection-end-column="9" />
-              <folding />
+            <state vertical-scroll-proportion="3.2860637" vertical-offset="12681" max-vertical-offset="15317">
+              <caret line="870" column="0" selection-start-line="870" selection-start-column="0" selection-end-line="870" selection-end-column="0" />
+              <folding>
+                <element signature="e#28317#28318#0" expanded="true" />
+                <element signature="e#28366#28367#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="function.xml" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="function.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/function.xml">
           <provider selected="true" editor-type-id="android-designer">
             <state />
@@ -1495,8 +1492,8 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/matrix.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/Advanced.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MatrixOperatorFactory.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MatrixMode.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/function.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MatrixMode.java" />
       </list>
     </option>
   </component>
@@ -2155,7 +2152,11 @@
       <created>1430691484441</created>
       <updated>1430691484441</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="2.15 - Merged with branch david">
+      <created>1432362724116</created>
+      <updated>1432362724116</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -2202,7 +2203,7 @@
       <window_info id="Memory Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="14" side_tool="true" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24973261" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3601757" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3601757" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -2226,10 +2227,11 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="First Build with GitHub!" />
     <MESSAGE value="0.3.1 - Setup for the next version" />
     <MESSAGE value="0.3.2 - Github Test" />
     <MESSAGE value="0.3.2 - customizable butotns" />
@@ -2254,7 +2256,8 @@
     <MESSAGE value="2.1 - Initial Commit" />
     <MESSAGE value="2.11 - Row reduction bug fixes" />
     <MESSAGE value="2.13 - Added Eigen values, started Eigen Vector, enabled fractionalization for matrices" />
-    <option name="LAST_COMMIT_MESSAGE" value="2.13 - Added Eigen values, started Eigen Vector, enabled fractionalization for matrices" />
+    <MESSAGE value="2.15 - Merged with branch david" />
+    <option name="LAST_COMMIT_MESSAGE" value="2.15 - Merged with branch david" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -2264,17 +2267,10 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="510" />
+      <option name="time" value="512" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/VariableFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
-          <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/Basic.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
@@ -2331,13 +2327,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.51417" vertical-offset="0" max-vertical-offset="0">
           <caret line="190" column="35" selection-start-line="190" selection-start-column="35" selection-end-line="190" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/VectorMode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="3.0019724" vertical-offset="0" max-vertical-offset="0">
-          <caret line="444" column="21" selection-start-line="444" selection-start-column="21" selection-end-line="444" selection-end-column="21" />
         </state>
       </provider>
     </entry>
@@ -2569,6 +2558,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.788162" vertical-offset="7586" max-vertical-offset="8228">
           <caret line="481" column="5" selection-start-line="481" selection-start-column="5" selection-end-line="481" selection-end-column="5" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2587,6 +2577,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.17912772" vertical-offset="293" max-vertical-offset="952">
           <caret line="25" column="49" selection-start-line="25" selection-start-column="49" selection-end-line="25" selection-end-column="49" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2594,14 +2585,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="340" max-vertical-offset="2856">
           <caret line="32" column="9" selection-start-line="32" selection-start-column="9" selection-end-line="32" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MatrixUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="14095" max-vertical-offset="22032">
-          <caret line="874" column="0" selection-start-line="874" selection-start-column="0" selection-end-line="874" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2616,6 +2599,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.25183374" vertical-offset="1240" max-vertical-offset="2108">
           <caret line="79" column="56" selection-start-line="79" selection-start-column="56" selection-end-line="79" selection-end-column="56" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2630,22 +2614,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/Advanced.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="15266">
-          <caret line="24" column="5" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MatrixMode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="14229" max-vertical-offset="15606">
-          <caret line="826" column="9" selection-start-line="826" selection-start-column="9" selection-end-line="826" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/function.xml">
       <provider selected="true" editor-type-id="android-designer">
         <state />
@@ -2654,6 +2622,49 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="10064">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MatrixUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="14095" max-vertical-offset="22032">
+          <caret line="874" column="0" selection-start-line="874" selection-start-column="0" selection-end-line="874" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/Advanced.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1683" max-vertical-offset="15266">
+          <caret line="244" column="5" selection-start-line="244" selection-start-column="5" selection-end-line="244" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/VectorOperator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="646">
+          <caret line="10" column="22" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/VectorMode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33224756" vertical-offset="3298" max-vertical-offset="8313">
+          <caret line="221" column="19" selection-start-line="221" selection-start-column="12" selection-end-line="221" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MatrixMode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="3.2860637" vertical-offset="12681" max-vertical-offset="15317">
+          <caret line="870" column="0" selection-start-line="870" selection-start-column="0" selection-end-line="870" selection-end-column="0" />
+          <folding>
+            <element signature="e#28317#28318#0" expanded="true" />
+            <element signature="e#28366#28367#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
