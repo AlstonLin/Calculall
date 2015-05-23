@@ -61,7 +61,7 @@ public class FunctionMode extends Advanced {
 
     { //lazy constructor
         Function.angleMode = Function.RADIAN;
-        filename = "history_function";
+        filename = FILENAME;
     }
 
     /**
@@ -482,6 +482,15 @@ public class FunctionMode extends Advanced {
     }
 
     /**
+     * When the user presses the ANS button
+     */
+    public void clickAns() {
+        tokens.add(display.getRealCursorIndex(), VariableFactory.makeAnsFunc());
+        display.setCursorIndex(display.getCursorIndex() + 1);
+        updateInput();
+    }
+
+    /**
      * Graph the function at the given bounds.
      *
      * @param minX Minimum x value
@@ -507,7 +516,7 @@ public class FunctionMode extends Advanced {
 
         for (Token token : tokens) {
             if (token instanceof Variable && token.getType() == Variable.ANS) {
-                for (Token t : VariableFactory.ans_value) {
+                for (Token t : VariableFactory.ansValueFunc) {
                     if (t instanceof Variable && t.getType() == Variable.CONSTANT) {
                         function.add(new Number(0));
                     } else {
@@ -592,7 +601,7 @@ public class FunctionMode extends Advanced {
                         Toast.makeText(activity, "Error saving to history", Toast.LENGTH_LONG).show();
                     }
                     display.displayOutput(result);
-                    VariableFactory.ans_value = result;
+                    VariableFactory.ansValueFunc = result;
                 }
                 super.onPostExecute(tokens);
             }

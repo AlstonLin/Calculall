@@ -163,6 +163,16 @@
             android:onClick="onClick"
             android:text="@string/varC"
             android:textSize="25sp" />
+
+        <Button
+            android:id="@+id/ans_button"
+            style="?attr/buttonFunction"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:text="@string/ans"
+            android:textSize="16sp" />
     </LinearLayout>
 
     <LinearLayout
