@@ -75,7 +75,7 @@ public class MatrixOperatorFactory {
     }
 
     public static MatrixOperator makeMatrixDivide() {
-        return new MatrixOperator("·", MatrixOperator.DIVIDE, 2, true, 1, true) {
+        return new MatrixOperator("/", MatrixOperator.DIVIDE, 2, true, 1, true) {
             @Override
             public Object operate(Object left, Object right) {
                 if (left instanceof double[][] && right instanceof double[][]) {//matrix-matrix multiplication

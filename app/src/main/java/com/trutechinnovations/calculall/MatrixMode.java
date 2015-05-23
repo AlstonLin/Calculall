@@ -161,6 +161,9 @@ public class MatrixMode extends FunctionMode {
             case R.id.divide_button:
                 clickDivide();
                 break;
+            case R.id.frac_mode:
+                clickFracMode();
+                break;
             default:
                 super.onClick(v);
         }
@@ -646,6 +649,16 @@ public class MatrixMode extends FunctionMode {
         updateInput();
     }
 
+    public void clickFracMode() {
+        if (fracMode == DEC) {
+            fracMode = FRAC;
+        } else if (fracMode == FRAC) {
+            fracMode = DEC;
+        }
+        updateInput();
+        clickEquals();
+    }
+
     /**
      * When the user presses the tr(A) button.
      */
@@ -794,9 +807,9 @@ public class MatrixMode extends FunctionMode {
     public void clickEquals() {
         DisplayView display = (DisplayView) activity.findViewById(R.id.display);
         try {
-            ArrayList<Token> temp = MatrixUtils.setupExpression(Utility.condenseDigits(tokens));
+            ArrayList<Token> temp = MatrixUtils.setupExpression(Utility.subVariables(Utility.condenseDigits(tokens)));
             temp = MatrixUtils.convertToReversePolish(temp);
-            Token t = MatrixUtils.evaluateExpression(temp, true);
+            Token t = MatrixUtils.evaluateExpression(temp, fracMode == FRAC);
             ArrayList<Token> output = new ArrayList<>();
             output.add(t);
             display.displayOutput(output);
@@ -830,7 +843,7 @@ public class MatrixMode extends FunctionMode {
     public void clickLambda() {
         DisplayView display = (DisplayView) activity.findViewById(R.id.display);
         try {
-            ArrayList<Token> temp = MatrixUtils.setupExpression(Utility.condenseDigits(tokens));
+            ArrayList<Token> temp = MatrixUtils.setupExpression(Utility.subVariables(Utility.condenseDigits(tokens)));
             temp = MatrixUtils.convertToReversePolish(temp);
             Token t = MatrixUtils.evaluateExpression(temp, false);
             if (t instanceof Matrix) {
@@ -871,7 +884,7 @@ public class MatrixMode extends FunctionMode {
     public void clickEigenVect() {
         DisplayView display = (DisplayView) activity.findViewById(R.id.display);
         try {
-            ArrayList<Token> temp = MatrixUtils.setupExpression(Utility.condenseDigits(tokens));
+            ArrayList<Token> temp = MatrixUtils.setupExpression(Utility.subVariables(Utility.condenseDigits(tokens)));
             temp = MatrixUtils.convertToReversePolish(temp);
             Token t = MatrixUtils.evaluateExpression(temp, false);
             if (t instanceof Matrix) {
