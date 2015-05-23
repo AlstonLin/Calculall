@@ -315,6 +315,19 @@
             android:layout_weight="1"
             android:onClick="onClick"
             android:textSize="16sp" />
+
+        <ImageButton
+            android:id="@+id/frac_mode"
+            style="?attr/buttonFunction"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:onClick="onClick"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_change"
+            android:textSize="15sp" />
     </LinearLayout>
 
 

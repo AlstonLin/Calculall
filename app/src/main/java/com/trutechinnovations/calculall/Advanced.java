@@ -18,7 +18,7 @@ public class Advanced extends Basic {
 
     //Constants
     public static final int DEC = 1, FRAC = 2;
-    private int fracMode = DEC;
+    protected int fracMode = DEC;
 
     { //pseudo-constructor
         filename = "history_advanced";
