@@ -170,84 +170,71 @@ public class MatrixMode extends FunctionMode {
     }
 
     /**
-     * Stores the a variable into the memory; the assignment itself will occur in the given Command.
-     *
-     * @param addToOutput The String that will be shown in the output along with the value
-     * @param assignment  The assignment command that would be executed
-     *//*
-    protected void storeVariable(String addToOutput, Command<Void, Double> assignment) {
-        ToggleButton memButton = (ToggleButton) activity.findViewById(R.id.mem_button);
-        try {
-            ArrayList<Token> temp = MatrixUtils.setupExpression(tokens);
-            temp = MatrixUtils.convertToReversePolish(temp);
-            Matrix val = (Matrix) MatrixUtils.evaluateExpression(temp);
-            ArrayList<Token> outputList = new ArrayList<>();
-            outputList.add(new Matrix(val));
-            outputList.add(new StringToken(addToOutput));
-            display.displayOutput(outputList);
-            assignment.execute(val);
-            mem = false;
-            memButton.setChecked(false);
-        } catch (Exception e) { //User did a mistake
-            handleExceptions(e);
-        }
-    }
-    *//**
      * When the user presses the A button
-     *//*
+     */
     public void clickA() {
         if (mem) {
-            storeVariable("→ A", new Command<Void, Double>() {
+            storeVariable("→ A", new Command<Void, ArrayList<Token>>() {
                 @Override
-                public Void execute(Double val) {
-                    Variable.a_value = val;
+                public Void execute(ArrayList<Token> val) {
+                    VariableFactory.matrixAValue = val;
                     return null;
                 }
             });
         } else {
-            tokens.add(display.getRealCursorIndex(), VariableFactory.makeA());
+            tokens.add(display.getRealCursorIndex(), VariableFactory.makeMatrixA());
             display.setCursorIndex(display.getCursorIndex() + 1);
             updateInput();
         }
     }
-    *//**
+
+    /**
      * When the user presses the B button
-     *//*
+     */
     public void clickB() {
         if (mem) {
-            storeVariable("→ B", new Command<Void, Double>() {
+            storeVariable("→ B", new Command<Void, ArrayList<Token>>() {
                 @Override
-                public Void execute(Double val) {
-                    Variable.b_value = val;
+                public Void execute(ArrayList<Token> val) {
+                    VariableFactory.matrixBValue = val;
                     return null;
                 }
             });
         } else {
-            tokens.add(display.getRealCursorIndex(), VariableFactory.makeB());
+            tokens.add(display.getRealCursorIndex(), VariableFactory.makeMatrixB());
             display.setCursorIndex(display.getCursorIndex() + 1);
             updateInput();
         }
     }
-    */
 
     /**
      * When the user presses the C button
-     *//*
+     */
     public void clickC() {
         if (mem) {
-            storeVariable("→ C", new Command<Void, Double>() {
+            storeVariable("→ C", new Command<Void, ArrayList<Token>>() {
                 @Override
-                public Void execute(Double val) {
-                    Variable.c_value = val;
+                public Void execute(ArrayList<Token> val) {
+                    VariableFactory.matrixCValue = val;
                     return null;
                 }
             });
         } else {
-            tokens.add(display.getRealCursorIndex(), VariableFactory.makeC());
+            tokens.add(display.getRealCursorIndex(), VariableFactory.makeMatrixC());
             display.setCursorIndex(display.getCursorIndex() + 1);
             updateInput();
         }
-    }*/
+    }
+
+    /**
+     * When the user presses the ANS button
+     */
+    public void clickAns() {
+        tokens.add(display.getRealCursorIndex(), VariableFactory.makeAnsMat());
+        display.setCursorIndex(display.getCursorIndex() + 1);
+        updateInput();
+    }
+
     public void clickNum() {
         //Replaces the current fragment with the matrix_num (for now)
         ViewGroup v = (ViewGroup) fragment.getView();
