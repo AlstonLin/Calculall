@@ -510,7 +510,7 @@
 
         <Button
             android:id="@+id/graph"
-            style="@style/buttonNumDavid"
+            style="?buttonNum"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"

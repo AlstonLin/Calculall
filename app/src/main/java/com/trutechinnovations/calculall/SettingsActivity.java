@@ -67,7 +67,7 @@ public class SettingsActivity extends Activity {
                 setTheme(R.style.Theme1);
                 break;
             case ALSTON:
-                setTheme(R.style.Theme1);
+                setTheme(R.style.Theme2);
                 break;
             case PANDA:
                 setTheme(R.style.Theme1);

@@ -8,17 +8,13 @@
     <color name="textColorDavid">#fff</color>
     <color name="numPadColorDavid">#ef4848</color>
 
-
-    <color name="backgroundForest">#2E7D32</color>
-    <color name="backgroundPanda">#ff454a4f</color>
-    <color name="backgroundTrailblazer">#C83843</color>
-    <color name="backgroundHawks">#4527A0</color>
-    <color name="backgroundGeese">#FFEB3B</color>
-    <color name="backgroundSunset">#B71C1C</color>
-    <color name="backgroundAlston">#749BBB</color>
-    <color name="backgroundMaterial">#F5F5F5</color>
-    <color name="backgroundOcean">#03A9F4</color>
-    <color name="backgroundDress">#8F9CC6</color>
+    <color name="backgroundTheme2">#ff282f34</color>
+    <color name="textDisplayColorTheme2">#ffFF9900</color>
+    <color name="displayTheme2">#ff333c42</color>
+    <color name="color1Theme2">#ff333c42</color>
+    <color name="color2Theme2">#ff1b2023</color>
+    <color name="textColorTheme2">#ffFF9900</color>
+    <color name="numPadColorTheme2">#ff3299BB</color>
 
     <color name="displayTextForest">#FFD54F</color>
     <color name="displayTextPanda">#ffc5c5c5</color>
