@@ -4,5 +4,6 @@
     <item android:drawable="@drawable/common_signin_btn_text_disabled_focus_dark" android:state_enabled="false" android:state_focused="true" />
     <item android:drawable="@drawable/common_signin_btn_text_focus_dark" android:state_focused="true" />
     <item android:drawable="@drawable/common_signin_btn_text_disabled_dark" android:state_enabled="false" />
-    <item android:drawable="@drawable/common_signin_btn_text_normal_dark" />
+    <item
+        android:drawable="@drawable/common_signin_btn_text_normal_dark" />
 </selector>
