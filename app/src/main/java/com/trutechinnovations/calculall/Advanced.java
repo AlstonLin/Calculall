@@ -128,12 +128,21 @@ public class Advanced extends Basic {
                 output = JFok.simplifyExpression(output);
                 display.displayOutput(output);
                 saveEquation(tokens, output, FILENAME);
-                VariableFactory.ans_value = output;
+                saveAns(output);
+                activity.scrollDown();
             }
         } catch (Exception e) { //User did a mistake
             handleExceptions(e);
         }
-        activity.scrollDown();
+    }
+
+    /**
+     * Saves the answer into the VariableFactory class.
+     *
+     * @param ans The expression to save
+     */
+    public void saveAns(ArrayList<Token> ans) {
+        VariableFactory.ansValueAdv = ans;
     }
 
 
@@ -230,7 +239,7 @@ public class Advanced extends Basic {
      * When the user presses the ANS button
      */
     public void clickAns() {
-        tokens.add(display.getRealCursorIndex(), VariableFactory.makeAns());
+        tokens.add(display.getRealCursorIndex(), VariableFactory.makeAnsAdv());
         display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
     }
@@ -243,7 +252,7 @@ public class Advanced extends Basic {
             storeVariable("→ A", new Command<Void, ArrayList<Token>>() {
                 @Override
                 public Void execute(ArrayList<Token> val) {
-                    VariableFactory.a_value = val;
+                    VariableFactory.aValue = val;
                     return null;
                 }
             });
@@ -262,7 +271,7 @@ public class Advanced extends Basic {
             storeVariable("→ B", new Command<Void, ArrayList<Token>>() {
                 @Override
                 public Void execute(ArrayList<Token> val) {
-                    VariableFactory.b_value = val;
+                    VariableFactory.bValue = val;
                     return null;
                 }
             });
@@ -281,7 +290,7 @@ public class Advanced extends Basic {
             storeVariable("→ C", new Command<Void, ArrayList<Token>>() {
                 @Override
                 public Void execute(ArrayList<Token> val) {
-                    VariableFactory.c_value = val;
+                    VariableFactory.cValue = val;
                     return null;
                 }
             });

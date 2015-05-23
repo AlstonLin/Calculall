@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public abstract class Variable extends Token implements Serializable {
 
 
-    public static final int A = 1, B = 2, C = 3, X = 4, Y = 5, PI = 7, E = 8, ANS = 9, CONSTANT = 10;
+    public static final int A = 1, B = 2, C = 3, X = 4, PI = 5, E = 6, ANS = 7, CONSTANT = 8, MATRIX_A = 9, MATRIX_B = 10, MATRIX_C = 11, U = 12, V = 13, S = 14, T = 15, Y = 16;
     public static final double PI_VALUE = Math.PI, E_VALUE = Math.E;
     public boolean negative = false;
 
