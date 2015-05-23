@@ -277,11 +277,6 @@ public class MatrixMode extends FunctionMode {
         newButton.setText(Html.fromHtml(activity.getString(R.string.newe)));
     }
 
-    public void clickMem() {
-        //TODO: FINISH
-    }
-
-
     /**
      * When the user presses the shift button. Switches the state of the boolean variable shift.
      */
@@ -815,11 +810,20 @@ public class MatrixMode extends FunctionMode {
             display.displayOutput(output);
             saveEquation(tokens, output, filename);
             activity.scrollDown();
+            saveAns(output);
         } catch (Exception e) { //an error was thrown
             super.handleExceptions(e);
         }
     }
 
+    /**
+     * Saves the answer into the VariableFactory class.
+     *
+     * @param ans The expression to save
+     */
+    public void saveAns(ArrayList<Token> ans) {
+        VariableFactory.ansValueMat = ans;
+    }
 
     /**
      * When the user presses the LUP button
