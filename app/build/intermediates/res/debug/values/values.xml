@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- From: file:/C:/Users/Ejaaz/TruTech/Calculall/Calculall/app/src/main/res/values/attr.xml -->
+    <!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/values/attr.xml -->
     <eat-comment/>
     <attr format="reference" name="buttonFunction"/>
     <attr format="reference" name="buttonNum"/>
@@ -15,22 +15,15 @@
     <attr format="reference" name="settings_img"/>
     <attr format="reference" name="spinnerTextStyle"/>
     <attr format="reference" name="toggle"/>
-    <!-- From: file:/C:/Users/Ejaaz/TruTech/Calculall/Calculall/app/src/main/res/values/colors.xml -->
+    <!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/values/colors.xml -->
     <eat-comment/>
-    <color name="backgroundAlston">#749BBB</color>
     <color name="backgroundDavid">#21303f</color>
-    <color name="backgroundDress">#8F9CC6</color>
-    <color name="backgroundForest">#2E7D32</color>
-    <color name="backgroundGeese">#FFEB3B</color>
-    <color name="backgroundHawks">#4527A0</color>
-    <color name="backgroundMaterial">#F5F5F5</color>
-    <color name="backgroundOcean">#03A9F4</color>
-    <color name="backgroundPanda">#ff454a4f</color>
-    <color name="backgroundSunset">#B71C1C</color>
-    <color name="backgroundTrailblazer">#C83843</color>
+    <color name="backgroundTheme2">#ff282f34</color>
     <color name="color1David">#ff34495d</color>
+    <color name="color1Theme2">#ff333c42</color>
     <color name="color2David">#ff1a2531</color>
-    <!-- From: file:/C:/Users/Ejaaz/TruTech/Calculall/Calculall/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/common_colors.xml -->
+    <color name="color2Theme2">#ff1b2023</color>
+    <!-- From: file:/D:/App%20dev/Calculall/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/common_colors.xml -->
     <eat-comment/>
     <color name="common_action_bar_splitter">#d2d2d2</color>
     <color name="common_signin_btn_dark_text_default">@android:color/white</color>
@@ -42,7 +35,7 @@
     <color name="common_signin_btn_light_text_disabled">#FFAAAAAA</color>
     <color name="common_signin_btn_light_text_focused">#FF737373</color>
     <color name="common_signin_btn_light_text_pressed">@android:color/white</color>
-    <!-- From: file:/C:/Users/Ejaaz/TruTech/Calculall/Calculall/app/src/main/res/values/colors.xml -->
+    <!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/values/colors.xml -->
     <eat-comment/>
     <color name="displayDavid">#ecf0f0</color>
     <color name="displayTextAlston">#fff</color>
@@ -55,13 +48,17 @@
     <color name="displayTextPanda">#ffc5c5c5</color>
     <color name="displayTextSunset">#FFC107</color>
     <color name="displayTextTrailblazer">#FFFFFF</color>
+    <color name="displayTheme2">#ff333c42</color>
     <color name="numPadColorDavid">#ef4848</color>
+    <color name="numPadColorTheme2">#ff3299BB</color>
     <color name="textColorDavid">#fff</color>
+    <color name="textColorTheme2">#ffFF9900</color>
     <color name="textDisplayColorDavid">#21303f</color>
-    <!-- From: file:/C:/Users/Ejaaz/TruTech/Calculall/Calculall/app/build/intermediates/exploded-aar/com.balysv/material-ripple/1.0.2/res/values/values.xml -->
+    <color name="textDisplayColorTheme2">#ffFF9900</color>
+    <!-- From: file:/D:/App%20dev/Calculall/app/build/intermediates/exploded-aar/com.balysv/material-ripple/1.0.2/res/values/values.xml -->
     <eat-comment/>
     <color name="transparent">#00FFFFFF</color>
-    <!-- From: file:/C:/Users/Ejaaz/TruTech/Calculall/Calculall/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/wallet_colors.xml -->
+    <!-- From: file:/D:/App%20dev/Calculall/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/wallet_colors.xml -->
     <eat-comment/>
     <color name="wallet_bright_foreground_disabled_holo_light">#ffb2b2b2</color>
     <color name="wallet_bright_foreground_holo_dark">#fff3f3f3</color>
@@ -82,14 +79,14 @@
     <declare-styleable name="MaterialRippleLayout"><attr format="color" localization="suggested" name="mrl_rippleColor"/><attr format="dimension" localization="suggested" name="mrl_rippleDimension"/><attr format="boolean" localization="suggested" name="mrl_rippleOverlay"/><attr format="float" localization="suggested" name="mrl_rippleAlpha"/><attr format="integer" localization="suggested" name="mrl_rippleDuration"/><attr format="integer" localization="suggested" name="mrl_rippleFadeDuration"/><attr format="boolean" localization="suggested" name="mrl_rippleHover"/><attr format="color" localization="suggested" name="mrl_rippleBackground"/><attr format="boolean" localization="suggested" name="mrl_rippleDelayClick"/><attr format="boolean" localization="suggested" name="mrl_ripplePersistent"/><attr format="boolean" localization="suggested" name="mrl_rippleInAdapter"/><attr format="dimension" localization="suggested" name="mrl_rippleRoundedCorners"/></declare-styleable>
     <declare-styleable name="WalletFragmentOptions"><attr format="enum" name="appTheme"><enum name="holo_dark" value="0"/><enum name="holo_light" value="1"/></attr><attr format="enum" name="environment"><enum name="production" value="1"/><enum name="sandbox" value="0"/><enum name="strict_sandbox" value="2"/></attr><attr format="reference" name="fragmentStyle"/><attr format="enum" name="fragmentMode"><enum name="buyButton" value="1"/><enum name="selectionDetails" value="2"/></attr></declare-styleable>
     <declare-styleable name="WalletFragmentStyle"><attr format="dimension" name="buyButtonHeight"><enum name="match_parent" value="-1"/><enum name="wrap_content" value="-2"/></attr><attr format="dimension" name="buyButtonWidth"><enum name="match_parent" value="-1"/><enum name="wrap_content" value="-2"/></attr><attr format="enum" name="buyButtonText"><enum name="buy_with_google" value="1"/><enum name="buy_now" value="2"/><enum name="book_now" value="3"/><enum name="donate_with_google" value="4"/></attr><attr format="enum" name="buyButtonAppearance"><enum name="classic" value="1"/><enum name="grayscale" value="2"/><enum name="monochrome" value="3"/></attr><attr format="reference" name="maskedWalletDetailsTextAppearance"/><attr format="reference" name="maskedWalletDetailsHeaderTextAppearance"/><attr format="reference|color" name="maskedWalletDetailsBackground"/><attr format="reference" name="maskedWalletDetailsButtonTextAppearance"/><attr format="reference|color" name="maskedWalletDetailsButtonBackground"/><attr format="color" name="maskedWalletDetailsLogoTextColor"/><attr format="enum" name="maskedWalletDetailsLogoImageType"><enum name="classic" value="1"/><enum name="monochrome" value="2"/></attr></declare-styleable>
-    <!-- From: file:/C:/Users/Ejaaz/TruTech/Calculall/Calculall/app/src/main/res/values/dimens.xml -->
+    <!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/values/dimens.xml -->
     <eat-comment/>
     <dimen name="activity_horizontal_margin">0dp</dimen>
     <dimen name="activity_vertical_margin">0dp</dimen>
-    <!-- From: file:/C:/Users/Ejaaz/TruTech/Calculall/Calculall/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/version.xml -->
+    <!-- From: file:/D:/App%20dev/Calculall/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/version.xml -->
     <eat-comment/>
     <integer name="google_play_services_version">6587000</integer>
-    <!-- From: file:/C:/Users/Ejaaz/TruTech/Calculall/Calculall/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="AC">AC</string>
     <string name="C">CLR</string>
@@ -97,10 +94,10 @@
     <string name="about_content">Calculall is a mobile application developed by TruTech Innovations, a startup
     started by students in the Waterloo area to create tools for other students.</string>
     <string name="about_us">About Us</string>
-    <!-- From: file:/C:/Users/Ejaaz/TruTech/Calculall/Calculall/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_strings.xml -->
+    <!-- From: file:/D:/App%20dev/Calculall/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_strings.xml -->
     <eat-comment/>
     <string name="accept">Accept</string>
-    <!-- From: file:/C:/Users/Ejaaz/TruTech/Calculall/Calculall/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="action_settings">Settings</string>
     <string name="advanced">Advanced</string>
@@ -128,7 +125,7 @@
     <string name="closed_square_bracket">]</string>
     <string name="combination">n<b><b>C</b></b>r</string>
     <string name="comma">,</string>
-    <!-- From: file:/C:/Users/Ejaaz/TruTech/Calculall/Calculall/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/common_strings.xml -->
+    <!-- From: file:/D:/App%20dev/Calculall/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/common_strings.xml -->
     <eat-comment/>
     <string name="common_android_wear_notification_needs_update_text">An application requires an update to the Android Wear app.</string>
     <string name="common_android_wear_update_text">This app won\'t run unless you update the Android Wear app.</string>
@@ -158,14 +155,14 @@
     <string name="common_open_on_phone">Open on phone</string>
     <string name="common_signin_button_text">Sign in</string>
     <string name="common_signin_button_text_long">Sign in with Google</string>
-    <!-- From: file:/C:/Users/Ejaaz/TruTech/Calculall/Calculall/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="cos">cos</string>
-    <!-- From: file:/C:/Users/Ejaaz/TruTech/Calculall/Calculall/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_strings.xml -->
+    <!-- From: file:/D:/App%20dev/Calculall/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_strings.xml -->
     <eat-comment/>
     <string name="create_calendar_message">Allow Ad to create a calendar event?</string>
     <string name="create_calendar_title">Create calendar event</string>
-    <!-- From: file:/C:/Users/Ejaaz/TruTech/Calculall/Calculall/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="credits">CEO and Software Architect - Alston Lin\nCFO and Designer - David Liu\nSenior Developer - Ejaaz Merali\n
     Junior Developer - Jason Fok\nJunior Developer - Keith Wong\nQuality Assurance Analyst - Tyler Wang</string>
@@ -173,12 +170,12 @@
     <string name="cube">x³</string>
     <string name="decimal">.</string>
     <string name="decimals">Digits</string>
-    <!-- From: file:/C:/Users/Ejaaz/TruTech/Calculall/Calculall/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_strings.xml -->
+    <!-- From: file:/D:/App%20dev/Calculall/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_strings.xml -->
     <eat-comment/>
     <string name="decline">Decline</string>
-    <!-- From: file:/C:/Users/Ejaaz/TruTech/Calculall/Calculall/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/values/strings.xml -->
     <eat-comment/>
-    <string name="decomp">LUP</string>
+    <string name="decomp">DECOMP</string>
     <string name="degrees">Degrees</string>
     <string name="derivative">d/dx</string>
     <string name="det">DET</string>
@@ -264,11 +261,11 @@
     <string name="sqrt">√</string>
     <string name="square">x²</string>
     <string name="store">STO</string>
-    <!-- From: file:/C:/Users/Ejaaz/TruTech/Calculall/Calculall/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_strings.xml -->
+    <!-- From: file:/D:/App%20dev/Calculall/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_strings.xml -->
     <eat-comment/>
     <string name="store_picture_message">"Allow Ad to store image in Picture gallery?"</string>
     <string name="store_picture_title">Save image</string>
-    <!-- From: file:/C:/Users/Ejaaz/TruTech/Calculall/Calculall/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="t">t</string>
     <string name="tan">tan</string>
@@ -299,17 +296,17 @@
     <string name="vect_v">V</string>
     <string name="vector">Vector</string>
     <string name="visit">Visit our website</string>
-    <!-- From: file:/C:/Users/Ejaaz/TruTech/Calculall/Calculall/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/wallet_strings.xml -->
+    <!-- From: file:/D:/App%20dev/Calculall/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/wallet_strings.xml -->
     <eat-comment/>
     <string name="wallet_buy_button_place_holder" translation_description="Text on a button that allows a user to make a payment with Google Wallet [CHAR LIMIT=30]">Buy with Google</string>
-    <!-- From: file:/C:/Users/Ejaaz/TruTech/Calculall/Calculall/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="x_max">X max</string>
     <string name="x_min">X min</string>
     <string name="y_max">Y max</string>
     <string name="y_min">Y min</string>
     <string name="zero">0</string>
-    <!-- From: file:/C:/Users/Ejaaz/TruTech/Calculall/Calculall/app/src/main/res/values/values.xml -->
+    <!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/values/values.xml -->
     <eat-comment/>
     <style name="CustomAlertDialog" parent="android:style/Theme.Dialog">
         <item name="android:windowBackground">@android:color/transparent</item>
@@ -321,7 +318,11 @@
         <item name="android:textColor">@color/color1David</item>
         <item name="android:switchPadding">16dp</item>
     </style>
-    <!-- From: file:/C:/Users/Ejaaz/TruTech/Calculall/Calculall/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_iap_style.xml -->
+    <style name="SwitchTextTheme2" parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textColor">@color/color1Theme2</item>
+        <item name="android:switchPadding">16dp</item>
+    </style>
+    <!-- From: file:/D:/App%20dev/Calculall/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_iap_style.xml -->
     <eat-comment/>
     <style name="Theme.IAPTheme" parent="android:Theme">
     <item name="android:windowIsTranslucent">true</item>
@@ -331,7 +332,7 @@
     <item name="android:windowIsFloating">true</item>
     <item name="android:backgroundDimEnabled">false</item>
   </style>
-    <!-- From: file:/C:/Users/Ejaaz/TruTech/Calculall/Calculall/app/src/main/res/values/values.xml -->
+    <!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/values/values.xml -->
     <eat-comment/>
     <style name="Theme1" parent="android:Theme.DeviceDefault">
         <item name="android:colorBackground">@color/displayDavid</item>
@@ -354,8 +355,40 @@
         <item name="spinnerTextStyle">@style/spinnerTextDavid</item>
         <item name="android:switchTextAppearance">@style/SwitchTextDavid</item>
         <item name="android:switchPadding">16dp</item>
+        <item name="mrl_rippleOverlay">true</item>
+        <item name="mrl_rippleColor">@color/color2David</item>
+        <item name="mrl_rippleAlpha">0.2</item>
+        <item name="mrl_rippleDelayClick">false</item>
+        <item name="mrl_rippleHover">true</item>
     </style>
-    <!-- From: file:/C:/Users/Ejaaz/TruTech/Calculall/Calculall/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/wallet_styles.xml -->
+    <style name="Theme2" parent="android:Theme.DeviceDefault">
+        <item name="android:colorBackground">@color/displayTheme2</item>
+        <item name="buttonFunction">@style/buttonDarkTheme2</item>
+        <item name="buttonOperator">@style/buttonLightTheme2</item>
+        <item name="buttonSpecial">@style/buttonSpecialTheme2</item>
+        <item name="android:textColor">@color/backgroundTheme2</item>
+        <item name="buttonNum">@style/buttonNumTheme2</item>
+        <item name="displayColor">@color/displayTheme2</item>
+        <item name="displayTextColor">@color/textDisplayColorTheme2</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="change_img">@drawable/change_white</item>
+        <item name="frac_img">@drawable/frac_white</item>
+        <item name="history_img">@drawable/history_white</item>
+        <item name="settings_img">@drawable/settings_white</item>
+        <item name="android:buttonStyle">@style/normalTheme2</item>
+        <item name="android:buttonStyleToggle">@style/toggleTheme2</item>
+        <item name="history_style">@color/color1Theme2</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="spinnerTextStyle">@style/spinnerTextTheme2</item>
+        <item name="android:switchTextAppearance">@style/SwitchTextTheme2</item>
+        <item name="android:switchPadding">16dp</item>
+        <item name="mrl_rippleOverlay">true</item>
+        <item name="mrl_rippleColor">@color/color2Theme2</item>
+        <item name="mrl_rippleAlpha">0.2</item>
+        <item name="mrl_rippleDelayClick">false</item>
+        <item name="mrl_rippleHover">true</item>
+    </style>
+    <!-- From: file:/D:/App%20dev/Calculall/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/wallet_styles.xml -->
     <eat-comment/>
     <style name="WalletFragmentDefaultButtonTextAppearance">
         <item name="android:textColor">@color/wallet_primary_text_holo_light</item>
@@ -389,15 +422,23 @@
         <item name="maskedWalletDetailsLogoTextColor">@color/wallet_bright_foreground_holo_dark</item>
         <item name="maskedWalletDetailsLogoImageType">classic</item>
     </style>
-    <!-- From: file:/C:/Users/Ejaaz/TruTech/Calculall/Calculall/app/src/main/res/values/values.xml -->
+    <!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/values/values.xml -->
     <eat-comment/>
     <style name="buttonDarkDavid" parent="android:Widget.Holo.Button.Borderless.Small">
         <item name="android:textColor">@color/textColorDavid</item>
         <item name="android:background">@color/backgroundDavid</item>
     </style>
+    <style name="buttonDarkTheme2" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:textColor">@color/textColorTheme2</item>
+        <item name="android:background">@color/backgroundTheme2</item>
+    </style>
     <style name="buttonLightDavid" parent="android:Widget.Holo.Button.Borderless.Small">
         <item name="android:textColor">@color/textColorDavid</item>
         <item name="android:background">@color/color1David</item>
+    </style>
+    <style name="buttonLightTheme2" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:textColor">@color/textColorTheme2</item>
+        <item name="android:background">@color/color1Theme2</item>
     </style>
     <style name="buttonNumDavid" parent="android:Widget.Holo.Button.Borderless.Small">
         <item name="android:textColor">@color/numPadColorDavid</item>
@@ -406,13 +447,28 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center</item>
     </style>
+    <style name="buttonNumTheme2" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:textColor">@color/numPadColorTheme2</item>
+        <item name="android:background">@color/color1Theme2</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+    </style>
     <style name="buttonSpecialDavid" parent="android:Widget.Holo.Button.Borderless.Small">
         <item name="android:textColor">@color/textColorDavid</item>
         <item name="android:background">@color/color2David</item>
     </style>
+    <style name="buttonSpecialTheme2" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:textColor">@color/textColorTheme2</item>
+        <item name="android:background">@color/color2Theme2</item>
+    </style>
     <style name="normalDavid" parent="android:Widget.Holo.Button.Borderless.Small">
         <item name="android:textColor">@color/color2David</item>
         <item name="android:color">@color/displayDavid</item>
+    </style>
+    <style name="normalTheme2" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:textColor">@color/color2Theme2</item>
+        <item name="android:color">@color/displayTheme2</item>
     </style>
     <style name="spinnerTextDavid" parent="android:Widget.DeviceDefault.TextView.SpinnerItem">
         <item name="android:background">@color/displayDavid</item>
@@ -420,9 +476,22 @@
         <item name="android:divider">@null</item>
         <item name="android:textColor">@color/color1David</item>
         <item name="android:color">@color/displayDavid</item>
+
+    </style>
+    <style name="spinnerTextTheme2" parent="android:Widget.DeviceDefault.TextView.SpinnerItem">
+        <item name="android:background">@color/displayTheme2</item>
+        <item name="android:dropDownSelector">@color/displayTheme2</item>
+        <item name="android:divider">@null</item>
+        <item name="android:textColor">@color/color1Theme2</item>
+        <item name="android:color">@color/displayTheme2</item>
+
     </style>
     <style name="toggleDavid" parent="buttonLightDavid">
         <item name="android:textColor">@color/displayDavid</item>
         <item name="android:color">@color/color1David</item>
+    </style>
+    <style name="toggleTheme2" parent="buttonLightTheme2">
+        <item name="android:textColor">@color/displayTheme2</item>
+        <item name="android:color">@color/color1Theme2</item>
     </style>
 </resources>

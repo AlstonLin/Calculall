@@ -38,7 +38,7 @@
 
         <ToggleButton
             android:id="@+id/mem_button"
-            style="?android:attr/buttonStyleToggle"
+            style="?attr/buttonSpecial"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
