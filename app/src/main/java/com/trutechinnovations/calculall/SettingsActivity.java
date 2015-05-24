@@ -46,11 +46,12 @@ public class SettingsActivity extends Activity {
     public static final int DEFAULT_FONT_SIZE = 96;
     public static final boolean DEFAULT_FEEDBACK = false;
     public static final boolean DEFAULT_SWIPE = false;
+    //Fields
     private int currentTheme;
     private PopupWindow popup;
     private ImageAdapter adapter;
     private SharedPreferences pref;
-    private boolean feedbackOn, swipe_only;
+    private boolean feedbackOn, swipeOnly;
     private int roundTo;
     private int fontSize;
 
@@ -63,7 +64,7 @@ public class SettingsActivity extends Activity {
         feedbackOn = pref.getBoolean(getString(R.string.haptic), DEFAULT_FEEDBACK);
         roundTo = pref.getInt(getString(R.string.round_to), DEFAULT_ROUND);
         fontSize = pref.getInt(getString(R.string.font_size), DEFAULT_FONT_SIZE);
-        swipe_only = pref.getBoolean(getString(R.string.mode_switch), DEFAULT_SWIPE);
+        swipeOnly = pref.getBoolean(getString(R.string.mode_switch), DEFAULT_SWIPE);
         //Sets up the current theme
         switch (currentTheme) {
             case DAVID:
@@ -102,7 +103,7 @@ public class SettingsActivity extends Activity {
         setContentView(R.layout.settings);
         setupDecimalSpinner();
         setupFontSpinner();
-        setupSwitch();
+        setupSwitches();
     }
 
     /**
@@ -157,17 +158,22 @@ public class SettingsActivity extends Activity {
     }
 
     /**
-     * Sets up the haptic feedback switch.
+     * Sets up the switches.
      */
-    public void setupSwitch() {
-        TypedValue typedValue2 = new TypedValue();
-        getTheme().resolveAttribute(R.attr.displayTextColor, typedValue2, true);
-        int backgroundColor = typedValue2.data;
-        Switch switc = (Switch) findViewById(R.id.haptic_switch);
+    public void setupSwitches() {
+        //David's stuff
+        TypedValue typedValue = new TypedValue();
+        getTheme().resolveAttribute(R.attr.displayTextColor, typedValue, true);
+        int backgroundColor = typedValue.data;
+
+
+        Switch haptic = (Switch) findViewById(R.id.haptic_switch);
         Switch swipe = (Switch) findViewById(R.id.swipe_only_switch);
-        switc.setTextColor(backgroundColor);
+
+        haptic.setTextColor(backgroundColor);
         swipe.setTextColor(backgroundColor);
-        switc.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+        haptic.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             /**
              * When the check has been changed.
              *
@@ -191,14 +197,15 @@ public class SettingsActivity extends Activity {
              */
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                swipe_only = isChecked;
+                swipeOnly = isChecked;
                 SharedPreferences.Editor editor = pref.edit();
                 editor.putBoolean(getString(R.string.mode_switch), isChecked);
                 editor.apply();
             }
         });
-        switc.setChecked(feedbackOn);
-        swipe.setChecked(swipe_only);
+
+        haptic.setChecked(feedbackOn);
+        swipe.setChecked(swipeOnly);
     }
 
     /**
