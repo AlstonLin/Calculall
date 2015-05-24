@@ -2,6 +2,7 @@ package com.trutechinnovations.calculall;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
@@ -27,6 +28,9 @@ public abstract class NaturalView extends View {
     public static final float FRAC_PADDING_TO_TEXT_HEIGHT = 1 / 8f;
     public static final float SUPERSCRIPT_OFFSET_TO_TEXT_HEIGHT = 1 / 2f;
     public static final float MATRIX_PADDING_TO_TEXT_HEIGHT = 0f;
+
+    private static int lastColor = Color.BLACK; //The last color that any display has shown; used as a backup in case attribute can not be resolved
+
     protected float fracPadding; //The padding between the bottom of the numerator of a fraction and the fraction line
     protected float textHeight; //The height of the area reserved (not actually used) for text; Note - Change this to change space between a num and denom of a fraction
     //Variables Used while drawing
@@ -62,8 +66,13 @@ public abstract class NaturalView extends View {
      */
     private int getDisplayColor(Context context) {
         TypedValue typedValue = new TypedValue();
-        context.getTheme().resolveAttribute(R.attr.displayTextColor, typedValue, true);
-        return typedValue.data;
+        boolean resolved = context.getTheme().resolveAttribute(R.attr.displayTextColor, typedValue, true);
+        if (resolved) {
+            lastColor = typedValue.data; //Saves it
+            return typedValue.data;
+        } else {
+            return lastColor;
+        }
     }
 
     /**

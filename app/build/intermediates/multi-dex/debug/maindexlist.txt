@@ -44,11 +44,11 @@ org/apfloat/ApcomplexMath.class
 com/google/android/gms/internal/fr.class
 com/google/android/gms/internal/dp$b.class
 com/google/common/base/Functions$IdentityFunction.class
+org/matheclipse/commons/math/linear/SparseFieldVector.class
 com/google/common/collect/ImmutableSortedSet.class
 org/apache/commons/math3/analysis/function/Identity.class
 com/google/android/gms/internal/gd.class
 com/google/android/gms/internal/eh.class
-edu/jas/gbmod/ModGroebnerBaseAbstract.class
 org/apache/commons/math3/analysis/function/Exp.class
 com/google/ads/mediation/customevent/CustomEventInterstitial.class
 com/trutechinnovations/calculall/SettingsActivity.class
@@ -115,6 +115,7 @@ org/apache/commons/math3/optimization/DifferentiableMultivariateVectorOptimizer.
 com/google/android/gms/plus/PlusClient$OnAccessRevokedListener.class
 com/google/android/gms/maps/MapView.class
 com/google/android/gms/games/snapshot/SnapshotMetadata.class
+org/matheclipse/commons/math/linear/AbstractFieldMatrix.class
 android/support/v4/widget/MaterialProgressDrawable$StartCurveInterpolator.class
 android/support/annotation/Nullable.class
 com/google/android/gms/internal/ey.class
@@ -357,6 +358,7 @@ org/apache/commons/math3/optim/nonlinear/vector/MultivariateVectorOptimizer.clas
 com/google/android/gms/location/GeofencingApi.class
 com/google/android/gms/games/Player.class
 com/google/android/gms/internal/gy.class
+org/matheclipse/commons/math/linear/ArrayFieldVector.class
 com/google/android/gms/internal/bv.class
 android/support/v4/widget/MaterialProgressDrawable$2.class
 android/support/v4/app/FragmentManagerImpl.class
@@ -611,9 +613,9 @@ org/apache/commons/math3/analysis/FunctionUtils.class
 android/support/v4/app/FragmentManagerImpl$FragmentTag.class
 org/apache/commons/math3/optimization/general/AbstractScalarDifferentiableOptimizer.class
 com/google/android/gms/internal/aj.class
+org/matheclipse/commons/math/linear/FieldVector.class
 org/apache/commons/math3/optimization/univariate/UnivariateMultiStartOptimizer.class
 com/google/android/gms/internal/gj.class
-com/trutechinnovations/calculall/HistoryView.class
 android/support/v4/app/FragmentManager$OnBackStackChangedListener.class
 com/google/common/base/package-info.class
 org/apache/commons/math3/optimization/InitialGuess.class

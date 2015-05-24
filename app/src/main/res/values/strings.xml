@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="clear_after_equals">Clear Display After Calculating</string>
     <string name="graph_note">Note: All angles are in radians</string>
     <string name="font_size">Font Size</string>
     <string name="ans">ANS</string>
