@@ -38,7 +38,7 @@
 
         <ToggleButton
             android:id="@+id/mem_button"
-            style="?android:attr/buttonStyleToggle"
+            style="?attr/buttonSpecial"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
@@ -163,6 +163,16 @@
             android:onClick="onClick"
             android:text="@string/varC"
             android:textSize="25sp" />
+
+        <Button
+            android:id="@+id/ans_button"
+            style="?attr/buttonFunction"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:text="@string/ans"
+            android:textSize="16sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -305,6 +315,19 @@
             android:layout_weight="1"
             android:onClick="onClick"
             android:textSize="16sp" />
+
+        <ImageButton
+            android:id="@+id/frac_mode"
+            style="?attr/buttonFunction"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:onClick="onClick"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_change"
+            android:textSize="15sp" />
     </LinearLayout>
 
 
@@ -383,13 +406,13 @@
                     android:textSize="30sp" />
 
                 <Button
-                    android:id="@+id/augment_button"
+                    android:id="@+id/divide_button"
                     style="?attr/buttonOperator"
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:layout_weight="1"
                     android:onClick="onClick"
-                    android:text="@string/augment"
+                    android:text="@string/divide"
                     android:textSize="30sp" />
 
             </LinearLayout>
@@ -407,4 +430,4 @@
             android:textSize="30sp" />
 
     </LinearLayout>
-</LinearLayout><!-- From: file:/C:/Users/Ejaaz/TruTech/Calculall/Calculall/app/src/main/res/layout/matrix.xml -->
+</LinearLayout><!-- From: file:/C:/Users/Ejaaz/Calculall/Calculall/app/src/main/res/layout/matrix.xml -->
