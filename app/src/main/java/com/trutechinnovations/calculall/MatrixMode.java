@@ -816,16 +816,46 @@ public class MatrixMode extends FunctionMode {
      * When the user presses the LUP button
      */
     public void clickLUP() {
-        Token t = MatrixFunctionFactory.makeLU();
-        Bracket b = BracketFactory.makeOpenBracket();
-        if (t != null) {
-            t.addDependency(b);
-            b.addDependency(t);
+        DisplayView display = (DisplayView) activity.findViewById(R.id.display);
+        try {
+            ArrayList<Token> temp = MatrixUtils.setupExpression(Utility.condenseDigits(tokens));
+            temp = MatrixUtils.convertToReversePolish(temp);
+            Token t = MatrixUtils.evaluateExpression(temp, false);
+            if (t instanceof Matrix) {
+                double[][] a = MatrixUtils.evaluateMatrixEntries((Matrix) t);
+                if (a.length != a[0].length) {
+                    throw new IllegalArgumentException("Only square matrices can be LUP factorized");
+                }
+                double[][][] lup = MatrixUtils.getLUDecomposition(a);
+                Matrix p = new Matrix(lup[2]);
+                Matrix u = new Matrix(lup[0]);
+                Matrix l = new Matrix(lup[1]);
+
+                ArrayList<Token> input = new ArrayList<>();
+                input.add(0, new StringToken("LUP Decomposition of "));
+                input.addAll(tokens);
+                updateInput();
+
+                ArrayList<Token> output = new ArrayList<>();
+                output.add(new StringToken("P = "));
+                output.add(p);
+                output.add(new StringToken(" ,\n"));
+                output.add(new StringToken("L = "));
+                output.add(l);
+                output.add(new StringToken(" ,\n"));
+                output.add(new StringToken("U = "));
+                output.add(u);
+
+                display.displayOutput(output);
+
+                saveEquation(input, output, filename);
+                activity.scrollDown();
+            } else {
+                throw new IllegalArgumentException("The result must be a single Matrix to find the LUP decomposition");
+            }
+        } catch (Exception e) { //an error was thrown
+            super.handleExceptions(e);
         }
-        tokens.add(display.getRealCursorIndex(), t);
-        tokens.add(display.getRealCursorIndex() + 1, b);
-        display.setCursorIndex(display.getCursorIndex() + 2);
-        updateInput();
     }
 
     /**
@@ -862,7 +892,7 @@ public class MatrixMode extends FunctionMode {
                 saveEquation(input, output, filename);
                 activity.scrollDown();
             } else {
-                throw new IllegalArgumentException("The result must be a single Matrix to find the eigenvalue!");
+                throw new IllegalArgumentException("The result must be a single Matrix to find the eigenvalues");
             }
         } catch (Exception e) { //an error was thrown
             super.handleExceptions(e);
@@ -910,20 +940,204 @@ public class MatrixMode extends FunctionMode {
         }
     }
 
-
     /**
      * When the user presses the diag() button
      */
     public void clickDiagonalize() {
-        Token t = MatrixFunctionFactory.makeDiag();
-        Bracket b = BracketFactory.makeOpenBracket();
-        if (t != null) {
-            t.addDependency(b);
-            b.addDependency(t);
+        DisplayView display = (DisplayView) activity.findViewById(R.id.display);
+        try {
+            ArrayList<Token> temp = MatrixUtils.setupExpression(Utility.subVariables(Utility.condenseDigits(tokens)));
+            temp = MatrixUtils.convertToReversePolish(temp);
+            Token t = MatrixUtils.evaluateExpression(temp, false);
+            if (t instanceof Matrix) {
+                double[][][] diag = MatrixUtils.getEigenDecomposition(MatrixUtils.evaluateMatrixEntries((Matrix) t));
+
+                ArrayList<Token> input = new ArrayList<>();
+                input.addAll(tokens);
+                input.add(0, new StringToken("Eigen Decomposition of "));
+
+                ArrayList<Token> output = new ArrayList<>();
+                output.add(new StringToken("P = "));
+                output.add(new Matrix(diag[0]));
+                output.add(new StringToken(" , D = "));
+                output.add(new Matrix(diag[1]));
+                output.add(new StringToken(" , inv(P) = "));
+                output.add(new Matrix(diag[2]));
+
+                display.displayOutput(output);
+
+                saveEquation(input, output, filename);
+                activity.scrollDown();
+            } else {
+                throw new IllegalArgumentException("The result must be a single Matrix to find the Eigen Decomposition");
+            }
+        } catch (Exception e) { //an error was thrown
+            super.handleExceptions(e);
         }
-        tokens.add(display.getRealCursorIndex(), t);
-        tokens.add(display.getRealCursorIndex() + 1, b);
-        display.setCursorIndex(display.getCursorIndex() + 2);
-        updateInput();
+    }
+
+    /**
+     * When the user presses the QR button
+     */
+    public void clickQR() {
+        DisplayView display = (DisplayView) activity.findViewById(R.id.display);
+        try {
+            ArrayList<Token> temp = MatrixUtils.setupExpression(Utility.condenseDigits(tokens));
+            temp = MatrixUtils.convertToReversePolish(temp);
+            Token t = MatrixUtils.evaluateExpression(temp, false);
+            if (t instanceof Matrix) {
+                double[][] a = MatrixUtils.evaluateMatrixEntries((Matrix) t);
+                double[][][] qr = MatrixUtils.getQRDecomposition(a);
+                Matrix q = new Matrix(qr[0]);
+                Matrix r = new Matrix(qr[1]);
+
+                ArrayList<Token> input = new ArrayList<>();
+                input.add(0, new StringToken("QR Decomposition of "));
+                input.addAll(tokens);
+                updateInput();
+
+                ArrayList<Token> output = new ArrayList<>();
+                output.add(new StringToken("Q = "));
+                output.add(q);
+                output.add(new StringToken(" , "));
+                output.add(new StringToken("R = "));
+                output.add(r);
+
+
+                display.displayOutput(output);
+
+                saveEquation(input, output, filename);
+                activity.scrollDown();
+            } else {
+                throw new IllegalArgumentException("The result must be a single Matrix to find the QR decomposition");
+            }
+        } catch (Exception e) { //an error was thrown
+            super.handleExceptions(e);
+        }
+    }
+
+    /**
+     * When the user presses the RRQR button
+     */
+    public void clickRRQR() {
+        DisplayView display = (DisplayView) activity.findViewById(R.id.display);
+        try {
+            ArrayList<Token> temp = MatrixUtils.setupExpression(Utility.condenseDigits(tokens));
+            temp = MatrixUtils.convertToReversePolish(temp);
+            Token t = MatrixUtils.evaluateExpression(temp, false);
+            if (t instanceof Matrix) {
+                double[][] a = MatrixUtils.evaluateMatrixEntries((Matrix) t);
+                double[][][] rrqr = MatrixUtils.getRRQRDecomposition(a);
+                Matrix q = new Matrix(rrqr[0]);
+                Matrix r = new Matrix(rrqr[1]);
+                Matrix p = new Matrix(rrqr[2]);
+
+                ArrayList<Token> input = new ArrayList<>();
+                input.add(0, new StringToken("RRQR Decomposition of "));
+                input.addAll(tokens);
+                updateInput();
+
+                ArrayList<Token> output = new ArrayList<>();
+                output.add(new StringToken("P = "));
+                output.add(p);
+                output.add(new StringToken(" , "));
+                output.add(new StringToken("Q = "));
+                output.add(q);
+                output.add(new StringToken(" , "));
+                output.add(new StringToken("R = "));
+                output.add(r);
+
+                display.displayOutput(output);
+
+                saveEquation(input, output, filename);
+                activity.scrollDown();
+            } else {
+                throw new IllegalArgumentException("The result must be a single Matrix to find the RRQR decomposition");
+            }
+        } catch (Exception e) { //an error was thrown
+            super.handleExceptions(e);
+        }
+    }
+
+    /**
+     * When the user presses the Cholesky button
+     */
+    public void clickCholesky() {
+        DisplayView display = (DisplayView) activity.findViewById(R.id.display);
+        try {
+            ArrayList<Token> temp = MatrixUtils.setupExpression(Utility.condenseDigits(tokens));
+            temp = MatrixUtils.convertToReversePolish(temp);
+            Token t = MatrixUtils.evaluateExpression(temp, false);
+            if (t instanceof Matrix) {
+                double[][] a = MatrixUtils.evaluateMatrixEntries((Matrix) t);
+                double[][][] ch = MatrixUtils.getCholeskyDecomposition(a);
+                Matrix l = new Matrix(ch[0]);
+                Matrix lt = new Matrix(ch[1]);
+
+                ArrayList<Token> input = new ArrayList<>();
+                input.add(0, new StringToken("Cholesky Decomposition of "));
+                input.addAll(tokens);
+                updateInput();
+
+                ArrayList<Token> output = new ArrayList<>();
+                output.add(new StringToken("L = "));
+                output.add(l);
+                output.add(new StringToken(" , "));
+                output.add(new StringToken("trans(L) = "));
+                output.add(lt);
+
+                display.displayOutput(output);
+
+                saveEquation(input, output, filename);
+                activity.scrollDown();
+            } else {
+                throw new IllegalArgumentException("The result must be a single Matrix to find the Cholesky decomposition");
+            }
+        } catch (Exception e) { //an error was thrown
+            super.handleExceptions(e);
+        }
+    }
+
+    /**
+     * When the user presses the SVD button
+     */
+    public void clickSVD() {
+        DisplayView display = (DisplayView) activity.findViewById(R.id.display);
+        try {
+            ArrayList<Token> temp = MatrixUtils.setupExpression(Utility.condenseDigits(tokens));
+            temp = MatrixUtils.convertToReversePolish(temp);
+            Token t = MatrixUtils.evaluateExpression(temp, false);
+            if (t instanceof Matrix) {
+                double[][] a = MatrixUtils.evaluateMatrixEntries((Matrix) t);
+                double[][][] svd = MatrixUtils.getSVDecomposition(a);
+                Matrix u = new Matrix(svd[0]);
+                Matrix s = new Matrix(svd[1]);
+                Matrix vt = new Matrix(svd[2]);
+
+                ArrayList<Token> input = new ArrayList<>();
+                input.add(0, new StringToken("SVD of "));
+                input.addAll(tokens);
+                updateInput();
+
+                ArrayList<Token> output = new ArrayList<>();
+                output.add(new StringToken("U = "));
+                output.add(u);
+                output.add(new StringToken(" , "));
+                output.add(new StringToken("Σ = "));
+                output.add(s);
+                output.add(new StringToken(" , "));
+                output.add(new StringToken("trans(V) = "));
+                output.add(vt);
+
+                display.displayOutput(output);
+
+                saveEquation(input, output, filename);
+                activity.scrollDown();
+            } else {
+                throw new IllegalArgumentException("The result must be a single Matrix to find the SVD");
+            }
+        } catch (Exception e) { //an error was thrown
+            super.handleExceptions(e);
+        }
     }
 }
