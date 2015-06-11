@@ -45,10 +45,10 @@
     <string name="rref">RREF</string>
     <string name="det">DET</string>
     <string name="diag">DIAG</string>
-    <string name="decomp">DECOMP</string>
+    <string name="decomp">LUP</string>
     <string name="tr">tr</string>
     <string name="lambda">λ</string>
-    <string name="ev">Ev</string>
+    <string name="ev">A-λI</string>
     <string name="augment">[A|B]</string>
     <string name="transpose"><![CDATA[A<sup><small><i>t</i></small></sup>]]></string>
     <string name="matrix_pow"><![CDATA[A<sup><small><i>y</i></small></sup>]]></string>
@@ -111,7 +111,7 @@
     <string name="pi">"π"</string>
     <string name="e">e</string>
     <string name="shift">2nd</string>
-    <string name="backspace">←</string>
+    <string name="backspace">BS</string>
     <string name="rightArrow">→</string>
     <string name="sqrt">√</string>
     <string name="cbrt">³√</string>
@@ -161,5 +161,6 @@
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="constant">CNST</string>
     <string name="listOfConstants">List of Constants</string>
+    <string name="reduction">Row Reduction Steps</string>
 
 </resources>

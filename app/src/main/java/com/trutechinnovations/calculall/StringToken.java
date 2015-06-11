@@ -6,7 +6,7 @@ import java.io.Serializable;
  * A Token that holds a String for display purposes.
  *
  * @author Alston Lin
- * @version Alpha 2.0
+ * @version 3.0
  */
 public class StringToken extends Token implements Serializable {
     /**

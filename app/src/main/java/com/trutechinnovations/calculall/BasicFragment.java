@@ -8,12 +8,12 @@ import android.view.ViewGroup;
 
 /**
  * Represents the front-end UI (Fragment) component of the overall Basic Mode.
+ *
+ * @author Alston Lin
+ * @version 3.0
  */
 public class BasicFragment extends Fragment {
 
-    //CONSTANTS
-    public static final String CLASS_NAME = Basic.class.getName();
-    //PRIVATE VARIABLES
     protected MainActivity activity;
 
     public BasicFragment() {

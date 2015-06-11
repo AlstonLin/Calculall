@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * (must use a subclass of this).
  *
  * @author Alston Lin
- * @version Alpha 2.0
+ * @version 3.0
  */
 public abstract class Token implements Serializable {
 

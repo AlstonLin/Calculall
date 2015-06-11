@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * problems in a grade twelve level.
  *
  * @author Alston Lin, Keith Wong, Jason Fok
- * @version Alpha 2.0
+ * @version 3.0
  */
 
 public class VectorMode extends Advanced {
@@ -144,33 +144,67 @@ public class VectorMode extends Advanced {
         updateInput();
     }
 
-    public void clickU() {
+    /**
+     * When the user presses the ANS button
+     */
+    public void clickAns() {
+        tokens.add(display.getRealCursorIndex(), VariableFactory.makeAnsVec());
+        display.setCursorIndex(display.getCursorIndex() + 1);
+        updateInput();
+    }
+
+    /**
+     * When the user presses the A button
+     */
+    public void clickA() {
         if (mem) {
-            storeVector("→ U", new Command<Void, Token>() {
+            storeVariable("→ A", new Command<Void, ArrayList<Token>>() {
                 @Override
-                public Void execute(Token val) {
-                    VectorVariable.uValue = val;
+                public Void execute(ArrayList<Token> val) {
+                    VariableFactory.aValue = val;
                     return null;
                 }
             });
         } else {
-            tokens.add(display.getRealCursorIndex(), VectorVariableFactory.makeU());
+            tokens.add(display.getRealCursorIndex(), VariableFactory.makeA());
             display.setCursorIndex(display.getCursorIndex() + 1);
             updateInput();
         }
     }
 
-    public void clickV() {
+    /**
+     * When the user presses the U button
+     */
+    public void clickU() {
         if (mem) {
-            storeVector("→ V", new Command<Void, Token>() {
+            storeVariable("→ U", new Command<Void, ArrayList<Token>>() {
                 @Override
-                public Void execute(Token val) {
-                    VectorVariable.vValue = val;
+                public Void execute(ArrayList<Token> val) {
+                    VariableFactory.uValue = val;
                     return null;
                 }
             });
         } else {
-            tokens.add(display.getRealCursorIndex(), VectorVariableFactory.makeV());
+            tokens.add(display.getRealCursorIndex(), VariableFactory.makeU());
+            display.setCursorIndex(display.getCursorIndex() + 1);
+            updateInput();
+        }
+    }
+
+    /**
+     * When the user presses the V button
+     */
+    public void clickV() {
+        if (mem) {
+            storeVariable("→ V", new Command<Void, ArrayList<Token>>() {
+                @Override
+                public Void execute(ArrayList<Token> val) {
+                    VariableFactory.vValue = val;
+                    return null;
+                }
+            });
+        } else {
+            tokens.add(display.getRealCursorIndex(), VariableFactory.makeV());
             display.setCursorIndex(display.getCursorIndex() + 1);
             updateInput();
         }
@@ -185,9 +219,19 @@ public class VectorMode extends Advanced {
             display.displayOutput(toOutput);
             activity.scrollDown();
             saveEquation(tokens, toOutput, FILENAME);
+            saveAns(toOutput);
         } catch (Exception e) { //User did a mistake
             handleExceptions(e);
         }
+    }
+
+    /**
+     * Saves the answer into the VariableFactory class.
+     *
+     * @param ans The expression to save
+     */
+    public void saveAns(ArrayList<Token> ans) {
+        VariableFactory.ansValueVec = ans;
     }
 
     /**
@@ -227,7 +271,7 @@ public class VectorMode extends Advanced {
      * When the user presses the T button.
      */
     public void clickVT() {
-        tokens.add(display.getRealCursorIndex(), VectorVariableFactory.makeT());
+        tokens.add(display.getRealCursorIndex(), VariableFactory.makeT());
         display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
     }
@@ -236,7 +280,7 @@ public class VectorMode extends Advanced {
      * When the user presses the S button.
      */
     public void clickVS() {
-        tokens.add(display.getRealCursorIndex(), VectorVariableFactory.makeS());
+        tokens.add(display.getRealCursorIndex(), VariableFactory.makeS());
         display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
     }
@@ -306,14 +350,14 @@ public class VectorMode extends Advanced {
      */
     public void clickScalar() {
         try {
-            ArrayList<Token> tokens = VectorUtilities.parseVectors(VectorUtilities.setupVectorExpression(Utility.setupExpression(Utility.condenseDigits(VectorUtilities.subVariables(this.tokens)))));
+            ArrayList<Token> tokens = VectorUtilities.parseVectors(VectorUtilities.setupVectorExpression(Utility.setupExpression(Utility.condenseDigits(Utility.subVariables(this.tokens)))));
             //Checks if it is 2D or 3D
             ArrayList<Token> constantTerms = new ArrayList<>();
             ArrayList<Token> directionVectorsS = new ArrayList<>();
             ArrayList<Token> directionVectorsT = new ArrayList<>();
             for (int i = 0; i < tokens.size(); i++) {
                 Token t = tokens.get(i);
-                if (t instanceof VectorVariable && t.getType() == VectorVariable.T) {
+                if (t instanceof Variable && t.getType() == Variable.T) {
                     i++; //Goes to the next token
                     //If the Vector is right after
                     if (i < tokens.size() && tokens.get(i) instanceof Vector) {
@@ -334,7 +378,7 @@ public class VectorMode extends Advanced {
                         }
                         directionVectorsT.addAll(inside);
                     }
-                } else if (t instanceof VectorVariable && t.getType() == VectorVariable.S) {
+                } else if (t instanceof Variable && t.getType() == Variable.S) {
                     i++; //Goes to the next token
                     //If the Vector is right after
                     if (i < tokens.size() && tokens.get(i) instanceof Vector) {
@@ -355,7 +399,7 @@ public class VectorMode extends Advanced {
                         }
                         directionVectorsS.addAll(inside);
                     }
-                } else if (t instanceof VectorOperator && t.getType() == VectorOperator.ADD && i + 1 < tokens.size() && tokens.get(i + 1) instanceof VectorVariable) { //Ignores addition before s & t
+                } else if (t instanceof VectorOperator && t.getType() == VectorOperator.ADD && i + 1 < tokens.size() && tokens.get(i + 1) instanceof Variable) { //Ignores addition before s & t
                     //Do nothing
                 } else {
                     constantTerms.add(t);

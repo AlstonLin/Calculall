@@ -38,7 +38,7 @@
 
         <ToggleButton
             android:id="@+id/mem_button"
-            style="?android:attr/buttonStyleToggle"
+            style="?attr/buttonSpecial"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
@@ -163,6 +163,16 @@
             android:onClick="onClick"
             android:text="@string/varC"
             android:textSize="25sp" />
+
+        <Button
+            android:id="@+id/ans_button"
+            style="?attr/buttonFunction"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:text="@string/ans"
+            android:textSize="16sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -194,19 +204,29 @@
             android:textSize="16sp" />
 
         <Button
-            android:id="@+id/det_button"
-            style="?attr/buttonFunction"
+            android:id="@+id/lambda_button"
+            style="?attr/buttonSpecial"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:text="@string/lambda"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/ev_button"
+            style="?attr/buttonSpecial"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_marginRight="0dp"
             android:layout_weight="1"
             android:onClick="onClick"
-            android:text="@string/det"
+            android:text="@string/ev"
             android:textSize="16sp" />
 
         <Button
             android:id="@+id/diag_button"
-            style="?attr/buttonFunction"
+            style="?attr/buttonSpecial"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_marginRight="0dp"
@@ -217,7 +237,7 @@
 
         <Button
             android:id="@+id/decomp_button"
-            style="?attr/buttonFunction"
+            style="?attr/buttonSpecial"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_marginRight="0dp"
@@ -235,6 +255,17 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/det_button"
+            style="?attr/buttonFunction"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_marginRight="0dp"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:text="@string/det"
+            android:textSize="16sp" />
+
+        <Button
             android:id="@+id/tr_button"
             style="?attr/buttonFunction"
             android:layout_width="0dp"
@@ -244,27 +275,6 @@
             android:layout_weight="1"
             android:onClick="onClick"
             android:text="@string/tr"
-            android:textSize="16sp" />
-
-        <Button
-            android:id="@+id/lambda_button"
-            style="?attr/buttonFunction"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:onClick="onClick"
-            android:text="@string/lambda"
-            android:textSize="16sp" />
-
-        <Button
-            android:id="@+id/ev_button"
-            style="?attr/buttonFunction"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_marginRight="0dp"
-            android:layout_weight="1"
-            android:onClick="onClick"
-            android:text="@string/ev"
             android:textSize="16sp" />
 
         <Button
@@ -305,6 +315,19 @@
             android:layout_weight="1"
             android:onClick="onClick"
             android:textSize="16sp" />
+
+        <ImageButton
+            android:id="@+id/frac_mode"
+            style="?attr/buttonFunction"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:onClick="onClick"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_change"
+            android:textSize="15sp" />
     </LinearLayout>
 
 
@@ -315,6 +338,16 @@
         android:layout_weight="4"
         android:baselineAligned="true"
         android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/num_button"
+            style="?buttonNum"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:text="@string/num"
+            android:textSize="30sp" />
 
         <LinearLayout
             android:id="@+id/operator_container"
@@ -363,16 +396,6 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/num_button"
-                    style="?buttonNum"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:onClick="onClick"
-                    android:text="@string/num"
-                    android:textSize="30sp" />
-
-                <Button
                     android:id="@+id/multiply_button"
                     style="?attr/buttonOperator"
                     android:layout_width="0dp"
@@ -380,6 +403,16 @@
                     android:layout_weight="1"
                     android:onClick="onClick"
                     android:text="@string/multiply"
+                    android:textSize="30sp" />
+
+                <Button
+                    android:id="@+id/divide_button"
+                    style="?attr/buttonOperator"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:onClick="onClick"
+                    android:text="@string/divide"
                     android:textSize="30sp" />
 
             </LinearLayout>

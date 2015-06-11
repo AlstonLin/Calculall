@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Receives input from the digits surrounding the operation piece and results in a new number.
  *
  * @author Alston Lin, Ejaaz Merali
- * @version Alpha 2.0
+ * @version 3.0
  */
 public abstract class Operator extends Token implements Serializable, OrderComparable {
 

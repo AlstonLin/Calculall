@@ -4,7 +4,7 @@ package com.trutechinnovations.calculall;
  * Contains static methods that will create Brackets.
  *
  * @author Alston Lin, Ejaaz Merali, Jason Fok
- * @version Alpha 2.0
+ * @version 3.0
  */
 public class BracketFactory {
 
@@ -41,19 +41,19 @@ public class BracketFactory {
     }
 
     public static Bracket makeNumOpen() {
-        return new Bracket(" ", Bracket.NUM_OPEN);
+        return new Bracket("", Bracket.NUM_OPEN);
     }
 
     public static Bracket makeNumClose() {
-        return new Bracket(" ", Bracket.NUM_CLOSE);
+        return new Bracket("", Bracket.NUM_CLOSE);
     }
 
     public static Bracket makeDenomOpen() {
-        return new Bracket(" ", Bracket.DENOM_OPEN);
+        return new Bracket("", Bracket.DENOM_OPEN);
     }
 
     public static Bracket makeDenomClose() {
-        return new Bracket(" ", Bracket.DENOM_CLOSE);
+        return new Bracket("", Bracket.DENOM_CLOSE);
     }
 
     public static Bracket makeFracOpen() {

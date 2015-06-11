@@ -4,10 +4,13 @@
     <attr name="buttonFunction" format="reference" />
     <attr name="buttonNum" format="reference" />
     <attr name="buttonSpecial" format="reference" />
+    <attr name="spinnerTextStyle" format="reference" />
     <attr name="toggle" format="reference" />
     <attr name="change_img" format="reference" />
     <attr name="frac_img" format="reference" />
     <attr name="history_img" format="reference" />
     <attr name="settings_img" format="reference" />
     <attr name="displayColor" format="reference" />
+    <attr name="displayTextColor" format="reference" />
+    <attr name="history_style" format="reference" />
 </resources>

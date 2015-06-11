@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/C:/Users/Ejaaz/Calculall/Calculall/app/src/main/res/values-v16/values.xml -->
+    <eat-comment/>
+    <style name="buttonDarkDavid" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:textColor">@color/textColorDavid</item>
+        <item name="android:background">@color/backgroundDavid</item>
+        <item name="android:fontFamily">"sans-serif-thin"</item>
+    </style>
+    <style name="buttonDarkTheme2" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:textColor">@color/textColorTheme2</item>
+        <item name="android:background">@color/backgroundTheme2</item>
+        <item name="android:fontFamily">"sans-serif-thin"</item>
+    </style>
+    <style name="buttonLightDavid" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:textColor">@color/textColorDavid</item>
+        <item name="android:background">@color/color1David</item>
+        <item name="android:fontFamily">"sans-serif-thin"</item>
+    </style>
+    <style name="buttonLightTheme2" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:textColor">@color/textColorTheme2</item>
+        <item name="android:background">@color/color1Theme2</item>
+        <item name="android:fontFamily">"sans-serif-thin"</item>
+    </style>
+    <style name="buttonNumDavid" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:textColor">@color/numPadColorDavid</item>
+        <item name="android:background">@color/color1David</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:fontFamily">"sans-serif-light"</item>
+    </style>
+    <style name="buttonNumTheme2" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:textColor">@color/numPadColorTheme2</item>
+        <item name="android:background">@color/color1Theme2</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:fontFamily">"sans-serif-light"</item>
+    </style>
+    <style name="buttonSpecialDavid" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:textColor">@color/textColorDavid</item>
+        <item name="android:background">@color/color2David</item>
+        <item name="android:fontFamily">"sans-serif-medium"</item>
+    </style>
+    <style name="buttonSpecialTheme2" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:textColor">@color/textColorTheme2</item>
+        <item name="android:background">@color/color2Theme2</item>
+        <item name="android:fontFamily">"sans-serif-medium"</item>
+    </style>
+</resources>

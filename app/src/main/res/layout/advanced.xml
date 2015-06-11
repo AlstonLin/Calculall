@@ -15,7 +15,7 @@
 
         <ToggleButton
             android:id="@+id/shift_button"
-            style="?android:attr/buttonStyleToggle"
+            style="?attr/buttonSpecial"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
@@ -29,7 +29,7 @@
 
         <ToggleButton
             android:id="@+id/hyp_button"
-            style="?android:attr/buttonStyleToggle"
+            style="?attr/buttonSpecial"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
@@ -39,26 +39,10 @@
             android:textOn="@string/hyp"
             android:textSize="16sp" />
 
-        <ImageButton
-            android:id="@+id/settings_button"
-            style="?attr/buttonFunction"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:adjustViewBounds="true"
-            android:onClick="clickSettings"
-            android:paddingBottom="5dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:paddingTop="5dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_action_settings"
-            android:textSize="20sp" />
-
 
         <ToggleButton
             android:id="@+id/mem_button"
-            style="?android:attr/buttonStyleToggle"
+            style="?attr/buttonSpecial"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
@@ -70,7 +54,7 @@
 
         <ImageButton
             android:id="@+id/history_button"
-            style="?attr/buttonFunction"
+            style="?attr/buttonSpecial"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
@@ -83,6 +67,15 @@
             android:scaleType="fitCenter"
             android:src="@drawable/ic_action_assignment"
             android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/angle_mode"
+            style="?attr/buttonSpecial"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:textSize="16sp" />
 
     </LinearLayout>
 
@@ -175,15 +168,6 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/angle_mode"
-            style="?attr/buttonSpecial"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:onClick="onClick"
-            android:textSize="16sp" />
 
         <com.trutechinnovations.calculall.MultiButton
             android:id="@+id/sin_button"
@@ -323,7 +307,7 @@
 
         <ImageButton
             android:id="@+id/frac_mode"
-            style="?attr/buttonSpecial"
+            style="?attr/buttonFunction"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_gravity="bottom"

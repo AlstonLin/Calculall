@@ -7,7 +7,7 @@ import java.util.Stack;
  * Contains various static utility methods for Vector Mode.
  *
  * @author Alston Lin, Keith Wong, Jason Fok
- * @version Alpha 2.2
+ * @version 3.0
  */
 public class VectorUtilities {
 
@@ -447,10 +447,10 @@ public class VectorUtilities {
      * @param tokens The result of the expression
      */
     public static ArrayList<Token> processVectors(ArrayList<Token> tokens) {
-        ArrayList<Token> parsedTokens = parseVectors(setupVectorExpression(Utility.setupExpression(Utility.condenseDigits(subVariables(tokens)))));
+        ArrayList<Token> parsedTokens = parseVectors(setupVectorExpression(Utility.setupExpression(Utility.condenseDigits(Utility.subVariables(tokens)))));
         //Makes sure theres no Variables left
         for (Token t : tokens) {
-            if (t instanceof VectorVariable && (t.getType() == VectorVariable.T || t.getType() == VectorVariable.S)) {
+            if (t instanceof Variable && (t.getType() == Variable.T || t.getType() == Variable.S)) {
                 throw new IllegalArgumentException("s and t can only be used for finding Scalar Equations");
             }
         }
@@ -460,26 +460,5 @@ public class VectorUtilities {
             toOutput.add(result);
         }
         return toOutput;
-    }
-
-    public static ArrayList<Token> subVariables(ArrayList<Token> tokens) {
-        ArrayList<Token> toReturn = new ArrayList<>();
-        for (int i = 0; i < tokens.size(); i++) {
-            Token t = tokens.get(i);
-            if (t instanceof VectorVariable) {
-                if (t.getType() == VectorVariable.U) {
-                    toReturn.add(VectorVariable.uValue);
-                } else if (t.getType() == VectorVariable.V) {
-                    toReturn.add(VectorVariable.vValue);
-                } else {
-                    toReturn.add(t);
-                }
-            } else if (t instanceof Variable) {
-                toReturn.add(new Number(Utility.process(((Variable) t).getValue())));
-            } else {
-                toReturn.add(t);
-            }
-        }
-        return toReturn;
     }
 }
