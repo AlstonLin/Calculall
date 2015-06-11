@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:colorBackground"
+    android:hardwareAccelerated="true"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="clickExitTheme"
+        android:text="@string/backspace"
+        android:textSize="48sp" />
+
+    <ListView
+        android:id="@+id/themes_grid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:numColumns="2" />
+
+</LinearLayout><!-- From: file:/C:/Users/Ejaaz/Calculall/Calculall/app/src/main/res/layout/themes_select.xml -->

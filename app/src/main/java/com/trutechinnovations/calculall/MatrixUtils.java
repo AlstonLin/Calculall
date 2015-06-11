@@ -1,18 +1,34 @@
 package com.trutechinnovations.calculall;
 
+import org.apache.commons.math3.linear.Array2DRowRealMatrix;
+import org.apache.commons.math3.linear.CholeskyDecomposition;
+import org.apache.commons.math3.linear.EigenDecomposition;
+import org.apache.commons.math3.linear.LUDecomposition;
+import org.apache.commons.math3.linear.NonPositiveDefiniteMatrixException;
+import org.apache.commons.math3.linear.NonSquareMatrixException;
+import org.apache.commons.math3.linear.NonSymmetricMatrixException;
+import org.apache.commons.math3.linear.QRDecomposition;
+import org.apache.commons.math3.linear.RRQRDecomposition;
+import org.apache.commons.math3.linear.SingularValueDecomposition;
+
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Stack;
 
 
 /**
  * Contains the Matrix Utilities (row reduction algorithms, matrix entry simplifier, etc.)
  *
- * @author Ejaaz Merali
- * @version Alpha 2.0
+ * @author Alston Lin, Ejaaz Merali
+ * @version 3.0
  */
 public class MatrixUtils {
+    private static final int SWAP = 1, ADD = 2, SCALE = 3;
 
-    static Command<Double, double[]> addCommand = new Command<Double, double[]>() {
+    private static Command<Double, double[]> addCommand = new Command<Double, double[]>() {
         @Override
         public Double execute(double[] o) {
             return o[0] + o[1];
@@ -20,7 +36,7 @@ public class MatrixUtils {
     };
 
 
-    static Command<Double, double[]> subtractCommand = new Command<Double, double[]>() {
+    private static Command<Double, double[]> subtractCommand = new Command<Double, double[]>() {
         @Override
         public Double execute(double[] o) {
             return o[0] - o[1];
@@ -30,8 +46,8 @@ public class MatrixUtils {
     /**
      * Applies the given Command the two given Matrices and returns the resultant, or null if they are no the same dimensions.
      *
-     * @param a The first Matrix as an array of doubles
-     * @param b The second Matrix as an array of doubles
+     * @param a       The first Matrix as an array of doubles
+     * @param b       The second Matrix as an array of doubles
      * @param command The command to apply to the operation
      * @return The resultant Matrix, or null if the command is not possible.
      */
@@ -98,13 +114,314 @@ public class MatrixUtils {
         return matrix;
     }
 
+    private static double[][] trimZeroRows(double[][] a) {
+        ArrayList<double[]> rows = new ArrayList<>();
+        for (int i = 0; i < a.length; i++) {
+            if (!onlyZeroes(getRow(a, i))) {
+                rows.add(a[i]);
+            }
+        }
+        double[][] output = new double[rows.size()][a[0].length];
+        for (int i = 0; i < output.length; i++) {
+            output[i] = rows.get(i);
+        }
+        return output;
+    }
+
+    private static int[] getPivotColIndices(double[][] ref) {
+        ArrayList<Integer> pivs = new ArrayList<>();
+        for (int i = 0; i < ref.length; i++) {
+            if (!onlyZeroes(getRow(ref, i))) {
+                pivs.add(getFirstNonZero(getRow(ref, i)));
+            }
+        }
+        int[] output = new int[pivs.size()];
+        for (int i = 0; i < output.length; i++) {
+            output[i] = pivs.get(i);
+        }
+        return output;
+    }
+
+    private static int[] getFreeColIndices(double[][] ref) {
+        int[] pivots = getPivotColIndices(ref);
+        ArrayList<Integer> free = new ArrayList<>();
+        for (int i = 0; i < ref[0].length; i++) {
+            if (!Arrays.asList(pivots).contains(i)) {
+                free.add(i);
+            }
+        }
+        int[] output = new int[free.size()];
+        for (int i = 0; i < output.length; i++) {
+            output[i] = free.get(i);
+        }
+        return output;
+    }
+
+    private static double[][] columnBind(double[][] a, double[] b) {
+        if (a.length != b.length) {
+            throw new IllegalArgumentException("Length mismatch: columnBind");
+        }
+        double[][] output = new double[a.length][a[0].length + 1];
+        for (int i = 0; i < a.length; i++) {
+            double[] temp = new double[a[0].length + 1];
+            for (int j = 0; j < a[0].length; j++) {
+                temp[j] = a[i][j];
+            }
+            temp[a[0].length] = b[i];
+            output[i] = temp;
+        }
+        return output;
+    }
+
+    private static double[][] columnBind(double[] a, double[] b) {
+        double[][] m = new double[a.length][1];
+        for (int i = 0; i < m.length; i++) {
+            m[i][0] = a[i];
+        }
+        return columnBind(m, b);
+    }
+
+    private static double[][] rowBind(double[][] a, double[][] b) {
+        if (a.length == 0 && b.length == 0) {
+            return new double[0][0];
+        } else if (a.length == 0) {
+            return b;
+        } else if (b.length == 0) {
+            return a;
+        }
+        double[][] output = a.clone();
+        for (int i = 0; i < b.length; i++) {
+            output = rowBind(output, b[i]);
+        }
+        return output;
+    }
+
+    private static double[][] rowBind(double[][] a, double[] b) {
+        if (a.length == 0) {
+            double[][] output = new double[1][b.length];
+            output[0] = b;
+            return output;
+        }
+        if (a[0].length != b.length) {
+            throw new IllegalArgumentException("Length mismatch: rowBind");
+        }
+        double[][] output = new double[a.length + 1][a[0].length];
+        for (int i = 0; i < a.length; i++) {
+            output[i] = a[i];
+        }
+        output[a.length] = b;
+        return output;
+    }
+
+    private static double[][] rowBind(double[] a, double[] b) {
+        double[][] m = new double[1][a.length];
+        for (int i = 0; i < a.length; i++) {
+            m[0][i] = a[i];
+        }
+        return rowBind(m, b);
+    }
+
+    private static double[][] rowMerge(double[][] a, double[][] b, int[] a_pos, int[] b_pos) {
+        double[][] output = new double[0][];
+        for (int i = 0; i < output.length; i++) {
+            if (Arrays.asList(a_pos).contains(i)) {
+                if (output.length != 0) {
+                    output = rowBind(output, a[i]);
+                } else {
+                    output[0] = a[i];
+                }
+            } else if (Arrays.asList(b_pos).contains(i)) {
+                if (output.length != 0) {
+                    output = rowBind(output, b[i]);
+                } else {
+                    output[0] = b[i];
+                }
+            }
+        }
+        return output;
+    }
+
+    private static double[][] setCol(double[][] a, double[] b, int col) {
+        if (a.length != b.length) {
+            throw new IllegalArgumentException("Length mismatch: setCol");
+        }
+        if (col < 0 || col > a[0].length) {
+            throw new IllegalArgumentException("Column Index out of bounds");
+        }
+        double[][] output = a.clone();
+        for (int i = 0; i < a.length; i++) {
+            output[i][col] = b[i];
+        }
+        return output;
+    }
+
+    private static double[][] getNullSpaceMatrix(double[][] a) {
+        double[][] m = trimZeroRows(toRREF(a));
+        int[] pivots = getPivotColIndices(a);
+        int[] free = getFreeColIndices(a);
+
+        double[][] f = new double[m.length][free.length];
+        for (int col = 0; col < free.length; col++) {
+            f = setCol(f, getColumn(m, free[col]), col);
+        }
+        f = scalarMultiply(f, -1);
+        double[][] i = makeIdentity(free.length);
+        return rowMerge(f, i, free, pivots);
+    }
+
+    /**
+     * Computes the matrix that corresponds to the given eigenvalue for the given matrix. Uses
+     * the formal A - lambda I
+     *
+     * @param matrix The matrix to find the eigenvector matrix of
+     * @param value  The eigenvalue
+     * @return The eigen matrix
+     */
+    public static double[][] getEigenMatrix(double[][] matrix, double value) {
+        double[][] eigen = new double[matrix.length][matrix[0].length];
+        for (int i = 0; i < eigen.length; i++) {
+            for (int j = 0; j < eigen[i].length; j++) {
+                double entry = matrix[i][j];
+                if (i == j) {
+                    entry -= value;
+                }
+                eigen[i][j] = entry;
+            }
+        }
+        return eigen;
+    }
+
+    /**
+     * Finds the Eigenvectors of the given matrix.
+     *
+     * @param matrix The matrix to find the eigenvectors
+     * @return The resulting eigenvectors
+     */
+    public static ArrayList<Vector> getEigenVectors(double[][] matrix) {
+        if (matrix.length != matrix[0].length) {
+            throw new IllegalArgumentException("Non square matrices to not have eigenvectors");
+        }
+        //double[] eigenValues = unwrapDblArray((new HashSet<Double>(Arrays.asList(wrapDblArray(MathUtilities.getEigenValues(matrix))))).toArray(new Double[0]));
+        EigenDecomposition ed = new EigenDecomposition(new Array2DRowRealMatrix(matrix));
+        Set<Vector> eigenVectors = new HashSet<>();
+        for (int i = 0; i < matrix.length; i++) {
+            eigenVectors.add(new Vector(ed.getEigenvector(i).toArray()));
+        }
+        ArrayList<Vector> output = new ArrayList<>();
+        output.addAll(eigenVectors);
+        return output;
+    }
+
+    /**
+     * Determines the basis of the eigen space, of a given eigen value, for the given matrix.
+     *
+     * @param a The matrix
+     * @param eigenVal An eigen value of the matrix
+     * @return A list of vectors containing the basis of the eigen space
+     */
+    public static ArrayList<Vector> getEigenBasis(double[][] a, double eigenVal) {
+        double[][] eigenMatrix = toRREF(getEigenMatrix(a, eigenVal));
+        if (findDeterminant(eigenMatrix) != 0) {
+            throw new IllegalArgumentException("Invalid eigenvalue");
+        }
+        ArrayList<Vector> solution = new ArrayList<>(nullity(eigenMatrix));
+        double[][] basisMatrix = getNullSpaceMatrix(eigenMatrix);
+        for (int j = 0; j < basisMatrix[0].length; j++) {
+            solution.add(new Vector(getColumn(basisMatrix, j)));
+        }
+        return solution;
+    }
+
+    private static HashMap<Double, Integer> getGeometricMultiplicities(double[][] matrix, Double[] eigenVals) {
+        Set<Double> deduped = new HashSet<Double>(Arrays.asList(eigenVals));
+        HashMap<Double, Integer> output = new HashMap<>(deduped.size());
+        for (Double val : deduped) {
+            int geomMult = getEigenBasis(matrix, val).size();
+            output.put(val, geomMult);
+        }
+        return output;
+    }
+
+    private static HashMap<Double, Integer> getAlgebraicMultiplicities(Double[] eigenVals) {
+        Set<Double> deduped = new HashSet<Double>(Arrays.asList(eigenVals));
+        HashMap<Double, Integer> output = new HashMap<>(deduped.size());
+        for (Double val : deduped) {
+            int algMult = 0;
+            for (int i = 0; i < eigenVals.length; i++) {
+                if (eigenVals[i].equals(val)) {
+                    algMult++;
+                }
+            }
+            output.put(val, algMult);
+        }
+        return output;
+    }
+
+    private static boolean isDiagonalizable(double[][] matrix, Double[] eigenVals) {
+        Set<Double> deduped = new HashSet<Double>(Arrays.asList(eigenVals));
+        HashMap<Double, Integer> gm = getGeometricMultiplicities(matrix, eigenVals);
+        HashMap<Double, Integer> am = getAlgebraicMultiplicities(eigenVals);
+        for (Double val : deduped) {
+            if (gm.get(val) != am.get(val)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static Double[] wrapDblArray(double[] doubles) {
+        final int length = doubles.length;
+        final Double[] output = new Double[length];
+        for (int i = 0; i < length; i++) {
+            output[i] = doubles[i];
+        }
+        return output;
+    }
+
+    private static double[] unwrapDblArray(Double[] doubles) {
+        final int length = doubles.length;
+        final double[] output = new double[length];
+        for (int i = 0; i < length; i++) {
+            output[i] = doubles[i];
+        }
+        return output;
+    }
+
+    public static double[][][] getEigenDecomposition(double[][] a) {
+        EigenDecomposition ed = new EigenDecomposition(new Array2DRowRealMatrix(a));
+        if (ed.hasComplexEigenvalues()) {
+            throw new IllegalArgumentException("Diagonalization of matrices with complex eigenvalues is not supported");
+        }
+        /*
+        double[] eigenValues = MathUtilities.getEigenValues(a);
+        if(!isDiagonalizable(a, wrapDblArray(eigenValues))){
+            throw new IllegalArgumentException("Matrix is not diagonalizable");
+        }
+        double[][] p = new double[a.length][a[0].length];
+        ArrayList<Vector> basis = getEigenVectors(a);
+        if(basis.size() != a[0].length){
+            throw new IllegalArgumentException("Matrix is not diagonalizable");//just in case
+        }
+        for(int j = 0; j < p[0].length; j++){
+            p = setCol(p, basis.get(j).getValues(), j);
+        }
+        double[][] p_inv = findInverse(p);
+        double[][] d = multiply(multiply(p_inv, a), p); // P^-1 * A * P
+        */
+        double[][][] output = new double[3][][];
+        output[0] = ed.getV().getData();
+        output[1] = ed.getD().getData();
+        output[2] = findInverse(ed.getV().getData());
+        return output;
+    }
+
     public static double[][] exponentiate(double[][] a, double b) {
         if (b % 1 != 0) {
             throw new IllegalArgumentException("Matrices can only be raised to integer powers");
         }
         if (a.length == a[0].length) {
             double[][] c = a.clone();
-            for (int i = 1; i <= b; i++) {
+            for (int i = 1; i < b; i++) {
                 c = multiply(c, a);
             }
             return c;
@@ -142,6 +459,382 @@ public class MatrixUtils {
         return output;
     }
 
+    /**
+     * Checks if the given array contains only zeroes, assumes
+     * the all the elements of the array have been fully simplified
+     *
+     * @param a An array
+     * @return true if the array only contains zeroes, false otherwise
+     */
+    private static boolean onlyZeroes(double[] a) {
+        for (int i = 0; i < a.length; i++) {
+            if (a[i] != 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Finds the index of the first element which is not zero
+     *
+     * @param a An array
+     * @return The index of the first non-zero element
+     */
+    private static int getFirstNonZero(double[] a) {
+        for (int i = 0; i < a.length; i++) {
+            if (a[i] != 0) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * Finds the index of the last element which is not zero
+     *
+     * @param a An array
+     * @return The index of the last non-zero element
+     */
+    private static int getLastNonZero(double[] a) {
+        for (int i = a.length - 1; i >= 0; i--) {
+            if (a[i] != 0) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * @param a      The original Matrix
+     * @param row1   The index of the Row being added to
+     * @param row2   The index of the Row being added
+     * @param scalar The scalar to multiply the second row by
+     * @return A Matrix which is similar to the given Matrix(m) but with the Row at index row2,
+     * multiplied by a scalar, being added to the row at index row1
+     */
+    private static double[][] addRows(double[][] a, int row1, int row2, double scalar) {
+        double[][] newMatrix = a;
+        for (int j = 0; j < a[0].length; j++) {
+            newMatrix[row1][j] += scalar * (a[row2][j]);
+        }
+        return newMatrix;
+    }
+
+    /**
+     * @param a    The original Matrix
+     * @param row1 The index of the first Row
+     * @param row2 The index of the second Row
+     * @return A Matrix which is similar to the given Matrix but with two Rows having been swapped
+     */
+    private static double[][] swapRows(double[][] a, int row1, int row2) {
+        double[][] newMatrix = a;
+        double[] temp = newMatrix[row1];
+        newMatrix[row1] = newMatrix[row2];
+        newMatrix[row2] = temp;
+        return newMatrix;
+    }
+
+    /**
+     * @param a      The original Matrix
+     * @param row    The index of the Row to be scaled
+     * @param scalar The scaling factor
+     * @return The Matrix m with all the entries, of the specified row, multiplied by a scalar
+     */
+    private static double[][] scaleRow(double[][] a, int row, double scalar) {
+        double[][] newMatrix = a;
+        for (int j = 0; j < a[0].length; j++) {
+            newMatrix[row][j] *= scalar;
+        }
+        return newMatrix;
+    }
+
+    /**
+     * Applies the given Row Operations(steps) to the given Matrix(m)
+     * Swap step: 1, Add step: 2, Scale step: 3
+     *
+     * @param a     The Matrix to apply the given Row Operations to
+     * @param steps The Row Operations to be applied
+     * @return A Matrix with the given steps applied to the original Matrix
+     */
+    private static double[][] applySteps(double[][] a, double[][] steps) {
+        if (steps.length == 0) {
+            return a;
+        } else if (steps.length == 1) {
+            if (steps[0][0] == SWAP) {
+                return swapRows(a, (int) steps[0][1], (int) steps[0][2]);
+            } else if (steps[0][0] == ADD) {
+                return addRows(a, (int) steps[0][1], (int) steps[0][2], steps[0][3]);
+            } else if (steps[0][0] == SCALE) {
+                return scaleRow(a, (int) steps[0][1], steps[0][2]);
+            } else if (steps[0][0] == 0) {
+                return a;
+            } else {
+                throw new IllegalArgumentException("Invalid steps");
+            }
+        } else if (steps.length > 1) {
+            if (steps[0][0] == SWAP) {
+                return applySteps(swapRows(a, (int) steps[0][1], (int) steps[0][2]), Arrays.copyOfRange(steps, 1, steps.length));
+            } else if (steps[0][0] == ADD) {
+                return applySteps(addRows(a, (int) steps[0][1], (int) steps[0][2], steps[0][3]), Arrays.copyOfRange(steps, 1, steps.length));
+            } else if (steps[0][0] == SCALE) {
+                return applySteps(scaleRow(a, (int) steps[0][1], steps[0][2]), Arrays.copyOfRange(steps, 1, steps.length));
+            } else {
+                throw new IllegalArgumentException("Invalid steps");
+            }
+        } else if (steps[0][0] == 0) {
+            return applySteps(a, Arrays.copyOfRange(steps, 1, steps.length));
+        } else {
+            throw new IllegalArgumentException("Invalid steps");
+        }
+    }
+
+    public static ArrayList<Token> tokenizeStep(double[] step) {
+        ArrayList<Token> output = new ArrayList<>();
+        if (step[0] == SWAP) {
+            output.add(new StringToken("Swap Row " + step[1] + " and Row " + step[2]));
+        } else if (step[0] == ADD) {
+            if (step[3] == 1) {
+                output.add(new StringToken("Add Row " + step[2] + " to Row " + step[1]));
+            } else {
+                output.add(new StringToken("Add " + step[3] + " times Row " + step[2] + " to Row " + step[1]));
+            }
+        } else if (step[0] == SCALE) {
+            output.add(new StringToken("Multiply Row " + step[1] + " by " + step[2]));
+        } else {
+            throw new IllegalArgumentException("Invalid Step");
+        }
+        return output;
+    }
+
+    public static ArrayList<Token>[] tokenizeSteps(double[][] steps) {
+        ArrayList<Token>[] output = new ArrayList[steps.length];
+        for (int i = 0; i < steps.length; i++) {
+            output[i] = tokenizeStep(steps[i]);
+        }
+        return output;
+    }
+
+    private static double[][] deepCopyDblMatrix(double[][] input) {
+        if (input == null) {
+            return null;
+        }
+        double[][] output = new double[input.length][];
+        for (int i = 0; i < input.length; i++) {
+            output[i] = input[i].clone();
+        }
+        return output;
+    }
+
+    private static double[][] frontTrimMatrix(double[][] input, int firstRow, int firstCol) {
+        double[][] output = Arrays.copyOfRange(input, firstRow, input.length);
+        for (int i = 0; i < output.length; i++) {
+            output[i] = Arrays.copyOfRange(input[i], firstCol, input[i].length);
+        }
+        return output;
+    }
+
+    private static double[][] endTrimMatrix(double[][] input, int lastRow, int lastCol) {
+        double[][] output = Arrays.copyOfRange(input, 0, lastRow);
+        for (int i = 0; i < output.length; i++) {
+            output[i] = Arrays.copyOfRange(input[i], 0, lastCol);
+        }
+        return output;
+    }
+
+    /**
+     * Returns the Row Operations required to reduce the given Matrix(a) to
+     * Row Echelon Form(REF)
+     * Swap step: 1, Add step: 2, Scale step: 3
+     *
+     * @param a         The Matrix which will be Row Reduced to REF
+     * @return the row reduction steps
+     */
+    private static double[][] getREFSteps(double[][] a) {
+        ArrayList<Double[]> steps = new ArrayList<>();
+        if (a.length > 1 && a[0].length > 0) {
+            double[][] temp = deepCopyDblMatrix(a);
+
+            if (!onlyZeroes(getColumn(temp, 0))) {
+
+                int pivot = getFirstNonZero(getColumn(temp, 0));
+                if (pivot != 0) {
+                    temp = swapRows(temp, 0, pivot);
+                    Double[] swapStep = {1d, 0d, (double) pivot};
+                    steps.add(swapStep);
+                    pivot = 0;
+                }
+
+                for (int i = 1; i < temp.length; i++) {
+                    if (temp[i][0] != 0) {
+                        double scalar = -1 * temp[i][0] / temp[0][0];
+                        temp = addRows(temp, i, pivot, scalar);
+                        Double[] addStep = {2d, (double) i, (double) pivot, scalar};
+                        steps.add(addStep);
+                    }
+                }
+            }
+
+            if (temp[0].length > 1) {
+                double[][] minorSteps = getREFSteps(minorMatrix(temp, 0, 0));
+                Double[] tempStep;
+                for (int i = 0; i < minorSteps.length; i++) {
+                    if (minorSteps[i][0] == 1) {
+                        minorSteps[i][1]++;
+                        minorSteps[i][2]++;
+                    } else if (minorSteps[i][0] == 2) {
+                        minorSteps[i][1]++;
+                        minorSteps[i][2]++;
+                    } else if (minorSteps[i][0] == 3) {
+                        minorSteps[i][1]++;
+                    } else {
+                        throw new IllegalArgumentException("Invalid steps");
+                    }
+                }
+
+                for (int i = 0; i < minorSteps.length; i++) {
+                    tempStep = new Double[minorSteps[i].length];
+                    for (int j = 0; j < minorSteps[i].length; j++) {
+                        tempStep[j] = minorSteps[i][j];
+                    }
+                    steps.add(tempStep);
+                }
+            }
+        }
+
+        double[][] stepsArray = new double[steps.size()][0];
+        for (int i = 0; i < stepsArray.length; i++) {
+            stepsArray[i] = new double[steps.get(i).length];
+            for (int j = 0; j < stepsArray[i].length; j++) {
+                stepsArray[i][j] = steps.get(i)[j];
+            }
+        }
+        return stepsArray;
+    }
+
+    public static double[][] toREF(double[][] a) {
+        return roundInfinitesimals(applySteps(a, getREFSteps(a)));
+    }
+
+    /**
+     * Returns the Row Operations required to reduce the given Matrix(m) to
+     * Reduced Row Echelon Form(RREF)
+     *
+     * @param a The Matrix which will be Row Reduced to RREF
+     * @return the row reduction steps
+     */
+    private static double[][] getRREFSteps(double[][] a) {
+        ArrayList<Double[]> steps = new ArrayList<>();
+        double[][] dummyArray = {{0d, 0d, 0d}};
+        if (a.length > 1) {
+            double[][] refSteps = getREFSteps(a);
+            Double[] tempStep;
+            double[][] temp;
+            for (int i = 0; i < refSteps.length; i++) {
+                tempStep = new Double[refSteps[i].length];
+                for (int j = 0; j < refSteps[i].length; j++) {
+                    tempStep[j] = refSteps[i][j];
+                }
+                steps.add(tempStep);
+            }
+            temp = roundInfinitesimals(applySteps(deepCopyDblMatrix(a), refSteps));
+
+
+            int pivotRowIndex = -1;
+            for (int i = 1; pivotRowIndex == -1 && i <= temp[0].length; i++) {
+                pivotRowIndex = getLastNonZero(getColumn(temp, temp[0].length - i));
+            }
+            if (pivotRowIndex == -1) {//what if they're ALL ZERO....dun dun dun
+                pivotRowIndex = 0;
+            }
+
+            int pivotColIndex = getFirstNonZero(getRow(temp, pivotRowIndex));
+            if (!onlyZeroes(getColumn(temp, pivotRowIndex))) {
+                //double[] restOfCol = Arrays.copyOfRange(getColumn(temp, pivotColIndex), 0, pivotRowIndex);
+                for (int i = 0; i < pivotRowIndex; i++) {
+                    if (temp[i][pivotColIndex] != 0) {
+                        double scalar = -1 * temp[i][pivotColIndex] / temp[pivotRowIndex][pivotColIndex];
+                        temp = addRows(temp, i, pivotRowIndex, scalar);
+                        Double[] addStep = {2d, (double) i, (double) pivotRowIndex, scalar};
+                        steps.add(addStep);
+                    }
+                }
+            }
+
+            for (int i = 0; i < temp.length; i++) {
+                int pivot = getFirstNonZero(getRow(temp, i));
+                if (pivot != -1 && temp[i][pivot] != 1) {
+                    double scalar = 1 / (temp[i][pivot]);
+                    scaleRow(temp, i, scalar);
+                    Double[] scaleStep = {3d, (double) i, scalar};
+                    steps.add(scaleStep);
+                }
+            }
+
+            if (pivotRowIndex > 1 && a.length > 2) {
+                double[][] minorSteps;
+                if (pivotColIndex > 0) {
+                    minorSteps = getRREFSteps(endTrimMatrix(temp, pivotRowIndex, pivotColIndex));
+                } else {
+                    minorSteps = getRREFSteps(endTrimMatrix(temp, pivotRowIndex, temp[0].length - 1));
+                }
+                for (int i = 0; i < minorSteps.length; i++) {
+                    if (!Arrays.equals(minorSteps[i], dummyArray[0])) {
+                        tempStep = new Double[minorSteps[i].length];
+                        for (int j = 0; j < minorSteps[i].length; j++) {
+                            tempStep[j] = minorSteps[i][j];
+                        }
+                        steps.add(tempStep);
+                    }
+                }
+            }
+
+            double[][] stepsArray = new double[steps.size()][0];
+            for (int i = 0; i < stepsArray.length; i++) {
+                stepsArray[i] = new double[steps.get(i).length];
+                for (int j = 0; j < stepsArray[i].length; j++) {
+                    stepsArray[i][j] = steps.get(i)[j];
+                }
+            }
+            return stepsArray;
+        } else {
+            return dummyArray;
+        }
+    }
+
+    public static double[][] toRREF(double[][] a) {
+        return roundInfinitesimals(applySteps(a, getRREFSteps(a)));
+    }
+
+    private static double[][] roundInfinitesimals(double[][] input) {
+        double[][] temp = deepCopyDblMatrix(input);
+        for (int i = 0; i < temp.length; i++) {
+            for (int j = 0; j < temp[0].length; j++) {
+                if (Math.log10(Math.abs(temp[i][j])) <= -15) {
+                    temp[i][j] = 0;
+                }
+            }
+        }
+        return temp;
+    }
+
+    public static int rank(double[][] a) {
+        double[][] rowReduced = toREF(a);
+        int rank = 0;
+        for (int i = 0; i < a.length; i++) {
+            if (!onlyZeroes(getRow(rowReduced, i))) {
+                rank++;
+            }
+        }
+        return rank;
+    }
+
+    public static int nullity(double[][] a) {
+        return a[0].length - rank(a);
+    }
+
+    //Easter egg:
+    //TRACE ON! - if a is an identity matrix :P
     public static double trace(double[][] a) {
         double tr = 0d;
         for (int i = 0; i < a.length; i++) {
@@ -150,26 +843,217 @@ public class MatrixUtils {
         return tr;
     }
 
-    public static double determinant(double[][] a) {
-        double det = 0d;
-        for (int j = 0; j < a[0].length; j++) {
-            det += (a[0][j]) * (((j % 2 == 0) ? 1 : -1)) * determinant(minorMatrix(a, 0, j));
+    /**
+     * Finds the determinant of the given matrix using a cofactor expansion of row 0.
+     *
+     * @param a The matrix
+     * @return The determinant of the matrix
+     */
+    public static double findDeterminant(double[][] a) {
+        final int ROW = 0;
+        if (a.length > 2) {
+            double det = 0;
+            for (int j = 0; j < a[ROW].length; j++) {
+                double entry = a[ROW][j];
+                double cofactor = findCofactor(a, ROW, j);
+                det += entry * cofactor;
+            }
+            return det;
+        } else if (a.length == 2) {
+            return ((a[0][0]) * (a[1][1])) - ((a[1][0]) * (a[0][1]));
+        } else if (a.length == 1) {
+            return a[0][0];
+        } else {
+            throw new IllegalArgumentException("Invalid matrix size");
         }
-        return det;
+
+    }
+
+    /**
+     * Finds the cofactor of a specific entry of the given matrix.
+     *
+     * @param matrix The matrix
+     * @param i      The row number
+     * @param j      The column number
+     * @return The cofactor value
+     */
+    public static double findCofactor(double[][] matrix, int i, int j) {
+        return Math.pow(-1, i + j) * findDeterminant(minorMatrix(matrix, i, j));
+    }
+
+    /**
+     * Finds the cofactor matrix of the given matrix.
+     *
+     * @param matrix The matrix to find the cofactor matrix
+     * @return The cofactor matrix of the matrix
+     */
+    public static double[][] getCofactorMatrix(double[][] matrix) {
+        double[][] cofactorMatrix = new double[matrix.length][matrix[0].length];
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                double cofactor = findCofactor(matrix, i, j);
+                cofactorMatrix[i][j] = cofactor;
+            }
+        }
+        return cofactorMatrix;
+    }
+
+    /**
+     * Finds the adjugate (transpose of cofactor) matrix of the given matrix
+     *
+     * @param matrix The matrix to find the adjugate
+     * @return The adjugate matrix
+     */
+    public static double[][] getAdjugateMatrix(double[][] matrix) {
+        return transpose(getCofactorMatrix(matrix));
+    }
+
+
+    /**
+     * Finds the inverse matrix by using the adjoint method.
+     *
+     * @param matrix The matrix to find the inverse
+     * @return The inverse matrix
+     */
+    public static double[][] findInverse(double[][] matrix) {
+        double[][] adjoint = getAdjugateMatrix(matrix);
+        double determinant = findDeterminant(matrix);
+        if (determinant == 0) { //Uninvertible Matrix
+            throw new IllegalArgumentException("The matrix is non-invertible!");
+        }
+        for (int i = 0; i < adjoint.length; i++) {
+            for (int j = 0; j < adjoint[i].length; j++) {
+                adjoint[i][j] *= 1 / determinant;
+            }
+        }
+        return adjoint;
     }
 
     private static double[][] minorMatrix(double[][] input, int row, int column) {
+        int rowIndex = 0;
+        int colIndex = 0;
         double[][] minor = new double[input.length - 1][input[0].length - 1];
-        for (int i = 0; i < minor.length; i++) {
-            for (int j = 0; j < minor[0].length; j++) {
-                if (i != row || j != column) {
-                    minor[i][j] = input[i + (i > row ? 1 : 0)][j + (j > column ? 1 : 0)];
+
+        for (int i = 0; i < input.length; i++) {
+            if (i != row) {
+                for (int j = 0; j < input[0].length; j++) {
+                    if (j != column) {
+                        minor[rowIndex][colIndex] = input[i][j];
+                        colIndex++;
+                    }
                 }
+                rowIndex++;
+                colIndex = 0;
             }
         }
         return minor;
     }
 
+
+    public static double[][][] getLUDecomposition(double[][] a) {
+        if (findDeterminant(a) == 0) {
+            throw new IllegalArgumentException("Matrix must be nonsingular/invertible in order to be LU factorizable");
+        }
+        LUDecomposition lu = new LUDecomposition(new Array2DRowRealMatrix(a));
+        double[][][] output = new double[3][][];
+        output[0] = lu.getU().getData();
+        output[1] = lu.getL().getData();
+        output[2] = lu.getP().getData();
+        return output;
+    }
+
+    /**
+     * Converts a Row Operation into an Elementary Matrix
+     * Swap step: 1, Add step: 2, Scale step: 3
+     *
+     * @param step The Row Operation to be converted into an Elementary Matrix
+     * @param dim  The Dimension of the Elementary Matrix
+     * @return An Elementary Matrix corresponding to the given row operation
+     */
+    public static double[][] getElementaryMatrix(double[] step, int dim) {
+        if (step[0] == 1) {
+            return makeRowSwapMatrix((int) step[1], (int) step[2], dim);
+        } else if (step[0] == 2) {
+            return makeRowAddMatrix((int) step[1], (int) step[2], step[3], dim);
+        } else if (step[0] == 3) {
+            return makeRowScaleMatrix((int) step[1], step[2], dim);
+        } else {
+            throw new IllegalArgumentException("Invalid steps");
+        }
+    }
+
+    private static double[][] makeRowScaleMatrix(int row, double scalar, int dim) {
+        if (row < dim && row >= 0) {
+            double[][] a = makeIdentity(dim);
+            return scaleRow(a, row, scalar);
+        } else {
+            throw new IllegalArgumentException("Row index is invalid");
+        }
+    }
+
+    private static double[][] makeRowAddMatrix(int row1, int row2, double scalar, int dim) {
+        if (row1 < dim && row2 < dim && row1 >= 0 && row2 >= 0) {
+            double[][] a = makeIdentity(dim);
+            return addRows(a, row1, row2, scalar);
+        } else {
+            throw new IllegalArgumentException("Row indices are invalid");
+        }
+    }
+
+    private static double[][] makeRowSwapMatrix(int row1, int row2, int dim) {
+        if (row1 < dim && row2 < dim && row1 >= 0 && row2 >= 0) {
+            double[][] a = makeIdentity(dim);
+            return swapRows(a, row1, row2);
+        } else {
+            throw new IllegalArgumentException("Row indices are invalid");
+        }
+    }
+
+    public static double[][][] getQRDecomposition(double[][] a) {
+        QRDecomposition qr = new QRDecomposition(new Array2DRowRealMatrix(a));
+        double[][][] output = new double[2][][];
+        output[0] = qr.getQ().getData();
+        output[1] = qr.getR().getData();
+        return output;
+    }
+
+    public static double[][][] getRRQRDecomposition(double[][] a) {
+        RRQRDecomposition rrqr = new RRQRDecomposition(new Array2DRowRealMatrix(a));
+        double[][][] output = new double[3][][];
+        output[0] = rrqr.getQ().getData();
+        output[1] = rrqr.getR().getData();
+        output[2] = rrqr.getP().getData();
+        return output;
+    }
+
+    public static double[][][] getCholeskyDecomposition(double[][] a) {
+        try {
+            CholeskyDecomposition ch = new CholeskyDecomposition(new Array2DRowRealMatrix(a));
+            double[][][] output = new double[2][][];
+            output[0] = ch.getL().getData();
+            output[1] = ch.getLT().getData();
+            return output;
+        } catch (NonSquareMatrixException e) {
+            throw new IllegalArgumentException("Matrix is not square");
+        } catch (NonSymmetricMatrixException e) {
+            throw new IllegalArgumentException("Matrix is not symmatric");
+        } catch (NonPositiveDefiniteMatrixException e) {
+            throw new IllegalArgumentException("Matrix is not positive definite");
+        }
+    }
+
+    public static double[][][] getSVDecomposition(double[][] a) {
+        SingularValueDecomposition svd = new SingularValueDecomposition(new Array2DRowRealMatrix(a));
+        double[][][] output = new double[3][][];
+        output[0] = svd.getU().getData();
+        output[1] = svd.getS().getData();
+        output[2] = svd.getVT().getData();
+        return output;
+    }
+
+    private static boolean isSymmetric(double[][] a) {
+        return (a.length == a[0].length) && Arrays.deepEquals(a, transpose(a));
+    }
     /**
      * Evaluates every entry of the given matrix.
      *
@@ -308,8 +1192,10 @@ public class MatrixUtils {
             } else if (token instanceof MatrixOperator) {
                 if (!stack.empty()) { //Make sure it's not empty to prevent bugs
                     Token top = stack.lastElement();
-                    while (top != null && ((top instanceof MatrixOperator && ((MatrixOperator) token).isLeftAssociative()
-                            && ((MatrixOperator) top).getPrecedence() >= ((MatrixOperator) token).getPrecedence()) || top instanceof MatrixFunction)) { //Operator is left associative and has higher precedence / is a function
+                    while (top != null
+                            && ((top instanceof MatrixOperator && ((MatrixOperator) token).isLeftAssociative()
+                            && ((MatrixOperator) top).getPrecedence() >= ((MatrixOperator) token).getPrecedence())
+                            || top instanceof MatrixFunction)) { //Operator is left associative and has higher precedence / is a function
                         reversePolish.add(stack.pop()); //Pops top element to the queue
                         top = stack.isEmpty() ? null : stack.lastElement(); //Assigns the top element of the stack if it exists
                     }
@@ -345,10 +1231,11 @@ public class MatrixUtils {
      * Takes a given Matrix expression in reverse polish form and returns the resulting value.
      *
      * @param tokens The matrix expression in reverse polish
+     * @param fractionalize If the output would be in fractions
      * @return The value of the expression
      * @throws java.lang.IllegalArgumentException The user entered an invalid expression
      */
-    public static Token evaluateExpression(ArrayList<Token> tokens) {
+    public static Token evaluateExpression(ArrayList<Token> tokens, boolean fractionalize) {
         Stack<Object> stack = new Stack();
         for (Token token : tokens) {
             if (token instanceof Matrix || token instanceof Number) { //Adds all Matrices directly to the stack
@@ -380,80 +1267,44 @@ public class MatrixUtils {
                 return (Token) o;
             } else if (o instanceof double[][]) {
                 double[][] numbers = (double[][]) o;
-                ArrayList<Token>[][] matrix = new ArrayList[numbers.length][numbers[0].length];
+                ArrayList<Token>[][] matrixEntries = new ArrayList[numbers.length][numbers[0].length];
                 for (int i = 0; i < numbers.length; i++) {
                     for (int j = 0; j < numbers[i].length; j++) {
-                        matrix[i][j] = new ArrayList<>();
-                        matrix[i][j].add(new Number(numbers[i][j]));
+                        matrixEntries[i][j] = new ArrayList<>();
+                        matrixEntries[i][j].add(new Number(numbers[i][j]));
                     }
                 }
-                return new Matrix(matrix);
+                Matrix matrix = new Matrix(matrixEntries);
+                if (fractionalize) {
+                    matrix.fractionalize();
+                }
+                return matrix;
             } else {
                 throw new IllegalStateException("Object that is not a Token nor a double[][] popped from Stack!");
             }
         }
     }
-//
-//    /**
-//     * Makes an Identity Matrix of the given size
-//     *
-//     * @param dim the number of rows/columns of the Identity Matrix
-//     * @return The Identity Matrix of the specified size
-//     */
-//    public static Matrix makeIdentity(int dim) {
-//        ArrayList<Token>[][] newMatrix = new ArrayList[dim][dim];
-//        for (int i = 0; i < dim; i++) {
-//            newMatrix[i][i].add(new Number(1));
-//        }
-//        return new Matrix(newMatrix);
-//    }
-//
-//    /**
-//     * Checks if the given array contains only zeroes, assumes
-//     * the all the elements of the array have been fully simplified
-//     *
-//     * @param a An array
-//     * @return true if the array only contains zeroes, false otherwise
-//     */
-//    private static boolean onlyZeroes(ArrayList<Token>[] a) {
-//        for (int i = 0; i < a.length; i++) {
-//            if (((Number) a[i].get(0)).getValue() != 0) {
-//                return false;
-//            }
-//        }
-//        return true;
-//    }
+
+    /**
+     * Makes an Identity Matrix of the given size
+     *
+     * @param dim the number of rows/columns of the Identity Matrix
+     * @return The Identity Matrix of the specified size
+     */
+    public static double[][] makeIdentity(int dim) {
+        double[][] newMatrix = new double[dim][dim];
+        for (int i = 0; i < dim; i++) {
+            for (int j = 0; j < dim; j++) {
+                newMatrix[i][j] = 0;
+            }
+            newMatrix[i][i] = 1;
+        }
+        return newMatrix;
+    }
 //
 //
-//    /**
-//     * Finds the index of the first element which is not zero
-//     *
-//     * @param a An array
-//     * @return The index of the first non-zero element
-//     */
-//    private static int getFirstNonZero(ArrayList<Token>[] a) {
-//        for (int i = 0; i < a.length; i++) {
-//            if (((Number) a[i].get(0)).getValue() != 0) {
-//                return i;
-//            }
-//        }
-//        return -1;
-//    }
 //
-//    /**
-//     * Finds the index of the last element which is not zero
-//     *
-//     * @param a An array
-//     * @return The index of the last non-zero element
-//     */
-//    private static int getLastNonZero(ArrayList<Token>[] a) {
-//        for (int i = a.length - 1; i >= 0; i--) {
-//            if (((Number) a[i].get(0)).getValue() != 0) {
-//                return i;
-//            }
-//        }
-//        return -1;
-//    }
+//
 //
 //    private static Matrix minorMatrix(Matrix input, int row, int column) {
 //        ArrayList[][] minor = new ArrayList[input.getNumOfRows() - 1][input.getNumOfCols() - 1];
@@ -484,192 +1335,10 @@ public class MatrixUtils {
 //        return new Matrix(minor);
 //    }
 //
-//    /**
-//     * Returns the Row Operations required to reduce the given Matrix(m) to
-//     * Row Echelon Form(REF)
-//     * Swap step: 1, Add step: 2, Scale step: 3
-//     *
-//     * @param m The Matrix which will be Row Reduced to REF
-//     * @return the row reduction steps
-//     */
-//    private static double[][] getREFSteps(Matrix m) {
-//        ArrayList<Double[]> steps = new ArrayList<>();
-//        Matrix temp = evaluateMatrixEntries(m);
-//        if (!onlyZeroes(temp.getColumn(0))) {
-//            int pivot = getFirstNonZero(temp.getColumn(0));
-//            if (pivot != 0) {
-//                temp = swapRows(temp, 0, pivot);
-//                Double[] swapStep = {1d, 0d, (double) pivot};
-//                steps.add(swapStep);
-//                pivot = 0;
-//            }
-//            ArrayList<Token>[] restOfCol = Arrays.copyOfRange(temp.getColumn(0), 1, m.getNumOfRows());
-//            for (int i = 1; !onlyZeroes(restOfCol) && i < m.getNumOfRows(); i++) {
-//                if (((Number) temp.getEntry(i, 0).get(0)).getValue() != 0) {
-//                    double scalar = -1 * ((Number) temp.getEntry(i, 0).get(0)).getValue() / ((Number) temp.getEntry(0, 0).get(0)).getValue();
-//                    temp = addRows(temp, i, pivot, scalar);
-//                    temp = evaluateMatrixEntries(temp);
-//                    Double[] addStep = {2d, (double) i, (double) pivot, scalar};
-//                    steps.add(addStep);
-//                }
-//            }
-//            //ArrayList<Token>[] tempRow = temp.getRow(0);
-//            //ArrayList<Token>[] tempCol = temp.getColumn(0);
-//        }
-//        double[][] minorSteps = getREFSteps(minorMatrix(temp, 0, 0));
-//        Double[] tempStep;
-//        for (int i = 0; i < minorSteps.length; i++) {
-//            tempStep = new Double[minorSteps[i].length];
-//            for (int j = 0; j < minorSteps[i].length; j++) {
-//                tempStep[j] = minorSteps[i][j];
-//            }
-//            steps.add(tempStep);
-//        }
-//        return (double[][]) steps.toArray();
-//    }
-//
-//    /**
-//     * Returns the Row Operations required to reduce the given Matrix(m) to
-//     * Reduced Row Echelon Form(RREF)
-//     *
-//     * @param m The Matrix which will be Row Reduced to RREF
-//     * @return the row reduction steps
-//     */
-//    private static double[][] getRREFSteps(Matrix m) {
-//        ArrayList<Double[]> steps = new ArrayList<>();
-//        double[][] refSteps = getREFSteps(m);
-//        Double[] tempStep;
-//        for (int i = 0; i < refSteps.length; i++) {
-//            tempStep = new Double[refSteps[i].length];
-//            for (int j = 0; j < refSteps.length; j++) {
-//                tempStep[j] = refSteps[i][j];
-//            }
-//            steps.add(tempStep);
-//        }
-//        Matrix temp = applySteps(m, refSteps);
-//        if (!onlyZeroes(temp.getColumn(temp.getNumOfCols() - 1))) {
-//            for (int j = temp.getNumOfCols() - 1; j >= 0; j--) {
-//                int pivot = getLastNonZero(temp.getColumn(j));
-//                if (pivot == -1) { // all entries in the column are zero
-//                    continue;
-//                } else if (pivot != 0) {
-//                    temp = swapRows(temp, 0, pivot);
-//                    Double[] swapStep = {1d, 0d, (double) pivot};
-//                    steps.add(swapStep);
-//                    pivot = 0;
-//                }
-//                ArrayList<Token>[] restOfCol = Arrays.copyOfRange(temp.getColumn(j), 0, temp.getNumOfRows() - 2);
-//                for (int i = 1; !onlyZeroes(restOfCol); i++) {
-//                    if (((Number) temp.getEntry(i, j).get(0)).getValue() != 0) {
-//                        double scalar = -1 * ((Number) temp.getEntry(i, j).get(0)).getValue() / ((Number) temp.getEntry(0, j).get(0)).getValue();
-//                        temp = addRows(temp, i, pivot, scalar);
-//                        Double[] addStep = {2d, (double) i, (double) pivot, scalar};
-//                        steps.add(addStep);
-//                    }
-//                }
-//            }
-//        }
-//
-//        for (int i = 0; i < temp.getNumOfRows(); i++) {
-//            if (temp.getEntry(i, getFirstNonZero(temp.getRow(i))).get(0) instanceof Number
-//                    && ((Number) temp.getEntry(i, getFirstNonZero(temp.getRow(i))).get(0)).getValue() != 1) {
-//                double scalar = ((Number) temp.getEntry(i, getFirstNonZero(temp.getRow(i))).get(0)).getValue();
-//                scaleRow(temp, i, scalar);
-//                Double[] scaleStep = {3d, (double) i, scalar};
-//                steps.add(scaleStep);
-//            }
-//        }
-//
-//        double[][] minorSteps = getRREFSteps(minorMatrix(temp, temp.getNumOfRows() - 1, temp.getNumOfCols() - 1));
-//        for (int i = 0; i < minorSteps.length; i++) {
-//            tempStep = new Double[minorSteps[i].length];
-//            for (int j = 0; j < minorSteps[i].length; j++) {
-//                tempStep[j] = minorSteps[i][j];
-//            }
-//            steps.add(tempStep);
-//        }
-//
-//        return (double[][]) steps.toArray();
-//    }
-//
-//    /**
-//     * @param m      The original Matrix
-//     * @param row1   The index of the Row being added to
-//     * @param row2   The index of the Row being added
-//     * @param scalar The scalar to multiply the second row by
-//     * @return A Matrix which is similar to the given Matrix(m) but with the Row at index row2,
-//     * multiplied by a scalar, being added to the row at index row1
-//     */
-//    private static Matrix addRows(Matrix m, int row1, int row2, double scalar) {
-//        ArrayList<Token>[][] entries = m.getEntries();
-//        for (int j = 0; j < m.getNumOfCols(); j++) {
-//            entries[row1][j].add(OperatorFactory.makeAdd());
-//            entries[row1][j].add(new Number(scalar));
-//            entries[row1][j].add(BracketFactory.makeOpenBracket());
-//            entries[row1][j].addAll(entries[row2][j]);
-//            entries[row1][j].add(BracketFactory.makeCloseBracket());
-//        }
-//        return new Matrix(entries);
-//    }
-//
-//    /**
-//     * @param m    The original Matrix
-//     * @param row1 The index of the first Row
-//     * @param row2 The index of the second Row
-//     * @return A Matrix which is similar to the given Matrix but with two Rows having been swapped
-//     */
-//    private static Matrix swapRows(Matrix m, int row1, int row2) {
-//        ArrayList<Token>[][] entries = m.getEntries();
-//        ArrayList<Token>[] temp = entries[row1];
-//        entries[row1] = entries[row2];
-//        entries[row2] = temp;
-//        return new Matrix(entries);
-//    }
-//
-//    /**
-//     * @param m      The original Matrix
-//     * @param row    The index of the Row to be scaled
-//     * @param scalar The scaling factor
-//     * @return The Matrix m with all the entries, of the specified row, multiplied by a scalar
-//     */
-//    private static Matrix scaleRow(Matrix m, int row, double scalar) {
-//        ArrayList<Token>[][] entries = m.getEntries();
-//        ArrayList<Token>[] tempRow = entries[row];
-//        ArrayList<Token> tempEntry = new ArrayList<>();
-//        for (int j = 0; j < m.getNumOfCols(); j++) {
-//            tempEntry.add(new Number(scalar));
-//            tempEntry.add(BracketFactory.makeOpenBracket());
-//            tempEntry.addAll(tempRow[j]);
-//            tempEntry.add(BracketFactory.makeCloseBracket());
-//            entries[row][j] = tempEntry;
-//            tempEntry.clear();
-//        }
-//        return new Matrix(entries);
-//    }
-//
-//    /**
-//     * Applies the given Row Operations(steps) to the given Matrix(m)
-//     * Swap step: 1, Add step: 2, Scale step: 3
-//     *
-//     * @param m     The Matrix to apply the given Row Operations to
-//     * @param steps The Row Operations to be applied
-//     * @return A Matrix with the given steps applied to the original Matrix
-//     */
-//    private static Matrix applySteps(Matrix m, double[][] steps) {
-//        if (steps.length == 0) {
-//            return m;
-//        } else if (steps[0][0] == 1) {
-//            return applySteps(swapRows(m, (int) steps[0][1], (int) steps[0][2]), Arrays.copyOfRange(steps, 1, steps.length - 1));
-//        } else if (steps[0][0] == 2) {
-//            return applySteps(addRows(m, (int) steps[0][1], (int) steps[0][2], (int) steps[0][3]), Arrays.copyOfRange(steps, 1, steps.length - 1));
-//        } else if (steps[0][0] == 3) {
-//            return applySteps(scaleRow(m, (int) steps[0][1], steps[0][2]), Arrays.copyOfRange(steps, 1, steps.length - 1));
-//        } else {
-//            throw new IllegalArgumentException("Invalid steps");
-//        }
-//    }
 //
 //
+//
+
 //    /**
 //     * Row Reduces an AugmentedMatrix(aug) to RREF
 //     *

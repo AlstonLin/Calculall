@@ -5,8 +5,11 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
@@ -17,6 +20,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * The activity for the basic calculator mode. The basic mode will only be able to
@@ -24,13 +28,14 @@ import java.util.ArrayList;
  * This class contains all the back-end of the Basic Mode.
  *
  * @author Alston Lin
- * @version Alpha 2.0
+ * @version 3.0
  */
 public class Basic implements View.OnClickListener {
 
 
     //CONSTANTS
     public static final int HISTORY_SIZE = 25;
+    public static final double HISTORY_IO_RATIO = 0.7; //The size of the output / input in the history
     private static final Basic INSTANCE = new Basic();
     //PROTECTED VARIABLES
     protected ArrayList<Token> tokens = new ArrayList<Token>(); //Tokens shown on screen
@@ -386,7 +391,6 @@ public class Basic implements View.OnClickListener {
             ArrayList<Token> list = new ArrayList<Token>();
             list.add(num);
             display.displayOutput(list);
-            VariableFactory.ans_value = list;
             saveEquation(tokens, list, filename);
         } catch (Exception e) { //User did a mistake
             handleExceptions(e);
@@ -409,7 +413,7 @@ public class Basic implements View.OnClickListener {
             if (e.getMessage() == null || e.getMessage().equals("")) {
                 message = "Invalid input";
             } else {
-                message = e.getMessage();
+                message = "Unknown Error : " + e.getMessage();
             }
         }
         if (message != "") {
@@ -455,22 +459,44 @@ public class Basic implements View.OnClickListener {
      * @param filename The file name of the history file
      */
     public void openHistory(String filename) throws IOException, ClassNotFoundException {
+        //Inflates the XML file so you get the View to add to the PopupWindow
         LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View layout = inflater.inflate(R.layout.history_view, null, false);
+
+        //Creates the popupWindow, with the width matching the parent's and height matching the parent's
         historyWindow = new PopupWindow(layout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
-        historyWindow.showAtLocation(activity.findViewById(R.id.frame), Gravity.CENTER, 0, 0);
-        HistoryView hv = (HistoryView) layout.findViewById(R.id.history);
+
+        //Retrieves the user data from saved memory
+        ArrayList<Object[]> history;
         try {
             FileInputStream stream = activity.openFileInput(filename);
             ObjectInputStream objectStream = new ObjectInputStream(stream);
-            hv.setHistory((ArrayList<Object[]>) objectStream.readObject());
-        } catch (FileNotFoundException e) {
-            ArrayList<Object[]> history = new ArrayList<Object[]>();
-            Object[] message = new Object[2];
-            message[0] = new StringToken("No History to show");
-            message[1] = new StringToken("");
-            hv.setHistory(history);
+            history = (ArrayList<Object[]>) objectStream.readObject();
+            //Reverses the order so that the most recent is at the top
+            Collections.reverse(history);
+        } catch (FileNotFoundException e) { //No history
+            history = new ArrayList<>();
+
+            ArrayList<Token> list1 = new ArrayList<>();
+            ArrayList<Token> list2 = new ArrayList<>();
+
+            list1.add(new StringToken("No History to show"));
+            list2.add(new StringToken(""));
+
+            ArrayList<Token>[] message = new ArrayList[2];
+            message[0] = list1;
+            message[1] = list2;
+            history.add(message);
         }
+
+        //Finds the ListView from the inflated History XML so it could be manipulated
+        ListView lv = (ListView) layout.findViewById(R.id.historyList);
+
+        //Attaches the custom Adapter to the ListView so that it can configure the items and their Views within it
+        lv.setAdapter(new HistoryAdapter(history, activity));
+
+        //Displays the created PopupWindow on top of the LinearLayout with ID frame, which is being shown by the Activity
+        historyWindow.showAtLocation(activity.findViewById(R.id.frame), Gravity.CENTER, 0, 0);
     }
 
 
@@ -521,6 +547,89 @@ public class Basic implements View.OnClickListener {
                     && (previous.getType() == Bracket.CLOSE || previous.getType() == Bracket.DENOM_CLOSE)))) {
                 tokens.remove(token);
             }
+        }
+    }
+
+    /**
+     * The custom Adapter for the ListView in the calculation history.
+     */
+    private class HistoryAdapter extends BaseAdapter {
+
+        private MainActivity activity;
+        private ArrayList<Object[]> history; //The data that will be shown in the ListView
+
+        public HistoryAdapter(ArrayList<Object[]> history, MainActivity activity) {
+            this.history = history;
+            this.activity = activity;
+        }
+
+        @Override
+        public int getCount() {
+            return history.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return history.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        /**
+         * Prepares the View of each item in the ListView that this Adapter will be attached to.
+         *
+         * @param position    The index of the item
+         * @param convertView The old view that may be reused, or null if not possible
+         * @param parent      The parent view
+         * @return The newly prepared View that will visually represent the item in the ListView in the given position
+         */
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (convertView == null) { //For efficiency purposes so that it does not unnecessarily inflate Views
+                //Inflates the XML file to get the View of the history element
+                LayoutInflater inflater = (LayoutInflater) activity.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                convertView = inflater.inflate(R.layout.history_element, parent, false);
+            }
+
+            //Sets up the child Views within each item in the ListView
+            OutputView input = (OutputView) convertView.findViewById(R.id.input);
+            OutputView output = (OutputView) convertView.findViewById(R.id.output);
+
+            //Sets the font size of each OutputView
+            input.setFontSize(activity.getFontSize());
+            output.setFontSize((int) (activity.getFontSize() * HISTORY_IO_RATIO));
+
+            //Enters the appropriate expressions to the OutputView
+            Object[] entry = history.get(position);
+            input.display((ArrayList<Token>) entry[0]);
+            output.display((ArrayList<Token>) entry[1]);
+
+            //To respond to user touches
+            final ArrayList<Token> INPUT = (ArrayList<Token>) history.get(position)[0]; //Makes a constant reference so that history can be accessed by an inner class
+            convertView.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (event.getAction() == MotionEvent.ACTION_UP) {
+                        ArrayList<Token> input = new ArrayList<>();
+                        //Removes any StringTokens
+                        for (Token t : INPUT) {
+                            if (!(t instanceof StringToken)) {
+                                input.add(t);
+                            }
+                        }
+                        //Adds the input expression to the current tokens
+                        tokens.addAll(input); //Adds the input of the entry
+                        historyWindow.dismiss(); //Exits history once an Item has been selected
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            });
+            return convertView;
         }
     }
 }

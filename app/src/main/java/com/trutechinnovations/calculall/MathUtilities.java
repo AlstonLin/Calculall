@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * Utilities specifically for calculus related functions.
  *
  * @author Alston Lin
- * @version Alpha 2.0
+ * @version 3.0
  */
 public class MathUtilities {
     private static EvalUtilities util = new EvalUtilities(false, true);
@@ -426,5 +426,60 @@ public class MathUtilities {
         } catch (WrongArgumentType e) {
             return new ArrayList<>(); //Expression was in the form of E/E; No real roots
         }
+    }
+
+    /**
+     * Finds all real eigen values for the given matrix.
+     *
+     * @param matrix The matrix
+     * @return The eigenvalues of the matrix
+     */
+    public static double[] getEigenValues(double[][] matrix) {
+        String eigenString = parseMatrix(matrix);
+        return getEigenValuesStr(eigenString);
+    }
+
+    /**
+     * Converts the given matrix into a String.
+     *
+     * @param matrix The matrix as an array of doubles
+     * @return The string representation
+     */
+    private static String parseMatrix(double[][] matrix) {
+        String s = "{";
+        for (int i = 0; i < matrix.length; i++) {
+            if (i != 0) {
+                s += ",";
+            }
+            s += "{";
+            for (int j = 0; j < matrix[i].length; j++) {
+                if (j != 0) {
+                    s += ",";
+                }
+                s += matrix[i][j];
+            }
+            s += "}";
+        }
+        s += "}";
+        return s;
+    }
+
+    /**
+     * Uses the symja library to process an Eigenvalue computation from a String query.
+     *
+     * @param matrix The string representation of the matrix
+     * @return The eigenvalues of the matrix
+     */
+    public static double[] getEigenValuesStr(String matrix) {
+        String str = " Eigenvalues(" + matrix + ")";
+        IExpr eigenvalues = util.evaluate(str);
+        String eigenStr = eigenvalues.toString();
+        eigenStr = eigenStr.substring(1, eigenStr.length() - 2); //Removes start and end {}
+        String[] eigenValuesStr = eigenStr.split(",");
+        double[] eigenValues = new double[eigenValuesStr.length];
+        for (int i = 0; i < eigenValuesStr.length; i++) {
+            eigenValues[i] = Double.parseDouble(eigenValuesStr[i]);
+        }
+        return eigenValues;
     }
 }

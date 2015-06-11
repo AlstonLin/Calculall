@@ -10,7 +10,7 @@ import java.util.Stack;
  * Contains miscellaneous static methods that provide utility.
  *
  * @author Alston Lin, Ejaaz Merali
- * @version Alpha 2.0
+ * @version 3.0
  */
 public class Utility {
 
@@ -213,7 +213,11 @@ public class Utility {
     public static String printExpression(ArrayList<Token> expression) {
         String s = "";
         for (Token t : expression) {
-            s += t.getSymbol();
+            if (t instanceof Operator && t.getType() == Operator.FRACTION) {
+                s += "/";
+            } else {
+                s += t.getSymbol();
+            }
         }
         return s;
     }

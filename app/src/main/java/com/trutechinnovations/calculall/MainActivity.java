@@ -11,10 +11,12 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import java.io.FileInputStream;
@@ -34,7 +36,7 @@ import java.util.ArrayList;
  * up the fragments and the entry point for UI events.
  *
  * @author Alston Lin, David Liu
- * @version Alpha 2.0
+ * @version 3.0
  */
 public class MainActivity extends FragmentActivity implements ViewPager.OnPageChangeListener { //, MoPubInterstitial.InterstitialAdListener {
 
@@ -51,10 +53,8 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
     private boolean showAd = false;
     private android.support.v4.app.FragmentManager mg = getSupportFragmentManager();
     private boolean feedbackOn;
-    private int roundTo;
     private int lastMode;
     private int fontSize;
-    private boolean swipeOnly;
     //private MoPubInterstitial interstitial;
     private int currentTheme;
 
@@ -80,22 +80,26 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
      */
     private void setupSettings() {
         SharedPreferences pref = getSharedPreferences(getString(R.string.preference_key), Context.MODE_PRIVATE);
+        //Retrieves the defailt values from Preferences
         feedbackOn = pref.getBoolean(getString(R.string.haptic), SettingsActivity.DEFAULT_FEEDBACK);
-        roundTo = pref.getInt(getString(R.string.round_to), SettingsActivity.DEFAULT_ROUND);
         fontSize = pref.getInt(getString(R.string.font_size), SettingsActivity.DEFAULT_FONT_SIZE);
-        swipeOnly = pref.getBoolean(getString(R.string.mode_switch), SettingsActivity.DEFAULT_SWIPE);
+        int roundTo = pref.getInt(getString(R.string.round_to), SettingsActivity.DEFAULT_ROUND);
+        boolean swipeOnly = pref.getBoolean(getString(R.string.mode_switch), SettingsActivity.DEFAULT_SWIPE);
         int theme = pref.getInt(getString(R.string.theme), SettingsActivity.DEFAULT_THEME);
+
         //Sets the decimal rounding
         Number.roundTo = roundTo;
         //Sets the font sizes
         display.setFontSize(fontSize);
-        HistoryView.fontSize = fontSize;
+
         //Checks if the Theme has changes
         if (theme != currentTheme) {
             //Needs to restart the activity
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }
+
+        //Sets up swipe only
         ToggleButton basic = (ToggleButton) findViewById(R.id.basic_button);
         ToggleButton advanced = (ToggleButton) findViewById(R.id.advanced_button);
         ToggleButton function = (ToggleButton) findViewById(R.id.function_button);
@@ -115,38 +119,52 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
         //Sets Theme
         switch (currentTheme) {
             case SettingsActivity.DAVID:
-                setTheme(R.style.david);
+                setTheme(R.style.Theme1);
                 break;
             case SettingsActivity.ALSTON:
-                setTheme(R.style.alston);
+                setTheme(R.style.Theme2);
                 break;
             case SettingsActivity.PANDA:
-                setTheme(R.style.panda);
+                setTheme(R.style.Theme1);
                 break;
             case SettingsActivity.TRAILBLAZER:
-                setTheme(R.style.trailblazer);
+                setTheme(R.style.Theme1);
                 break;
             case SettingsActivity.HAWKS:
-                setTheme(R.style.hawks);
+                setTheme(R.style.Theme1);
                 break;
             case SettingsActivity.GEESE:
-                setTheme(R.style.geese);
+                setTheme(R.style.Theme1);
                 break;
             case SettingsActivity.SUNSET:
-                setTheme(R.style.sunset);
+                setTheme(R.style.Theme1);
                 break;
             case SettingsActivity.FOREST:
-                setTheme(R.style.forest);
+                setTheme(R.style.Theme1);
                 break;
             case SettingsActivity.MATERIAL:
-                setTheme(R.style.material);
+                setTheme(R.style.Theme1);
                 break;
             case SettingsActivity.OCEAN:
-                setTheme(R.style.ocean);
+                setTheme(R.style.Theme1);
                 break;
             default:
                 throw new IllegalStateException("Illegal Theme");
         }
+    }
+
+    @Override
+    protected void onResumeFragments() {
+        super.onResumeFragments();
+        TypedValue typedValue = new TypedValue();
+        getTheme().resolveAttribute(R.attr.displayColor, typedValue, true);
+        int displayColor = typedValue.data;
+        findViewById(R.id.left_scroll).setBackgroundColor(displayColor);
+        findViewById(R.id.right_scroll).setBackgroundColor(displayColor);
+        getTheme().resolveAttribute(R.attr.displayTextColor, typedValue, true);
+        displayColor = typedValue.data;
+        ((TextView) findViewById(R.id.left_scroll)).setTextColor(displayColor);
+        ((TextView) findViewById(R.id.right_scroll)).setTextColor(displayColor);
     }
 
     public void onPause() {
@@ -443,36 +461,6 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
     }
 
     /**
-    @Override
-    public void onInterstitialLoaded(MoPubInterstitial interstitial) {
-        showAd = false;
-        if (interstitial.isReady()) {
-            interstitial.show();
-        }
-    }
-
-    @Override
-    public void onInterstitialFailed(MoPubInterstitial interstitial, MoPubErrorCode errorCode) {
-
-    }
-
-    @Override
-    public void onInterstitialShown(MoPubInterstitial interstitial) {
-
-    }
-
-    @Override
-    public void onInterstitialClicked(MoPubInterstitial interstitial) {
-
-    }
-
-    @Override
-    public void onInterstitialDismissed(MoPubInterstitial interstitial) {
-
-    }
-     **/
-
-    /**
      * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in
      * sequence.
      */
@@ -501,4 +489,30 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
             return NUM_PAGES;
         }
     }
+
+    /**
+     @Override public void onInterstitialLoaded(MoPubInterstitial interstitial) {
+     showAd = false;
+     if (interstitial.isReady()) {
+     interstitial.show();
+     }
+     }
+
+     @Override public void onInterstitialFailed(MoPubInterstitial interstitial, MoPubErrorCode errorCode) {
+
+     }
+
+     @Override public void onInterstitialShown(MoPubInterstitial interstitial) {
+
+     }
+
+     @Override public void onInterstitialClicked(MoPubInterstitial interstitial) {
+
+     }
+
+     @Override public void onInterstitialDismissed(MoPubInterstitial interstitial) {
+
+     }
+     **/
+
 }

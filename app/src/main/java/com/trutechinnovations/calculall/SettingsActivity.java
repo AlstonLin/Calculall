@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +28,9 @@ import java.util.List;
 
 /**
  * When the Settings Button has been pressed.
+ *
+ * @author Alston Lin
+ * @version 3.0
  */
 public class SettingsActivity extends Activity {
 
@@ -42,11 +46,12 @@ public class SettingsActivity extends Activity {
     public static final int DEFAULT_FONT_SIZE = 96;
     public static final boolean DEFAULT_FEEDBACK = false;
     public static final boolean DEFAULT_SWIPE = false;
+    //Fields
     private int currentTheme;
     private PopupWindow popup;
     private ImageAdapter adapter;
     private SharedPreferences pref;
-    private boolean feedbackOn, swipe_only;
+    private boolean feedbackOn, swipeOnly;
     private int roundTo;
     private int fontSize;
 
@@ -59,38 +64,38 @@ public class SettingsActivity extends Activity {
         feedbackOn = pref.getBoolean(getString(R.string.haptic), DEFAULT_FEEDBACK);
         roundTo = pref.getInt(getString(R.string.round_to), DEFAULT_ROUND);
         fontSize = pref.getInt(getString(R.string.font_size), DEFAULT_FONT_SIZE);
-        swipe_only = pref.getBoolean(getString(R.string.mode_switch), DEFAULT_SWIPE);
+        swipeOnly = pref.getBoolean(getString(R.string.mode_switch), DEFAULT_SWIPE);
         //Sets up the current theme
         switch (currentTheme) {
             case DAVID:
-                setTheme(R.style.david);
+                setTheme(R.style.Theme1);
                 break;
             case ALSTON:
-                setTheme(R.style.alston);
+                setTheme(R.style.Theme2);
                 break;
             case PANDA:
-                setTheme(R.style.panda);
+                setTheme(R.style.Theme1);
                 break;
             case TRAILBLAZER:
-                setTheme(R.style.trailblazer);
+                setTheme(R.style.Theme1);
                 break;
             case HAWKS:
-                setTheme(R.style.hawks);
+                setTheme(R.style.Theme1);
                 break;
             case GEESE:
-                setTheme(R.style.geese);
+                setTheme(R.style.Theme1);
                 break;
             case SUNSET:
-                setTheme(R.style.sunset);
+                setTheme(R.style.Theme1);
                 break;
             case FOREST:
-                setTheme(R.style.forest);
+                setTheme(R.style.Theme1);
                 break;
             case MATERIAL:
-                setTheme(R.style.material);
+                setTheme(R.style.Theme1);
                 break;
             case OCEAN:
-                setTheme(R.style.ocean);
+                setTheme(R.style.Theme1);
                 break;
             default:
                 throw new IllegalStateException("Illegal Theme");
@@ -98,7 +103,7 @@ public class SettingsActivity extends Activity {
         setContentView(R.layout.settings);
         setupDecimalSpinner();
         setupFontSpinner();
-        setupSwitch();
+        setupSwitches();
     }
 
     /**
@@ -153,12 +158,22 @@ public class SettingsActivity extends Activity {
     }
 
     /**
-     * Sets up the haptic feedback switch.
+     * Sets up the switches.
      */
-    public void setupSwitch() {
-        Switch switc = (Switch) findViewById(R.id.haptic_switch);
+    public void setupSwitches() {
+        //David's stuff
+        TypedValue typedValue = new TypedValue();
+        getTheme().resolveAttribute(R.attr.displayTextColor, typedValue, true);
+        int backgroundColor = typedValue.data;
+
+
+        Switch haptic = (Switch) findViewById(R.id.haptic_switch);
         Switch swipe = (Switch) findViewById(R.id.swipe_only_switch);
-        switc.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+        haptic.setTextColor(backgroundColor);
+        swipe.setTextColor(backgroundColor);
+
+        haptic.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             /**
              * When the check has been changed.
              *
@@ -182,14 +197,15 @@ public class SettingsActivity extends Activity {
              */
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                swipe_only = isChecked;
+                swipeOnly = isChecked;
                 SharedPreferences.Editor editor = pref.edit();
                 editor.putBoolean(getString(R.string.mode_switch), isChecked);
                 editor.apply();
             }
         });
-        switc.setChecked(feedbackOn);
-        swipe.setChecked(swipe_only);
+
+        haptic.setChecked(feedbackOn);
+        swipe.setChecked(swipeOnly);
     }
 
     /**

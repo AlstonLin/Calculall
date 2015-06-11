@@ -6,10 +6,9 @@ import java.util.ArrayList;
  * The Object representation of a mathematical Matrix.
  *
  * @author Ejaaz Merali
- * @version Alpha 2.0
+ * @version 3.0
  */
 
-@SuppressWarnings("unused")
 public class Matrix extends Token {
 
     private ArrayList<Token>[][] entries;
@@ -17,6 +16,19 @@ public class Matrix extends Token {
     public Matrix(ArrayList<Token>[][] entries) {
         super(null);
         this.entries = entries;
+    }
+
+    public Matrix(double[][] entries) {
+        super(null);
+        ArrayList[][] temp = new ArrayList[entries.length][entries[0].length];
+        for (int i = 0; i < entries.length; i++) {
+            for (int j = 0; j < entries[0].length; j++) {
+                ArrayList<Token> entry = new ArrayList<>();
+                entry.add(new Number(entries[i][j]));
+                temp[i][j] = entry;
+            }
+        }
+        this.entries = temp;
     }
 
 
@@ -113,5 +125,20 @@ public class Matrix extends Token {
             s += "/";
         }
         return s;
+    }
+
+    /**
+     * Converts decimal entries into fractions if practical.
+     */
+    public void fractionalize() {
+        for (int i = 0; i < entries.length; i++) {
+            for (int j = 0; j < entries[i].length; j++) {
+                ArrayList<Token> entry = entries[i][j];
+                if (entry.size() == 1 && entry.get(0) instanceof Number) { //A single number entry
+                    Number n = (Number) entry.get(0);
+                    entries[i][j] = JFok.fractionalize(n);
+                }
+            }
+        }
     }
 }

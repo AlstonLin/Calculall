@@ -13,6 +13,9 @@ import java.util.ArrayList;
 
 /**
  * Defines the UI for FunctionMode.
+ *
+ * @author Alston Lin
+ * @version 3.0
  */
 public class FunctionFragment extends BasicFragment {
     @Override

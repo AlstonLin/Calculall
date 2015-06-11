@@ -1,13 +1,14 @@
 package com.trutechinnovations.calculall;
 
 /**
- * Created by Ejaaz on 22/12/2014.
+ * A Object representation of a Operator for Matrices, which may also accept Numbers as well.
+ *
+ * @author Alston Lin, Ejaaz Merali
  */
 
-@SuppressWarnings("unused")
 
 public abstract class MatrixOperator extends Token {
-    public static final int ADD = 1, SUBTRACT = 2, MULTIPLY = 3, EXPONENT = 4, VARROOT = 5, AUGMENT = 6;
+    public static final int ADD = 1, SUBTRACT = 2, MULTIPLY = 3, DIVIDE = 4, EXPONENT = 5;
     private int precedence;
     private boolean leftAssociative, commutative, anticommutative, associative;
 

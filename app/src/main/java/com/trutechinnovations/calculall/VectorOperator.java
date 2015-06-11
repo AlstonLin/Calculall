@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Object representation of an Operator to be used by Vectors.
  *
  * @author Alston Lin
- * @version Alpha 2.0
+ * @version 3.0
  */
 public abstract class VectorOperator extends Token implements Serializable, OrderComparable {
     public static final int ADD = 1, SUBTRACT = 2, DOT = 3, CROSS = 4, ANGLE = 5;
