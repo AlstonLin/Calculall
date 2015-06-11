@@ -2,15 +2,27 @@ package com.trutechinnovations.calculall;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -26,13 +38,20 @@ public class Advanced extends Basic {
     public static final int DEC = 1, FRAC = 2;
     private int fracMode = DEC;
     private Dialog graphDialog;
+    private PopupWindow constWindow;
+    private static String filenameConst = "const_advanced";
 
     { //pseudo-constructor
         filename = "history_advanced";
+        filenameConst = "const_advanced";
     }
 
     private static final String FILENAME = "history_advanced";
+    private static final String FILENAMECONST = "const_advanced";
     private static final Basic INSTANCE = new Advanced();
+    public static final int CONSTANTS_SIZE = 25;
+    public static final double CONSTANTS_IO_RATIO = 0.7; //The size of the output / input in the
+    // constants list
     //Fields
     protected ArrayList<MultiButton> multiButtons;
     protected boolean hyperbolic = false, shift = false, mem = false;
@@ -136,11 +155,11 @@ public class Advanced extends Basic {
             case R.id.ans_button:
                 clickAns();
                 break;
-            case R.id.exit_const_button:
-                clickExitConst();
-                break;
             case R.id.const_button:
                 clickConst();
+                break;
+            case R.id.exit_const_button:
+                clickExitConst();
                 break;
             default:
                 super.onClick(v);
@@ -893,16 +912,16 @@ public class Advanced extends Basic {
         display.setCursorIndex(display.getCursorIndex() + 2);
     }
 
-    /**
+/*    *//**
      * Exits the constants view.
-     */
+     *//*
     public void clickExitConst() {
         constantsDialog.dismiss();
     }
 
-    /**
+    *//**
      * When the user presses the CONST button
-     */
+     *//*
     //TODO: Implement by looking at how the settings are implmented
     public void clickConst() {
        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
@@ -916,7 +935,71 @@ public class Advanced extends Basic {
         //List<Constant> cnts = new ArrayList<>(Arrays.asList(Constant.values()));
         //ArrayAdapter<Constant> constAdapter = new ArrayAdapter<Integer>(this, R.layout.constants, Constant.values());
 
-}
+}*/
+
+    /**
+     * When the user clicks the const button.
+     */
+    public void clickConst() {
+        try {
+            openConst(filename);
+        } catch (IOException | ClassNotFoundException e) {
+            Toast.makeText(activity, "Error saving to consts", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    /**
+     * Exits the consts view.
+     */
+    public void clickExitConst() {
+        constWindow.dismiss();
+    }
+
+        /**
+         * Opens the constants list.
+         *
+         * @param filename The file name of the consts file
+         */
+    public void openConst(String filename) throws IOException, ClassNotFoundException {
+        //Inflates the XML file so you get the View to add to the PopupWindow
+        LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View layout = inflater.inflate(R.layout.constants_view, null, false);
+
+        //Creates the popupWindow, with the width matching the parent's and height matching the parent's
+        constWindow = new PopupWindow(layout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
+
+        //Retrieves the user data from saved memory
+        ArrayList<Object[]> consts;
+        try {
+            FileInputStream stream = activity.openFileInput(filename);
+            ObjectInputStream objectStream = new ObjectInputStream(stream);
+            consts = (ArrayList<Object[]>) objectStream.readObject();
+            //Reverses the order so that the most recent is at the top
+            Collections.reverse(consts);
+        } catch (FileNotFoundException e) { //No consts
+            consts = new ArrayList<>();
+
+            ArrayList<Token> list1 = new ArrayList<>();
+            ArrayList<Token> list2 = new ArrayList<>();
+
+            list1.add(new StringToken("No Consts to show"));
+            list2.add(new StringToken(""));
+
+            ArrayList<Token>[] message = new ArrayList[2];
+            message[0] = list1;
+            message[1] = list2;
+            consts.add(message);
+        }
+
+        //Finds the ListView from the inflated consts XML so it could be manipulated
+        ListView lv = (ListView) layout.findViewById(R.id.constantsList);
+
+        //Attaches the custom Adapter to the ListView so that it can configure the items and their Views within it
+        lv.setAdapter(new ConstantsAdapter(consts, activity));
+
+        //Displays the created PopupWindow on top of the LinearLayout with ID frame, which is being shown by the Activity
+        constWindow.showAtLocation(activity.findViewById(R.id.frame), Gravity.CENTER, 0, 0);
+    }
 
     /**
      * Adds all the tokens in the expression into an exponent.
@@ -948,6 +1031,89 @@ public class Advanced extends Basic {
         exponent.addDependency(closeBracket);
         display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
+    }
+
+    /**
+     * The custom Adapter for the ListView in the consts list.
+     */
+    private class ConstantsAdapter extends BaseAdapter {
+
+        private MainActivity activity;
+        private ArrayList<Object[]> consts; //The data that will be shown in the ListView
+
+        public ConstantsAdapter(ArrayList<Object[]> consts, MainActivity activity) {
+            this.consts = consts;
+            this.activity = activity;
+        }
+
+        @Override
+        public int getCount() {
+            return consts.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return consts.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        /**
+         * Prepares the View of each item in the ListView that this Adapter will be attached to.
+         *
+         * @param position    The index of the item
+         * @param convertView The old view that may be reused, or null if not possible
+         * @param parent      The parent view
+         * @return The newly prepared View that will visually represent the item in the ListView in the given position
+         */
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (convertView == null) { //For efficiency purposes so that it does not unnecessarily inflate Views
+                //Inflates the XML file to get the View of the consts element
+                LayoutInflater inflater = (LayoutInflater) activity.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                convertView = inflater.inflate(R.layout.constants_element, parent, false);
+            }
+
+            //Sets up the child Views within each item in the ListView
+            OutputView input = (OutputView) convertView.findViewById(R.id.input);
+            OutputView output = (OutputView) convertView.findViewById(R.id.output);
+
+            //Sets the font size of each OutputView
+            input.setFontSize(activity.getFontSize());
+            output.setFontSize((int) (activity.getFontSize() * CONSTANTS_IO_RATIO));
+
+            //Enters the appropriate expressions to the OutputView
+            Object[] entry = consts.get(position);
+            input.display((ArrayList<Token>) entry[0]);
+            output.display((ArrayList<Token>) entry[1]);
+
+            //To respond to user touches
+            final ArrayList<Token> INPUT = (ArrayList<Token>) consts.get(position)[0]; //Makes a constant reference so that consts can be accessed by an inner class
+            convertView.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (event.getAction() == MotionEvent.ACTION_UP) {
+                        ArrayList<Token> input = new ArrayList<>();
+                        //Removes any StringTokens
+                        for (Token t : INPUT) {
+                            if (!(t instanceof StringToken)) {
+                                input.add(t);
+                            }
+                        }
+                        //Adds the input expression to the current tokens
+                        tokens.addAll(input); //Adds the input of the entry
+                        constWindow.dismiss(); //Exits consts once an Item has been selected
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            });
+            return convertView;
+        }
     }
 
     public boolean isShift() {
