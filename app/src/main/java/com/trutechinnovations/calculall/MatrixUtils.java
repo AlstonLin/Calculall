@@ -26,6 +26,7 @@ import java.util.Stack;
  * @version 3.0
  */
 public class MatrixUtils {
+    private static final int SWAP = 1, ADD = 2, SCALE = 3;
 
     private static Command<Double, double[]> addCommand = new Command<Double, double[]>() {
         @Override
@@ -560,11 +561,11 @@ public class MatrixUtils {
         if (steps.length == 0) {
             return a;
         } else if (steps.length == 1) {
-            if (steps[0][0] == 1) {
+            if (steps[0][0] == SWAP) {
                 return swapRows(a, (int) steps[0][1], (int) steps[0][2]);
-            } else if (steps[0][0] == 2) {
+            } else if (steps[0][0] == ADD) {
                 return addRows(a, (int) steps[0][1], (int) steps[0][2], steps[0][3]);
-            } else if (steps[0][0] == 3) {
+            } else if (steps[0][0] == SCALE) {
                 return scaleRow(a, (int) steps[0][1], steps[0][2]);
             } else if (steps[0][0] == 0) {
                 return a;
@@ -572,11 +573,11 @@ public class MatrixUtils {
                 throw new IllegalArgumentException("Invalid steps");
             }
         } else if (steps.length > 1) {
-            if (steps[0][0] == 1) {
+            if (steps[0][0] == SWAP) {
                 return applySteps(swapRows(a, (int) steps[0][1], (int) steps[0][2]), Arrays.copyOfRange(steps, 1, steps.length));
-            } else if (steps[0][0] == 2) {
+            } else if (steps[0][0] == ADD) {
                 return applySteps(addRows(a, (int) steps[0][1], (int) steps[0][2], steps[0][3]), Arrays.copyOfRange(steps, 1, steps.length));
-            } else if (steps[0][0] == 3) {
+            } else if (steps[0][0] == SCALE) {
                 return applySteps(scaleRow(a, (int) steps[0][1], steps[0][2]), Arrays.copyOfRange(steps, 1, steps.length));
             } else {
                 throw new IllegalArgumentException("Invalid steps");
@@ -586,6 +587,32 @@ public class MatrixUtils {
         } else {
             throw new IllegalArgumentException("Invalid steps");
         }
+    }
+
+    public static ArrayList<Token> tokenizeStep(double[] step) {
+        ArrayList<Token> output = new ArrayList<>();
+        if (step[0] == SWAP) {
+            output.add(new StringToken("Swap Row " + step[1] + " and Row " + step[2]));
+        } else if (step[0] == ADD) {
+            if (step[3] == 1) {
+                output.add(new StringToken("Add Row " + step[2] + " to Row " + step[1]));
+            } else {
+                output.add(new StringToken("Add " + step[3] + " times Row " + step[2] + " to Row " + step[1]));
+            }
+        } else if (step[0] == SCALE) {
+            output.add(new StringToken("Multiply Row " + step[1] + " by " + step[2]));
+        } else {
+            throw new IllegalArgumentException("Invalid Step");
+        }
+        return output;
+    }
+
+    public static ArrayList<Token>[] tokenizeSteps(double[][] steps) {
+        ArrayList<Token>[] output = new ArrayList[steps.length];
+        for (int i = 0; i < steps.length; i++) {
+            output[i] = tokenizeStep(steps[i]);
+        }
+        return output;
     }
 
     private static double[][] deepCopyDblMatrix(double[][] input) {

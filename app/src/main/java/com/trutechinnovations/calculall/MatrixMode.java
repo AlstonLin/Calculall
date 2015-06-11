@@ -6,18 +6,28 @@ import android.text.Spanned;
 import android.text.SpannedString;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Contains the back-end of the Matrix Mode. The mode will be able to perform most
@@ -31,6 +41,7 @@ public class MatrixMode extends FunctionMode {
     public static final int DEFAULT_COLS = 3;
     public static final int MAX_DIMENSIONS = 7;
     private static final Basic INSTANCE = new MatrixMode();
+    protected PopupWindow reductionWindow;
     //Variables used only when in ElementView
     private PopupWindow elementsWindow;
     private PopupWindow elementWindow;
@@ -167,6 +178,52 @@ public class MatrixMode extends FunctionMode {
             default:
                 super.onClick(v);
         }
+    }
+
+    /**
+     * Opens the row reduction steps
+     *
+     * @param filename The file name of the history file
+     */
+    public void openReduction(String filename) throws IOException, ClassNotFoundException {
+        //Inflates the XML file so you get the View to add to the PopupWindow
+        LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View layout = inflater.inflate(R.layout.reduction_view, null, false);
+
+        //Creates the popupWindow, with the width matching the parent's and height matching the parent's
+        reductionWindow = new PopupWindow(layout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
+
+        //Retrieves the user data from saved memory
+        ArrayList<Object[]> reduction;
+        try {
+            FileInputStream stream = activity.openFileInput(filename);
+            ObjectInputStream objectStream = new ObjectInputStream(stream);
+            reduction = (ArrayList<Object[]>) objectStream.readObject();
+            //Reverses the order so that the most recent is at the top
+            Collections.reverse(reduction);
+        } catch (FileNotFoundException e) { //No history
+            reduction = new ArrayList<>();
+
+            ArrayList<Token> list1 = new ArrayList<>();
+            ArrayList<Token> list2 = new ArrayList<>();
+
+            list1.add(new StringToken("No Reduction to show"));
+            list2.add(new StringToken(""));
+
+            ArrayList<Token>[] message = new ArrayList[2];
+            message[0] = list1;
+            message[1] = list2;
+            reduction.add(message);
+        }
+
+        //Finds the ListView from the inflated History XML so it could be manipulated
+        ListView lv = (ListView) layout.findViewById(R.id.historyList);
+
+        //Attaches the custom Adapter to the ListView so that it can configure the items and their Views within it
+        lv.setAdapter(new ReductionAdapter(reduction, activity));
+
+        //Displays the created PopupWindow on top of the LinearLayout with ID frame, which is being shown by the Activity
+        reductionWindow.showAtLocation(activity.findViewById(R.id.frame), Gravity.CENTER, 0, 0);
     }
 
     /**
@@ -583,8 +640,6 @@ public class MatrixMode extends FunctionMode {
         updateInput();
     }
 
-    //Functions for the Main View
-
     /**
      * When the user has finished with ElementView.
      */
@@ -604,6 +659,8 @@ public class MatrixMode extends FunctionMode {
         editMatrix(matrix);
         elementWindow.dismiss();
     }
+
+    //Functions for the Main View
 
     /**
      * Returns from ElementsView to the main View
@@ -689,6 +746,34 @@ public class MatrixMode extends FunctionMode {
         updateInput();
     }
 
+    /**
+     * Saves the equation into the calculation history.
+     *
+     * @param input  The expression that the user inputted into the calculator
+     * @param output The result of the calculation
+     */
+    public void saveStep(ArrayList<Token> input, ArrayList<Token> step, String filepath) throws IOException, ClassNotFoundException {
+        ArrayList<Object[]> reduction = new ArrayList<Object[]>();
+        try {
+            FileInputStream inStream = activity.openFileInput(filepath);
+            ObjectInputStream objectStreamIn = new ObjectInputStream(inStream);
+            reduction = (ArrayList<Object[]>) objectStreamIn.readObject();
+        } catch (Exception e) {
+        }
+
+        FileOutputStream outStream = activity.openFileOutput(filepath, Context.MODE_PRIVATE);
+        Object[] toWrite = new Object[2];
+        toWrite[0] = input;
+        toWrite[1] = step;
+        reduction.add(toWrite);
+
+
+        ObjectOutputStream objectStreamOut = new ObjectOutputStream(outStream);
+        objectStreamOut.writeObject(reduction);
+        objectStreamOut.flush();
+        objectStreamOut.close();
+        outStream.close();
+    }
 
     /**
      * When the user presses the ref button
@@ -1138,6 +1223,89 @@ public class MatrixMode extends FunctionMode {
             }
         } catch (Exception e) { //an error was thrown
             super.handleExceptions(e);
+        }
+    }
+
+    /**
+     * The custom Adapter for the ListView in the calculation history.
+     */
+    private class ReductionAdapter extends BaseAdapter {
+
+        private MainActivity activity;
+        private ArrayList<Object[]> reduction; //The data that will be shown in the ListView
+
+        public ReductionAdapter(ArrayList<Object[]> reduction, MainActivity activity) {
+            this.reduction = reduction;
+            this.activity = activity;
+        }
+
+        @Override
+        public int getCount() {
+            return reduction.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return reduction.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        /**
+         * Prepares the View of each item in the ListView that this Adapter will be attached to.
+         *
+         * @param position    The index of the item
+         * @param convertView The old view that may be reused, or null if not possible
+         * @param parent      The parent view
+         * @return The newly prepared View that will visually represent the item in the ListView in the given position
+         */
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (convertView == null) { //For efficiency purposes so that it does not unnecessarily inflate Views
+                //Inflates the XML file to get the View of the history element
+                LayoutInflater inflater = (LayoutInflater) activity.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                convertView = inflater.inflate(R.layout.reduction_element, parent, false);
+            }
+
+            //Sets up the child Views within each item in the ListView
+            OutputView input = (OutputView) convertView.findViewById(R.id.input);
+            OutputView step = (OutputView) convertView.findViewById(R.id.step);
+
+            //Sets the font size of each OutputView
+            input.setFontSize(activity.getFontSize());
+            step.setFontSize((int) (activity.getFontSize() * HISTORY_IO_RATIO));
+
+            //Enters the appropriate expressions to the OutputView
+            Object[] entry = reduction.get(position);
+            input.display((ArrayList<Token>) entry[0]);
+            step.display((ArrayList<Token>) entry[0]);
+
+            //To respond to user touches
+            final ArrayList<Token> INPUT = (ArrayList<Token>) reduction.get(position)[0]; //Makes a constant reference so that history can be accessed by an inner class
+            convertView.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (event.getAction() == MotionEvent.ACTION_UP) {
+                        ArrayList<Token> input = new ArrayList<>();
+                        //Removes any StringTokens
+                        for (Token t : INPUT) {
+                            if (!(t instanceof StringToken)) {
+                                input.add(t);
+                            }
+                        }
+                        //Adds the input expression to the current tokens
+                        tokens.addAll(input); //Adds the input of the entry
+                        reductionWindow.dismiss(); //Exits history once an Item has been selected
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            });
+            return convertView;
         }
     }
 }
