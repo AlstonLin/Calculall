@@ -220,6 +220,16 @@
             android:text="@string/t"
             android:textSize="16sp" />
 
+        <Button
+            android:id="@+id/ans_button"
+            style="?attr/buttonFunction"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:text="@string/ans"
+            android:textSize="16sp" />
+
 
     </LinearLayout>
 
@@ -585,4 +595,4 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-</LinearLayout><!-- From: file:/C:/Users/Ejaaz/TruTech/Calculall/Calculall/app/src/main/res/layout/vector.xml -->
+</LinearLayout><!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/layout/vector.xml -->

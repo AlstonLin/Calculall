@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- From: file:/C:/Users/Ejaaz/TruTech/Calculall/Calculall/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ur-rPK/common_strings.xml -->
+    <!-- From: file:/D:/App%20dev/Calculall/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ur-rPK/common_strings.xml -->
     <eat-comment/>
     <string msgid="473679118463211576" name="common_android_wear_notification_needs_update_text">"‏ایک اپیلیکیشن کو Android Wear ایپ کیلئے ایک اپ ڈیٹ درکار ہے۔"</string>
     <string msgid="3046420540094071256" name="common_android_wear_update_text">"‏جب تک آپ Android Wear ایپ کو اپ ڈیٹ نہیں کر لیتے یہ ایپ نہیں چلے گی۔"</string>

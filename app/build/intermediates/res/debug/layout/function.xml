@@ -15,7 +15,7 @@
         android:orientation="horizontal">
 
 
-    <ToggleButton
+        <ToggleButton
             android:id="@+id/shift_button"
             style="?attr/buttonSpecial"
             android:layout_width="0dp"
@@ -291,7 +291,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginBottom="0dp"
-            android:layout_weight="1"
+                android:layout_weight="1"
                 android:orientation="horizontal">
 
                 <Button
@@ -330,7 +330,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginBottom="0dp"
-            android:layout_weight="1"
+                android:layout_weight="1"
                 android:orientation="horizontal">
 
                 <Button
@@ -369,7 +369,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginBottom="0dp"
-            android:layout_weight="1"
+                android:layout_weight="1"
                 android:orientation="horizontal">
 
                 <Button
@@ -409,7 +409,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginBottom="0dp"
-            android:layout_weight="1"
+                android:layout_weight="1"
                 android:baselineAligned="true"
                 android:orientation="horizontal">
 
@@ -584,4 +584,4 @@
                 android:textSize="18sp" />
         </LinearLayout>
     </LinearLayout>
-</LinearLayout><!-- From: file:/C:/Users/Ejaaz/TruTech/Calculall/Calculall/app/src/main/res/layout/function.xml -->
+</LinearLayout><!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/layout/function.xml -->

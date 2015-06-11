@@ -25,23 +25,19 @@
         <item name="android:gravity">center</item>
     </style>
 
-    <style name="toggleDavid" parent="buttonLightDavid">
-        <item name="android:textColor">@color/displayDavid</item>
-        <item name="android:color">@color/color1David</item>
-    </style>
-
     <style name="spinnerTextDavid" parent="android:Widget.DeviceDefault.TextView.SpinnerItem">
-        <item name="android:background">@color/displayDavid</item>
+        <item name="android:background">@color/color1David</item>
         <item name="android:dropDownSelector">@color/displayDavid</item>
         <item name="android:divider">@null</item>
-        <item name="android:textColor">@color/color1David</item>
+        <item name="android:textColor">@color/displayDavid</item>
         <item name="android:color">@color/displayDavid</item>
-
+        <item name="android:padding">12dp</item>
     </style>
 
-    <style name="SwitchTextDavid" parent="android:TextAppearance.DeviceDefault.Small">
-        <item name="android:textColor">@color/color1David</item>
-        <item name="android:switchPadding">16dp</item>
+    <style name="CheckBoxDavid" parent="android:Widget.DeviceDefault.CompoundButton.CheckBox">
+        <item name="android:textColor">@color/displayDavid</item>
+        <item name="android:textColorPrimary">@color/displayDavid</item>
+        <item name="android:padding">16dp</item>
     </style>
 
     <style name="normalDavid" parent="android:Widget.Holo.Button.Borderless.Small">
@@ -54,22 +50,20 @@
         <item name="buttonFunction">@style/buttonDarkDavid</item>
         <item name="buttonOperator">@style/buttonLightDavid</item>
         <item name="buttonSpecial">@style/buttonSpecialDavid</item>
-        <item name="android:textColor">@color/backgroundDavid</item>
+        <item name="android:textColor">@color/displayDavid</item>
         <item name="buttonNum">@style/buttonNumDavid</item>
         <item name="displayColor">@color/displayDavid</item>
         <item name="displayTextColor">@color/textDisplayColorDavid</item>
         <item name="android:windowNoTitle">true</item>
+        <item name="android:checkboxStyle">@style/CheckBoxDavid</item>
         <item name="change_img">@drawable/change_white</item>
         <item name="frac_img">@drawable/frac_white</item>
         <item name="history_img">@drawable/history_white</item>
         <item name="settings_img">@drawable/settings_white</item>
         <item name="android:buttonStyle">@style/normalDavid</item>
-        <item name="android:buttonStyleToggle">@style/toggleDavid</item>
         <item name="history_style">@color/color1David</item>
         <item name="android:windowActionBar">false</item>
         <item name="spinnerTextStyle">@style/spinnerTextDavid</item>
-        <item name="android:switchTextAppearance">@style/SwitchTextDavid</item>
-        <item name="android:switchPadding">16dp</item>
         <item name="mrl_rippleOverlay">true</item>
         <item name="mrl_rippleColor">@color/color2David</item>
         <item name="mrl_rippleAlpha">0.2</item>
@@ -101,23 +95,19 @@
         <item name="android:gravity">center</item>
     </style>
 
-    <style name="toggleTheme2" parent="buttonLightTheme2">
-        <item name="android:textColor">@color/displayTheme2</item>
-        <item name="android:color">@color/color1Theme2</item>
-    </style>
-
     <style name="spinnerTextTheme2" parent="android:Widget.DeviceDefault.TextView.SpinnerItem">
         <item name="android:background">@color/displayTheme2</item>
         <item name="android:dropDownSelector">@color/displayTheme2</item>
         <item name="android:divider">@null</item>
-        <item name="android:textColor">@color/color1Theme2</item>
-        <item name="android:color">@color/displayTheme2</item>
-
+        <item name="android:textColor">@color/textColorTheme2</item>
+        <item name="android:color">@color/textColorTheme2</item>
+        <item name="android:padding">12dp</item>
     </style>
 
-    <style name="SwitchTextTheme2" parent="android:TextAppearance.DeviceDefault.Small">
-        <item name="android:textColor">@color/color1Theme2</item>
-        <item name="android:switchPadding">16dp</item>
+    <style name="CheckBoxTheme2" parent="android:Widget.DeviceDefault.CompoundButton.CheckBox">
+        <item name="android:textColor">@color/textColorTheme2</item>
+        <item name="android:textColorPrimary">@color/textColorTheme2</item>
+        <item name="android:padding">16dp</item>
     </style>
 
     <style name="normalTheme2" parent="android:Widget.Holo.Button.Borderless.Small">
@@ -135,17 +125,15 @@
         <item name="displayColor">@color/displayTheme2</item>
         <item name="displayTextColor">@color/textDisplayColorTheme2</item>
         <item name="android:windowNoTitle">true</item>
+        <item name="android:checkboxStyle">@style/CheckBoxTheme2</item>
         <item name="change_img">@drawable/change_white</item>
         <item name="frac_img">@drawable/frac_white</item>
         <item name="history_img">@drawable/history_white</item>
         <item name="settings_img">@drawable/settings_white</item>
         <item name="android:buttonStyle">@style/normalTheme2</item>
-        <item name="android:buttonStyleToggle">@style/toggleTheme2</item>
         <item name="history_style">@color/color1Theme2</item>
         <item name="android:windowActionBar">false</item>
         <item name="spinnerTextStyle">@style/spinnerTextTheme2</item>
-        <item name="android:switchTextAppearance">@style/SwitchTextTheme2</item>
-        <item name="android:switchPadding">16dp</item>
         <item name="mrl_rippleOverlay">true</item>
         <item name="mrl_rippleColor">@color/color2Theme2</item>
         <item name="mrl_rippleAlpha">0.2</item>

@@ -15,12 +15,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.Spinner;
-import android.widget.Switch;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -167,8 +167,8 @@ public class SettingsActivity extends Activity {
         int backgroundColor = typedValue.data;
 
 
-        Switch haptic = (Switch) findViewById(R.id.haptic_switch);
-        Switch swipe = (Switch) findViewById(R.id.swipe_only_switch);
+        CheckBox haptic = (CheckBox) findViewById(R.id.haptic_switch);
+        CheckBox swipe = (CheckBox) findViewById(R.id.swipe_only_switch);
 
         haptic.setTextColor(backgroundColor);
         swipe.setTextColor(backgroundColor);
