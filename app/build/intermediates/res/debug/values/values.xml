@@ -50,9 +50,9 @@
     <color name="displayTextTrailblazer">#FFFFFF</color>
     <color name="displayTheme2">#ff333c42</color>
     <color name="numPadColorDavid">#ef4848</color>
-    <color name="numPadColorTheme2">#ff3299BB</color>
+    <color name="numPadColorTheme2">#ffFF9900</color>
     <color name="textColorDavid">#fff</color>
-    <color name="textColorTheme2">#ffFF9900</color>
+    <color name="textColorTheme2">#fff</color>
     <color name="textDisplayColorDavid">#21303f</color>
     <color name="textDisplayColorTheme2">#ffFF9900</color>
     <!-- From: file:/D:/App%20dev/Calculall/app/build/intermediates/exploded-aar/com.balysv/material-ripple/1.0.2/res/values/values.xml -->
@@ -121,7 +121,6 @@
     <string name="bear">Bea</string>
     <string name="cancel">Cancel</string>
     <string name="cbrt">³√</string>
-    <string name="clear_after_equals">Clear Display After Calculating</string>
     <string name="closed_bracket">)</string>
     <string name="closed_square_bracket">]</string>
     <string name="combination">n<b><b>C</b></b>r</string>
@@ -176,7 +175,7 @@
     <string name="decline">Decline</string>
     <!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/values/strings.xml -->
     <eat-comment/>
-    <string name="decomp">LUP</string>
+    <string name="decomp">DECOMP</string>
     <string name="degrees">Degrees</string>
     <string name="derivative">d/dx</string>
     <string name="det">DET</string>
@@ -189,7 +188,7 @@
     <string name="eight">8</string>
     <string name="empty"> </string>
     <string name="equals">=</string>
-    <string name="ev">A-λI</string>
+    <string name="ev">Ev</string>
     <string name="expand">Expand</string>
     <string name="exponent"><![CDATA[x<sup><small><i>□</i></small></sup>]]></string>
     <string name="factor">Factor</string>
@@ -285,7 +284,7 @@
     <string name="trueB">Tru</string>
     <string name="two">2</string>
     <string name="unit_vector">Û</string>
-    <string name="upgrade">Upgrade to Ad-Free</string>
+    <string name="upgrade">Donate</string>
     <string name="varA">A</string>
     <string name="varB">B</string>
     <string name="varC">C</string>
@@ -309,19 +308,21 @@
     <string name="zero">0</string>
     <!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/values/values.xml -->
     <eat-comment/>
+    <style name="CheckBoxDavid" parent="android:Widget.DeviceDefault.CompoundButton.CheckBox">
+        <item name="android:textColor">@color/displayDavid</item>
+        <item name="android:textColorPrimary">@color/displayDavid</item>
+        <item name="android:padding">16dp</item>
+    </style>
+    <style name="CheckBoxTheme2" parent="android:Widget.DeviceDefault.CompoundButton.CheckBox">
+        <item name="android:textColor">@color/textColorTheme2</item>
+        <item name="android:textColorPrimary">@color/textColorTheme2</item>
+        <item name="android:padding">16dp</item>
+    </style>
     <style name="CustomAlertDialog" parent="android:style/Theme.Dialog">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsFloating">true</item>
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:textColor">#9E9E9E</item>
-    </style>
-    <style name="SwitchTextDavid" parent="android:TextAppearance.DeviceDefault.Small">
-        <item name="android:textColor">@color/color1David</item>
-        <item name="android:switchPadding">16dp</item>
-    </style>
-    <style name="SwitchTextTheme2" parent="android:TextAppearance.DeviceDefault.Small">
-        <item name="android:textColor">@color/color1Theme2</item>
-        <item name="android:switchPadding">16dp</item>
     </style>
     <!-- From: file:/D:/App%20dev/Calculall/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_iap_style.xml -->
     <eat-comment/>
@@ -340,22 +341,20 @@
         <item name="buttonFunction">@style/buttonDarkDavid</item>
         <item name="buttonOperator">@style/buttonLightDavid</item>
         <item name="buttonSpecial">@style/buttonSpecialDavid</item>
-        <item name="android:textColor">@color/backgroundDavid</item>
+        <item name="android:textColor">@color/displayDavid</item>
         <item name="buttonNum">@style/buttonNumDavid</item>
         <item name="displayColor">@color/displayDavid</item>
         <item name="displayTextColor">@color/textDisplayColorDavid</item>
         <item name="android:windowNoTitle">true</item>
+        <item name="android:checkboxStyle">@style/CheckBoxDavid</item>
         <item name="change_img">@drawable/change_white</item>
         <item name="frac_img">@drawable/frac_white</item>
         <item name="history_img">@drawable/history_white</item>
         <item name="settings_img">@drawable/settings_white</item>
         <item name="android:buttonStyle">@style/normalDavid</item>
-        <item name="android:buttonStyleToggle">@style/toggleDavid</item>
         <item name="history_style">@color/color1David</item>
         <item name="android:windowActionBar">false</item>
         <item name="spinnerTextStyle">@style/spinnerTextDavid</item>
-        <item name="android:switchTextAppearance">@style/SwitchTextDavid</item>
-        <item name="android:switchPadding">16dp</item>
         <item name="mrl_rippleOverlay">true</item>
         <item name="mrl_rippleColor">@color/color2David</item>
         <item name="mrl_rippleAlpha">0.2</item>
@@ -372,17 +371,15 @@
         <item name="displayColor">@color/displayTheme2</item>
         <item name="displayTextColor">@color/textDisplayColorTheme2</item>
         <item name="android:windowNoTitle">true</item>
+        <item name="android:checkboxStyle">@style/CheckBoxTheme2</item>
         <item name="change_img">@drawable/change_white</item>
         <item name="frac_img">@drawable/frac_white</item>
         <item name="history_img">@drawable/history_white</item>
         <item name="settings_img">@drawable/settings_white</item>
         <item name="android:buttonStyle">@style/normalTheme2</item>
-        <item name="android:buttonStyleToggle">@style/toggleTheme2</item>
         <item name="history_style">@color/color1Theme2</item>
         <item name="android:windowActionBar">false</item>
         <item name="spinnerTextStyle">@style/spinnerTextTheme2</item>
-        <item name="android:switchTextAppearance">@style/SwitchTextTheme2</item>
-        <item name="android:switchPadding">16dp</item>
         <item name="mrl_rippleOverlay">true</item>
         <item name="mrl_rippleColor">@color/color2Theme2</item>
         <item name="mrl_rippleAlpha">0.2</item>
@@ -472,27 +469,19 @@
         <item name="android:color">@color/displayTheme2</item>
     </style>
     <style name="spinnerTextDavid" parent="android:Widget.DeviceDefault.TextView.SpinnerItem">
-        <item name="android:background">@color/displayDavid</item>
+        <item name="android:background">@color/color1David</item>
         <item name="android:dropDownSelector">@color/displayDavid</item>
         <item name="android:divider">@null</item>
-        <item name="android:textColor">@color/color1David</item>
+        <item name="android:textColor">@color/displayDavid</item>
         <item name="android:color">@color/displayDavid</item>
-
+        <item name="android:padding">12dp</item>
     </style>
     <style name="spinnerTextTheme2" parent="android:Widget.DeviceDefault.TextView.SpinnerItem">
         <item name="android:background">@color/displayTheme2</item>
         <item name="android:dropDownSelector">@color/displayTheme2</item>
         <item name="android:divider">@null</item>
-        <item name="android:textColor">@color/color1Theme2</item>
-        <item name="android:color">@color/displayTheme2</item>
-
-    </style>
-    <style name="toggleDavid" parent="buttonLightDavid">
-        <item name="android:textColor">@color/displayDavid</item>
-        <item name="android:color">@color/color1David</item>
-    </style>
-    <style name="toggleTheme2" parent="buttonLightTheme2">
-        <item name="android:textColor">@color/displayTheme2</item>
-        <item name="android:color">@color/color1Theme2</item>
+        <item name="android:textColor">@color/textColorTheme2</item>
+        <item name="android:color">@color/textColorTheme2</item>
+        <item name="android:padding">12dp</item>
     </style>
 </resources>
