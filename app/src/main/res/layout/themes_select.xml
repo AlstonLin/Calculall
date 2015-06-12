@@ -6,13 +6,36 @@
     android:hardwareAccelerated="true"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/back_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="clickExitTheme"
-        android:text="@string/backspace"
-        android:textSize="48sp" />
+    <LinearLayout
+        style="?attr/buttonFunction"
+        android:layout_width="match_parent"
+        android:layout_height="?android:actionBarSize"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/exit_button"
+            style="?attr/buttonFunction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:onClick="clickBack"
+            android:text="Back"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            style="?attr/buttonNum"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="25"
+            android:gravity="center"
+            android:text="Choose A Theme"
+            android:textColor="#fff"
+            android:textSize="16sp" />
+
+    </LinearLayout>
 
     <ListView
         android:id="@+id/themes_grid"
