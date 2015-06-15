@@ -119,6 +119,7 @@
     <string name="bear">Bea</string>
     <string name="cancel">Cancel</string>
     <string name="cbrt">³√</string>
+    <string name="clear_after_equals">Clear Display After Calculating</string>
     <string name="closed_bracket">)</string>
     <string name="closed_square_bracket">]</string>
     <string name="combination">n<b><b>C</b></b>r</string>
@@ -174,7 +175,7 @@
     <string name="decline">Decline</string>
     <!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/values/strings.xml -->
     <eat-comment/>
-    <string name="decomp">DECOMP</string>
+    <string name="decomp">LUP</string>
     <string name="degrees">Degrees</string>
     <string name="derivative">d/dx</string>
     <string name="det">DET</string>
@@ -187,7 +188,7 @@
     <string name="eight">8</string>
     <string name="empty"> </string>
     <string name="equals">=</string>
-    <string name="ev">Ev</string>
+    <string name="ev">A-λI</string>
     <string name="expand">Expand</string>
     <string name="exponent"><![CDATA[x<sup><small><i>□</i></small></sup>]]></string>
     <string name="factor">Factor</string>

@@ -13,8 +13,8 @@
     <color name="displayTheme2">#ff333c42</color>
     <color name="color1Theme2">#ff333c42</color>
     <color name="color2Theme2">#ff1b2023</color>
-    <color name="textColorTheme2">#ffFF9900</color>
-    <color name="numPadColorTheme2">#ff3299BB</color>
+    <color name="textColorTheme2">#fff</color>
+    <color name="numPadColorTheme2">#ffFF9900</color>
 
     <color name="displayTextForest">#FFD54F</color>
     <color name="displayTextPanda">#ffc5c5c5</color>

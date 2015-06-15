@@ -17,7 +17,7 @@
     Junior Developer - Jason Fok\nJunior Developer - Keith Wong\nQuality Assurance Analyst - Tyler Wang</string>
     <string name="special_thanks">Other collaborators\n Ernest Wong, Brenden Chiu, Ahsen Husain, David Lin</string>
     <string name="preference_key">com.trutechinnovations.calculall.PREFERENCES</string>
-    <string name="upgrade">Upgrade to Ad-Free</string>
+    <string name="upgrade">Donate</string>
     <string name="report">Report a Bug</string>
     <string name="haptic">Vibrate</string>
     <string name="decimals">Digits</string>
@@ -45,10 +45,10 @@
     <string name="rref">RREF</string>
     <string name="det">DET</string>
     <string name="diag">DIAG</string>
-    <string name="decomp">LUP</string>
+    <string name="decomp">DECOMP</string>
     <string name="tr">tr</string>
     <string name="lambda">λ</string>
-    <string name="ev">A-λI</string>
+    <string name="ev">Ev</string>
     <string name="augment">[A|B]</string>
     <string name="transpose"><![CDATA[A<sup><small><i>t</i></small></sup>]]></string>
     <string name="matrix_pow"><![CDATA[A<sup><small><i>y</i></small></sup>]]></string>
