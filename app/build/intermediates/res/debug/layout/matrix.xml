@@ -12,94 +12,108 @@
         android:layout_weight="2"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/new_button"
-            style="?buttonSpecial"
+        <com.balysv.materialripple.MaterialRippleLayout
             android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:checked="false"
-            android:longClickable="false"
-            android:onClick="onClick"
-            android:text="@string/newe"
-            android:textSize="16sp" />
+            android:layout_weight="1">
 
-        <Button
-            android:id="@+id/edit_button"
-            style="?attr/buttonSpecial"
+            <Button
+                android:id="@+id/new_button"
+                style="?buttonSpecial"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:checked="false"
+                android:longClickable="false"
+                android:onClick="onClick"
+                android:text="@string/newe"
+                android:textSize="16sp" />
+        </com.balysv.materialripple.MaterialRippleLayout>
+
+        <com.balysv.materialripple.MaterialRippleLayout
             android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:checked="false"
-            android:longClickable="false"
-            android:onClick="onClick"
-            android:text="@string/edit"
-            android:textSize="16sp" />
+            android:layout_weight="1">
 
-        <ToggleButton
-            android:id="@+id/mem_button"
-            style="?attr/buttonSpecial"
+            <Button
+                android:id="@+id/edit_button"
+                style="?attr/buttonSpecial"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:checked="false"
+                android:longClickable="false"
+                android:onClick="onClick"
+                android:text="@string/edit"
+                android:textSize="16sp" />
+        </com.balysv.materialripple.MaterialRippleLayout>
+
+        <com.balysv.materialripple.MaterialRippleLayout
             android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:checked="false"
-            android:onClick="onClick"
-            android:textOff="@string/store"
-            android:textOn="@string/store"
-            android:textSize="16sp" />
+            android:layout_weight="1">
 
-        <ImageButton
-            android:id="@+id/settings_button"
-            style="?attr/buttonFunction"
+            <ToggleButton
+                android:id="@+id/mem_button"
+                style="?attr/buttonSpecial"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:checked="false"
+                android:onClick="onClick"
+                android:textOff="@string/store"
+                android:textOn="@string/store"
+                android:textSize="16sp" />
+        </com.balysv.materialripple.MaterialRippleLayout>
+
+        <com.balysv.materialripple.MaterialRippleLayout
             android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:adjustViewBounds="true"
-            android:onClick="clickSettings"
-            android:paddingBottom="5dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:paddingTop="5dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_action_settings"
-            android:textSize="20sp" />
+            android:layout_weight="1">
 
+            <ImageButton
+                android:id="@+id/history_button"
+                style="?attr/buttonSpecial"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:adjustViewBounds="true"
+                android:onClick="onClick"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="5dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_action_assignment"
+                android:textSize="20sp" />
+        </com.balysv.materialripple.MaterialRippleLayout>
 
-        <ImageButton
-            android:id="@+id/history_button"
-            style="?attr/buttonFunction"
+        <com.balysv.materialripple.MaterialRippleLayout
             android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:adjustViewBounds="true"
-            android:onClick="onClick"
-            android:paddingBottom="5dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:paddingTop="5dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_action_assignment"
-            android:textSize="20sp" />
+            android:layout_weight="1">
 
-        <Button
-            android:id="@+id/back_button"
-            style="?attr/buttonFunction"
+            <Button
+                android:id="@+id/back_button"
+                style="?attr/buttonSpecial"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:onClick="onClick"
+                android:text="@string/backspace"
+                android:textSize="20sp" />
+        </com.balysv.materialripple.MaterialRippleLayout>
+
+        <com.balysv.materialripple.MaterialRippleLayout
             android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:onClick="onClick"
-            android:text="@string/backspace"
-            android:textSize="20sp" />
+            android:layout_weight="1">
 
-        <Button
-            android:id="@+id/clear_button"
-            style="?attr/buttonFunction"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:onClick="onClick"
-            android:text="@string/C"
-            android:textSize="20sp" />
+            <Button
+                android:id="@+id/clear_button"
+                style="?attr/buttonSpecial"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:onClick="onClick"
+                android:text="@string/C"
+                android:textSize="20sp" />
+        </com.balysv.materialripple.MaterialRippleLayout>
+
     </LinearLayout>
 
     <LinearLayout
@@ -109,142 +123,100 @@
         android:layout_weight="2"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/open_bracket_button"
-            style="?attr/buttonFunction"
+        <com.balysv.materialripple.MaterialRippleLayout
             android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:layout_marginRight="0dp"
-            android:layout_weight="1"
-            android:onClick="onClick"
-            android:text="@string/open_bracket"
-            android:textSize="25sp" />
+            android:layout_weight="1">
 
-        <Button
-            android:id="@+id/closed_bracket_button"
-            style="?attr/buttonFunction"
+            <Button
+                android:id="@+id/open_bracket_button"
+                style="?attr/buttonFunction"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="bottom"
+                android:onClick="onClick"
+                android:text="@string/open_bracket"
+                android:textSize="25sp" />
+        </com.balysv.materialripple.MaterialRippleLayout>
+
+        <com.balysv.materialripple.MaterialRippleLayout
             android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:layout_marginRight="0dp"
-            android:layout_weight="1"
-            android:onClick="onClick"
-            android:text="@string/closed_bracket"
-            android:textSize="25sp" />
+            android:layout_weight="1">
 
-        <Button
-            android:id="@+id/var_a"
-            style="?attr/buttonFunction"
+            <Button
+                android:id="@+id/closed_bracket_button"
+                style="?attr/buttonFunction"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="bottom"
+                android:onClick="onClick"
+                android:text="@string/closed_bracket"
+                android:textSize="25sp" />
+        </com.balysv.materialripple.MaterialRippleLayout>
+
+        <com.balysv.materialripple.MaterialRippleLayout
             android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:checked="false"
-            android:onClick="onClick"
-            android:text="@string/varA"
-            android:textSize="25sp" />
+            android:layout_weight="1">
 
-        <Button
-            android:id="@+id/var_b"
-            style="?attr/buttonFunction"
+            <Button
+                android:id="@+id/var_a"
+                style="?attr/buttonFunction"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:checked="false"
+                android:onClick="onClick"
+                android:text="@string/varA"
+                android:textSize="25sp" />
+        </com.balysv.materialripple.MaterialRippleLayout>
+
+        <com.balysv.materialripple.MaterialRippleLayout
             android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:checked="false"
-            android:onClick="onClick"
-            android:text="@string/varB"
-            android:textSize="25sp" />
+            android:layout_weight="1">
 
-        <Button
-            android:id="@+id/var_c"
-            style="?attr/buttonFunction"
+            <Button
+                android:id="@+id/var_b"
+                style="?attr/buttonFunction"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:checked="false"
+                android:onClick="onClick"
+                android:text="@string/varB"
+                android:textSize="25sp" />
+        </com.balysv.materialripple.MaterialRippleLayout>
+
+        <com.balysv.materialripple.MaterialRippleLayout
             android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:checked="false"
-            android:onClick="onClick"
-            android:text="@string/varC"
-            android:textSize="25sp" />
+            android:layout_weight="1">
 
-        <Button
-            android:id="@+id/ans_button"
-            style="?attr/buttonFunction"
+            <Button
+                android:id="@+id/var_c"
+                style="?attr/buttonFunction"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:checked="false"
+                android:onClick="onClick"
+                android:text="@string/varC"
+                android:textSize="25sp" />
+        </com.balysv.materialripple.MaterialRippleLayout>
+
+        <com.balysv.materialripple.MaterialRippleLayout
             android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:onClick="onClick"
-            android:text="@string/ans"
-            android:textSize="16sp" />
-    </LinearLayout>
+            android:layout_weight="1">
 
-    <LinearLayout
-        android:id="@+id/function_row1"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/ref_button"
-            style="?attr/buttonFunction"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:onClick="onClick"
-            android:text="@string/ref"
-            android:textSize="16sp" />
-
-        <Button
-            android:id="@+id/rref_button"
-            style="?attr/buttonFunction"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_marginRight="0dp"
-            android:layout_weight="1"
-            android:onClick="onClick"
-            android:text="@string/rref"
-            android:textSize="16sp" />
-
-        <Button
-            android:id="@+id/lambda_button"
-            style="?attr/buttonSpecial"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:onClick="onClick"
-            android:text="@string/lambda"
-            android:textSize="16sp" />
-
-        <Button
-            android:id="@+id/ev_button"
-            style="?attr/buttonSpecial"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_marginRight="0dp"
-            android:layout_weight="1"
-            android:onClick="onClick"
-            android:text="@string/ev"
-            android:textSize="16sp" />
-
-        <Button
-            android:id="@+id/diag_button"
-            style="?attr/buttonSpecial"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_marginRight="0dp"
-            android:layout_weight="1"
-            android:onClick="onClick"
-            android:text="@string/diag"
-            android:textSize="16sp" />
-
-        <Button
-            android:id="@+id/decomp_button"
-            style="?attr/buttonSpecial"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_marginRight="0dp"
-            android:layout_weight="1"
-            android:onClick="onClick"
-            android:text="@string/decomp"
-            android:textSize="14sp" />
+            <Button
+                android:id="@+id/ans_button"
+                style="?attr/buttonFunction"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:onClick="onClick"
+                android:text="@string/ans"
+                android:textSize="16sp" />
+        </com.balysv.materialripple.MaterialRippleLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -254,82 +226,216 @@
         android:layout_weight="2"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/det_button"
-            style="?attr/buttonFunction"
+        <com.balysv.materialripple.MaterialRippleLayout
             android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:layout_marginRight="0dp"
-            android:layout_weight="1"
-            android:onClick="onClick"
-            android:text="@string/det"
-            android:textSize="16sp" />
+            android:layout_weight="1">
 
-        <Button
-            android:id="@+id/tr_button"
-            style="?attr/buttonFunction"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_marginLeft="-7dp"
-            android:layout_marginRight="-7dp"
-            android:layout_weight="1"
-            android:onClick="onClick"
-            android:text="@string/tr"
-            android:textSize="16sp" />
+            <Button
+                android:id="@+id/det_button"
+                style="?attr/buttonFunction"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="bottom"
+                android:onClick="onClick"
+                android:text="@string/det"
+                android:textSize="16sp" />
+        </com.balysv.materialripple.MaterialRippleLayout>
 
-        <Button
-            android:id="@+id/rank_button"
-            style="?attr/buttonFunction"
+        <com.balysv.materialripple.MaterialRippleLayout
             android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:layout_marginRight="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:onClick="onClick"
-            android:text="@string/rank"
-            android:textSize="16sp" />
+            android:layout_weight="1">
 
-        <Button
-            android:id="@+id/transpose_button"
-            style="?attr/buttonFunction"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:onClick="onClick"
-            android:textSize="16sp" />
+            <Button
+                android:id="@+id/tr_button"
+                style="?attr/buttonFunction"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:onClick="onClick"
+                android:text="@string/tr"
+                android:textSize="16sp" />
+        </com.balysv.materialripple.MaterialRippleLayout>
 
-        <Button
-            android:id="@+id/pow_button"
-            style="?attr/buttonFunction"
+        <com.balysv.materialripple.MaterialRippleLayout
             android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:onClick="onClick"
-            android:textSize="16sp" />
+            android:layout_weight="1">
 
-        <Button
-            android:id="@+id/inverse_button"
-            style="?attr/buttonFunction"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:onClick="onClick"
-            android:textSize="16sp" />
+            <Button
+                android:id="@+id/rank_button"
+                style="?attr/buttonFunction"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                android:onClick="onClick"
+                android:text="@string/rank"
+                android:textSize="16sp" />
+        </com.balysv.materialripple.MaterialRippleLayout>
 
-        <ImageButton
-            android:id="@+id/frac_mode"
-            style="?attr/buttonFunction"
+        <com.balysv.materialripple.MaterialRippleLayout
             android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:layout_gravity="bottom"
-            android:layout_weight="1"
-            android:adjustViewBounds="true"
-            android:onClick="onClick"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_change"
-            android:textSize="15sp" />
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/transpose_button"
+                style="?attr/buttonFunction"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:onClick="onClick"
+                android:textSize="16sp" />
+        </com.balysv.materialripple.MaterialRippleLayout>
+
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/pow_button"
+                style="?attr/buttonFunction"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:onClick="onClick"
+                android:textSize="16sp" />
+        </com.balysv.materialripple.MaterialRippleLayout>
+
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/inverse_button"
+                style="?attr/buttonFunction"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:onClick="onClick"
+                android:textSize="16sp" />
+        </com.balysv.materialripple.MaterialRippleLayout>
+
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1">
+
+            <ImageButton
+                android:id="@+id/frac_mode"
+                style="?attr/buttonFunction"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="bottom"
+                android:adjustViewBounds="true"
+                android:onClick="onClick"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_change"
+                android:textSize="15sp" />
+        </com.balysv.materialripple.MaterialRippleLayout>
     </LinearLayout>
 
+
+    <LinearLayout
+        android:id="@+id/function_row1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:orientation="horizontal">
+
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/ref_button"
+                style="?attr/buttonSpecial"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:onClick="onClick"
+                android:text="@string/ref"
+                android:textSize="16sp" />
+        </com.balysv.materialripple.MaterialRippleLayout>
+
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/rref_button"
+                style="?attr/buttonSpecial"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="bottom"
+                android:onClick="onClick"
+                android:text="@string/rref"
+                android:textSize="16sp" />
+        </com.balysv.materialripple.MaterialRippleLayout>
+
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/lambda_button"
+                style="?attr/buttonSpecial"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:onClick="onClick"
+                android:text="@string/lambda"
+                android:textSize="16sp" />
+        </com.balysv.materialripple.MaterialRippleLayout>
+
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/ev_button"
+                style="?attr/buttonSpecial"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="bottom"
+                android:onClick="onClick"
+                android:text="@string/ev"
+                android:textSize="16sp" />
+        </com.balysv.materialripple.MaterialRippleLayout>
+
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/diag_button"
+                style="?attr/buttonSpecial"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="bottom"
+                android:onClick="onClick"
+                android:text="@string/diag"
+                android:textSize="16sp" />
+        </com.balysv.materialripple.MaterialRippleLayout>
+
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/decomp_button"
+                style="?attr/buttonSpecial"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="bottom"
+                android:onClick="onClick"
+                android:text="@string/decomp"
+                android:textSize="14sp" />
+        </com.balysv.materialripple.MaterialRippleLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/main_row"
@@ -339,16 +445,20 @@
         android:baselineAligned="true"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/num_button"
-            style="?buttonNum"
+        <com.balysv.materialripple.MaterialRippleLayout
             android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:onClick="onClick"
-            android:text="@string/num"
-            android:textSize="30sp" />
+            android:layout_weight="1">
 
+            <Button
+                android:id="@+id/num_button"
+                style="?buttonNum"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:onClick="onClick"
+                android:text="@string/num"
+                android:textSize="30sp" />
+        </com.balysv.materialripple.MaterialRippleLayout>
         <LinearLayout
             android:id="@+id/operator_container"
             android:layout_width="0dp"
@@ -365,26 +475,35 @@
                 android:baselineAligned="true"
                 android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/add_button"
-                    style="?attr/buttonOperator"
+                <com.balysv.materialripple.MaterialRippleLayout
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
-                    android:layout_weight="1"
-                    android:onClick="onClick"
-                    android:text="@string/plus"
-                    android:textSize="30sp" />
+                    android:layout_weight="1">
 
-                <Button
-                    android:id="@+id/minus_button"
-                    style="?attr/buttonOperator"
+                    <Button
+                        android:id="@+id/add_button"
+                        style="?buttonNum"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:onClick="onClick"
+                        android:text="@string/plus"
+                        android:textSize="30sp" />
+                </com.balysv.materialripple.MaterialRippleLayout>
+
+                <com.balysv.materialripple.MaterialRippleLayout
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
-                    android:layout_weight="1"
-                    android:onClick="onClick"
-                    android:text="@string/minus"
-                    android:textSize="30sp" />
+                    android:layout_weight="1">
 
+                    <Button
+                        android:id="@+id/minus_button"
+                        style="?buttonNum"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:onClick="onClick"
+                        android:text="@string/minus"
+                        android:textSize="30sp" />
+                </com.balysv.materialripple.MaterialRippleLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -395,39 +514,54 @@
                 android:baselineAligned="true"
                 android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/multiply_button"
-                    style="?attr/buttonOperator"
+                <com.balysv.materialripple.MaterialRippleLayout
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
-                    android:layout_weight="1"
-                    android:onClick="onClick"
-                    android:text="@string/multiply"
-                    android:textSize="30sp" />
+                    android:layout_weight="1">
 
-                <Button
-                    android:id="@+id/divide_button"
-                    style="?attr/buttonOperator"
+                    <Button
+                        android:id="@+id/multiply_button"
+                        style="?buttonNum"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:onClick="onClick"
+                        android:text="@string/multiply"
+                        android:textSize="30sp" />
+                </com.balysv.materialripple.MaterialRippleLayout>
+
+                <com.balysv.materialripple.MaterialRippleLayout
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
-                    android:layout_weight="1"
-                    android:onClick="onClick"
-                    android:text="@string/divide"
-                    android:textSize="30sp" />
+                    android:layout_weight="1">
 
+                    <Button
+                        android:id="@+id/divide_button"
+                        style="?buttonNum"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:onClick="onClick"
+                        android:text="@string/divide"
+                        android:textSize="30sp" />
+                </com.balysv.materialripple.MaterialRippleLayout>
             </LinearLayout>
 
         </LinearLayout>
+        x
 
-        <Button
-            android:id="@+id/equals_button"
-            style="?attr/buttonOperator"
+        <com.balysv.materialripple.MaterialRippleLayout
             android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:onClick="onClick"
-            android:text="@string/equals"
-            android:textSize="30sp" />
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/equals_button"
+                style="?buttonNum"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:onClick="onClick"
+                android:text="@string/equals"
+                android:textSize="30sp" />
+        </com.balysv.materialripple.MaterialRippleLayout>
 
     </LinearLayout>
 </LinearLayout><!-- From: file:/C:/Users/Ejaaz/TruTech/Calculall/Calculall/app/src/main/res/layout/matrix.xml -->

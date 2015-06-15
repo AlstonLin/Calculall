@@ -1,27 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?android:colorBackground"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".SettingsActivity">
 
-    <Button
-        android:id="@+id/back_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="clickExit"
-        android:text="@string/backspace"
-        android:textSize="48sp" />
+    <LinearLayout
+        style="?attr/buttonFunction"
+        android:layout_width="match_parent"
+        android:layout_height="?android:actionBarSize"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/exit_button"
+            style="?attr/buttonFunction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:onClick="clickBack"
+            android:text="Back"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            style="?attr/buttonNum"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="25"
+            android:gravity="center"
+            android:text="About Us"
+            android:textColor="#fff"
+            android:textSize="16sp" />
+
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal">
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="8">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:background="?android:colorBackground"
             android:orientation="vertical">
 
             <ImageView
@@ -41,8 +69,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"
-                android:paddingTop="10dp"
+                android:padding="16dp"
                 android:text="@string/about_content"
+                android:textColor="?attr/displayTextColor"
                 android:textSize="18sp" />
 
             <Button
@@ -55,35 +84,7 @@
                 android:onClick="clickVisit"
                 android:layout_gravity="center_horizontal" />
 
-            <TextView
-                android:id="@+id/our_team"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center"
-                android:paddingTop="15dp"
-                android:text="@string/our_team"
-                android:textSize="32sp" />
-
-            <TextView
-                android:id="@+id/credits"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center"
-                android:paddingTop="15dp"
-                android:text="@string/credits"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/special_thanks"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center"
-                android:paddingTop="15dp"
-                android:text="@string/special_thanks"
-                android:textSize="12sp" />
         </LinearLayout>
     </ScrollView>
-</LinearLayout><!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/layout/about_page.xml -->
+</LinearLayout>
+<!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/layout/about_page.xml -->

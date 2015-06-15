@@ -8,9 +8,12 @@
     <attr format="reference" name="buttonSpecial"/>
     <attr format="reference" name="change_img"/>
     <attr format="reference" name="displayColor"/>
+    <attr format="reference" name="displayTextColor"/>
     <attr format="reference" name="frac_img"/>
     <attr format="reference" name="history_img"/>
+    <attr format="reference" name="history_style"/>
     <attr format="reference" name="settings_img"/>
+    <attr format="reference" name="spinnerTextStyle"/>
     <attr format="reference" name="toggle"/>
     <!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/values/colors.xml -->
     <eat-comment/>
@@ -39,8 +42,8 @@
     <color name="common_signin_btn_light_text_pressed">@android:color/white</color>
     <!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/values/colors.xml -->
     <eat-comment/>
+    <color name="displayDavid">#ecf0f0</color>
     <color name="displayTextAlston">#fff</color>
-    <color name="displayTextDavid">#FFFBC3</color>
     <color name="displayTextDress">#745E39</color>
     <color name="displayTextForest">#FFD54F</color>
     <color name="displayTextGeese">#000000</color>
@@ -50,13 +53,18 @@
     <color name="displayTextPanda">#ffc5c5c5</color>
     <color name="displayTextSunset">#FFC107</color>
     <color name="displayTextTrailblazer">#FFFFFF</color>
+    <color name="displayTheme2">#ff333c42</color>
+    <color name="numPadColorDavid">#ef4848</color>
+    <color name="numPadColorTheme2">#ffFF9900</color>
+    <color name="textColorDavid">#fff</color>
+    <color name="textColorTheme2">#fff</color>
+    <color name="textDisplayColorDavid">#21303f</color>
+    <color name="textDisplayColorTheme2">#ffFF9900</color>
+    <!-- From: file:/D:/App%20dev/Calculall/app/build/intermediates/exploded-aar/com.balysv/material-ripple/1.0.2/res/values/values.xml -->
     <!-- From: file:/D:/App%20dev/Calculall/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/wallet_colors.xml -->
     <eat-comment/>
     <color name="transparent">#00FFFFFF</color>
     <!-- From: file:/C:/Users/Jason/AndroidStudioProjects/Calculall/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/wallet_colors.xml -->
-    <eat-comment/>
-    <color name="transparent">#00FFFFFF</color>
-    <!-- From: file:/C:/Users/Alston/Calculall/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/wallet_colors.xml -->
     <eat-comment/>
     <color name="wallet_bright_foreground_disabled_holo_light">#ffb2b2b2</color>
     <color name="wallet_bright_foreground_holo_dark">#fff3f3f3</color>
@@ -110,7 +118,7 @@
     <string name="arctanh"><![CDATA[tanh<sup><small>-1</small></sup>]]></string>
     <string name="argument">Arg</string>
     <string name="augment">[A|B]</string>
-    <string name="backspace">←</string>
+    <string name="backspace">BS</string>
     <string name="base10">DEC</string>
     <string name="base16">HEX</string>
     <string name="base2">BIN</string>
@@ -175,7 +183,7 @@
     <string name="decline">Decline</string>
     <!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/values/strings.xml -->
     <eat-comment/>
-    <string name="decomp">LUP</string>
+    <string name="decomp">DECOMP</string>
     <string name="degrees">Degrees</string>
     <string name="derivative">d/dx</string>
     <string name="det">DET</string>
@@ -188,7 +196,7 @@
     <string name="eight">8</string>
     <string name="empty"> </string>
     <string name="equals">=</string>
-    <string name="ev">A-λI</string>
+    <string name="ev">Ev</string>
     <string name="expand">Expand</string>
     <string name="exponent"><![CDATA[x<sup><small><i>□</i></small></sup>]]></string>
     <string name="factor">Factor</string>
@@ -285,7 +293,7 @@
     <string name="trueB">Tru</string>
     <string name="two">2</string>
     <string name="unit_vector">Û</string>
-    <string name="upgrade">Upgrade to Ad-Free</string>
+    <string name="upgrade">Donate</string>
     <string name="varA">A</string>
     <string name="varB">B</string>
     <string name="varC">C</string>
@@ -309,11 +317,29 @@
     <string name="zero">0</string>
     <!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/values/values.xml -->
     <eat-comment/>
+    <style name="CheckBoxDavid" parent="android:Widget.DeviceDefault.CompoundButton.CheckBox">
+        <item name="android:textColor">@color/displayDavid</item>
+        <item name="android:textColorPrimary">@color/displayDavid</item>
+        <item name="android:padding">16dp</item>
+    </style>
+    <style name="CheckBoxTheme2" parent="android:Widget.DeviceDefault.CompoundButton.CheckBox">
+        <item name="android:textColor">@color/textColorTheme2</item>
+        <item name="android:textColorPrimary">@color/textColorTheme2</item>
+        <item name="android:padding">16dp</item>
+    </style>
     <style name="CustomAlertDialog" parent="android:style/Theme.Dialog">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsFloating">true</item>
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:textColor">#9E9E9E</item>
+    </style>
+    <style name="SwitchTextDavid" parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textColor">@color/color1David</item>
+        <item name="android:switchPadding">16dp</item>
+    </style>
+    <style name="SwitchTextTheme2" parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textColor">@color/color1Theme2</item>
+        <item name="android:switchPadding">16dp</item>
     </style>
     <!-- From: file:/D:/App%20dev/Calculall/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_iap_style.xml -->
     <eat-comment/>
@@ -325,6 +351,58 @@
     <item name="android:windowIsFloating">true</item>
     <item name="android:backgroundDimEnabled">false</item>
   </style>
+    <!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/values/values.xml -->
+    <eat-comment/>
+    <style name="Theme1" parent="android:Theme.DeviceDefault">
+        <item name="android:colorBackground">@color/displayDavid</item>
+        <item name="buttonFunction">@style/buttonDarkDavid</item>
+        <item name="buttonOperator">@style/buttonLightDavid</item>
+        <item name="buttonSpecial">@style/buttonSpecialDavid</item>
+        <item name="android:textColor">@color/displayDavid</item>
+        <item name="buttonNum">@style/buttonNumDavid</item>
+        <item name="displayColor">@color/displayDavid</item>
+        <item name="displayTextColor">@color/textDisplayColorDavid</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:checkboxStyle">@style/CheckBoxDavid</item>
+        <item name="change_img">@drawable/change_white</item>
+        <item name="frac_img">@drawable/frac_white</item>
+        <item name="history_img">@drawable/history_white</item>
+        <item name="settings_img">@drawable/settings_white</item>
+        <item name="android:buttonStyle">@style/normalDavid</item>
+        <item name="history_style">@color/color1David</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="spinnerTextStyle">@style/spinnerTextDavid</item>
+        <item name="mrl_rippleOverlay">true</item>
+        <item name="mrl_rippleColor">@color/color2David</item>
+        <item name="mrl_rippleAlpha">0.2</item>
+        <item name="mrl_rippleDelayClick">false</item>
+        <item name="mrl_rippleHover">true</item>
+    </style>
+    <style name="Theme2" parent="android:Theme.DeviceDefault">
+        <item name="android:colorBackground">@color/displayTheme2</item>
+        <item name="buttonFunction">@style/buttonDarkTheme2</item>
+        <item name="buttonOperator">@style/buttonLightTheme2</item>
+        <item name="buttonSpecial">@style/buttonSpecialTheme2</item>
+        <item name="android:textColor">@color/backgroundTheme2</item>
+        <item name="buttonNum">@style/buttonNumTheme2</item>
+        <item name="displayColor">@color/displayTheme2</item>
+        <item name="displayTextColor">@color/textDisplayColorTheme2</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:checkboxStyle">@style/CheckBoxTheme2</item>
+        <item name="change_img">@drawable/change_white</item>
+        <item name="frac_img">@drawable/frac_white</item>
+        <item name="history_img">@drawable/history_white</item>
+        <item name="settings_img">@drawable/settings_white</item>
+        <item name="android:buttonStyle">@style/normalTheme2</item>
+        <item name="history_style">@color/color1Theme2</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="spinnerTextStyle">@style/spinnerTextTheme2</item>
+        <item name="mrl_rippleOverlay">true</item>
+        <item name="mrl_rippleColor">@color/color2Theme2</item>
+        <item name="mrl_rippleAlpha">0.2</item>
+        <item name="mrl_rippleDelayClick">false</item>
+        <item name="mrl_rippleHover">true</item>
+    </style>
     <!-- From: file:/D:/App%20dev/Calculall/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/wallet_styles.xml -->
     <eat-comment/>
     <style name="WalletFragmentDefaultButtonTextAppearance">
@@ -382,12 +460,12 @@
         <item name="android:textColor">#FFFFFF</item>
     </style>
     <style name="buttonDarkDavid" parent="android:Widget.Holo.Button.Borderless.Small">
-        <item name="android:background">@drawable/button_dark_david</item>
-        <item name="android:textColor">#fff</item>
+        <item name="android:textColor">@color/textColorDavid</item>
+        <item name="android:background">@color/backgroundDavid</item>
     </style>
-    <style name="buttonDarkDress" parent="android:Widget.Holo.Button.Borderless.Small">
-        <item name="android:background">@drawable/button_dark_dress</item>
-        <item name="android:textColor">#8F9CC6</item>
+    <style name="buttonDarkTheme2" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:textColor">@color/textColorTheme2</item>
+        <item name="android:background">@color/backgroundTheme2</item>
     </style>
     <style name="buttonDarkForest" parent="android:Widget.Holo.Button.Borderless.Small">
         <item name="android:background">@drawable/button_dark_forest</item>
@@ -426,12 +504,12 @@
         <item name="android:textColor">#FFFFFF</item>
     </style>
     <style name="buttonLightDavid" parent="android:Widget.Holo.Button.Borderless.Small">
-        <item name="android:background">@drawable/button_light_david</item>
-        <item name="android:textColor">#fff</item>
+        <item name="android:textColor">@color/textColorDavid</item>
+        <item name="android:background">@color/color1David</item>
     </style>
-    <style name="buttonLightDress" parent="android:Widget.Holo.Button.Borderless.Small">
-        <item name="android:background">@drawable/button_light_dress</item>
-        <item name="android:textColor">#745E39</item>
+    <style name="buttonLightTheme2" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:textColor">@color/textColorTheme2</item>
+        <item name="android:background">@color/color1Theme2</item>
     </style>
     <style name="buttonLightForest" parent="android:Widget.Holo.Button.Borderless.Small">
         <item name="android:background">@drawable/button_light_forest</item>
@@ -470,12 +548,18 @@
         <item name="android:textColor">#ECF9B9</item>
     </style>
     <style name="buttonNumDavid" parent="android:Widget.Holo.Button.Borderless.Small">
-        <item name="android:background">@drawable/button_light_david</item>
-        <item name="android:textColor">#2A8DB6</item>
+        <item name="android:textColor">@color/numPadColorDavid</item>
+        <item name="android:background">@color/color1David</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
     </style>
-    <style name="buttonNumDress" parent="android:Widget.Holo.Button.Borderless.Small">
-        <item name="android:background">@drawable/button_light_dress</item>
-        <item name="android:textColor">#000000</item>
+    <style name="buttonNumTheme2" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:textColor">@color/numPadColorTheme2</item>
+        <item name="android:background">@color/color1Theme2</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
     </style>
     <style name="buttonNumForest" parent="android:Widget.Holo.Button.Borderless.Small">
         <item name="android:background">@drawable/button_dark_forest</item>
@@ -514,25 +598,39 @@
         <item name="android:textColor">#ECF9B9</item>
     </style>
     <style name="buttonSpecialDavid" parent="android:Widget.Holo.Button.Borderless.Small">
-        <item name="android:background">@drawable/button_special_david</item>
-        <item name="android:textColor">#ff61c2ed</item>
+        <item name="android:textColor">@color/textColorDavid</item>
+        <item name="android:background">@color/color2David</item>
     </style>
-    <style name="buttonSpecialDress" parent="android:Widget.Holo.Button.Borderless.Small">
-        <item name="android:background">@drawable/button_special_dress</item>
-        <item name="android:textColor">#8F9CC6</item>
+    <style name="buttonSpecialTheme2" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:textColor">@color/textColorTheme2</item>
+        <item name="android:background">@color/color2Theme2</item>
     </style>
-    <style name="buttonSpecialForest" parent="android:Widget.Holo.Button.Borderless.Small">
-        <item name="android:background">@drawable/button_special_forest</item>
-        <item name="android:textColor">#000000</item>
+    <style name="normalDavid" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:textColor">@color/color2David</item>
+        <item name="android:color">@color/displayDavid</item>
     </style>
-    <style name="buttonSpecialGeese" parent="android:Widget.Holo.Button.Borderless.Small">
-        <item name="android:background">@drawable/button_special_geese</item>
-        <item name="android:textColor">#FFEB3B</item>
+    <style name="normalTheme2" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:textColor">@color/color2Theme2</item>
+        <item name="android:color">@color/displayTheme2</item>
     </style>
+    <style name="spinnerTextDavid" parent="android:Widget.DeviceDefault.TextView.SpinnerItem">
+        <item name="android:background">@color/color1David</item>
+        <item name="android:dropDownSelector">@color/displayDavid</item>
+        <item name="android:divider">@null</item>
+        <item name="android:textColor">@color/displayDavid</item>
+        <item name="android:color">@color/displayDavid</item>
+        <item name="android:padding">12dp</item>
     <style name="buttonSpecialHawks" parent="android:Widget.Holo.Button.Borderless.Small">
         <item name="android:background">@drawable/button_special_hawks</item>
         <item name="android:textColor">#4527A0</item>
     </style>
+    <style name="spinnerTextTheme2" parent="android:Widget.DeviceDefault.TextView.SpinnerItem">
+        <item name="android:background">@color/displayTheme2</item>
+        <item name="android:dropDownSelector">@color/displayTheme2</item>
+        <item name="android:divider">@null</item>
+        <item name="android:textColor">@color/textColorTheme2</item>
+        <item name="android:color">@color/textColorTheme2</item>
+        <item name="android:padding">12dp</item>
     <style name="buttonSpecialMaterial" parent="android:Widget.Holo.Button.Borderless.Small">
         <item name="android:background">@drawable/button_special_material</item>
         <item name="android:textColor">#FFFFFF</item>
