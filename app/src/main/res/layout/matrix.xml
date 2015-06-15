@@ -393,14 +393,14 @@
             android:layout_height="fill_parent"
             android:layout_weight="1">
 
-            <Button
+            <ImageButton
                 android:id="@+id/ev_button"
                 style="?attr/buttonSpecial"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_gravity="bottom"
                 android:onClick="onClick"
-                android:text="@string/ev"
+                android:src="@drawable/eigenvector"
                 android:textSize="16sp" />
         </com.balysv.materialripple.MaterialRippleLayout>
 
