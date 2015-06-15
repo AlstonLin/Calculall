@@ -1,6 +1,5 @@
 package com.trutechinnovations.calculall;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.view.Gravity;
@@ -8,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -21,10 +19,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Contains the back-end of the advanced calculator mode. The advanced mode will be able to
@@ -36,43 +32,26 @@ import java.util.List;
 public class Advanced extends Basic {
 
     public static final int DEC = 1, FRAC = 2;
-    private int fracMode = DEC;
+    public static final int CONSTANTS_SIZE = 25;
+    public static final double CONSTANTS_IO_RATIO = 0.7; //The size of the output / input in the
+    private static final String FILENAME = "history_advanced";
+    private static final String FILENAMECONST = "const_advanced";
+    private static final Basic INSTANCE = new Advanced();
+    private static String filenameConst = "const_advanced";
+    protected int fracMode = DEC;
+    // constants list
+    //Fields
+    protected ArrayList<MultiButton> multiButtons;
+    protected boolean hyperbolic = false, shift = false, mem = false;
     private Dialog graphDialog;
     private PopupWindow constWindow;
-    private static String filenameConst = "const_advanced";
+    private PopupWindow pw;
+    private Dialog constantsDialog;
 
     { //pseudo-constructor
         filename = "history_advanced";
         filenameConst = "const_advanced";
     }
-
-    private static final String FILENAME = "history_advanced";
-    private static final String FILENAMECONST = "const_advanced";
-    private static final Basic INSTANCE = new Advanced();
-    public static final int CONSTANTS_SIZE = 25;
-    public static final double CONSTANTS_IO_RATIO = 0.7; //The size of the output / input in the
-    // constants list
-    //Fields
-    protected ArrayList<MultiButton> multiButtons;
-    protected boolean hyperbolic = false, shift = false, mem = false;
-
-    private PopupWindow pw;
-    private Dialog constantsDialog;
-
-    public enum Constant {
-        SPEED_OF_LIGHT(299792458), MAGNETIC_VAL((4*Math.PI)*1e-7);
-        private double value;
-
-        Constant(double value) {
-            this.value = value;
-        }
-
-        public double getValue () {
-            return value;
-        }
-
-    }
-
 
     /**
      * Allows for the Singleton pattern so there would be only one instance.
@@ -182,14 +161,13 @@ public class Advanced extends Basic {
                 output = JFok.simplifyExpression(output);
                 display.displayOutput(output);
                 saveEquation(tokens, output, FILENAME);
-                VariableFactory.ans_value = output;
+                VariableFactory.ansValueAdv = output;
             }
         } catch (Exception e) { //User did a mistake
             handleExceptions(e);
         }
         activity.scrollDown();
     }
-
 
     public void clickAngleMode() {
         Button angleModeButton = (Button) activity.findViewById(R.id.angle_mode);
@@ -284,7 +262,7 @@ public class Advanced extends Basic {
      * When the user presses the ANS button
      */
     public void clickAns() {
-        tokens.add(display.getRealCursorIndex(), VariableFactory.makeAns());
+        tokens.add(display.getRealCursorIndex(), VariableFactory.makeAnsAdv());
         display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
     }
@@ -297,7 +275,7 @@ public class Advanced extends Basic {
             storeVariable("→ A", new Command<Void, ArrayList<Token>>() {
                 @Override
                 public Void execute(ArrayList<Token> val) {
-                    VariableFactory.a_value = val;
+                    VariableFactory.aValue = val;
                     return null;
                 }
             });
@@ -316,7 +294,7 @@ public class Advanced extends Basic {
             storeVariable("→ B", new Command<Void, ArrayList<Token>>() {
                 @Override
                 public Void execute(ArrayList<Token> val) {
-                    VariableFactory.b_value = val;
+                    VariableFactory.bValue = val;
                     return null;
                 }
             });
@@ -335,7 +313,7 @@ public class Advanced extends Basic {
             storeVariable("→ C", new Command<Void, ArrayList<Token>>() {
                 @Override
                 public Void execute(ArrayList<Token> val) {
-                    VariableFactory.c_value = val;
+                    VariableFactory.cValue = val;
                     return null;
                 }
             });
@@ -345,7 +323,6 @@ public class Advanced extends Basic {
             updateInput();
         }
     }
-
 
     /**
      * When the user presses the ( Button.
@@ -430,7 +407,6 @@ public class Advanced extends Basic {
         display.setCursorIndex(display.getCursorIndex() + 2);
         updateInput();
     }
-
 
     public void clickExponent() {
         ArrayList<Token> list = new ArrayList<>();
@@ -564,7 +540,6 @@ public class Advanced extends Basic {
         display.setCursorIndex(display.getCursorIndex() + 4);
         updateInput();
     }
-
 
     /**
      * Gets the index where the fraction starts.
@@ -730,7 +705,6 @@ public class Advanced extends Basic {
         display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
     }
-
 
     /**
      * When the user presses the sin(x) Button.
@@ -912,6 +886,17 @@ public class Advanced extends Basic {
         display.setCursorIndex(display.getCursorIndex() + 2);
     }
 
+    /**
+     * When the user clicks the const button.
+     */
+    public void clickConst() {
+        try {
+            openConst(filename);
+        } catch (IOException | ClassNotFoundException e) {
+            Toast.makeText(activity, "Error saving to consts", Toast.LENGTH_LONG).show();
+        }
+    }
+
 /*    *//**
      * Exits the constants view.
      *//*
@@ -936,17 +921,6 @@ public class Advanced extends Basic {
         //ArrayAdapter<Constant> constAdapter = new ArrayAdapter<Integer>(this, R.layout.constants, Constant.values());
 
 }*/
-
-    /**
-     * When the user clicks the const button.
-     */
-    public void clickConst() {
-        try {
-            openConst(filename);
-        } catch (IOException | ClassNotFoundException e) {
-            Toast.makeText(activity, "Error saving to consts", Toast.LENGTH_LONG).show();
-        }
-    }
 
     /**
      * Exits the consts view.
@@ -1033,6 +1007,32 @@ public class Advanced extends Basic {
         updateInput();
     }
 
+    public boolean isShift() {
+        return shift;
+    }
+
+    public boolean isMem() {
+        return mem;
+    }
+
+    public boolean isHyperbolic() {
+        return hyperbolic;
+    }
+
+    public enum Constant {
+        SPEED_OF_LIGHT(299792458), MAGNETIC_VAL((4 * Math.PI) * 1e-7);
+        private double value;
+
+        Constant(double value) {
+            this.value = value;
+        }
+
+        public double getValue() {
+            return value;
+        }
+
+    }
+
     /**
      * The custom Adapter for the ListView in the consts list.
      */
@@ -1114,18 +1114,6 @@ public class Advanced extends Basic {
             });
             return convertView;
         }
-    }
-
-    public boolean isShift() {
-        return shift;
-    }
-
-    public boolean isMem() {
-        return mem;
-    }
-
-    public boolean isHyperbolic() {
-        return hyperbolic;
     }
 
 }

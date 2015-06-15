@@ -53,14 +53,14 @@
             android:orientation="vertical">
 
             <ImageView
+                android:id="@+id/trutech_logo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/trutech_logo"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
                 android:paddingLeft="75dp"
                 android:paddingRight="75dp"
-                android:layout_gravity="center"
                 android:scaleType="fitCenter"
-                android:adjustViewBounds="true"
                 android:src="@drawable/trutech" />
 
             <TextView
@@ -75,16 +75,17 @@
                 android:textSize="18sp" />
 
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/visit"
                 android:id="@+id/visit"
                 style="?attr/buttonNum"
-                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:onClick="clickVisit"
-                android:layout_gravity="center_horizontal" />
+                android:padding="16dp"
+                android:text="@string/visit"
+                android:textSize="18sp" />
 
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
-<!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/layout/about_page.xml -->
+<!-- From: file:/C:/Users/Ejaaz/Calculall/Calculall/app/src/main/res/layout/about_page.xml -->
