@@ -10,12 +10,12 @@
             <enum name="hybrid" value="4" />
 
 
-        </attr>
-        <attr name="cameraBearing" format="float" />
-        <attr name="cameraTargetLat" format="float" />
-        <attr name="cameraTargetLng" format="float" />
-        <attr name="cameraTilt" format="float" />
-        <attr name="cameraZoom" format="float" />
+    </attr>
+    <attr name="cameraBearing" format="float" />
+    <attr name="cameraTargetLat" format="float" />
+    <attr name="cameraTargetLng" format="float" />
+    <attr name="cameraTilt" format="float" />
+    <attr name="cameraZoom" format="float" />
 
         <attr name="liteMode" format="boolean" />
 

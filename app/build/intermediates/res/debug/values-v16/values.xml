@@ -2,6 +2,17 @@
 <resources>
     <!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/values-v16/values.xml -->
     <eat-comment/>
+    <style name="CheckBoxDavid" parent="android:Widget.DeviceDefault.CompoundButton.CheckBox">
+        <item name="android:textColor">@color/displayDavid</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:fontFamily">"sans-serif-thin"</item>
+    </style>
+    <style name="CheckBoxTheme2" parent="android:Widget.DeviceDefault.CompoundButton.CheckBox">
+        <item name="android:textColor">@color/textColorTheme2</item>
+        <item name="android:textColorPrimary">@color/textColorTheme2</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:fontFamily">"sans-serif-thin"</item>
+    </style>
     <style name="buttonDarkDavid" parent="android:Widget.Holo.Button.Borderless.Small">
         <item name="android:textColor">@color/textColorDavid</item>
         <item name="android:background">@color/backgroundDavid</item>
@@ -47,5 +58,22 @@
         <item name="android:textColor">@color/textColorTheme2</item>
         <item name="android:background">@color/color2Theme2</item>
         <item name="android:fontFamily">"sans-serif-medium"</item>
+    </style>
+    <style name="spinnerTextDavid" parent="android:Widget.DeviceDefault.TextView.SpinnerItem">
+        <item name="android:background">@color/color1David</item>
+        <item name="android:dropDownSelector">@color/displayDavid</item>
+        <item name="android:divider">@null</item>
+        <item name="android:textColor">@color/displayDavid</item>
+        <item name="android:color">@color/displayDavid</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:fontFamily">"sans-serif-thin"</item>
+    </style>
+    <style name="spinnerTextTheme2" parent="android:Widget.DeviceDefault.TextView.SpinnerItem">
+        <item name="android:background">@color/displayTheme2</item>
+        <item name="android:dropDownSelector">@color/displayTheme2</item>
+        <item name="android:divider">@null</item>
+        <item name="android:textColor">@color/textColorTheme2</item>
+        <item name="android:color">@color/textColorTheme2</item>
+        <item name="android:fontFamily">"sans-serif-light"</item>
     </style>
 </resources>
