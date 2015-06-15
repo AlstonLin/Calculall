@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="common_google_play_services_notification_ticker" msgid="1852570676146674985">"Hitilafu kwenye huduma za Google Play"</string>
     <string name="common_google_play_services_notification_needs_installation_title" msgid="8120534356798772974">"Programu inahitaji usakinishaji wa huduma za Google Play."</string>
     <string name="common_google_play_services_notification_needs_update_title" msgid="1388129345631079938">"Programu inahitaji toleo jipya la huduma za Google Play."</string>
