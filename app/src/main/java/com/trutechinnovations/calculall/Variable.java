@@ -52,6 +52,10 @@ public abstract class Variable extends Token implements Serializable {
         return symbol;
     }
 
+    public String toLaTeX() {
+        return "$" + getSymbol() + "$";
+    }
+
     /**
      * @return The value of the variable/constant
      */
@@ -68,6 +72,10 @@ public abstract class Variable extends Token implements Serializable {
 
         public double getValue() {
             return value;
+        }
+
+        public String toLaTeX() {
+            return "$" + (new Double(getValue())).toString() + "$";
         }
 
     }

@@ -20,14 +20,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * Contains the back-end of the Matrix Mode. The mode will be able to perform most
@@ -42,6 +35,7 @@ public class MatrixMode extends FunctionMode {
     public static final int MAX_DIMENSIONS = 7;
     private static final Basic INSTANCE = new MatrixMode();
     protected PopupWindow reductionWindow;
+    protected String reductionFileName = "reduction";
     //Variables used only when in ElementView
     private PopupWindow elementsWindow;
     private PopupWindow elementWindow;
@@ -175,17 +169,27 @@ public class MatrixMode extends FunctionMode {
             case R.id.frac_mode:
                 clickFracMode();
                 break;
+            case R.id.exit_button:
+                clickExit();
+                break;
             default:
                 super.onClick(v);
         }
     }
 
     /**
+     * Exits the consts view.
+     */
+    public void clickExit() {
+        reductionWindow.dismiss();
+    }
+
+    /**
      * Opens the row reduction steps
      *
-     * @param filename The file name of the history file
+     * @param rref is the RREF being computed?(TRUE) or just the REF?(FALSE)
      */
-    public void openReduction(String filename) throws IOException, ClassNotFoundException {
+    public void openReduction(boolean rref) {
         //Inflates the XML file so you get the View to add to the PopupWindow
         LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View layout = inflater.inflate(R.layout.reduction_view, null, false);
@@ -194,33 +198,39 @@ public class MatrixMode extends FunctionMode {
         reductionWindow = new PopupWindow(layout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
 
         //Retrieves the user data from saved memory
-        ArrayList<Object[]> reduction;
+
+        ArrayList<Token[]> steps = new ArrayList<>();
+        ;
         try {
-            FileInputStream stream = activity.openFileInput(filename);
-            ObjectInputStream objectStream = new ObjectInputStream(stream);
-            reduction = (ArrayList<Object[]>) objectStream.readObject();
-            //Reverses the order so that the most recent is at the top
-            Collections.reverse(reduction);
-        } catch (FileNotFoundException e) { //No history
-            reduction = new ArrayList<>();
-
-            ArrayList<Token> list1 = new ArrayList<>();
-            ArrayList<Token> list2 = new ArrayList<>();
-
-            list1.add(new StringToken("No Reduction to show"));
-            list2.add(new StringToken(""));
-
-            ArrayList<Token>[] message = new ArrayList[2];
-            message[0] = list1;
-            message[1] = list2;
-            reduction.add(message);
+            ArrayList<Token> temp = MatrixUtils.setupExpression(Utility.condenseDigits(tokens));
+            temp = MatrixUtils.convertToReversePolish(temp);
+            Token t = MatrixUtils.evaluateExpression(temp, false);
+            if (t instanceof Matrix) {
+                double[][] a = ((Matrix) t).getEntriesAsDbls();
+                if (rref) {
+                    steps = MatrixUtils.knitSteps(a, MatrixUtils.getRREFSteps(a));
+                } else {
+                    steps = MatrixUtils.knitSteps(a, MatrixUtils.getREFSteps(a));
+                }
+                if (steps.size() == 0) {
+                    Token[] temp1 = new Token[2];
+                    temp1[0] = new StringToken("No Steps to show");
+                    temp1[1] = new StringToken("");
+                    steps.add(temp1);
+                }
+            } else {
+                throw new IllegalArgumentException("The result must be a single Matrix to be row reducible");
+            }
+        } catch (Exception e) { //an error was thrown
+            super.handleExceptions(e);
         }
 
-        //Finds the ListView from the inflated History XML so it could be manipulated
-        ListView lv = (ListView) layout.findViewById(R.id.historyList);
+
+        //Finds the ListView from the inflated consts XML so it could be manipulated
+        ListView lv = (ListView) layout.findViewById(R.id.reductionList);
 
         //Attaches the custom Adapter to the ListView so that it can configure the items and their Views within it
-        lv.setAdapter(new ReductionAdapter(reduction, activity));
+        lv.setAdapter(new ReductionAdapter(steps, activity));
 
         //Displays the created PopupWindow on top of the LinearLayout with ID frame, which is being shown by the Activity
         reductionWindow.showAtLocation(activity.findViewById(R.id.frame), Gravity.CENTER, 0, 0);
@@ -747,64 +757,27 @@ public class MatrixMode extends FunctionMode {
     }
 
     /**
-     * Saves the equation into the calculation history.
-     *
-     * @param input  The expression that the user inputted into the calculator
-     * @param output The result of the calculation
-     */
-    public void saveStep(ArrayList<Token> input, ArrayList<Token> step, String filepath) throws IOException, ClassNotFoundException {
-        ArrayList<Object[]> reduction = new ArrayList<Object[]>();
-        try {
-            FileInputStream inStream = activity.openFileInput(filepath);
-            ObjectInputStream objectStreamIn = new ObjectInputStream(inStream);
-            reduction = (ArrayList<Object[]>) objectStreamIn.readObject();
-        } catch (Exception e) {
-        }
-
-        FileOutputStream outStream = activity.openFileOutput(filepath, Context.MODE_PRIVATE);
-        Object[] toWrite = new Object[2];
-        toWrite[0] = input;
-        toWrite[1] = step;
-        reduction.add(toWrite);
-
-
-        ObjectOutputStream objectStreamOut = new ObjectOutputStream(outStream);
-        objectStreamOut.writeObject(reduction);
-        objectStreamOut.flush();
-        objectStreamOut.close();
-        outStream.close();
-    }
-
-    /**
      * When the user presses the ref button
      */
     public void clickREF() {
-        Token t = MatrixFunctionFactory.makeREF();
-        Bracket b = BracketFactory.makeOpenBracket();
-        if (t != null) {
-            t.addDependency(b);
-            b.addDependency(t);
-        }
-        tokens.add(display.getRealCursorIndex(), t);
-        tokens.add(display.getRealCursorIndex() + 1, b);
-        display.setCursorIndex(display.getCursorIndex() + 2);
-        updateInput();
+        openReduction(false);
     }
 
     /**
      * When the user presses the rref button
      */
     public void clickRREF() {
-        Token t = MatrixFunctionFactory.makeRREF();
-        Bracket b = BracketFactory.makeOpenBracket();
-        if (t != null) {
-            t.addDependency(b);
-            b.addDependency(t);
-        }
-        tokens.add(display.getRealCursorIndex(), t);
-        tokens.add(display.getRealCursorIndex() + 1, b);
-        display.setCursorIndex(display.getCursorIndex() + 2);
-        updateInput();
+        openReduction(true);
+//        Token t = MatrixFunctionFactory.makeRREF();
+//        Bracket b = BracketFactory.makeOpenBracket();
+//        if (t != null) {
+//            t.addDependency(b);
+//            b.addDependency(t);
+//        }
+//        tokens.add(display.getRealCursorIndex(), t);
+//        tokens.add(display.getRealCursorIndex() + 1, b);
+//        display.setCursorIndex(display.getCursorIndex() + 2);
+//        updateInput();
     }
 
     /**
@@ -880,6 +853,10 @@ public class MatrixMode extends FunctionMode {
             ArrayList<Token> output = new ArrayList<>();
             output.add(t);
             display.displayOutput(output);
+            if (!MatrixUtils.easterEgg.isEmpty()) {
+                Toast.makeText(activity, MatrixUtils.easterEgg, Toast.LENGTH_LONG).show();
+                MatrixUtils.easterEgg = "";
+            }
             saveEquation(tokens, output, filename);
             activity.scrollDown();
             saveAns(output);
@@ -1232,9 +1209,9 @@ public class MatrixMode extends FunctionMode {
     private class ReductionAdapter extends BaseAdapter {
 
         private MainActivity activity;
-        private ArrayList<Object[]> reduction; //The data that will be shown in the ListView
+        private ArrayList<Token[]> reduction; //The data that will be shown in the ListView
 
-        public ReductionAdapter(ArrayList<Object[]> reduction, MainActivity activity) {
+        public ReductionAdapter(ArrayList<Token[]> reduction, MainActivity activity) {
             this.reduction = reduction;
             this.activity = activity;
         }
@@ -1265,40 +1242,44 @@ public class MatrixMode extends FunctionMode {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             if (convertView == null) { //For efficiency purposes so that it does not unnecessarily inflate Views
-                //Inflates the XML file to get the View of the history element
+                //Inflates the XML file to get the View of the consts element
                 LayoutInflater inflater = (LayoutInflater) activity.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView = inflater.inflate(R.layout.reduction_element, parent, false);
             }
 
             //Sets up the child Views within each item in the ListView
-            OutputView input = (OutputView) convertView.findViewById(R.id.input);
+            OutputView intermediate = (OutputView) convertView.findViewById(R.id.input);
             OutputView step = (OutputView) convertView.findViewById(R.id.step);
 
             //Sets the font size of each OutputView
-            input.setFontSize(activity.getFontSize());
-            step.setFontSize((int) (activity.getFontSize() * HISTORY_IO_RATIO));
+            intermediate.setFontSize(activity.getFontSize());
+            step.setFontSize((int) (activity.getFontSize() * CONSTANTS_IO_RATIO));
 
             //Enters the appropriate expressions to the OutputView
-            Object[] entry = reduction.get(position);
-            input.display((ArrayList<Token>) entry[0]);
-            step.display((ArrayList<Token>) entry[0]);
+            Token[] entry = reduction.get(position);
+            ArrayList<Token> temp = new ArrayList<>();
+            temp.add(entry[0]);
+            intermediate.display(temp);
+            temp.clear();
+            temp.add(entry[1]);
+            step.display(temp);
+            temp.clear();
 
             //To respond to user touches
-            final ArrayList<Token> INPUT = (ArrayList<Token>) reduction.get(position)[0]; //Makes a constant reference so that history can be accessed by an inner class
+            final Token INPUT = reduction.get(position)[0]; //Makes a constant reference so that intermediate matrices can be accessed by an inner class
             convertView.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
                     if (event.getAction() == MotionEvent.ACTION_UP) {
                         ArrayList<Token> input = new ArrayList<>();
                         //Removes any StringTokens
-                        for (Token t : INPUT) {
-                            if (!(t instanceof StringToken)) {
-                                input.add(t);
-                            }
+                        if (!(INPUT instanceof StringToken)) {
+                            input.add(INPUT);
                         }
                         //Adds the input expression to the current tokens
                         tokens.addAll(input); //Adds the input of the entry
-                        reductionWindow.dismiss(); //Exits history once an Item has been selected
+                        reductionWindow.dismiss(); //Exits reductionWindow once a matrix has been selected
+                        updateInput();
                         return true;
                     } else {
                         return false;
