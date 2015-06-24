@@ -70,6 +70,16 @@ public class Matrix extends Token {
         return entries;
     }
 
+    public double[][] getEntriesAsDbls() {
+        double[][] output = new double[getNumOfRows()][getNumOfCols()];
+        for (int i = 0; i < getNumOfRows(); i++) {
+            for (int j = 0; j < getNumOfCols(); j++) {
+                output[i][j] = Utility.process(getEntry(i, j));
+            }
+        }
+        return output;
+    }
+
     public ArrayList<Token> getEntry(int i, int j) {
         if (i >= 0 && i < entries.length && j >= 0 && j < entries[0].length) {
             return entries[i][j];
@@ -140,5 +150,25 @@ public class Matrix extends Token {
                 }
             }
         }
+    }
+
+    /**
+     * Creates the LaTeX code required to typeset this Matrix
+     *
+     * @return The LaTeX representation of the Matrix
+     */
+    public String toLaTeX() {
+        String output = "$" + "\\begin{bmatrix}";
+        for (int i = 0; i < getNumOfRows(); i++) {
+            for (int j = 0; j < getNumOfCols(); j++) {
+                if (j != 0) {
+                    output += "&";
+                }
+                output += Utility.machinePrintExpression(entries[i][j]);
+            }
+            output += "\\\\";
+        }
+        output += "\\end{bmatrix}" + "$";
+        return output;
     }
 }

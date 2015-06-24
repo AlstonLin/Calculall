@@ -92,6 +92,10 @@ public class VariableFactory {
                 tokens.add(new Number(PI_VALUE));
                 return tokens;
             }
+
+            public String toLaTeX() {
+                return "$\\pi$";
+            }
         };
     }
 
@@ -101,6 +105,10 @@ public class VariableFactory {
                 ArrayList<Token> tokens = new ArrayList<>();
                 tokens.add(new Number(E_VALUE));
                 return tokens;
+            }
+
+            public String toLaTeX() {
+                return "$e$";
             }
         };
     }
@@ -200,6 +208,10 @@ public class VariableFactory {
                 tokens.add(new Number(Constant.SPEED_OF_LIGHT.getValue()));
                 return tokens;
             }
+
+            public String toLaTeX() {
+                return "$c$";
+            }
         };
     }
 
@@ -210,6 +222,10 @@ public class VariableFactory {
                 tokens.add(new Number(Constant.MAGNETIC_VAL.getValue()));
                 return tokens;
             }
+
+            public String toLaTeX() {
+                return "$\\mu_0$";
+            }
         };
     }
 
@@ -219,6 +235,10 @@ public class VariableFactory {
                 ArrayList<Token> tokens = new ArrayList<>();
                 tokens.add(new Number(Constant.ELECTRIC_VAL.getValue()));
                 return tokens;
+            }
+
+            public String toLaTeX() {
+                return "$\\epsilon_0$";
             }
         };
     }

@@ -45,4 +45,14 @@ public class Vector extends Token implements Serializable {
         s += "]";
         return s;
     }
+
+    public String getLaTeX() {
+        String output = "$" + "\\begin{bmatrix}";
+        for (int i = 0; i < values.length; i++) {
+            output += (new Double(values[i])).toString();
+            output += "\\\\";
+        }
+        output += "\\end{bmatrix}" + "$";
+        return output;
+    }
 }

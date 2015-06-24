@@ -3,12 +3,14 @@
     android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
     android:scrollbars="horizontal">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_gravity="center">
 
         <view
             android:id="@+id/input"
@@ -17,7 +19,8 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:fadingEdge="vertical"
-            android:scrollbars="vertical" />
+            android:scrollbars="vertical"
+            android:layout_gravity="center"/>
 
         <view
             android:id="@+id/step"
@@ -26,6 +29,7 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:fadingEdge="vertical"
+            android:layout_gravity="center_horizontal|bottom"
             android:scrollbars="vertical" />
 
     </LinearLayout>
