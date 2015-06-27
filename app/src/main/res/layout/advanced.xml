@@ -203,6 +203,23 @@
             android:layout_weight="1">
 
             <Button
+                android:id="@+id/const_button"
+                style="?attr/buttonFunction"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:onClick="onClick"
+                android:text="@string/constant"
+                android:textSize="16sp" />
+
+        </com.balysv.materialripple.MaterialRippleLayout>
+
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1">
+
+            <Button
                 android:id="@+id/ans_button"
                 style="?attr/buttonFunction"
                 android:layout_width="fill_parent"

@@ -102,12 +102,12 @@ public final class R {
 		public static final int common_signin_btn_text_normal_light = 0x7f02001a;
 		public static final int common_signin_btn_text_pressed_dark = 0x7f02001b;
 		public static final int common_signin_btn_text_pressed_light = 0x7f02001c;
-		public static final int ic_plusone_medium_off_client = 0x7f02002f;
-		public static final int ic_plusone_small_off_client = 0x7f020030;
-		public static final int ic_plusone_standard_off_client = 0x7f020031;
-		public static final int ic_plusone_tall_off_client = 0x7f020032;
-		public static final int powered_by_google_dark = 0x7f020036;
-		public static final int powered_by_google_light = 0x7f020037;
+		public static final int ic_plusone_medium_off_client = 0x7f020030;
+		public static final int ic_plusone_small_off_client = 0x7f020031;
+		public static final int ic_plusone_standard_off_client = 0x7f020032;
+		public static final int ic_plusone_tall_off_client = 0x7f020033;
+		public static final int powered_by_google_dark = 0x7f020037;
+		public static final int powered_by_google_light = 0x7f020038;
 	}
 	public static final class id {
 		public static final int adjust_height = 0x7f0b0000;
@@ -170,12 +170,12 @@ public final class R {
 		public static final int common_open_on_phone = 0x7f080039;
 		public static final int common_signin_button_text = 0x7f08003a;
 		public static final int common_signin_button_text_long = 0x7f08003b;
-		public static final int create_calendar_message = 0x7f08003d;
-		public static final int create_calendar_title = 0x7f08003e;
-		public static final int decline = 0x7f080044;
-		public static final int store_picture_message = 0x7f08009b;
-		public static final int store_picture_title = 0x7f08009c;
-		public static final int wallet_buy_button_place_holder = 0x7f0800ba;
+		public static final int create_calendar_message = 0x7f08003e;
+		public static final int create_calendar_title = 0x7f08003f;
+		public static final int decline = 0x7f080045;
+		public static final int store_picture_message = 0x7f08009e;
+		public static final int store_picture_title = 0x7f08009f;
+		public static final int wallet_buy_button_place_holder = 0x7f0800bd;
 	}
 	public static final class style {
 		public static final int Theme_IAPTheme = 0x7f090003;

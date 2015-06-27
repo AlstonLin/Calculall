@@ -159,5 +159,8 @@
     <string name="rightscroll">⇨</string>
     <string name="title_activity_ocrmode">OCRMode</string>
     <string name="title_activity_settings">SettingsActivity</string>
+    <string name="constant">CNST</string>
+    <string name="listOfConstants">List of Constants</string>
+    <string name="reduction">Row Reduction Steps</string>
 
 </resources>
