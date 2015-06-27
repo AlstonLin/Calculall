@@ -38,16 +38,6 @@
     <!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/values/colors.xml -->
     <eat-comment/>
     <color name="displayDavid">#ecf0f0</color>
-    <color name="displayTextAlston">#fff</color>
-    <color name="displayTextDress">#745E39</color>
-    <color name="displayTextForest">#FFD54F</color>
-    <color name="displayTextGeese">#000000</color>
-    <color name="displayTextHawks">#FFD700</color>
-    <color name="displayTextMaterial">#B71C1C</color>
-    <color name="displayTextOcean">#FFFFFF</color>
-    <color name="displayTextPanda">#ffc5c5c5</color>
-    <color name="displayTextSunset">#FFC107</color>
-    <color name="displayTextTrailblazer">#FFFFFF</color>
     <color name="displayTheme2">#ff333c42</color>
     <color name="numPadColorDavid">#ef4848</color>
     <color name="numPadColorTheme2">#ffFF9900</color>
