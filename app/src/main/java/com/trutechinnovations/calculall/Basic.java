@@ -394,7 +394,7 @@ public class Basic implements View.OnClickListener {
                         "JET FUEL CAN'T MELT DANK MEMES",
                         "node.js",
                         "JET FUEL CAN'T MELT STEEL BEAMS",
-                        "Isairah = OTP"
+                        "#sariahismyOTP"
                 };
                 Random rand = new Random();
                 Toast.makeText(activity, dank[rand.nextInt(dank.length)], Toast.LENGTH_LONG).show();

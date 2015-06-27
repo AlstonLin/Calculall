@@ -9,27 +9,27 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:orientation="vertical">
 
         <view
             android:id="@+id/input"
             class="com.trutechinnovations.calculall.OutputView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:background="@android:color/transparent"
             android:fadingEdge="vertical"
-            android:scrollbars="vertical"
-            android:layout_gravity="center"/>
+            android:scrollbars="vertical" />
 
         <view
             android:id="@+id/step"
             class="com.trutechinnovations.calculall.OutputView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
             android:background="@android:color/transparent"
             android:fadingEdge="vertical"
-            android:layout_gravity="center_horizontal|bottom"
             android:scrollbars="vertical" />
 
     </LinearLayout>

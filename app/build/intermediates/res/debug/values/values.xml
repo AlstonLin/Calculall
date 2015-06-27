@@ -177,6 +177,7 @@
     <!-- From: file:/C:/Users/Ejaaz/Calculall/Calculall/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="decomp">DECOMP</string>
+    <string name="decomposition">Matrix Decompositions</string>
     <string name="degrees">Degrees</string>
     <string name="derivative">d/dx</string>
     <string name="det">DET</string>
