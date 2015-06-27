@@ -1,11 +1,21 @@
 package com.trutechinnovations.calculall;
 
 import org.apache.commons.math3.linear.Array2DRowRealMatrix;
+import org.apache.commons.math3.linear.CholeskyDecomposition;
 import org.apache.commons.math3.linear.EigenDecomposition;
 import org.apache.commons.math3.linear.LUDecomposition;
+import org.apache.commons.math3.linear.NonPositiveDefiniteMatrixException;
+import org.apache.commons.math3.linear.NonSquareMatrixException;
+import org.apache.commons.math3.linear.NonSymmetricMatrixException;
+import org.apache.commons.math3.linear.QRDecomposition;
+import org.apache.commons.math3.linear.RRQRDecomposition;
+import org.apache.commons.math3.linear.SingularValueDecomposition;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Stack;
 
 
@@ -16,6 +26,7 @@ import java.util.Stack;
  * @version 3.0
  */
 public class MatrixUtils {
+    private static final int SWAP = 1, ADD = 2, SCALE = 3;
 
     private static Command<Double, double[]> addCommand = new Command<Double, double[]>() {
         @Override
@@ -103,6 +114,161 @@ public class MatrixUtils {
         return matrix;
     }
 
+    private static double[][] trimZeroRows(double[][] a) {
+        ArrayList<double[]> rows = new ArrayList<>();
+        for (int i = 0; i < a.length; i++) {
+            if (!onlyZeroes(getRow(a, i))) {
+                rows.add(a[i]);
+            }
+        }
+        double[][] output = new double[rows.size()][a[0].length];
+        for (int i = 0; i < output.length; i++) {
+            output[i] = rows.get(i);
+        }
+        return output;
+    }
+
+    private static int[] getPivotColIndices(double[][] ref) {
+        ArrayList<Integer> pivs = new ArrayList<>();
+        for (int i = 0; i < ref.length; i++) {
+            if (!onlyZeroes(getRow(ref, i))) {
+                pivs.add(getFirstNonZero(getRow(ref, i)));
+            }
+        }
+        int[] output = new int[pivs.size()];
+        for (int i = 0; i < output.length; i++) {
+            output[i] = pivs.get(i);
+        }
+        return output;
+    }
+
+    private static int[] getFreeColIndices(double[][] ref) {
+        int[] pivots = getPivotColIndices(ref);
+        ArrayList<Integer> free = new ArrayList<>();
+        for (int i = 0; i < ref[0].length; i++) {
+            if (!Arrays.asList(pivots).contains(i)) {
+                free.add(i);
+            }
+        }
+        int[] output = new int[free.size()];
+        for (int i = 0; i < output.length; i++) {
+            output[i] = free.get(i);
+        }
+        return output;
+    }
+
+    private static double[][] columnBind(double[][] a, double[] b) {
+        if (a.length != b.length) {
+            throw new IllegalArgumentException("Length mismatch: columnBind");
+        }
+        double[][] output = new double[a.length][a[0].length + 1];
+        for (int i = 0; i < a.length; i++) {
+            double[] temp = new double[a[0].length + 1];
+            for (int j = 0; j < a[0].length; j++) {
+                temp[j] = a[i][j];
+            }
+            temp[a[0].length] = b[i];
+            output[i] = temp;
+        }
+        return output;
+    }
+
+    private static double[][] columnBind(double[] a, double[] b) {
+        double[][] m = new double[a.length][1];
+        for (int i = 0; i < m.length; i++) {
+            m[i][0] = a[i];
+        }
+        return columnBind(m, b);
+    }
+
+    private static double[][] rowBind(double[][] a, double[][] b) {
+        if (a.length == 0 && b.length == 0) {
+            return new double[0][0];
+        } else if (a.length == 0) {
+            return b;
+        } else if (b.length == 0) {
+            return a;
+        }
+        double[][] output = a.clone();
+        for (int i = 0; i < b.length; i++) {
+            output = rowBind(output, b[i]);
+        }
+        return output;
+    }
+
+    private static double[][] rowBind(double[][] a, double[] b) {
+        if (a.length == 0) {
+            double[][] output = new double[1][b.length];
+            output[0] = b;
+            return output;
+        }
+        if (a[0].length != b.length) {
+            throw new IllegalArgumentException("Length mismatch: rowBind");
+        }
+        double[][] output = new double[a.length + 1][a[0].length];
+        for (int i = 0; i < a.length; i++) {
+            output[i] = a[i];
+        }
+        output[a.length] = b;
+        return output;
+    }
+
+    private static double[][] rowBind(double[] a, double[] b) {
+        double[][] m = new double[1][a.length];
+        for (int i = 0; i < a.length; i++) {
+            m[0][i] = a[i];
+        }
+        return rowBind(m, b);
+    }
+
+    private static double[][] rowMerge(double[][] a, double[][] b, int[] a_pos, int[] b_pos) {
+        double[][] output = new double[0][];
+        for (int i = 0; i < output.length; i++) {
+            if (Arrays.asList(a_pos).contains(i)) {
+                if (output.length != 0) {
+                    output = rowBind(output, a[i]);
+                } else {
+                    output[0] = a[i];
+                }
+            } else if (Arrays.asList(b_pos).contains(i)) {
+                if (output.length != 0) {
+                    output = rowBind(output, b[i]);
+                } else {
+                    output[0] = b[i];
+                }
+            }
+        }
+        return output;
+    }
+
+    private static double[][] setCol(double[][] a, double[] b, int col) {
+        if (a.length != b.length) {
+            throw new IllegalArgumentException("Length mismatch: setCol");
+        }
+        if (col < 0 || col > a[0].length) {
+            throw new IllegalArgumentException("Column Index out of bounds");
+        }
+        double[][] output = a.clone();
+        for (int i = 0; i < a.length; i++) {
+            output[i][col] = b[i];
+        }
+        return output;
+    }
+
+    private static double[][] getNullSpaceMatrix(double[][] a) {
+        double[][] m = trimZeroRows(toRREF(a));
+        int[] pivots = getPivotColIndices(a);
+        int[] free = getFreeColIndices(a);
+
+        double[][] f = new double[m.length][free.length];
+        for (int col = 0; col < free.length; col++) {
+            f = setCol(f, getColumn(m, free[col]), col);
+        }
+        f = scalarMultiply(f, -1);
+        double[][] i = makeIdentity(free.length);
+        return rowMerge(f, i, free, pivots);
+    }
+
     /**
      * Computes the matrix that corresponds to the given eigenvalue for the given matrix. Uses
      * the formal A - lambda I
@@ -126,31 +292,127 @@ public class MatrixUtils {
     }
 
     /**
-     * Finds the Eigenvectors of the givem matrix.
+     * Finds the Eigenvectors of the given matrix.
      *
      * @param matrix The matrix to find the eigenvectors
      * @return The resulting eigenvectors
      */
     public static ArrayList<Vector> getEigenVectors(double[][] matrix) {
-        double[] eigenValues = MathUtilities.getEigenValues(matrix);
-        ArrayList<Vector> eigenVectors = new ArrayList<>();
-        for (double val : eigenValues) {
-            double[][] eigenMatrix = getEigenMatrix(matrix, val);
-            eigenVectors.addAll(getSolutionBasis(eigenMatrix));
+        if (matrix.length != matrix[0].length) {
+            throw new IllegalArgumentException("Non square matrices to not have eigenvectors");
         }
-        return eigenVectors;
+        //double[] eigenValues = unwrapDblArray((new HashSet<Double>(Arrays.asList(wrapDblArray(MathUtilities.getEigenValues(matrix))))).toArray(new Double[0]));
+        EigenDecomposition ed = new EigenDecomposition(new Array2DRowRealMatrix(matrix));
+        Set<Vector> eigenVectors = new HashSet<>();
+        for (int i = 0; i < matrix.length; i++) {
+            eigenVectors.add(new Vector(ed.getEigenvector(i).toArray()));
+        }
+        ArrayList<Vector> output = new ArrayList<>();
+        output.addAll(eigenVectors);
+        return output;
     }
 
     /**
-     * Determines the basis of the solution space for the given matrix.
+     * Determines the basis of the eigen space, of a given eigen value, for the given matrix.
      *
-     * @param matrix The matrix
-     * @return A list of vectors containing the basis of the solution space
+     * @param a The matrix
+     * @param eigenVal An eigen value of the matrix
+     * @return A list of vectors containing the basis of the eigen space
      */
-    public static ArrayList<Vector> getSolutionBasis(double[][] matrix) {
-        ArrayList<Vector> solution = new ArrayList<>();
-        matrix = toRREF(matrix); //Row reduces it
+    public static ArrayList<Vector> getEigenBasis(double[][] a, double eigenVal) {
+        double[][] eigenMatrix = toRREF(getEigenMatrix(a, eigenVal));
+        if (findDeterminant(eigenMatrix) != 0) {
+            throw new IllegalArgumentException("Invalid eigenvalue");
+        }
+        ArrayList<Vector> solution = new ArrayList<>(nullity(eigenMatrix));
+        double[][] basisMatrix = getNullSpaceMatrix(eigenMatrix);
+        for (int j = 0; j < basisMatrix[0].length; j++) {
+            solution.add(new Vector(getColumn(basisMatrix, j)));
+        }
         return solution;
+    }
+
+    private static HashMap<Double, Integer> getGeometricMultiplicities(double[][] matrix, Double[] eigenVals) {
+        Set<Double> deduped = new HashSet<Double>(Arrays.asList(eigenVals));
+        HashMap<Double, Integer> output = new HashMap<>(deduped.size());
+        for (Double val : deduped) {
+            int geomMult = getEigenBasis(matrix, val).size();
+            output.put(val, geomMult);
+        }
+        return output;
+    }
+
+    private static HashMap<Double, Integer> getAlgebraicMultiplicities(Double[] eigenVals) {
+        Set<Double> deduped = new HashSet<Double>(Arrays.asList(eigenVals));
+        HashMap<Double, Integer> output = new HashMap<>(deduped.size());
+        for (Double val : deduped) {
+            int algMult = 0;
+            for (int i = 0; i < eigenVals.length; i++) {
+                if (eigenVals[i].equals(val)) {
+                    algMult++;
+                }
+            }
+            output.put(val, algMult);
+        }
+        return output;
+    }
+
+    private static boolean isDiagonalizable(double[][] matrix, Double[] eigenVals) {
+        Set<Double> deduped = new HashSet<Double>(Arrays.asList(eigenVals));
+        HashMap<Double, Integer> gm = getGeometricMultiplicities(matrix, eigenVals);
+        HashMap<Double, Integer> am = getAlgebraicMultiplicities(eigenVals);
+        for (Double val : deduped) {
+            if (gm.get(val) != am.get(val)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static Double[] wrapDblArray(double[] doubles) {
+        final int length = doubles.length;
+        final Double[] output = new Double[length];
+        for (int i = 0; i < length; i++) {
+            output[i] = doubles[i];
+        }
+        return output;
+    }
+
+    private static double[] unwrapDblArray(Double[] doubles) {
+        final int length = doubles.length;
+        final double[] output = new double[length];
+        for (int i = 0; i < length; i++) {
+            output[i] = doubles[i];
+        }
+        return output;
+    }
+
+    public static double[][][] getEigenDecomposition(double[][] a) {
+        EigenDecomposition ed = new EigenDecomposition(new Array2DRowRealMatrix(a));
+        if (ed.hasComplexEigenvalues()) {
+            throw new IllegalArgumentException("Diagonalization of matrices with complex eigenvalues is not supported");
+        }
+        /*
+        double[] eigenValues = MathUtilities.getEigenValues(a);
+        if(!isDiagonalizable(a, wrapDblArray(eigenValues))){
+            throw new IllegalArgumentException("Matrix is not diagonalizable");
+        }
+        double[][] p = new double[a.length][a[0].length];
+        ArrayList<Vector> basis = getEigenVectors(a);
+        if(basis.size() != a[0].length){
+            throw new IllegalArgumentException("Matrix is not diagonalizable");//just in case
+        }
+        for(int j = 0; j < p[0].length; j++){
+            p = setCol(p, basis.get(j).getValues(), j);
+        }
+        double[][] p_inv = findInverse(p);
+        double[][] d = multiply(multiply(p_inv, a), p); // P^-1 * A * P
+        */
+        double[][][] output = new double[3][][];
+        output[0] = ed.getV().getData();
+        output[1] = ed.getD().getData();
+        output[2] = findInverse(ed.getV().getData());
+        return output;
     }
 
     public static double[][] exponentiate(double[][] a, double b) {
@@ -299,11 +561,11 @@ public class MatrixUtils {
         if (steps.length == 0) {
             return a;
         } else if (steps.length == 1) {
-            if (steps[0][0] == 1) {
+            if (steps[0][0] == SWAP) {
                 return swapRows(a, (int) steps[0][1], (int) steps[0][2]);
-            } else if (steps[0][0] == 2) {
+            } else if (steps[0][0] == ADD) {
                 return addRows(a, (int) steps[0][1], (int) steps[0][2], steps[0][3]);
-            } else if (steps[0][0] == 3) {
+            } else if (steps[0][0] == SCALE) {
                 return scaleRow(a, (int) steps[0][1], steps[0][2]);
             } else if (steps[0][0] == 0) {
                 return a;
@@ -311,11 +573,11 @@ public class MatrixUtils {
                 throw new IllegalArgumentException("Invalid steps");
             }
         } else if (steps.length > 1) {
-            if (steps[0][0] == 1) {
+            if (steps[0][0] == SWAP) {
                 return applySteps(swapRows(a, (int) steps[0][1], (int) steps[0][2]), Arrays.copyOfRange(steps, 1, steps.length));
-            } else if (steps[0][0] == 2) {
+            } else if (steps[0][0] == ADD) {
                 return applySteps(addRows(a, (int) steps[0][1], (int) steps[0][2], steps[0][3]), Arrays.copyOfRange(steps, 1, steps.length));
-            } else if (steps[0][0] == 3) {
+            } else if (steps[0][0] == SCALE) {
                 return applySteps(scaleRow(a, (int) steps[0][1], steps[0][2]), Arrays.copyOfRange(steps, 1, steps.length));
             } else {
                 throw new IllegalArgumentException("Invalid steps");
@@ -325,6 +587,32 @@ public class MatrixUtils {
         } else {
             throw new IllegalArgumentException("Invalid steps");
         }
+    }
+
+    public static ArrayList<Token> tokenizeStep(double[] step) {
+        ArrayList<Token> output = new ArrayList<>();
+        if (step[0] == SWAP) {
+            output.add(new StringToken("Swap Row " + step[1] + " and Row " + step[2]));
+        } else if (step[0] == ADD) {
+            if (step[3] == 1) {
+                output.add(new StringToken("Add Row " + step[2] + " to Row " + step[1]));
+            } else {
+                output.add(new StringToken("Add " + step[3] + " times Row " + step[2] + " to Row " + step[1]));
+            }
+        } else if (step[0] == SCALE) {
+            output.add(new StringToken("Multiply Row " + step[1] + " by " + step[2]));
+        } else {
+            throw new IllegalArgumentException("Invalid Step");
+        }
+        return output;
+    }
+
+    public static ArrayList<Token>[] tokenizeSteps(double[][] steps) {
+        ArrayList<Token>[] output = new ArrayList[steps.length];
+        for (int i = 0; i < steps.length; i++) {
+            output[i] = tokenizeStep(steps[i]);
+        }
+        return output;
     }
 
     private static double[][] deepCopyDblMatrix(double[][] input) {
@@ -541,6 +829,10 @@ public class MatrixUtils {
         return rank;
     }
 
+    public static int nullity(double[][] a) {
+        return a[0].length - rank(a);
+    }
+
     //Easter egg:
     //TRACE ON! - if a is an identity matrix :P
     public static double trace(double[][] a) {
@@ -717,16 +1009,51 @@ public class MatrixUtils {
         }
     }
 
-
-    public static double[][][] getEigenDecomposition(double[][] a) {
-        EigenDecomposition ed = new EigenDecomposition(new Array2DRowRealMatrix(a));
-        double[][][] output = new double[3][][];
-        output[0] = ed.getV().getData();
-        output[1] = ed.getD().getData();
-        output[2] = ed.getVT().getData();
+    public static double[][][] getQRDecomposition(double[][] a) {
+        QRDecomposition qr = new QRDecomposition(new Array2DRowRealMatrix(a));
+        double[][][] output = new double[2][][];
+        output[0] = qr.getQ().getData();
+        output[1] = qr.getR().getData();
         return output;
     }
 
+    public static double[][][] getRRQRDecomposition(double[][] a) {
+        RRQRDecomposition rrqr = new RRQRDecomposition(new Array2DRowRealMatrix(a));
+        double[][][] output = new double[3][][];
+        output[0] = rrqr.getQ().getData();
+        output[1] = rrqr.getR().getData();
+        output[2] = rrqr.getP().getData();
+        return output;
+    }
+
+    public static double[][][] getCholeskyDecomposition(double[][] a) {
+        try {
+            CholeskyDecomposition ch = new CholeskyDecomposition(new Array2DRowRealMatrix(a));
+            double[][][] output = new double[2][][];
+            output[0] = ch.getL().getData();
+            output[1] = ch.getLT().getData();
+            return output;
+        } catch (NonSquareMatrixException e) {
+            throw new IllegalArgumentException("Matrix is not square");
+        } catch (NonSymmetricMatrixException e) {
+            throw new IllegalArgumentException("Matrix is not symmatric");
+        } catch (NonPositiveDefiniteMatrixException e) {
+            throw new IllegalArgumentException("Matrix is not positive definite");
+        }
+    }
+
+    public static double[][][] getSVDecomposition(double[][] a) {
+        SingularValueDecomposition svd = new SingularValueDecomposition(new Array2DRowRealMatrix(a));
+        double[][][] output = new double[3][][];
+        output[0] = svd.getU().getData();
+        output[1] = svd.getS().getData();
+        output[2] = svd.getVT().getData();
+        return output;
+    }
+
+    private static boolean isSymmetric(double[][] a) {
+        return (a.length == a[0].length) && Arrays.deepEquals(a, transpose(a));
+    }
     /**
      * Evaluates every entry of the given matrix.
      *

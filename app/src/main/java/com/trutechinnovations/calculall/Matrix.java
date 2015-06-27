@@ -18,6 +18,19 @@ public class Matrix extends Token {
         this.entries = entries;
     }
 
+    public Matrix(double[][] entries) {
+        super(null);
+        ArrayList[][] temp = new ArrayList[entries.length][entries[0].length];
+        for (int i = 0; i < entries.length; i++) {
+            for (int j = 0; j < entries[0].length; j++) {
+                ArrayList<Token> entry = new ArrayList<>();
+                entry.add(new Number(entries[i][j]));
+                temp[i][j] = entry;
+            }
+        }
+        this.entries = temp;
+    }
+
 
     /**
      * Changes the size of the Matrix while keeping the values
