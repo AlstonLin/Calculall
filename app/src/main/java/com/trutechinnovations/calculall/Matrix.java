@@ -1,6 +1,7 @@
 package com.trutechinnovations.calculall;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * The Object representation of a mathematical Matrix.
@@ -115,6 +116,15 @@ public class Matrix extends Token {
 
     public int getNumOfCols() {
         return entries[0].length;
+    }
+
+    public boolean isSquare() {
+        return getNumOfCols() == getNumOfRows();
+    }
+
+    public boolean isSymmetric() {
+        double[][] a = getEntriesAsDbls();
+        return isSquare() && Arrays.deepEquals(a, MatrixUtils.transpose(a));
     }
 
     /**

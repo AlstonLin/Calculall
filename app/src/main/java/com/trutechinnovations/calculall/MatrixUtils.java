@@ -27,7 +27,7 @@ import java.util.Stack;
  */
 public class MatrixUtils {
     private static final int SWAP = 1, ADD = 2, SCALE = 3;
-    public static String easterEgg;
+    public static String easterEgg = "";
 
     private static Command<Double, double[]> addCommand = new Command<Double, double[]>() {
         @Override
@@ -608,6 +608,7 @@ public class MatrixUtils {
         Matrix[] intMatrixTokens = new Matrix[intMatrices.length];
         for (int i = 0; i < intMatrices.length; i++) {
             intMatrixTokens[i] = new Matrix(intMatrices[i]);
+            intMatrixTokens[i].fractionalize();
         }
         Token[] stepTokens = tokenizeSteps(steps);
         ArrayList<Token[]> output = new ArrayList<>();
