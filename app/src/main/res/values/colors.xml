@@ -16,14 +16,4 @@
     <color name="textColorTheme2">#fff</color>
     <color name="numPadColorTheme2">#ffFF9900</color>
 
-    <color name="displayTextForest">#FFD54F</color>
-    <color name="displayTextPanda">#ffc5c5c5</color>
-    <color name="displayTextTrailblazer">#FFFFFF</color>
-    <color name="displayTextHawks">#FFD700</color>
-    <color name="displayTextGeese">#000000</color>
-    <color name="displayTextSunset">#FFC107</color>
-    <color name="displayTextAlston">#fff</color>
-    <color name="displayTextMaterial">#B71C1C</color>
-    <color name="displayTextOcean">#FFFFFF</color>
-    <color name="displayTextDress">#745E39</color>
 </resources>

@@ -81,6 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:onClick="clickVisit"
+                android:padding="16dp"
                 android:text="@string/visit"
                 android:textSize="18sp" />
 

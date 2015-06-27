@@ -379,7 +379,6 @@ org/apache/commons/math3/analysis/function/Log10.class
 com/google/android/gms/analytics/HitBuilders$AppViewBuilder.class
 org/apache/commons/math3/analysis/DifferentiableMultivariateFunction.class
 org/apache/commons/math3/optimization/general/Preconditioner.class
-com/trutechinnovations/calculall/SettingsActivity$SquareImageView.class
 com/google/android/gms/cast/Cast$CastApi$a.class
 com/google/android/gms/games/Game.class
 com/google/android/gms/internal/eu.class

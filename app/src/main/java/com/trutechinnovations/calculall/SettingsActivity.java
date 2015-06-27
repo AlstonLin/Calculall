@@ -17,10 +17,13 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -170,8 +173,6 @@ public class SettingsActivity extends Activity {
         CheckBox haptic = (CheckBox) findViewById(R.id.haptic_switch);
         CheckBox swipe = (CheckBox) findViewById(R.id.swipe_only_switch);
 
-        haptic.setTextColor(backgroundColor);
-        swipe.setTextColor(backgroundColor);
 
         haptic.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             /**
@@ -308,17 +309,22 @@ public class SettingsActivity extends Activity {
     }
 
     public class ImageAdapter extends BaseAdapter {
+        LayoutInflater inflater;
         private Context mContext;
-        private int[] images = {R.drawable.david_theme, R.drawable.alston_theme, R.drawable.panda_theme, R.drawable.trailblazer_theme, R.drawable.hawks_theme,
-                R.drawable.geese_theme, R.drawable.sunset_theme, R.drawable.forest_theme, R.drawable.material_theme, R.drawable.ocean_theme};
+        private String[] theme_names = new String[]{"Blue Delight", "Orange on Black"};
+        private int[] color1 = new int[]{R.color.color1David, R.color.color1Theme2};
+        private int[] bg = new int[]{R.color.textDisplayColorDavid, R.color.backgroundTheme2};
+        private int[] color2 = new int[]{R.color.numPadColorDavid, R.color.numPadColorTheme2};
+        private int[] text = new int[]{R.color.textColorDavid, R.color.textColorTheme2};
 
         // Constructor
         public ImageAdapter(Context c) {
             mContext = c;
+            inflater = LayoutInflater.from(mContext);
         }
 
         public int getCount() {
-            return images.length;
+            return theme_names.length;
         }
 
         public Object getItem(int position) {
@@ -331,41 +337,53 @@ public class SettingsActivity extends Activity {
 
         // create a new ImageView for each item referenced by the Adapter
         public View getView(int position, View convertView, ViewGroup parent) {
+            ThemeHolder mViewHolder;
+            final int curr = position;
             if (convertView == null) {
-                convertView = new SquareImageView(mContext);
-                ((SquareImageView) convertView).setScaleType(ImageView.ScaleType.FIT_CENTER);
+                convertView = inflater.inflate(R.layout.theme_item, parent, false);
+                mViewHolder = new ThemeHolder(convertView);
+                convertView.setTag(mViewHolder);
+
+                convertView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        currentTheme = curr;
+                        SharedPreferences.Editor editor = pref.edit();
+                        editor.putInt(getString(R.string.theme), currentTheme);
+                        editor.apply();
+                        Intent intent = new Intent(SettingsActivity.this, SettingsActivity.class);
+                        startActivity(intent);
+
+                    }
+                });
+            } else {
+                mViewHolder = (ThemeHolder) convertView.getTag();
             }
-            ((SquareImageView) convertView).setImageResource(images[position]);
+
+
+            ((TextView) convertView.findViewById(R.id.title)).setText(theme_names[position]);
+            ((TextView) convertView.findViewById(R.id.sample_text)).setTextColor(getResources().getColor(text[position]));
+            ((ImageButton) convertView.findViewById(R.id.color1)).setBackgroundColor(getResources().getColor(color1[position]));
+            ((ImageButton) convertView.findViewById(R.id.color2)).setBackgroundColor(getResources().getColor(color2[position]));
+            convertView.findViewById(R.id.theme_select).setBackgroundColor(getResources().getColor(bg[position]));
+
             return convertView;
         }
+
+        private class ThemeHolder {
+            TextView title;
+            ImageView color1, color2;
+            LinearLayout section;
+
+            public ThemeHolder(View item) {
+                title = (TextView) item.findViewById(R.id.title);
+                color1 = (ImageView) item.findViewById(R.id.color1);
+                color2 = (ImageView) item.findViewById(R.id.color2);
+                section = (LinearLayout) item.findViewById(R.id.theme_select);
+            }
+        }
+
     }
 
-
-    public class SquareImageView extends ImageView {
-
-        public SquareImageView(final Context context) {
-            super(context);
-        }
-
-        public SquareImageView(final Context context, final AttributeSet attrs) {
-            super(context, attrs);
-        }
-
-        public SquareImageView(final Context context, final AttributeSet attrs, final int defStyle) {
-            super(context, attrs, defStyle);
-        }
-
-
-        @Override
-        protected void onMeasure(final int widthMeasureSpec, final int heightMeasureSpec) {
-            final int width = getDefaultSize(getSuggestedMinimumWidth(), widthMeasureSpec);
-            setMeasuredDimension(width, width);
-        }
-
-        @Override
-        protected void onSizeChanged(final int w, final int h, final int oldw, final int oldh) {
-            super.onSizeChanged(w, w, oldw, oldh);
-        }
-    }
 }
 
