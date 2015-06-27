@@ -5,57 +5,57 @@
     android:orientation="horizontal">
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:id="@+id/theme_select"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="1"
-        android:id="@+id/theme_select">
+        android:orientation="horizontal"
+        android:weightSum="1">
 
         <TextView
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Aloha"
-            android:id="@+id/title"
-            android:layout_weight="0.99"
-            android:textColor="#fff"
             android:layout_gravity="center_vertical"
-            android:textStyle="italic"
-            android:layout_marginLeft="16dp" />
+            android:layout_marginLeft="16dp"
+            android:layout_weight="0.99"
+            android:text="Aloha"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#fff"
+            android:textStyle="italic" />
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="16dp">
+            android:layout_marginRight="16dp"
+            android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/sample_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="15"
-                android:id="@+id/sample_text"
                 android:layout_gravity="center_vertical"
-                android:layout_marginRight="10dp" />
+                android:layout_marginRight="10dp"
+                android:text="15"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <ImageButton
+                android:id="@+id/color1"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:id="@+id/color1"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp" />
+
+            <ImageButton
+                android:id="@+id/color2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="20dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp" />
-
-            <ImageButton
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:id="@+id/color2"
-                android:focusableInTouchMode="false"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp" />
+                android:focusableInTouchMode="false" />
 
         </LinearLayout>
 
