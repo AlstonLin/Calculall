@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- From: file:/C:/Users/Ejaaz/Calculall/Calculall/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ko/common_strings.xml -->
+    <!-- From: file:/C:/Users/Jason/AndroidStudioProjects/Calculall/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ko/common_strings.xml -->
     <eat-comment/>
     <string msgid="473679118463211576" name="common_android_wear_notification_needs_update_text">"Android Wear 앱에 대한 업데이트가 필요한 애플리케이션이 있습니다."</string>
     <string msgid="3046420540094071256" name="common_android_wear_update_text">"Android Wear 앱을 업데이트해야만 이 앱이 실행됩니다."</string>

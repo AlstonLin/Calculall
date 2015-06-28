@@ -15,9 +15,9 @@ public abstract class Variable extends Token implements Serializable {
 
     public static final int A = 1, B = 2, C = 3, X = 4, PI = 5, E = 6, ANS = 7,
             CONSTANT = 8, MATRIX_A = 9, MATRIX_B = 10, MATRIX_C = 11, U = 12,
-            V = 13, S = 14, T = 15, Y = 16, C0 = 17, MU0 = 18, Epsilon0 = 19;
+            V = 13, S = 14, T = 15, Y = 16;
     public static final double PI_VALUE = Math.PI, E_VALUE = Math.E;
-    //public static final double SPEED_OF_LIGHT_VAL = 299792458, MAGNETIC_VAL = (4*Math.PI)*1e-7;
+    public static final double SPEED_OF_LIGHT = 299792458, MAGNETIC = (4 * Math.PI) * 1e-7;
     public boolean negative = false;
 
     /**
@@ -57,18 +57,4 @@ public abstract class Variable extends Token implements Serializable {
      */
     public abstract ArrayList<Token> getValue();
 
-
-    public enum Constant {
-        SPEED_OF_LIGHT(299792458), MAGNETIC_VAL((4 * Math.PI) * 1e-7), ELECTRIC_VAL(1 / (((4 * Math.PI) * 1e-7) * 299792458 * 299792458));
-        private double value;
-
-        private Constant(double value) {
-            this.value = value;
-        }
-
-        public double getValue() {
-            return value;
-        }
-
-    }
 }

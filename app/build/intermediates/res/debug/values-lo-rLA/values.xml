@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- From: file:/C:/Users/Ejaaz/Calculall/Calculall/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-lo-rLA/common_strings.xml -->
+    <!-- From: file:/C:/Users/Jason/AndroidStudioProjects/Calculall/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-lo-rLA/common_strings.xml -->
     <eat-comment/>
     <string msgid="473679118463211576" name="common_android_wear_notification_needs_update_text">"ແອັບະ​ລິ​ເຄ​ຊັນ​ຕ້ອງ​ການ​ໃຫ້​ອັບ​ເດດ​ແອັບຯ Android Wear."</string>
     <string msgid="3046420540094071256" name="common_android_wear_update_text">"ແອັບຯ​ນີ້​ຈະ​ບໍ່​ສາ​ມາດ​ໃຊ້​ໄດ້​ຈົນ​ກວ່າ​ທ່ານ​ຈະ​ອັບ​ເດດ​ແອັບຯ Android Wear."</string>
