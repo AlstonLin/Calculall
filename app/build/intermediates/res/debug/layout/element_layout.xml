@@ -13,12 +13,12 @@
         android:orientation="horizontal">
 
         <Button
-                android:id="@+id/left_scroll"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="5"
-                android:onClick="onClick"
-                android:text="@string/leftscroll" />
+            android:id="@+id/left_scroll"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:onClick="onClick"
+            android:text="@string/leftscroll" />
 
 
         <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -64,13 +64,13 @@
         </ScrollView>
 
         <Button
-                android:id="@+id/right_scroll"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="right"
-                android:layout_weight="5"
-                android:onClick="onClick"
-                android:text="@string/rightscroll" />
+            android:id="@+id/right_scroll"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:layout_weight="5"
+            android:onClick="onClick"
+            android:text="@string/rightscroll" />
 
     </LinearLayout>
 
@@ -604,4 +604,4 @@
 
         </LinearLayout>
     </LinearLayout>
-</LinearLayout><!-- From: file:/C:/Users/Ejaaz/Calculall/Calculall/app/src/main/res/layout/element_layout.xml -->
+</LinearLayout><!-- From: file:/C:/Users/Jason/AndroidStudioProjects/Calculall/app/src/main/res/layout/element_layout.xml -->

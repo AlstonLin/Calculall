@@ -162,10 +162,10 @@ public class Advanced extends Basic {
                 display.displayOutput(output);
                 saveEquation(tokens, output, FILENAME);
                 VariableFactory.ansValueAdv = output;
-            }
+        }
         } catch (Exception e) { //User did a mistake
             handleExceptions(e);
-        }
+    }
         activity.scrollDown();
     }
 
@@ -897,31 +897,6 @@ public class Advanced extends Basic {
         }
     }
 
-/*    *//**
-     * Exits the constants view.
-     *//*
-    public void clickExitConst() {
-        constantsDialog.dismiss();
-    }
-
-    *//**
-     * When the user presses the CONST button
-     *//*
-    //TODO: Implement by looking at how the settings are implmented
-    public void clickConst() {
-       AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        LayoutInflater inflater = activity.getLayoutInflater();
-        View layout = inflater.inflate(R.layout.constants, null);
-        builder.setView(layout);
-        constantsDialog = builder.create();
-        constantsDialog.show();
-
-
-        //List<Constant> cnts = new ArrayList<>(Arrays.asList(Constant.values()));
-        //ArrayAdapter<Constant> constAdapter = new ArrayAdapter<Integer>(this, R.layout.constants, Constant.values());
-
-}*/
-
     /**
      * Exits the consts view.
      */
@@ -1017,20 +992,6 @@ public class Advanced extends Basic {
 
     public boolean isHyperbolic() {
         return hyperbolic;
-    }
-
-    public enum Constant {
-        SPEED_OF_LIGHT(299792458), MAGNETIC_VAL((4 * Math.PI) * 1e-7);
-        private double value;
-
-        Constant(double value) {
-            this.value = value;
-        }
-
-        public double getValue() {
-            return value;
-        }
-
     }
 
     /**

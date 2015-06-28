@@ -5,4 +5,4 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:singleLine="true"
-    android:textSize="16sp" /><!-- From: file:/C:/Users/Ejaaz/Calculall/Calculall/app/src/main/res/layout/spinner_item.xml -->
+    android:textSize="16sp" /><!-- From: file:/C:/Users/Jason/AndroidStudioProjects/Calculall/app/src/main/res/layout/spinner_item.xml -->
