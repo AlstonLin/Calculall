@@ -40,10 +40,10 @@
     <string name="num">#</string>
     <string name="edit">Edit</string>
     <string name="newe"><![CDATA[[ ]<sup><small>+</small></sup>]]></string>
-    <string name="rank">Rank</string>
+    <string name="rank">rank</string>
     <string name="ref">REF</string>
     <string name="rref">RREF</string>
-    <string name="det">DET</string>
+    <string name="det">det</string>
     <string name="diag">DIAG</string>
     <string name="decomp">DECOMP</string>
     <string name="tr">tr</string>
