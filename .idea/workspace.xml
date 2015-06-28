@@ -48,183 +48,9 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: com.trutechinnovations.calculall" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="377a07f7-27dc-473a-a96c-fb1ac73664cb" name="Default" comment="2.2.2 - Row reduction steps and dank memes (also a teeny bit of LaTeX)">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/dictionaries/Ejaaz.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/decomposition_element.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/decomposition_view.xml" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\classes\debug\com\trutechinnovations\calculall\MatrixMode$13.class" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/Advanced.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/Advanced.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/AdvancedFragment.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/AdvancedFragment.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/Basic$HistoryAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/Basic$HistoryAdapter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/Basic.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/Basic.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/FunctionFragment.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/FunctionFragment.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/FunctionMode.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/FunctionMode.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MainActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MainActivity.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/Matrix.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/Matrix.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixFragment.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixFragment.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$10.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$10.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$11.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$11.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$12.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$12.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$3.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$4.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$4.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$5.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$5.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$6.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$6.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$7.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$7.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$8.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$8.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$9.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$9.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$ReductionAdapter$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$ReductionAdapter$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$ReductionAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$ReductionAdapter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixUtils$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixUtils$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixUtils$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixUtils$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixUtils.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixUtils.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/R$id.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/R$id.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/R$integer.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/R$integer.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/R$layout.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/R$layout.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/R$menu.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/R$menu.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/R$raw.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/R$raw.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/R$string.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/R$string.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/R$string.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/R$string.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/R$style.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/R$style.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/R$styleable.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/R$styleable.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/R.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/R.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/SettingsActivity$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/SettingsActivity$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/SettingsActivity$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/SettingsActivity$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/SettingsActivity$3.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/SettingsActivity$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/SettingsActivity$4.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/SettingsActivity$4.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/SettingsActivity$5.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/SettingsActivity$5.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/SettingsActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/SettingsActivity.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/VariableFactory$10.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/VariableFactory$10.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/VariableFactory$11.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/VariableFactory$11.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/VariableFactory$12.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/VariableFactory$12.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/VariableFactory$13.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/VariableFactory$13.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/VariableFactory$14.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/VariableFactory$14.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/VariableFactory$15.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/VariableFactory$15.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/VariableFactory$16.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/VariableFactory$16.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/VariableFactory$17.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/VariableFactory$17.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/VariableFactory$18.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/VariableFactory$18.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/VariableFactory$19.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/VariableFactory$19.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/VariableFactory$7.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/VariableFactory$7.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/VariableFactory$8.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/VariableFactory$8.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/VariableFactory$9.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/VariableFactory$9.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/VariableFactory.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/VariableFactory.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/VectorFragment.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/VectorFragment.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/VectorMode.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/VectorMode.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/multi-dex/debug/allclasses.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/multi-dex/debug/allclasses.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/outputs/apk/app-debug-unaligned.apk" afterPath="$PROJECT_DIR$/app/build/outputs/apk/app-debug-unaligned.apk" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/outputs/apk/app-debug.apk" afterPath="$PROJECT_DIR$/app/build/outputs/apk/app-debug.apk" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/cache.properties.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/dex/debug/classes.dex" afterPath="$PROJECT_DIR$/app/build/intermediates/dex/debug/classes.dex" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/dex/debug/classes2.dex" afterPath="$PROJECT_DIR$/app/build/intermediates/dex/debug/classes2.dex" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/multi-dex/debug/componentClasses.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/multi-dex/debug/componentClasses.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileHashes.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileSnapshots.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/resources-debug.ap_" afterPath="$PROJECT_DIR$/app/build/intermediates/res/resources-debug.ap_" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/taskArtifacts.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.balysv/material-ripple/1.0.2/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.balysv/material-ripple/1.0.2/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/Basic.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/Basic.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/Matrix.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/Matrix.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MatrixMode.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MatrixMode.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MatrixUtils.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MatrixUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/google/android/gms/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/google/android/gms/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/trutechinnovations/calculall/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/trutechinnovations/calculall/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/symbols/debug/R.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/symbols/debug/R.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/drawable/common_signin_btn_icon_dark.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/drawable/common_signin_btn_icon_dark.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/drawable/common_signin_btn_icon_light.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/drawable/common_signin_btn_icon_light.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/color/common_signin_btn_text_dark.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/color/common_signin_btn_text_dark.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/drawable/common_signin_btn_text_dark.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/drawable/common_signin_btn_text_dark.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/color/common_signin_btn_text_light.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/color/common_signin_btn_text_light.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/drawable/common_signin_btn_text_light.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/drawable/common_signin_btn_text_light.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-af/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-af/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-am/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-am/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ar/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ar/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-bg/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-bg/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-bn-rBD/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-bn-rBD/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ca/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ca/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-cs/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-cs/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-da/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-da/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-de/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-de/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-el/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-el/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-en-rGB/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-en-rGB/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-en-rIN/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-en-rIN/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-es/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-es/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-es-rUS/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-es-rUS/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-et-rEE/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-et-rEE/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-eu-rES/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-eu-rES/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-fa/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-fa/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-fi/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-fi/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-fr/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-fr/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-fr-rCA/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-fr-rCA/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-gl-rES/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-gl-rES/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-hi/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-hi/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-hr/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-hr/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-hu/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-hu/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-hy-rAM/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-hy-rAM/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-in/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-in/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-is-rIS/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-is-rIS/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-it/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-it/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-iw/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-iw/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ja/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ja/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ka-rGE/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ka-rGE/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-kk-rKZ/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-kk-rKZ/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-km-rKH/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-km-rKH/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-kn-rIN/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-kn-rIN/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ko/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ko/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ky-rKG/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ky-rKG/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-lo-rLA/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-lo-rLA/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-lt/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-lt/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-lv/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-lv/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-mk-rMK/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-mk-rMK/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ml-rIN/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ml-rIN/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-mn-rMN/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-mn-rMN/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-mr-rIN/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-mr-rIN/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ms-rMY/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ms-rMY/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-my-rMM/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-my-rMM/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-nb/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-nb/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ne-rNP/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ne-rNP/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-nl/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-nl/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-pl/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-pl/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-pt/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-pt/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-pt-rBR/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-pt-rBR/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-pt-rPT/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-pt-rPT/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ro/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ro/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ru/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ru/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-si-rLK/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-si-rLK/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-sk/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-sk/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-sl/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-sl/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-sr/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-sr/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-sv/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-sv/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-sw/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-sw/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ta-rIN/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ta-rIN/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-te-rIN/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-te-rIN/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-th/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-th/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-tl/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-tl/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-tr/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-tr/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-uk/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-uk/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ur-rPK/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ur-rPK/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-uz-rUZ/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-uz-rUZ/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-vi/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-vi/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-zh-rCN/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-zh-rCN/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-zh-rHK/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-zh-rHK/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-zh-rTW/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-zh-rTW/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-zu/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-zu/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/element.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/element.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/element.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/element.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/elements_layout.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/elements_layout.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/elements_layout.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/elements_layout.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeResources/debug/merger.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeResources/debug/merger.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/reduction_element.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/reduction_element.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/reduction_view.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/reduction_view.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/reduction_view.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/reduction_view.xml" />
+    <list default="true" id="377a07f7-27dc-473a-a96c-fb1ac73664cb" name="Default" comment="2.2.3 - Matrix decompositions and some minor UI tweaks">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/matrix.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/matrix.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.balysv/material-ripple/1.0.2/res/values/values.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.balysv/material-ripple/1.0.2/res/values/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values/values.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/color/wallet_primary_text_holo_light.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/color/wallet_primary_text_holo_light.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/color/wallet_secondary_text_holo_dark.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/color/wallet_secondary_text_holo_dark.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/wallet_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/wallet_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-es/wallet_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-es/wallet_strings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="cd9eac4b-20a3-422a-9b43-1f74ec1f6fb3" name="Rejected commit: Default" comment="2.0 - Bug fixes and ANS button" />
@@ -290,10 +116,10 @@
               <folding>
                 <element signature="imports" expanded="false" />
                 <element signature="docComment;class#MatrixUtils#0" expanded="false" />
-                <element signature="e#1164#1307#0" expanded="false" />
-                <element signature="e#1306#1307#0" expanded="false" />
-                <element signature="e#1374#1517#0" expanded="false" />
-                <element signature="e#1516#1517#0" expanded="false" />
+                <element signature="e#1258#1259#0" expanded="false" />
+                <element signature="e#1300#1301#0" expanded="false" />
+                <element signature="e#1468#1469#0" expanded="false" />
+                <element signature="e#1510#1511#0" expanded="false" />
                 <element signature="docComment;method#applyCommand#0;class#MatrixUtils#0" expanded="false" />
                 <element signature="method#subtract#0;class#MatrixUtils#0" expanded="false" />
                 <element signature="method#transpose#0;class#MatrixUtils#0" expanded="false" />
@@ -317,11 +143,8 @@
                 <element signature="docComment;method#getEigenBasis#0;class#MatrixUtils#0" expanded="false" />
                 <element signature="method#getEigenBasis#0;class#MatrixUtils#0" expanded="false" />
                 <element signature="method#getGeometricMultiplicities#0;class#MatrixUtils#0" expanded="false" />
-                <element signature="e#12072#12080#0" expanded="false" />
                 <element signature="method#getAlgebraicMultiplicities#0;class#MatrixUtils#0" expanded="false" />
-                <element signature="e#12493#12501#0" expanded="false" />
                 <element signature="method#isDiagonalizable#0;class#MatrixUtils#0" expanded="false" />
-                <element signature="e#13040#13048#0" expanded="false" />
                 <element signature="method#wrapDblArray#0;class#MatrixUtils#0" expanded="false" />
                 <element signature="method#unwrapDblArray#0;class#MatrixUtils#0" expanded="false" />
                 <element signature="docComment;method#dotProduct#0;class#MatrixUtils#0" expanded="false" />
@@ -386,118 +209,68 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MatrixMode.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MatrixMode.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MatrixMode.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="366" column="58" selection-start-line="366" selection-start-column="58" selection-end-line="366" selection-end-column="58" />
+            <state vertical-scroll-proportion="-0.19640565">
+              <caret line="361" column="58" selection-start-line="361" selection-start-column="58" selection-end-line="361" selection-end-column="58" />
               <folding>
-                <element signature="imports" expanded="false" />
                 <element signature="docComment;class#MatrixMode#0" expanded="false" />
                 <element signature="initializer##0;class#MatrixMode#0" expanded="false" />
                 <element signature="docComment;method#getInstance#0;class#MatrixMode#0" expanded="false" />
-                <element signature="e#2006#2007#0" expanded="false" />
-                <element signature="e#2037#2038#0" expanded="false" />
                 <element signature="docComment;method#onClick#0;class#MatrixMode#0" expanded="false" />
-                <element signature="method#clickDoneNum#0;class#MatrixMode#0" expanded="false" />
                 <element signature="docComment;method#clickA#0;class#MatrixMode#0" expanded="false" />
-                <element signature="method#clickShift#0;class#MatrixMode#0" expanded="false" />
-                <element signature="e#7043#7289#0" expanded="false" />
-                <element signature="e#7288#7289#0" expanded="false" />
                 <element signature="docComment;method#clickB#0;class#MatrixMode#0" expanded="false" />
-                <element signature="method#clickNew#0;class#MatrixMode#0" expanded="false" />
-                <element signature="e#7043#7289#0" expanded="false" />
-                <element signature="e#7288#7289#0" expanded="false" />
                 <element signature="docComment;method#clickC#0;class#MatrixMode#0" expanded="false" />
-                <element signature="method#clickNew#0;class#MatrixMode#0" expanded="false" />
-                <element signature="e#7043#7289#0" expanded="false" />
-                <element signature="e#7288#7289#0" expanded="false" />
                 <element signature="docComment;method#clickAns#0;class#MatrixMode#0" expanded="false" />
-                <element signature="method#clickEdit#0;class#MatrixMode#0" expanded="false" />
-                <element signature="method#editMatrix#0;class#MatrixMode#0" expanded="false" />
-                <element signature="e#8950#8988#0" expanded="false" />
-                <element signature="e#9032#9071#0" expanded="false" />
-                <element signature="e#9119#9157#0" expanded="false" />
-                <element signature="e#9201#9234#0" expanded="false" />
+                <element signature="method#clickDoneNum#0;class#MatrixMode#0" expanded="false" />
                 <element signature="docComment;method#clickShift#0;class#MatrixMode#0" expanded="false" />
+                <element signature="method#clickShift#0;class#MatrixMode#0" expanded="false" />
                 <element signature="docComment;method#clickNew#0;class#MatrixMode#0" expanded="false" />
-                <element signature="method#scrollRight#0;class#MatrixMode#0" expanded="false" />
+                <element signature="method#clickNew#0;class#MatrixMode#0" expanded="false" />
                 <element signature="docComment;method#clickEdit#0;class#MatrixMode#0" expanded="false" />
-                <element signature="method#scrollLeft#0;class#MatrixMode#0" expanded="false" />
+                <element signature="method#clickEdit#0;class#MatrixMode#0" expanded="false" />
                 <element signature="docComment;method#editMatrix#0;class#MatrixMode#0" expanded="false" />
-                <element signature="e#11096#11097#0" expanded="false" />
-                <element signature="e#11131#11132#0" expanded="false" />
                 <element signature="docComment;method#loadElementsView#0;class#MatrixMode#0" expanded="false" />
-                <element signature="e#12573#12890#0" expanded="false" />
-                <element signature="e#12889#12890#0" expanded="false" />
-                <element signature="class#13706:14226" expanded="false" />
-                <element signature="method#onItemSelected#0;class#13706:14226" expanded="false" />
-                <element signature="method#onNothingSelected#0;class#13706:14226" expanded="false" />
-                <element signature="class#14276:14796" expanded="false" />
-                <element signature="method#onItemSelected#0;class#14276:14796" expanded="false" />
-                <element signature="method#onNothingSelected#0;class#14276:14796" expanded="false" />
+                <element signature="class#13583:14103" expanded="false" />
+                <element signature="method#onItemSelected#0;class#13583:14103" expanded="false" />
+                <element signature="method#onNothingSelected#0;class#13583:14103" expanded="false" />
+                <element signature="class#14153:14673" expanded="false" />
+                <element signature="method#onItemSelected#0;class#14153:14673" expanded="false" />
+                <element signature="method#onNothingSelected#0;class#14153:14673" expanded="false" />
                 <element signature="docComment;method#editEntry#0;class#MatrixMode#0" expanded="false" />
-                <element signature="method#clickAddElement#0;class#MatrixMode#0" expanded="false" />
                 <element signature="docComment;method#scrollRight#0;class#MatrixMode#0" expanded="false" />
-                <element signature="e#16655#16656#0" expanded="false" />
-                <element signature="e#16691#16692#0" expanded="false" />
                 <element signature="docComment;method#scrollLeft#0;class#MatrixMode#0" expanded="false" />
-                <element signature="e#16655#16656#0" expanded="false" />
-                <element signature="e#16691#16692#0" expanded="false" />
                 <element signature="docComment;method#setupElementButtons#0;class#MatrixMode#0" expanded="false" />
-                <element signature="method#clickDone#0;class#MatrixMode#0" expanded="false" />
-                <element signature="e#17478#17513#0" expanded="false" />
-                <element signature="e#17609#17645#0" expanded="false" />
-                <element signature="e#17741#17776#0" expanded="false" />
-                <element signature="e#17872#17908#0" expanded="false" />
-                <element signature="e#18004#18039#0" expanded="false" />
-                <element signature="e#18135#18171#0" expanded="false" />
-                <element signature="e#18200#18372#0" expanded="false" />
-                <element signature="e#18371#18372#0" expanded="false" />
-                <element signature="e#18399#18572#0" expanded="false" />
-                <element signature="e#18571#18572#0" expanded="false" />
-                <element signature="e#18600#18772#0" expanded="false" />
-                <element signature="e#18771#18772#0" expanded="false" />
-                <element signature="e#18799#18972#0" expanded="false" />
-                <element signature="e#18971#18972#0" expanded="false" />
-                <element signature="e#19000#19172#0" expanded="false" />
-                <element signature="e#19171#19172#0" expanded="false" />
-                <element signature="e#19199#19372#0" expanded="false" />
-                <element signature="e#19371#19372#0" expanded="false" />
                 <element signature="docComment;method#clickMultiplyElement#0;class#MatrixMode#0" expanded="false" />
-                <element signature="method#clickDone#0;class#MatrixMode#0" expanded="false" />
                 <element signature="docComment;method#clickDivideElement#0;class#MatrixMode#0" expanded="false" />
-                <element signature="method#clickDeterminant#0;class#MatrixMode#0" expanded="false" />
                 <element signature="docComment;method#clickAddElement#0;class#MatrixMode#0" expanded="false" />
-                <element signature="method#clickFracMode#0;class#MatrixMode#0" expanded="false" />
+                <element signature="method#clickAddElement#0;class#MatrixMode#0" expanded="false" />
                 <element signature="docComment;method#clickSubtractElement#0;class#MatrixMode#0" expanded="false" />
-                <element signature="method#clickTrace#0;class#MatrixMode#0" expanded="false" />
                 <element signature="docComment;method#clickSqrtElement#0;class#MatrixMode#0" expanded="false" />
-                <element signature="method#clickInverse#0;class#MatrixMode#0" expanded="false" />
                 <element signature="docComment;method#clickDone#0;class#MatrixMode#0" expanded="false" />
-                <element signature="method#clickInverse#0;class#MatrixMode#0" expanded="false" />
+                <element signature="method#clickDone#0;class#MatrixMode#0" expanded="false" />
                 <element signature="docComment;method#clickReturn#0;class#MatrixMode#0" expanded="false" />
-                <element signature="method#clickTranspose#0;class#MatrixMode#0" expanded="false" />
                 <element signature="docComment;method#clickDeterminant#0;class#MatrixMode#0" expanded="false" />
-                <element signature="method#clickREF#0;class#MatrixMode#0" expanded="false" />
+                <element signature="method#clickDeterminant#0;class#MatrixMode#0" expanded="false" />
+                <element signature="method#clickFracMode#0;class#MatrixMode#0" expanded="false" />
                 <element signature="docComment;method#clickTrace#0;class#MatrixMode#0" expanded="false" />
+                <element signature="method#clickTrace#0;class#MatrixMode#0" expanded="false" />
                 <element signature="docComment;method#clickInverse#0;class#MatrixMode#0" expanded="false" />
+                <element signature="method#clickInverse#0;class#MatrixMode#0" expanded="false" />
                 <element signature="docComment;method#clickTranspose#0;class#MatrixMode#0" expanded="false" />
+                <element signature="method#clickTranspose#0;class#MatrixMode#0" expanded="false" />
                 <element signature="docComment;method#clickREF#0;class#MatrixMode#0" expanded="false" />
                 <element signature="docComment;method#clickRREF#0;class#MatrixMode#0" expanded="false" />
-                <element signature="method#clickExponent#0;class#MatrixMode#0" expanded="false" />
-                <element signature="e#24652#24705#0" expanded="false" />
+                <element signature="e#24529#24582#0" expanded="false" />
                 <element signature="docComment;method#clickRank#0;class#MatrixMode#0" expanded="false" />
-                <element signature="method#clickEquals#0;class#MatrixMode#0" expanded="false" />
                 <element signature="docComment;method#clickAdd#0;class#MatrixMode#0" expanded="false" />
-                <element signature="method#clickEquals#0;class#MatrixMode#0" expanded="false" />
                 <element signature="docComment;method#clickSubtract#0;class#MatrixMode#0" expanded="false" />
-                <element signature="method#clickLUP#0;class#MatrixMode#0" expanded="false" />
                 <element signature="docComment;method#clickMultiply#0;class#MatrixMode#0" expanded="false" />
                 <element signature="docComment;method#clickExponent#0;class#MatrixMode#0" expanded="false" />
-                <element signature="method#clickLUP#0;class#MatrixMode#0" expanded="false" />
+                <element signature="method#clickExponent#0;class#MatrixMode#0" expanded="false" />
                 <element signature="docComment;method#clickEquals#0;class#MatrixMode#0" expanded="false" />
-                <element signature="method#clickLUP#0;class#MatrixMode#0" expanded="false" />
+                <element signature="method#clickEquals#0;class#MatrixMode#0" expanded="false" />
                 <element signature="docComment;method#saveAns#0;class#MatrixMode#0" expanded="false" />
                 <element signature="docComment;method#clickLUP#0;class#MatrixMode#0" expanded="false" />
                 <element signature="method#clickLUP#0;class#MatrixMode#0" expanded="false" />
@@ -517,88 +290,22 @@
                 <element signature="docComment;method#openReduction#0;class#MatrixMode#0" expanded="false" />
                 <element signature="method#openReduction#0;class#MatrixMode#0" expanded="false" />
                 <element signature="docComment;method#clickExitReduction#0;class#MatrixMode#0" expanded="false" />
-                <element signature="e#44074#44075#0" expanded="false" />
-                <element signature="e#44115#44116#0" expanded="false" />
-                <element signature="docComment;class#ReductionAdapter#0;class#MatrixMode#0" expanded="false" />
-                <element signature="class#ReductionAdapter#0;class#MatrixMode#0" expanded="false" />
-                <element signature="method#ReductionAdapter#0;class#ReductionAdapter#0;class#MatrixMode#0" expanded="false" />
-                <element signature="e#44619#44620#0" expanded="false" />
-                <element signature="e#44666#44667#0" expanded="false" />
-                <element signature="e#44731#44732#0" expanded="false" />
-                <element signature="e#44785#44786#0" expanded="false" />
-                <element signature="e#44850#44851#0" expanded="false" />
-                <element signature="e#44889#44890#0" expanded="false" />
-                <element signature="docComment;method#getView#0;class#ReductionAdapter#0;class#MatrixMode#0" expanded="false" />
-                <element signature="method#getView#0;class#ReductionAdapter#0;class#MatrixMode#0" expanded="false" />
-                <element signature="e#45465#45538#0" expanded="false" />
-                <element signature="e#46906#47806#0" expanded="false" />
-                <element signature="e#47805#47806#0" expanded="false" />
                 <element signature="docComment;method#openDecomp#0;class#MatrixMode#0" expanded="false" />
                 <element signature="method#openDecomp#0;class#MatrixMode#0" expanded="false" />
                 <element signature="docComment;method#clickExitDecomp#0;class#MatrixMode#0" expanded="false" />
-                <element signature="e#54339#54340#0" expanded="false" />
-                <element signature="e#54377#54378#0" expanded="false" />
+                <element signature="docComment;class#ReductionAdapter#0;class#MatrixMode#0" expanded="false" />
+                <element signature="class#ReductionAdapter#0;class#MatrixMode#0" expanded="false" />
+                <element signature="method#ReductionAdapter#0;class#ReductionAdapter#0;class#MatrixMode#0" expanded="false" />
+                <element signature="docComment;method#getView#0;class#ReductionAdapter#0;class#MatrixMode#0" expanded="false" />
+                <element signature="method#getView#0;class#ReductionAdapter#0;class#MatrixMode#0" expanded="false" />
+                <element signature="e#51867#51940#0" expanded="false" />
                 <element signature="docComment;class#DecompAdapter#0;class#MatrixMode#0" expanded="false" />
                 <element signature="class#DecompAdapter#0;class#MatrixMode#0" expanded="false" />
                 <element signature="method#DecompAdapter#0;class#DecompAdapter#0;class#MatrixMode#0" expanded="false" />
-                <element signature="e#54895#54896#0" expanded="false" />
-                <element signature="e#54947#54948#0" expanded="false" />
-                <element signature="e#55012#55013#0" expanded="false" />
-                <element signature="e#55071#55072#0" expanded="false" />
-                <element signature="e#55136#55137#0" expanded="false" />
-                <element signature="e#55175#55176#0" expanded="false" />
                 <element signature="docComment;method#getView#0;class#DecompAdapter#0;class#MatrixMode#0" expanded="false" />
                 <element signature="method#getView#0;class#DecompAdapter#0;class#MatrixMode#0" expanded="false" />
-                <element signature="e#55751#55824#0" expanded="false" />
-                <element signature="e#57436#58687#0" expanded="false" />
-                <element signature="e#58686#58687#0" expanded="false" />
+                <element signature="e#55631#55704#0" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="element.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/element.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.0">
-              <caret line="8" column="30" selection-start-line="8" selection-start-column="30" selection-end-line="8" selection-end-column="30" />
-              <folding />
-            </state>
-          </provider>
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="elements_layout.xml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/elements_layout.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.50201344">
-              <caret line="22" column="44" selection-start-line="22" selection-start-column="44" selection-end-line="22" selection-end-column="44" />
-              <folding />
-            </state>
-          </provider>
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="values.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/values.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="attr.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/attr.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -609,12 +316,34 @@
             <state vertical-scroll-proportion="0.0">
               <caret line="396" column="39" selection-start-line="396" selection-start-column="39" selection-end-line="396" selection-end-column="39" />
               <folding>
+                <element signature="imports" expanded="false" />
+                <element signature="e#1321#1328#0" expanded="false" />
+                <element signature="e#1722#1723#0" expanded="false" />
+                <element signature="e#1745#1746#0" expanded="false" />
+                <element signature="e#1924#1925#0" expanded="false" />
+                <element signature="e#1955#1956#0" expanded="false" />
+                <element signature="e#2013#2014#0" expanded="false" />
+                <element signature="e#2053#2054#0" expanded="false" />
+                <element signature="e#2345#2346#0" expanded="false" />
+                <element signature="e#2385#2386#0" expanded="false" />
+                <element signature="e#5170#5171#0" expanded="false" />
+                <element signature="e#5209#5210#0" expanded="false" />
                 <element signature="method#clickClear#0;class#Basic#0" expanded="false" />
                 <element signature="method#clickBack#0;class#Basic#0" expanded="false" />
+                <element signature="e#12781#12788#0" expanded="false" />
+                <element signature="e#14225#14235#0" expanded="false" />
                 <element signature="docComment;method#updatePlaceHolders#0;class#Basic#0" expanded="false" />
                 <element signature="method#updatePlaceHolders#0;class#Basic#0" expanded="false" />
+                <element signature="e#20619#20620#0" expanded="false" />
+                <element signature="e#20664#20665#0" expanded="false" />
+                <element signature="e#20729#20730#0" expanded="false" />
+                <element signature="e#20781#20782#0" expanded="false" />
+                <element signature="e#20846#20847#0" expanded="false" />
+                <element signature="e#20885#20886#0" expanded="false" />
                 <element signature="docComment;method#getView#0;class#HistoryAdapter#0;class#Basic#0" expanded="false" />
                 <element signature="method#getView#0;class#HistoryAdapter#0;class#Basic#0" expanded="false" />
+                <element signature="e#22774#23741#0" expanded="false" />
+                <element signature="e#23740#23741#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -1868,7 +1597,6 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/settings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/SettingsActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/advanced.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/matrix.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/vector.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/function.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/matrix_num.xml" />
@@ -1885,7 +1613,6 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/reduction_element.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/Advanced.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/matrix_decomp_drawer.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MatrixFunctionFactory.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/reduction_view.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/Matrix.java" />
@@ -1897,6 +1624,8 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/element.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/Basic.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/elements_layout.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/matrix.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
       </list>
     </option>
   </component>
@@ -1954,81 +1683,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="AndroidView">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Calculall" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Gradle Scripts" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidBuildScriptsGroupNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Calculall" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="values" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Calculall" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Calculall" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="calculall" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Calculall" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -2201,6 +1855,99 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="AndroidView">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Calculall" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Gradle Scripts" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidBuildScriptsGroupNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Calculall" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="values" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Calculall" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Calculall" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="layout" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Calculall" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="calculall" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Calculall" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="PackagesPane">
         <subPane>
@@ -2746,7 +2493,13 @@
       <option name="project" value="LOCAL" />
       <updated>1435116884415</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="2.2.3 - Matrix decompositions and some minor UI tweaks">
+      <created>1435381027615</created>
+      <option name="number" value="00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1435381027615</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -2789,7 +2542,6 @@
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20748663" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32760596" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24973261" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
@@ -2803,6 +2555,7 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298969" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3997773" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Memory Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="14" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32760596" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -2851,7 +2604,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="0.9.0 - Initial commit for all branches (added Matrix Mode template)" />
     <MESSAGE value="0.9.1 - Setup architecture for Graphing in Function Mode" />
     <MESSAGE value="0.9.2 - Finished basic graphing ability; still required testing, debugging and improving" />
     <MESSAGE value="0.9.3 - Previous version with bug fixes" />
@@ -2876,7 +2628,8 @@
     <MESSAGE value="2.2 - Merged" />
     <MESSAGE value="2.2.1 - Merge fix" />
     <MESSAGE value="2.2.2 - Row reduction steps and dank memes (also a teeny bit of LaTeX)" />
-    <option name="LAST_COMMIT_MESSAGE" value="2.2.2 - Row reduction steps and dank memes (also a teeny bit of LaTeX)" />
+    <MESSAGE value="2.2.3 - Matrix decompositions and some minor UI tweaks" />
+    <option name="LAST_COMMIT_MESSAGE" value="2.2.3 - Matrix decompositions and some minor UI tweaks" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -2939,12 +2692,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="45" column="39" selection-start-line="45" selection-start-column="39" selection-end-line="45" selection-end-column="39" />
-          <folding>
-            <element signature="e#898#899#0" expanded="false" />
-            <element signature="e#926#927#0" expanded="false" />
-            <element signature="e#1401#1402#0" expanded="false" />
-            <element signature="e#1447#1448#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2952,7 +2699,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2967,7 +2713,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.52619046">
           <caret line="26" column="25" selection-start-line="26" selection-start-column="25" selection-end-line="26" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2975,10 +2720,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="50" column="49" selection-start-line="50" selection-start-column="49" selection-end-line="50" selection-end-column="49" />
-          <folding>
-            <element signature="e#379#380#0" expanded="false" />
-            <element signature="e#408#409#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2986,7 +2727,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="10" column="22" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3001,18 +2741,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.9428571">
           <caret line="108" column="25" selection-start-line="108" selection-start-column="25" selection-end-line="108" selection-end-column="25" />
-          <folding>
-            <element signature="e#2976#2977#0" expanded="false" />
-            <element signature="e#3023#3024#0" expanded="false" />
-            <element signature="e#3368#3369#0" expanded="false" />
-            <element signature="e#3412#3413#0" expanded="false" />
-            <element signature="e#6067#6068#0" expanded="false" />
-            <element signature="e#6111#6112#0" expanded="false" />
-            <element signature="e#6491#6492#0" expanded="false" />
-            <element signature="e#6540#6541#0" expanded="false" />
-            <element signature="e#6925#6926#0" expanded="false" />
-            <element signature="e#6979#6980#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3020,14 +2748,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="56" column="5" selection-start-line="56" selection-start-column="5" selection-end-line="56" selection-end-column="5" />
-          <folding>
-            <element signature="e#1228#1229#0" expanded="false" />
-            <element signature="e#1255#1256#0" expanded="false" />
-            <element signature="e#2030#2031#0" expanded="false" />
-            <element signature="e#2072#2073#0" expanded="false" />
-            <element signature="e#2108#2109#0" expanded="false" />
-            <element signature="e#2144#2145#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3035,7 +2755,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3043,84 +2762,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="22" column="77" selection-start-line="22" selection-start-column="77" selection-end-line="22" selection-end-column="77" />
-          <folding>
-            <element signature="docComment;class#Utility#0" expanded="false" />
-            <element signature="docComment;method#machinePrintExpression#0;class#Utility#0" expanded="false" />
-            <element signature="method#machinePrintExpression#0;class#Utility#0" expanded="false" />
-            <element signature="docComment;method#printExpression#0;class#Utility#0" expanded="false" />
-            <element signature="method#printExpression#0;class#Utility#0" expanded="false" />
-            <element signature="docComment;method#valueOf#0;class#Utility#0" expanded="false" />
-            <element signature="method#valueOf#0;class#Utility#0" expanded="false" />
-            <element signature="docComment;method#condenseDigits#0;class#Utility#0" expanded="false" />
-            <element signature="method#condenseDigits#0;class#Utility#0" expanded="false" />
-            <element signature="docComment;method#setupExpression#0;class#Utility#0" expanded="false" />
-            <element signature="method#setupExpression#0;class#Utility#0" expanded="false" />
-            <element signature="docComment;method#convertToReversePolish#0;class#Utility#0" expanded="false" />
-            <element signature="method#convertToReversePolish#0;class#Utility#0" expanded="false" />
-            <element signature="docComment;method#evaluateExpression#0;class#Utility#0" expanded="false" />
-            <element signature="method#evaluateExpression#0;class#Utility#0" expanded="false" />
-            <element signature="method#convertDoublesToVector#0;class#Utility#0" expanded="false" />
-            <element signature="class#21774:21796" expanded="false" />
-            <element signature="class#21918:21944" expanded="false" />
-            <element signature="docComment;method#convertTokensToString#0;class#Utility#0" expanded="false" />
-            <element signature="method#convertTokensToString#0;class#Utility#0" expanded="false" />
-            <element signature="docComment;method#convertVariablesToTokens#0;class#Utility#0" expanded="false" />
-            <element signature="method#convertVariablesToTokens#0;class#Utility#0" expanded="false" />
-            <element signature="e#23654#23711#0" expanded="false" />
-            <element signature="docComment;method#cleanupExpressionForReading#0;class#Utility#0" expanded="false" />
-            <element signature="method#cleanupExpressionForReading#0;class#Utility#0" expanded="false" />
-            <element signature="docComment;method#calculateArgument#0;class#Utility#0" expanded="false" />
-            <element signature="method#calculateArgument#0;class#Utility#0" expanded="false" />
-            <element signature="docComment;method#valueAt#0;class#Utility#0" expanded="false" />
-            <element signature="method#valueAt#0;class#Utility#0" expanded="false" />
-            <element signature="docComment;method#calculateQuadrant#0;class#Utility#0" expanded="false" />
-            <element signature="method#calculateQuadrant#0;class#Utility#0" expanded="false" />
-            <element signature="docComment;method#calculateTrueBearing#0;class#Utility#0" expanded="false" />
-            <element signature="method#calculateTrueBearing#0;class#Utility#0" expanded="false" />
-            <element signature="docComment;method#calculateBearing#0;class#Utility#0" expanded="false" />
-            <element signature="method#calculateBearing#0;class#Utility#0" expanded="false" />
-            <element signature="class#30149:30175" expanded="false" />
-            <element signature="class#30244:30270" expanded="false" />
-            <element signature="class#30300:30326" expanded="false" />
-            <element signature="class#30414:30440" expanded="false" />
-            <element signature="class#30509:30535" expanded="false" />
-            <element signature="class#30565:30591" expanded="false" />
-            <element signature="class#30679:30705" expanded="false" />
-            <element signature="class#30774:30800" expanded="false" />
-            <element signature="class#30830:30856" expanded="false" />
-            <element signature="class#30944:30970" expanded="false" />
-            <element signature="class#31039:31065" expanded="false" />
-            <element signature="class#31095:31121" expanded="false" />
-            <element signature="class#31244:31270" expanded="false" />
-            <element signature="class#31361:31387" expanded="false" />
-            <element signature="class#31417:31443" expanded="false" />
-            <element signature="class#31512:31538" expanded="false" />
-            <element signature="class#31629:31655" expanded="false" />
-            <element signature="class#31685:31711" expanded="false" />
-            <element signature="class#31780:31806" expanded="false" />
-            <element signature="class#31897:31923" expanded="false" />
-            <element signature="class#31953:31979" expanded="false" />
-            <element signature="class#32048:32074" expanded="false" />
-            <element signature="class#32165:32191" expanded="false" />
-            <element signature="class#32221:32247" expanded="false" />
-            <element signature="docComment;method#multiplyVector#0;class#Utility#0" expanded="false" />
-            <element signature="method#multiplyVector#0;class#Utility#0" expanded="false" />
-            <element signature="docComment;method#findRoots#0;class#Utility#0" expanded="false" />
-            <element signature="docComment;method#factorial#0;class#Utility#0" expanded="false" />
-            <element signature="method#factorial#0;class#Utility#0" expanded="false" />
-            <element signature="docComment;method#round#0;class#Utility#0" expanded="false" />
-            <element signature="method#round#0;class#Utility#0" expanded="false" />
-            <element signature="docComment;method#addMissingBrackets#0;class#Utility#0" expanded="false" />
-            <element signature="method#addMissingBrackets#0;class#Utility#0" expanded="false" />
-            <element signature="docComment;method#subVariables#0;class#Utility#0" expanded="false" />
-            <element signature="method#subVariables#0;class#Utility#0" expanded="false" />
-            <element signature="docComment;method#reduce#0;class#Utility#0" expanded="false" />
-            <element signature="method#reduce#0;class#Utility#0" expanded="false" />
-            <element signature="docComment;method#gcd#0;class#Utility#0" expanded="false" />
-            <element signature="method#gcd#0;class#Utility#0" expanded="false" />
-            <element signature="docComment;method#subVariables#1;class#Utility#0" expanded="false" />
-            <element signature="method#subVariables#1;class#Utility#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3139,83 +2780,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="81" column="12" selection-start-line="81" selection-start-column="12" selection-end-line="81" selection-end-column="12" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#6639#6816#0" expanded="false" />
-            <element signature="e#6815#6816#0" expanded="false" />
-            <element signature="e#7586#7765#0" expanded="false" />
-            <element signature="e#7764#7765#0" expanded="false" />
-            <element signature="e#14099#14106#0" expanded="false" />
-            <element signature="e#20072#20079#0" expanded="false" />
-            <element signature="e#20668#20675#0" expanded="false" />
-            <element signature="e#20757#20764#0" expanded="false" />
-            <element signature="e#31176#31351#0" expanded="false" />
-            <element signature="e#31350#31351#0" expanded="false" />
-            <element signature="e#33739#33746#0" expanded="false" />
-            <element signature="e#34933#34940#0" expanded="false" />
-            <element signature="e#38983#38990#0" expanded="false" />
-            <element signature="e#39737#39744#0" expanded="false" />
-            <element signature="e#40720#40727#0" expanded="false" />
-            <element signature="e#41484#41491#0" expanded="false" />
-            <element signature="e#46512#46519#0" expanded="false" />
-            <element signature="e#46611#46618#0" expanded="false" />
-            <element signature="e#46702#46709#0" expanded="false" />
-            <element signature="e#48194#48201#0" expanded="false" />
-            <element signature="e#55786#55793#0" expanded="false" />
-            <element signature="e#56990#56997#0" expanded="false" />
-            <element signature="e#57816#57823#0" expanded="false" />
-            <element signature="e#77022#77029#0" expanded="false" />
-            <element signature="e#78128#78135#0" expanded="false" />
-            <element signature="e#88831#88838#0" expanded="false" />
-            <element signature="e#88917#88924#0" expanded="false" />
-            <element signature="e#89005#89012#0" expanded="false" />
-            <element signature="e#89867#89874#0" expanded="false" />
-            <element signature="e#89953#89960#0" expanded="false" />
-            <element signature="e#90672#90679#0" expanded="false" />
-            <element signature="e#90758#90765#0" expanded="false" />
-            <element signature="e#91775#91782#0" expanded="false" />
-            <element signature="e#92258#92265#0" expanded="false" />
-            <element signature="e#92406#92413#0" expanded="false" />
-            <element signature="e#93445#93452#0" expanded="false" />
-            <element signature="e#93639#93646#0" expanded="false" />
-            <element signature="e#94552#94559#0" expanded="false" />
-            <element signature="e#94746#94753#0" expanded="false" />
-            <element signature="e#97499#97506#0" expanded="false" />
-            <element signature="e#97596#97603#0" expanded="false" />
-            <element signature="e#98708#98715#0" expanded="false" />
-            <element signature="e#99382#99389#0" expanded="false" />
-            <element signature="e#99885#99892#0" expanded="false" />
-            <element signature="e#99982#99989#0" expanded="false" />
-            <element signature="e#109239#109246#0" expanded="false" />
-            <element signature="e#109313#109320#0" expanded="false" />
-            <element signature="e#113776#113783#0" expanded="false" />
-            <element signature="e#113862#113869#0" expanded="false" />
-            <element signature="e#113934#113941#0" expanded="false" />
-            <element signature="e#114020#114027#0" expanded="false" />
-            <element signature="e#114105#114112#0" expanded="false" />
-            <element signature="e#115264#115271#0" expanded="false" />
-            <element signature="e#115413#115420#0" expanded="false" />
-            <element signature="e#116315#116322#0" expanded="false" />
-            <element signature="e#116464#116471#0" expanded="false" />
-            <element signature="e#118112#118119#0" expanded="false" />
-            <element signature="e#119764#119771#0" expanded="false" />
-            <element signature="e#119860#119867#0" expanded="false" />
-            <element signature="e#120341#120348#0" expanded="false" />
-            <element signature="e#120432#120439#0" expanded="false" />
-            <element signature="e#121581#121588#0" expanded="false" />
-            <element signature="e#121736#121743#0" expanded="false" />
-            <element signature="e#122214#122221#0" expanded="false" />
-            <element signature="e#122364#122371#0" expanded="false" />
-            <element signature="e#123531#123538#0" expanded="false" />
-            <element signature="e#123686#123693#0" expanded="false" />
-            <element signature="e#124164#124171#0" expanded="false" />
-            <element signature="e#124314#124321#0" expanded="false" />
-            <element signature="e#126069#126076#0" expanded="false" />
-            <element signature="e#126382#126389#0" expanded="false" />
-            <element signature="e#126634#126641#0" expanded="false" />
-            <element signature="e#127255#127262#0" expanded="false" />
-            <element signature="e#127489#127496#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3237,105 +2801,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5922039">
           <caret line="1107" column="92" selection-start-line="1107" selection-start-column="92" selection-end-line="1107" selection-end-column="92" />
-          <folding>
-            <element signature="docComment;class#Advanced#0" expanded="false" />
-            <element signature="initializer##0;class#Advanced#0" expanded="false" />
-            <element signature="docComment;method#getInstance#0;class#Advanced#0" expanded="false" />
-            <element signature="method#setMultiButtons#0;class#Advanced#0" expanded="false" />
-            <element signature="docComment;method#onClick#0;class#Advanced#0" expanded="false" />
-            <element signature="method#onClick#0;class#Advanced#0" expanded="false" />
-            <element signature="docComment;method#clickEquals#0;class#Advanced#0" expanded="false" />
-            <element signature="method#clickAngleMode#0;class#Advanced#0" expanded="false" />
-            <element signature="method#clickFracMode#0;class#Advanced#0" expanded="false" />
-            <element signature="docComment;method#clickHyp#0;class#Advanced#0" expanded="false" />
-            <element signature="method#clickHyp#0;class#Advanced#0" expanded="false" />
-            <element signature="docComment;method#clickShift#0;class#Advanced#0" expanded="false" />
-            <element signature="method#clickShift#0;class#Advanced#0" expanded="false" />
-            <element signature="docComment;method#updateMultiButtons#0;class#Advanced#0" expanded="false" />
-            <element signature="method#updateMultiButtons#0;class#Advanced#0" expanded="false" />
-            <element signature="docComment;method#clickMem#0;class#Advanced#0" expanded="false" />
-            <element signature="method#clickMem#0;class#Advanced#0" expanded="false" />
-            <element signature="docComment;method#storeVariable#0;class#Advanced#0" expanded="false" />
-            <element signature="method#storeVariable#0;class#Advanced#0" expanded="false" />
-            <element signature="docComment;method#clickAns#0;class#Advanced#0" expanded="false" />
-            <element signature="method#clickAns#0;class#Advanced#0" expanded="false" />
-            <element signature="docComment;method#clickA#0;class#Advanced#0" expanded="false" />
-            <element signature="method#clickA#0;class#Advanced#0" expanded="false" />
-            <element signature="docComment;method#clickB#0;class#Advanced#0" expanded="false" />
-            <element signature="method#clickB#0;class#Advanced#0" expanded="false" />
-            <element signature="docComment;method#clickC#0;class#Advanced#0" expanded="false" />
-            <element signature="method#clickC#0;class#Advanced#0" expanded="false" />
-            <element signature="docComment;method#clickOpenBracket#0;class#Advanced#0" expanded="false" />
-            <element signature="method#clickOpenBracket#0;class#Advanced#0" expanded="false" />
-            <element signature="docComment;method#clickCloseBracket#0;class#Advanced#0" expanded="false" />
-            <element signature="method#clickCloseBracket#0;class#Advanced#0" expanded="false" />
-            <element signature="docComment;method#clickPowerOfTen#0;class#Advanced#0" expanded="false" />
-            <element signature="method#clickPowerOfTen#0;class#Advanced#0" expanded="false" />
-            <element signature="docComment;method#clickExp#0;class#Advanced#0" expanded="false" />
-            <element signature="method#clickExp#0;class#Advanced#0" expanded="false" />
-            <element signature="docComment;method#clickLn#0;class#Advanced#0" expanded="false" />
-            <element signature="method#clickLn#0;class#Advanced#0" expanded="false" />
-            <element signature="docComment;method#clickLog_10#0;class#Advanced#0" expanded="false" />
-            <element signature="method#clickLog_10#0;class#Advanced#0" expanded="false" />
-            <element signature="method#clickExponent#0;class#Advanced#0" expanded="false" />
-            <element signature="method#clickVarRoot#0;class#Advanced#0" expanded="false" />
-            <element signature="docComment;method#clickSqrt#0;class#Advanced#0" expanded="false" />
-            <element signature="method#clickSqrt#0;class#Advanced#0" expanded="false" />
-            <element signature="docComment;method#clickSquare#0;class#Advanced#0" expanded="false" />
-            <element signature="method#clickSquare#0;class#Advanced#0" expanded="false" />
-            <element signature="docComment;method#clickCube#0;class#Advanced#0" expanded="false" />
-            <element signature="method#clickCube#0;class#Advanced#0" expanded="false" />
-            <element signature="docComment;method#clickCbrt#0;class#Advanced#0" expanded="false" />
-            <element signature="method#clickCbrt#0;class#Advanced#0" expanded="false" />
-            <element signature="docComment;method#getFracStart#0;class#Advanced#0" expanded="false" />
-            <element signature="method#getFracStart#0;class#Advanced#0" expanded="false" />
-            <element signature="docComment;method#clickFrac#0;class#Advanced#0" expanded="false" />
-            <element signature="method#clickFrac#0;class#Advanced#0" expanded="false" />
-            <element signature="docComment;method#clickReciprocal#0;class#Advanced#0" expanded="false" />
-            <element signature="method#clickReciprocal#0;class#Advanced#0" expanded="false" />
-            <element signature="docComment;method#clickCombination#0;class#Advanced#0" expanded="false" />
-            <element signature="method#clickCombination#0;class#Advanced#0" expanded="false" />
-            <element signature="docComment;method#clickPermutation#0;class#Advanced#0" expanded="false" />
-            <element signature="method#clickPermutation#0;class#Advanced#0" expanded="false" />
-            <element signature="docComment;method#clickE#0;class#Advanced#0" expanded="false" />
-            <element signature="method#clickE#0;class#Advanced#0" expanded="false" />
-            <element signature="docComment;method#clickPi#0;class#Advanced#0" expanded="false" />
-            <element signature="method#clickPi#0;class#Advanced#0" expanded="false" />
-            <element signature="docComment;method#clickSin#0;class#Advanced#0" expanded="false" />
-            <element signature="method#clickSin#0;class#Advanced#0" expanded="false" />
-            <element signature="docComment;method#clickASin#0;class#Advanced#0" expanded="false" />
-            <element signature="method#clickASin#0;class#Advanced#0" expanded="false" />
-            <element signature="docComment;method#clickCos#0;class#Advanced#0" expanded="false" />
-            <element signature="method#clickCos#0;class#Advanced#0" expanded="false" />
-            <element signature="docComment;method#clickACos#0;class#Advanced#0" expanded="false" />
-            <element signature="method#clickACos#0;class#Advanced#0" expanded="false" />
-            <element signature="docComment;method#clickTan#0;class#Advanced#0" expanded="false" />
-            <element signature="method#clickTan#0;class#Advanced#0" expanded="false" />
-            <element signature="docComment;method#clickATan#0;class#Advanced#0" expanded="false" />
-            <element signature="method#clickATan#0;class#Advanced#0" expanded="false" />
-            <element signature="docComment;method#clickSinh#0;class#Advanced#0" expanded="false" />
-            <element signature="method#clickSinh#0;class#Advanced#0" expanded="false" />
-            <element signature="docComment;method#clickASinh#0;class#Advanced#0" expanded="false" />
-            <element signature="method#clickASinh#0;class#Advanced#0" expanded="false" />
-            <element signature="docComment;method#clickCosh#0;class#Advanced#0" expanded="false" />
-            <element signature="method#clickCosh#0;class#Advanced#0" expanded="false" />
-            <element signature="docComment;method#clickACosh#0;class#Advanced#0" expanded="false" />
-            <element signature="method#clickACosh#0;class#Advanced#0" expanded="false" />
-            <element signature="docComment;method#clickTanh#0;class#Advanced#0" expanded="false" />
-            <element signature="method#clickTanh#0;class#Advanced#0" expanded="false" />
-            <element signature="docComment;method#clickATanh#0;class#Advanced#0" expanded="false" />
-            <element signature="method#clickATanh#0;class#Advanced#0" expanded="false" />
-            <element signature="docComment;method#clickConst#0;class#Advanced#0" expanded="false" />
-            <element signature="method#clickConst#0;class#Advanced#0" expanded="false" />
-            <element signature="docComment;method#clickExitConst#0;class#Advanced#0" expanded="false" />
-            <element signature="docComment;method#openConst#0;class#Advanced#0" expanded="false" />
-            <element signature="docComment;method#addTokenInExponent#0;class#Advanced#0" expanded="false" />
-            <element signature="method#addTokenInExponent#0;class#Advanced#0" expanded="false" />
-            <element signature="docComment;class#ConstantsAdapter#0;class#Advanced#0" expanded="false" />
-            <element signature="method#ConstantsAdapter#0;class#ConstantsAdapter#0;class#Advanced#0" expanded="false" />
-            <element signature="docComment;method#getView#0;class#ConstantsAdapter#0;class#Advanced#0" expanded="false" />
-            <element signature="e#37639#37712#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3354,12 +2819,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.69415295">
           <caret line="95" column="34" selection-start-line="95" selection-start-column="34" selection-end-line="95" selection-end-column="34" />
-          <folding>
-            <element signature="e#445#446#0" expanded="false" />
-            <element signature="e#512#513#0" expanded="false" />
-            <element signature="e#445#446#0" expanded="false" />
-            <element signature="e#512#513#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3374,7 +2833,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.898527">
           <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3382,7 +2840,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.2782324">
           <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3390,7 +2847,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="125" column="42" selection-start-line="125" selection-start-column="42" selection-end-line="125" selection-end-column="42" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3398,7 +2854,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.2782324">
           <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3417,14 +2872,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.85278517">
-          <caret line="165" column="0" selection-start-line="165" selection-start-column="0" selection-end-line="165" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -3468,7 +2915,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-5.721438">
           <caret line="34" column="13" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3476,9 +2922,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.53269756">
           <caret line="47" column="52" selection-start-line="47" selection-start-column="52" selection-end-line="47" selection-end-column="52" />
-          <folding>
-            <element signature="e#2797#2831#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3511,10 +2954,10 @@
           <folding>
             <element signature="imports" expanded="false" />
             <element signature="docComment;class#MatrixUtils#0" expanded="false" />
-            <element signature="e#1164#1307#0" expanded="false" />
-            <element signature="e#1306#1307#0" expanded="false" />
-            <element signature="e#1374#1517#0" expanded="false" />
-            <element signature="e#1516#1517#0" expanded="false" />
+            <element signature="e#1258#1259#0" expanded="false" />
+            <element signature="e#1300#1301#0" expanded="false" />
+            <element signature="e#1468#1469#0" expanded="false" />
+            <element signature="e#1510#1511#0" expanded="false" />
             <element signature="docComment;method#applyCommand#0;class#MatrixUtils#0" expanded="false" />
             <element signature="method#subtract#0;class#MatrixUtils#0" expanded="false" />
             <element signature="method#transpose#0;class#MatrixUtils#0" expanded="false" />
@@ -3538,11 +2981,8 @@
             <element signature="docComment;method#getEigenBasis#0;class#MatrixUtils#0" expanded="false" />
             <element signature="method#getEigenBasis#0;class#MatrixUtils#0" expanded="false" />
             <element signature="method#getGeometricMultiplicities#0;class#MatrixUtils#0" expanded="false" />
-            <element signature="e#12072#12080#0" expanded="false" />
             <element signature="method#getAlgebraicMultiplicities#0;class#MatrixUtils#0" expanded="false" />
-            <element signature="e#12493#12501#0" expanded="false" />
             <element signature="method#isDiagonalizable#0;class#MatrixUtils#0" expanded="false" />
-            <element signature="e#13040#13048#0" expanded="false" />
             <element signature="method#wrapDblArray#0;class#MatrixUtils#0" expanded="false" />
             <element signature="method#unwrapDblArray#0;class#MatrixUtils#0" expanded="false" />
             <element signature="docComment;method#dotProduct#0;class#MatrixUtils#0" expanded="false" />
@@ -3610,214 +3050,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-1.5494224">
           <caret line="62" column="45" selection-start-line="62" selection-start-column="45" selection-end-line="62" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/matrix.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="21.0">
-          <caret line="134" column="50" selection-start-line="134" selection-start-column="50" selection-end-line="134" selection-end-column="50" />
-          <folding>
-            <element signature="e#1026#1040#0" expanded="false" />
-            <element signature="e#1696#1710#0" expanded="false" />
-            <element signature="e#2328#2343#0" expanded="false" />
-            <element signature="e#2375#2390#0" expanded="false" />
-            <element signature="e#3833#3852#0" expanded="false" />
-            <element signature="e#4423#4434#0" expanded="false" />
-            <element signature="e#5291#5313#0" expanded="false" />
-            <element signature="e#5942#5966#0" expanded="false" />
-            <element signature="e#6571#6585#0" expanded="false" />
-            <element signature="e#7190#7204#0" expanded="false" />
-            <element signature="e#7809#7823#0" expanded="false" />
-            <element signature="e#8393#8406#0" expanded="false" />
-            <element signature="e#9259#9272#0" expanded="false" />
-            <element signature="e#9841#9853#0" expanded="false" />
-            <element signature="e#10465#10479#0" expanded="false" />
-            <element signature="e#13650#13663#0" expanded="false" />
-            <element signature="e#14281#14295#0" expanded="false" />
-            <element signature="e#14867#14883#0" expanded="false" />
-            <element signature="e#16144#16158#0" expanded="false" />
-            <element signature="e#16778#16794#0" expanded="false" />
-            <element signature="e#17623#17636#0" expanded="false" />
-            <element signature="e#18885#18899#0" expanded="false" />
-            <element signature="e#19565#19580#0" expanded="false" />
-            <element signature="e#20595#20613#0" expanded="false" />
-            <element signature="e#21280#21296#0" expanded="false" />
-            <element signature="e#21938#21954#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MatrixMode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="366" column="58" selection-start-line="366" selection-start-column="58" selection-end-line="366" selection-end-column="58" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="docComment;class#MatrixMode#0" expanded="false" />
-            <element signature="initializer##0;class#MatrixMode#0" expanded="false" />
-            <element signature="docComment;method#getInstance#0;class#MatrixMode#0" expanded="false" />
-            <element signature="e#2006#2007#0" expanded="false" />
-            <element signature="e#2037#2038#0" expanded="false" />
-            <element signature="docComment;method#onClick#0;class#MatrixMode#0" expanded="false" />
-            <element signature="method#clickDoneNum#0;class#MatrixMode#0" expanded="false" />
-            <element signature="docComment;method#clickA#0;class#MatrixMode#0" expanded="false" />
-            <element signature="method#clickShift#0;class#MatrixMode#0" expanded="false" />
-            <element signature="e#7043#7289#0" expanded="false" />
-            <element signature="e#7288#7289#0" expanded="false" />
-            <element signature="docComment;method#clickB#0;class#MatrixMode#0" expanded="false" />
-            <element signature="method#clickNew#0;class#MatrixMode#0" expanded="false" />
-            <element signature="e#7043#7289#0" expanded="false" />
-            <element signature="e#7288#7289#0" expanded="false" />
-            <element signature="docComment;method#clickC#0;class#MatrixMode#0" expanded="false" />
-            <element signature="method#clickNew#0;class#MatrixMode#0" expanded="false" />
-            <element signature="e#7043#7289#0" expanded="false" />
-            <element signature="e#7288#7289#0" expanded="false" />
-            <element signature="docComment;method#clickAns#0;class#MatrixMode#0" expanded="false" />
-            <element signature="method#clickEdit#0;class#MatrixMode#0" expanded="false" />
-            <element signature="method#editMatrix#0;class#MatrixMode#0" expanded="false" />
-            <element signature="e#8950#8988#0" expanded="false" />
-            <element signature="e#9032#9071#0" expanded="false" />
-            <element signature="e#9119#9157#0" expanded="false" />
-            <element signature="e#9201#9234#0" expanded="false" />
-            <element signature="docComment;method#clickShift#0;class#MatrixMode#0" expanded="false" />
-            <element signature="docComment;method#clickNew#0;class#MatrixMode#0" expanded="false" />
-            <element signature="method#scrollRight#0;class#MatrixMode#0" expanded="false" />
-            <element signature="docComment;method#clickEdit#0;class#MatrixMode#0" expanded="false" />
-            <element signature="method#scrollLeft#0;class#MatrixMode#0" expanded="false" />
-            <element signature="docComment;method#editMatrix#0;class#MatrixMode#0" expanded="false" />
-            <element signature="e#11096#11097#0" expanded="false" />
-            <element signature="e#11131#11132#0" expanded="false" />
-            <element signature="docComment;method#loadElementsView#0;class#MatrixMode#0" expanded="false" />
-            <element signature="e#12573#12890#0" expanded="false" />
-            <element signature="e#12889#12890#0" expanded="false" />
-            <element signature="class#13706:14226" expanded="false" />
-            <element signature="method#onItemSelected#0;class#13706:14226" expanded="false" />
-            <element signature="method#onNothingSelected#0;class#13706:14226" expanded="false" />
-            <element signature="class#14276:14796" expanded="false" />
-            <element signature="method#onItemSelected#0;class#14276:14796" expanded="false" />
-            <element signature="method#onNothingSelected#0;class#14276:14796" expanded="false" />
-            <element signature="docComment;method#editEntry#0;class#MatrixMode#0" expanded="false" />
-            <element signature="method#clickAddElement#0;class#MatrixMode#0" expanded="false" />
-            <element signature="docComment;method#scrollRight#0;class#MatrixMode#0" expanded="false" />
-            <element signature="e#16655#16656#0" expanded="false" />
-            <element signature="e#16691#16692#0" expanded="false" />
-            <element signature="docComment;method#scrollLeft#0;class#MatrixMode#0" expanded="false" />
-            <element signature="e#16655#16656#0" expanded="false" />
-            <element signature="e#16691#16692#0" expanded="false" />
-            <element signature="docComment;method#setupElementButtons#0;class#MatrixMode#0" expanded="false" />
-            <element signature="method#clickDone#0;class#MatrixMode#0" expanded="false" />
-            <element signature="e#17478#17513#0" expanded="false" />
-            <element signature="e#17609#17645#0" expanded="false" />
-            <element signature="e#17741#17776#0" expanded="false" />
-            <element signature="e#17872#17908#0" expanded="false" />
-            <element signature="e#18004#18039#0" expanded="false" />
-            <element signature="e#18135#18171#0" expanded="false" />
-            <element signature="e#18200#18372#0" expanded="false" />
-            <element signature="e#18371#18372#0" expanded="false" />
-            <element signature="e#18399#18572#0" expanded="false" />
-            <element signature="e#18571#18572#0" expanded="false" />
-            <element signature="e#18600#18772#0" expanded="false" />
-            <element signature="e#18771#18772#0" expanded="false" />
-            <element signature="e#18799#18972#0" expanded="false" />
-            <element signature="e#18971#18972#0" expanded="false" />
-            <element signature="e#19000#19172#0" expanded="false" />
-            <element signature="e#19171#19172#0" expanded="false" />
-            <element signature="e#19199#19372#0" expanded="false" />
-            <element signature="e#19371#19372#0" expanded="false" />
-            <element signature="docComment;method#clickMultiplyElement#0;class#MatrixMode#0" expanded="false" />
-            <element signature="method#clickDone#0;class#MatrixMode#0" expanded="false" />
-            <element signature="docComment;method#clickDivideElement#0;class#MatrixMode#0" expanded="false" />
-            <element signature="method#clickDeterminant#0;class#MatrixMode#0" expanded="false" />
-            <element signature="docComment;method#clickAddElement#0;class#MatrixMode#0" expanded="false" />
-            <element signature="method#clickFracMode#0;class#MatrixMode#0" expanded="false" />
-            <element signature="docComment;method#clickSubtractElement#0;class#MatrixMode#0" expanded="false" />
-            <element signature="method#clickTrace#0;class#MatrixMode#0" expanded="false" />
-            <element signature="docComment;method#clickSqrtElement#0;class#MatrixMode#0" expanded="false" />
-            <element signature="method#clickInverse#0;class#MatrixMode#0" expanded="false" />
-            <element signature="docComment;method#clickDone#0;class#MatrixMode#0" expanded="false" />
-            <element signature="method#clickInverse#0;class#MatrixMode#0" expanded="false" />
-            <element signature="docComment;method#clickReturn#0;class#MatrixMode#0" expanded="false" />
-            <element signature="method#clickTranspose#0;class#MatrixMode#0" expanded="false" />
-            <element signature="docComment;method#clickDeterminant#0;class#MatrixMode#0" expanded="false" />
-            <element signature="method#clickREF#0;class#MatrixMode#0" expanded="false" />
-            <element signature="docComment;method#clickTrace#0;class#MatrixMode#0" expanded="false" />
-            <element signature="docComment;method#clickInverse#0;class#MatrixMode#0" expanded="false" />
-            <element signature="docComment;method#clickTranspose#0;class#MatrixMode#0" expanded="false" />
-            <element signature="docComment;method#clickREF#0;class#MatrixMode#0" expanded="false" />
-            <element signature="docComment;method#clickRREF#0;class#MatrixMode#0" expanded="false" />
-            <element signature="method#clickExponent#0;class#MatrixMode#0" expanded="false" />
-            <element signature="e#24652#24705#0" expanded="false" />
-            <element signature="docComment;method#clickRank#0;class#MatrixMode#0" expanded="false" />
-            <element signature="method#clickEquals#0;class#MatrixMode#0" expanded="false" />
-            <element signature="docComment;method#clickAdd#0;class#MatrixMode#0" expanded="false" />
-            <element signature="method#clickEquals#0;class#MatrixMode#0" expanded="false" />
-            <element signature="docComment;method#clickSubtract#0;class#MatrixMode#0" expanded="false" />
-            <element signature="method#clickLUP#0;class#MatrixMode#0" expanded="false" />
-            <element signature="docComment;method#clickMultiply#0;class#MatrixMode#0" expanded="false" />
-            <element signature="docComment;method#clickExponent#0;class#MatrixMode#0" expanded="false" />
-            <element signature="method#clickLUP#0;class#MatrixMode#0" expanded="false" />
-            <element signature="docComment;method#clickEquals#0;class#MatrixMode#0" expanded="false" />
-            <element signature="method#clickLUP#0;class#MatrixMode#0" expanded="false" />
-            <element signature="docComment;method#saveAns#0;class#MatrixMode#0" expanded="false" />
-            <element signature="docComment;method#clickLUP#0;class#MatrixMode#0" expanded="false" />
-            <element signature="method#clickLUP#0;class#MatrixMode#0" expanded="false" />
-            <element signature="method#clickLambda#0;class#MatrixMode#0" expanded="false" />
-            <element signature="docComment;method#clickEigenVect#0;class#MatrixMode#0" expanded="false" />
-            <element signature="method#clickEigenVect#0;class#MatrixMode#0" expanded="false" />
-            <element signature="docComment;method#clickDiagonalize#0;class#MatrixMode#0" expanded="false" />
-            <element signature="method#clickDiagonalize#0;class#MatrixMode#0" expanded="false" />
-            <element signature="docComment;method#clickQR#0;class#MatrixMode#0" expanded="false" />
-            <element signature="method#clickQR#0;class#MatrixMode#0" expanded="false" />
-            <element signature="docComment;method#clickRRQR#0;class#MatrixMode#0" expanded="false" />
-            <element signature="method#clickRRQR#0;class#MatrixMode#0" expanded="false" />
-            <element signature="docComment;method#clickCholesky#0;class#MatrixMode#0" expanded="false" />
-            <element signature="method#clickCholesky#0;class#MatrixMode#0" expanded="false" />
-            <element signature="docComment;method#clickSVD#0;class#MatrixMode#0" expanded="false" />
-            <element signature="method#clickSVD#0;class#MatrixMode#0" expanded="false" />
-            <element signature="docComment;method#openReduction#0;class#MatrixMode#0" expanded="false" />
-            <element signature="method#openReduction#0;class#MatrixMode#0" expanded="false" />
-            <element signature="docComment;method#clickExitReduction#0;class#MatrixMode#0" expanded="false" />
-            <element signature="e#44074#44075#0" expanded="false" />
-            <element signature="e#44115#44116#0" expanded="false" />
-            <element signature="docComment;class#ReductionAdapter#0;class#MatrixMode#0" expanded="false" />
-            <element signature="class#ReductionAdapter#0;class#MatrixMode#0" expanded="false" />
-            <element signature="method#ReductionAdapter#0;class#ReductionAdapter#0;class#MatrixMode#0" expanded="false" />
-            <element signature="e#44619#44620#0" expanded="false" />
-            <element signature="e#44666#44667#0" expanded="false" />
-            <element signature="e#44731#44732#0" expanded="false" />
-            <element signature="e#44785#44786#0" expanded="false" />
-            <element signature="e#44850#44851#0" expanded="false" />
-            <element signature="e#44889#44890#0" expanded="false" />
-            <element signature="docComment;method#getView#0;class#ReductionAdapter#0;class#MatrixMode#0" expanded="false" />
-            <element signature="method#getView#0;class#ReductionAdapter#0;class#MatrixMode#0" expanded="false" />
-            <element signature="e#45465#45538#0" expanded="false" />
-            <element signature="e#46906#47806#0" expanded="false" />
-            <element signature="e#47805#47806#0" expanded="false" />
-            <element signature="docComment;method#openDecomp#0;class#MatrixMode#0" expanded="false" />
-            <element signature="method#openDecomp#0;class#MatrixMode#0" expanded="false" />
-            <element signature="docComment;method#clickExitDecomp#0;class#MatrixMode#0" expanded="false" />
-            <element signature="e#54339#54340#0" expanded="false" />
-            <element signature="e#54377#54378#0" expanded="false" />
-            <element signature="docComment;class#DecompAdapter#0;class#MatrixMode#0" expanded="false" />
-            <element signature="class#DecompAdapter#0;class#MatrixMode#0" expanded="false" />
-            <element signature="method#DecompAdapter#0;class#DecompAdapter#0;class#MatrixMode#0" expanded="false" />
-            <element signature="e#54895#54896#0" expanded="false" />
-            <element signature="e#54947#54948#0" expanded="false" />
-            <element signature="e#55012#55013#0" expanded="false" />
-            <element signature="e#55071#55072#0" expanded="false" />
-            <element signature="e#55136#55137#0" expanded="false" />
-            <element signature="e#55175#55176#0" expanded="false" />
-            <element signature="docComment;method#getView#0;class#DecompAdapter#0;class#MatrixMode#0" expanded="false" />
-            <element signature="method#getView#0;class#DecompAdapter#0;class#MatrixMode#0" expanded="false" />
-            <element signature="e#55751#55824#0" expanded="false" />
-            <element signature="e#57436#58687#0" expanded="false" />
-            <element signature="e#58686#58687#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3854,17 +3086,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/element.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.0">
-          <caret line="8" column="30" selection-start-line="8" selection-start-column="30" selection-end-line="8" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/element_layout.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-45.0">
@@ -3881,12 +3102,34 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="396" column="39" selection-start-line="396" selection-start-column="39" selection-end-line="396" selection-end-column="39" />
           <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#1321#1328#0" expanded="false" />
+            <element signature="e#1722#1723#0" expanded="false" />
+            <element signature="e#1745#1746#0" expanded="false" />
+            <element signature="e#1924#1925#0" expanded="false" />
+            <element signature="e#1955#1956#0" expanded="false" />
+            <element signature="e#2013#2014#0" expanded="false" />
+            <element signature="e#2053#2054#0" expanded="false" />
+            <element signature="e#2345#2346#0" expanded="false" />
+            <element signature="e#2385#2386#0" expanded="false" />
+            <element signature="e#5170#5171#0" expanded="false" />
+            <element signature="e#5209#5210#0" expanded="false" />
             <element signature="method#clickClear#0;class#Basic#0" expanded="false" />
             <element signature="method#clickBack#0;class#Basic#0" expanded="false" />
+            <element signature="e#12781#12788#0" expanded="false" />
+            <element signature="e#14225#14235#0" expanded="false" />
             <element signature="docComment;method#updatePlaceHolders#0;class#Basic#0" expanded="false" />
             <element signature="method#updatePlaceHolders#0;class#Basic#0" expanded="false" />
+            <element signature="e#20619#20620#0" expanded="false" />
+            <element signature="e#20664#20665#0" expanded="false" />
+            <element signature="e#20729#20730#0" expanded="false" />
+            <element signature="e#20781#20782#0" expanded="false" />
+            <element signature="e#20846#20847#0" expanded="false" />
+            <element signature="e#20885#20886#0" expanded="false" />
             <element signature="docComment;method#getView#0;class#HistoryAdapter#0;class#Basic#0" expanded="false" />
             <element signature="method#getView#0;class#HistoryAdapter#0;class#Basic#0" expanded="false" />
+            <element signature="e#22774#23741#0" expanded="false" />
+            <element signature="e#23740#23741#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -3909,13 +3152,142 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/elements_layout.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.50201344">
+        <state vertical-scroll-proportion="0.0">
           <caret line="22" column="44" selection-start-line="22" selection-start-column="44" selection-end-line="22" selection-end-column="44" />
           <folding />
         </state>
       </provider>
       <provider editor-type-id="android-designer">
         <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/element.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.18255034">
+          <caret line="8" column="30" selection-start-line="8" selection-start-column="30" selection-end-line="8" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.8633952">
+          <caret line="46" column="37" selection-start-line="46" selection-start-column="37" selection-end-line="46" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/matrix.xml">
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="134" column="50" selection-start-line="134" selection-start-column="50" selection-end-line="134" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MatrixMode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.19640565">
+          <caret line="361" column="58" selection-start-line="361" selection-start-column="58" selection-end-line="361" selection-end-column="58" />
+          <folding>
+            <element signature="docComment;class#MatrixMode#0" expanded="false" />
+            <element signature="initializer##0;class#MatrixMode#0" expanded="false" />
+            <element signature="docComment;method#getInstance#0;class#MatrixMode#0" expanded="false" />
+            <element signature="docComment;method#onClick#0;class#MatrixMode#0" expanded="false" />
+            <element signature="docComment;method#clickA#0;class#MatrixMode#0" expanded="false" />
+            <element signature="docComment;method#clickB#0;class#MatrixMode#0" expanded="false" />
+            <element signature="docComment;method#clickC#0;class#MatrixMode#0" expanded="false" />
+            <element signature="docComment;method#clickAns#0;class#MatrixMode#0" expanded="false" />
+            <element signature="method#clickDoneNum#0;class#MatrixMode#0" expanded="false" />
+            <element signature="docComment;method#clickShift#0;class#MatrixMode#0" expanded="false" />
+            <element signature="method#clickShift#0;class#MatrixMode#0" expanded="false" />
+            <element signature="docComment;method#clickNew#0;class#MatrixMode#0" expanded="false" />
+            <element signature="method#clickNew#0;class#MatrixMode#0" expanded="false" />
+            <element signature="docComment;method#clickEdit#0;class#MatrixMode#0" expanded="false" />
+            <element signature="method#clickEdit#0;class#MatrixMode#0" expanded="false" />
+            <element signature="docComment;method#editMatrix#0;class#MatrixMode#0" expanded="false" />
+            <element signature="docComment;method#loadElementsView#0;class#MatrixMode#0" expanded="false" />
+            <element signature="class#13583:14103" expanded="false" />
+            <element signature="method#onItemSelected#0;class#13583:14103" expanded="false" />
+            <element signature="method#onNothingSelected#0;class#13583:14103" expanded="false" />
+            <element signature="class#14153:14673" expanded="false" />
+            <element signature="method#onItemSelected#0;class#14153:14673" expanded="false" />
+            <element signature="method#onNothingSelected#0;class#14153:14673" expanded="false" />
+            <element signature="docComment;method#editEntry#0;class#MatrixMode#0" expanded="false" />
+            <element signature="docComment;method#scrollRight#0;class#MatrixMode#0" expanded="false" />
+            <element signature="docComment;method#scrollLeft#0;class#MatrixMode#0" expanded="false" />
+            <element signature="docComment;method#setupElementButtons#0;class#MatrixMode#0" expanded="false" />
+            <element signature="docComment;method#clickMultiplyElement#0;class#MatrixMode#0" expanded="false" />
+            <element signature="docComment;method#clickDivideElement#0;class#MatrixMode#0" expanded="false" />
+            <element signature="docComment;method#clickAddElement#0;class#MatrixMode#0" expanded="false" />
+            <element signature="method#clickAddElement#0;class#MatrixMode#0" expanded="false" />
+            <element signature="docComment;method#clickSubtractElement#0;class#MatrixMode#0" expanded="false" />
+            <element signature="docComment;method#clickSqrtElement#0;class#MatrixMode#0" expanded="false" />
+            <element signature="docComment;method#clickDone#0;class#MatrixMode#0" expanded="false" />
+            <element signature="method#clickDone#0;class#MatrixMode#0" expanded="false" />
+            <element signature="docComment;method#clickReturn#0;class#MatrixMode#0" expanded="false" />
+            <element signature="docComment;method#clickDeterminant#0;class#MatrixMode#0" expanded="false" />
+            <element signature="method#clickDeterminant#0;class#MatrixMode#0" expanded="false" />
+            <element signature="method#clickFracMode#0;class#MatrixMode#0" expanded="false" />
+            <element signature="docComment;method#clickTrace#0;class#MatrixMode#0" expanded="false" />
+            <element signature="method#clickTrace#0;class#MatrixMode#0" expanded="false" />
+            <element signature="docComment;method#clickInverse#0;class#MatrixMode#0" expanded="false" />
+            <element signature="method#clickInverse#0;class#MatrixMode#0" expanded="false" />
+            <element signature="docComment;method#clickTranspose#0;class#MatrixMode#0" expanded="false" />
+            <element signature="method#clickTranspose#0;class#MatrixMode#0" expanded="false" />
+            <element signature="docComment;method#clickREF#0;class#MatrixMode#0" expanded="false" />
+            <element signature="docComment;method#clickRREF#0;class#MatrixMode#0" expanded="false" />
+            <element signature="e#24529#24582#0" expanded="false" />
+            <element signature="docComment;method#clickRank#0;class#MatrixMode#0" expanded="false" />
+            <element signature="docComment;method#clickAdd#0;class#MatrixMode#0" expanded="false" />
+            <element signature="docComment;method#clickSubtract#0;class#MatrixMode#0" expanded="false" />
+            <element signature="docComment;method#clickMultiply#0;class#MatrixMode#0" expanded="false" />
+            <element signature="docComment;method#clickExponent#0;class#MatrixMode#0" expanded="false" />
+            <element signature="method#clickExponent#0;class#MatrixMode#0" expanded="false" />
+            <element signature="docComment;method#clickEquals#0;class#MatrixMode#0" expanded="false" />
+            <element signature="method#clickEquals#0;class#MatrixMode#0" expanded="false" />
+            <element signature="docComment;method#saveAns#0;class#MatrixMode#0" expanded="false" />
+            <element signature="docComment;method#clickLUP#0;class#MatrixMode#0" expanded="false" />
+            <element signature="method#clickLUP#0;class#MatrixMode#0" expanded="false" />
+            <element signature="method#clickLambda#0;class#MatrixMode#0" expanded="false" />
+            <element signature="docComment;method#clickEigenVect#0;class#MatrixMode#0" expanded="false" />
+            <element signature="method#clickEigenVect#0;class#MatrixMode#0" expanded="false" />
+            <element signature="docComment;method#clickDiagonalize#0;class#MatrixMode#0" expanded="false" />
+            <element signature="method#clickDiagonalize#0;class#MatrixMode#0" expanded="false" />
+            <element signature="docComment;method#clickQR#0;class#MatrixMode#0" expanded="false" />
+            <element signature="method#clickQR#0;class#MatrixMode#0" expanded="false" />
+            <element signature="docComment;method#clickRRQR#0;class#MatrixMode#0" expanded="false" />
+            <element signature="method#clickRRQR#0;class#MatrixMode#0" expanded="false" />
+            <element signature="docComment;method#clickCholesky#0;class#MatrixMode#0" expanded="false" />
+            <element signature="method#clickCholesky#0;class#MatrixMode#0" expanded="false" />
+            <element signature="docComment;method#clickSVD#0;class#MatrixMode#0" expanded="false" />
+            <element signature="method#clickSVD#0;class#MatrixMode#0" expanded="false" />
+            <element signature="docComment;method#openReduction#0;class#MatrixMode#0" expanded="false" />
+            <element signature="method#openReduction#0;class#MatrixMode#0" expanded="false" />
+            <element signature="docComment;method#clickExitReduction#0;class#MatrixMode#0" expanded="false" />
+            <element signature="docComment;method#openDecomp#0;class#MatrixMode#0" expanded="false" />
+            <element signature="method#openDecomp#0;class#MatrixMode#0" expanded="false" />
+            <element signature="docComment;method#clickExitDecomp#0;class#MatrixMode#0" expanded="false" />
+            <element signature="docComment;class#ReductionAdapter#0;class#MatrixMode#0" expanded="false" />
+            <element signature="class#ReductionAdapter#0;class#MatrixMode#0" expanded="false" />
+            <element signature="method#ReductionAdapter#0;class#ReductionAdapter#0;class#MatrixMode#0" expanded="false" />
+            <element signature="docComment;method#getView#0;class#ReductionAdapter#0;class#MatrixMode#0" expanded="false" />
+            <element signature="method#getView#0;class#ReductionAdapter#0;class#MatrixMode#0" expanded="false" />
+            <element signature="e#51867#51940#0" expanded="false" />
+            <element signature="docComment;class#DecompAdapter#0;class#MatrixMode#0" expanded="false" />
+            <element signature="class#DecompAdapter#0;class#MatrixMode#0" expanded="false" />
+            <element signature="method#DecompAdapter#0;class#DecompAdapter#0;class#MatrixMode#0" expanded="false" />
+            <element signature="docComment;method#getView#0;class#DecompAdapter#0;class#MatrixMode#0" expanded="false" />
+            <element signature="method#getView#0;class#DecompAdapter#0;class#MatrixMode#0" expanded="false" />
+            <element signature="e#55631#55704#0" expanded="false" />
+          </folding>
+        </state>
       </provider>
     </entry>
   </component>
