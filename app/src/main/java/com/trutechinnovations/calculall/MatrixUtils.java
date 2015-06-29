@@ -27,6 +27,7 @@ import java.util.Stack;
  */
 public class MatrixUtils {
     private static final int SWAP = 1, ADD = 2, SCALE = 3;
+    public static String easterEgg = "";
 
     private static Command<Double, double[]> addCommand = new Command<Double, double[]>() {
         @Override
@@ -315,7 +316,7 @@ public class MatrixUtils {
     /**
      * Determines the basis of the eigen space, of a given eigen value, for the given matrix.
      *
-     * @param a The matrix
+     * @param a        The matrix
      * @param eigenVal An eigen value of the matrix
      * @return A list of vectors containing the basis of the eigen space
      */
@@ -392,22 +393,6 @@ public class MatrixUtils {
         if (ed.hasComplexEigenvalues()) {
             throw new IllegalArgumentException("Diagonalization of matrices with complex eigenvalues is not supported");
         }
-        /*
-        double[] eigenValues = MathUtilities.getEigenValues(a);
-        if(!isDiagonalizable(a, wrapDblArray(eigenValues))){
-            throw new IllegalArgumentException("Matrix is not diagonalizable");
-        }
-        double[][] p = new double[a.length][a[0].length];
-        ArrayList<Vector> basis = getEigenVectors(a);
-        if(basis.size() != a[0].length){
-            throw new IllegalArgumentException("Matrix is not diagonalizable");//just in case
-        }
-        for(int j = 0; j < p[0].length; j++){
-            p = setCol(p, basis.get(j).getValues(), j);
-        }
-        double[][] p_inv = findInverse(p);
-        double[][] d = multiply(multiply(p_inv, a), p); // P^-1 * A * P
-        */
         double[][][] output = new double[3][][];
         output[0] = ed.getV().getData();
         output[1] = ed.getD().getData();
@@ -549,6 +534,20 @@ public class MatrixUtils {
         return newMatrix;
     }
 
+    private static double[][] applyStep(double[][] a, double[] step) {
+        if (step[0] == SWAP) {
+            return swapRows(a, (int) step[1], (int) step[2]);
+        } else if (step[0] == ADD) {
+            return addRows(a, (int) step[1], (int) step[2], step[3]);
+        } else if (step[0] == SCALE) {
+            return scaleRow(a, (int) step[1], step[2]);
+        } else if (step[0] == 0) {
+            return a;
+        } else {
+            throw new IllegalArgumentException("Invalid step");
+        }
+    }
+
     /**
      * Applies the given Row Operations(steps) to the given Matrix(m)
      * Swap step: 1, Add step: 2, Scale step: 3
@@ -561,56 +560,67 @@ public class MatrixUtils {
         if (steps.length == 0) {
             return a;
         } else if (steps.length == 1) {
-            if (steps[0][0] == SWAP) {
-                return swapRows(a, (int) steps[0][1], (int) steps[0][2]);
-            } else if (steps[0][0] == ADD) {
-                return addRows(a, (int) steps[0][1], (int) steps[0][2], steps[0][3]);
-            } else if (steps[0][0] == SCALE) {
-                return scaleRow(a, (int) steps[0][1], steps[0][2]);
-            } else if (steps[0][0] == 0) {
-                return a;
-            } else {
-                throw new IllegalArgumentException("Invalid steps");
-            }
+            return applyStep(a, steps[0]);
         } else if (steps.length > 1) {
-            if (steps[0][0] == SWAP) {
-                return applySteps(swapRows(a, (int) steps[0][1], (int) steps[0][2]), Arrays.copyOfRange(steps, 1, steps.length));
-            } else if (steps[0][0] == ADD) {
-                return applySteps(addRows(a, (int) steps[0][1], (int) steps[0][2], steps[0][3]), Arrays.copyOfRange(steps, 1, steps.length));
-            } else if (steps[0][0] == SCALE) {
-                return applySteps(scaleRow(a, (int) steps[0][1], steps[0][2]), Arrays.copyOfRange(steps, 1, steps.length));
-            } else {
-                throw new IllegalArgumentException("Invalid steps");
-            }
-        } else if (steps[0][0] == 0) {
-            return applySteps(a, Arrays.copyOfRange(steps, 1, steps.length));
+            return applySteps(applyStep(a, steps[0]), Arrays.copyOfRange(steps, 1, steps.length));
         } else {
             throw new IllegalArgumentException("Invalid steps");
         }
     }
 
-    public static ArrayList<Token> tokenizeStep(double[] step) {
-        ArrayList<Token> output = new ArrayList<>();
+    private static Token tokenizeStep(double[] step) {
+        Token output;
         if (step[0] == SWAP) {
-            output.add(new StringToken("Swap Row " + step[1] + " and Row " + step[2]));
+            output = new StringToken("Swap Rows " + (int) (step[1] + 1) + " and " + (int) (step[2] + 1));
         } else if (step[0] == ADD) {
             if (step[3] == 1) {
-                output.add(new StringToken("Add Row " + step[2] + " to Row " + step[1]));
+                output = new StringToken("Add Row " + (int) (step[2] + 1) + " to Row " + (int) (step[1] + 1));
             } else {
-                output.add(new StringToken("Add " + step[3] + " times Row " + step[2] + " to Row " + step[1]));
+                output = new StringToken("Add " + Utility.printExpression(JFok.fractionalize(new Number(step[3]))) + " times Row " + (int) (step[2] + 1) + " to Row " + (int) (step[1] + 1));
             }
         } else if (step[0] == SCALE) {
-            output.add(new StringToken("Multiply Row " + step[1] + " by " + step[2]));
+            output = new StringToken("Multiply Row " + (int) (step[1] + 1) + " by " + Utility.printExpression(JFok.fractionalize(new Number(step[2]))));
         } else {
             throw new IllegalArgumentException("Invalid Step");
         }
         return output;
     }
 
-    public static ArrayList<Token>[] tokenizeSteps(double[][] steps) {
-        ArrayList<Token>[] output = new ArrayList[steps.length];
+    private static Token[] tokenizeSteps(double[][] steps) {
+        Token[] output = new Token[steps.length];
         for (int i = 0; i < steps.length; i++) {
             output[i] = tokenizeStep(steps[i]);
+        }
+        return output;
+    }
+
+    private static double[][][] getIntermediateMatrices(double[][] a, double[][] steps) {
+        double[][][] output = new double[steps.length + 1][][];
+        output[0] = a;
+        for (int i = 0; i < steps.length; i++) {
+            output[i + 1] = applyStep(deepCopyDblMatrix(output[i]), steps[i]);
+        }
+        return output;
+    }
+
+    public static ArrayList<Token[]> knitSteps(double[][] a, double[][] steps) {
+        double[][][] intMatrices = getIntermediateMatrices(a, steps);
+        Matrix[] intMatrixTokens = new Matrix[intMatrices.length];
+        for (int i = 0; i < intMatrices.length; i++) {
+            intMatrixTokens[i] = new Matrix(intMatrices[i]);
+            intMatrixTokens[i].fractionalize();
+        }
+        Token[] stepTokens = tokenizeSteps(steps);
+        ArrayList<Token[]> output = new ArrayList<>();
+        for (int i = 0; i < intMatrices.length; i++) {
+            Token[] temp = new Token[2];
+            temp[0] = intMatrixTokens[i];
+            if (i < stepTokens.length) {
+                temp[1] = stepTokens[i];
+            } else {
+                temp[1] = new StringToken("And we're done!");
+            }
+            output.add(temp);
         }
         return output;
     }
@@ -647,10 +657,10 @@ public class MatrixUtils {
      * Row Echelon Form(REF)
      * Swap step: 1, Add step: 2, Scale step: 3
      *
-     * @param a         The Matrix which will be Row Reduced to REF
+     * @param a The Matrix which will be Row Reduced to REF
      * @return the row reduction steps
      */
-    private static double[][] getREFSteps(double[][] a) {
+    public static double[][] getREFSteps(double[][] a) {
         ArrayList<Double[]> steps = new ArrayList<>();
         if (a.length > 1 && a[0].length > 0) {
             double[][] temp = deepCopyDblMatrix(a);
@@ -723,7 +733,7 @@ public class MatrixUtils {
      * @param a The Matrix which will be Row Reduced to RREF
      * @return the row reduction steps
      */
-    private static double[][] getRREFSteps(double[][] a) {
+    public static double[][] getRREFSteps(double[][] a) {
         ArrayList<Double[]> steps = new ArrayList<>();
         double[][] dummyArray = {{0d, 0d, 0d}};
         if (a.length > 1) {
@@ -1054,6 +1064,7 @@ public class MatrixUtils {
     private static boolean isSymmetric(double[][] a) {
         return (a.length == a[0].length) && Arrays.deepEquals(a, transpose(a));
     }
+
     /**
      * Evaluates every entry of the given matrix.
      *
@@ -1230,7 +1241,7 @@ public class MatrixUtils {
     /**
      * Takes a given Matrix expression in reverse polish form and returns the resulting value.
      *
-     * @param tokens The matrix expression in reverse polish
+     * @param tokens        The matrix expression in reverse polish
      * @param fractionalize If the output would be in fractions
      * @return The value of the expression
      * @throws java.lang.IllegalArgumentException The user entered an invalid expression
@@ -1254,6 +1265,15 @@ public class MatrixUtils {
                     throw new IllegalArgumentException(token.getSymbol() + " can only be applied to Matrices");
                 }
                 double[][] top = (double[][]) stack.pop(); //Function performs on the first matrix
+                if (token.getType() == MatrixFunction.TRACE) {
+                    double[][] id = makeIdentity(top.length);
+                    if (Arrays.deepEquals(top, id)) {
+                        easterEgg = "";
+                        easterEgg = "Trace...ON!";
+                    } else {
+                        easterEgg = "";
+                    }
+                }
                 stack.push(((MatrixFunction) token).perform(top)); //Adds the result back to the stack
             } else { //This should never be reached
                 throw new IllegalArgumentException();

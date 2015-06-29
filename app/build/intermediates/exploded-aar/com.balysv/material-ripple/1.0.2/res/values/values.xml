@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- From: file:/Users/balysv/AndroidStudioProjects/MaterialRipple/library/src/main/res/values/colors.xml -->
-    <eat-comment />
+    <eat-comment/>
     <color name="transparent">#00FFFFFF</color>
     <declare-styleable name="MaterialRippleLayout">
         <attr name="mrl_rippleColor" format="color" localization="suggested" />

@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?android:colorBackground"
+    android:textColor="?displayTextColor"
     android:gravity="center"
     android:lines="1"
     android:textSize="24sp" /><!-- From: file:/C:/Users/Ejaaz/Calculall/Calculall/app/src/main/res/layout/element.xml -->
