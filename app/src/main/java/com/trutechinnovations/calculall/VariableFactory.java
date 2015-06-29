@@ -193,7 +193,7 @@ public class VariableFactory {
         };
     }
 
-    public static Variable makeConstantToken(Constant inConstant, String symbol) {
+    public static Variable makeConstantToken(Constant inConstant) {
         final Constant constant = inConstant;
         return new Variable(Variable.CONSTANT, constant.getSymbol()) {
             public ArrayList<Token> getValue() {

@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -33,10 +34,10 @@ public class Advanced extends Basic {
     private static final Basic INSTANCE = new Advanced();
     private static String filenameConst = "const_advanced";
     protected int fracMode = DEC;
-    // constants list
     //Fields
     protected ArrayList<MultiButton> multiButtons;
     protected boolean hyperbolic = false, shift = false, mem = false;
+    ArrayList<Constant> arrayOfConstants = new ArrayList<Constant>();//Constants data
     private Dialog graphDialog;
     private PopupWindow constWindow;
     private PopupWindow pw;
@@ -904,9 +905,8 @@ public class Advanced extends Basic {
 
         //Creates the popupWindow, with the width matching the parent's and height matching the parent's
         constWindow = new PopupWindow(layout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
-            //Construct the data source
-            ArrayList<Constant> arrayOfConstants = new ArrayList<Constant>();
 
+            //Populate arraylist
             arrayOfConstants.add(new Constant("Speed of Light", "c", 299792458, "m/s"));
             arrayOfConstants.add(new Constant("Planck constant", "h", 6.62606957e-34, "m^2*kg/s"));
             arrayOfConstants.add(new Constant("Gravitation constant", "c", 6.67384e-11, "m^3*kg^-1*s^-2"));
@@ -1050,29 +1050,20 @@ public class Advanced extends Basic {
                     constant.getNumericValue() + " (" + constant.getUnits() + ")");
 
 
-
-/*            //To respond to user touches
-            final ArrayList<Token> INPUT = (ArrayList<Token>) consts.get(position)[0]; //Makes a constant reference so that consts can be accessed by an inner class
+            //To respond to user touches
+            final Constant cnst = arrayOfConstants.get(position); //Makes a constant reference so that cnst can be accessed by an inner class
             convertView.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
                     if (event.getAction() == MotionEvent.ACTION_UP) {
-                        ArrayList<Token> input = new ArrayList<>();
-                        //Removes any StringTokens
-                        for (Token t : INPUT) {
-                            if (!(t instanceof StringToken)) {
-                                input.add(t);
-                            }
-                        }
-                        //Adds the input expression to the current tokens
-                        tokens.addAll(input); //Adds the input of the entry
-                        constWindow.dismiss(); //Exits consts once an Item has been selected
+                        tokens.add(VariableFactory.makeConstantToken(cnst)); //Adds the token to the input
+                        constWindow.dismiss(); //Exits constWindow once an Item has been selected
                         return true;
                     } else {
                         return false;
                     }
                 }
-            });*/
+            });
             return convertView;
         }
     }

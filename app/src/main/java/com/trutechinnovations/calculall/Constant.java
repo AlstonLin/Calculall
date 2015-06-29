@@ -32,11 +32,11 @@ public class Constant extends Variable {
     }
 
     public ArrayList<Token> getValue() {
-        String temp = Double.toString(value);
+        //String temp = Double.toString(value);
         ArrayList<Token> tokens = new ArrayList<>();
-        Token tempToken;
+        Token tempToken = new Number(value);
 
-        //Converts the string value into an arraylist of tokens
+       /* //Converts the string value into an arraylist of tokens
         for (int i = 0; i < temp.length(); i++) {
             switch (temp.charAt(i)) {
                 case '1':
@@ -77,12 +77,9 @@ public class Constant extends Variable {
                     break;
                 default:
                     throw new IllegalArgumentException("Invalid value for the constant");
-            }
-            tokens.add(tempToken);
-        }
-
+            }*/
+        tokens.add(tempToken);
         return tokens;
     }
-
 
 }
