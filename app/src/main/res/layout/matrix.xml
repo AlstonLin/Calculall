@@ -393,16 +393,40 @@
             android:layout_height="fill_parent"
             android:layout_weight="1">
 
-            <ImageButton
-                android:id="@+id/ev_button"
+            <LinearLayout
                 style="?attr/buttonSpecial"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_gravity="bottom"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:onClick="onClick"
-                android:src="@drawable/eigenvector"
-                android:textSize="16sp" />
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/ev_button_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="12dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    android:background="@drawable/vector"
+                    android:src="@drawable/vector"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/ev_button"
+                    style="?attr/buttonSpecial"
+                    android:layout_width="fill_parent"
+                    android:layout_height="22dp"
+                    android:layout_gravity="bottom"
+                    android:layout_margin="0dp"
+                    android:layout_marginTop="0dp"
+                    android:onClick="onClick"
+                    android:padding="0dp"
+                    android:paddingTop="0dp"
+                    android:singleLine="false"
+                    android:text="EIGEN"
+                    android:textSize="16sp" />
+            </LinearLayout>
         </com.balysv.materialripple.MaterialRippleLayout>
+
 
         <com.balysv.materialripple.MaterialRippleLayout
             android:layout_width="0dp"

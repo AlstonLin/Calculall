@@ -205,7 +205,7 @@
             <Button
                 android:id="@+id/const_button"
                 style="?attr/buttonFunction"
-                android:layout_width="0dp"
+                android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:onClick="onClick"
@@ -898,4 +898,4 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-</LinearLayout><!-- From: file:/C:/Users/Jason/AndroidStudioProjects/Calculall/app/src/main/res/layout/advanced.xml -->
+</LinearLayout><!-- From: file:/C:/Users/Ejaaz/Calculall/Calculall/app/src/main/res/layout/advanced.xml -->
