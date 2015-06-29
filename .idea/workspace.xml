@@ -48,31 +48,12 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: com.trutechinnovations.calculall" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="377a07f7-27dc-473a-a96c-fb1ac73664cb" name="Default" comment="2.1 - Added Constant class">
+    <list default="true" id="377a07f7-27dc-473a-a96c-fb1ac73664cb" name="Default" comment="2.2 - Populated listview with test data">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/Advanced$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/Advanced$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/Advanced$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/Advanced$2.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/Advanced$3.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/Advanced$3.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/Advanced.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/Advanced.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/Basic$HistoryAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/Basic$HistoryAdapter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/Basic.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/Basic.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MainActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MainActivity.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixFragment.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixFragment.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$ReductionAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$ReductionAdapter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/R$id.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/R$id.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/R$integer.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/R$integer.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/R$layout.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/R$layout.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/R$menu.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/R$menu.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/R$raw.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/R$raw.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/R$string.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/R$string.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/R$style.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/R$style.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/R$styleable.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/R$styleable.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/R.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/R.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/SettingsActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/SettingsActivity.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/Variable.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/Variable.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/VariableFactory.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/VariableFactory.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/VectorFragment.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/VectorFragment.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/VectorMode.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/VectorMode.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/multi-dex/debug/allclasses.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/multi-dex/debug/allclasses.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/outputs/apk/app-debug-unaligned.apk" afterPath="$PROJECT_DIR$/app/build/outputs/apk/app-debug-unaligned.apk" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/outputs/apk/app-debug.apk" afterPath="$PROJECT_DIR$/app/build/outputs/apk/app-debug.apk" />
@@ -90,9 +71,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.balysv/material-ripple/1.0.2/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.balysv/material-ripple/1.0.2/AndroidManifest.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/AndroidManifest.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/Constant.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/Constant.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/trutechinnovations/calculall/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/trutechinnovations/calculall/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/symbols/debug/R.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/symbols/debug/R.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/Variable.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/Variable.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/VariableFactory.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/VariableFactory.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_ads_attrs.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_ads_attrs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/drawable/common_signin_btn_icon_dark.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/drawable/common_signin_btn_icon_dark.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/drawable/common_signin_btn_icon_light.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/drawable/common_signin_btn_icon_light.xml" />
@@ -173,9 +152,13 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-zh-rHK/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-zh-rHK/common_strings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-zh-rTW/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-zh-rTW/common_strings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-zu/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-zu/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/constants_element.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/constants_element.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/maps_attrs.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/maps_attrs.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/material_ripple_1_0_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/material_ripple_1_0_2.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeResources/debug/merger.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeResources/debug/merger.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/multidex_1_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/multidex_1_0_0.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/play_services_6_5_87.xml" afterPath="$PROJECT_DIR$/.idea/libraries/play_services_6_5_87.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_annotations_21_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_annotations_21_0_0.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_v4_21_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_v4_21_0_0.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.balysv/material-ripple/1.0.2/res/values/values.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.balysv/material-ripple/1.0.2/res/values/values.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/color/wallet_primary_text_holo_light.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/color/wallet_primary_text_holo_light.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/color/wallet_secondary_text_holo_dark.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/color/wallet_secondary_text_holo_dark.xml" />
@@ -234,31 +217,10 @@
       <file leaf-file-name="Advanced.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/Advanced.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.9456">
-              <caret line="964" column="91" selection-start-line="964" selection-start-column="91" selection-end-line="964" selection-end-column="91" />
+            <state vertical-scroll-proportion="0.65749234">
+              <caret line="1059" column="106" selection-start-line="1059" selection-start-column="106" selection-end-line="1059" selection-end-column="106" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2031#2032#0" expanded="true" />
-                <element signature="e#2062#2063#0" expanded="true" />
-                <element signature="e#8786#9026#0" expanded="true" />
-                <element signature="e#9025#9026#0" expanded="true" />
-                <element signature="e#9372#9612#0" expanded="true" />
-                <element signature="e#9611#9612#0" expanded="true" />
-                <element signature="e#9958#10198#0" expanded="true" />
-                <element signature="e#10197#10198#0" expanded="true" />
-                <element signature="e#14116#14123#0" expanded="true" />
-                <element signature="e#15078#15085#0" expanded="true" />
-                <element signature="e#31114#31115#0" expanded="true" />
-                <element signature="e#31141#31142#0" expanded="true" />
-                <element signature="e#31223#31224#0" expanded="true" />
-                <element signature="e#31260#31261#0" expanded="true" />
-                <element signature="e#31961#31971#0" expanded="true" />
-                <element signature="e#38616#38617#0" expanded="true" />
-                <element signature="e#38644#38645#0" expanded="true" />
-                <element signature="e#38674#38675#0" expanded="true" />
-                <element signature="e#38700#38701#0" expanded="true" />
-                <element signature="e#38737#38738#0" expanded="true" />
-                <element signature="e#38770#38771#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -268,7 +230,7 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/constants_element.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-9.965517">
-              <caret line="17" column="35" selection-start-line="17" selection-start-column="35" selection-end-line="17" selection-end-column="35" />
+              <caret line="17" column="12" selection-start-line="17" selection-start-column="12" selection-end-line="17" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -281,7 +243,7 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/VariableFactory.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="196" column="8" selection-start-line="196" selection-start-column="8" selection-end-line="196" selection-end-column="8" />
+              <caret line="195" column="64" selection-start-line="195" selection-start-column="64" selection-end-line="195" selection-end-column="64" />
               <folding />
             </state>
           </provider>
@@ -291,7 +253,7 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/Constant.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="27" column="30" selection-start-line="27" selection-start-column="30" selection-end-line="27" selection-end-column="30" />
+              <caret line="81" column="8" selection-start-line="81" selection-start-column="8" selection-end-line="81" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -1518,10 +1480,10 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/about_page.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/frame.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/element_layout.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/VariableFactory.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/Constant.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/Variable.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/constants_element.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/Constant.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/VariableFactory.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/Advanced.java" />
       </list>
     </option>
@@ -2352,7 +2314,13 @@
       <option name="project" value="LOCAL" />
       <updated>1435530569508</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="2.2 - Populated listview with test data">
+      <created>1435539433091</created>
+      <option name="number" value="00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1435539433092</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -2385,9 +2353,9 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3601757" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15618336" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15555556" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.329429" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32258064" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3216308" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.35051546" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22763307" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
@@ -2457,7 +2425,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="0.3.2 - customizable buttons" />
     <MESSAGE value="0.9.0 - Initial commit for this 0.9.x" />
     <MESSAGE value="0.9.0 - Initial commit for all branches (added Matrix Mode template)" />
     <MESSAGE value="0.9.1 - Setup architecture for Graphing in Function Mode" />
@@ -2482,7 +2449,8 @@
     <MESSAGE value="2.15 - Fixed mistake in merge" />
     <MESSAGE value="Visual Overhaul v2.2" />
     <MESSAGE value="2.1 - Added Constant class" />
-    <option name="LAST_COMMIT_MESSAGE" value="2.1 - Added Constant class" />
+    <MESSAGE value="2.2 - Populated listview with test data" />
+    <option name="LAST_COMMIT_MESSAGE" value="2.2 - Populated listview with test data" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -2612,41 +2580,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.019517796">
           <caret line="297" column="16" selection-start-line="0" selection-start-column="0" selection-end-line="517" selection-end-column="1" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#2797#2831#0" expanded="false" />
-            <element signature="e#2949#2975#0" expanded="false" />
-            <element signature="e#3044#3073#0" expanded="false" />
-            <element signature="e#3146#3174#0" expanded="false" />
-            <element signature="e#3253#3284#0" expanded="false" />
-            <element signature="e#3351#3376#0" expanded="false" />
-            <element signature="e#4438#4472#0" expanded="false" />
-            <element signature="e#4532#4557#0" expanded="false" />
-            <element signature="e#6619#6653#0" expanded="false" />
-            <element signature="e#6755#6783#0" expanded="false" />
-            <element signature="e#8375#8409#0" expanded="false" />
-            <element signature="e#8465#8493#0" expanded="false" />
-            <element signature="e#11993#11994#0" expanded="false" />
-            <element signature="e#12033#12034#0" expanded="false" />
-            <element signature="e#12177#12178#0" expanded="false" />
-            <element signature="e#12217#12218#0" expanded="false" />
-            <element signature="e#12361#12362#0" expanded="false" />
-            <element signature="e#12401#12402#0" expanded="false" />
-            <element signature="e#12541#12542#0" expanded="false" />
-            <element signature="e#12581#12582#0" expanded="false" />
-            <element signature="e#12721#12722#0" expanded="false" />
-            <element signature="e#12761#12762#0" expanded="false" />
-            <element signature="e#15672#15673#0" expanded="false" />
-            <element signature="e#15702#15703#0" expanded="false" />
-            <element signature="e#15734#15735#0" expanded="false" />
-            <element signature="e#15765#15766#0" expanded="false" />
-            <element signature="e#15810#15811#0" expanded="false" />
-            <element signature="e#15846#15847#0" expanded="false" />
-            <element signature="e#16126#16127#0" expanded="false" />
-            <element signature="e#16159#16160#0" expanded="false" />
-            <element signature="e#16703#16704#0" expanded="false" />
-            <element signature="e#16743#16744#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2948,6 +2881,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/Constant.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="81" column="8" selection-start-line="81" selection-start-column="8" selection-end-line="81" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/Variable.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2956,26 +2897,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/VariableFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="196" column="8" selection-start-line="196" selection-start-column="8" selection-end-line="196" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/Constant.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="27" column="30" selection-start-line="27" selection-start-column="30" selection-end-line="27" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/constants_element.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-9.965517">
-          <caret line="17" column="35" selection-start-line="17" selection-start-column="35" selection-end-line="17" selection-end-column="35" />
+          <caret line="17" column="12" selection-start-line="17" selection-start-column="12" selection-end-line="17" selection-end-column="12" />
           <folding />
         </state>
       </provider>
@@ -2983,33 +2908,20 @@
         <state />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/VariableFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="195" column="64" selection-start-line="195" selection-start-column="64" selection-end-line="195" selection-end-column="64" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/Advanced.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9456">
-          <caret line="964" column="91" selection-start-line="964" selection-start-column="91" selection-end-line="964" selection-end-column="91" />
+        <state vertical-scroll-proportion="0.65749234">
+          <caret line="1059" column="106" selection-start-line="1059" selection-start-column="106" selection-end-line="1059" selection-end-column="106" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2031#2032#0" expanded="true" />
-            <element signature="e#2062#2063#0" expanded="true" />
-            <element signature="e#8786#9026#0" expanded="true" />
-            <element signature="e#9025#9026#0" expanded="true" />
-            <element signature="e#9372#9612#0" expanded="true" />
-            <element signature="e#9611#9612#0" expanded="true" />
-            <element signature="e#9958#10198#0" expanded="true" />
-            <element signature="e#10197#10198#0" expanded="true" />
-            <element signature="e#14116#14123#0" expanded="true" />
-            <element signature="e#15078#15085#0" expanded="true" />
-            <element signature="e#31114#31115#0" expanded="true" />
-            <element signature="e#31141#31142#0" expanded="true" />
-            <element signature="e#31223#31224#0" expanded="true" />
-            <element signature="e#31260#31261#0" expanded="true" />
-            <element signature="e#31961#31971#0" expanded="true" />
-            <element signature="e#38616#38617#0" expanded="true" />
-            <element signature="e#38644#38645#0" expanded="true" />
-            <element signature="e#38674#38675#0" expanded="true" />
-            <element signature="e#38700#38701#0" expanded="true" />
-            <element signature="e#38737#38738#0" expanded="true" />
-            <element signature="e#38770#38771#0" expanded="true" />
           </folding>
         </state>
       </provider>
