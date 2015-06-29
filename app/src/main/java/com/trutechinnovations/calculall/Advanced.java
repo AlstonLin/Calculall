@@ -2,6 +2,9 @@ package com.trutechinnovations.calculall;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.res.Resources;
+import android.text.Html;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -908,52 +911,52 @@ public class Advanced extends Basic {
 
             //Populate arraylist
             arrayOfConstants.add(new Constant("Speed of Light", "c", 299792458, "m/s"));
-            arrayOfConstants.add(new Constant("Planck constant", "h", 6.62606957e-34, "m^2*kg/s"));
-            arrayOfConstants.add(new Constant("Gravitation constant", "c", 6.67384e-11, "m^3*kg^-1*s^-2"));
+            arrayOfConstants.add(new Constant("Planck constant", "h", 6.62606957e-34, "m<sup>2</sup>kg/s"));
+            arrayOfConstants.add(new Constant("Gravitational constant", "G", 6.67384e-11, "m<sup>3</sup>kg<sup>-1</sup>s<sup>-2</sup>"));
             arrayOfConstants.add(new Constant("Molar gas constant", "R", 8.314510, "J/mol*K"));
             arrayOfConstants.add(new Constant("Speed of Light", "c", 299792458, "m/s"));
-            arrayOfConstants.add(new Constant("Planck constant", "h", 6.62606957e-34, "m^2*kg/s"));
-            arrayOfConstants.add(new Constant("Gravitation constant", "c", 6.67384e-11, "m^3*kg^-1*s^-2"));
+            arrayOfConstants.add(new Constant("Planck constant", "h", 6.62606957e-34, "m<sup>2</sup>kg/s"));
+            arrayOfConstants.add(new Constant("Gravitational constant", "G", 6.67384e-11, "m<sup>3</sup>kg<sup>-1</sup>s<sup>-2</sup>"));
             arrayOfConstants.add(new Constant("Molar gas constant", "R", 8.314510, "J/mol*K"));
             arrayOfConstants.add(new Constant("Speed of Light", "c", 299792458, "m/s"));
-            arrayOfConstants.add(new Constant("Planck constant", "h", 6.62606957e-34, "m^2*kg/s"));
-            arrayOfConstants.add(new Constant("Gravitation constant", "c", 6.67384e-11, "m^3*kg^-1*s^-2"));
+            arrayOfConstants.add(new Constant("Planck constant", "h", 6.62606957e-34, "m<sup>2</sup>kg/s"));
+            arrayOfConstants.add(new Constant("Gravitational constant", "G", 6.67384e-11, "m<sup>3</sup>kg<sup>-1</sup>s<sup>-2</sup>"));
             arrayOfConstants.add(new Constant("Molar gas constant", "R", 8.314510, "J/mol*K"));
             arrayOfConstants.add(new Constant("Speed of Light", "c", 299792458, "m/s"));
-            arrayOfConstants.add(new Constant("Planck constant", "h", 6.62606957e-34, "m^2*kg/s"));
-            arrayOfConstants.add(new Constant("Gravitation constant", "c", 6.67384e-11, "m^3*kg^-1*s^-2"));
+            arrayOfConstants.add(new Constant("Planck constant", "h", 6.62606957e-34, "m<sup>2</sup>kg/s"));
+            arrayOfConstants.add(new Constant("Gravitational constant", "G", 6.67384e-11, "m<sup>3</sup>kg<sup>-1</sup>s<sup>-2</sup>"));
             arrayOfConstants.add(new Constant("Molar gas constant", "R", 8.314510, "J/mol*K"));
             arrayOfConstants.add(new Constant("Speed of Light", "c", 299792458, "m/s"));
-            arrayOfConstants.add(new Constant("Planck constant", "h", 6.62606957e-34, "m^2*kg/s"));
-            arrayOfConstants.add(new Constant("Gravitation constant", "c", 6.67384e-11, "m^3*kg^-1*s^-2"));
+            arrayOfConstants.add(new Constant("Planck constant", "h", 6.62606957e-34, "m<sup>2</sup>kg/s"));
+            arrayOfConstants.add(new Constant("Gravitational constant", "G", 6.67384e-11, "m<sup>3</sup>kg<sup>-1</sup>s<sup>-2</sup>"));
             arrayOfConstants.add(new Constant("Molar gas constant", "R", 8.314510, "J/mol*K"));
             arrayOfConstants.add(new Constant("Speed of Light", "c", 299792458, "m/s"));
-            arrayOfConstants.add(new Constant("Planck constant", "h", 6.62606957e-34, "m^2*kg/s"));
-            arrayOfConstants.add(new Constant("Gravitation constant", "c", 6.67384e-11, "m^3*kg^-1*s^-2"));
+            arrayOfConstants.add(new Constant("Planck constant", "h", 6.62606957e-34, "m<sup>2</sup>kg/s"));
+            arrayOfConstants.add(new Constant("Gravitational constant", "G", 6.67384e-11, "m<sup>3</sup>kg<sup>-1</sup>s<sup>-2</sup>"));
             arrayOfConstants.add(new Constant("Molar gas constant", "R", 8.314510, "J/mol*K"));
             arrayOfConstants.add(new Constant("Speed of Light", "c", 299792458, "m/s"));
-            arrayOfConstants.add(new Constant("Planck constant", "h", 6.62606957e-34, "m^2*kg/s"));
-            arrayOfConstants.add(new Constant("Gravitation constant", "c", 6.67384e-11, "m^3*kg^-1*s^-2"));
+            arrayOfConstants.add(new Constant("Planck constant", "h", 6.62606957e-34, "m<sup>2</sup>kg/s"));
+            arrayOfConstants.add(new Constant("Gravitational constant", "G", 6.67384e-11, "m<sup>3</sup>kg<sup>-1</sup>s<sup>-2</sup>"));
             arrayOfConstants.add(new Constant("Molar gas constant", "R", 8.314510, "J/mol*K"));
             arrayOfConstants.add(new Constant("Speed of Light", "c", 299792458, "m/s"));
-            arrayOfConstants.add(new Constant("Planck constant", "h", 6.62606957e-34, "m^2*kg/s"));
-            arrayOfConstants.add(new Constant("Gravitation constant", "c", 6.67384e-11, "m^3*kg^-1*s^-2"));
+            arrayOfConstants.add(new Constant("Planck constant", "h", 6.62606957e-34, "m<sup>2</sup>kg/s"));
+            arrayOfConstants.add(new Constant("Gravitational constant", "G", 6.67384e-11, "m<sup>3</sup>kg<sup>-1</sup>s<sup>-2</sup>"));
             arrayOfConstants.add(new Constant("Molar gas constant", "R", 8.314510, "J/mol*K"));
             arrayOfConstants.add(new Constant("Speed of Light", "c", 299792458, "m/s"));
-            arrayOfConstants.add(new Constant("Planck constant", "h", 6.62606957e-34, "m^2*kg/s"));
-            arrayOfConstants.add(new Constant("Gravitation constant", "c", 6.67384e-11, "m^3*kg^-1*s^-2"));
+            arrayOfConstants.add(new Constant("Planck constant", "h", 6.62606957e-34, "m<sup>2</sup>kg/s"));
+            arrayOfConstants.add(new Constant("Gravitational constant", "G", 6.67384e-11, "m<sup>3</sup>kg<sup>-1</sup>s<sup>-2</sup>"));
             arrayOfConstants.add(new Constant("Molar gas constant", "R", 8.314510, "J/mol*K"));
             arrayOfConstants.add(new Constant("Speed of Light", "c", 299792458, "m/s"));
-            arrayOfConstants.add(new Constant("Planck constant", "h", 6.62606957e-34, "m^2*kg/s"));
-            arrayOfConstants.add(new Constant("Gravitation constant", "c", 6.67384e-11, "m^3*kg^-1*s^-2"));
+            arrayOfConstants.add(new Constant("Planck constant", "h", 6.62606957e-34, "m<sup>2</sup>kg/s"));
+            arrayOfConstants.add(new Constant("Gravitational constant", "G", 6.67384e-11, "m<sup>3</sup>kg<sup>-1</sup>s<sup>-2</sup>"));
             arrayOfConstants.add(new Constant("Molar gas constant", "R", 8.314510, "J/mol*K"));
             arrayOfConstants.add(new Constant("Speed of Light", "c", 299792458, "m/s"));
-            arrayOfConstants.add(new Constant("Planck constant", "h", 6.62606957e-34, "m^2*kg/s"));
-            arrayOfConstants.add(new Constant("Gravitation constant", "c", 6.67384e-11, "m^3*kg^-1*s^-2"));
+            arrayOfConstants.add(new Constant("Planck constant", "h", 6.62606957e-34, "m<sup>2</sup>kg/s"));
+            arrayOfConstants.add(new Constant("Gravitational constant", "G", 6.67384e-11, "m<sup>3</sup>kg<sup>-1</sup>s<sup>-2</sup>"));
             arrayOfConstants.add(new Constant("Molar gas constant", "R", 8.314510, "J/mol*K"));
             arrayOfConstants.add(new Constant("Speed of Light", "c", 299792458, "m/s"));
-            arrayOfConstants.add(new Constant("Planck constant", "h", 6.62606957e-34, "m^2*kg/s"));
-            arrayOfConstants.add(new Constant("Gravitation constant", "c", 6.67384e-11, "m^3*kg^-1*s^-2"));
+            arrayOfConstants.add(new Constant("Planck constant", "h", 6.62606957e-34, "m<sup>2</sup>kg/s"));
+            arrayOfConstants.add(new Constant("Gravitational constant", "G", 6.67384e-11, "m<sup>3</sup>kg<sup>-1</sup>s<sup>-2</sup>"));
             arrayOfConstants.add(new Constant("Molar gas constant", "R", 8.314510, "J/mol*K"));
 
             //Create the adapter to convert the array to views
@@ -1036,7 +1039,7 @@ public class Advanced extends Basic {
          */
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            //Get the data item for this postion
+            //Get the data item for this position
             Constant constant = getItem(position);
             if (convertView == null) { //For efficiency purposes so that it does not unnecessarily inflate Views
                 //Inflates the XML file to get the View of the consts element
@@ -1045,9 +1048,27 @@ public class Advanced extends Basic {
             }
 
             //Sets up the child Views within each item in the ListView
-            TextView constantData = (TextView) convertView.findViewById(R.id.constantData);
-            constantData.setText(constant.getName() + " (" + constant.getSymbol() + "): " +
-                    constant.getNumericValue() + " (" + constant.getUnits() + ")");
+            TextView constantName = (TextView) convertView.findViewById(R.id.constantName);
+            TextView constantSymbol = (TextView) convertView.findViewById(R.id.constantSymbol);
+            TextView constantVal = (TextView) convertView.findViewById(R.id.constantVal);
+            TextView constantUnits = (TextView) convertView.findViewById(R.id.constantUnits);
+
+
+            TypedValue typedValue = new TypedValue();
+            Resources.Theme theme = activity.getTheme();
+            theme.resolveAttribute(R.attr.displayTextColor, typedValue, true);
+
+            constantName.setText(constant.getName());
+            constantName.setTextColor(typedValue.data);
+
+            constantSymbol.setText(constant.getSymbol());
+            constantSymbol.setTextColor(typedValue.data);
+
+            constantVal.setText(Double.toString(constant.getNumericValue()));
+            constantVal.setTextColor(typedValue.data);
+
+            constantUnits.setText(Html.fromHtml(constant.getUnits()));
+            constantUnits.setTextColor(typedValue.data);
 
 
             //To respond to user touches
@@ -1057,6 +1078,7 @@ public class Advanced extends Basic {
                 public boolean onTouch(View v, MotionEvent event) {
                     if (event.getAction() == MotionEvent.ACTION_UP) {
                         tokens.add(VariableFactory.makeConstantToken(cnst)); //Adds the token to the input
+                        updateInput();
                         constWindow.dismiss(); //Exits constWindow once an Item has been selected
                         return true;
                     } else {

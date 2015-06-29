@@ -84,9 +84,6 @@ public class MatrixMode extends FunctionMode {
             case R.id.det_button:
                 clickDeterminant();
                 break;
-            case R.id.diag_button:
-                clickDiagonalize();
-                break;
             case R.id.decomp_button:
                 openDecomp();
                 break;
@@ -1225,6 +1222,9 @@ public class MatrixMode extends FunctionMode {
 
         ArrayList<Token[]> decomps = new ArrayList<>();
         try {
+            if (tokens.isEmpty()) {
+                throw new IllegalArgumentException("Please enter a Matrix expression first");
+            }
             ArrayList<Token> temp = MatrixUtils.setupExpression(Utility.condenseDigits(tokens));
             temp = MatrixUtils.convertToReversePolish(temp);
             Token t = MatrixUtils.evaluateExpression(temp, false);
@@ -1474,7 +1474,8 @@ public class MatrixMode extends FunctionMode {
             TypedValue typedValue = new TypedValue();
             Resources.Theme theme = activity.getTheme();
             theme.resolveAttribute(R.attr.displayTextColor, typedValue, true);
-            type.setText(Html.fromHtml(entry[0].getSymbol()));
+
+            type.setText(entry[0].getSymbol());
             type.setTextColor(typedValue.data);
             info.setText(Html.fromHtml(entry[1].getSymbol()));
             info.setTextColor(typedValue.data);

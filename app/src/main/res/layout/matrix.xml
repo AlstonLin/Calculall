@@ -407,6 +407,7 @@
                     android:layout_marginLeft="4dp"
                     android:layout_marginRight="4dp"
                     android:background="@drawable/vector"
+                    android:scaleX="-1"
                     android:src="@drawable/vector"
                     android:textSize="16sp" />
 
@@ -422,7 +423,7 @@
                     android:padding="0dp"
                     android:paddingTop="0dp"
                     android:singleLine="false"
-                    android:text="EIGEN"
+                    android:text="@string/eigen"
                     android:textSize="16sp" />
             </LinearLayout>
         </com.balysv.materialripple.MaterialRippleLayout>
@@ -554,7 +555,6 @@
             </LinearLayout>
 
         </LinearLayout>
-        x
 
         <com.balysv.materialripple.MaterialRippleLayout
             android:layout_width="0dp"

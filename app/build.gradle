@@ -27,5 +27,5 @@ dependencies {
     compile 'com.android.support:multidex:1.0.0'
     compile 'com.google.android.gms:play-services:6.5.87'
     compile 'com.balysv:material-ripple:1.0.2'
-    compile files('libs/symja-2015-05-17.jar')
+    compile files('libs/symja-2015-06-16.jar')
 }
