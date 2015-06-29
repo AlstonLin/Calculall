@@ -209,7 +209,7 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:onClick="onClick"
-                android:text="@string/constant"
+                android:text="CNST"
                 android:textSize="16sp" />
 
         </com.balysv.materialripple.MaterialRippleLayout>

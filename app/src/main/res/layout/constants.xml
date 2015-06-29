@@ -45,14 +45,6 @@
             android:layout_height="wrap_content"
             android:scrollbars="horizontal">
 
-            <view xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/history"
-                class="com.trutechinnovations.calculall.HistoryView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:fadingEdge="vertical"
-                android:scrollbars="vertical"></view>
 
         </HorizontalScrollView>
     </ScrollView>

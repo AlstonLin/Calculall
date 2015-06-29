@@ -163,5 +163,6 @@
     <string name="listOfConstants">List of Constants</string>
     <string name="reduction">Row Reduction Steps</string>
     <string name="decomposition">Matrix Decompositions</string>
+    <string name="eigen">eigen</string>
 
 </resources>

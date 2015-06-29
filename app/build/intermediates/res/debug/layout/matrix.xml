@@ -392,51 +392,42 @@
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1">
+
             <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
                 style="?attr/buttonSpecial"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:onClick="onClick"
-                android:layout_height="match_parent">
+                android:orientation="vertical">
 
                 <ImageButton
                     android:id="@+id/ev_button_image"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="12dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    android:background="@drawable/vector"
                     android:src="@drawable/vector"
+                    android:scaleX="-1"
                     android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/ev_button"
                     style="?attr/buttonSpecial"
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="22dp"
                     android:layout_gravity="bottom"
-                    android:onClick="onClick"
-                    android:text="Eigen"
                     android:layout_margin="0dp"
-                    android:textSize="16sp"
-                    android:padding="0dp" />
+                    android:layout_marginTop="0dp"
+                    android:onClick="onClick"
+                    android:padding="0dp"
+                    android:paddingTop="0dp"
+                    android:singleLine="false"
+                    android:text="@string/eigen"
+                    android:textSize="16sp" />
             </LinearLayout>
         </com.balysv.materialripple.MaterialRippleLayout>
 
-
-
-        <com.balysv.materialripple.MaterialRippleLayout
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1">
-
-            <Button
-                android:id="@+id/diag_button"
-                style="?attr/buttonSpecial"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_gravity="bottom"
-                android:onClick="onClick"
-                android:text="@string/diag"
-                android:textSize="16sp" />
-        </com.balysv.materialripple.MaterialRippleLayout>
 
         <com.balysv.materialripple.MaterialRippleLayout
             android:layout_width="0dp"
@@ -564,7 +555,6 @@
             </LinearLayout>
 
         </LinearLayout>
-        x
 
         <com.balysv.materialripple.MaterialRippleLayout
             android:layout_width="0dp"

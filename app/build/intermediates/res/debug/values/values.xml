@@ -38,16 +38,6 @@
     <!-- From: file:/C:/Users/Ejaaz/Calculall/Calculall/app/src/main/res/values/colors.xml -->
     <eat-comment/>
     <color name="displayDavid">#ecf0f0</color>
-    <color name="displayTextAlston">#fff</color>
-    <color name="displayTextDress">#745E39</color>
-    <color name="displayTextForest">#FFD54F</color>
-    <color name="displayTextGeese">#000000</color>
-    <color name="displayTextHawks">#FFD700</color>
-    <color name="displayTextMaterial">#B71C1C</color>
-    <color name="displayTextOcean">#FFFFFF</color>
-    <color name="displayTextPanda">#ffc5c5c5</color>
-    <color name="displayTextSunset">#FFC107</color>
-    <color name="displayTextTrailblazer">#FFFFFF</color>
     <color name="displayTheme2">#ff333c42</color>
     <color name="numPadColorDavid">#ef4848</color>
     <color name="numPadColorTheme2">#ffFF9900</color>
@@ -180,13 +170,14 @@
     <string name="decomposition">Matrix Decompositions</string>
     <string name="degrees">Degrees</string>
     <string name="derivative">d/dx</string>
-    <string name="det">DET</string>
+    <string name="det">det</string>
     <string name="diag">DIAG</string>
     <string name="divide">/</string>
     <string name="done">✔</string>
     <string name="dot">•</string>
     <string name="e">e</string>
     <string name="edit">Edit</string>
+    <string name="eigen">eigen</string>
     <string name="eight">8</string>
     <string name="empty"> </string>
     <string name="equals">=</string>
@@ -244,7 +235,7 @@
     <string name="projection">proj</string>
     <string name="radians">Radians</string>
     <string name="radix">CHANGE</string>
-    <string name="rank">Rank</string>
+    <string name="rank">rank</string>
     <string name="recip"><![CDATA[x<sup><small>-1</small></sup>]]></string>
     <string name="reduction">Row Reduction Steps</string>
     <string name="ref">REF</string>
