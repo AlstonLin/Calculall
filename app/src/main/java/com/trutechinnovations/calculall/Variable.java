@@ -20,6 +20,7 @@ public abstract class Variable extends Token implements Serializable {
     public static final double SPEED_OF_LIGHT = 299792458, MAGNETIC = (4 * Math.PI) * 1e-7;
     public boolean negative = false;
 
+
     /**
      * Constructor for a Token that represents a user-defined value (algebraic variable)
      *

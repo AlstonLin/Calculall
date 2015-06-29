@@ -1,12 +1,12 @@
 package com.trutechinnovations.calculall;
 
-import java.io.Serializable;
+
 import java.util.ArrayList;
 
 /**
  * Created by Jason on 2015-06-28.
  */
-public class Constant extends Variable implements Serializable {
+public class Constant extends Variable {
 
     private String name;
     private double value;
@@ -17,6 +17,18 @@ public class Constant extends Variable implements Serializable {
         this.name = name;
         this.value = value;
         this.units = units;
+    }
+
+    public double getNumericValue() {
+        return value;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getUnits() {
+        return units;
     }
 
     public ArrayList<Token> getValue() {
