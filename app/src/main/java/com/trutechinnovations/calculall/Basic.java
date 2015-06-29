@@ -21,6 +21,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 /**
  * The activity for the basic calculator mode. The basic mode will only be able to
@@ -387,6 +388,20 @@ public class Basic implements View.OnClickListener {
                 throw new NumberTooLargeException();
             } else if (num.getValue() == 9001) {
                 Toast.makeText(activity, "IT'S OVER 9000!!", Toast.LENGTH_LONG).show();
+            } else if (num.getValue() == 420) {
+                String[] dank = {
+                        "Ayy Lmao",
+                        "JET FUEL CAN'T MELT DANK MEMES",
+                        "node.js",
+                        "JET FUEL CAN'T MELT STEEL BEAMS",
+                        "#sariahismyOTP"
+                };
+                Random rand = new Random();
+                Toast.makeText(activity, dank[rand.nextInt(dank.length)], Toast.LENGTH_LONG).show();
+            } else if (num.getValue() == 69) {
+                Toast.makeText(activity, "( ͡° ͜ʖ ͡°)", Toast.LENGTH_LONG).show();
+            } else if (num.getValue() == 1.048596) {
+                Toast.makeText(activity, "El Psy Congroo", Toast.LENGTH_LONG).show();
             }
             ArrayList<Token> list = new ArrayList<Token>();
             list.add(num);
@@ -623,6 +638,7 @@ public class Basic implements View.OnClickListener {
                         //Adds the input expression to the current tokens
                         tokens.addAll(input); //Adds the input of the entry
                         historyWindow.dismiss(); //Exits history once an Item has been selected
+                        updateInput();
                         return true;
                     } else {
                         return false;

@@ -41,4 +41,8 @@ public class Number extends Token implements Serializable {
                 .replaceAll("\\.$", "")); //Removes trailing zeroes
         return s;
     }
+
+    public String toLaTeX() {
+        return "$" + getSymbol() + "$";
+    }
 }
