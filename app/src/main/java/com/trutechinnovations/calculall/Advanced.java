@@ -7,19 +7,14 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.PopupWindow;
-import android.widget.Toast;
+import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedList;
 
 /**
@@ -39,10 +34,10 @@ public class Advanced extends Basic {
     private static final Basic INSTANCE = new Advanced();
     private static String filenameConst = "const_advanced";
     protected int fracMode = DEC;
-    // constants list
     //Fields
     protected ArrayList<MultiButton> multiButtons;
     protected boolean hyperbolic = false, shift = false, mem = false;
+    ArrayList<Constant> arrayOfConstants = new ArrayList<Constant>();//Constants data
     private Dialog graphDialog;
     private PopupWindow constWindow;
     private PopupWindow pw;
@@ -50,7 +45,6 @@ public class Advanced extends Basic {
 
     { //pseudo-constructor
         filename = "history_advanced";
-        filenameConst = "const_advanced";
     }
 
     /**
@@ -162,10 +156,10 @@ public class Advanced extends Basic {
                 display.displayOutput(output);
                 saveEquation(tokens, output, FILENAME);
                 VariableFactory.ansValueAdv = output;
-            }
+        }
         } catch (Exception e) { //User did a mistake
             handleExceptions(e);
-        }
+    }
         activity.scrollDown();
     }
 
@@ -890,37 +884,8 @@ public class Advanced extends Basic {
      * When the user clicks the const button.
      */
     public void clickConst() {
-        try {
-            openConst(filename);
-        } catch (IOException | ClassNotFoundException e) {
-            Toast.makeText(activity, "Error saving to consts", Toast.LENGTH_LONG).show();
-        }
+        openConst();
     }
-
-/*    *//**
-     * Exits the constants view.
-     *//*
-    public void clickExitConst() {
-        constantsDialog.dismiss();
-    }
-
-    *//**
-     * When the user presses the CONST button
-     *//*
-    //TODO: Implement by looking at how the settings are implmented
-    public void clickConst() {
-       AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        LayoutInflater inflater = activity.getLayoutInflater();
-        View layout = inflater.inflate(R.layout.constants, null);
-        builder.setView(layout);
-        constantsDialog = builder.create();
-        constantsDialog.show();
-
-
-        //List<Constant> cnts = new ArrayList<>(Arrays.asList(Constant.values()));
-        //ArrayAdapter<Constant> constAdapter = new ArrayAdapter<Integer>(this, R.layout.constants, Constant.values());
-
-}*/
 
     /**
      * Exits the consts view.
@@ -932,9 +897,8 @@ public class Advanced extends Basic {
         /**
          * Opens the constants list.
          *
-         * @param filename The file name of the consts file
          */
-    public void openConst(String filename) throws IOException, ClassNotFoundException {
+        public void openConst() {
         //Inflates the XML file so you get the View to add to the PopupWindow
         LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View layout = inflater.inflate(R.layout.constants_view, null, false);
@@ -942,35 +906,63 @@ public class Advanced extends Basic {
         //Creates the popupWindow, with the width matching the parent's and height matching the parent's
         constWindow = new PopupWindow(layout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
 
-        //Retrieves the user data from saved memory
-        ArrayList<Object[]> consts;
-        try {
-            FileInputStream stream = activity.openFileInput(filename);
-            ObjectInputStream objectStream = new ObjectInputStream(stream);
-            consts = (ArrayList<Object[]>) objectStream.readObject();
-            //Reverses the order so that the most recent is at the top
-            Collections.reverse(consts);
-        } catch (FileNotFoundException e) { //No consts
-            consts = new ArrayList<>();
+            //Populate arraylist
+            arrayOfConstants.add(new Constant("Speed of Light", "c", 299792458, "m/s"));
+            arrayOfConstants.add(new Constant("Planck constant", "h", 6.62606957e-34, "m^2*kg/s"));
+            arrayOfConstants.add(new Constant("Gravitation constant", "c", 6.67384e-11, "m^3*kg^-1*s^-2"));
+            arrayOfConstants.add(new Constant("Molar gas constant", "R", 8.314510, "J/mol*K"));
+            arrayOfConstants.add(new Constant("Speed of Light", "c", 299792458, "m/s"));
+            arrayOfConstants.add(new Constant("Planck constant", "h", 6.62606957e-34, "m^2*kg/s"));
+            arrayOfConstants.add(new Constant("Gravitation constant", "c", 6.67384e-11, "m^3*kg^-1*s^-2"));
+            arrayOfConstants.add(new Constant("Molar gas constant", "R", 8.314510, "J/mol*K"));
+            arrayOfConstants.add(new Constant("Speed of Light", "c", 299792458, "m/s"));
+            arrayOfConstants.add(new Constant("Planck constant", "h", 6.62606957e-34, "m^2*kg/s"));
+            arrayOfConstants.add(new Constant("Gravitation constant", "c", 6.67384e-11, "m^3*kg^-1*s^-2"));
+            arrayOfConstants.add(new Constant("Molar gas constant", "R", 8.314510, "J/mol*K"));
+            arrayOfConstants.add(new Constant("Speed of Light", "c", 299792458, "m/s"));
+            arrayOfConstants.add(new Constant("Planck constant", "h", 6.62606957e-34, "m^2*kg/s"));
+            arrayOfConstants.add(new Constant("Gravitation constant", "c", 6.67384e-11, "m^3*kg^-1*s^-2"));
+            arrayOfConstants.add(new Constant("Molar gas constant", "R", 8.314510, "J/mol*K"));
+            arrayOfConstants.add(new Constant("Speed of Light", "c", 299792458, "m/s"));
+            arrayOfConstants.add(new Constant("Planck constant", "h", 6.62606957e-34, "m^2*kg/s"));
+            arrayOfConstants.add(new Constant("Gravitation constant", "c", 6.67384e-11, "m^3*kg^-1*s^-2"));
+            arrayOfConstants.add(new Constant("Molar gas constant", "R", 8.314510, "J/mol*K"));
+            arrayOfConstants.add(new Constant("Speed of Light", "c", 299792458, "m/s"));
+            arrayOfConstants.add(new Constant("Planck constant", "h", 6.62606957e-34, "m^2*kg/s"));
+            arrayOfConstants.add(new Constant("Gravitation constant", "c", 6.67384e-11, "m^3*kg^-1*s^-2"));
+            arrayOfConstants.add(new Constant("Molar gas constant", "R", 8.314510, "J/mol*K"));
+            arrayOfConstants.add(new Constant("Speed of Light", "c", 299792458, "m/s"));
+            arrayOfConstants.add(new Constant("Planck constant", "h", 6.62606957e-34, "m^2*kg/s"));
+            arrayOfConstants.add(new Constant("Gravitation constant", "c", 6.67384e-11, "m^3*kg^-1*s^-2"));
+            arrayOfConstants.add(new Constant("Molar gas constant", "R", 8.314510, "J/mol*K"));
+            arrayOfConstants.add(new Constant("Speed of Light", "c", 299792458, "m/s"));
+            arrayOfConstants.add(new Constant("Planck constant", "h", 6.62606957e-34, "m^2*kg/s"));
+            arrayOfConstants.add(new Constant("Gravitation constant", "c", 6.67384e-11, "m^3*kg^-1*s^-2"));
+            arrayOfConstants.add(new Constant("Molar gas constant", "R", 8.314510, "J/mol*K"));
+            arrayOfConstants.add(new Constant("Speed of Light", "c", 299792458, "m/s"));
+            arrayOfConstants.add(new Constant("Planck constant", "h", 6.62606957e-34, "m^2*kg/s"));
+            arrayOfConstants.add(new Constant("Gravitation constant", "c", 6.67384e-11, "m^3*kg^-1*s^-2"));
+            arrayOfConstants.add(new Constant("Molar gas constant", "R", 8.314510, "J/mol*K"));
+            arrayOfConstants.add(new Constant("Speed of Light", "c", 299792458, "m/s"));
+            arrayOfConstants.add(new Constant("Planck constant", "h", 6.62606957e-34, "m^2*kg/s"));
+            arrayOfConstants.add(new Constant("Gravitation constant", "c", 6.67384e-11, "m^3*kg^-1*s^-2"));
+            arrayOfConstants.add(new Constant("Molar gas constant", "R", 8.314510, "J/mol*K"));
+            arrayOfConstants.add(new Constant("Speed of Light", "c", 299792458, "m/s"));
+            arrayOfConstants.add(new Constant("Planck constant", "h", 6.62606957e-34, "m^2*kg/s"));
+            arrayOfConstants.add(new Constant("Gravitation constant", "c", 6.67384e-11, "m^3*kg^-1*s^-2"));
+            arrayOfConstants.add(new Constant("Molar gas constant", "R", 8.314510, "J/mol*K"));
+            arrayOfConstants.add(new Constant("Speed of Light", "c", 299792458, "m/s"));
+            arrayOfConstants.add(new Constant("Planck constant", "h", 6.62606957e-34, "m^2*kg/s"));
+            arrayOfConstants.add(new Constant("Gravitation constant", "c", 6.67384e-11, "m^3*kg^-1*s^-2"));
+            arrayOfConstants.add(new Constant("Molar gas constant", "R", 8.314510, "J/mol*K"));
 
-            ArrayList<Token> list1 = new ArrayList<>();
-            ArrayList<Token> list2 = new ArrayList<>();
-
-            list1.add(new StringToken("No Consts to show"));
-            list2.add(new StringToken(""));
-
-            ArrayList<Token>[] message = new ArrayList[2];
-            message[0] = list1;
-            message[1] = list2;
-            consts.add(message);
-        }
+            //Create the adapter to convert the array to views
+            ConstantsAdapter adapter = new ConstantsAdapter(activity, arrayOfConstants);
 
         //Finds the ListView from the inflated consts XML so it could be manipulated
         ListView lv = (ListView) layout.findViewById(R.id.constantsList);
-
         //Attaches the custom Adapter to the ListView so that it can configure the items and their Views within it
-        lv.setAdapter(new ConstantsAdapter(consts, activity));
-
+            lv.setAdapter(adapter);
         //Displays the created PopupWindow on top of the LinearLayout with ID frame, which is being shown by the Activity
         constWindow.showAtLocation(activity.findViewById(R.id.frame), Gravity.CENTER, 0, 0);
     }
@@ -1019,47 +1011,20 @@ public class Advanced extends Basic {
         return hyperbolic;
     }
 
-    public enum Constant {
-        SPEED_OF_LIGHT(299792458), MAGNETIC_VAL((4 * Math.PI) * 1e-7);
-        private double value;
-
-        Constant(double value) {
-            this.value = value;
-        }
-
-        public double getValue() {
-            return value;
-        }
-
-    }
-
     /**
      * The custom Adapter for the ListView in the consts list.
      */
-    private class ConstantsAdapter extends BaseAdapter {
+    private class ConstantsAdapter extends ArrayAdapter<Constant> {
 
         private MainActivity activity;
-        private ArrayList<Object[]> consts; //The data that will be shown in the ListView
+        private ArrayList<Constant> constants; //The data that will be shown in the ListView
 
-        public ConstantsAdapter(ArrayList<Object[]> consts, MainActivity activity) {
-            this.consts = consts;
+        public ConstantsAdapter(MainActivity activity, ArrayList<Constant> constants) {
+            super(activity, 0, constants);
+            this.constants = constants;
             this.activity = activity;
         }
 
-        @Override
-        public int getCount() {
-            return consts.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return consts.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
 
         /**
          * Prepares the View of each item in the ListView that this Adapter will be attached to.
@@ -1071,6 +1036,8 @@ public class Advanced extends Basic {
          */
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
+            //Get the data item for this postion
+            Constant constant = getItem(position);
             if (convertView == null) { //For efficiency purposes so that it does not unnecessarily inflate Views
                 //Inflates the XML file to get the View of the consts element
                 LayoutInflater inflater = (LayoutInflater) activity.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -1078,34 +1045,19 @@ public class Advanced extends Basic {
             }
 
             //Sets up the child Views within each item in the ListView
-            OutputView input = (OutputView) convertView.findViewById(R.id.input);
-            OutputView output = (OutputView) convertView.findViewById(R.id.output);
+            TextView constantData = (TextView) convertView.findViewById(R.id.constantData);
+            constantData.setText(constant.getName() + " (" + constant.getSymbol() + "): " +
+                    constant.getNumericValue() + " (" + constant.getUnits() + ")");
 
-            //Sets the font size of each OutputView
-            input.setFontSize(activity.getFontSize());
-            output.setFontSize((int) (activity.getFontSize() * CONSTANTS_IO_RATIO));
-
-            //Enters the appropriate expressions to the OutputView
-            Object[] entry = consts.get(position);
-            input.display((ArrayList<Token>) entry[0]);
-            output.display((ArrayList<Token>) entry[1]);
 
             //To respond to user touches
-            final ArrayList<Token> INPUT = (ArrayList<Token>) consts.get(position)[0]; //Makes a constant reference so that consts can be accessed by an inner class
+            final Constant cnst = arrayOfConstants.get(position); //Makes a constant reference so that cnst can be accessed by an inner class
             convertView.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
                     if (event.getAction() == MotionEvent.ACTION_UP) {
-                        ArrayList<Token> input = new ArrayList<>();
-                        //Removes any StringTokens
-                        for (Token t : INPUT) {
-                            if (!(t instanceof StringToken)) {
-                                input.add(t);
-                            }
-                        }
-                        //Adds the input expression to the current tokens
-                        tokens.addAll(input); //Adds the input of the entry
-                        constWindow.dismiss(); //Exits consts once an Item has been selected
+                        tokens.add(VariableFactory.makeConstantToken(cnst)); //Adds the token to the input
+                        constWindow.dismiss(); //Exits constWindow once an Item has been selected
                         return true;
                     } else {
                         return false;

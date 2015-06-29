@@ -10,23 +10,15 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <view
-            android:id="@+id/input"
+        <TextView
+            android:id="@+id/constantData"
             class="com.trutechinnovations.calculall.OutputView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:fadingEdge="vertical"
-            android:scrollbars="vertical" />
+            android:scrollbars="vertical"
+            android:textSize="32sp" />
 
-        <view
-            android:id="@+id/output"
-            class="com.trutechinnovations.calculall.OutputView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:background="@android:color/transparent"
-            android:fadingEdge="vertical"
-            android:scrollbars="vertical" />
     </LinearLayout>
 </HorizontalScrollView>
