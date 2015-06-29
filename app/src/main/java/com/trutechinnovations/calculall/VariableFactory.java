@@ -201,46 +201,20 @@ public class VariableFactory {
         };
     }
 
-    public static Variable makeSpeedOfLight() {
-        return new Variable(Variable.C0, "c") {
+    public static Variable makeConstantToken(Constant inConstant) {
+        final Constant constant = inConstant;
+        return new Variable(Variable.CONSTANT, constant.getSymbol()) {
             public ArrayList<Token> getValue() {
                 ArrayList<Token> tokens = new ArrayList<>();
-                tokens.add(new Number(Constant.SPEED_OF_LIGHT.getValue()));
+                tokens.addAll(constant.getValue());
                 return tokens;
             }
 
             public String toLaTeX() {
-                return "$c$";
+                return "$"+constant.getSymbol()+"$";
             }
         };
     }
 
-    public static Variable makeMagnetic() {
-        return new Variable(Variable.MU0, "μ0") {
-            public ArrayList<Token> getValue() {
-                ArrayList<Token> tokens = new ArrayList<>();
-                tokens.add(new Number(Constant.MAGNETIC_VAL.getValue()));
-                return tokens;
-            }
-
-            public String toLaTeX() {
-                return "$\\mu_0$";
-            }
-        };
-    }
-
-    public static Variable makeElectric() {
-        return new Variable(Variable.Epsilon0, "ε0") {
-            public ArrayList<Token> getValue() {
-                ArrayList<Token> tokens = new ArrayList<>();
-                tokens.add(new Number(Constant.ELECTRIC_VAL.getValue()));
-                return tokens;
-            }
-
-            public String toLaTeX() {
-                return "$\\epsilon_0$";
-            }
-        };
-    }
 
 }
