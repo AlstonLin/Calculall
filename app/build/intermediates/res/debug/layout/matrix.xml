@@ -392,17 +392,35 @@
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1">
-
-            <ImageButton
-                android:id="@+id/ev_button"
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
                 style="?attr/buttonSpecial"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_gravity="bottom"
                 android:onClick="onClick"
-                android:src="@drawable/eigenvector"
-                android:textSize="16sp" />
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/ev_button_image"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/vector"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/ev_button"
+                    style="?attr/buttonSpecial"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:onClick="onClick"
+                    android:text="Eigen"
+                    android:layout_margin="0dp"
+                    android:textSize="16sp"
+                    android:padding="0dp" />
+            </LinearLayout>
         </com.balysv.materialripple.MaterialRippleLayout>
+
+
 
         <com.balysv.materialripple.MaterialRippleLayout
             android:layout_width="0dp"
@@ -564,4 +582,4 @@
         </com.balysv.materialripple.MaterialRippleLayout>
 
     </LinearLayout>
-</LinearLayout><!-- From: file:/C:/Users/Jason/AndroidStudioProjects/Calculall/app/src/main/res/layout/matrix.xml -->
+</LinearLayout><!-- From: file:/C:/Users/Ejaaz/Calculall/Calculall/app/src/main/res/layout/matrix.xml -->
