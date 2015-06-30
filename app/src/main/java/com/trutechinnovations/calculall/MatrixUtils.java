@@ -394,7 +394,10 @@ public class MatrixUtils {
             throw new IllegalArgumentException("Diagonalization of matrices with complex eigenvalues is not supported");
         }
         double[][][] output = new double[3][][];
-        output[0] = ed.getV().getData();
+        output[0] = roundInfinitesimals(ed.getV().getData());
+        if (rank(output[0]) != output.length) {
+            throw new IllegalArgumentException("The matrix is not diagonalizable");
+        }
         output[1] = ed.getD().getData();
         output[2] = findInverse(ed.getV().getData());
         return output;
@@ -799,6 +802,20 @@ public class MatrixUtils {
                 }
             }
 
+            temp = roundInfinitesimals(temp);
+            for (int i = a.length - 1; i >= 0; i--) {
+                if (onlyZeroes(getRow(temp, i))) {
+                    for (int j = a.length - 1; j > i; j--) {
+                        if (!onlyZeroes(getRow(temp, j))) {
+                            temp = swapRows(temp, i, j);
+                            Double[] swapStep = {1d, (double) i, (double) j};
+                            steps.add(swapStep);
+                            break;
+                        }
+                    }
+                }
+            }
+
             double[][] stepsArray = new double[steps.size()][0];
             for (int i = 0; i < stepsArray.length; i++) {
                 stepsArray[i] = new double[steps.get(i).length];
@@ -829,14 +846,8 @@ public class MatrixUtils {
     }
 
     public static int rank(double[][] a) {
-        double[][] rowReduced = toREF(a);
-        int rank = 0;
-        for (int i = 0; i < a.length; i++) {
-            if (!onlyZeroes(getRow(rowReduced, i))) {
-                rank++;
-            }
-        }
-        return rank;
+        RRQRDecomposition rrqr = new RRQRDecomposition(new Array2DRowRealMatrix(a));
+        return rrqr.getRank(1e-15);
     }
 
     public static int nullity(double[][] a) {

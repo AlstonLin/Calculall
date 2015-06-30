@@ -424,6 +424,8 @@ public class Basic implements View.OnClickListener {
             message = "The calculation is to large to perform";
         } else if (e instanceof ArithmeticException) {
             message = "Math Error";
+        } else if (e instanceof IllegalArgumentException) {
+            message = e.getMessage();
         } else {
             if (e.getMessage() == null || e.getMessage().equals("")) {
                 message = "Invalid input";
