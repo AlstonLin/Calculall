@@ -707,10 +707,25 @@ public class MatrixUtils {
 
                 for (int i = 0; i < minorSteps.length; i++) {
                     tempStep = new Double[minorSteps[i].length];
+                    temp = applyStep(temp, minorSteps[i]);
                     for (int j = 0; j < minorSteps[i].length; j++) {
                         tempStep[j] = minorSteps[i][j];
                     }
                     steps.add(tempStep);
+                }
+            }
+
+            temp = roundInfinitesimals(temp);
+            for (int i = a.length - 1; i >= 0; i--) {
+                if (onlyZeroes(getRow(temp, i))) {
+                    for (int j = a.length - 1; j > i; j--) {
+                        if (!onlyZeroes(getRow(temp, j))) {
+                            temp = swapRows(temp, i, j);
+                            Double[] swapStep = {1d, (double) i, (double) j};
+                            steps.add(swapStep);
+                            break;
+                        }
+                    }
                 }
             }
         }
