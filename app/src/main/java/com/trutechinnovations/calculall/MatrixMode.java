@@ -793,7 +793,7 @@ public class MatrixMode extends FunctionMode {
     public void clickEquals() {
         DisplayView display = (DisplayView) activity.findViewById(R.id.display);
         try {
-            ArrayList<Token> temp = MatrixUtils.setupExpression(Utility.subVariables(Utility.condenseDigits(tokens)));
+            ArrayList<Token> temp = MatrixUtils.setupExpression(Utility.addMissingBrackets(Utility.subVariables(Utility.condenseDigits(tokens))));
             temp = MatrixUtils.convertToReversePolish(temp);
             Token t = MatrixUtils.evaluateExpression(temp, fracMode == FRAC);
             ArrayList<Token> output = new ArrayList<>();
@@ -836,6 +836,10 @@ public class MatrixMode extends FunctionMode {
                 Matrix l = new Matrix(lup[1]);
                 Matrix p = new Matrix(lup[2]);
 
+                /*u.fractionalize();
+                l.fractionalize();
+                p.fractionalize();*/
+
                 ArrayList<Token> input = new ArrayList<>();
                 input.add(0, new StringToken("LUP Decomposition of "));
                 input.addAll(tokens);
@@ -871,9 +875,9 @@ public class MatrixMode extends FunctionMode {
             temp = MatrixUtils.convertToReversePolish(temp);
             Token t = MatrixUtils.evaluateExpression(temp, false);
             if (t instanceof Matrix) {
-                double[] eigenValues = MathUtilities.getEigenValues(MatrixUtils.evaluateMatrixEntries((Matrix) t));
+                double[] eigenValues = MatrixUtils.getEigenValues(MatrixUtils.evaluateMatrixEntries((Matrix) t));
 
-                String outputStr = "Eigen Values: ";
+                /*String outputStr = "Eigen Values: ";
                 boolean first = true;
                 for (double eigVal : eigenValues) {
                     if (!first) {
@@ -881,14 +885,22 @@ public class MatrixMode extends FunctionMode {
                     }
                     outputStr += new Number(eigVal).getSymbol();
                     first = false;
-                }
+                }*/
 
                 ArrayList<Token> input = new ArrayList<>();
                 input.addAll(tokens);
                 input.add(0, new StringToken("Eigen Values of "));
 
                 ArrayList<Token> output = new ArrayList<>();
-                output.add(new StringToken(outputStr));
+                output.add(new StringToken("Eigen Values: "));
+                boolean first = true;
+                for (int i = 0; i < eigenValues.length; i++) {
+                    if (!first) {
+                        output.add(new StringToken(" , "));
+                    }
+                    output.addAll(JFok.fractionalize(new Number(eigenValues[i])));
+                    first = false;
+                }
 
                 display.displayOutput(output);
 
@@ -959,6 +971,10 @@ public class MatrixMode extends FunctionMode {
                 Matrix d = new Matrix(diag[1]);
                 Matrix inv_p = new Matrix(diag[2]);
 
+                /*p.fractionalize();
+                d.fractionalize();
+                inv_p.fractionalize();*/
+
                 ArrayList<Token> input = new ArrayList<>();
                 input.add(0, new StringToken("Eigen Decomposition of "));
                 input.addAll(tokens);
@@ -998,6 +1014,9 @@ public class MatrixMode extends FunctionMode {
                 double[][][] qr = MatrixUtils.getQRDecomposition(a);
                 Matrix q = new Matrix(qr[0]);
                 Matrix r = new Matrix(qr[1]);
+
+                /*q.fractionalize();
+                r.fractionalize();*/
 
                 ArrayList<Token> input = new ArrayList<>();
                 input.add(0, new StringToken("QR Decomposition of "));
@@ -1039,6 +1058,10 @@ public class MatrixMode extends FunctionMode {
                 Matrix q = new Matrix(rrqr[0]);
                 Matrix r = new Matrix(rrqr[1]);
                 Matrix p = new Matrix(rrqr[2]);
+
+                /*q.fractionalize();
+                r.fractionalize();
+                p.fractionalize();*/
 
                 ArrayList<Token> input = new ArrayList<>();
                 input.add(0, new StringToken("RRQR Decomposition of "));
@@ -1082,6 +1105,9 @@ public class MatrixMode extends FunctionMode {
                 Matrix l = new Matrix(ch[0]);
                 Matrix lt = new Matrix(ch[1]);
 
+                /*l.fractionalize();
+                lt.fractionalize();*/
+
                 ArrayList<Token> input = new ArrayList<>();
                 input.add(0, new StringToken("Cholesky Decomposition of "));
                 input.addAll(tokens);
@@ -1121,6 +1147,10 @@ public class MatrixMode extends FunctionMode {
                 Matrix u = new Matrix(svd[0]);
                 Matrix s = new Matrix(svd[1]);
                 Matrix vt = new Matrix(svd[2]);
+
+                /*u.fractionalize();
+                s.fractionalize();
+                vt.fractionalize();*/
 
                 ArrayList<Token> input = new ArrayList<>();
                 input.add(0, new StringToken("SVD of "));
@@ -1171,10 +1201,14 @@ public class MatrixMode extends FunctionMode {
             Token t = MatrixUtils.evaluateExpression(temp, false);
             if (t instanceof Matrix) {
                 double[][] a = ((Matrix) t).getEntriesAsDbls();
+                ArrayList<Token> input = new ArrayList<>();
+                ArrayList<Token> output = new ArrayList<>();
                 if (rref) {
                     steps = MatrixUtils.knitSteps(a, MatrixUtils.getRREFSteps(a));
+                    input.add(0, new StringToken("RREF of "));
                 } else {
                     steps = MatrixUtils.knitSteps(a, MatrixUtils.getREFSteps(a));
+                    input.add(0, new StringToken("REF of "));
                 }
                 if (steps.size() == 0) {
                     Token[] temp1 = new Token[2];
@@ -1182,6 +1216,9 @@ public class MatrixMode extends FunctionMode {
                     temp1[1] = new StringToken("");
                     steps.add(temp1);
                 }
+                input.addAll(tokens);
+                output.add(steps.get(steps.size() - 1)[0]);
+                saveEquation(input, output, filename);
             } else {
                 throw new IllegalArgumentException("The result must be a single Matrix to be row reducible");
             }

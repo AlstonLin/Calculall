@@ -17,7 +17,6 @@ public abstract class Variable extends Token implements Serializable {
             CONSTANT = 8, MATRIX_A = 9, MATRIX_B = 10, MATRIX_C = 11, U = 12,
             V = 13, S = 14, T = 15, Y = 16;
     public static final double PI_VALUE = Math.PI, E_VALUE = Math.E;
-    public static final double SPEED_OF_LIGHT = 299792458, MAGNETIC = (4 * Math.PI) * 1e-7;
     public boolean negative = false;
 
 
@@ -51,10 +50,6 @@ public abstract class Variable extends Token implements Serializable {
         }
         symbol += super.getSymbol();
         return symbol;
-    }
-
-    public String toLaTeX() {
-        return "$" + getSymbol() + "$";
     }
 
     /**

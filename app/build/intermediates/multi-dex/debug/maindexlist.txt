@@ -81,8 +81,8 @@ com/google/common/collect/ImmutableList.class
 android/support/annotation/InterpolatorRes.class
 com/google/android/gms/internal/bm.class
 org/apache/commons/math3/distribution/GammaDistribution.class
-org/apache/commons/math3/optim/nonlinear/vector/ModelFunctionJacobian.class
 org/apache/commons/math3/optim/nonlinear/vector/jacobian/LevenbergMarquardtOptimizer.class
+org/apache/commons/math3/optim/nonlinear/vector/ModelFunctionJacobian.class
 com/google/common/primitives/UnsignedInteger.class
 org/apache/commons/math3/analysis/function/Minus.class
 com/trutechinnovations/calculall/MainActivity.class

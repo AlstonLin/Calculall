@@ -292,6 +292,77 @@ public class MatrixUtils {
         return eigen;
     }
 
+    private static double[] dedupe(double[] a) {
+        if (a.length < 2)
+            return a;
+
+        int j = 0;
+        int i = 1;
+
+        while (i < a.length) {
+            if (a[i] == a[j]) {
+                i++;
+            } else {
+                j++;
+                a[j] = a[i];
+                i++;
+            }
+        }
+
+        double[] b = Arrays.copyOf(a, j + 1);
+
+        return b;
+    }
+
+    public static double[] getEigenValues(double[][] matrix) {
+        if (matrix.length != matrix[0].length) {
+            throw new IllegalArgumentException("Non square matrices to not have eigenvalues");
+        }
+        EigenDecomposition ed = new EigenDecomposition(new Array2DRowRealMatrix(matrix));
+        if (ed.hasComplexEigenvalues()) {
+            throw new UnsupportedOperationException("Matrices with complex eigenvalues are not supported");
+        }
+        double[] temp = roundInfinitesimals(dedupe(ed.getRealEigenvalues()));
+        Arrays.sort(temp);
+        return temp;
+    }
+
+    private static double min(double[] a) {
+        double min = a[0];
+        for (int i = 0; i < a.length; i++) {
+            min = Math.min(min, a[i]);
+        }
+        return min;
+    }
+
+    private static boolean isRational(double x) {
+        if (x % 1 == 0) {
+            return true; //TODO: finish this
+        } else {
+            return false;
+        }
+    }
+
+    private static double[] cleanupVector(double[] v) {
+        double[] output = new double[v.length];
+        double min = min(v);
+        for (int i = 0; i < v.length; i++) {
+            output[i] = v[i] / min;
+        }
+        return output;
+    }
+
+    private static boolean isDiagonal(double[][] m) {
+        for (int i = 0; i < m.length; i++) {
+            for (int j = 0; j < m[0].length; j++) {
+                if (i != j && m[i][j] != 0) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     /**
      * Finds the Eigenvectors of the given matrix.
      *
@@ -303,13 +374,22 @@ public class MatrixUtils {
             throw new IllegalArgumentException("Non square matrices to not have eigenvectors");
         }
         //double[] eigenValues = unwrapDblArray((new HashSet<Double>(Arrays.asList(wrapDblArray(MathUtilities.getEigenValues(matrix))))).toArray(new Double[0]));
-        EigenDecomposition ed = new EigenDecomposition(new Array2DRowRealMatrix(matrix));
-        Set<Vector> eigenVectors = new HashSet<>();
-        for (int i = 0; i < matrix.length; i++) {
-            eigenVectors.add(new Vector(ed.getEigenvector(i).toArray()));
-        }
         ArrayList<Vector> output = new ArrayList<>();
-        output.addAll(eigenVectors);
+        if (isDiagonal(matrix)) {
+            for (int i = 0; i < matrix.length; i++) {
+                double[] temp = new double[matrix.length];
+                temp[i] = 1;
+                output.add(new Vector(temp));
+            }
+        } else {
+            EigenDecomposition ed = new EigenDecomposition(new Array2DRowRealMatrix(matrix));
+            Set<Vector> eigenVectors = new HashSet<>();
+            for (int i = 0; i < matrix.length; i++) {
+                double[] temp = cleanupVector(roundInfinitesimals(ed.getEigenvector(i).toArray()));
+                eigenVectors.add(new Vector(temp));
+            }
+            output.addAll(eigenVectors);
+        }
         return output;
     }
 
@@ -328,7 +408,7 @@ public class MatrixUtils {
         ArrayList<Vector> solution = new ArrayList<>(nullity(eigenMatrix));
         double[][] basisMatrix = getNullSpaceMatrix(eigenMatrix);
         for (int j = 0; j < basisMatrix[0].length; j++) {
-            solution.add(new Vector(getColumn(basisMatrix, j)));
+            solution.add(new Vector(roundInfinitesimals(getColumn(basisMatrix, j))));
         }
         return solution;
     }
@@ -388,18 +468,30 @@ public class MatrixUtils {
         return output;
     }
 
+    private static double[][] getP(ArrayList<Vector> eigenVects) {
+        double[][] temp = new double[eigenVects.size()][];
+        for (int i = 0; i < temp.length; i++) {
+            temp[i] = eigenVects.get(i).getValues();
+        }
+        return transpose(temp);
+    }
+
     public static double[][][] getEigenDecomposition(double[][] a) {
         EigenDecomposition ed = new EigenDecomposition(new Array2DRowRealMatrix(a));
         if (ed.hasComplexEigenvalues()) {
             throw new IllegalArgumentException("Diagonalization of matrices with complex eigenvalues is not supported");
         }
         double[][][] output = new double[3][][];
-        output[0] = roundInfinitesimals(ed.getV().getData());
+        output[0] = roundInfinitesimals(getP(getEigenVectors(a)));
         if (rank(output[0]) != output.length) {
             throw new IllegalArgumentException("The matrix is not diagonalizable");
         }
-        output[1] = ed.getD().getData();
-        output[2] = findInverse(ed.getV().getData());
+        output[2] = roundInfinitesimals(findInverse(output[0]));
+        if (isDiagonal(a)) {
+            output[1] = roundInfinitesimals(multiply(output[0], multiply(a, output[2])));
+        } else {
+            output[1] = roundInfinitesimals(ed.getD().getData());
+        }
         return output;
     }
 
@@ -797,6 +889,14 @@ public class MatrixUtils {
                     Double[] scaleStep = {3d, (double) i, scalar};
                     steps.add(scaleStep);
                 }
+                if (pivot != -1 && i >= 1 && !onlyZeroes(Arrays.copyOfRange(getColumn(temp, pivot), 0, i))) {
+                    for (int j = 0; j < i; j++) {
+                        double scalar = -1 * temp[j][pivot] / temp[i][pivot];
+                        temp = addRows(temp, j, i, scalar);
+                        Double[] addStep = {2d, (double) j, (double) i, scalar};
+                        steps.add(addStep);
+                    }
+                }
             }
 
             if (pivotRowIndex > 1 && a.length > 2) {
@@ -848,13 +948,23 @@ public class MatrixUtils {
         return roundInfinitesimals(applySteps(a, getRREFSteps(a)));
     }
 
-    private static double[][] roundInfinitesimals(double[][] input) {
+    public static double[][] roundInfinitesimals(double[][] input) {
         double[][] temp = deepCopyDblMatrix(input);
         for (int i = 0; i < temp.length; i++) {
             for (int j = 0; j < temp[0].length; j++) {
                 if (Math.log10(Math.abs(temp[i][j])) <= -15) {
                     temp[i][j] = 0;
                 }
+            }
+        }
+        return temp;
+    }
+
+    public static double[] roundInfinitesimals(double[] input) {
+        double[] temp = input.clone();
+        for (int i = 0; i < temp.length; i++) {
+            if (Math.log10(Math.abs(temp[i])) <= -15) {
+                temp[i] = 0;
             }
         }
         return temp;
@@ -988,13 +1098,13 @@ public class MatrixUtils {
 
     public static double[][][] getLUDecomposition(double[][] a) {
         if (findDeterminant(a) == 0) {
-            throw new IllegalArgumentException("Matrix must be nonsingular/invertible in order to be LU factorizable");
+            throw new IllegalArgumentException("LUP factorization is not yet supported for singular/noninvertible matrices");
         }
         LUDecomposition lu = new LUDecomposition(new Array2DRowRealMatrix(a));
         double[][][] output = new double[3][][];
-        output[0] = lu.getU().getData();
-        output[1] = lu.getL().getData();
-        output[2] = lu.getP().getData();
+        output[0] = roundInfinitesimals(lu.getU().getData());
+        output[1] = roundInfinitesimals(lu.getL().getData());
+        output[2] = roundInfinitesimals(lu.getP().getData());
         return output;
     }
 
@@ -1048,17 +1158,17 @@ public class MatrixUtils {
     public static double[][][] getQRDecomposition(double[][] a) {
         QRDecomposition qr = new QRDecomposition(new Array2DRowRealMatrix(a));
         double[][][] output = new double[2][][];
-        output[0] = qr.getQ().getData();
-        output[1] = qr.getR().getData();
+        output[0] = roundInfinitesimals(qr.getQ().getData());
+        output[1] = roundInfinitesimals(qr.getR().getData());
         return output;
     }
 
     public static double[][][] getRRQRDecomposition(double[][] a) {
         RRQRDecomposition rrqr = new RRQRDecomposition(new Array2DRowRealMatrix(a));
         double[][][] output = new double[3][][];
-        output[0] = rrqr.getQ().getData();
-        output[1] = rrqr.getR().getData();
-        output[2] = rrqr.getP().getData();
+        output[0] = roundInfinitesimals(rrqr.getQ().getData());
+        output[1] = roundInfinitesimals(rrqr.getR().getData());
+        output[2] = roundInfinitesimals(rrqr.getP().getData());
         return output;
     }
 
@@ -1066,8 +1176,8 @@ public class MatrixUtils {
         try {
             CholeskyDecomposition ch = new CholeskyDecomposition(new Array2DRowRealMatrix(a));
             double[][][] output = new double[2][][];
-            output[0] = ch.getL().getData();
-            output[1] = ch.getLT().getData();
+            output[0] = roundInfinitesimals(ch.getL().getData());
+            output[1] = roundInfinitesimals(ch.getLT().getData());
             return output;
         } catch (NonSquareMatrixException e) {
             throw new IllegalArgumentException("Matrix is not square");
@@ -1081,9 +1191,9 @@ public class MatrixUtils {
     public static double[][][] getSVDecomposition(double[][] a) {
         SingularValueDecomposition svd = new SingularValueDecomposition(new Array2DRowRealMatrix(a));
         double[][][] output = new double[3][][];
-        output[0] = svd.getU().getData();
-        output[1] = svd.getS().getData();
-        output[2] = svd.getVT().getData();
+        output[0] = roundInfinitesimals(svd.getU().getData());
+        output[1] = roundInfinitesimals(svd.getS().getData());
+        output[2] = roundInfinitesimals(svd.getVT().getData());
         return output;
     }
 

@@ -7,6 +7,7 @@ import org.matheclipse.core.interfaces.IExpr;
 import org.matheclipse.parser.client.SyntaxError;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Utilities specifically for calculus related functions.
@@ -482,4 +483,56 @@ public class MathUtilities {
         }
         return eigenValues;
     }
+
+    /**
+     * Uses symja to get the eigenbasis of a given matrix
+     *
+     * @param matrix The input matrix
+     * @return The basis of the eigenspace of the matrix
+     */
+    public static ArrayList<Vector> getEigenVectors(double[][] matrix) { //TODO: finish this
+        String eigenString = parseMatrix(matrix);
+        return getEigenVectorsStr(eigenString, getEigenValues(matrix));
+    }
+
+    public static ArrayList<Vector> getEigenVectorsStr(String matrix, double[] eigenvals) {
+        String str = " Nullspace(" + matrix;
+        ArrayList<Double> done = new ArrayList<>();
+        int n = eigenvals.length;
+        ArrayList<double[]> vects = new ArrayList<>();
+
+        for (Double val : eigenvals) {
+            if (!done.contains(val)) {
+                vects.addAll(Arrays.asList(strToArray(util.evaluate(str.concat(" - " + val + "*IdentityMatrix(" + n + "))")).toString(), n, n)));
+                done.add(val);
+            }
+        }
+
+        ArrayList<Vector> output = new ArrayList<>();
+        for (double[] vector : vects) {
+            output.add(new Vector(vector));
+        }
+        return output;
+    }
+
+    private static double[][] strToArray(String matrix, int ncol, int nrow) {
+        matrix = matrix.substring(1, matrix.length() - 2); //Removes start and end {}
+        String[] strArray = matrix.split(",");
+        int row = 0;
+        double[][] output = new double[nrow][ncol];
+        for (int i = 0; i < strArray.length; i++) {
+            if (strArray[i].contains("{")) {
+                strArray[i] = strArray[i].substring(0, strArray[i].length() - 1);
+                output[row][0] = Double.parseDouble(strArray[i]);
+            } else if (strArray[i].contains("}")) {
+                strArray[i] = strArray[i].substring(0, strArray[i].length() - 1);
+                output[row][ncol - 1] = Double.parseDouble(strArray[i]);
+                row++;
+            } else {
+                output[row][((i + 1) % ncol) - 1] = Double.parseDouble(strArray[i]);
+            }
+        }
+        return output;
+    }
 }
+

@@ -974,9 +974,14 @@ public class Utility {
     public static ArrayList<Token> subVariables(ArrayList<Token> tokens, boolean constants) {
         ArrayList<Token> newTokens = new ArrayList<>();
         for (Token token : tokens) {
-            if (token instanceof Variable && ((token.getType() != Variable.PI && token.getType() != Variable.E) || constants)) {
+            if (token instanceof Variable && ((token.getType() != Variable.PI && token.getType() != Variable.E && token.getType() != Variable.CONSTANT) || constants)) {
                 int index = tokens.indexOf(token);
                 Variable v = (Variable) token;
+                ArrayList<Token> val = v.getValue();
+                val = condenseDigits(val);
+                if (val.isEmpty()) {
+                    val.add(new Number(0));
+                }
                 newTokens.addAll(index, v.getValue());
             } else {
                 newTokens.add(token);

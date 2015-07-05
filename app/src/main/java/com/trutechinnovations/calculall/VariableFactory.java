@@ -211,7 +211,7 @@ public class VariableFactory {
             }
 
             public String toLaTeX() {
-                return "$"+constant.getSymbol()+"$";
+                return constant.getSymbol();
             }
         };
     }

@@ -6,7 +6,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.AsyncTask;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -419,10 +421,23 @@ public class FunctionMode extends Advanced {
         float minY = pref.getFloat(activity.getString(R.string.y_min), -10f);
         float maxX = pref.getFloat(activity.getString(R.string.x_max), 10f);
         float maxY = pref.getFloat(activity.getString(R.string.y_max), 10f);
+
+        TypedValue typedValue = new TypedValue();
+        Resources.Theme theme = activity.getTheme();
+        theme.resolveAttribute(R.attr.displayTextColor, typedValue, true);
+
         ((EditText) layout.findViewById(R.id.x_min)).setText(Float.toString(minX));
+        //((EditText) layout.findViewById(R.id.x_min)).setTextColor(typedValue.data);
+
         ((EditText) layout.findViewById(R.id.y_min)).setText(Float.toString(minY));
+        //((EditText) layout.findViewById(R.id.y_min)).setTextColor(typedValue.data);
+
         ((EditText) layout.findViewById(R.id.x_max)).setText(Float.toString(maxX));
+        //((EditText) layout.findViewById(R.id.x_max)).setTextColor(typedValue.data);
+
         ((EditText) layout.findViewById(R.id.y_max)).setText(Float.toString(maxY));
+        //((EditText) layout.findViewById(R.id.y_max)).setTextColor(typedValue.data);
+
         graphDialog.show();
     }
 

@@ -239,7 +239,8 @@ public class JFok {
      * @return The new node
      */
     private static Node<Token> applyInvTrigSpecialValues(Node<Token> root) {
-        if (Function.angleMode == Function.RADIAN && root.getContent() instanceof Function) {
+        if (Function.angleMode == Function.RADIAN && root.getContent() instanceof Function &&
+                (root.getContent().getType() == Function.ARCSIN || root.getContent().getType() == Function.ARCCOS || root.getContent().getType() == Function.ARCTAN)) {
             ArrayList<Token> expression = traverseTree(root.getChildren().get(0));
             double value = Utility.process(expression);
             value = Utility.round(value, 7);
@@ -360,7 +361,7 @@ public class JFok {
             if (root.getContent().getType() == Function.SIN) {
                 double degree = num % 360;
                 boolean negative = false;
-                //Convets to <90 degree
+                //Converts to <90 degree
                 if (degree > 90 && degree < 180) { // Q2 -> 180 - angle
                     degree = 180 - degree;
                 } else if (degree > 180 && degree < 270) { // Q3 -> angle - 180 & negative
@@ -385,7 +386,7 @@ public class JFok {
             } else if (root.getContent().getType() == Function.COS) {
                 double degree = num % 360;
                 boolean negative = false;
-                //Convets to <90 degree
+                //Converts to <90 degree
                 if (degree > 90 && degree < 180) { // Q2 -> 180 - angle & negative
                     degree = 180 - degree;
                     negative = true;
@@ -409,7 +410,7 @@ public class JFok {
             } else if (root.getContent().getType() == Function.TAN) {
                 double degree = num % 360;
                 boolean negative = false;
-                //Convets to <90 degree
+                //Converts to <90 degree
                 if (degree > 90 && degree < 180) { // Q2 -> 180 - angle & negative
                     degree = 180 - degree;
                     negative = true;
