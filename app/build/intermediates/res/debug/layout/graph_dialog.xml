@@ -25,8 +25,8 @@
             android:layout_weight="2"
             android:gravity="center_horizontal"
             android:text="@string/x_min"
-            android:textSize="24sp"
-            android:textColor="?displayTextColor"/>
+            android:textColor="?displayTextColor"
+            android:textSize="24sp" />
 
         <EditText
             android:id="@+id/x_min"
@@ -44,8 +44,8 @@
             android:layout_weight="2"
             android:gravity="center_horizontal"
             android:text="@string/x_max"
-            android:textSize="24sp"
-            android:textColor="?displayTextColor"/>
+            android:textColor="?displayTextColor"
+            android:textSize="24sp" />
 
         <EditText
             android:id="@+id/x_max"
@@ -71,8 +71,8 @@
             android:layout_weight="2"
             android:gravity="center_horizontal"
             android:text="@string/y_min"
-            android:textSize="24sp"
-            android:textColor="?displayTextColor" />
+            android:textColor="?displayTextColor"
+            android:textSize="24sp" />
 
         <EditText
             android:id="@+id/y_min"
@@ -90,8 +90,8 @@
             android:layout_weight="2"
             android:gravity="center_horizontal"
             android:text="@string/y_max"
-            android:textSize="24sp"
-            android:textColor="?displayTextColor" />
+            android:textColor="?displayTextColor"
+            android:textSize="24sp" />
 
         <EditText
             android:id="@+id/y_max"

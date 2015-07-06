@@ -482,7 +482,7 @@ public class MatrixUtils {
             throw new IllegalArgumentException("Diagonalization of matrices with complex eigenvalues is not supported");
         }
         double[][][] output = new double[3][][];
-        output[0] = roundInfinitesimals(getP(getEigenVectors(a)));
+        output[0] = roundInfinitesimals(ed.getV().getData());
         if (rank(output[0]) != output.length) {
             throw new IllegalArgumentException("The matrix is not diagonalizable");
         }
