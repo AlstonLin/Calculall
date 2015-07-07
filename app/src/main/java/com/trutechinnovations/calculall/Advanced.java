@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import java.util.ArrayList;
@@ -147,13 +148,20 @@ public class Advanced extends Basic {
      */
     public void clickEquals() {
         try {
+            //Does a quick check to see if the result would be infinite
+            Number num = new Number(Utility.process(Utility.subVariables(tokens)));
+            if (Double.isInfinite(num.getValue())) {
+                throw new NumberTooLargeException();
+            } else if (num.getValue() == 9001) {
+                Toast.makeText(activity, "IT'S OVER 9000!!", Toast.LENGTH_LONG).show();
+            }
             if (fracMode == DEC) {
-                super.clickEquals();
+                ArrayList<Token> list = new ArrayList<Token>();
+                list.add(num);
+                display.displayOutput(list);
+                saveEquation(tokens, list, filename);
+                VariableFactory.ansValueAdv = list;
             } else if (fracMode == FRAC) {
-                double value = Utility.process(tokens);
-                if (Double.isInfinite(value)) {
-                    throw new ArithmeticException("Math Error");
-                }
                 ArrayList<Token> output = Utility.subVariables(tokens, false);
                 output = JFok.simplifyExpression(output);
                 display.displayOutput(output);
@@ -165,6 +173,7 @@ public class Advanced extends Basic {
         }
         activity.scrollDown();
     }
+
 
     public void clickAngleMode() {
         Button angleModeButton = (Button) activity.findViewById(R.id.angle_mode);
@@ -899,6 +908,7 @@ public class Advanced extends Basic {
 
     /**
      * Opens the constants list.
+     *
      */
     public void openConst() {
         //Inflates the XML file so you get the View to add to the PopupWindow
@@ -909,37 +919,28 @@ public class Advanced extends Basic {
         constWindow = new PopupWindow(layout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
 
         //Populate arraylist
-        arrayOfConstants.add(ConstantFactory.makeSpeedOfLight());
-        arrayOfConstants.add(ConstantFactory.makePlanck());
-        arrayOfConstants.add(ConstantFactory.makeRedPlanck());
-        arrayOfConstants.add(ConstantFactory.makeGravitational());
-        arrayOfConstants.add(ConstantFactory.makeGasConst());
-        arrayOfConstants.add(ConstantFactory.makeBoltzmann());
-        arrayOfConstants.add(ConstantFactory.makeAvogadro());
-        arrayOfConstants.add(ConstantFactory.makeStefanBoltzmann());
-        arrayOfConstants.add(ConstantFactory.makeFaraday());
-        arrayOfConstants.add(ConstantFactory.makeMagnetic());
-        arrayOfConstants.add(ConstantFactory.makeElectric());
-        arrayOfConstants.add(ConstantFactory.makeCoulomb());
-        arrayOfConstants.add(ConstantFactory.makeElemCharge());
-        arrayOfConstants.add(ConstantFactory.makeElectronMass());
-        arrayOfConstants.add(ConstantFactory.makeProtonMass());
-        arrayOfConstants.add(ConstantFactory.makeNeutronMass());
-        arrayOfConstants.add(ConstantFactory.makeAtomicMass());
-        arrayOfConstants.add(ConstantFactory.makeRydberg());
-        arrayOfConstants.add(ConstantFactory.makeFineStruct());
-
-        arrayOfConstants.add(ConstantFactory.makeEarthGrav());
-        arrayOfConstants.add(ConstantFactory.makeEarthMass());
-        arrayOfConstants.add(ConstantFactory.makeEarthRadius());
-
-        arrayOfConstants.add(ConstantFactory.makeSolarMass());
-        arrayOfConstants.add(ConstantFactory.makeSolarRadius());
-        arrayOfConstants.add(ConstantFactory.makeSolarLuminosity());
-
-        arrayOfConstants.add(ConstantFactory.makeAU());
-        arrayOfConstants.add(ConstantFactory.makePhi());
-        arrayOfConstants.add(ConstantFactory.makeEulerMascheroni());
+        arrayOfConstants.add(new Constant("Speed of Light", "c", 2.99792458e8, "m/s"));
+        arrayOfConstants.add(new Constant("Planck's constant", "h", 6.62606957e-34, "m<sup>2</sup>kg/s"));
+        arrayOfConstants.add(new Constant("Gravitational constant", "G", 6.67259e-11, "N*m<sup>2</sup>/kg<sup>2</sup>"));
+        arrayOfConstants.add(new Constant("Gas constant", "R", 8.31451, "J/mol*K"));
+        arrayOfConstants.add(new Constant("Gas constant", "R", 8.31451, "m<sup>3</sup>*Pa/mol*K"));
+        arrayOfConstants.add(new Constant("Gas constant", "R", 1.98589, "cal/mol*K"));
+        arrayOfConstants.add(new Constant("Gas constant", "R", 1545.36, "ft*lb<sub>f</sub>/lb<sub>mol</sub>*°R"));
+        arrayOfConstants.add(new Constant("Gas constant", "R", 0.082058, "L*atm/mol*K"));
+        arrayOfConstants.add(new Constant("Gas constant", "R", 0.730244, "ft<sup>3</sup>*atm/lb<sub>mol</sub>*°R"));
+        arrayOfConstants.add(new Constant("Gas constant", "R", 10.7316, "ft<sup>3</sup>*psi/lb<sub>mol</sub>*°R"));
+        arrayOfConstants.add(new Constant("Gas constant", "R", 82.0578, "cm<sup>3</sup>*atm/mol*K"));
+        arrayOfConstants.add(new Constant("Avogadro's Number", "N<sub>A</sub>", 6.02214e23, "mol<sup>-1</sup>"));
+        arrayOfConstants.add(new Constant("Faraday Constant", "F", 96485.31, "C/mol"));
+        arrayOfConstants.add(new Constant("Boltzmann's Constant", "k<sub>B</sub>", 1.38066e-23, "J/K"));
+        arrayOfConstants.add(new Constant("Charge of electron", "e", 1.602177e-19, "C"));
+        arrayOfConstants.add(new Constant("Mass of electron", "m<sub>e</sub>", 9.10939e-31, "kg"));
+        arrayOfConstants.add(new Constant("Mass of neutron", "m<sub>n</sub>", 1.67262e-27, "kg"));
+        arrayOfConstants.add(new Constant("Mass of proton", "m<sub>p</sub>", 1.67492e-27, "kg"));
+        arrayOfConstants.add(new Constant("Permitivity of free space", "ɛ<sub>0</sub>", 8.854e-12, "C<sup>2</sup>/N*m<sup>2</sup>"));
+        arrayOfConstants.add(new Constant("Permitivity of free space", "k", 8.99e9, "N*m<sup>2</sup>/C<sup>2</sup>"));
+        arrayOfConstants.add(new Constant("Permitivity of free space", "μ<sub>0</sub>", 4 * Math.PI * 1e-7, "Wb/A*m"));
+        arrayOfConstants.add(new Constant("Permitivity of free space", "ε<sub>0</sub>", 8.85e-12, "C<sup>2</sup>/N*m<sup>2</sup>"));
 
         //Create the adapter to convert the array to views
         ConstantsAdapter adapter = new ConstantsAdapter(activity, arrayOfConstants);
@@ -1043,7 +1044,7 @@ public class Advanced extends Basic {
             constantName.setText(constant.getName());
             constantName.setTextColor(typedValue.data);
 
-            constantSymbol.setText(constant.getSymbol());
+            constantSymbol.setText(Html.fromHtml(constant.getSymbol()));
             constantSymbol.setTextColor(typedValue.data);
 
             constantVal.setText(Double.toString(constant.getNumericValue()));
@@ -1055,14 +1056,13 @@ public class Advanced extends Basic {
 
             //To respond to user touches
             final Constant cnst = arrayOfConstants.get(position); //Makes a constant reference so that cnst can be accessed by an inner class
-
             convertView.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
                     if (event.getAction() == MotionEvent.ACTION_UP) {
-                        tokens.add(display.getRealCursorIndex(), VariableFactory.makeConstantToken(cnst));
-                        display.setCursorIndex(display.getCursorIndex() + 1);
+                        tokens.add(VariableFactory.makeConstantToken(cnst)); //Adds the token to the input
                         updateInput();
+                        display.setCursorIndex(display.getCursorIndex() + 1); //Moves the cursor behind the constant
                         constWindow.dismiss(); //Exits constWindow once an Item has been selected
                         return true;
                     } else {
@@ -1073,4 +1073,5 @@ public class Advanced extends Basic {
             return convertView;
         }
     }
+
 }

@@ -36,7 +36,7 @@
     <string name="arccosh"><![CDATA[cosh<sup><small>-1</small></sup>]]></string>
     <string name="arctan"><![CDATA[tan<sup><small>-1</small></sup>]]></string>
     <string name="arctanh"><![CDATA[tanh<sup><small>-1</small></sup>]]></string>
-    <string name="done">✔</string>
+    <string name="done">DONE</string>
     <string name="num">#</string>
     <string name="edit">Edit</string>
     <string name="newe"><![CDATA[[ ]<sup><small>+</small></sup>]]></string>

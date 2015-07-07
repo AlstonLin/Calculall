@@ -88,4 +88,139 @@
         <item name="android:color">@color/textColorTheme2</item>
         <item name="android:fontFamily">"sans-serif-light"</item>
     </style>
+
+    <!--Theme3-->
+    <style name="buttonDarkTheme3" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:textColor">@color/textColorTheme3</item>
+        <item name="android:background">@color/backgroundTheme3</item>
+        <item name="android:fontFamily">"sans-serif-thin"</item>
+    </style>
+
+    <style name="buttonLightTheme3" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:textColor">@color/textColorTheme3</item>
+        <item name="android:background">@color/color1Theme3</item>
+        <item name="android:fontFamily">"sans-serif-thin"</item>
+    </style>
+
+    <style name="buttonSpecialTheme3" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:textColor">@color/textColorTheme3</item>
+        <item name="android:background">@color/color2Theme3</item>
+        <item name="android:fontFamily">"sans-serif-medium"</item>
+    </style>
+
+
+    <style name="buttonNumTheme3" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:textColor">@color/numPadColorTheme3</item>
+        <item name="android:background">@color/color1Theme3</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:fontFamily">"sans-serif-light"</item>
+    </style>
+
+    <style name="CheckBoxTheme3" parent="android:Widget.DeviceDefault.CompoundButton.CheckBox">
+        <item name="android:textColor">@color/textColorTheme3</item>
+        <item name="android:textColorPrimary">@color/textColorTheme3</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:fontFamily">"sans-serif-thin"</item>
+    </style>
+
+    <style name="spinnerTextTheme3" parent="android:Widget.DeviceDefault.TextView.SpinnerItem">
+        <item name="android:background">@color/displayTheme3</item>
+        <item name="android:dropDownSelector">@color/displayTheme3</item>
+        <item name="android:divider">@null</item>
+        <item name="android:textColor">@color/textColorTheme3</item>
+        <item name="android:color">@color/textColorTheme3</item>
+        <item name="android:fontFamily">"sans-serif-light"</item>
+    </style>
+
+    <!--Theme4-->
+    <style name="buttonDarkTheme4" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:textColor">@color/textColorTheme4</item>
+        <item name="android:background">@color/backgroundTheme4</item>
+        <item name="android:fontFamily">"sans-serif-thin"</item>
+    </style>
+
+    <style name="buttonLightTheme4" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:textColor">@color/textColorTheme4</item>
+        <item name="android:background">@color/color1Theme4</item>
+        <item name="android:fontFamily">"sans-serif-thin"</item>
+    </style>
+
+    <style name="buttonSpecialTheme4" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:textColor">@color/textColorTheme4</item>
+        <item name="android:background">@color/color2Theme4</item>
+        <item name="android:fontFamily">"sans-serif-medium"</item>
+    </style>
+
+
+    <style name="buttonNumTheme4" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:textColor">@color/numPadColorTheme4</item>
+        <item name="android:background">@color/color1Theme4</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:fontFamily">"sans-serif-light"</item>
+    </style>
+
+    <style name="CheckBoxTheme4" parent="android:Widget.DeviceDefault.CompoundButton.CheckBox">
+        <item name="android:textColor">@color/textColorTheme4</item>
+        <item name="android:textColorPrimary">@color/textColorTheme4</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:fontFamily">"sans-serif-thin"</item>
+    </style>
+
+    <style name="spinnerTextTheme4" parent="android:Widget.DeviceDefault.TextView.SpinnerItem">
+        <item name="android:background">@color/displayTheme4</item>
+        <item name="android:dropDownSelector">@color/displayTheme4</item>
+        <item name="android:divider">@null</item>
+        <item name="android:textColor">@color/textColorTheme4</item>
+        <item name="android:color">@color/textColorTheme4</item>
+        <item name="android:fontFamily">"sans-serif-light"</item>
+    </style>
+
+    <!--Theme5-->
+    <style name="buttonDarkTheme5" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:textColor">@color/textColorTheme5</item>
+        <item name="android:background">@color/backgroundTheme5</item>
+        <item name="android:fontFamily">"sans-serif-thin"</item>
+    </style>
+
+    <style name="buttonLightTheme5" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:textColor">@color/textColorTheme5</item>
+        <item name="android:background">@color/color1Theme5</item>
+        <item name="android:fontFamily">"sans-serif-thin"</item>
+    </style>
+
+    <style name="buttonSpecialTheme5" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:textColor">@color/textColorTheme5</item>
+        <item name="android:background">@color/color2Theme5</item>
+        <item name="android:fontFamily">"sans-serif-medium"</item>
+    </style>
+
+
+    <style name="buttonNumTheme5" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:textColor">@color/numPadColorTheme5</item>
+        <item name="android:background">@color/color1Theme5</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:fontFamily">"sans-serif-light"</item>
+    </style>
+
+    <style name="CheckBoxTheme5" parent="android:Widget.DeviceDefault.CompoundButton.CheckBox">
+        <item name="android:textColor">@color/textColorTheme5</item>
+        <item name="android:textColorPrimary">@color/textColorTheme5</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:fontFamily">"sans-serif-thin"</item>
+    </style>
+
+    <style name="spinnerTextTheme5" parent="android:Widget.DeviceDefault.TextView.SpinnerItem">
+        <item name="android:background">@color/displayTheme5</item>
+        <item name="android:dropDownSelector">@color/displayTheme5</item>
+        <item name="android:divider">@null</item>
+        <item name="android:textColor">@color/textColorTheme5</item>
+        <item name="android:color">@color/textColorTheme5</item>
+        <item name="android:fontFamily">"sans-serif-light"</item>
+    </style>
 </resources>

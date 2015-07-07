@@ -637,10 +637,24 @@ public class Basic implements View.OnClickListener {
                                 input.add(t);
                             }
                         }
+
                         //Adds the input expression to the current tokens
-                        tokens.addAll(input); //Adds the input of the entry
+                        tokens.addAll(display.getRealCursorIndex(), input); //Adds the input of the entry
+                        int cursorChange = 0;
+                        for (Token t : input) { //Determines the correct cursor position after the inserted expression
+                            if (!(t instanceof Placeholder && (t.getType() == Placeholder.SUPERSCRIPT_BLOCK || t.getType() == Placeholder.BASE_BLOCK) ||
+                                    (t instanceof Operator && t.getType() == Operator.VARROOT) ||
+                                    (t instanceof Bracket && t.getType() == Bracket.SUPERSCRIPT_OPEN) ||
+                                    (t instanceof Bracket && t.getType() == Bracket.DENOM_OPEN) ||
+                                    (t instanceof Bracket && t.getType() == Bracket.NUM_OPEN) ||
+                                    (t instanceof Bracket && t.getType() == Bracket.FRACTION_CLOSE) ||
+                                    (t instanceof Operator && t.getType() == Operator.FRACTION))) {
+                                cursorChange++;
+                            }
+                        }
+                        updatePlaceHolders();
+                        display.setCursorIndex(display.getCursorIndex() + cursorChange);
                         historyWindow.dismiss(); //Exits history once an Item has been selected
-                        updateInput();
                         return true;
                     } else {
                         return false;

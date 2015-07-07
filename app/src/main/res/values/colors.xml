@@ -16,4 +16,28 @@
     <color name="textColorTheme2">#fff</color>
     <color name="numPadColorTheme2">#ffFF9900</color>
 
+    <color name="backgroundTheme3">#250f34</color>
+    <color name="textDisplayColorTheme3">#226dff</color>
+    <color name="displayTheme3">#a49ca4</color>
+    <color name="color1Theme3">#3a2738</color>
+    <color name="color2Theme3">#1b0b22</color>
+    <color name="textColorTheme3">#fff</color>
+    <color name="numPadColorTheme3">#226dff</color>
+
+    <color name="backgroundTheme4">#103334</color>
+    <color name="textDisplayColorTheme4">#9affd0</color>
+    <color name="displayTheme4">#3ea499</color>
+    <color name="color1Theme4">#1c393a</color>
+    <color name="color2Theme4">#052022</color>
+    <color name="textColorTheme4">#fff</color>
+    <color name="numPadColorTheme4">#ff9974</color>
+
+    <color name="backgroundTheme5">#3B8686</color>
+    <color name="textDisplayColorTheme5">#3B8686</color>
+    <color name="displayTheme5">#CFF09E</color>
+    <color name="color1Theme5">#0B486B</color>
+    <color name="color2Theme5">#3B8686</color>
+    <color name="textColorTheme5">#fff</color>
+    <color name="numPadColorTheme5">#9affd0</color>
+
 </resources>

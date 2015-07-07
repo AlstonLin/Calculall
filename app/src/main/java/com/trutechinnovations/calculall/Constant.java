@@ -6,7 +6,7 @@ import java.util.ArrayList;
 /**
  * Created by Jason on 2015-06-28.
  */
-public abstract class Constant extends Variable {
+public class Constant extends Variable {
 
     private String name;
     private double value;
@@ -32,12 +32,10 @@ public abstract class Constant extends Variable {
     }
 
     public ArrayList<Token> getValue() {
-        //String temp = Double.toString(value);
         ArrayList<Token> tokens = new ArrayList<>();
         Token tempToken = new Number(value);
         tokens.add(tempToken);
         return tokens;
     }
 
-    public abstract String toLaTeX();
 }

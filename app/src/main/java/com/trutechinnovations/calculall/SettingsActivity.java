@@ -76,13 +76,13 @@ public class SettingsActivity extends Activity {
                 setTheme(R.style.Theme2);
                 break;
             case PANDA:
-                setTheme(R.style.Theme1);
+                setTheme(R.style.Theme3);
                 break;
             case TRAILBLAZER:
-                setTheme(R.style.Theme1);
+                setTheme(R.style.Theme4);
                 break;
             case HAWKS:
-                setTheme(R.style.Theme1);
+                setTheme(R.style.Theme5);
                 break;
             case GEESE:
                 setTheme(R.style.Theme1);
@@ -310,11 +310,11 @@ public class SettingsActivity extends Activity {
     public class ImageAdapter extends BaseAdapter {
         LayoutInflater inflater;
         private Context mContext;
-        private String[] theme_names = new String[]{"Blue Delight", "Orange on Black"};
-        private int[] color1 = new int[]{R.color.color1David, R.color.color1Theme2};
-        private int[] bg = new int[]{R.color.textDisplayColorDavid, R.color.backgroundTheme2};
-        private int[] color2 = new int[]{R.color.numPadColorDavid, R.color.numPadColorTheme2};
-        private int[] text = new int[]{R.color.textColorDavid, R.color.textColorTheme2};
+        private String[] theme_names = new String[]{"Blue Delight", "Orange on Black", "Purple Monster", "Green Forest", "Carribean Blue"};
+        private int[] color1 = new int[]{R.color.color1David, R.color.color1Theme2, R.color.color1Theme3, R.color.color1Theme4, R.color.color1Theme5};
+        private int[] bg = new int[]{R.color.textDisplayColorDavid, R.color.backgroundTheme2, R.color.backgroundTheme3, R.color.backgroundTheme4, R.color.backgroundTheme5};
+        private int[] color2 = new int[]{R.color.numPadColorDavid, R.color.numPadColorTheme2, R.color.numPadColorTheme3, R.color.numPadColorTheme4, R.color.numPadColorTheme5};
+        private int[] text = new int[]{R.color.textColorDavid, R.color.textColorTheme2, R.color.textColorTheme3, R.color.textColorTheme4, R.color.textColorTheme5};
 
         // Constructor
         public ImageAdapter(Context c) {
