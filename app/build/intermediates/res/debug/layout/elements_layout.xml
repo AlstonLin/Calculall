@@ -47,12 +47,14 @@
         <TextView
             android:id="@+id/text_view"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="0dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="x"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="72sp" />
+            android:padding="0dp"
+            android:text="X"
+            android:textAppearance="?attr/displayTextColor"
+            android:textSize="20sp" />
 
         <Spinner
             android:id="@+id/y_spinner"
