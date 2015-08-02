@@ -1,6 +1,10 @@
 -- Merging decision tree log ---
 manifest
 ADDED from AndroidManifest.xml:2:1
+	android:theme
+		ADDED from AndroidManifest.xml:4:5
+	xmlns:android
+		ADDED from AndroidManifest.xml:2:11
 	package
 		ADDED from AndroidManifest.xml:3:5
 		INJECTED from AndroidManifest.xml:0:0
@@ -11,10 +15,6 @@ ADDED from AndroidManifest.xml:2:1
 		ADDED from AndroidManifest.xml:5:5
 		INJECTED from AndroidManifest.xml:0:0
 		INJECTED from AndroidManifest.xml:0:0
-	xmlns:android
-		ADDED from AndroidManifest.xml:2:11
-	android:theme
-		ADDED from AndroidManifest.xml:4:5
 uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
 ADDED from AndroidManifest.xml:8:5
 	android:name
@@ -39,10 +39,10 @@ MERGED from com.android.support:support-v4:21.0.0:16:5
 meta-data#com.google.android.gms.version
 ADDED from AndroidManifest.xml:16:9
 MERGED from com.google.android.gms:play-services:6.5.87:21:9
-	android:value
-		ADDED from AndroidManifest.xml:18:13
 	android:name
 		ADDED from AndroidManifest.xml:17:13
+	android:value
+		ADDED from AndroidManifest.xml:18:13
 activity#com.trutechinnovations.calculall.MainActivity
 ADDED from AndroidManifest.xml:20:9
 	android:screenOrientation

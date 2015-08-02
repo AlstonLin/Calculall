@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- From: file:/D:/App%20dev/Calculall/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ml-rIN/common_strings.xml -->
+    <!-- From: file:/C:/Users/Jason/AndroidStudioProjects/Calculall/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ml-rIN/common_strings.xml -->
     <eat-comment/>
     <string msgid="473679118463211576" name="common_android_wear_notification_needs_update_text">"ഒരു അപ്ലിക്കേഷന് Android Wear അപ്ലിക്കേഷനിലേക്ക് അപ്‌ഡേറ്റ് ആവശ്യമാണ്."</string>
     <string msgid="3046420540094071256" name="common_android_wear_update_text">"നിങ്ങൾ Android Wear അപ്ലിക്കേഷൻ അപ്‌ഡേറ്റുചെയ്യാത്തിടത്തോളം ഈ അപ്ലിക്കേഷൻ പ്രവർത്തിക്കില്ല."</string>

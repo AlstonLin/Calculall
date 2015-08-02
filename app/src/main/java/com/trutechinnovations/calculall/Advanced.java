@@ -1044,7 +1044,9 @@ public class Advanced extends Basic {
             constantName.setText(constant.getName());
             constantName.setTextColor(typedValue.data);
 
-            constantSymbol.setText(Html.fromHtml(constant.getSymbol()));
+            //Set the constant symbol to be the actual symbol, the symbol var of the constant
+            //is the numeric value to be displayed in the user's input
+            constantSymbol.setText(Html.fromHtml(constant.getConstantSymbol()));
             constantSymbol.setTextColor(typedValue.data);
 
             constantVal.setText(Double.toString(constant.getNumericValue()));
