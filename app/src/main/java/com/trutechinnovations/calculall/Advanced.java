@@ -923,13 +923,13 @@ public class Advanced extends Basic {
         arrayOfConstants.add(new Constant("Planck's constant", "h", 6.62606957e-34, "m<sup>2</sup>kg/s"));
         arrayOfConstants.add(new Constant("Gravitational constant", "G", 6.67259e-11, "N*m<sup>2</sup>/kg<sup>2</sup>"));
         arrayOfConstants.add(new Constant("Gas constant", "R", 8.31451, "J/mol*K"));
-        arrayOfConstants.add(new Constant("Gas constant", "R", 8.31451, "m<sup>3</sup>*Pa/mol*K"));
+/*        arrayOfConstants.add(new Constant("Gas constant", "R", 8.31451, "m<sup>3</sup>*Pa/mol*K"));
         arrayOfConstants.add(new Constant("Gas constant", "R", 1.98589, "cal/mol*K"));
         arrayOfConstants.add(new Constant("Gas constant", "R", 1545.36, "ft*lb<sub>f</sub>/lb<sub>mol</sub>*°R"));
         arrayOfConstants.add(new Constant("Gas constant", "R", 0.082058, "L*atm/mol*K"));
         arrayOfConstants.add(new Constant("Gas constant", "R", 0.730244, "ft<sup>3</sup>*atm/lb<sub>mol</sub>*°R"));
         arrayOfConstants.add(new Constant("Gas constant", "R", 10.7316, "ft<sup>3</sup>*psi/lb<sub>mol</sub>*°R"));
-        arrayOfConstants.add(new Constant("Gas constant", "R", 82.0578, "cm<sup>3</sup>*atm/mol*K"));
+        arrayOfConstants.add(new Constant("Gas constant", "R", 82.0578, "cm<sup>3</sup>*atm/mol*K"));*/
         arrayOfConstants.add(new Constant("Avogadro's Number", "N<sub>A</sub>", 6.02214e23, "mol<sup>-1</sup>"));
         arrayOfConstants.add(new Constant("Faraday Constant", "F", 96485.31, "C/mol"));
         arrayOfConstants.add(new Constant("Boltzmann's Constant", "k<sub>B</sub>", 1.38066e-23, "J/K"));
