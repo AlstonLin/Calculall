@@ -40,6 +40,7 @@ import java.util.ArrayList;
  */
 public class MainActivity extends FragmentActivity implements ViewPager.OnPageChangeListener { //, MoPubInterstitial.InterstitialAdListener {
 
+    public static final int BASIC = 0, ADVANCED = 1, FUNCTION = 2, VECTOR = 3, MATRIX = 4;
     //Fragment Objects
     public static final int AD_RATE = 2; //Ads will show 1 in 2 activity opens
     private static final String AD_ID = "3ae32e9f72e2402cb01bbbaf1d6ba1f4";
@@ -55,8 +56,10 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
     private boolean feedbackOn;
     private int lastMode;
     private int fontSize;
-    //private MoPubInterstitial interstitial;
     private int currentTheme;
+    //For temporarily storing expressions between modes
+    private ArrayList<Token> basicExpr, advancedExpr, functionExpr, vectorExpr, matrixExpr;
+    //private MoPubInterstitial interstitial;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +75,12 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
             return;
         }
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        //Initiates the ArrayLists for temporary storage
+        basicExpr = new ArrayList<>();
+        advancedExpr = new ArrayList<>();
+        functionExpr = new ArrayList<>();
+        vectorExpr = new ArrayList<>();
+        matrixExpr = new ArrayList<>();
     }
 
 
@@ -227,19 +236,19 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
             stream.close();
             //Now sets the tokens
             switch (lastMode) {
-                case 0:
+                case BASIC:
                     Basic.getInstance().setTokens(tokens);
                     break;
-                case 1:
+                case ADVANCED:
                     Advanced.getInstance().setTokens(tokens);
                     break;
-                case 2:
+                case FUNCTION:
                     FunctionMode.getInstance().setTokens(tokens);
                     break;
-                case 3:
+                case VECTOR:
                     VectorMode.getInstance().setTokens(tokens);
                     break;
-                case 4:
+                case MATRIX:
                     MatrixMode.getInstance().setTokens(tokens);
                     break;
             }
@@ -377,7 +386,26 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
     @Override
     public void onPageSelected(int position) {
         if (position != lastMode) {
-            display.clear();
+            //Saves the expression to the corrosponding list
+            switch (lastMode) {
+                case BASIC:
+                    basicExpr = Basic.getInstance().getTokens();
+                    break;
+                case ADVANCED:
+                    advancedExpr = Advanced.getInstance().getTokens();
+                    break;
+                case FUNCTION:
+                    functionExpr = FunctionMode.getInstance().getTokens();
+                    break;
+                case VECTOR:
+                    vectorExpr = VectorMode.getInstance().getTokens();
+                    break;
+                case MATRIX:
+                    matrixExpr = MatrixMode.getInstance().getTokens();
+                    break;
+            }
+            display.displayInput(new ArrayList<Token>()); //Changes the reference to a different, blank ArrayList
+            display.displayOutput(new ArrayList<Token>());
             lastMode = position;
         }
         ToggleButton basic = (ToggleButton) findViewById(R.id.basic_button);
@@ -387,40 +415,50 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
         ToggleButton matrix = (ToggleButton) findViewById(R.id.matrix_button);
 
         switch (position) {
-            case 0:
+            case BASIC:
                 basic.setChecked(true);
                 advanced.setChecked(false);
                 function.setChecked(false);
                 vector.setChecked(false);
                 matrix.setChecked(false);
+                display.displayInput(basicExpr);
+                Basic.getInstance().setTokens(basicExpr);
                 break;
-            case 1:
+            case ADVANCED:
                 basic.setChecked(false);
                 advanced.setChecked(true);
                 function.setChecked(false);
                 vector.setChecked(false);
                 matrix.setChecked(false);
+                display.displayInput(advancedExpr);
+                Advanced.getInstance().setTokens(advancedExpr);
                 break;
-            case 2:
+            case FUNCTION:
                 basic.setChecked(false);
                 advanced.setChecked(false);
                 function.setChecked(true);
                 vector.setChecked(false);
                 matrix.setChecked(false);
+                display.displayInput(functionExpr);
+                FunctionMode.getInstance().setTokens(functionExpr);
                 break;
-            case 3:
+            case VECTOR:
                 basic.setChecked(false);
                 advanced.setChecked(false);
                 function.setChecked(false);
                 vector.setChecked(true);
                 matrix.setChecked(false);
+                display.displayInput(vectorExpr);
+                VectorMode.getInstance().setTokens(vectorExpr);
                 break;
-            case 4:
+            case MATRIX:
                 basic.setChecked(false);
                 advanced.setChecked(false);
                 function.setChecked(false);
                 vector.setChecked(false);
                 matrix.setChecked(true);
+                display.displayInput(matrixExpr);
+                MatrixMode.getInstance().setTokens(matrixExpr);
                 break;
             default:
                 throw new IllegalArgumentException("The current pager item index could not be handled");

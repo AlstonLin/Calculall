@@ -66,7 +66,8 @@ public class JFok {
 
 
     /**
-     * Converts the given Number into a fraction.
+     * Converts the given Number into a fraction. If the denominator if more
+     * than 1000, it will assume the result is inaccurate and leave it.
      *
      * @param number The number Token
      * @return An equivalent fraction
@@ -74,6 +75,7 @@ public class JFok {
     public static ArrayList<Token> fractionalize(Number number) {
         double value = number.getValue();
         final double ERROR = 1e-12;
+        final double DENOM_LIMIT = 10000;
         int n = (int) Math.floor(value);
         ArrayList<Token> output = new ArrayList<>();
         value -= n;
@@ -107,19 +109,25 @@ public class JFok {
                 lowerN = middleN;
                 lowerD = middleD;
             } else {
-                Number num = new Number(n * middleD + middleN);
-                Number denom = new Number(middleD);
+                if (middleD < DENOM_LIMIT) { //Denom is within the limit
+                    Number num = new Number(n * middleD + middleN);
+                    Number denom = new Number(middleD);
 
-                output.add(BracketFactory.makeFracOpen());
-                output.add(BracketFactory.makeNumOpen());
-                output.add(num);
-                output.add(BracketFactory.makeNumClose());
-                output.add(OperatorFactory.makeFraction());
-                output.add(BracketFactory.makeDenomOpen());
-                output.add(denom);
-                output.add(BracketFactory.makeDenomClose());
-                output.add(BracketFactory.makeFracClose());
-                return output;
+                    output.add(BracketFactory.makeFracOpen());
+                    output.add(BracketFactory.makeNumOpen());
+                    output.add(num);
+                    output.add(BracketFactory.makeNumClose());
+                    output.add(OperatorFactory.makeFraction());
+                    output.add(BracketFactory.makeDenomOpen());
+                    output.add(denom);
+                    output.add(BracketFactory.makeDenomClose());
+                    output.add(BracketFactory.makeFracClose());
+                    return output;
+                } else {
+                    ArrayList<Token> original = new ArrayList<>();
+                    original.add(number);
+                    return original;
+                }
             }
         }
     }

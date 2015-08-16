@@ -386,7 +386,9 @@ public class MatrixUtils {
             Set<Vector> eigenVectors = new HashSet<>();
             for (int i = 0; i < matrix.length; i++) {
                 double[] temp = cleanupVector(roundInfinitesimals(ed.getEigenvector(i).toArray()));
-                eigenVectors.add(new Vector(temp));
+                if (!(Double.isInfinite(temp[0]) || Double.isNaN(temp[0]))) { //Checks if it is a valid vector
+                    eigenVectors.add(new Vector(temp));
+                }
             }
             output.addAll(eigenVectors);
         }
@@ -1415,8 +1417,10 @@ public class MatrixUtils {
                 throw new IllegalArgumentException();
             }
         }
-        if (stack.size() != 1) {
-            throw new IllegalArgumentException("Stack size is empty"); //There should only be 1 token left on the stack
+        if (stack.size() == 0) {
+            throw new IllegalArgumentException("Input is empty");
+        } else if (stack.size() != 1) {
+            throw new IllegalArgumentException("Illegal Expression"); //There should only be 1 token left on the stack
         } else {
             Object o = stack.pop();
             if (o instanceof Token) {
