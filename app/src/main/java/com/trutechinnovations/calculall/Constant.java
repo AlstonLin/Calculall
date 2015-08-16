@@ -11,11 +11,11 @@ public class Constant extends Variable {
     private String name;
     private double value;
     private String units;
-    private String constantSymbol;
+    //private String constantSymbol;
 
     public Constant(String name, String symbol, double value, String units) {
-        super(Variable.CONSTANT, String.valueOf(value));
-        this.constantSymbol = symbol;
+        //super(Variable.CONSTANT, String.valueOf(value));
+        super(Variable.CONSTANT, symbol);
         this.name = name;
         this.value = value;
         this.units = units;
@@ -40,9 +40,9 @@ public class Constant extends Variable {
         return tokens;
     }
 
-    //Returns numeric value to display in user input instead of symbol
+/*    //Returns numeric value to display in user input instead of symbol
     public String getConstantSymbol() {
         return constantSymbol;
-    }
+    }*/
 
 }
