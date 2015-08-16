@@ -9,16 +9,16 @@ import java.util.ArrayList;
 public class Constant extends Variable {
 
     private String name;
+    private String HTML; //The HTML encoded symbol
     private double value;
     private String units;
-    //private String constantSymbol;
 
-    public Constant(String name, String symbol, double value, String units) {
-        //super(Variable.CONSTANT, String.valueOf(value));
+    public Constant(String name, String HTML, String symbol, double value, String units) {
         super(Variable.CONSTANT, symbol);
         this.name = name;
         this.value = value;
         this.units = units;
+        this.HTML = HTML;
     }
 
     public double getNumericValue() {
@@ -40,9 +40,8 @@ public class Constant extends Variable {
         return tokens;
     }
 
-/*    //Returns numeric value to display in user input instead of symbol
-    public String getConstantSymbol() {
-        return constantSymbol;
-    }*/
+    public String getHTML() {
+        return HTML;
+    }
 
 }
