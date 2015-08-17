@@ -3,6 +3,7 @@ package com.trutechinnovations.calculall;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.drawable.BitmapDrawable;
 import android.text.Html;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -31,20 +32,19 @@ import java.util.LinkedList;
 public class Advanced extends Basic {
 
     public static final int DEC = 1, FRAC = 2;
+    protected int fracMode = DEC;
     public static final int CONSTANTS_SIZE = 25;
     public static final double CONSTANTS_IO_RATIO = 0.7; //The size of the output / input in the
     private static final String FILENAME = "history_advanced";
     private static final String FILENAMECONST = "const_advanced";
     private static final Basic INSTANCE = new Advanced();
     private static String filenameConst = "const_advanced";
-    protected int fracMode = DEC;
     //Fields
     protected ArrayList<MultiButton> multiButtons;
     protected boolean hyperbolic = false, shift = false, mem = false;
     ArrayList<Constant> arrayOfConstants = new ArrayList<Constant>();//Constants data
     private Dialog graphDialog;
     private PopupWindow constWindow;
-    private PopupWindow pw;
     private Dialog constantsDialog;
 
     { //pseudo-constructor
@@ -917,6 +917,7 @@ public class Advanced extends Basic {
 
         //Creates the popupWindow, with the width matching the parent's and height matching the parent's
         constWindow = new PopupWindow(layout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
+        constWindow.setBackgroundDrawable(new BitmapDrawable());
 
         //Populate arraylist
         arrayOfConstants.add(new Constant("Speed of Light", "c", 2.99792458e8, "m/s"));
@@ -983,6 +984,10 @@ public class Advanced extends Basic {
         exponent.addDependency(closeBracket);
         display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
+    }
+
+    public PopupWindow getPopup() {
+        return constWindow;
     }
 
     public boolean isShift() {

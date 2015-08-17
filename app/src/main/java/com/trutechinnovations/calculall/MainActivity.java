@@ -15,6 +15,7 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.PopupWindow;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -464,20 +465,20 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
                 throw new IllegalArgumentException("The current pager item index could not be handled");
         }
         /**
-        //Possibly shows ads
-        if (interstitial != null) {
-            interstitial.destroy(); //Prevents Ads from other activities appearing if it is not loaded before switching between them
-        }
-        if (position != 0 && showAd) { //Deos not show ads in Basic
-            Random random = new Random();
-            if (random.nextInt(AD_RATE) == 0) {
-                // Create the interstitial.
-                interstitial = new MoPubInterstitial(this, AD_ID);
-                interstitial.setInterstitialAdListener(this);
-                interstitial.load();
-                interstitial.load();
-            }
-        }
+         //Possibly shows ads
+         if (interstitial != null) {
+         interstitial.destroy(); //Prevents Ads from other activities appearing if it is not loaded before switching between them
+         }
+         if (position != 0 && showAd) { //Deos not show ads in Basic
+         Random random = new Random();
+         if (random.nextInt(AD_RATE) == 0) {
+         // Create the interstitial.
+         interstitial = new MoPubInterstitial(this, AD_ID);
+         interstitial.setInterstitialAdListener(this);
+         interstitial.load();
+         interstitial.load();
+         }
+         }
          **/
     }
 
@@ -496,6 +497,28 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
 
     public void setShowAd(boolean showAd) {
         this.showAd = showAd;
+    }
+
+    @Override
+    public void onBackPressed() {
+        PopupWindow historyPw = Basic.historyWindow;
+        PopupWindow advancedPw = ((Advanced) Advanced.getInstance()).getPopup();
+        PopupWindow functionPw = ((FunctionMode) FunctionMode.getInstance()).getPw();
+        PopupWindow elementPw = ((MatrixMode) MatrixMode.getInstance()).getElementWindow();
+        PopupWindow elementsPw = ((MatrixMode) MatrixMode.getInstance()).getElementsWindow();
+        if (historyPw.isShowing()) {
+            historyPw.dismiss();
+        } else if (advancedPw.isShowing()) {
+            advancedPw.dismiss();
+        } else if (functionPw.isShowing()) {
+            functionPw.dismiss();
+        } else if (elementPw.isShowing()) {
+            elementPw.dismiss();
+        } else if (elementsPw.isShowing()) {
+            elementsPw.dismiss();
+        } else {
+            super.onBackPressed();
+        }
     }
 
     /**

@@ -327,10 +327,12 @@ public class MatrixUtils {
         return temp;
     }
 
-    private static double min(double[] a) {
-        double min = a[0];
+    private static double min(double[] a) { //NOTE: THIS IS NON-ZERO
+        double min = Integer.MAX_VALUE;
         for (int i = 0; i < a.length; i++) {
-            min = Math.min(min, a[i]);
+            if (a[i] != 0 && Math.abs(a[i]) < min) {
+                min = Math.abs(a[i]);
+            }
         }
         return min;
     }
@@ -342,6 +344,7 @@ public class MatrixUtils {
             return false;
         }
     }
+
 
     private static double[] cleanupVector(double[] v) {
         double[] output = new double[v.length];

@@ -3,6 +3,7 @@ package com.trutechinnovations.calculall;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.drawable.BitmapDrawable;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.SpannedString;
@@ -347,6 +348,7 @@ public class MatrixMode extends FunctionMode {
         LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View layout = inflater.inflate(R.layout.elements_layout, null, false);
         elementsWindow = new PopupWindow(layout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
+        elementsWindow.setBackgroundDrawable(new BitmapDrawable());
         elementsWindow.showAtLocation(activity.findViewById(R.id.frame), Gravity.CENTER, 0, 0);
         //Generates an array of Strings representing the Matrix entries
         String[] strs = new String[m.getNumOfRows() * m.getNumOfCols()];
@@ -425,6 +427,7 @@ public class MatrixMode extends FunctionMode {
         LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View layout = inflater.inflate(R.layout.element_layout, null, false);
         elementWindow = new PopupWindow(layout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
+        elementWindow.setBackgroundDrawable(new BitmapDrawable());
         elementWindow.showAtLocation(activity.findViewById(R.id.frame), Gravity.CENTER, 0, 0);
 
         //Sets up the Buttons
@@ -1399,6 +1402,14 @@ public class MatrixMode extends FunctionMode {
      */
     public void clickExitDecomp() {
         decompWindow.dismiss();
+    }
+
+    public PopupWindow getElementsWindow() {
+        return elementsWindow;
+    }
+
+    public PopupWindow getElementWindow() {
+        return elementWindow;
     }
 
     /**

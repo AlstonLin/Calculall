@@ -12,6 +12,9 @@ import java.util.Stack;
  */
 public class JFok {
 
+    public static final double FRACTIONALIZE_ERROR = 1e-12;
+    public static final double FRACTIONALIZE_DENOM_LIMIT = 10000;
+
     /**
      * Simplify and factor the given mathematical expression. There should be no
      * variables in the expression given.
@@ -74,17 +77,15 @@ public class JFok {
      */
     public static ArrayList<Token> fractionalize(Number number) {
         double value = number.getValue();
-        final double ERROR = 1e-12;
-        final double DENOM_LIMIT = 10000;
         int n = (int) Math.floor(value);
         ArrayList<Token> output = new ArrayList<>();
         value -= n;
 
         //Checks if it is an integer
-        if (value < ERROR) {
+        if (value < FRACTIONALIZE_ERROR) {
             output.add(new Number(n));
             return output;
-        } else if (1 - ERROR < value) {
+        } else if (1 - FRACTIONALIZE_ERROR < value) {
             output.add(new Number(n + 1));
             return output;
         }
@@ -102,14 +103,14 @@ public class JFok {
             int middleN = lowerN + upperN;
             int middleD = lowerD + upperD;
 
-            if (middleD * (value + ERROR) < middleN) {
+            if (middleD * (value + FRACTIONALIZE_ERROR) < middleN) {
                 upperN = middleN;
                 upperD = middleD;
-            } else if (middleN < (value - ERROR) * middleD) {
+            } else if (middleN < (value - FRACTIONALIZE_ERROR) * middleD) {
                 lowerN = middleN;
                 lowerD = middleD;
             } else {
-                if (middleD < DENOM_LIMIT) { //Denom is within the limit
+                if (middleD < FRACTIONALIZE_DENOM_LIMIT) { //Denom is within the limit
                     Number num = new Number(n * middleD + middleN);
                     Number denom = new Number(middleD);
 
