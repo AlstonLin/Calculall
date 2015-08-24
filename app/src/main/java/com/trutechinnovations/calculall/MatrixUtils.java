@@ -374,11 +374,11 @@ public class MatrixUtils {
      */
     public static ArrayList<Vector> getEigenVectors(double[][] matrix) {
         if (matrix.length != matrix[0].length) {
-            throw new IllegalArgumentException("Non square matrices to not have eigenvectors");
+            throw new IllegalArgumentException("Non square matrices do not have eigenvectors");
         }
         //double[] eigenValues = unwrapDblArray((new HashSet<Double>(Arrays.asList(wrapDblArray(MathUtilities.getEigenValues(matrix))))).toArray(new Double[0]));
         ArrayList<Vector> output = new ArrayList<>();
-        if (isDiagonal(matrix)) {
+        /*if (isDiagonal(matrix)) {
             for (int i = 0; i < matrix.length; i++) {
                 double[] temp = new double[matrix.length];
                 temp[i] = 1;
@@ -394,7 +394,9 @@ public class MatrixUtils {
                 }
             }
             output.addAll(eigenVectors);
-        }
+        }*/
+        output = MathUtilities.getEigenVectors(matrix);
+
         return output;
     }
 
@@ -487,8 +489,9 @@ public class MatrixUtils {
             throw new IllegalArgumentException("Diagonalization of matrices with complex eigenvalues is not supported");
         }
         double[][][] output = new double[3][][];
-        output[0] = roundInfinitesimals(ed.getV().getData());
-        if (rank(output[0]) != output.length) {
+        //output[0] = roundInfinitesimals(ed.getV().getData());
+        output[0] = roundInfinitesimals(getP(getEigenVectors(a)));
+        if (rank(output[0]) != output[0].length) {
             throw new IllegalArgumentException("The matrix is not diagonalizable");
         }
         output[2] = roundInfinitesimals(findInverse(output[0]));
@@ -497,6 +500,8 @@ public class MatrixUtils {
         } else {
             output[1] = roundInfinitesimals(ed.getD().getData());
         }
+
+
         return output;
     }
 
@@ -959,6 +964,8 @@ public class MatrixUtils {
             for (int j = 0; j < temp[0].length; j++) {
                 if (Math.log10(Math.abs(temp[i][j])) <= -15) {
                     temp[i][j] = 0;
+                } else if (Math.log10(Math.abs(temp[i][j] - Math.round(temp[i][j]))) <= -14) {
+                    temp[i][j] = Math.round(temp[i][j]);
                 }
             }
         }
@@ -970,6 +977,8 @@ public class MatrixUtils {
         for (int i = 0; i < temp.length; i++) {
             if (Math.log10(Math.abs(temp[i])) <= -15) {
                 temp[i] = 0;
+            } else if (Math.log10(Math.abs(temp[i] - Math.round(temp[i]))) <= -14) {
+                temp[i] = Math.round(temp[i]);
             }
         }
         return temp;
