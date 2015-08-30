@@ -223,4 +223,50 @@
         <item name="android:color">@color/textColorTheme5</item>
         <item name="android:fontFamily">"sans-serif-light"</item>
     </style>
+
+
+    <!--Theme6-->
+    <style name="buttonDarkTheme6" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:textColor">@color/textColorTheme6</item>
+        <item name="android:background">@color/backgroundTheme6</item>
+        <item name="android:fontFamily">"sans-serif-thin"</item>
+    </style>
+
+    <style name="buttonLightTheme6" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:textColor">@color/textColorTheme6</item>
+        <item name="android:background">@color/color1Theme6</item>
+        <item name="android:fontFamily">"sans-serif-thin"</item>
+    </style>
+
+    <style name="buttonSpecialTheme6" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:textColor">@color/textColorTheme6</item>
+        <item name="android:background">@color/color2Theme6</item>
+        <item name="android:fontFamily">"sans-serif-medium"</item>
+    </style>
+
+
+    <style name="buttonNumTheme6" parent="android:Widget.Holo.Button.Borderless.Small">
+        <item name="android:textColor">@color/numPadColorTheme6</item>
+        <item name="android:background">@color/color1Theme6</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:fontFamily">"sans-serif-light"</item>
+    </style>
+
+    <style name="CheckBoxTheme6" parent="android:Widget.DeviceDefault.CompoundButton.CheckBox">
+        <item name="android:textColor">@color/textColorTheme6</item>
+        <item name="android:textColorPrimary">@color/textColorTheme6</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:fontFamily">"sans-serif-thin"</item>
+    </style>
+
+    <style name="spinnerTextTheme6" parent="android:Widget.DeviceDefault.TextView.SpinnerItem">
+        <item name="android:background">@color/color1Theme6</item>
+        <item name="android:dropDownSelector">@color/displayTheme6</item>
+        <item name="android:divider">@null</item>
+        <item name="android:textColor">@color/textColorTheme6</item>
+        <item name="android:color">@color/textColorTheme6</item>
+        <item name="android:fontFamily">"sans-serif-light"</item>
+    </style>
 </resources>

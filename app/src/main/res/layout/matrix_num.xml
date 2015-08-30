@@ -26,7 +26,7 @@
                 android:layout_weight="1"
                 android:onClick="onClick"
                 android:text="@string/plusminus"
-                android:textSize="36sp" />
+                android:textSize="20sp" />
 
         </com.balysv.materialripple.MaterialRippleLayout>
 
@@ -44,7 +44,7 @@
                 android:layout_weight="1"
                 android:onClick="onClick"
                 android:text="@string/sqrt"
-                android:textSize="36sp" />
+                android:textSize="20sp" />
 
         </com.balysv.materialripple.MaterialRippleLayout>
 
@@ -63,7 +63,7 @@
                 android:gravity="center"
                 android:onClick="onClick"
                 android:text="@string/backspace"
-                android:textSize="36sp" />
+                android:textSize="20sp" />
 
         </com.balysv.materialripple.MaterialRippleLayout>
 
@@ -312,7 +312,7 @@
                 android:layout_weight="1"
                 android:onClick="onClick"
                 android:text="@string/done"
-                android:textSize="36sp" />
+                android:textSize="20sp" />
 
         </com.balysv.materialripple.MaterialRippleLayout>
 

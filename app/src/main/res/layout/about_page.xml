@@ -76,7 +76,7 @@
 
             <Button
                 android:id="@+id/visit"
-                style="?attr/buttonNum"
+                style="?attr/buttonSpecial"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"

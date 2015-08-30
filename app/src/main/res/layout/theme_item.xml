@@ -29,15 +29,6 @@
             android:layout_marginRight="16dp"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/sample_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginRight="10dp"
-                android:text="15"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-
             <ImageButton
                 android:id="@+id/color1"
                 android:layout_width="40dp"

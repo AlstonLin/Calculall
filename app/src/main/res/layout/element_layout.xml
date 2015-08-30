@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:background="?android:colorBackground"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingBottom="0dp"
+    android:weightSum="10">
 
     <LinearLayout
         android:id="@+id/container"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="30"
+        android:layout_weight="3"
         android:orientation="horizontal">
 
         <Button
@@ -78,8 +80,8 @@
     <LinearLayout
         android:id="@+id/Grid"
         android:layout_width="fill_parent"
-        android:layout_height="0sp"
-        android:layout_weight="70"
+        android:layout_height="0dp"
+        android:layout_weight="7"
         android:orientation="vertical">
 
         <LinearLayout
@@ -106,7 +108,7 @@
                     android:onClick="onClick"
                     android:textOff="@string/shift"
                     android:textOn="@string/shift"
-                    android:textSize="32sp" />
+                    android:textSize="20sp" />
 
             </com.balysv.materialripple.MaterialRippleLayout>
 
@@ -160,7 +162,7 @@
                     android:gravity="center"
                     android:onClick="onClick"
                     android:text="@string/backspace"
-                    android:textSize="28sp" />
+                    android:textSize="20sp" />
 
             </com.balysv.materialripple.MaterialRippleLayout>
 
@@ -177,7 +179,7 @@
                     android:layout_weight="1"
                     android:onClick="onClick"
                     android:text="@string/C"
-                    android:textSize="32sp" />
+                    android:textSize="20sp" />
 
             </com.balysv.materialripple.MaterialRippleLayout>
 
@@ -579,7 +581,7 @@
                     android:layout_weight="1"
                     android:onClick="onClick"
                     android:text="@string/done"
-                    android:textSize="36sp" />
+                    android:textSize="20sp" />
 
             </com.balysv.materialripple.MaterialRippleLayout>
 

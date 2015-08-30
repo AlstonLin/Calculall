@@ -85,7 +85,7 @@ public class SettingsActivity extends Activity {
                 setTheme(R.style.Theme5);
                 break;
             case GEESE:
-                setTheme(R.style.Theme1);
+                setTheme(R.style.Theme6);
                 break;
             case SUNSET:
                 setTheme(R.style.Theme1);
@@ -310,11 +310,11 @@ public class SettingsActivity extends Activity {
     public class ImageAdapter extends BaseAdapter {
         LayoutInflater inflater;
         private Context mContext;
-        private String[] theme_names = new String[]{"Blue Delight", "Orange on Black", "Purple Monster", "Green Forest", "Carribean Blue"};
-        private int[] color1 = new int[]{R.color.color1David, R.color.color1Theme2, R.color.color1Theme3, R.color.color1Theme4, R.color.color1Theme5};
-        private int[] bg = new int[]{R.color.textDisplayColorDavid, R.color.backgroundTheme2, R.color.backgroundTheme3, R.color.backgroundTheme4, R.color.backgroundTheme5};
-        private int[] color2 = new int[]{R.color.numPadColorDavid, R.color.numPadColorTheme2, R.color.numPadColorTheme3, R.color.numPadColorTheme4, R.color.numPadColorTheme5};
-        private int[] text = new int[]{R.color.textColorDavid, R.color.textColorTheme2, R.color.textColorTheme3, R.color.textColorTheme4, R.color.textColorTheme5};
+        private String[] theme_names = new String[]{"Blue Delight", "Orange on Black", "Purple Monster", "Green Forest", "Carribean Blue", "Donate"};
+        private int[] color1 = new int[]{R.color.color1David, R.color.color1Theme2, R.color.color1Theme3, R.color.color1Theme4, R.color.color1Theme5, R.color.color1Theme6};
+        private int[] bg = new int[]{R.color.textDisplayColorDavid, R.color.backgroundTheme2, R.color.backgroundTheme3, R.color.backgroundTheme4, R.color.backgroundTheme5, R.color.backgroundTheme6};
+        private int[] color2 = new int[]{R.color.numPadColorDavid, R.color.numPadColorTheme2, R.color.numPadColorTheme3, R.color.numPadColorTheme4, R.color.numPadColorTheme5, R.color.numPadColorTheme6};
+        private int[] text = new int[]{R.color.textColorDavid, R.color.textColorTheme2, R.color.textColorTheme3, R.color.textColorTheme4, R.color.textColorTheme5, R.color.textColorTheme6};
 
         // Constructor
         public ImageAdapter(Context c) {
@@ -361,7 +361,7 @@ public class SettingsActivity extends Activity {
 
 
             ((TextView) convertView.findViewById(R.id.title)).setText(theme_names[position]);
-            ((TextView) convertView.findViewById(R.id.sample_text)).setTextColor(getResources().getColor(text[position]));
+            //((TextView) convertView.findViewById(R.id.sample_text)).setTextColor(getResources().getColor(text[position]));
             ((ImageButton) convertView.findViewById(R.id.color1)).setBackgroundColor(getResources().getColor(color1[position]));
             ((ImageButton) convertView.findViewById(R.id.color2)).setBackgroundColor(getResources().getColor(color2[position]));
             convertView.findViewById(R.id.theme_select).setBackgroundColor(getResources().getColor(bg[position]));

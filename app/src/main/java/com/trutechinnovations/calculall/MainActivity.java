@@ -134,7 +134,7 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
                 setTheme(R.style.Theme5);
                 break;
             case SettingsActivity.GEESE:
-                setTheme(R.style.Theme1);
+                setTheme(R.style.Theme6);
                 break;
             case SettingsActivity.SUNSET:
                 setTheme(R.style.Theme1);
