@@ -32,13 +32,13 @@ import java.util.LinkedList;
 public class Advanced extends Basic {
 
     public static final int DEC = 1, FRAC = 2;
-    protected int fracMode = DEC;
     public static final int CONSTANTS_SIZE = 25;
     public static final double CONSTANTS_IO_RATIO = 0.7; //The size of the output / input in the
     private static final String FILENAME = "history_advanced";
     private static final String FILENAMECONST = "const_advanced";
     private static final Basic INSTANCE = new Advanced();
     private static String filenameConst = "const_advanced";
+    protected int fracMode = DEC;
     //Fields
     protected ArrayList<MultiButton> multiButtons;
     protected boolean hyperbolic = false, shift = false, mem = false;
@@ -164,6 +164,16 @@ public class Advanced extends Basic {
             } else if (fracMode == FRAC) {
                 ArrayList<Token> output = Utility.subVariables(tokens, false);
                 output = JFok.simplifyExpression(output);
+                boolean noSymjaError = true;
+                ArrayList<Token> temp = new ArrayList<>();
+                try {
+                    temp = MathUtilities.simplify(output);
+                } catch (Exception e) {
+                    noSymjaError = false;
+                }
+                if (noSymjaError && !temp.isEmpty()) {
+                    output = temp;
+                }
                 display.displayOutput(output);
                 saveEquation(tokens, output, FILENAME);
                 VariableFactory.ansValueAdv = output;

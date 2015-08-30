@@ -55,461 +55,56 @@
     </layouts>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: com.trutechinnovations.calculall" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="377a07f7-27dc-473a-a96c-fb1ac73664cb" name="Default" comment="2.4.1 Updated Some Design Bugs">
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\generated\source\buildConfig\test\debug\com\trutechinnovations\calculall\test\BuildConfig.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\classes\test\debug\com\trutechinnovations\calculall\test\BuildConfig.class" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\dex\debug\classes.dex" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\dex\debug\classes2.dex" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\exploded-aar\com.android.support\multidex\1.0.0\AndroidManifest.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\exploded-aar\com.android.support\multidex\1.0.0\classes.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.0\classes.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.0\libs\internal_impl-21.0.0.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\exploded-aar\com.balysv\material-ripple\1.0.2\classes.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\exploded-aar\com.google.android.gms\play-services\6.5.87\classes.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\incremental\aidl\test\debug\dependency.store" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\incremental\mergeAssets\test\debug\merger.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\incremental\mergeResources\debug\merger.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\incremental\mergeResources\test\debug\merger.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\manifests\test\debug\AndroidManifest.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\multi-dex\debug\allclasses.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\multi-dex\debug\componentClasses.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\multi-dex\debug\components.flags" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\multi-dex\debug\maindexlist.txt" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\multi-dex\debug\manifest_keep.txt" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\color\common_signin_btn_text_dark.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\color\common_signin_btn_text_light.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\color\wallet_primary_text_holo_light.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\color\wallet_secondary_text_holo_dark.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-hdpi-v4\common_full_open_on_phone.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-hdpi-v4\common_ic_googleplayservices.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-hdpi-v4\common_signin_btn_icon_disabled_dark.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-hdpi-v4\common_signin_btn_icon_disabled_focus_dark.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-hdpi-v4\common_signin_btn_icon_disabled_focus_light.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-hdpi-v4\common_signin_btn_icon_disabled_light.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-hdpi-v4\common_signin_btn_icon_focus_dark.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-hdpi-v4\common_signin_btn_icon_focus_light.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-hdpi-v4\common_signin_btn_icon_normal_dark.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-hdpi-v4\common_signin_btn_icon_normal_light.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-hdpi-v4\common_signin_btn_icon_pressed_dark.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-hdpi-v4\common_signin_btn_icon_pressed_light.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-hdpi-v4\common_signin_btn_text_disabled_dark.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-hdpi-v4\common_signin_btn_text_disabled_focus_dark.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-hdpi-v4\common_signin_btn_text_disabled_focus_light.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-hdpi-v4\common_signin_btn_text_disabled_light.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-hdpi-v4\common_signin_btn_text_focus_dark.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-hdpi-v4\common_signin_btn_text_focus_light.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-hdpi-v4\common_signin_btn_text_normal_dark.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-hdpi-v4\common_signin_btn_text_normal_light.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-hdpi-v4\common_signin_btn_text_pressed_dark.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-hdpi-v4\common_signin_btn_text_pressed_light.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-hdpi-v4\ic_action_assignment.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-hdpi-v4\ic_action_assignment_black.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-hdpi-v4\ic_action_settings.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-hdpi-v4\ic_action_settings_black.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-hdpi-v4\ic_change.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-hdpi-v4\ic_change_black.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-hdpi-v4\ic_frac_black.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-hdpi-v4\ic_frac_white.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-hdpi-v4\ic_launcher.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-hdpi-v4\ic_plusone_medium_off_client.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-hdpi-v4\ic_plusone_small_off_client.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-hdpi-v4\ic_plusone_standard_off_client.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-hdpi-v4\ic_plusone_tall_off_client.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-hdpi-v4\powered_by_google_dark.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-hdpi-v4\powered_by_google_light.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-mdpi-v4\common_signin_btn_icon_disabled_dark.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-mdpi-v4\common_signin_btn_icon_disabled_focus_dark.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-mdpi-v4\common_signin_btn_icon_disabled_focus_light.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-mdpi-v4\common_signin_btn_icon_disabled_light.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-mdpi-v4\common_signin_btn_icon_focus_dark.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-mdpi-v4\common_signin_btn_icon_focus_light.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-mdpi-v4\common_signin_btn_icon_normal_dark.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-mdpi-v4\common_signin_btn_icon_normal_light.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-mdpi-v4\common_signin_btn_icon_pressed_dark.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-mdpi-v4\common_signin_btn_icon_pressed_light.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-mdpi-v4\common_signin_btn_text_disabled_dark.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-mdpi-v4\common_signin_btn_text_disabled_focus_dark.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-mdpi-v4\common_signin_btn_text_disabled_focus_light.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-mdpi-v4\common_signin_btn_text_disabled_light.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-mdpi-v4\common_signin_btn_text_focus_dark.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-mdpi-v4\common_signin_btn_text_focus_light.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-mdpi-v4\common_signin_btn_text_normal_dark.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-mdpi-v4\common_signin_btn_text_normal_light.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-mdpi-v4\common_signin_btn_text_pressed_dark.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-mdpi-v4\common_signin_btn_text_pressed_light.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-mdpi-v4\ic_action_assignment.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-mdpi-v4\ic_action_assignment_black.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-mdpi-v4\ic_action_settings.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-mdpi-v4\ic_action_settings_black.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-mdpi-v4\ic_change.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-mdpi-v4\ic_change_black.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-mdpi-v4\ic_frac_black.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-mdpi-v4\ic_frac_white.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-mdpi-v4\ic_launcher.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-mdpi-v4\ic_plusone_medium_off_client.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-mdpi-v4\ic_plusone_small_off_client.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-mdpi-v4\ic_plusone_standard_off_client.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-mdpi-v4\ic_plusone_tall_off_client.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-mdpi-v4\powered_by_google_dark.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-mdpi-v4\powered_by_google_light.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-tvdpi-v4\ic_plusone_medium_off_client.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-tvdpi-v4\ic_plusone_small_off_client.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-tvdpi-v4\ic_plusone_standard_off_client.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-tvdpi-v4\ic_plusone_tall_off_client.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xhdpi-v4\common_signin_btn_icon_disabled_dark.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xhdpi-v4\common_signin_btn_icon_disabled_focus_dark.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xhdpi-v4\common_signin_btn_icon_disabled_focus_light.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xhdpi-v4\common_signin_btn_icon_disabled_light.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xhdpi-v4\common_signin_btn_icon_focus_dark.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xhdpi-v4\common_signin_btn_icon_focus_light.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xhdpi-v4\common_signin_btn_icon_normal_dark.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xhdpi-v4\common_signin_btn_icon_normal_light.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xhdpi-v4\common_signin_btn_icon_pressed_dark.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xhdpi-v4\common_signin_btn_icon_pressed_light.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xhdpi-v4\common_signin_btn_text_disabled_dark.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xhdpi-v4\common_signin_btn_text_disabled_focus_dark.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xhdpi-v4\common_signin_btn_text_disabled_focus_light.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xhdpi-v4\common_signin_btn_text_disabled_light.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xhdpi-v4\common_signin_btn_text_focus_dark.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xhdpi-v4\common_signin_btn_text_focus_light.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xhdpi-v4\common_signin_btn_text_normal_dark.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xhdpi-v4\common_signin_btn_text_normal_light.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xhdpi-v4\common_signin_btn_text_pressed_dark.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xhdpi-v4\common_signin_btn_text_pressed_light.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xhdpi-v4\ic_action_assignment.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xhdpi-v4\ic_action_assignment_black.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xhdpi-v4\ic_action_settings.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xhdpi-v4\ic_action_settings_black.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xhdpi-v4\ic_change.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xhdpi-v4\ic_change_black.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xhdpi-v4\ic_frac_black.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xhdpi-v4\ic_frac_white.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xhdpi-v4\ic_launcher.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xhdpi-v4\ic_plusone_medium_off_client.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xhdpi-v4\ic_plusone_small_off_client.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xhdpi-v4\ic_plusone_standard_off_client.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xhdpi-v4\ic_plusone_tall_off_client.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xhdpi-v4\powered_by_google_dark.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xhdpi-v4\powered_by_google_light.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xxhdpi-v4\common_signin_btn_icon_disabled_dark.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xxhdpi-v4\common_signin_btn_icon_disabled_focus_dark.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xxhdpi-v4\common_signin_btn_icon_disabled_focus_light.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xxhdpi-v4\common_signin_btn_icon_disabled_light.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xxhdpi-v4\common_signin_btn_icon_focus_dark.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xxhdpi-v4\common_signin_btn_icon_focus_light.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xxhdpi-v4\common_signin_btn_icon_normal_dark.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xxhdpi-v4\common_signin_btn_icon_normal_light.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xxhdpi-v4\common_signin_btn_icon_pressed_dark.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xxhdpi-v4\common_signin_btn_icon_pressed_light.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xxhdpi-v4\common_signin_btn_text_disabled_dark.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xxhdpi-v4\common_signin_btn_text_disabled_focus_dark.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xxhdpi-v4\common_signin_btn_text_disabled_focus_light.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xxhdpi-v4\common_signin_btn_text_disabled_light.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xxhdpi-v4\common_signin_btn_text_focus_dark.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xxhdpi-v4\common_signin_btn_text_focus_light.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xxhdpi-v4\common_signin_btn_text_normal_dark.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xxhdpi-v4\common_signin_btn_text_normal_light.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xxhdpi-v4\common_signin_btn_text_pressed_dark.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xxhdpi-v4\common_signin_btn_text_pressed_light.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xxhdpi-v4\ic_action_assignment.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xxhdpi-v4\ic_action_assignment_black.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xxhdpi-v4\ic_action_settings.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xxhdpi-v4\ic_action_settings_black.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xxhdpi-v4\ic_change.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xxhdpi-v4\ic_change_black.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xxhdpi-v4\ic_frac_black.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xxhdpi-v4\ic_frac_white.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xxhdpi-v4\ic_launcher.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xxhdpi-v4\ic_plusone_medium_off_client.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xxhdpi-v4\ic_plusone_small_off_client.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xxhdpi-v4\ic_plusone_standard_off_client.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xxhdpi-v4\ic_plusone_tall_off_client.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xxhdpi-v4\powered_by_google_dark.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xxhdpi-v4\powered_by_google_light.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable-xxxhdpi-v4\ic_launcher.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable\change_black.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable\change_white.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable\common_signin_btn_icon_dark.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable\common_signin_btn_icon_light.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable\common_signin_btn_text_dark.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable\common_signin_btn_text_light.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable\custom_button.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable\frac_black.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable\frac_white.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable\history_black.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable\history_white.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable\ic_launcher.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable\settings_black.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable\settings_white.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\drawable\trutech.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\layout\about_page.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\layout\advanced.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\layout\basic.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\layout\element.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\layout\element_layout.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\layout\elements_layout.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\layout\frame.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\layout\function.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\layout\graph_dialog.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\layout\graph_view.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\layout\history_element.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\layout\history_view.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\layout\matrix.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\layout\matrix_num.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\layout\reduction_element.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\layout\reduction_view.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\layout\settings.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\layout\spinner_item.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\layout\theme_item.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\layout\themes_select.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\layout\vector.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\menu\matrix_mode.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\menu\menu_settings.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\menu\ocrmode.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\menu\vector.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\raw\gtm_analytics" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-af\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-am\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-ar\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-bg\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-bn-rBD\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-ca\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-cs\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-da\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-de\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-el\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-en-rGB\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-en-rIN\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-es-rUS\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-es\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-et-rEE\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-eu-rES\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-fa\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-fi\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-fr-rCA\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-fr\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-gl-rES\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-hi\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-hr\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-hu\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-hy-rAM\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-in\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-is-rIS\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-it\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-iw\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-ja\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-ka-rGE\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-kk-rKZ\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-km-rKH\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-kn-rIN\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-ko\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-ky-rKG\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-lo-rLA\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-lt\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-lv\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-mk-rMK\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-ml-rIN\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-mn-rMN\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-mr-rIN\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-ms-rMY\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-my-rMM\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-nb\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-ne-rNP\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-nl\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-pl\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-pt-rBR\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-pt-rPT\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-pt\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-ro\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-ru\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-si-rLK\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-sk\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-sl\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-sr\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-sv\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-sw\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-ta-rIN\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-te-rIN\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-th\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-tl\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-tr\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-uk\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-ur-rPK\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-uz-rUZ\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-v16\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-vi\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-w820dp-v13\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-zh-rCN\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-zh-rHK\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-zh-rTW\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values-zu\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\debug\values\values.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\res\resources-debug-test.ap_" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\intermediates\tmp\dex\debug\inputList.txt" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\outputs\apk\app-debug-unaligned.apk" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\outputs\apk\app-debug.apk" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\app\build\outputs\apk\manifest-merger-debug-report.txt" afterPath="" />
-      <change type="MOVED" beforePath="C:\Users\Ejaaz\Calculall\Calculall\.idea\libraries\multidex_1_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/multidex_1_0_1.xml" />
+    <list default="true" id="377a07f7-27dc-473a-a96c-fb1ac73664cb" name="Default" comment="2.4.4 Bug Fixes">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/Advanced$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/Advanced$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/Advanced$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/Advanced$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/Advanced$3.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/Advanced$3.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/Advanced.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/Advanced.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/AdvancedFragment.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/AdvancedFragment.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/Basic.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/Basic.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/Complex.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/Complex.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/FunctionFragment.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/FunctionFragment.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/FunctionMode$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/FunctionMode$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/FunctionMode$MathThread.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/FunctionMode$MathThread.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/FunctionMode.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/FunctionMode.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/JFok.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/JFok.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MainActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MainActivity.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixFragment.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixFragment.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MathUtilities.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MathUtilities.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/Matrix.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/Matrix.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$10.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$10.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$11.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$11.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$12.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$12.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$3.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$3.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$4.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$4.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$5.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$5.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$6.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$6.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$7.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$7.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$8.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$8.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$9.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$9.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$ReductionAdapter$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$ReductionAdapter$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$ReductionAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode$ReductionAdapter.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixMode.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixUtils$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixUtils$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixUtils$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixUtils$2.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixUtils.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/MatrixUtils.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/NaturalView.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/NaturalView.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/balysv/materialripple/R$color.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/balysv/materialripple/R$color.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/R$color.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/R$color.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/R$color.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/R$color.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/R$dimen.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/R$dimen.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/R$integer.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/R$integer.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/R$integer.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/R$integer.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/R$string.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/R$string.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/R$string.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/R$string.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/R$style.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/R$style.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/R$style.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/R$style.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/balysv/materialripple/R.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/balysv/materialripple/R.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/R.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/R.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/R.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/R.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/SettingsActivity$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/SettingsActivity$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/SettingsActivity$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/SettingsActivity$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/SettingsActivity$3.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/SettingsActivity$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/SettingsActivity$4.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/SettingsActivity$4.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/SettingsActivity$5.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/SettingsActivity$5.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/SettingsActivity$ImageAdapter.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/SettingsActivity$ImageAdapter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/SettingsActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/SettingsActivity.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/Utility.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/Utility.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/Variable.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/Variable.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/VectorFragment.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/trutechinnovations/calculall/VectorFragment.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/multi-dex/debug/allclasses.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/multi-dex/debug/allclasses.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/outputs/apk/app-debug-unaligned.apk" afterPath="$PROJECT_DIR$/app/build/outputs/apk/app-debug-unaligned.apk" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/outputs/apk/app-debug.apk" afterPath="$PROJECT_DIR$/app/build/outputs/apk/app-debug.apk" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/dex/debug/classes.dex" afterPath="$PROJECT_DIR$/app/build/intermediates/dex/debug/classes.dex" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/dex/debug/classes2.dex" afterPath="$PROJECT_DIR$/app/build/intermediates/dex/debug/classes2.dex" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/multi-dex/debug/componentClasses.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/multi-dex/debug/componentClasses.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/gradle_project_sync_data.bin" afterPath="$PROJECT_DIR$/build/intermediates/gradle_project_sync_data.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/resources-debug.ap_" afterPath="$PROJECT_DIR$/app/build/intermediates/res/resources-debug.ap_" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.0/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.0/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.balysv/material-ripple/1.0.2/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.balysv/material-ripple/1.0.2/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/manifests/full/debug/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/manifests/full/debug/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/buildConfig/debug/com/trutechinnovations/calculall/BuildConfig.java" afterPath="$PROJECT_DIR$/app/build/generated/source/buildConfig/debug/com/trutechinnovations/calculall/BuildConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.0/aidl/android/support/v4/app/INotificationSideChannel.aidl" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.0/aidl/android/support/v4/app/INotificationSideChannel.aidl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/balysv/materialripple/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/balysv/materialripple/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/google/android/gms/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/google/android/gms/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/trutechinnovations/calculall/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/trutechinnovations/calculall/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.balysv/material-ripple/1.0.2/R.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.balysv/material-ripple/1.0.2/R.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/R.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/R.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/symbols/debug/R.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/symbols/debug/R.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_ads_attrs.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_ads_attrs.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/Advanced.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/Advanced.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Calculall.iml" afterPath="$PROJECT_DIR$/Calculall.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MathUtilities.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MathUtilities.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/Matrix.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/Matrix.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MatrixMode.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MatrixMode.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MatrixUtils.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MatrixUtils.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_iap_style.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_iap_style.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/common_attrs.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/common_attrs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/common_colors.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/common_colors.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/drawable/common_signin_btn_icon_dark.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/drawable/common_signin_btn_icon_dark.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/drawable/common_signin_btn_icon_light.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/drawable/common_signin_btn_icon_light.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/color/common_signin_btn_text_dark.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/color/common_signin_btn_text_dark.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/drawable/common_signin_btn_text_dark.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/drawable/common_signin_btn_text_dark.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/color/common_signin_btn_text_light.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/color/common_signin_btn_text_light.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/drawable/common_signin_btn_text_light.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/drawable/common_signin_btn_text_light.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-af/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-af/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-am/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-am/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ar/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ar/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-bg/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-bg/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-bn-rBD/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-bn-rBD/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ca/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ca/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-cs/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-cs/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-da/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-da/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-de/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-de/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-el/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-el/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-en-rGB/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-en-rGB/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-en-rIN/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-en-rIN/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-es/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-es/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-es-rUS/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-es-rUS/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-et-rEE/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-et-rEE/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-eu-rES/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-eu-rES/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-fa/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-fa/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-fi/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-fi/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-fr/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-fr/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-fr-rCA/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-fr-rCA/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-gl-rES/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-gl-rES/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-hi/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-hi/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-hr/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-hr/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-hu/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-hu/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-hy-rAM/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-hy-rAM/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-in/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-in/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-is-rIS/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-is-rIS/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-it/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-it/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-iw/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-iw/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ja/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ja/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ka-rGE/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ka-rGE/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-kk-rKZ/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-kk-rKZ/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-km-rKH/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-km-rKH/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-kn-rIN/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-kn-rIN/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ko/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ko/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ky-rKG/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ky-rKG/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-lo-rLA/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-lo-rLA/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-lt/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-lt/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-lv/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-lv/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-mk-rMK/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-mk-rMK/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ml-rIN/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ml-rIN/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-mn-rMN/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-mn-rMN/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-mr-rIN/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-mr-rIN/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ms-rMY/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ms-rMY/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-my-rMM/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-my-rMM/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-nb/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-nb/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ne-rNP/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ne-rNP/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-nl/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-nl/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-pl/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-pl/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-pt/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-pt/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-pt-rBR/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-pt-rBR/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-pt-rPT/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-pt-rPT/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ro/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ro/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ru/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ru/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-si-rLK/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-si-rLK/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-sk/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-sk/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-sl/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-sl/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-sr/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-sr/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-sv/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-sv/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-sw/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-sw/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ta-rIN/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ta-rIN/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-te-rIN/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-te-rIN/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-th/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-th/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-tl/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-tl/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-tr/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-tr/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-uk/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-uk/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ur-rPK/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-ur-rPK/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-uz-rUZ/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-uz-rUZ/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-vi/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-vi/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-zh-rCN/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-zh-rCN/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-zh-rHK/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-zh-rHK/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-zh-rTW/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-zh-rTW/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-zu/common_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-zu/common_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/gradle.xml" afterPath="$PROJECT_DIR$/.idea/gradle.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/local.properties" afterPath="$PROJECT_DIR$/local.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/maps_attrs.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/maps_attrs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/material_ripple_1_0_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/material_ripple_1_0_2.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeAssets/debug/merger.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeAssets/debug/merger.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/play_services_6_5_87.xml" afterPath="$PROJECT_DIR$/.idea/libraries/play_services_6_5_87.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/proguard.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/proguard.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_v4_21_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_v4_21_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.balysv/material-ripple/1.0.2/res/values/values.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.balysv/material-ripple/1.0.2/res/values/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/version.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/version.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/wallet_attrs.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/wallet_attrs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/wallet_colors.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/wallet_colors.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/color/wallet_primary_text_holo_light.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/color/wallet_primary_text_holo_light.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/color/wallet_secondary_text_holo_dark.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/color/wallet_secondary_text_holo_dark.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/wallet_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/wallet_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-es/wallet_strings.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-es/wallet_strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/wallet_styles.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/wallet_styles.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="cd9eac4b-20a3-422a-9b43-1f74ec1f6fb3" name="Rejected commit: Default" comment="2.0 - Bug fixes and ANS button" />
@@ -576,42 +171,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="elements_layout.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/elements_layout.xml">
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="53" column="37" selection-start-line="53" selection-start-column="37" selection-end-line="53" selection-end-column="37" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="settings.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/settings.xml">
-          <provider selected="true" editor-type-id="android-designer">
-            <state />
-          </provider>
-          <provider editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="values.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/values.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="38" selection-start-line="0" selection-start-column="38" selection-end-line="0" selection-end-column="38" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="misc.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.idea/misc.xml">
           <provider selected="true" editor-type-id="text-editor">
@@ -622,21 +181,50 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <file leaf-file-name="MathUtilities.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MathUtilities.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3642857">
-              <caret line="18" column="30" selection-start-line="18" selection-start-column="30" selection-end-line="18" selection-end-column="30" />
-              <folding />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="550" column="0" selection-start-line="550" selection-start-column="0" selection-end-line="550" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="values.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values-v16/values.xml">
+      <file leaf-file-name="MatrixUtils.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MatrixUtils.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="38" selection-start-line="0" selection-start-column="38" selection-end-line="0" selection-end-column="38" />
+              <caret line="296" column="10" selection-start-line="296" selection-start-column="10" selection-end-line="296" selection-end-column="10" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <marker date="1440908198230" expanded="true" signature="60973:62089" placeholder="{...}" />
+                <marker date="1440908198230" expanded="true" signature="61014:61227" placeholder="{...}" />
+                <marker date="1440908198230" expanded="true" signature="61294:62083" placeholder="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MatrixMode.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MatrixMode.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="903" column="165" selection-start-line="903" selection-start-column="165" selection-end-line="903" selection-end-column="165" />
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/build.gradle">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.53235906">
+              <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -1238,6 +826,10 @@
                 <option name="name" value="shrinkReleaseMultiDexComponents" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="shrinkReleaseResources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
                 <option name="description" value="Displays the signing info for each variant." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="signingReport" />
@@ -1806,6 +1398,10 @@
                 <option name="name" value="shrinkReleaseMultiDexComponents" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="shrinkReleaseResources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
                 <option name="description" value="Displays the signing info for each variant." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
                 <option name="name" value="signingReport" />
@@ -1871,7 +1467,7 @@
     <option name="modificationStamps">
       <map>
         <entry key="$PROJECT_DIR$" value="4321030013227" />
-        <entry key="C:\Users\Ejaaz\Calculall\Calculall" value="4321037993346" />
+        <entry key="C:\Users\Ejaaz\Calculall\Calculall" value="4321080087893" />
         <entry key="D:\App dev\Calculall" value="4298249514284" />
       </map>
     </option>
@@ -2281,15 +1877,11 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/JFok.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/VariableFactory.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/Variable.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MathUtilities.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MatrixMode.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MatrixUtils.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/spinner_item.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/SettingsActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/Advanced.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/Constant.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/Basic.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
@@ -2306,6 +1898,12 @@
         <option value="$PROJECT_DIR$/app/src/main/res/values/values.xml" />
         <option value="$PROJECT_DIR$/.idea/misc.xml" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/Advanced.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MathUtilities.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/Matrix.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/Vector.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MatrixUtils.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MatrixMode.java" />
       </list>
     </option>
   </component>
@@ -2395,19 +1993,61 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-        </subPane>
-      </pane>
-      <pane id="Scratches" />
-      <pane id="AndroidView">
-        <subPane>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="Calculall" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Calculall" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Calculall" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Calculall" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="calculall" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
       <pane id="PackagesPane">
         <subPane>
           <PATH>
@@ -2450,6 +2090,16 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="AndroidView">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Calculall" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
       <pane id="Scope" />
     </panes>
   </component>
@@ -2468,7 +2118,7 @@
     <property name="android.project.structure.last.selected" value="app" />
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="recentsLimit" value="5" />
-    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="90138ee8" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="1b116d9c" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="ChangesBrowser.SHOW_FLATTEN" value="false" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/java/com/trutech/calculall" />
@@ -2487,7 +2137,7 @@
     <property name="DEBUGGABLE_PROCESS" value="com.trutechinnovations.calculall" />
     <property name="SHOW_ALL_PROCESSES" value="false" />
     <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager2.WIDTH" value="436" />
-    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="asdfasdfa" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="Nexus_5_API_23_x86" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="217" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="234" />
@@ -3031,28 +2681,28 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32187858" sideWeight="0.91818184" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31958762" sideWeight="0.49786097" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.35051546" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.06422018" sideWeight="0.48878923" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4135166" sideWeight="0.48878923" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24598931" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2342246" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32994652" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24973261" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.44788086" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1534937" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298969" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3997773" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15555556" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32055378" sideWeight="0.49786097" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Memory Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="14" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32694355" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32646048" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -3069,7 +2719,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="0.10.1 - Added cursors and side scrolling architecture" />
     <MESSAGE value="0.10.2 - Finished cursor and superscripting" />
     <MESSAGE value="0.11.0 - Initial commmit for this version" />
     <MESSAGE value="0.11.0 - Initial commit for this version" />
@@ -3094,7 +2743,8 @@
     <MESSAGE value="2.3.5 More bug fixes + new constants" />
     <MESSAGE value="2.4 Overall Merge with 5 Themes, Updated Constants and Completed Matrix Mode" />
     <MESSAGE value="2.4.1 Updated Some Design Bugs" />
-    <option name="LAST_COMMIT_MESSAGE" value="2.4.1 Updated Some Design Bugs" />
+    <MESSAGE value="2.4.4 Bug Fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="2.4.4 Bug Fixes" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -3126,81 +2776,55 @@
           <properties />
           <option name="timeStamp" value="567" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MatrixUtils.java</url>
+          <line>1547</line>
+          <properties />
+          <option name="timeStamp" value="629" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MatrixUtils.java</url>
+          <line>1549</line>
+          <properties />
+          <option name="timeStamp" value="630" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MatrixUtils.java</url>
+          <line>1554</line>
+          <properties />
+          <option name="timeStamp" value="631" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MatrixUtils.java</url>
+          <line>1555</line>
+          <properties />
+          <option name="timeStamp" value="632" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MatrixUtils.java</url>
+          <line>1557</line>
+          <properties />
+          <option name="timeStamp" value="634" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MatrixUtils.java</url>
+          <line>1552</line>
+          <properties />
+          <option name="timeStamp" value="636" />
+        </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="568" />
+      <option name="time" value="637" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/Number.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.21469575">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/decomposition_element.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/constants_element.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="9" column="35" selection-start-line="9" selection-start-column="35" selection-end-line="9" selection-end-column="35" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/app/libs/symja-2015-06-16.jar!/log4j.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.5849732">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/dimens.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/FunctionMode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="438" column="10" selection-start-line="438" selection-start-column="10" selection-end-line="438" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MultiButton.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="50" column="20" selection-start-line="50" selection-start-column="20" selection-end-line="50" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/Node.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/Utility.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="990" column="5" selection-start-line="990" selection-start-column="5" selection-end-line="990" selection-end-column="5" />
         </state>
       </provider>
     </entry>
@@ -3239,44 +2863,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/JFok.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.47887325">
-          <caret line="80" column="36" selection-start-line="80" selection-start-column="36" selection-end-line="80" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MathUtilities.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="492" column="92" selection-start-line="492" selection-start-column="92" selection-end-line="492" selection-end-column="92" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MatrixUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="484" column="59" selection-start-line="484" selection-start-column="59" selection-end-line="484" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/graph_view.xml">
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
       <provider selected="true" editor-type-id="android-designer">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/Matrix.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.8833922">
-          <caret line="35" column="7" selection-start-line="35" selection-start-column="7" selection-end-line="35" selection-end-column="7" />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MatrixFragment.java">
@@ -3304,7 +2898,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.7858881">
           <caret line="38" column="28" selection-start-line="38" selection-start-column="28" selection-end-line="38" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3312,7 +2905,6 @@
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="270" column="19" selection-start-line="270" selection-start-column="19" selection-end-line="270" selection-end-column="19" />
-          <folding />
         </state>
       </provider>
       <provider selected="true" editor-type-id="android-designer">
@@ -3323,7 +2915,6 @@
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
       <provider selected="true" editor-type-id="android-designer">
@@ -3334,7 +2925,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="13" column="32" selection-start-line="13" selection-start-column="16" selection-end-line="13" selection-end-column="32" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3349,7 +2939,6 @@
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="208" column="38" selection-start-line="208" selection-start-column="38" selection-end-line="208" selection-end-column="38" />
-          <folding />
         </state>
       </provider>
       <provider selected="true" editor-type-id="android-designer">
@@ -3360,14 +2949,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.78807944">
           <caret line="34" column="42" selection-start-line="34" selection-start-column="42" selection-end-line="34" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MatrixMode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.413794">
-          <caret line="334" column="24" selection-start-line="334" selection-start-column="8" selection-end-line="334" selection-end-column="24" />
         </state>
       </provider>
     </entry>
@@ -3375,7 +2956,6 @@
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="360" column="51" selection-start-line="360" selection-start-column="51" selection-end-line="360" selection-end-column="51" />
-          <folding />
         </state>
       </provider>
       <provider selected="true" editor-type-id="android-designer">
@@ -3386,13 +2966,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="376" column="41" selection-start-line="376" selection-start-column="41" selection-end-line="376" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/Advanced.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="944" column="0" selection-start-line="944" selection-start-column="0" selection-end-line="944" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -3415,7 +2988,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="28" column="19" selection-start-line="28" selection-start-column="19" selection-end-line="28" selection-end-column="19" />
           <folding>
-            <element signature="e#739#778#0" expanded="true" />
+            <element signature="e#739#778#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -3424,7 +2997,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-6.724138">
           <caret line="103" column="17" selection-start-line="103" selection-start-column="17" selection-end-line="103" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="android-designer">
@@ -3440,9 +3012,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/elements_layout.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="53" column="37" selection-start-line="53" selection-start-column="37" selection-end-line="53" selection-end-column="37" />
-          <folding />
+        <state vertical-scroll-proportion="-0.0">
+          <caret line="53" column="33" selection-start-line="53" selection-start-column="33" selection-end-line="53" selection-end-column="33" />
         </state>
       </provider>
       <provider editor-type-id="android-designer">
@@ -3453,7 +3024,6 @@
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
       <provider selected="true" editor-type-id="android-designer">
@@ -3464,7 +3034,6 @@
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
       <provider selected="true" editor-type-id="android-designer">
@@ -3475,7 +3044,6 @@
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
       <provider selected="true" editor-type-id="android-designer">
@@ -3486,7 +3054,6 @@
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="34" column="40" selection-start-line="34" selection-start-column="40" selection-end-line="34" selection-end-column="40" />
-          <folding />
         </state>
       </provider>
       <provider selected="true" editor-type-id="android-designer">
@@ -3497,7 +3064,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="android-designer">
@@ -3508,7 +3074,6 @@
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
       <provider selected="true" editor-type-id="android-designer">
@@ -3519,7 +3084,6 @@
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
       <provider selected="true" editor-type-id="android-designer">
@@ -3530,26 +3094,16 @@
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
       <provider selected="true" editor-type-id="android-designer">
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values-v16/values.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="38" selection-start-line="0" selection-start-column="38" selection-end-line="0" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/values.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="38" selection-start-line="0" selection-start-column="38" selection-end-line="0" selection-end-column="38" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3561,10 +3115,129 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/JFok.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.22010177">
+          <caret line="80" column="36" selection-start-line="80" selection-start-column="36" selection-end-line="80" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/Advanced.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="175" column="17" selection-start-line="175" selection-start-column="17" selection-end-line="175" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values-v16/values.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="38" selection-start-line="0" selection-start-column="38" selection-end-line="0" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/DisplayView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-67.5">
+          <caret line="149" column="42" selection-start-line="149" selection-start-column="32" selection-end-line="149" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/Utility.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.134003">
+          <caret line="19" column="48" selection-start-line="19" selection-start-column="43" selection-end-line="19" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/settings.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/local.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/NaturalView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.010416667">
+          <caret line="417" column="26" selection-start-line="417" selection-start-column="20" selection-end-line="417" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/VectorFunction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/VectorFunctionFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.23859648">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/Matrix.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.697286">
+          <caret line="140" column="26" selection-start-line="140" selection-start-column="26" selection-end-line="140" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/Vector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.2842377">
+          <caret line="10" column="57" selection-start-line="10" selection-start-column="57" selection-end-line="10" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MathUtilities.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="550" column="0" selection-start-line="550" selection-start-column="0" selection-end-line="550" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MatrixMode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="903" column="165" selection-start-line="903" selection-start-column="165" selection-end-line="903" selection-end-column="165" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/trutechinnovations/calculall/MatrixUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="296" column="10" selection-start-line="296" selection-start-column="10" selection-end-line="296" selection-end-column="10" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <marker date="1440908198230" expanded="true" signature="60973:62089" placeholder="{...}" />
+            <marker date="1440908198230" expanded="true" signature="61014:61227" placeholder="{...}" />
+            <marker date="1440908198230" expanded="true" signature="61294:62083" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3642857">
-          <caret line="18" column="30" selection-start-line="18" selection-start-column="30" selection-end-line="18" selection-end-column="30" />
+        <state vertical-scroll-proportion="0.53235906">
+          <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
           <folding />
         </state>
       </provider>

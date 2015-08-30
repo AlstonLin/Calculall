@@ -339,6 +339,36 @@ public class MathUtilities {
     }
 
     /**
+     * Simplifies the given function in ArrayList form.
+     *
+     * @param function The function to differentiate
+     * @return The differentiated function
+     */
+    public static ArrayList<Token> simplify(ArrayList<Token> function) {
+        String expr = Utility.machinePrintExpression(Utility.setupExpression(function));
+        try {
+            String simplifiedStr = simplifyStr(expr);
+            ArrayList<Token> simplified = convertStringToTokens(simplifiedStr);
+            simplified = JFok.jFokExpression(simplified);
+            return simplified;
+        } catch (SyntaxError e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * Uses the Symja library to simplify the String version of the expression
+     *
+     * @param function The function to find the derivative
+     * @return The derivative
+     */
+    public static String simplifyStr(String function) {
+        IExpr simplified = util.evaluate("Simplify(" + function + ")");
+        return simplified.toString();
+    }
+
+    /**
      * Expands the Expression.
      *
      * @param expression The expression to expand
@@ -499,28 +529,44 @@ public class MathUtilities {
         ArrayList<Double> done = new ArrayList<>();
         int n = eigenvals.length;
         double[][] vects;
+        boolean abort = false;
         //int[] dim = new int[2];
         String vectors = "{";
         for (Double val : eigenvals) {
-            if (!done.contains(val)) {
-                IExpr expr = util.evaluate(str.concat(" - N(" + val + ")*IdentityMatrix(" + n + "))"));
-                //dim = expr.isMatrix();
-                String temp = expr.toString();
-                temp = temp.substring(1, temp.length() - 1).trim();
-                vectors += temp;
-                vectors += ",";
-                done.add(val);
+            if (!done.contains(val) && abort == false) {
+                String currentExpr = str.concat(" - N(" + val + ")*IdentityMatrix(" + n + "))");
+                IExpr expr = null;
+                try {
+                    expr = util.evaluate(currentExpr);
+                } catch (Exception e) {
+                    abort = true;
+                    break;
+                }
+                if (!abort) {
+                    String temp = expr.toString();
+                    if (temp.equals("{}")) {
+                        abort = true;
+                        break;
+                    }
+                    temp = temp.substring(1, temp.length() - 1).trim();
+                    vectors += temp;
+                    vectors += ",";
+                    done.add(val);
+                }
             }
         }
-        vectors += "}";
+        if (abort == false) {
+            vectors += "}";
 
-        vects = deparseMatrix(vectors, n, n);
-
-        ArrayList<Vector> output = new ArrayList<>();
-        for (double[] vector : vects) {
-            output.add(new Vector(vector));
+            vects = deparseMatrix(vectors, n, n);
+            ArrayList<Vector> output = new ArrayList<>();
+            for (double[] vector : vects) {
+                output.add(new Vector(vector));
+            }
+            return output;
+        } else {
+            return new ArrayList<Vector>();
         }
-        return output;
     }
 
     private static double[][] deparseMatrix(String matrix, int ncol, int nrow) {

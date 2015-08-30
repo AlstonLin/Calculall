@@ -901,14 +901,14 @@ public class MatrixMode extends FunctionMode {
             temp = MatrixUtils.convertToReversePolish(temp);
             Token t = MatrixUtils.evaluateExpression(temp, false);
             if (t instanceof Matrix) {
-                double[] eigenValues = MatrixUtils.getEigenValues(MatrixUtils.evaluateMatrixEntries((Matrix) t));
+                double[] eigenValues = MatrixUtils.dedupe(MatrixUtils.roundInfinitesimals(MatrixUtils.getEigenValues(MatrixUtils.evaluateMatrixEntries((Matrix) t))));
 
                 ArrayList<Token> input = new ArrayList<>();
                 input.addAll(tokens);
-                input.add(0, new StringToken("Eigen Values of "));
+                input.add(0, new StringToken("Eigenvalues of "));
 
                 ArrayList<Token> output = new ArrayList<>();
-                output.add(new StringToken("Eigen Values: "));
+                output.add(new StringToken("Eigenvalues: "));
                 boolean first = true;
                 for (int i = 0; i < eigenValues.length; i++) {
                     if (!first) {
@@ -955,19 +955,31 @@ public class MatrixMode extends FunctionMode {
             if (t instanceof Matrix) {
                 ArrayList<Vector> ev = MatrixUtils.getEigenVectors(MatrixUtils.evaluateMatrixEntries((Matrix) t));
 
-                String outputStr = "Eigenspace Basis: ";
+                String outputStr = "Eigenvectors: ";
                 boolean first = true;
                 for (Vector v : ev) {
                     if (!first) {
                         outputStr += " , ";
                     }
-                    outputStr += v.getSymbol();
+                    if (fracMode == FRAC) {
+                        double[][] tempArray = new double[1][v.getDimensions()];
+                        tempArray[0] = v.getValues();
+                        Matrix tempMatrix = new Matrix(tempArray);
+                        tempMatrix.fractionalize();
+                        String tempStr = tempMatrix.getSymbol();
+                        tempStr = tempStr.replaceAll("\\\\", "").trim();
+                        tempStr = "[".concat(tempStr);
+                        tempStr += "]";
+                        outputStr += tempStr;
+                    } else {
+                        outputStr += v.getSymbol();
+                    }
                     first = false;
                 }
 
                 ArrayList<Token> input = new ArrayList<>();
                 input.addAll(tokens);
-                input.add(0, new StringToken("Eigenspace Basis of "));
+                input.add(0, new StringToken("Eigenvectors of "));
 
                 ArrayList<Token> output = new ArrayList<>();
                 output.add(new StringToken(outputStr));
@@ -977,7 +989,7 @@ public class MatrixMode extends FunctionMode {
                 saveEquation(input, output, filename);
                 activity.scrollDown();
             } else {
-                throw new IllegalArgumentException("The result must be a single Matrix to find the Eigen Vectors");
+                throw new IllegalArgumentException("The result must be a single Matrix to find the Eigenvectors");
             }
         } catch (Exception e) { //an error was thrown
             super.handleExceptions(e);
@@ -1314,7 +1326,7 @@ public class MatrixMode extends FunctionMode {
                                 "LUP"},
                         {"Diagonalization",
                                 "Finds matrices <b>P</b> and <b>D</b> such that" +
-                                        "<div><b>A = PDP</b><sup>-1</sup></div>" +
+                                        "<div><b>A = PDP</b><sup><small>-1</small></sup></div>" +
                                         "where <b>D</b> is a diagonal matrix with the eigenvalues of <b>A</b> as its diagonal entries, " +
                                         "and <b>P</b> is a matrix with the eigenvectors of <b>A</b> as its columns.",
                                 "DIAG"},
@@ -1330,14 +1342,17 @@ public class MatrixMode extends FunctionMode {
                                 "RRQR"},
                         {"Cholesky decomposition",
                                 "Finds a matrix <b>L</b> such that" +
-                                        "<div><b>A = LL</b><sup>T</sup></div>" +
+                                        "<div><b>A = LL</b><sup><small>T</small></sup></div>" +
                                         "where <b>L</b> is lower triangular.",
                                 "Cholesky"},
                         {"Singular value decomposition",
                                 "Finds matrices <b>U</b>, <b>Σ</b> and <b>V</b> such that" +
-                                        "<div><b>A = UΣV</b><sup>T</sup></div>" +
-                                        "where <b>U</b> and <b>V</b> are orthogonal and <b>Σ</b> is a " +
-                                        "diagonal matrix with the singular values of <b>A</b> as its diagonal entries.",
+                                        "<div><b>A = UΣV</b><sup><small>T</small></sup></div>" +
+                                        "If <b>A</b> is an <i>m×n</i> matrix, then <b>U</b> is an <i>m×p</i> orthogonal matrix, " +
+                                        "<b>Σ</b> is a <i>p×p</i> diagonal matrix with positive or null elements " +
+                                        "(the nonzero elements are the singular values of <b>A</b>), " +
+                                        "<b>V</b> is a <i>p×n</i> orthogonal matrix (hence <b>V</b><sup><small>T</small></sup> is also orthogonal) " +
+                                        "where <i>p=min(m,n)</i>.",
                                 "SVD"}
                 };
 

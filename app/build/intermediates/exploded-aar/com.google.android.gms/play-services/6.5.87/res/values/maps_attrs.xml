@@ -9,6 +9,7 @@
       <enum name="hybrid" value="4" />
 
 
+
     </attr>
     <attr name="cameraBearing" format="float" />
     <attr name="cameraTargetLat" format="float" />
