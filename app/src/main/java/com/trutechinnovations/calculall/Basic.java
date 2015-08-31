@@ -2,7 +2,9 @@ package com.trutechinnovations.calculall;
 
 
 import android.content.Context;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.app.Fragment;
+import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -39,13 +41,13 @@ public class Basic implements View.OnClickListener {
     public static final double HISTORY_IO_RATIO = 0.7; //The size of the output / input in the history
     private static final Basic INSTANCE = new Basic();
     //PROTECTED VARIABLES
+    protected static PopupWindow historyWindow;
     protected ArrayList<Token> tokens = new ArrayList<Token>(); //Tokens shown on screen
     protected DisplayView display;
     protected MainActivity activity;
     protected boolean changedTokens = false;
     protected String filename = "history_basic";
     protected Fragment fragment;
-    protected PopupWindow historyWindow;
 
     /**
      * Makes sure that an instance of Basic cannot be created from outside the class.
@@ -61,10 +63,6 @@ public class Basic implements View.OnClickListener {
      */
     public static Basic getInstance() {
         return INSTANCE;
-    }
-
-    public void setTokens(ArrayList<Token> expression) {
-        this.tokens = expression;
     }
 
     /**
@@ -160,7 +158,6 @@ public class Basic implements View.OnClickListener {
         }
         updateInput();
     }
-
 
     /**
      * When the user clicks the History button.
@@ -308,7 +305,6 @@ public class Basic implements View.OnClickListener {
         display.setCursorIndex(display.getCursorIndex() + 1);
     }
 
-
     /**
      * When the user presses the clear Button.
      */
@@ -319,7 +315,6 @@ public class Basic implements View.OnClickListener {
         display.displayOutput(new ArrayList<Token>());
         display.reset();
     }
-
 
     /**
      * When the user presses the back Button.
@@ -513,9 +508,9 @@ public class Basic implements View.OnClickListener {
         lv.setAdapter(new HistoryAdapter(history, activity));
 
         //Displays the created PopupWindow on top of the LinearLayout with ID frame, which is being shown by the Activity
+        historyWindow.setBackgroundDrawable(new BitmapDrawable());
         historyWindow.showAtLocation(activity.findViewById(R.id.frame), Gravity.CENTER, 0, 0);
     }
-
 
     /**
      * Updates the text on the input screen.
@@ -567,17 +562,27 @@ public class Basic implements View.OnClickListener {
         }
     }
 
+    public ArrayList<Token> getTokens() {
+        return tokens;
+    }
+
+    public void setTokens(ArrayList<Token> expression) {
+        this.tokens = expression;
+    }
+
+
     /**
      * The custom Adapter for the ListView in the calculation history.
      */
     private class HistoryAdapter extends BaseAdapter {
-
+        private GestureDetector gestureDetector;
         private MainActivity activity;
         private ArrayList<Object[]> history; //The data that will be shown in the ListView
 
         public HistoryAdapter(ArrayList<Object[]> history, MainActivity activity) {
             this.history = history;
             this.activity = activity;
+            gestureDetector = new GestureDetector(activity, new SingleTapUp());
         }
 
         @Override
@@ -629,7 +634,7 @@ public class Basic implements View.OnClickListener {
             convertView.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
-                    if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if (gestureDetector.onTouchEvent(event)) {
                         ArrayList<Token> input = new ArrayList<>();
                         //Removes any StringTokens
                         for (Token t : INPUT) {
@@ -663,5 +668,14 @@ public class Basic implements View.OnClickListener {
             });
             return convertView;
         }
+
+        private class SingleTapUp extends GestureDetector.SimpleOnGestureListener { //CLASSCEPTION
+
+            @Override
+            public boolean onSingleTapUp(MotionEvent event) {
+                return true;
+            }
+        }
+
     }
 }

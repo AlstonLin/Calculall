@@ -3,6 +3,7 @@ package com.trutechinnovations.calculall;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.drawable.BitmapDrawable;
 import android.text.Html;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -44,7 +45,6 @@ public class Advanced extends Basic {
     ArrayList<Constant> arrayOfConstants = new ArrayList<Constant>();//Constants data
     private Dialog graphDialog;
     private PopupWindow constWindow;
-    private PopupWindow pw;
     private Dialog constantsDialog;
 
     { //pseudo-constructor
@@ -164,6 +164,16 @@ public class Advanced extends Basic {
             } else if (fracMode == FRAC) {
                 ArrayList<Token> output = Utility.subVariables(tokens, false);
                 output = JFok.simplifyExpression(output);
+                boolean noSymjaError = true;
+                ArrayList<Token> temp = new ArrayList<>();
+                try {
+                    temp = MathUtilities.simplify(output);
+                } catch (Exception e) {
+                    noSymjaError = false;
+                }
+                if (noSymjaError && !temp.isEmpty()) {
+                    output = temp;
+                }
                 display.displayOutput(output);
                 saveEquation(tokens, output, FILENAME);
                 VariableFactory.ansValueAdv = output;
@@ -917,6 +927,7 @@ public class Advanced extends Basic {
 
         //Creates the popupWindow, with the width matching the parent's and height matching the parent's
         constWindow = new PopupWindow(layout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
+        constWindow.setBackgroundDrawable(new BitmapDrawable());
 
         //Populate arraylist
         if (arrayOfConstants.size() == 0) {
@@ -999,6 +1010,10 @@ public class Advanced extends Basic {
         exponent.addDependency(closeBracket);
         display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
+    }
+
+    public PopupWindow getPopup() {
+        return constWindow;
     }
 
     public boolean isShift() {

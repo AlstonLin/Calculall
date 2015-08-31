@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -106,6 +107,15 @@ public class SettingsActivity extends Activity {
         setupDecimalSpinner();
         setupFontSpinner();
         setupSwitches();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (popup.isShowing()) {
+            popup.dismiss();
+        } else {
+            super.onBackPressed();
+        }
     }
 
     /**
@@ -237,6 +247,7 @@ public class SettingsActivity extends Activity {
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View layout = inflater.inflate(R.layout.about_page, null, false);
         popup = new PopupWindow(layout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
+        popup.setBackgroundDrawable(new BitmapDrawable());
         popup.showAtLocation(findViewById(R.id.container), Gravity.CENTER, 0, 0);
     }
 
@@ -279,6 +290,7 @@ public class SettingsActivity extends Activity {
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View layout = inflater.inflate(R.layout.themes_select, null, false);
         popup = new PopupWindow(layout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
+        popup.setBackgroundDrawable(new BitmapDrawable());
         popup.showAtLocation(findViewById(R.id.container), Gravity.CENTER, 0, 0);
         //Sets up the theme
         ListView gv = (ListView) layout.findViewById(R.id.themes_grid);

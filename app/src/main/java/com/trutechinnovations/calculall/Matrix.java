@@ -138,11 +138,11 @@ public class Matrix extends Token {
             String temp = "";
             for (int j = 0; j < entries[i].length; j++) {
                 if (j != 0) {
-                    s += ",";
+                    s += ", ";
                 }
-                s += Utility.machinePrintExpression(entries[i][j]);
+                s += Utility.printExpression(entries[i][j]);
             }
-            s += "/";
+            s += "\\";
         }
         return s;
     }

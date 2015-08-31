@@ -12,6 +12,9 @@ import java.util.Stack;
  */
 public class JFok {
 
+    public static final double FRACTIONALIZE_ERROR = 1e-12;
+    public static final double FRACTIONALIZE_DENOM_LIMIT = 10000;
+
     /**
      * Simplify and factor the given mathematical expression. There should be no
      * variables in the expression given.
@@ -66,23 +69,23 @@ public class JFok {
 
 
     /**
-     * Converts the given Number into a fraction.
+     * Converts the given Number into a fraction. If the denominator if more
+     * than 1000, it will assume the result is inaccurate and leave it.
      *
      * @param number The number Token
      * @return An equivalent fraction
      */
     public static ArrayList<Token> fractionalize(Number number) {
         double value = number.getValue();
-        final double ERROR = 1e-12;
         int n = (int) Math.floor(value);
         ArrayList<Token> output = new ArrayList<>();
         value -= n;
 
         //Checks if it is an integer
-        if (value < ERROR) {
+        if (value < FRACTIONALIZE_ERROR) {
             output.add(new Number(n));
             return output;
-        } else if (1 - ERROR < value) {
+        } else if (1 - FRACTIONALIZE_ERROR < value) {
             output.add(new Number(n + 1));
             return output;
         }
@@ -100,26 +103,32 @@ public class JFok {
             int middleN = lowerN + upperN;
             int middleD = lowerD + upperD;
 
-            if (middleD * (value + ERROR) < middleN) {
+            if (middleD * (value + FRACTIONALIZE_ERROR) < middleN) {
                 upperN = middleN;
                 upperD = middleD;
-            } else if (middleN < (value - ERROR) * middleD) {
+            } else if (middleN < (value - FRACTIONALIZE_ERROR) * middleD) {
                 lowerN = middleN;
                 lowerD = middleD;
             } else {
-                Number num = new Number(n * middleD + middleN);
-                Number denom = new Number(middleD);
+                if (middleD < FRACTIONALIZE_DENOM_LIMIT) { //Denom is within the limit
+                    Number num = new Number(n * middleD + middleN);
+                    Number denom = new Number(middleD);
 
-                output.add(BracketFactory.makeFracOpen());
-                output.add(BracketFactory.makeNumOpen());
-                output.add(num);
-                output.add(BracketFactory.makeNumClose());
-                output.add(OperatorFactory.makeFraction());
-                output.add(BracketFactory.makeDenomOpen());
-                output.add(denom);
-                output.add(BracketFactory.makeDenomClose());
-                output.add(BracketFactory.makeFracClose());
-                return output;
+                    output.add(BracketFactory.makeFracOpen());
+                    output.add(BracketFactory.makeNumOpen());
+                    output.add(num);
+                    output.add(BracketFactory.makeNumClose());
+                    output.add(OperatorFactory.makeFraction());
+                    output.add(BracketFactory.makeDenomOpen());
+                    output.add(denom);
+                    output.add(BracketFactory.makeDenomClose());
+                    output.add(BracketFactory.makeFracClose());
+                    return output;
+                } else {
+                    ArrayList<Token> original = new ArrayList<>();
+                    original.add(number);
+                    return original;
+                }
             }
         }
     }

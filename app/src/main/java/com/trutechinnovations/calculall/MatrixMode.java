@@ -3,6 +3,7 @@ package com.trutechinnovations.calculall;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.drawable.BitmapDrawable;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.SpannedString;
@@ -38,8 +39,10 @@ public class MatrixMode extends FunctionMode {
     public static final int DEFAULT_COLS = 3;
     public static final int MAX_DIMENSIONS = 7;
     private static final Basic INSTANCE = new MatrixMode();
+
     protected PopupWindow reductionWindow;
     protected PopupWindow decompWindow;
+    private Command<Void, Void> lastAction; // The last method the user has used to compute
     //Variables used only when in ElementView
     private PopupWindow elementsWindow;
     private PopupWindow elementWindow;
@@ -345,6 +348,7 @@ public class MatrixMode extends FunctionMode {
         LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View layout = inflater.inflate(R.layout.elements_layout, null, false);
         elementsWindow = new PopupWindow(layout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
+        elementsWindow.setBackgroundDrawable(new BitmapDrawable());
         elementsWindow.showAtLocation(activity.findViewById(R.id.frame), Gravity.CENTER, 0, 0);
         //Generates an array of Strings representing the Matrix entries
         String[] strs = new String[m.getNumOfRows() * m.getNumOfCols()];
@@ -423,6 +427,7 @@ public class MatrixMode extends FunctionMode {
         LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View layout = inflater.inflate(R.layout.element_layout, null, false);
         elementWindow = new PopupWindow(layout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
+        elementWindow.setBackgroundDrawable(new BitmapDrawable());
         elementWindow.showAtLocation(activity.findViewById(R.id.frame), Gravity.CENTER, 0, 0);
 
         //Sets up the Buttons
@@ -650,8 +655,9 @@ public class MatrixMode extends FunctionMode {
         } else if (fracMode == FRAC) {
             fracMode = DEC;
         }
-        updateInput();
-        clickEquals();
+        if (lastAction != null) {
+            lastAction.execute(null); //Re-performs the last calculation, but with the frac mode switched
+        }
     }
 
     /**
@@ -706,6 +712,13 @@ public class MatrixMode extends FunctionMode {
      * When the user presses the ref button
      */
     public void clickREF() {
+        lastAction = new Command<Void, Void>() {
+            @Override
+            public Void execute(Void o) {
+                clickREF();
+                return null;
+            }
+        };
         openReduction(false);
     }
 
@@ -713,17 +726,14 @@ public class MatrixMode extends FunctionMode {
      * When the user presses the rref button
      */
     public void clickRREF() {
+        lastAction = new Command<Void, Void>() {
+            @Override
+            public Void execute(Void o) {
+                clickRREF();
+                return null;
+            }
+        };
         openReduction(true);
-//        Token t = MatrixFunctionFactory.makeRREF();
-//        Bracket b = BracketFactory.makeOpenBracket();
-//        if (t != null) {
-//            t.addDependency(b);
-//            b.addDependency(t);
-//        }
-//        tokens.add(display.getRealCursorIndex(), t);
-//        tokens.add(display.getRealCursorIndex() + 1, b);
-//        display.setCursorIndex(display.getCursorIndex() + 2);
-//        updateInput();
     }
 
     /**
@@ -791,6 +801,13 @@ public class MatrixMode extends FunctionMode {
      * When the user presses the equals Button.
      */
     public void clickEquals() {
+        lastAction = new Command<Void, Void>() {
+            @Override
+            public Void execute(Void o) {
+                clickEquals();
+                return null;
+            }
+        };
         DisplayView display = (DisplayView) activity.findViewById(R.id.display);
         try {
             ArrayList<Token> temp = MatrixUtils.setupExpression(Utility.addMissingBrackets(Utility.subVariables(Utility.condenseDigits(tokens))));
@@ -836,9 +853,11 @@ public class MatrixMode extends FunctionMode {
                 Matrix l = new Matrix(lup[1]);
                 Matrix p = new Matrix(lup[2]);
 
-                /*u.fractionalize();
-                l.fractionalize();
-                p.fractionalize();*/
+                if (fracMode == FRAC) {
+                    u.fractionalize();
+                    l.fractionalize();
+                    p.fractionalize();
+                }
 
                 ArrayList<Token> input = new ArrayList<>();
                 input.add(0, new StringToken("LUP Decomposition of "));
@@ -869,36 +888,39 @@ public class MatrixMode extends FunctionMode {
      * When the user presses the λ button
      */
     public void clickLambda() {
+        lastAction = new Command<Void, Void>() {
+            @Override
+            public Void execute(Void o) {
+                clickLambda();
+                return null;
+            }
+        };
         DisplayView display = (DisplayView) activity.findViewById(R.id.display);
         try {
             ArrayList<Token> temp = MatrixUtils.setupExpression(Utility.subVariables(Utility.condenseDigits(tokens)));
             temp = MatrixUtils.convertToReversePolish(temp);
             Token t = MatrixUtils.evaluateExpression(temp, false);
             if (t instanceof Matrix) {
-                double[] eigenValues = MatrixUtils.getEigenValues(MatrixUtils.evaluateMatrixEntries((Matrix) t));
-
-                /*String outputStr = "Eigen Values: ";
-                boolean first = true;
-                for (double eigVal : eigenValues) {
-                    if (!first) {
-                        outputStr += " , ";
-                    }
-                    outputStr += new Number(eigVal).getSymbol();
-                    first = false;
-                }*/
+                double[] eigenValues = MatrixUtils.dedupe(MatrixUtils.roundInfinitesimals(MatrixUtils.getEigenValues(MatrixUtils.evaluateMatrixEntries((Matrix) t))));
 
                 ArrayList<Token> input = new ArrayList<>();
                 input.addAll(tokens);
-                input.add(0, new StringToken("Eigen Values of "));
+                input.add(0, new StringToken("Eigenvalues of "));
 
                 ArrayList<Token> output = new ArrayList<>();
-                output.add(new StringToken("Eigen Values: "));
+                output.add(new StringToken("Eigenvalues: "));
                 boolean first = true;
                 for (int i = 0; i < eigenValues.length; i++) {
                     if (!first) {
                         output.add(new StringToken(" , "));
                     }
-                    output.addAll(JFok.fractionalize(new Number(eigenValues[i])));
+                    if (fracMode == FRAC) {
+                        output.addAll(JFok.fractionalize(new Number(eigenValues[i])));
+                    } else {
+                        ArrayList<Token> result = new ArrayList<>();
+                        result.add(new Number(eigenValues[i]));
+                        output.addAll(result);
+                    }
                     first = false;
                 }
 
@@ -918,6 +940,13 @@ public class MatrixMode extends FunctionMode {
      * When the user presses the eigenvect button
      */
     public void clickEigenVect() {
+        lastAction = new Command<Void, Void>() {
+            @Override
+            public Void execute(Void o) {
+                clickEigenVect();
+                return null;
+            }
+        };
         DisplayView display = (DisplayView) activity.findViewById(R.id.display);
         try {
             ArrayList<Token> temp = MatrixUtils.setupExpression(Utility.subVariables(Utility.condenseDigits(tokens)));
@@ -926,19 +955,31 @@ public class MatrixMode extends FunctionMode {
             if (t instanceof Matrix) {
                 ArrayList<Vector> ev = MatrixUtils.getEigenVectors(MatrixUtils.evaluateMatrixEntries((Matrix) t));
 
-                String outputStr = "Eigenspace Basis: ";
+                String outputStr = "Eigenvectors: ";
                 boolean first = true;
                 for (Vector v : ev) {
                     if (!first) {
                         outputStr += " , ";
                     }
-                    outputStr += v.getSymbol();
+                    if (fracMode == FRAC) {
+                        double[][] tempArray = new double[1][v.getDimensions()];
+                        tempArray[0] = v.getValues();
+                        Matrix tempMatrix = new Matrix(tempArray);
+                        tempMatrix.fractionalize();
+                        String tempStr = tempMatrix.getSymbol();
+                        tempStr = tempStr.replaceAll("\\\\", "").trim();
+                        tempStr = "[".concat(tempStr);
+                        tempStr += "]";
+                        outputStr += tempStr;
+                    } else {
+                        outputStr += v.getSymbol();
+                    }
                     first = false;
                 }
 
                 ArrayList<Token> input = new ArrayList<>();
                 input.addAll(tokens);
-                input.add(0, new StringToken("Eigenspace Basis of "));
+                input.add(0, new StringToken("Eigenvectors of "));
 
                 ArrayList<Token> output = new ArrayList<>();
                 output.add(new StringToken(outputStr));
@@ -948,7 +989,7 @@ public class MatrixMode extends FunctionMode {
                 saveEquation(input, output, filename);
                 activity.scrollDown();
             } else {
-                throw new IllegalArgumentException("The result must be a single Matrix to find the Eigen Vectors");
+                throw new IllegalArgumentException("The result must be a single Matrix to find the Eigenvectors");
             }
         } catch (Exception e) { //an error was thrown
             super.handleExceptions(e);
@@ -971,9 +1012,11 @@ public class MatrixMode extends FunctionMode {
                 Matrix d = new Matrix(diag[1]);
                 Matrix inv_p = new Matrix(diag[2]);
 
-                /*p.fractionalize();
-                d.fractionalize();
-                inv_p.fractionalize();*/
+                if (fracMode == FRAC) {
+                    p.fractionalize();
+                    d.fractionalize();
+                    inv_p.fractionalize();
+                }
 
                 ArrayList<Token> input = new ArrayList<>();
                 input.add(0, new StringToken("Eigen Decomposition of "));
@@ -1015,8 +1058,10 @@ public class MatrixMode extends FunctionMode {
                 Matrix q = new Matrix(qr[0]);
                 Matrix r = new Matrix(qr[1]);
 
-                /*q.fractionalize();
-                r.fractionalize();*/
+                if (fracMode == FRAC) {
+                    q.fractionalize();
+                    r.fractionalize();
+                }
 
                 ArrayList<Token> input = new ArrayList<>();
                 input.add(0, new StringToken("QR Decomposition of "));
@@ -1059,9 +1104,11 @@ public class MatrixMode extends FunctionMode {
                 Matrix r = new Matrix(rrqr[1]);
                 Matrix p = new Matrix(rrqr[2]);
 
-                /*q.fractionalize();
-                r.fractionalize();
-                p.fractionalize();*/
+                if (fracMode == FRAC) {
+                    q.fractionalize();
+                    r.fractionalize();
+                    p.fractionalize();
+                }
 
                 ArrayList<Token> input = new ArrayList<>();
                 input.add(0, new StringToken("RRQR Decomposition of "));
@@ -1105,8 +1152,10 @@ public class MatrixMode extends FunctionMode {
                 Matrix l = new Matrix(ch[0]);
                 Matrix lt = new Matrix(ch[1]);
 
-                /*l.fractionalize();
-                lt.fractionalize();*/
+                if (fracMode == FRAC) {
+                    l.fractionalize();
+                    lt.fractionalize();
+                }
 
                 ArrayList<Token> input = new ArrayList<>();
                 input.add(0, new StringToken("Cholesky Decomposition of "));
@@ -1148,9 +1197,11 @@ public class MatrixMode extends FunctionMode {
                 Matrix s = new Matrix(svd[1]);
                 Matrix vt = new Matrix(svd[2]);
 
-                /*u.fractionalize();
-                s.fractionalize();
-                vt.fractionalize();*/
+                if (fracMode == FRAC) {
+                    u.fractionalize();
+                    s.fractionalize();
+                    vt.fractionalize();
+                }
 
                 ArrayList<Token> input = new ArrayList<>();
                 input.add(0, new StringToken("SVD of "));
@@ -1275,7 +1326,7 @@ public class MatrixMode extends FunctionMode {
                                 "LUP"},
                         {"Diagonalization",
                                 "Finds matrices <b>P</b> and <b>D</b> such that" +
-                                        "<div><b>A = PDP</b><sup>-1</sup></div>" +
+                                        "<div><b>A = PDP</b><sup><small>-1</small></sup></div>" +
                                         "where <b>D</b> is a diagonal matrix with the eigenvalues of <b>A</b> as its diagonal entries, " +
                                         "and <b>P</b> is a matrix with the eigenvectors of <b>A</b> as its columns.",
                                 "DIAG"},
@@ -1291,14 +1342,17 @@ public class MatrixMode extends FunctionMode {
                                 "RRQR"},
                         {"Cholesky decomposition",
                                 "Finds a matrix <b>L</b> such that" +
-                                        "<div><b>A = LL</b><sup>T</sup></div>" +
+                                        "<div><b>A = LL</b><sup><small>T</small></sup></div>" +
                                         "where <b>L</b> is lower triangular.",
                                 "Cholesky"},
                         {"Singular value decomposition",
                                 "Finds matrices <b>U</b>, <b>Σ</b> and <b>V</b> such that" +
-                                        "<div><b>A = UΣV</b><sup>T</sup></div>" +
-                                        "where <b>U</b> and <b>V</b> are orthogonal and <b>Σ</b> is a " +
-                                        "diagonal matrix with the singular values of <b>A</b> as its diagonal entries.",
+                                        "<div><b>A = UΣV</b><sup><small>T</small></sup></div>" +
+                                        "If <b>A</b> is an <i>m×n</i> matrix, then <b>U</b> is an <i>m×p</i> orthogonal matrix, " +
+                                        "<b>Σ</b> is a <i>p×p</i> diagonal matrix with positive or null elements " +
+                                        "(the nonzero elements are the singular values of <b>A</b>), " +
+                                        "<b>V</b> is a <i>p×n</i> orthogonal matrix (hence <b>V</b><sup><small>T</small></sup> is also orthogonal) " +
+                                        "where <i>p=min(m,n)</i>.",
                                 "SVD"}
                 };
 
@@ -1363,6 +1417,14 @@ public class MatrixMode extends FunctionMode {
      */
     public void clickExitDecomp() {
         decompWindow.dismiss();
+    }
+
+    public PopupWindow getElementsWindow() {
+        return elementsWindow;
+    }
+
+    public PopupWindow getElementWindow() {
+        return elementWindow;
     }
 
     /**
@@ -1527,16 +1589,58 @@ public class MatrixMode extends FunctionMode {
                         if (INPUT instanceof StringToken) {
                             String s = INPUT.getSymbol();
                             if (s.equals("LUP")) {
+                                lastAction = new Command<Void, Void>() {
+                                    @Override
+                                    public Void execute(Void o) {
+                                        clickLUP();
+                                        return null;
+                                    }
+                                };
                                 clickLUP();
                             } else if (s.equals("DIAG")) {
+                                lastAction = new Command<Void, Void>() {
+                                    @Override
+                                    public Void execute(Void o) {
+                                        clickDiagonalize();
+                                        return null;
+                                    }
+                                };
                                 clickDiagonalize();
                             } else if (s.equals("QR")) {
+                                lastAction = new Command<Void, Void>() {
+                                    @Override
+                                    public Void execute(Void o) {
+                                        clickQR();
+                                        return null;
+                                    }
+                                };
                                 clickQR();
                             } else if (s.equals("RRQR")) {
+                                lastAction = new Command<Void, Void>() {
+                                    @Override
+                                    public Void execute(Void o) {
+                                        clickRRQR();
+                                        return null;
+                                    }
+                                };
                                 clickRRQR();
                             } else if (s.equals("Cholesky")) {
+                                lastAction = new Command<Void, Void>() {
+                                    @Override
+                                    public Void execute(Void o) {
+                                        clickCholesky();
+                                        return null;
+                                    }
+                                };
                                 clickCholesky();
                             } else if (s.equals("SVD")) {
+                                lastAction = new Command<Void, Void>() {
+                                    @Override
+                                    public Void execute(Void o) {
+                                        clickSVD();
+                                        return null;
+                                    }
+                                };
                                 clickSVD();
                             }
                         }

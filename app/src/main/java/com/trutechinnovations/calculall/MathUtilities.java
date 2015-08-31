@@ -7,7 +7,6 @@ import org.matheclipse.core.interfaces.IExpr;
 import org.matheclipse.parser.client.SyntaxError;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Utilities specifically for calculus related functions.
@@ -340,6 +339,36 @@ public class MathUtilities {
     }
 
     /**
+     * Simplifies the given function in ArrayList form.
+     *
+     * @param function The function to differentiate
+     * @return The differentiated function
+     */
+    public static ArrayList<Token> simplify(ArrayList<Token> function) {
+        String expr = Utility.machinePrintExpression(Utility.setupExpression(function));
+        try {
+            String simplifiedStr = simplifyStr(expr);
+            ArrayList<Token> simplified = convertStringToTokens(simplifiedStr);
+            simplified = JFok.jFokExpression(simplified);
+            return simplified;
+        } catch (SyntaxError e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * Uses the Symja library to simplify the String version of the expression
+     *
+     * @param function The function to find the derivative
+     * @return The derivative
+     */
+    public static String simplifyStr(String function) {
+        IExpr simplified = util.evaluate("Simplify(" + function + ")");
+        return simplified.toString();
+    }
+
+    /**
      * Expands the Expression.
      *
      * @param expression The expression to expand
@@ -472,7 +501,7 @@ public class MathUtilities {
      * @return The eigenvalues of the matrix
      */
     public static double[] getEigenValuesStr(String matrix) {
-        String str = " Eigenvalues(" + matrix + ")";
+        String str = "Eigenvalues(" + matrix + ")";
         IExpr eigenvalues = util.evaluate(str);
         String eigenStr = eigenvalues.toString();
         eigenStr = eigenStr.substring(1, eigenStr.length() - 2); //Removes start and end {}
@@ -492,44 +521,67 @@ public class MathUtilities {
      */
     public static ArrayList<Vector> getEigenVectors(double[][] matrix) { //TODO: finish this
         String eigenString = parseMatrix(matrix);
-        return getEigenVectorsStr(eigenString, getEigenValues(matrix));
+        return getEigenVectorsStr(eigenString, MatrixUtils.roundInfinitesimals(getEigenValues(matrix)));
     }
 
     public static ArrayList<Vector> getEigenVectorsStr(String matrix, double[] eigenvals) {
-        String str = " Nullspace(" + matrix;
+        String str = "Nullspace(" + matrix;
         ArrayList<Double> done = new ArrayList<>();
         int n = eigenvals.length;
-        ArrayList<double[]> vects = new ArrayList<>();
-
+        double[][] vects;
+        boolean abort = false;
+        //int[] dim = new int[2];
+        String vectors = "{";
         for (Double val : eigenvals) {
-            if (!done.contains(val)) {
-                vects.addAll(Arrays.asList(strToArray(util.evaluate(str.concat(" - " + val + "*IdentityMatrix(" + n + "))")).toString(), n, n)));
-                done.add(val);
+            if (!done.contains(val) && abort == false) {
+                String currentExpr = str.concat(" - N(" + val + ")*IdentityMatrix(" + n + "))");
+                IExpr expr = null;
+                try {
+                    expr = util.evaluate(currentExpr);
+                } catch (Exception e) {
+                    abort = true;
+                    break;
+                }
+                if (!abort) {
+                    String temp = expr.toString();
+                    if (temp.equals("{}")) {
+                        abort = true;
+                        break;
+                    }
+                    temp = temp.substring(1, temp.length() - 1).trim();
+                    vectors += temp;
+                    vectors += ",";
+                    done.add(val);
+                }
             }
         }
+        if (abort == false) {
+            vectors += "}";
 
-        ArrayList<Vector> output = new ArrayList<>();
-        for (double[] vector : vects) {
-            output.add(new Vector(vector));
+            vects = deparseMatrix(vectors, n, n);
+            ArrayList<Vector> output = new ArrayList<>();
+            for (double[] vector : vects) {
+                output.add(new Vector(vector));
+            }
+            return output;
+        } else {
+            return new ArrayList<Vector>();
         }
-        return output;
     }
 
-    private static double[][] strToArray(String matrix, int ncol, int nrow) {
-        matrix = matrix.substring(1, matrix.length() - 2); //Removes start and end {}
-        String[] strArray = matrix.split(",");
-        int row = 0;
+    private static double[][] deparseMatrix(String matrix, int ncol, int nrow) {
+        matrix = matrix.substring(1, matrix.length() - 2); //Removes start and end {} and a ,
+        String[] strArray = matrix.split("\\},");
+        for (int i = 0; i < strArray.length; i++) {
+            strArray[i] = strArray[i].trim();
+        }
         double[][] output = new double[nrow][ncol];
         for (int i = 0; i < strArray.length; i++) {
-            if (strArray[i].contains("{")) {
-                strArray[i] = strArray[i].substring(0, strArray[i].length() - 1);
-                output[row][0] = Double.parseDouble(strArray[i]);
-            } else if (strArray[i].contains("}")) {
-                strArray[i] = strArray[i].substring(0, strArray[i].length() - 1);
-                output[row][ncol - 1] = Double.parseDouble(strArray[i]);
-                row++;
-            } else {
-                output[row][((i + 1) % ncol) - 1] = Double.parseDouble(strArray[i]);
+            String[] temp = strArray[i].split(",");
+            for (int j = 0; j < temp.length; j++) {
+                temp[j] = temp[j].replaceAll("\\{", "").trim();
+                temp[j] = temp[j].replaceAll("\\}", "").trim();
+                output[i][j] = Double.parseDouble(temp[j]);
             }
         }
         return output;

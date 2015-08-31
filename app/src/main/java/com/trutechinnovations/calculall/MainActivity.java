@@ -15,6 +15,7 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.PopupWindow;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -40,6 +41,7 @@ import java.util.ArrayList;
  */
 public class MainActivity extends FragmentActivity implements ViewPager.OnPageChangeListener { //, MoPubInterstitial.InterstitialAdListener {
 
+    public static final int BASIC = 0, ADVANCED = 1, FUNCTION = 2, VECTOR = 3, MATRIX = 4;
     //Fragment Objects
     public static final int AD_RATE = 2; //Ads will show 1 in 2 activity opens
     private static final String AD_ID = "3ae32e9f72e2402cb01bbbaf1d6ba1f4";
@@ -55,8 +57,10 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
     private boolean feedbackOn;
     private int lastMode;
     private int fontSize;
-    //private MoPubInterstitial interstitial;
     private int currentTheme;
+    //For temporarily storing expressions between modes
+    private ArrayList<Token> basicExpr, advancedExpr, functionExpr, vectorExpr, matrixExpr;
+    //private MoPubInterstitial interstitial;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +76,12 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
             return;
         }
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        //Initiates the ArrayLists for temporary storage
+        basicExpr = new ArrayList<>();
+        advancedExpr = new ArrayList<>();
+        functionExpr = new ArrayList<>();
+        vectorExpr = new ArrayList<>();
+        matrixExpr = new ArrayList<>();
     }
 
 
@@ -227,19 +237,19 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
             stream.close();
             //Now sets the tokens
             switch (lastMode) {
-                case 0:
+                case BASIC:
                     Basic.getInstance().setTokens(tokens);
                     break;
-                case 1:
+                case ADVANCED:
                     Advanced.getInstance().setTokens(tokens);
                     break;
-                case 2:
+                case FUNCTION:
                     FunctionMode.getInstance().setTokens(tokens);
                     break;
-                case 3:
+                case VECTOR:
                     VectorMode.getInstance().setTokens(tokens);
                     break;
-                case 4:
+                case MATRIX:
                     MatrixMode.getInstance().setTokens(tokens);
                     break;
             }
@@ -377,7 +387,26 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
     @Override
     public void onPageSelected(int position) {
         if (position != lastMode) {
-            display.clear();
+            //Saves the expression to the corrosponding list
+            switch (lastMode) {
+                case BASIC:
+                    basicExpr = Basic.getInstance().getTokens();
+                    break;
+                case ADVANCED:
+                    advancedExpr = Advanced.getInstance().getTokens();
+                    break;
+                case FUNCTION:
+                    functionExpr = FunctionMode.getInstance().getTokens();
+                    break;
+                case VECTOR:
+                    vectorExpr = VectorMode.getInstance().getTokens();
+                    break;
+                case MATRIX:
+                    matrixExpr = MatrixMode.getInstance().getTokens();
+                    break;
+            }
+            display.displayInput(new ArrayList<Token>()); //Changes the reference to a different, blank ArrayList
+            display.displayOutput(new ArrayList<Token>());
             lastMode = position;
         }
         ToggleButton basic = (ToggleButton) findViewById(R.id.basic_button);
@@ -387,59 +416,69 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
         ToggleButton matrix = (ToggleButton) findViewById(R.id.matrix_button);
 
         switch (position) {
-            case 0:
+            case BASIC:
                 basic.setChecked(true);
                 advanced.setChecked(false);
                 function.setChecked(false);
                 vector.setChecked(false);
                 matrix.setChecked(false);
+                display.displayInput(basicExpr);
+                Basic.getInstance().setTokens(basicExpr);
                 break;
-            case 1:
+            case ADVANCED:
                 basic.setChecked(false);
                 advanced.setChecked(true);
                 function.setChecked(false);
                 vector.setChecked(false);
                 matrix.setChecked(false);
+                display.displayInput(advancedExpr);
+                Advanced.getInstance().setTokens(advancedExpr);
                 break;
-            case 2:
+            case FUNCTION:
                 basic.setChecked(false);
                 advanced.setChecked(false);
                 function.setChecked(true);
                 vector.setChecked(false);
                 matrix.setChecked(false);
+                display.displayInput(functionExpr);
+                FunctionMode.getInstance().setTokens(functionExpr);
                 break;
-            case 3:
+            case VECTOR:
                 basic.setChecked(false);
                 advanced.setChecked(false);
                 function.setChecked(false);
                 vector.setChecked(true);
                 matrix.setChecked(false);
+                display.displayInput(vectorExpr);
+                VectorMode.getInstance().setTokens(vectorExpr);
                 break;
-            case 4:
+            case MATRIX:
                 basic.setChecked(false);
                 advanced.setChecked(false);
                 function.setChecked(false);
                 vector.setChecked(false);
                 matrix.setChecked(true);
+                display.displayInput(matrixExpr);
+                MatrixMode.getInstance().setTokens(matrixExpr);
                 break;
             default:
                 throw new IllegalArgumentException("The current pager item index could not be handled");
         }
         /**
-        //Possibly shows ads
-        if (interstitial != null) {
-            interstitial.destroy(); //Prevents Ads from other activities appearing if it is not loaded before switching between them
-        }
-        if (position != 0 && showAd) { //Deos not show ads in Basic
-            Random random = new Random();
-            if (random.nextInt(AD_RATE) == 0) {
-                // Create the interstitial.
-                interstitial = new MoPubInterstitial(this, AD_ID);
-                interstitial.setInterstitialAdListener(this);
-                interstitial.load();
-                interstitial.load();
-            }
-        }
+         //Possibly shows ads
+         if (interstitial != null) {
+         interstitial.destroy(); //Prevents Ads from other activities appearing if it is not loaded before switching between them
+         }
+         if (position != 0 && showAd) { //Deos not show ads in Basic
+         Random random = new Random();
+         if (random.nextInt(AD_RATE) == 0) {
+         // Create the interstitial.
+         interstitial = new MoPubInterstitial(this, AD_ID);
+         interstitial.setInterstitialAdListener(this);
+         interstitial.load();
+         interstitial.load();
+         }
+         }
          **/
     }
 
@@ -458,6 +497,28 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
 
     public void setShowAd(boolean showAd) {
         this.showAd = showAd;
+    }
+
+    @Override
+    public void onBackPressed() {
+        PopupWindow historyPw = Basic.historyWindow;
+        PopupWindow advancedPw = ((Advanced) Advanced.getInstance()).getPopup();
+        PopupWindow functionPw = ((FunctionMode) FunctionMode.getInstance()).getPw();
+        PopupWindow elementPw = ((MatrixMode) MatrixMode.getInstance()).getElementWindow();
+        PopupWindow elementsPw = ((MatrixMode) MatrixMode.getInstance()).getElementsWindow();
+        if (historyPw.isShowing()) {
+            historyPw.dismiss();
+        } else if (advancedPw.isShowing()) {
+            advancedPw.dismiss();
+        } else if (functionPw.isShowing()) {
+            functionPw.dismiss();
+        } else if (elementPw.isShowing()) {
+            elementPw.dismiss();
+        } else if (elementsPw.isShowing()) {
+            elementsPw.dismiss();
+        } else {
+            super.onBackPressed();
+        }
     }
 
     /**

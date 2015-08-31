@@ -55,4 +55,5 @@ public class Vector extends Token implements Serializable {
         output += "\\end{bmatrix}" + "$";
         return output;
     }
+
 }

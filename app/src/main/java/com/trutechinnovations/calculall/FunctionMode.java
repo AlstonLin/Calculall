@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -133,9 +134,7 @@ public class FunctionMode extends Advanced {
     public void clickHistory() {
         try {
             openHistory(filename);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -522,6 +521,7 @@ public class FunctionMode extends Advanced {
         gv.setBounds(minX, maxX, minY, maxY);
         pw = new PopupWindow(layout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
         gv.setPopupWindow(pw);
+        pw.setBackgroundDrawable(new BitmapDrawable());
         pw.showAtLocation(activity.findViewById(R.id.frame), Gravity.CENTER, 0, 0);
     }
 
@@ -543,6 +543,10 @@ public class FunctionMode extends Advanced {
             }
         }
         return function;
+    }
+
+    public PopupWindow getPw() {
+        return pw;
     }
 
     /**

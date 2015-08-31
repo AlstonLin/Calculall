@@ -13,6 +13,8 @@ import org.apache.commons.math3.linear.SingularValueDecomposition;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -292,7 +294,7 @@ public class MatrixUtils {
         return eigen;
     }
 
-    private static double[] dedupe(double[] a) {
+    public static double[] dedupe(double[] a) {
         if (a.length < 2)
             return a;
 
@@ -322,25 +324,45 @@ public class MatrixUtils {
         if (ed.hasComplexEigenvalues()) {
             throw new UnsupportedOperationException("Matrices with complex eigenvalues are not supported");
         }
-        double[] temp = roundInfinitesimals(dedupe(ed.getRealEigenvalues()));
+        double[] temp = dedupe(roundInfinitesimals(ed.getRealEigenvalues()));
         Arrays.sort(temp);
         return temp;
     }
 
-    private static double min(double[] a) {
-        double min = a[0];
+    private static double min(double[] a) { //NOTE: THIS IS NON-ZERO
+        double min = Integer.MAX_VALUE;
         for (int i = 0; i < a.length; i++) {
-            min = Math.min(min, a[i]);
+            if (a[i] != 0 && Math.abs(a[i]) < min) {
+                min = Math.abs(a[i]);
+            }
         }
         return min;
     }
 
-    private static boolean isRational(double x) {
-        if (x % 1 == 0) {
-            return true; //TODO: finish this
-        } else {
-            return false;
+    private static int numOfNegative(double[] a) {
+        int negatives = 0;
+        for (int i = 0; i < a.length; i++) {
+            if (a[i] < 0) {
+                negatives++;
+            }
         }
+        return negatives;
+    }
+
+    private static int numOfZeroes(double[] a) {
+        int zeroes = 0;
+        for (int i = 0; i < a.length; i++) {
+            if (a[i] == 0) {
+                zeroes++;
+            }
+        }
+        return zeroes;
+    }
+
+    private static boolean isMostlyNegative(double[] a) {
+        int nonPositives = numOfNegative(a);
+        int zeroes = numOfZeroes(a);
+        return nonPositives > ((int) Math.ceil((a.length - zeroes) / 2));
     }
 
     private static double[] cleanupVector(double[] v) {
@@ -348,6 +370,11 @@ public class MatrixUtils {
         double min = min(v);
         for (int i = 0; i < v.length; i++) {
             output[i] = v[i] / min;
+        }
+        if (output[0] < 0) {
+            for (int i = 0; i < output.length; i++) {
+                output[i] = -1 * output[i];
+            }
         }
         return output;
     }
@@ -371,26 +398,56 @@ public class MatrixUtils {
      */
     public static ArrayList<Vector> getEigenVectors(double[][] matrix) {
         if (matrix.length != matrix[0].length) {
-            throw new IllegalArgumentException("Non square matrices to not have eigenvectors");
+            throw new IllegalArgumentException("Non square matrices do not have eigenvectors");
         }
-        //double[] eigenValues = unwrapDblArray((new HashSet<Double>(Arrays.asList(wrapDblArray(MathUtilities.getEigenValues(matrix))))).toArray(new Double[0]));
-        ArrayList<Vector> output = new ArrayList<>();
-        if (isDiagonal(matrix)) {
-            for (int i = 0; i < matrix.length; i++) {
-                double[] temp = new double[matrix.length];
-                temp[i] = 1;
-                output.add(new Vector(temp));
+        ArrayList<Vector> output;
+        output = MathUtilities.getEigenVectors(matrix);
+        if (output.isEmpty()) {
+            if (isDiagonal(matrix)) {
+                for (int i = 0; i < matrix.length; i++) {
+                    double[] temp = new double[matrix.length];
+                    temp[i] = 1;
+                    output.add(new Vector(temp));
+                }
+            } else {
+                EigenDecomposition ed = new EigenDecomposition(new Array2DRowRealMatrix(matrix));
+                Set<Vector> eigenVectors = new HashSet<>();
+                for (int i = 0; i < matrix.length; i++) {
+                    double[] temp = cleanupVector(roundInfinitesimals(ed.getEigenvector(i).toArray()));
+                    if (!(Double.isInfinite(temp[0]) || Double.isNaN(temp[0]))) { //Checks if it is a valid vector
+                        eigenVectors.add(new Vector(temp));
+                    }
+                }
+                Vector[] vectArray = eigenVectors.toArray(new Vector[eigenVectors.size()]);
+                output.addAll(Arrays.asList(vectArray));
+                output = dedupeEigenvects(sortVectors(output));
             }
         } else {
-            EigenDecomposition ed = new EigenDecomposition(new Array2DRowRealMatrix(matrix));
-            Set<Vector> eigenVectors = new HashSet<>();
-            for (int i = 0; i < matrix.length; i++) {
-                double[] temp = cleanupVector(roundInfinitesimals(ed.getEigenvector(i).toArray()));
-                eigenVectors.add(new Vector(temp));
+            for (int i = 0; i < output.size(); i++) {
+                double[] temp = cleanupVector(roundInfinitesimals(output.get(i).getValues()));
+                if (!(Double.isInfinite(temp[0]) || Double.isNaN(temp[0]))) { //Checks if it is a valid vector
+                    output.set(i, new Vector(temp));
+                }
             }
-            output.addAll(eigenVectors);
+            output = dedupeEigenvects(sortVectors(output));
         }
         return output;
+    }
+
+    private static ArrayList<Vector> dedupeEigenvects(ArrayList<Vector> ev) {
+        double[][] p = getP(ev);
+        double[][] rref = toRREF(getP(ev));
+        ArrayList<Vector> output = new ArrayList<>();
+        int[] pivs = getPivotColIndices(rref);
+        for (int i = 0; i < pivs.length; i++) {
+            output.add(new Vector(getColumn(p, pivs[i])));
+        }
+        return output;
+    }
+
+    private static ArrayList<Vector> sortVectors(ArrayList<Vector> vectors) {
+        Collections.sort(vectors, new orderVectorsByMag());
+        return vectors;
     }
 
     /**
@@ -471,7 +528,7 @@ public class MatrixUtils {
     private static double[][] getP(ArrayList<Vector> eigenVects) {
         double[][] temp = new double[eigenVects.size()][];
         for (int i = 0; i < temp.length; i++) {
-            temp[i] = eigenVects.get(i).getValues();
+            temp[i] = cleanupVector(eigenVects.get(i).getValues());
         }
         return transpose(temp);
     }
@@ -482,16 +539,21 @@ public class MatrixUtils {
             throw new IllegalArgumentException("Diagonalization of matrices with complex eigenvalues is not supported");
         }
         double[][][] output = new double[3][][];
-        output[0] = roundInfinitesimals(ed.getV().getData());
-        if (rank(output[0]) != output.length) {
+        //output[0] = roundInfinitesimals(ed.getV().getData());
+        output[0] = roundInfinitesimals(getP(getEigenVectors(a)));
+        if (rank(output[0]) != output[0].length) {
             throw new IllegalArgumentException("The matrix is not diagonalizable");
         }
         output[2] = roundInfinitesimals(findInverse(output[0]));
         if (isDiagonal(a)) {
-            output[1] = roundInfinitesimals(multiply(output[0], multiply(a, output[2])));
+            output[0] = makeIdentity(a.length);
+            output[1] = a;
+            output[2] = output[0];
         } else {
-            output[1] = roundInfinitesimals(ed.getD().getData());
+            output[1] = roundInfinitesimals(multiply(output[2], multiply(a, output[0])));
         }
+
+
         return output;
     }
 
@@ -666,15 +728,19 @@ public class MatrixUtils {
     private static Token tokenizeStep(double[] step) {
         Token output;
         if (step[0] == SWAP) {
-            output = new StringToken("Swap Rows " + (int) (step[1] + 1) + " and " + (int) (step[2] + 1));
+            //output = new StringToken("Swap Rows " + (int) (step[1] + 1) + " and " + (int) (step[2] + 1));
+            output = new StringToken("R_" + (int) (step[1] + 1) + " ↔ R_" + (int) (step[2] + 1));
         } else if (step[0] == ADD) {
             if (step[3] == 1) {
-                output = new StringToken("Add Row " + (int) (step[2] + 1) + " to Row " + (int) (step[1] + 1));
+                //output = new StringToken("Add Row " + (int) (step[2] + 1) + " to Row " + (int) (step[1] + 1));
+                output = new StringToken("R_" + (int) (step[1] + 1) + " ← R_" + (int) (step[1] + 1) + " + R_" + (int) (step[2] + 1));
             } else {
-                output = new StringToken("Add " + Utility.printExpression(JFok.fractionalize(new Number(step[3]))) + " times Row " + (int) (step[2] + 1) + " to Row " + (int) (step[1] + 1));
+                //output = new StringToken("Add " + Utility.printExpression(JFok.fractionalize(new Number(step[3]))) + " times Row " + (int) (step[2] + 1) + " to Row " + (int) (step[1] + 1));
+                output = new StringToken("R_" + (int) (step[1] + 1) + " ← R_" + (int) (step[1] + 1) + " + (" + Utility.printExpression(JFok.fractionalize(new Number(step[3]))) + ")R_" + (int) (step[2] + 1));
             }
         } else if (step[0] == SCALE) {
-            output = new StringToken("Multiply Row " + (int) (step[1] + 1) + " by " + Utility.printExpression(JFok.fractionalize(new Number(step[2]))));
+            //output = new StringToken("Multiply Row " + (int) (step[1] + 1) + " by " + Utility.printExpression(JFok.fractionalize(new Number(step[2]))));
+            output = new StringToken("R_" + (int) (step[1] + 1) + " ← (" + Utility.printExpression(JFok.fractionalize(new Number(step[2]))) + ")R_" + (int) (step[1] + 1));
         } else {
             throw new IllegalArgumentException("Invalid Step");
         }
@@ -954,6 +1020,8 @@ public class MatrixUtils {
             for (int j = 0; j < temp[0].length; j++) {
                 if (Math.log10(Math.abs(temp[i][j])) <= -15) {
                     temp[i][j] = 0;
+                } else if (Math.log10(Math.abs(temp[i][j] - Math.round(temp[i][j]))) <= -14) {
+                    temp[i][j] = Math.round(temp[i][j]);
                 }
             }
         }
@@ -965,6 +1033,8 @@ public class MatrixUtils {
         for (int i = 0; i < temp.length; i++) {
             if (Math.log10(Math.abs(temp[i])) <= -15) {
                 temp[i] = 0;
+            } else if (Math.log10(Math.abs(temp[i] - Math.round(temp[i]))) <= -14) {
+                temp[i] = Math.round(temp[i]);
             }
         }
         return temp;
@@ -1054,7 +1124,6 @@ public class MatrixUtils {
         return transpose(getCofactorMatrix(matrix));
     }
 
-
     /**
      * Finds the inverse matrix by using the adjoint method.
      *
@@ -1094,7 +1163,6 @@ public class MatrixUtils {
         }
         return minor;
     }
-
 
     public static double[][][] getLUDecomposition(double[][] a) {
         if (findDeterminant(a) == 0) {
@@ -1224,7 +1292,6 @@ public class MatrixUtils {
         return result;
     }
 
-
     /**
      * Substitutes all the variables on the tokens list with the defined values
      *
@@ -1244,7 +1311,6 @@ public class MatrixUtils {
         }
         return newTokens;
     }
-
 
     public static ArrayList<Token> setupExpression(ArrayList<Token> toSetup) {
         ArrayList<Token> newExpression = new ArrayList<>();
@@ -1415,8 +1481,10 @@ public class MatrixUtils {
                 throw new IllegalArgumentException();
             }
         }
-        if (stack.size() != 1) {
-            throw new IllegalArgumentException("Stack size is empty"); //There should only be 1 token left on the stack
+        if (stack.size() == 0) {
+            throw new IllegalArgumentException("Input is empty");
+        } else if (stack.size() != 1) {
+            throw new IllegalArgumentException("Illegal Expression"); //There should only be 1 token left on the stack
         } else {
             Object o = stack.pop();
             if (o instanceof Token) {
@@ -1456,6 +1524,41 @@ public class MatrixUtils {
             newMatrix[i][i] = 1;
         }
         return newMatrix;
+    }
+
+    private static class orderVectorsByMag implements Comparator<Vector> {
+        private double min(double[] a) {
+            double min = a[0];
+            for (int i = 1; i < a.length; i++) {
+                if (a[i] < min) {
+                    min = a[i];
+                }
+            }
+            return min;
+        }
+
+        @Override
+        public int compare(Vector u, Vector v) {
+            double uMag = VectorUtilities.calculateMagnitude(u);
+            double vMag = VectorUtilities.calculateMagnitude(v);
+            //return uMag > vMag ? 1 : (uMag < vMag ? -1 : 0);
+            if (Arrays.equals(u.getValues(), v.getValues())) {
+                return 0;
+            }
+            if (uMag > vMag) {
+                return 1;
+            } else if (uMag < vMag) {
+                return -1;
+            } else {
+                double uMin = min(u.getValues());
+                double vMin = min(v.getValues());
+                if (uMin < 0 || vMin < 0) {
+                    return uMin > vMin ? 1 : (uMin < vMin ? -1 : 0);
+                } else {
+                    return uMin > vMin ? -1 : (uMin < vMin ? 1 : 0);
+                }
+            }
+        }
     }
 //
 //
