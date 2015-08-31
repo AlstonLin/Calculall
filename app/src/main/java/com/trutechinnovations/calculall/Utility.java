@@ -895,7 +895,7 @@ public class Utility {
     public static ArrayList<Token> subVariables(ArrayList<Token> tokens) {
         ArrayList<Token> newTokens = new ArrayList<>();
         for (Token token : tokens) {
-            if (token instanceof Variable) {
+            if (token instanceof Variable && token.getType() != Variable.S && token.getType() != Variable.T) {
                 int index = tokens.indexOf(token);
                 Variable v = (Variable) token;
                 ArrayList<Token> val = v.getValue();

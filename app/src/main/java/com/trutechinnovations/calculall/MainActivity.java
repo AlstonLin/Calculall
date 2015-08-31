@@ -114,10 +114,12 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
         ToggleButton advanced = (ToggleButton) findViewById(R.id.advanced_button);
         ToggleButton function = (ToggleButton) findViewById(R.id.function_button);
         ToggleButton vector = (ToggleButton) findViewById(R.id.vector_button);
+        ToggleButton matrix = (ToggleButton) findViewById(R.id.matrix_button);
         basic.setEnabled(!swipeOnly);
         advanced.setEnabled(!swipeOnly);
         function.setEnabled(!swipeOnly);
         vector.setEnabled(!swipeOnly);
+        matrix.setEnabled(!swipeOnly);
     }
 
     /**
@@ -217,6 +219,14 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
         //Resumes last mode and tokens
         loadFromPrevious();
         setupSettings();
+        //In case the expressions beccome null
+        if (basicExpr == null) {
+            basicExpr = new ArrayList<>();
+            advancedExpr = new ArrayList<>();
+            functionExpr = new ArrayList<>();
+            vectorExpr = new ArrayList<>();
+            matrixExpr = new ArrayList<>();
+        }
     }
 
     /**
@@ -506,15 +516,15 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
         PopupWindow functionPw = ((FunctionMode) FunctionMode.getInstance()).getPw();
         PopupWindow elementPw = ((MatrixMode) MatrixMode.getInstance()).getElementWindow();
         PopupWindow elementsPw = ((MatrixMode) MatrixMode.getInstance()).getElementsWindow();
-        if (historyPw.isShowing()) {
+        if (historyPw != null && historyPw.isShowing()) {
             historyPw.dismiss();
-        } else if (advancedPw.isShowing()) {
+        } else if (advancedPw != null && advancedPw.isShowing()) {
             advancedPw.dismiss();
-        } else if (functionPw.isShowing()) {
+        } else if (functionPw != null && functionPw.isShowing()) {
             functionPw.dismiss();
-        } else if (elementPw.isShowing()) {
+        } else if (elementPw != null && elementPw.isShowing()) {
             elementPw.dismiss();
-        } else if (elementsPw.isShowing()) {
+        } else if (elementsPw != null && elementsPw.isShowing()) {
             elementsPw.dismiss();
         } else {
             super.onBackPressed();

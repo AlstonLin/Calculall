@@ -32,13 +32,13 @@ import java.util.LinkedList;
 public class Advanced extends Basic {
 
     public static final int DEC = 1, FRAC = 2;
+    protected int fracMode = DEC;
     public static final int CONSTANTS_SIZE = 25;
     public static final double CONSTANTS_IO_RATIO = 0.7; //The size of the output / input in the
     private static final String FILENAME = "history_advanced";
     private static final String FILENAMECONST = "const_advanced";
     private static final Basic INSTANCE = new Advanced();
     private static String filenameConst = "const_advanced";
-    protected int fracMode = DEC;
     //Fields
     protected ArrayList<MultiButton> multiButtons;
     protected boolean hyperbolic = false, shift = false, mem = false;
@@ -918,7 +918,6 @@ public class Advanced extends Basic {
 
     /**
      * Opens the constants list.
-     *
      */
     public void openConst() {
         //Inflates the XML file so you get the View to add to the PopupWindow

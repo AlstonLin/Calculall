@@ -88,18 +88,6 @@ public class SettingsActivity extends Activity {
             case GEESE:
                 setTheme(R.style.Theme6);
                 break;
-            case SUNSET:
-                setTheme(R.style.Theme1);
-                break;
-            case FOREST:
-                setTheme(R.style.Theme1);
-                break;
-            case MATERIAL:
-                setTheme(R.style.Theme1);
-                break;
-            case OCEAN:
-                setTheme(R.style.Theme1);
-                break;
             default:
                 throw new IllegalStateException("Illegal Theme");
         }
@@ -111,7 +99,7 @@ public class SettingsActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        if (popup.isShowing()) {
+        if (popup != null && popup.isShowing()) {
             popup.dismiss();
         } else {
             super.onBackPressed();

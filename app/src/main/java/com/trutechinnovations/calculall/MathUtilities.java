@@ -186,6 +186,10 @@ public class MathUtilities {
                     if (str.length() == charIndex + 1 || !Character.isLetter(str.charAt(charIndex + 1))) { //Only checks at the end of a letter sequence
                         //Looks for combinations of characters for functions
                         switch (temp) {
+                            case "Sqrt":
+                                tokens.add(FunctionFactory.makeSqrt());
+                                temp = "";
+                                break;
                             case "Sin":
                                 tokens.add(FunctionFactory.makeSin());
                                 temp = "";

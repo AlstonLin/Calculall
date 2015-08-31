@@ -5,7 +5,7 @@ android {
 
     dexOptions {
         javaMaxHeapSize "4g"
-        preDexLibraries = true
+        preDexLibraries = false
     }
 
     defaultConfig {
@@ -16,7 +16,7 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -28,5 +28,5 @@ dependencies {
     compile 'com.android.support:multidex:1.0.0'
     compile 'com.google.android.gms:play-services:6.5.87'
     compile 'com.balysv:material-ripple:1.0.2'
-    compile files('libs/symja-2015-06-16.jar')
+    compile files('libs/symja-2015-08-09.jar')
 }

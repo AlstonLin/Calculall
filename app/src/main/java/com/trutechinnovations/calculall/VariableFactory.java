@@ -162,7 +162,7 @@ public class VariableFactory {
     }
 
     public static Variable makeS() {
-        return new Variable(Variable.S, "S") {
+        return new Variable(Variable.S, "s") {
             public ArrayList<Token> getValue() {
                 return sValue;
             }
@@ -170,7 +170,7 @@ public class VariableFactory {
     }
 
     public static Variable makeT() {
-        return new Variable(Variable.T, "T") {
+        return new Variable(Variable.T, "t") {
             public ArrayList<Token> getValue() {
                 return tValue;
             }
