@@ -152,7 +152,29 @@ public class DisplayView extends NaturalView {
                     maxY = matrixY;
                 }
             } else {
-                canvas.drawText(token.getSymbol(), x, y, textPaint);
+                String s = token.getSymbol();
+                if (s.length() < 3) { //For efficiency
+                    canvas.drawText(s, x, y, textPaint);
+                } else { //May contain a text modification
+                    //Goes through each letter and writes with the appropriate text modification
+                    boolean onSubscript = false;
+                    float currentX = x;
+                    for (int index = 0; index < s.length(); index++) {
+                        char c = s.charAt(index);
+                        if (c == '☺') { //Toggles subscript
+                            onSubscript = !onSubscript;
+                        } else { //Draws the character
+                            float[] width = new float[1];
+                            Paint paint = textPaint;
+                            if (onSubscript) {
+                                paint = subscriptPaint;
+                            }
+                            canvas.drawText(Character.toString(c), currentX, y, paint);
+                            paint.getTextWidths(Character.toString(c), width);
+                            currentX += width[0];
+                        }
+                    }
+                }
             }
 
             //Updates maxY

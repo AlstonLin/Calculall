@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/D:/App%20dev/Calculall/app/src/main/res/values-v16/values.xml -->
+    <!-- From: file:/C:/Users/Jason/AndroidStudioProjects/Calculall/app/src/main/res/values-v16/values.xml -->
     <eat-comment/>
     <style name="CheckBoxDavid" parent="android:Widget.DeviceDefault.CompoundButton.CheckBox">
         <item name="android:textColor">@color/displayDavid</item>

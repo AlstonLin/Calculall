@@ -919,28 +919,44 @@ public class Advanced extends Basic {
         constWindow = new PopupWindow(layout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
 
         //Populate arraylist
-        arrayOfConstants.add(new Constant("Speed of Light", "c", 2.99792458e8, "m/s"));
-        arrayOfConstants.add(new Constant("Planck's constant", "h", 6.62606957e-34, "m<sup>2</sup>kg/s"));
-        arrayOfConstants.add(new Constant("Gravitational constant", "G", 6.67259e-11, "N*m<sup>2</sup>/kg<sup>2</sup>"));
-        arrayOfConstants.add(new Constant("Gas constant", "R", 8.31451, "J/mol*K"));
-        arrayOfConstants.add(new Constant("Gas constant", "R", 8.31451, "m<sup>3</sup>*Pa/mol*K"));
-        arrayOfConstants.add(new Constant("Gas constant", "R", 1.98589, "cal/mol*K"));
-        arrayOfConstants.add(new Constant("Gas constant", "R", 1545.36, "ft*lb<sub>f</sub>/lb<sub>mol</sub>*°R"));
-        arrayOfConstants.add(new Constant("Gas constant", "R", 0.082058, "L*atm/mol*K"));
-        arrayOfConstants.add(new Constant("Gas constant", "R", 0.730244, "ft<sup>3</sup>*atm/lb<sub>mol</sub>*°R"));
-        arrayOfConstants.add(new Constant("Gas constant", "R", 10.7316, "ft<sup>3</sup>*psi/lb<sub>mol</sub>*°R"));
-        arrayOfConstants.add(new Constant("Gas constant", "R", 82.0578, "cm<sup>3</sup>*atm/mol*K"));
-        arrayOfConstants.add(new Constant("Avogadro's Number", "N<sub>A</sub>", 6.02214e23, "mol<sup>-1</sup>"));
-        arrayOfConstants.add(new Constant("Faraday Constant", "F", 96485.31, "C/mol"));
-        arrayOfConstants.add(new Constant("Boltzmann's Constant", "k<sub>B</sub>", 1.38066e-23, "J/K"));
-        arrayOfConstants.add(new Constant("Charge of electron", "e", 1.602177e-19, "C"));
-        arrayOfConstants.add(new Constant("Mass of electron", "m<sub>e</sub>", 9.10939e-31, "kg"));
-        arrayOfConstants.add(new Constant("Mass of neutron", "m<sub>n</sub>", 1.67262e-27, "kg"));
-        arrayOfConstants.add(new Constant("Mass of proton", "m<sub>p</sub>", 1.67492e-27, "kg"));
-        arrayOfConstants.add(new Constant("Permitivity of free space", "ɛ<sub>0</sub>", 8.854e-12, "C<sup>2</sup>/N*m<sup>2</sup>"));
-        arrayOfConstants.add(new Constant("Permitivity of free space", "k", 8.99e9, "N*m<sup>2</sup>/C<sup>2</sup>"));
-        arrayOfConstants.add(new Constant("Permitivity of free space", "μ<sub>0</sub>", 4 * Math.PI * 1e-7, "Wb/A*m"));
-        arrayOfConstants.add(new Constant("Permitivity of free space", "ε<sub>0</sub>", 8.85e-12, "C<sup>2</sup>/N*m<sup>2</sup>"));
+        if (arrayOfConstants.size() == 0) {
+            arrayOfConstants.add(new Constant("Speed of light", "c", "c", 2.99792458e8, "m/s"));
+            arrayOfConstants.add(new Constant("Planck's constant", "h", "h", 6.62606957e-34, "m<sup2</sup>kg/s"));
+            arrayOfConstants.add(new Constant("Gravitational constant", "G", "G", 6.67259e-11, "N*m<sup>2</sup>/kg<sup>2</sup>"));
+            arrayOfConstants.add(new Constant("Molar gas constant", "R", "R", 8.31451, "J/mol*K"));
+    /*      arrayOfConstants.add(new Constant("Gas constant", "R", 8.31451, "m<sup>3</sup>*Pa/mol*K"));
+            arrayOfConstants.add(new Constant("Gas constant", "R", 1.98589, "cal/mol*K"));
+            arrayOfConstants.add(new Constant("Gas constant", "R", 1545.36, "ft*lb<sub>f</sub>/lb<sub>mol</sub>*°R"));
+            arrayOfConstants.add(new Constant("Gas constant", "R", 0.082058, "L*atm/mol*K"));
+            arrayOfConstants.add(new Constant("Gas constant", "R", 0.730244, "ft<sup>3</sup>*atm/lb<sub>mol</sub>*°R"));
+            arrayOfConstants.add(new Constant("Gas constant", "R", 10.7316, "ft<sup>3</sup>*psi/lb<sub>mol</sub>*°R"));
+            arrayOfConstants.add(new Constant("Gas constant", "R", 82.0578, "cm<sup>3</sup>*atm/mol*K"));*/
+            arrayOfConstants.add(new Constant("Avogadro's number", "N<sub><small><small><small>A</small></small></small></sub>", "N☺A☺", 6.02214e23, "mol<sup>-1</sup>"));
+            arrayOfConstants.add(new Constant("Faraday constant", "F", "F", 96485.31, "C/mol"));
+            arrayOfConstants.add(new Constant("Boltzmann's constant", "k<sub><small><small><small>B</small></small></small></sub>", "k☺B☺", 1.38066e-23, "J/K"));
+            arrayOfConstants.add(new Constant("Charge of electron", "e", "e", 1.602177e-19, "C"));
+            arrayOfConstants.add(new Constant("Mass of electron", "m<sub><small><small><small>e</small></small></small></sub>", "m☺e☺", 9.10939e-31, "kg"));
+            arrayOfConstants.add(new Constant("Mass of neutron", "m<sub><small><small><small>n</small></small></small></sub>", "m☺n☺", 1.67262e-27, "kg"));
+            arrayOfConstants.add(new Constant("Mass of proton", "m<sub><small><small><small>p</small></small></small></sub>", "m☺p☺", 1.67492e-27, "kg"));
+            arrayOfConstants.add(new Constant("Permitivity of free space", "ɛ<sub><small><small><small>0</small></small></small></sub>", "ɛ☺0☺", 8.854e-12, "C<sup>2</sup>/N*m<sup>2</sup>"));
+            arrayOfConstants.add(new Constant("Permitivity of free space", "k", "k", 8.99e9, "N*m<sup>2</sup>/C<sup>2</sup>"));
+            arrayOfConstants.add(new Constant("Permitivity of free space", "μ<sub><small><small><small>0</small></small></small></sub>", "μ☺0☺", 4 * Math.PI * 1e-7, "Wb/A*m"));
+            arrayOfConstants.add(new Constant("Astronomial unit", "AU", "AU", 1495978707, "m"));
+            arrayOfConstants.add(new Constant("Atomic mass unit", "u", "u", 1.661e-24, "g"));
+            arrayOfConstants.add(new Constant("Bohr magneton", " μ<sub><small><small><small>B</small></small></small></sub>", "μ☺B☺", 9.274e-24, "J*T<sup>-1</sup>"));
+            arrayOfConstants.add(new Constant("Bohr radius", "a<sub><small><small><small>0</small></small></small></sub>", "a☺0☺", 5.292e-11, "m"));
+            arrayOfConstants.add(new Constant("Electron radius", "r<sub><small><small><small>e</small></small></small></sub>", "r☺e☺", 2.818e-15, "m"));
+            arrayOfConstants.add(new Constant("Coulomb's constant", "K<sub><small><small><small>e</small></small></small></sub>", "K☺e☺", 898755179, "kg"));
+            arrayOfConstants.add(new Constant("Earth's mass", "M<sub><small><small><small>e</small></small></small></sub", "M☺e☺", 5.974e24, "kg"));
+            arrayOfConstants.add(new Constant("Earth's mean radius", "R<sub><small><small><small>e</small></small></small></sub>", "R☺e☺", 6.378e6, "m"));
+            arrayOfConstants.add(new Constant("Electric constant", "e<sub><small><small><small>0</small></small></small></sub>", "e☺0☺", 8.854e-12, "F*m<sup>-1</sup>"));
+            arrayOfConstants.add(new Constant("Electron volt", "eV", "eV", 1.602e-19, "C"));
+            arrayOfConstants.add(new Constant("Light-Year", "ly", "ly", 9.461e15, "m"));
+            arrayOfConstants.add(new Constant("Magnetic constant", "µ<sub><small><small><small>0</small></small></small></sub>", "μ☺0☺", 1.257e-6, "N*A<sup>-2<sup>"));
+            arrayOfConstants.add(new Constant("Magnetic flux quantum", "F<sub><small><small><small>0</small></small></small></sub>", "F☺0☺", 2.068e-15, "Wb"));
+            arrayOfConstants.add(new Constant("Radius of electron", "r<sub><small><small><small>e</small></small></small></sub>", "r☺e☺", 2.818e-15, "m"));
+        }
+
 
         //Create the adapter to convert the array to views
         ConstantsAdapter adapter = new ConstantsAdapter(activity, arrayOfConstants);
@@ -1044,7 +1060,9 @@ public class Advanced extends Basic {
             constantName.setText(constant.getName());
             constantName.setTextColor(typedValue.data);
 
-            constantSymbol.setText(Html.fromHtml(constant.getSymbol()));
+            //Set the constant symbol to be the actual symbol, the symbol var of the constant
+            //is the numeric value to be displayed in the user's input
+            constantSymbol.setText(Html.fromHtml(constant.getHTML()));
             constantSymbol.setTextColor(typedValue.data);
 
             constantVal.setText(Double.toString(constant.getNumericValue()));
