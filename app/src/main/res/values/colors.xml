@@ -41,12 +41,12 @@
     <color name="numPadColorTheme5">#9affd0</color>
 
 
-    <color name="backgroundTheme6">#e8e334</color>
-    <color name="textDisplayColorTheme6">#3c3a06</color>
-    <color name="displayTheme6">#fff89b</color>
-    <color name="color1Theme6">#eff46c</color>
-    <color name="color2Theme6">#dfdb4a</color>
-    <color name="textColorTheme6">#000000</color>
-    <color name="numPadColorTheme6">#7d244e</color>
+    <color name="backgroundTheme6">#cebb0f</color>
+    <color name="textDisplayColorTheme6">#1c3c3a</color>
+    <color name="displayTheme6">#ffe113</color>
+    <color name="color1Theme6">#e8c400</color>
+    <color name="color2Theme6">#c5b210</color>
+    <color name="textColorTheme6">#ffffff</color>
+    <color name="numPadColorTheme6">#427b7d</color>
 
 </resources>

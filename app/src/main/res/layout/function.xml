@@ -300,7 +300,7 @@
                 android:layout_height="match_parent"
                 android:onClick="onClick"
                 android:text="@string/findRoots"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
         </com.balysv.materialripple.MaterialRippleLayout>
 
         <com.balysv.materialripple.MaterialRippleLayout
