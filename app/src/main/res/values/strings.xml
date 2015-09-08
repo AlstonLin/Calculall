@@ -164,5 +164,6 @@
     <string name="reduction">Row Reduction Steps</string>
     <string name="decomposition">Matrix Decompositions</string>
     <string name="eigen">eigen</string>
+    <string name="vector_arrow">vector_arrow</string>
 
 </resources>

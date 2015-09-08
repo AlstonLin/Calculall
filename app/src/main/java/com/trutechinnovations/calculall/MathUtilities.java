@@ -347,7 +347,8 @@ public class MathUtilities {
     public static ArrayList<Token> simplify(ArrayList<Token> function) {
         String expr = Utility.machinePrintExpression(Utility.setupExpression(function));
         try {
-            String simplifiedStr = simplifyStr(expr);
+            expr = expr.replaceAll("☺", "\\$");
+            String simplifiedStr = simplifyStr(expr).replaceAll("\\$", "☺");
             ArrayList<Token> simplified = convertStringToTokens(simplifiedStr);
             simplified = JFok.jFokExpression(simplified);
             return simplified;

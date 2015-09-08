@@ -101,11 +101,17 @@ public class OperatorFactory {
         return new Operator("P", Operator.PERMUTATION, Operator.EXPONENT_PRECEDENCE, false, 0, false) {
             @Override
             public double operate(double left, double right) {
-                if (left % 1 != 0 || right % 1 != 0 || right > left) {
-                    throw new IllegalArgumentException();
+                if (left % 1 != 0 || right % 1 != 0) {
+                    throw new IllegalArgumentException("Arguments must be integers");
+                } else if (right > left) {
+                    throw new IllegalArgumentException("n must be greater than or equal to r");
                 } else {
                     try {
-                        return Utility.factorial((int) left) / Utility.factorial((int) (left - right));
+                        if (right == left) {
+                            return Utility.factorial((int) left);
+                        } else {
+                            return Utility.factorial((int) left) / Utility.factorial((int) (left - right));
+                        }
                     } catch (StackOverflowError e) {
                         throw new IllegalArgumentException("The calculation is to large to compute.");
                     }
@@ -119,10 +125,10 @@ public class OperatorFactory {
             @Override
             public double operate(double left, double right) throws NumberTooLargeException {
                 if (left % 1 != 0 || right % 1 != 0) {
-                    throw new IllegalArgumentException();
+                    throw new IllegalArgumentException("Arguments must be integers");
                 } else {
                     if (right > left) {
-                        return 0;
+                        throw new IllegalArgumentException("n must be greater than or equal to r");
                     } else if (right == left) {
                         return 1;
                     } else {

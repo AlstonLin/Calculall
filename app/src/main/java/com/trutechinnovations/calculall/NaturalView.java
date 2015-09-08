@@ -13,8 +13,12 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 /**
- * Contains the framework of a  View that displays the given mathematical expression with
- * superscripts, subscripts and fraction support.
+ * Contains the framework of a View that displays the given mathematical expression with
+ * superscripts and fraction supports.
+ *
+ * This View also supports text modifications within the Token's String itself. Use the following
+ * Unicode symbols to toggle it (eg.  N☺A☺ for a subscript A)
+ *  ☺  - Subscript
  *
  * @author Alston Lin
  * @version 3.0
@@ -28,6 +32,7 @@ public abstract class NaturalView extends View {
     public static final float FRAC_PADDING_TO_TEXT_HEIGHT = 1 / 8f;
     public static final float SUPERSCRIPT_OFFSET_TO_TEXT_HEIGHT = 1 / 2f;
     public static final float MATRIX_PADDING_TO_TEXT_HEIGHT = 0f;
+    public static final float SUBSCRIPT_TO_TEXT_HEIGHT = 1 / 2f;
 
     private static int lastColor = Color.BLACK; //The last color that any display has shown; used as a backup in case attribute can not be resolved
 
@@ -36,8 +41,7 @@ public abstract class NaturalView extends View {
     //Variables Used while drawing
     protected float maxX;
     protected ArrayList<Float> heights = new ArrayList<Float>();
-    protected Paint textPaint;
-    protected Paint fracPaint;
+    protected Paint textPaint, fracPaint, subscriptPaint;
     //Drawing Modifier Variables
     private float xPadding; //The padding at the start and end of the display (x)
     private float superscriptYOffset; //The y offset up that a superscript would have
@@ -86,6 +90,8 @@ public abstract class NaturalView extends View {
         fracPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         fracPaint.setColor(displayColor);
         fracPaint.setStrokeWidth(10);
+        subscriptPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        subscriptPaint.setColor(displayColor);
     }
 
     /**
@@ -96,6 +102,7 @@ public abstract class NaturalView extends View {
     public void setFontSize(int fontSize) {
         textPaint.setTextSize(fontSize);
         fracPaint.setTextSize(fontSize);
+        subscriptPaint.setTextSize(fontSize * SUBSCRIPT_TO_TEXT_HEIGHT);
         calculateAttributes();
     }
 
@@ -150,7 +157,29 @@ public abstract class NaturalView extends View {
                     maxY = matrixY;
                 }
             } else {
-                canvas.drawText(token.getSymbol(), x, y, textPaint);
+                String s = token.getSymbol();
+                if (s.length() < 3) { //For efficiency
+                    canvas.drawText(s, x, y, textPaint);
+                } else { //May contain a text modification
+                    //Goes through each letter and writes with the appropriate text modification
+                    boolean onSubscript = false;
+                    float currentX = x;
+                    for (int index = 0; index < s.length(); index++) {
+                        char c = s.charAt(index);
+                        if (c == '☺') { //Toggles subscript
+                            onSubscript = !onSubscript;
+                        } else { //Draws the character
+                            float[] width = new float[1];
+                            Paint paint = textPaint;
+                            if (onSubscript) {
+                                paint = subscriptPaint;
+                            }
+                            canvas.drawText(Character.toString(c), currentX, y, paint);
+                            paint.getTextWidths(Character.toString(c), width);
+                            currentX += width[0];
+                        }
+                    }
+                }
             }
 
             //Updates maxY
@@ -242,13 +271,32 @@ public abstract class NaturalView extends View {
                 }
                 x = columnX[columnX.length - 1] + (entries[0].length - 1) * matrixPadding + paddingAfterMatrix;
             } else {
-                //Changes paint for superscript
                 paint = textPaint;
                 //Determines the width of the symbol in text
-                float[] widths = new float[token.getSymbol().length()];
-                paint.getTextWidths(token.getSymbol(), widths);
-                float widthSum = sum(widths);
-                x += widthSum;
+                String s = token.getSymbol();
+                if (s.length() < 3) { //For efficiency
+                    float[] widths = new float[token.getSymbol().length()];
+                    paint.getTextWidths(token.getSymbol(), widths);
+                    float widthSum = sum(widths);
+                    x += widthSum;
+                } else { //May contain a text modification
+                    //Goes through each letter and writes with the appropriate text modification
+                    boolean onSubscript = false;
+                    for (int index = 0; index < s.length(); index++) {
+                        char c = s.charAt(index);
+                        if (c == '☺') { //Toggles subscript
+                            onSubscript = !onSubscript;
+                        } else { //Draws the character
+                            float[] width = new float[1];
+                            paint = textPaint;
+                            if (onSubscript) {
+                                paint = subscriptPaint;
+                            }
+                            paint.getTextWidths(Character.toString(c), width);
+                            x += width[0];
+                        }
+                    }
+                }
             }
 
             if (token instanceof Bracket && token.getType() == Bracket.NUM_CLOSE) {

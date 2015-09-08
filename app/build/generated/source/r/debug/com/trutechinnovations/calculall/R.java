@@ -1080,13 +1080,14 @@ containing a value of this type.
         public static final int vect_u=0x7f0500bc;
         public static final int vect_v=0x7f0500bd;
         public static final int vector=0x7f0500be;
-        public static final int visit=0x7f0500bf;
+        public static final int vector_arrow=0x7f0500bf;
+        public static final int visit=0x7f0500c0;
         public static final int wallet_buy_button_place_holder=0x7f05001c;
-        public static final int x_max=0x7f0500c0;
-        public static final int x_min=0x7f0500c1;
-        public static final int y_max=0x7f0500c2;
-        public static final int y_min=0x7f0500c3;
-        public static final int zero=0x7f0500c4;
+        public static final int x_max=0x7f0500c1;
+        public static final int x_min=0x7f0500c2;
+        public static final int y_max=0x7f0500c3;
+        public static final int y_min=0x7f0500c4;
+        public static final int zero=0x7f0500c5;
     }
     public static final class style {
         public static final int CheckBoxDavid=0x7f060000;

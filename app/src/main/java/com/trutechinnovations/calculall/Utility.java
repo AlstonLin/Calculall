@@ -102,7 +102,7 @@ public class Utility {
             } else if (token instanceof Function) {
                 switch (token.getType()) {
                     case Function.SQRT:
-                        s += "sqrt";
+                        s += "Sqrt";
                         break;
                     case Function.SIN:
                         s += "Sin";
