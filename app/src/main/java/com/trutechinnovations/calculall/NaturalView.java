@@ -32,7 +32,7 @@ public abstract class NaturalView extends View {
     public static final float FRAC_PADDING_TO_TEXT_HEIGHT = 1 / 8f;
     public static final float SUPERSCRIPT_OFFSET_TO_TEXT_HEIGHT = 1 / 2f;
     public static final float MATRIX_PADDING_TO_TEXT_HEIGHT = 0f;
-    public static final float SUBSCRIPT_TO_TEXT_HEIGHT = 1 / 3f;
+    public static final float SUBSCRIPT_TO_TEXT_HEIGHT = 1 / 2f;
 
     private static int lastColor = Color.BLACK; //The last color that any display has shown; used as a backup in case attribute can not be resolved
 

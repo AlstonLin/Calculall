@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.BitmapDrawable;
+import android.support.v4.view.ViewPager;
 import android.text.Html;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -21,6 +22,7 @@ import android.widget.ToggleButton;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Random;
 
 /**
  * Contains the back-end of the advanced calculator mode. The advanced mode will be able to
@@ -32,13 +34,13 @@ import java.util.LinkedList;
 public class Advanced extends Basic {
 
     public static final int DEC = 1, FRAC = 2;
-    protected int fracMode = DEC;
     public static final int CONSTANTS_SIZE = 25;
     public static final double CONSTANTS_IO_RATIO = 0.7; //The size of the output / input in the
     private static final String FILENAME = "history_advanced";
     private static final String FILENAMECONST = "const_advanced";
     private static final Basic INSTANCE = new Advanced();
     private static String filenameConst = "const_advanced";
+    protected int fracMode = DEC;
     //Fields
     protected ArrayList<MultiButton> multiButtons;
     protected boolean hyperbolic = false, shift = false, mem = false;
@@ -58,6 +60,47 @@ public class Advanced extends Basic {
      */
     public static Basic getInstance() {
         return INSTANCE;
+    }
+
+    private static String prettifyConstValue(double d) {
+        String s = Double.toString(d);
+        String[] parts = s.split("E");
+        if (parts.length < 2) {
+            String[] temp = s.split("\\.");
+            if (temp.length < 2 || temp.length > 2) {
+                return s;
+            } else if (temp.length == 2) {
+                if (temp[0].length() >= 4) {
+                    temp[0] = spaceOutString(new StringBuilder(temp[0]).reverse().toString());
+                    temp[0] = new StringBuilder(temp[0]).reverse().toString();
+                }
+                if (temp[1].length() >= 4) {
+                    temp[1] = spaceOutString(temp[1]);
+                }
+                s = temp[0].concat("." + temp[1]);
+                return s;
+            }
+        } else if (parts.length == 2) {
+            String[] temp = parts[0].split("\\.");
+            if (temp.length < 2 || temp.length > 2) {
+                return parts[0].concat(" × 10<sup><small>" + parts[1] + "</small></sup>");
+            } else if (temp.length == 2) {
+                if (temp[0].length() >= 4) {
+                    temp[0] = spaceOutString(new StringBuilder(temp[0]).reverse().toString());
+                    temp[0] = new StringBuilder(temp[0]).reverse().toString();
+                }
+                if (temp[1].length() >= 4) {
+                    temp[1] = spaceOutString(temp[1]);
+                }
+                parts[0] = temp[0].concat("." + temp[1]);
+                return parts[0].concat(" × 10<sup><small>" + parts[1] + "</small></sup>");
+            }
+        }
+        return s;
+    }
+
+    private static String spaceOutString(String s) {
+        return s.replaceAll("(.{3})", "$1 ");
     }
 
     public void setMultiButtons(ArrayList<MultiButton> multiButtons) {
@@ -141,6 +184,7 @@ public class Advanced extends Basic {
             default:
                 super.onClick(v);
         }
+        updateOutput();
     }
 
     /**
@@ -154,6 +198,21 @@ public class Advanced extends Basic {
                 throw new NumberTooLargeException();
             } else if (num.getValue() == 9001) {
                 Toast.makeText(activity, "IT'S OVER 9000!!", Toast.LENGTH_LONG).show();
+            } else if (num.getValue() == 420) {
+                String[] dank = {
+                        "Ayy Lmao",
+                        "JET FUEL CAN'T MELT DANK MEMES",
+                        "node.js",
+                        "node.js is the only REAL dev language",
+                        "JET FUEL CAN'T MELT STEEL BEAMS",
+                        "#sariahismyOTP"
+                };
+                Random rand = new Random();
+                Toast.makeText(activity, dank[rand.nextInt(dank.length)], Toast.LENGTH_LONG).show();
+            } else if (num.getValue() == 69) {
+                Toast.makeText(activity, "( ͡° ͜ʖ ͡°)", Toast.LENGTH_LONG).show();
+            } else if (num.getValue() == 1.048596) {
+                Toast.makeText(activity, "El Psy Congroo", Toast.LENGTH_LONG).show();
             }
             if (fracMode == DEC) {
                 ArrayList<Token> list = new ArrayList<Token>();
@@ -168,6 +227,9 @@ public class Advanced extends Basic {
                 ArrayList<Token> temp = new ArrayList<>();
                 try {
                     temp = MathUtilities.simplify(output);
+                    if (temp == null) {
+                        noSymjaError = false;
+                    }
                 } catch (Exception e) {
                     noSymjaError = false;
                 }
@@ -184,6 +246,52 @@ public class Advanced extends Basic {
         activity.scrollDown();
     }
 
+    private ArrayList<Token> equals() {
+        Number num = new Number(Utility.process(Utility.subVariables(tokens)));
+        if (fracMode == DEC) {
+            ArrayList<Token> list = new ArrayList<Token>();
+            list.add(num);
+            return list;
+        } else if (fracMode == FRAC) {
+            ArrayList<Token> output = Utility.subVariables(tokens, false);
+            output = JFok.simplifyExpression(output);
+            boolean noSymjaError = true;
+            ArrayList<Token> temp = new ArrayList<>();
+            try {
+                temp = MathUtilities.simplify(output);
+                if (temp == null) {
+                    noSymjaError = false;
+                }
+            } catch (Exception e) {
+                noSymjaError = false;
+            }
+            if (noSymjaError && !temp.isEmpty()) {
+                output = temp;
+            }
+            return output;
+        }
+        return new ArrayList<>();
+    }
+
+    protected void updateOutput() {
+        ViewPager mPager = (ViewPager) activity.findViewById(R.id.pager);
+        //ArrayList<Token> currentOutput =
+        if (mPager.getCurrentItem() == 1) { // checks if the current mode is Advanced
+            ArrayList<Token> output = new ArrayList<Token>();
+            boolean failed = false;
+            try {
+                output = equals();
+            } catch (Exception e) {
+                failed = true;
+            }
+            if (!failed) {
+                display.displayOutput(output);
+            } else {
+                display.displayOutput(new ArrayList<Token>()); //Clears output
+            }
+        }
+        display.displayInput(tokens);
+    }
 
     public void clickAngleMode() {
         Button angleModeButton = (Button) activity.findViewById(R.id.angle_mode);
@@ -918,6 +1026,7 @@ public class Advanced extends Basic {
 
     /**
      * Opens the constants list.
+     *
      */
     public void openConst() {
         //Inflates the XML file so you get the View to add to the PopupWindow
@@ -930,10 +1039,11 @@ public class Advanced extends Basic {
 
         //Populate arraylist
         if (arrayOfConstants.size() == 0) {
-            arrayOfConstants.add(new Constant("Speed of light", "c", "c", 2.99792458e8, "m/s"));
-            arrayOfConstants.add(new Constant("Planck's constant", "h", "h", 6.62606957e-34, "m<sup2</sup>kg/s"));
-            arrayOfConstants.add(new Constant("Gravitational constant", "G", "G", 6.67259e-11, "N*m<sup>2</sup>/kg<sup>2</sup>"));
-            arrayOfConstants.add(new Constant("Molar gas constant", "R", "R", 8.31451, "J/mol*K"));
+            arrayOfConstants.add(ConstantFactory.makeSpeedOfLight());
+            arrayOfConstants.add(ConstantFactory.makePlanck());
+            arrayOfConstants.add(ConstantFactory.makeRedPlanck());
+            arrayOfConstants.add(ConstantFactory.makeGravitational());
+            arrayOfConstants.add(ConstantFactory.makeGasConst());
     /*      arrayOfConstants.add(new Constant("Gas constant", "R", 8.31451, "m<sup>3</sup>*Pa/mol*K"));
             arrayOfConstants.add(new Constant("Gas constant", "R", 1.98589, "cal/mol*K"));
             arrayOfConstants.add(new Constant("Gas constant", "R", 1545.36, "ft*lb<sub>f</sub>/lb<sub>mol</sub>*°R"));
@@ -941,30 +1051,34 @@ public class Advanced extends Basic {
             arrayOfConstants.add(new Constant("Gas constant", "R", 0.730244, "ft<sup>3</sup>*atm/lb<sub>mol</sub>*°R"));
             arrayOfConstants.add(new Constant("Gas constant", "R", 10.7316, "ft<sup>3</sup>*psi/lb<sub>mol</sub>*°R"));
             arrayOfConstants.add(new Constant("Gas constant", "R", 82.0578, "cm<sup>3</sup>*atm/mol*K"));*/
-            arrayOfConstants.add(new Constant("Avogadro's number", "N<sub><small><small><small>A</small></small></small></sub>", "N☺A☺", 6.02214e23, "mol<sup>-1</sup>"));
-            arrayOfConstants.add(new Constant("Faraday constant", "F", "F", 96485.31, "C/mol"));
-            arrayOfConstants.add(new Constant("Boltzmann's constant", "k<sub><small><small><small>B</small></small></small></sub>", "k☺B☺", 1.38066e-23, "J/K"));
-            arrayOfConstants.add(new Constant("Charge of electron", "e", "e", 1.602177e-19, "C"));
-            arrayOfConstants.add(new Constant("Mass of electron", "m<sub><small><small><small>e</small></small></small></sub>", "m☺e☺", 9.10939e-31, "kg"));
-            arrayOfConstants.add(new Constant("Mass of neutron", "m<sub><small><small><small>n</small></small></small></sub>", "m☺n☺", 1.67262e-27, "kg"));
-            arrayOfConstants.add(new Constant("Mass of proton", "m<sub><small><small><small>p</small></small></small></sub>", "m☺p☺", 1.67492e-27, "kg"));
-            arrayOfConstants.add(new Constant("Permitivity of free space", "ɛ<sub><small><small><small>0</small></small></small></sub>", "ɛ☺0☺", 8.854e-12, "C<sup>2</sup>/N*m<sup>2</sup>"));
-            arrayOfConstants.add(new Constant("Permitivity of free space", "k", "k", 8.99e9, "N*m<sup>2</sup>/C<sup>2</sup>"));
-            arrayOfConstants.add(new Constant("Permitivity of free space", "μ<sub><small><small><small>0</small></small></small></sub>", "μ☺0☺", 4 * Math.PI * 1e-7, "Wb/A*m"));
-            arrayOfConstants.add(new Constant("Astronomial unit", "AU", "AU", 1495978707, "m"));
-            arrayOfConstants.add(new Constant("Atomic mass unit", "u", "u", 1.661e-24, "g"));
-            arrayOfConstants.add(new Constant("Bohr magneton", " μ<sub><small><small><small>B</small></small></small></sub>", "μ☺B☺", 9.274e-24, "J*T<sup>-1</sup>"));
-            arrayOfConstants.add(new Constant("Bohr radius", "a<sub><small><small><small>0</small></small></small></sub>", "a☺0☺", 5.292e-11, "m"));
-            arrayOfConstants.add(new Constant("Electron radius", "r<sub><small><small><small>e</small></small></small></sub>", "r☺e☺", 2.818e-15, "m"));
-            arrayOfConstants.add(new Constant("Coulomb's constant", "K<sub><small><small><small>e</small></small></small></sub>", "K☺e☺", 898755179, "kg"));
-            arrayOfConstants.add(new Constant("Earth's mass", "M<sub><small><small><small>e</small></small></small></sub", "M☺e☺", 5.974e24, "kg"));
-            arrayOfConstants.add(new Constant("Earth's mean radius", "R<sub><small><small><small>e</small></small></small></sub>", "R☺e☺", 6.378e6, "m"));
-            arrayOfConstants.add(new Constant("Electric constant", "e<sub><small><small><small>0</small></small></small></sub>", "e☺0☺", 8.854e-12, "F*m<sup>-1</sup>"));
-            arrayOfConstants.add(new Constant("Electron volt", "eV", "eV", 1.602e-19, "C"));
-            arrayOfConstants.add(new Constant("Light-Year", "ly", "ly", 9.461e15, "m"));
-            arrayOfConstants.add(new Constant("Magnetic constant", "µ<sub><small><small><small>0</small></small></small></sub>", "μ☺0☺", 1.257e-6, "N*A<sup>-2<sup>"));
-            arrayOfConstants.add(new Constant("Magnetic flux quantum", "F<sub><small><small><small>0</small></small></small></sub>", "F☺0☺", 2.068e-15, "Wb"));
-            arrayOfConstants.add(new Constant("Radius of electron", "r<sub><small><small><small>e</small></small></small></sub>", "r☺e☺", 2.818e-15, "m"));
+            arrayOfConstants.add(ConstantFactory.makeBoltzmann());
+            arrayOfConstants.add(ConstantFactory.makeAvogadro());
+            arrayOfConstants.add(ConstantFactory.makeStefanBoltzmann());
+            arrayOfConstants.add(ConstantFactory.makeFaraday());
+            arrayOfConstants.add(ConstantFactory.makeMagnetic());
+            arrayOfConstants.add(ConstantFactory.makeElectric());
+            arrayOfConstants.add(ConstantFactory.makeCoulomb());
+            arrayOfConstants.add(ConstantFactory.makeElemCharge());
+            arrayOfConstants.add(ConstantFactory.makeElectronVolt());
+            arrayOfConstants.add(ConstantFactory.makeElectronMass());
+            arrayOfConstants.add(ConstantFactory.makeProtonMass());
+            arrayOfConstants.add(ConstantFactory.makeNeutronMass());
+            arrayOfConstants.add(ConstantFactory.makeAtomicMass());
+            arrayOfConstants.add(ConstantFactory.makeBohrMagneton());
+            arrayOfConstants.add(ConstantFactory.makeBohrRadius());
+            arrayOfConstants.add(ConstantFactory.makeRydberg());
+            arrayOfConstants.add(ConstantFactory.makeFineStruct());
+            arrayOfConstants.add(ConstantFactory.makeMagneticFluxQuantum());
+            arrayOfConstants.add(ConstantFactory.makeEarthGrav());
+            arrayOfConstants.add(ConstantFactory.makeEarthMass());
+            arrayOfConstants.add(ConstantFactory.makeEarthRadius());
+            arrayOfConstants.add(ConstantFactory.makeSolarMass());
+            arrayOfConstants.add(ConstantFactory.makeSolarRadius());
+            arrayOfConstants.add(ConstantFactory.makeSolarLuminosity());
+            arrayOfConstants.add(ConstantFactory.makeAU());
+            arrayOfConstants.add(ConstantFactory.makeLightYear());
+            arrayOfConstants.add(ConstantFactory.makePhi());
+            arrayOfConstants.add(ConstantFactory.makeEulerMascheroni());
         }
 
 
@@ -1079,7 +1193,7 @@ public class Advanced extends Basic {
             constantSymbol.setText(Html.fromHtml(constant.getHTML()));
             constantSymbol.setTextColor(typedValue.data);
 
-            constantVal.setText(Double.toString(constant.getNumericValue()));
+            constantVal.setText(Html.fromHtml(prettifyConstValue(constant.getNumericValue())));
             constantVal.setTextColor(typedValue.data);
 
             constantUnits.setText(Html.fromHtml(constant.getUnits()));
@@ -1092,10 +1206,11 @@ public class Advanced extends Basic {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
                     if (event.getAction() == MotionEvent.ACTION_UP) {
-                        tokens.add(VariableFactory.makeConstantToken(cnst)); //Adds the token to the input
+                        tokens.add(display.getRealCursorIndex(), VariableFactory.makeConstantToken(cnst)); //Adds the token to the input
                         updateInput();
-                        display.setCursorIndex(display.getCursorIndex() + 1); //Moves the cursor behind the constant
+                        display.setCursorIndex(display.getCursorIndex() + 1); //Moves the cursor to the right of the constant
                         constWindow.dismiss(); //Exits constWindow once an Item has been selected
+                        updateOutput();
                         return true;
                     } else {
                         return false;

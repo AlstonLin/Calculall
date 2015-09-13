@@ -4,6 +4,7 @@ package com.trutechinnovations.calculall;
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -48,6 +49,7 @@ public class Basic implements View.OnClickListener {
     protected boolean changedTokens = false;
     protected String filename = "history_basic";
     protected Fragment fragment;
+    private String reference = "";
 
     /**
      * Makes sure that an instance of Basic cannot be created from outside the class.
@@ -379,6 +381,7 @@ public class Basic implements View.OnClickListener {
     public void clickEquals() {
         try {
             Number num = new Number(Utility.process(tokens));
+            ArrayList<Token> output = new ArrayList<>();
             if (Double.isInfinite(num.getValue())) {
                 throw new NumberTooLargeException();
             } else if (num.getValue() == 9001) {
@@ -388,6 +391,7 @@ public class Basic implements View.OnClickListener {
                         "Ayy Lmao",
                         "JET FUEL CAN'T MELT DANK MEMES",
                         "node.js",
+                        "node.js is the only REAL dev language",
                         "JET FUEL CAN'T MELT STEEL BEAMS",
                         "#sariahismyOTP"
                 };
@@ -398,14 +402,20 @@ public class Basic implements View.OnClickListener {
             } else if (num.getValue() == 1.048596) {
                 Toast.makeText(activity, "El Psy Congroo", Toast.LENGTH_LONG).show();
             }
-            ArrayList<Token> list = new ArrayList<Token>();
-            list.add(num);
-            display.displayOutput(list);
-            saveEquation(tokens, list, filename);
+            output.add(num);
+            display.displayOutput(output);
+            saveEquation(tokens, output, filename);
         } catch (Exception e) { //User did a mistake
             handleExceptions(e);
         }
         activity.scrollDown();
+    }
+
+    private ArrayList<Token> equals() {
+        Number num = new Number(Utility.process(tokens));
+        ArrayList<Token> list = new ArrayList<Token>();
+        list.add(num);
+        return list;
     }
 
     /**
@@ -517,13 +527,36 @@ public class Basic implements View.OnClickListener {
      */
     protected void updateInput() {
         updatePlaceHolders();
+        ViewPager mPager = (ViewPager) activity.findViewById(R.id.pager);
+        if (mPager.getCurrentItem() == 0) { // checks if the current mode is Basic
+            ArrayList<Token> output = new ArrayList<Token>();
+            boolean failed = false;
+            try {
+                output = equals();
+            } catch (Exception e) {
+                failed = true;
+            }
+            if (!failed) {
+                display.displayOutput(output);
+            } else {
+                display.displayOutput(new ArrayList<Token>()); //Clears output
+            }
+        } else {
+            display.displayOutput(new ArrayList<Token>()); //Clears output
+        }
+        display.displayInput(tokens);
+        activity.setShowAd(true);
+    }
+
+    protected void updateInputOld() {
+        updatePlaceHolders();
         display.displayOutput(new ArrayList<Token>()); //Clears output
         display.displayInput(tokens);
         activity.setShowAd(true);
     }
 
     /**
-     * Removes any placeholders that are no longer neccesary, or adds them
+     * Removes any placeholders that are no longer necessary, or adds them
      * if they are.
      */
     private void updatePlaceHolders() {

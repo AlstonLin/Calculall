@@ -729,18 +729,18 @@ public class MatrixUtils {
         Token output;
         if (step[0] == SWAP) {
             //output = new StringToken("Swap Rows " + (int) (step[1] + 1) + " and " + (int) (step[2] + 1));
-            output = new StringToken("R_" + (int) (step[1] + 1) + " ↔ R_" + (int) (step[2] + 1));
+            output = new StringToken("R☺" + (int) (step[1] + 1) + "☺ ↔ R☺" + (int) (step[2] + 1) + "☺");
         } else if (step[0] == ADD) {
             if (step[3] == 1) {
                 //output = new StringToken("Add Row " + (int) (step[2] + 1) + " to Row " + (int) (step[1] + 1));
-                output = new StringToken("R_" + (int) (step[1] + 1) + " ← R_" + (int) (step[1] + 1) + " + R_" + (int) (step[2] + 1));
+                output = new StringToken("R☺" + (int) (step[1] + 1) + "☺ ← R☺" + (int) (step[1] + 1) + "☺ + R☺" + (int) (step[2] + 1) + "☺");
             } else {
                 //output = new StringToken("Add " + Utility.printExpression(JFok.fractionalize(new Number(step[3]))) + " times Row " + (int) (step[2] + 1) + " to Row " + (int) (step[1] + 1));
-                output = new StringToken("R_" + (int) (step[1] + 1) + " ← R_" + (int) (step[1] + 1) + " + (" + Utility.printExpression(JFok.fractionalize(new Number(step[3]))) + ")R_" + (int) (step[2] + 1));
+                output = new StringToken("R☺" + (int) (step[1] + 1) + "☺ ← R☺" + (int) (step[1] + 1) + "☺ + (" + Utility.printExpression(JFok.fractionalize(new Number(step[3]))) + ")R☺" + (int) (step[2] + 1) + "☺");
             }
         } else if (step[0] == SCALE) {
             //output = new StringToken("Multiply Row " + (int) (step[1] + 1) + " by " + Utility.printExpression(JFok.fractionalize(new Number(step[2]))));
-            output = new StringToken("R_" + (int) (step[1] + 1) + " ← (" + Utility.printExpression(JFok.fractionalize(new Number(step[2]))) + ")R_" + (int) (step[1] + 1));
+            output = new StringToken("R☺" + (int) (step[1] + 1) + "☺ ← (" + Utility.printExpression(JFok.fractionalize(new Number(step[2]))) + ")R☺" + (int) (step[1] + 1) + "☺");
         } else {
             throw new IllegalArgumentException("Invalid Step");
         }
@@ -748,11 +748,13 @@ public class MatrixUtils {
     }
 
     private static Token[] tokenizeSteps(double[][] steps) {
-        Token[] output = new Token[steps.length];
+        ArrayList<Token> output = new ArrayList<>();
         for (int i = 0; i < steps.length; i++) {
-            output[i] = tokenizeStep(steps[i]);
+            if (!(steps[i][0] == ADD && roundInfinitesimal(steps[i][3]) == 0)) {
+                output.add(tokenizeStep(steps[i]));
+            }
         }
-        return output;
+        return output.toArray(new Token[output.size()]);
     }
 
     private static double[][][] getIntermediateMatrices(double[][] a, double[][] steps) {
@@ -940,9 +942,11 @@ public class MatrixUtils {
                 for (int i = 0; i < pivotRowIndex; i++) {
                     if (temp[i][pivotColIndex] != 0) {
                         double scalar = -1 * temp[i][pivotColIndex] / temp[pivotRowIndex][pivotColIndex];
-                        temp = addRows(temp, i, pivotRowIndex, scalar);
-                        Double[] addStep = {2d, (double) i, (double) pivotRowIndex, scalar};
-                        steps.add(addStep);
+                        if (roundInfinitesimal(scalar) != 0) {
+                            temp = addRows(temp, i, pivotRowIndex, scalar);
+                            Double[] addStep = {2d, (double) i, (double) pivotRowIndex, scalar};
+                            steps.add(addStep);
+                        }
                     }
                 }
             }
@@ -958,9 +962,11 @@ public class MatrixUtils {
                 if (pivot != -1 && i >= 1 && !onlyZeroes(Arrays.copyOfRange(getColumn(temp, pivot), 0, i))) {
                     for (int j = 0; j < i; j++) {
                         double scalar = -1 * temp[j][pivot] / temp[i][pivot];
-                        temp = addRows(temp, j, i, scalar);
-                        Double[] addStep = {2d, (double) j, (double) i, scalar};
-                        steps.add(addStep);
+                        if (roundInfinitesimal(scalar) != 0) {
+                            temp = addRows(temp, j, i, scalar);
+                            Double[] addStep = {2d, (double) j, (double) i, scalar};
+                            steps.add(addStep);
+                        }
                     }
                 }
             }
@@ -1036,6 +1042,16 @@ public class MatrixUtils {
             } else if (Math.log10(Math.abs(temp[i] - Math.round(temp[i]))) <= -14) {
                 temp[i] = Math.round(temp[i]);
             }
+        }
+        return temp;
+    }
+
+    public static double roundInfinitesimal(double input) {
+        double temp = input;
+        if (Math.log10(Math.abs(temp)) <= -15) {
+            temp = 0;
+        } else if (Math.log10(Math.abs(temp - Math.round(temp))) <= -14) {
+            temp = Math.round(temp);
         }
         return temp;
     }

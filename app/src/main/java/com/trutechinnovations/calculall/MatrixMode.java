@@ -99,6 +99,9 @@ public class MatrixMode extends FunctionMode {
             case R.id.ev_button:
                 clickEigenVect();
                 break;
+            case R.id.ev_button_image:
+                clickEigenVect();
+                break;
             case R.id.rank_button:
                 clickRank();
                 break;
