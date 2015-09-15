@@ -92,7 +92,7 @@
 
         <ToggleButton
             android:id="@+id/basic_button"
-            style="?attr/buttonFunction"
+            style="?attr/buttonToggle"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
@@ -104,7 +104,7 @@
 
         <ToggleButton
             android:id="@+id/advanced_button"
-            style="?attr/buttonFunction"
+            style="?attr/buttonToggle"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
@@ -115,7 +115,7 @@
 
         <ToggleButton
             android:id="@+id/function_button"
-            style="?attr/buttonFunction"
+            style="?attr/buttonToggle"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
@@ -126,7 +126,7 @@
 
         <ToggleButton
             android:id="@+id/vector_button"
-            style="?attr/buttonFunction"
+            style="?attr/buttonToggle"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
@@ -137,7 +137,7 @@
 
         <ToggleButton
             android:id="@+id/matrix_button"
-            style="?attr/buttonFunction"
+            style="?attr/buttonToggle"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
@@ -148,7 +148,7 @@
 
         <ImageButton
             android:id="@+id/imageButton"
-            style="?attr/buttonFunction"
+            style="?attr/buttonToggle"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:adjustViewBounds="true"

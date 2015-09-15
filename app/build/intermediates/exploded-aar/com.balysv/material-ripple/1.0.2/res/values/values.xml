@@ -1,20 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- From: file:/Users/balysv/AndroidStudioProjects/MaterialRipple/library/src/main/res/values/colors.xml -->
-    <eat-comment />
+    <eat-comment/>
     <color name="transparent">#00FFFFFF</color>
-    <declare-styleable name="MaterialRippleLayout">
-        <attr name="mrl_rippleColor" format="color" localization="suggested" />
-        <attr name="mrl_rippleDimension" format="dimension" localization="suggested" />
-        <attr name="mrl_rippleOverlay" format="boolean" localization="suggested" />
-        <attr name="mrl_rippleAlpha" format="float" localization="suggested" />
-        <attr name="mrl_rippleDuration" format="integer" localization="suggested" />
-        <attr name="mrl_rippleFadeDuration" format="integer" localization="suggested" />
-        <attr name="mrl_rippleHover" format="boolean" localization="suggested" />
-        <attr name="mrl_rippleBackground" format="color" localization="suggested" />
-        <attr name="mrl_rippleDelayClick" format="boolean" localization="suggested" />
-        <attr name="mrl_ripplePersistent" format="boolean" localization="suggested" />
-        <attr name="mrl_rippleInAdapter" format="boolean" localization="suggested" />
-        <attr name="mrl_rippleRoundedCorners" format="dimension" localization="suggested" />
-    </declare-styleable>
+    <declare-styleable name="MaterialRippleLayout"><attr format="color" localization="suggested" name="mrl_rippleColor"/><attr format="dimension" localization="suggested" name="mrl_rippleDimension"/><attr format="boolean" localization="suggested" name="mrl_rippleOverlay"/><attr format="float" localization="suggested" name="mrl_rippleAlpha"/><attr format="integer" localization="suggested" name="mrl_rippleDuration"/><attr format="integer" localization="suggested" name="mrl_rippleFadeDuration"/><attr format="boolean" localization="suggested" name="mrl_rippleHover"/><attr format="color" localization="suggested" name="mrl_rippleBackground"/><attr format="boolean" localization="suggested" name="mrl_rippleDelayClick"/><attr format="boolean" localization="suggested" name="mrl_ripplePersistent"/><attr format="boolean" localization="suggested" name="mrl_rippleInAdapter"/><attr format="dimension" localization="suggested" name="mrl_rippleRoundedCorners"/></declare-styleable>
 </resources>

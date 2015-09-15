@@ -327,7 +327,7 @@ public class AdvancedFragment extends BasicFragment {
         //Restores the toggle buttons to their states
         ToggleButton shift = (ToggleButton) v.findViewById(R.id.shift_button);
         ToggleButton mem = (ToggleButton) v.findViewById(R.id.hyp_button);
-        ToggleButton hyp = (ToggleButton) v.findViewById(R.id.mem_button);
+        ToggleButton hyp = (ToggleButton) v.findViewById(R.id.mem_button_a);
         shift.setChecked(((Advanced) Advanced.getInstance()).isShift());
         mem.setChecked(((Advanced) Advanced.getInstance()).isHyperbolic());
         hyp.setChecked(((Advanced) Advanced.getInstance()).isMem());

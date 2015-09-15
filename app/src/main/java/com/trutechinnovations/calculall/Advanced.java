@@ -130,7 +130,7 @@ public class Advanced extends Basic {
             case R.id.hyp_button:
                 clickHyp();
                 break;
-            case R.id.mem_button:
+            case R.id.mem_button_a:
                 clickMem();
                 break;
             case R.id.var_a:
@@ -184,7 +184,9 @@ public class Advanced extends Basic {
             default:
                 super.onClick(v);
         }
-        updateOutput();
+        if (!(v.getId() == R.id.var_a || v.getId() == R.id.var_b || v.getId() == R.id.var_c)) {
+            updateOutput();
+        }
     }
 
     /**
@@ -193,7 +195,7 @@ public class Advanced extends Basic {
     public void clickEquals() {
         try {
             //Does a quick check to see if the result would be infinite
-            Number num = new Number(Utility.process(Utility.subVariables(tokens)));
+            Number num = new Number(Utility.process(Utility.subVariables(Utility.multiplyConstants(tokens))));
             if (Double.isInfinite(num.getValue())) {
                 throw new NumberTooLargeException();
             } else if (num.getValue() == 9001) {
@@ -221,25 +223,14 @@ public class Advanced extends Basic {
                 saveEquation(tokens, list, filename);
                 VariableFactory.ansValueAdv = list;
             } else if (fracMode == FRAC) {
-                ArrayList<Token> output = Utility.subVariables(tokens, false);
+                ArrayList<Token> output = Utility.subVariables(Utility.multiplyConstants(tokens), false);
                 output = JFok.simplifyExpression(output);
-                boolean noSymjaError = true;
-                ArrayList<Token> temp = new ArrayList<>();
-                try {
-                    temp = MathUtilities.simplify(output);
-                    if (temp == null) {
-                        noSymjaError = false;
-                    }
-                } catch (Exception e) {
-                    noSymjaError = false;
-                }
-                if (noSymjaError && !temp.isEmpty()) {
-                    output = temp;
-                }
                 display.displayOutput(output);
                 saveEquation(tokens, output, FILENAME);
                 VariableFactory.ansValueAdv = output;
             }
+
+
         } catch (Exception e) { //User did a mistake
             handleExceptions(e);
         }
@@ -247,27 +238,14 @@ public class Advanced extends Basic {
     }
 
     private ArrayList<Token> equals() {
-        Number num = new Number(Utility.process(Utility.subVariables(tokens)));
+        Number num = new Number(Utility.process(Utility.subVariables(Utility.multiplyConstants(tokens))));
         if (fracMode == DEC) {
             ArrayList<Token> list = new ArrayList<Token>();
             list.add(num);
             return list;
         } else if (fracMode == FRAC) {
-            ArrayList<Token> output = Utility.subVariables(tokens, false);
+            ArrayList<Token> output = Utility.subVariables(Utility.multiplyConstants(tokens), false);
             output = JFok.simplifyExpression(output);
-            boolean noSymjaError = true;
-            ArrayList<Token> temp = new ArrayList<>();
-            try {
-                temp = MathUtilities.simplify(output);
-                if (temp == null) {
-                    noSymjaError = false;
-                }
-            } catch (Exception e) {
-                noSymjaError = false;
-            }
-            if (noSymjaError && !temp.isEmpty()) {
-                output = temp;
-            }
             return output;
         }
         return new ArrayList<>();
@@ -275,18 +253,10 @@ public class Advanced extends Basic {
 
     protected void updateOutput() {
         ViewPager mPager = (ViewPager) activity.findViewById(R.id.pager);
-        //ArrayList<Token> currentOutput =
         if (mPager.getCurrentItem() == 1) { // checks if the current mode is Advanced
-            ArrayList<Token> output = new ArrayList<Token>();
-            boolean failed = false;
             try {
-                output = equals();
+                display.displayOutput(equals());
             } catch (Exception e) {
-                failed = true;
-            }
-            if (!failed) {
-                display.displayOutput(output);
-            } else {
                 display.displayOutput(new ArrayList<Token>()); //Clears output
             }
         }
@@ -353,7 +323,7 @@ public class Advanced extends Basic {
      * When the user presses the MEM button; toggles memory storage
      */
     public void clickMem() {
-        ToggleButton memButton = (ToggleButton) activity.findViewById(R.id.mem_button);
+        ToggleButton memButton = (ToggleButton) activity.findViewById(R.id.mem_button_a);
         mem = !mem;
         memButton.setChecked(mem);
     }
@@ -365,7 +335,7 @@ public class Advanced extends Basic {
      * @param assignment  The assignment command that would be executed
      */
     protected void storeVariable(String addToOutput, Command<Void, ArrayList<Token>> assignment) {
-        ToggleButton memButton = (ToggleButton) activity.findViewById(R.id.mem_button);
+        ToggleButton memButton = (ToggleButton) activity.findViewById(R.id.mem_button_a);
         try {
             ArrayList<Token> outputList = new ArrayList<>();
             outputList.addAll(tokens);
@@ -407,6 +377,7 @@ public class Advanced extends Basic {
             tokens.add(display.getRealCursorIndex(), VariableFactory.makeA());
             display.setCursorIndex(display.getCursorIndex() + 1);
             updateInput();
+            updateOutput();
         }
     }
 
@@ -426,6 +397,7 @@ public class Advanced extends Basic {
             tokens.add(display.getRealCursorIndex(), VariableFactory.makeB());
             display.setCursorIndex(display.getCursorIndex() + 1);
             updateInput();
+            updateOutput();
         }
     }
 
@@ -445,6 +417,7 @@ public class Advanced extends Basic {
             tokens.add(display.getRealCursorIndex(), VariableFactory.makeC());
             display.setCursorIndex(display.getCursorIndex() + 1);
             updateInput();
+            updateOutput();
         }
     }
 

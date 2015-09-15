@@ -180,7 +180,7 @@ public class VectorFragment extends BasicFragment {
         }
         //Restores the toggle buttons to their states
         ToggleButton shift = (ToggleButton) v.findViewById(R.id.shift_button);
-        ToggleButton mem = (ToggleButton) v.findViewById(R.id.mem_button);
+        ToggleButton mem = (ToggleButton) v.findViewById(R.id.mem_button_v);
         shift.setChecked(((VectorMode) VectorMode.getInstance()).isShift());
         mem.setChecked(((VectorMode) VectorMode.getInstance()).isMem());
     }

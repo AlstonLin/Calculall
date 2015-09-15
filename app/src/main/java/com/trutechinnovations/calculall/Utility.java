@@ -1,5 +1,6 @@
 package com.trutechinnovations.calculall;
 
+import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.ArrayList;
@@ -382,6 +383,23 @@ public class Utility {
         return newExpression;
     }
 
+    /**
+     * Looks for and multiplies constants next to each other in the given expression.
+     * i.e. AB -> A * B
+     * @param toSetup The expression to multiply constants
+     * @return The expression with the multiplication tokens added
+     */
+    public static ArrayList<Token> multiplyConstants(ArrayList<Token> toSetup) {
+        ArrayList<Token> newExpression = new ArrayList<>();
+        for (Token t : toSetup){
+            Token last = newExpression.isEmpty() ? null : newExpression.get(newExpression.size() - 1); //Last token in the new expression
+            if (t instanceof Variable && last instanceof Variable){
+                newExpression.add(OperatorFactory.makeMultiply());
+            }
+            newExpression.add(t);
+        }
+        return newExpression;
+    }
 
     /**
      * Uses the shunting yard algorithm to change the expression from infix to reverse polish.
@@ -903,7 +921,7 @@ public class Utility {
                 if (val.isEmpty()) {
                     val.add(new Number(0));
                 }
-                newTokens.addAll(index, val);
+                newTokens.addAll(val);
             } else {
                 newTokens.add(token);
             }
@@ -982,7 +1000,7 @@ public class Utility {
                 if (val.isEmpty()) {
                     val.add(new Number(0));
                 }
-                newTokens.addAll(index, v.getValue());
+                newTokens.addAll(v.getValue());
             } else {
                 newTokens.add(token);
             }

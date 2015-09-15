@@ -52,8 +52,8 @@
             android:layout_weight="1">
 
             <ToggleButton
-                android:id="@+id/mem_button"
-                style="?attr/buttonSpecial"
+                android:id="@+id/mem_button_m"
+                style="?attr/buttonToggle"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:checked="false"

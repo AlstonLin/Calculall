@@ -41,6 +41,9 @@ public class VectorMode extends Advanced {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.mem_button_v:
+                clickMem();
+                break;
             case R.id.var_u:
                 clickU();
                 break;
@@ -154,6 +157,30 @@ public class VectorMode extends Advanced {
     }
 
     /**
+     * Stores the a variable into the memory; the assignment itself will occur in the given Command.
+     *
+     * @param addToOutput The String that will be shown in the output along with the value
+     * @param assignment  The assignment command that would be executed
+     */
+    protected void storeVariable(String addToOutput, Command<Void, ArrayList<Token>> assignment) {
+        ToggleButton memButton = (ToggleButton) activity.findViewById(R.id.mem_button_v);
+        try {
+            ArrayList<Token> outputList = new ArrayList<>();
+            outputList.addAll(tokens);
+            outputList.add(new StringToken(addToOutput));
+            display.displayOutput(outputList);
+
+            ArrayList<Token> val = new ArrayList<>();
+            val.addAll(tokens);
+            assignment.execute(val);
+            mem = false;
+            memButton.setChecked(false);
+        } catch (Exception e) { //User did a mistake
+            handleExceptions(e);
+        }
+    }
+
+    /**
      * When the user presses the A button
      */
     public void clickA() {
@@ -215,7 +242,7 @@ public class VectorMode extends Advanced {
      */
     public void clickVectorEquals() {
         try {
-            ArrayList<Token> toOutput = VectorUtilities.processVectors(tokens);
+            ArrayList<Token> toOutput = VectorUtilities.processVectors(Utility.multiplyConstants(tokens));
             display.displayOutput(toOutput);
             activity.scrollDown();
             saveEquation(tokens, toOutput, FILENAME);
@@ -238,7 +265,7 @@ public class VectorMode extends Advanced {
      * When the user presses the MEM button; toggles memory storage
      */
     public void clickMem() {
-        ToggleButton vMemButton = (ToggleButton) activity.findViewById(R.id.mem_button);
+        ToggleButton vMemButton = (ToggleButton) activity.findViewById(R.id.mem_button_v);
         mem = !mem;
         vMemButton.setChecked(mem);
     }
@@ -252,7 +279,7 @@ public class VectorMode extends Advanced {
      */
     protected void storeVector(String addToOutput, Command<Void, Token> assignment) {
         DisplayView display = (DisplayView) activity.findViewById(R.id.display);
-        ToggleButton memButton = (ToggleButton) activity.findViewById(R.id.mem_button);
+        ToggleButton memButton = (ToggleButton) activity.findViewById(R.id.mem_button_v);
         try {
             ArrayList<Token> output = VectorUtilities.processVectors(tokens); //Should only have 1 Vector result
             assignment.execute(output.get(0));

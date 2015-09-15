@@ -111,7 +111,7 @@
     <string name="pi">"π"</string>
     <string name="e">e</string>
     <string name="shift">2nd</string>
-    <string name="backspace">BS</string>
+    <string name="backspace">⇤</string>
     <string name="rightArrow">→</string>
     <string name="sqrt">√</string>
     <string name="cbrt">³√</string>

@@ -20,7 +20,7 @@
 
             <ToggleButton
                 android:id="@+id/shift_button"
-                style="?attr/buttonSpecial"
+                style="?attr/buttonToggle"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:checked="false"
@@ -37,8 +37,8 @@
             android:layout_weight="1">
 
             <ToggleButton
-                android:id="@+id/mem_button"
-                style="?attr/buttonSpecial"
+                android:id="@+id/mem_button_v"
+                style="?attr/buttonToggle"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:checked="false"

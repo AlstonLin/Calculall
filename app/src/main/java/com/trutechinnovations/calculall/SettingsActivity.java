@@ -89,7 +89,7 @@ public class SettingsActivity extends Activity {
                 setTheme(R.style.Theme6);
                 break;
             default:
-                throw new IllegalStateException("Illegal Theme");
+                setTheme(R.style.Theme2); //Sets to the default theme
         }
         setContentView(R.layout.settings);
         setupDecimalSpinner();

@@ -21,7 +21,7 @@
 
             <ToggleButton
                 android:id="@+id/shift_button"
-                style="?attr/buttonSpecial"
+                style="?attr/buttonToggle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:checked="false"
@@ -39,7 +39,7 @@
 
             <ToggleButton
                 android:id="@+id/hyp_button"
-                style="?attr/buttonSpecial"
+                style="?attr/buttonToggle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:checked="false"

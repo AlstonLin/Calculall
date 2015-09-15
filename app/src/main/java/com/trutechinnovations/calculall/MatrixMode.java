@@ -105,6 +105,9 @@ public class MatrixMode extends FunctionMode {
             case R.id.rank_button:
                 clickRank();
                 break;
+            case R.id.mem_button_m:
+                clickMem();
+                break;
             case R.id.transpose_button:
                 clickTranspose();
                 break;
@@ -185,6 +188,30 @@ public class MatrixMode extends FunctionMode {
                 break;
             default:
                 super.onClick(v);
+        }
+    }
+
+    /**
+     * Stores the a variable into the memory; the assignment itself will occur in the given Command.
+     *
+     * @param addToOutput The String that will be shown in the output along with the value
+     * @param assignment  The assignment command that would be executed
+     */
+    protected void storeVariable(String addToOutput, Command<Void, ArrayList<Token>> assignment) {
+        ToggleButton memButton = (ToggleButton) activity.findViewById(R.id.mem_button_m);
+        try {
+            ArrayList<Token> outputList = new ArrayList<>();
+            outputList.addAll(tokens);
+            outputList.add(new StringToken(addToOutput));
+            display.displayOutput(outputList);
+
+            ArrayList<Token> val = new ArrayList<>();
+            val.addAll(tokens);
+            assignment.execute(val);
+            mem = false;
+            memButton.setChecked(false);
+        } catch (Exception e) { //User did a mistake
+            handleExceptions(e);
         }
     }
 
@@ -813,7 +840,7 @@ public class MatrixMode extends FunctionMode {
         };
         DisplayView display = (DisplayView) activity.findViewById(R.id.display);
         try {
-            ArrayList<Token> temp = MatrixUtils.setupExpression(Utility.addMissingBrackets(Utility.subVariables(Utility.condenseDigits(tokens))));
+            ArrayList<Token> temp = MatrixUtils.setupExpression(Utility.addMissingBrackets(Utility.subVariables(Utility.multiplyConstants(Utility.condenseDigits(tokens)))));
             temp = MatrixUtils.convertToReversePolish(temp);
             Token t = MatrixUtils.evaluateExpression(temp, fracMode == FRAC);
             ArrayList<Token> output = new ArrayList<>();
