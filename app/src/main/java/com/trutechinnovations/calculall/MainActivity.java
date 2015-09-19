@@ -133,35 +133,23 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
             case SettingsActivity.DAVID:
                 setTheme(R.style.Theme1);
                 break;
-            case SettingsActivity.ALSTON:
+            case SettingsActivity.THEME2:
                 setTheme(R.style.Theme2);
                 break;
-            case SettingsActivity.PANDA:
+            case SettingsActivity.THEME3:
                 setTheme(R.style.Theme3);
                 break;
-            case SettingsActivity.TRAILBLAZER:
+            case SettingsActivity.THEME4:
                 setTheme(R.style.Theme4);
                 break;
-            case SettingsActivity.HAWKS:
+            case SettingsActivity.THEME5:
                 setTheme(R.style.Theme5);
                 break;
-            case SettingsActivity.GEESE:
+            case SettingsActivity.DONATE:
                 setTheme(R.style.Theme6);
                 break;
-            case SettingsActivity.SUNSET:
-                setTheme(R.style.Theme1);
-                break;
-            case SettingsActivity.FOREST:
-                setTheme(R.style.Theme1);
-                break;
-            case SettingsActivity.MATERIAL:
-                setTheme(R.style.Theme1);
-                break;
-            case SettingsActivity.OCEAN:
-                setTheme(R.style.Theme1);
-                break;
-            default:
-                throw new IllegalStateException("Illegal Theme");
+            default: //Default theme
+                setTheme(R.style.Theme2);
         }
     }
 

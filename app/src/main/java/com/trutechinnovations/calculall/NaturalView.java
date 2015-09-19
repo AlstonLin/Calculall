@@ -926,9 +926,16 @@ public abstract class NaturalView extends View {
     private float getWidth(int start, int end, ArrayList<Token> expression, ArrayList<Float> drawX) {
         //Counts to the END for the expression (last pixel drawn)
         String symb = expression.get(end).getSymbol();
-        float[] widths = new float[symb.length()];
-        textPaint.getTextWidths(symb, widths);
-
+        String filtered = "";
+        //Filters out the subscript markers
+        for (int i = 0; i < symb.length(); i++){
+            char c = symb.charAt(i);
+            if (c != '☺'){
+                filtered += c;
+            }
+        }
+        float[] widths = new float[filtered.length()];
+        textPaint.getTextWidths(filtered, widths);
         return drawX.get(end) + sum(widths) - drawX.get(start);
     }
 

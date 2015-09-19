@@ -39,12 +39,13 @@ public class SettingsActivity extends Activity {
 
 
     //Constants
-    public static final int DAVID = 0, ALSTON = 1, PANDA = 2, TRAILBLAZER = 3, HAWKS = 4, GEESE = 5, SUNSET = 6, FOREST = 7, MATERIAL = 8, OCEAN = 9;
+    public static final int DAVID = 0, THEME2 = 1, THEME3 = 2, THEME4 = 3, THEME5 = 4, DONATE = 5;
     public static final int MIN_DIGITS = 5, MAX_DIGITS = 12;
+    public static final boolean DONATE_ON = false;
     public static final Integer[] FONT_SIZES = {42, 48, 64, 72, 84, 96, 108, 120};
     public static final String TRUTECH_URL = "http://www.trutechinnovations.com", REPORT_URL = "http://www.trutechinnovations.com", UPGRADE_URL = "https://play.google.com/store/apps/details?id=com.trutechinnovations.calculallaf";
     //Default values
-    public static final int DEFAULT_THEME = ALSTON;
+    public static final int DEFAULT_THEME = THEME2;
     public static final int DEFAULT_ROUND = 6;
     public static final int DEFAULT_FONT_SIZE = 96;
     public static final boolean DEFAULT_FEEDBACK = false;
@@ -73,19 +74,19 @@ public class SettingsActivity extends Activity {
             case DAVID:
                 setTheme(R.style.Theme1);
                 break;
-            case ALSTON:
+            case THEME2:
                 setTheme(R.style.Theme2);
                 break;
-            case PANDA:
+            case THEME3:
                 setTheme(R.style.Theme3);
                 break;
-            case TRAILBLAZER:
+            case THEME4:
                 setTheme(R.style.Theme4);
                 break;
-            case HAWKS:
+            case THEME5:
                 setTheme(R.style.Theme5);
                 break;
-            case GEESE:
+            case DONATE:
                 setTheme(R.style.Theme6);
                 break;
             default:
@@ -323,7 +324,7 @@ public class SettingsActivity extends Activity {
         }
 
         public int getCount() {
-            return theme_names.length;
+            return DONATE_ON ? theme_names.length : theme_names.length - 1;
         }
 
         public Object getItem(int position) {

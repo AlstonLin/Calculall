@@ -33,6 +33,9 @@ public class Number extends Token implements Serializable {
     }
 
     public String getSymbol() {
+        if (Double.isInfinite(value) || Double.isNaN(value)){
+            return ("A Really Big Number");
+        }
         //Rounds
         value = Utility.round(value, roundTo);
         String s = Double.toString(value);

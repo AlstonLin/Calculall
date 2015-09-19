@@ -110,7 +110,8 @@ public class OperatorFactory {
                         if (right == left) {
                             return Utility.factorial((int) left);
                         } else {
-                            return Utility.factorial((int) left) / Utility.factorial((int) (left - right));
+                            double unrounded = Utility.factorial((int) left) / Utility.factorial((int) (left - right));
+                            return Math.round(unrounded); //Can only give integer ansswers; fixes floating point errors
                         }
                     } catch (StackOverflowError e) {
                         throw new IllegalArgumentException("The calculation is to large to compute.");
@@ -133,7 +134,8 @@ public class OperatorFactory {
                         return 1;
                     } else {
                         try {
-                            return Utility.factorial((int) left) / (Utility.factorial((int) right) * Utility.factorial((int) (left - right)));
+                            double unrounded = Utility.factorial((int) left) / (Utility.factorial((int) right) * Utility.factorial((int) (left - right)));
+                            return Math.round(unrounded);
                         } catch (StackOverflowError e) {
                             throw new IllegalArgumentException("The calculation is to large to compute.");
                         }
