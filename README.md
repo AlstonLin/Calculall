@@ -22,7 +22,6 @@ Calculall provides a vast arsenal of mathematical capabilities, far beyond virtu
 - Expanding 
 - Differentiation
 - Indefinite Integration
-- Graphing
 
 #####Vector
 - Vector addition and subtraction
