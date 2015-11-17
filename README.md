@@ -1,4 +1,6 @@
 # Calculall
+<img src="https://raw.githubusercontent.com/AlstonLin/Calculall/master/app/src/main/res/drawable/ic_launcher.png" width="100px"/>
+
 An Android Calculator app that does all
 
 This is an Android Application created by TruTech Innovations <br>
