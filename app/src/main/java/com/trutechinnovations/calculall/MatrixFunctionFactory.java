@@ -11,7 +11,7 @@ import java.util.Random;
 public class MatrixFunctionFactory {
 
     public static MatrixFunction makeTranspose() {
-        return new MatrixFunction("Aᵀ", MatrixFunction.TRANSPOSE) {
+        return new MatrixFunction("trans", MatrixFunction.TRANSPOSE) {
             @Override
             public double[][] perform(double[][] input) {
                 return MatrixUtils.transpose(input);
@@ -79,7 +79,7 @@ public class MatrixFunctionFactory {
     }
 
     public static MatrixFunction makeInverse() {
-        return new MatrixFunction("A⁻¹", MatrixFunction.INVERSE) {
+        return new MatrixFunction("inv", MatrixFunction.INVERSE) {
             @Override
             public double[][] perform(double[][] input) {
                 if (input.length != input[0].length) {
