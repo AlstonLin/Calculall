@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2016 TruTech Innovations Inc - All Rights Reserved
+ */
+
 package com.trutechinnovations.calculall;
 
 

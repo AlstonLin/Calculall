@@ -1,0 +1,34 @@
+-injars /home/alston/Projects/Calculall/app/build/intermediates/multi-dex/release/allclasses.jar
+-outjars /home/alston/Projects/Calculall/app/build/intermediates/multi-dex/release/componentClasses.jar
+
+-libraryjars /home/alston/Android/Sdk/build-tools/21.1.2/lib/shrinkedAndroid.jar
+
+-forceprocessing
+-dontoptimize
+-dontobfuscate
+-dontpreverify
+-dontwarn
+-printconfiguration /home/alston/Projects/Calculall/app/build/intermediates/multi-dex/release/components.flags
+
+
+-keep class android.support.multidex.MultiDexApplication {
+    <init>();
+    void attachBaseContext(android.content.Context);
+}
+
+-keep class com.trutechinnovations.calculall.MainActivity {
+    <init>();
+}
+
+-keep class com.trutechinnovations.calculall.SettingsActivity {
+    <init>();
+}
+
+-keep public class * extends android.app.backup.BackupAgent {
+    <init>();
+}
+
+-keep public class * extends java.lang.annotation.Annotation {
+    <fields>;
+    <methods>;
+}

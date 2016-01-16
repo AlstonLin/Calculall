@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2016 TruTech Innovations Inc - All Rights Reserved
+ */
+
 package com.trutechinnovations.calculall;
 
 import android.app.Dialog;
@@ -34,20 +38,15 @@ import java.util.Random;
 public class Advanced extends Basic {
 
     public static final int DEC = 1, FRAC = 2;
-    public static final int CONSTANTS_SIZE = 25;
     public static final double CONSTANTS_IO_RATIO = 0.7; //The size of the output / input in the
     private static final String FILENAME = "history_advanced";
-    private static final String FILENAMECONST = "const_advanced";
     private static final Basic INSTANCE = new Advanced();
-    private static String filenameConst = "const_advanced";
     protected int fracMode = DEC;
     //Fields
     protected ArrayList<MultiButton> multiButtons;
     protected boolean hyperbolic = false, shift = false, mem = false;
     ArrayList<Constant> arrayOfConstants = new ArrayList<Constant>();//Constants data
-    private Dialog graphDialog;
     private PopupWindow constWindow;
-    private Dialog constantsDialog;
 
     { //pseudo-constructor
         filename = "history_advanced";
@@ -470,7 +469,6 @@ public class Advanced extends Basic {
     public void clickExp() {
         clickExponent();
         clickE();
-        //display.setCursorIndex(display.getRealCursorIndex() + 1);
     }
 
     /**
@@ -1017,13 +1015,6 @@ public class Advanced extends Basic {
             arrayOfConstants.add(ConstantFactory.makeRedPlanck());
             arrayOfConstants.add(ConstantFactory.makeGravitational());
             arrayOfConstants.add(ConstantFactory.makeGasConst());
-    /*      arrayOfConstants.add(new Constant("Gas constant", "R", 8.31451, "m<sup>3</sup>*Pa/mol*K"));
-            arrayOfConstants.add(new Constant("Gas constant", "R", 1.98589, "cal/mol*K"));
-            arrayOfConstants.add(new Constant("Gas constant", "R", 1545.36, "ft*lb<sub>f</sub>/lb<sub>mol</sub>*°R"));
-            arrayOfConstants.add(new Constant("Gas constant", "R", 0.082058, "L*atm/mol*K"));
-            arrayOfConstants.add(new Constant("Gas constant", "R", 0.730244, "ft<sup>3</sup>*atm/lb<sub>mol</sub>*°R"));
-            arrayOfConstants.add(new Constant("Gas constant", "R", 10.7316, "ft<sup>3</sup>*psi/lb<sub>mol</sub>*°R"));
-            arrayOfConstants.add(new Constant("Gas constant", "R", 82.0578, "cm<sup>3</sup>*atm/mol*K"));*/
             arrayOfConstants.add(ConstantFactory.makeBoltzmann());
             arrayOfConstants.add(ConstantFactory.makeAvogadro());
             arrayOfConstants.add(ConstantFactory.makeStefanBoltzmann());

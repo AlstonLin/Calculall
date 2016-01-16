@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2016 TruTech Innovations Inc - All Rights Reserved
+ */
+
 package com.trutechinnovations.calculall;
 
 
@@ -169,18 +173,4 @@ public class Complex {
             return new Complex(Math.cos(i * Math.log(b)), Math.sin(i * Math.log(b))).times(Math.pow(b, r));
         }
     }
-
-    /*private int round(double a){
-        if(a>0) {
-            if(a >= Math.floor(a)+0.5){
-                return Math.ceiling(a);
-            }else{
-                return Math.floor(a);
-            }
-        }else if(a<0){
-            if(a <= Math.floor(a)+0.5){
-                return Math.
-            }
-        }
-    }*/
 }

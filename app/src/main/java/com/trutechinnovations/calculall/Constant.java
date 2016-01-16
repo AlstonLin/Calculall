@@ -4,7 +4,10 @@ package com.trutechinnovations.calculall;
 import java.util.ArrayList;
 
 /**
- * Created by Jason on 2015-06-28.
+ * An Object that represents a mathematical / physical Constant.
+ *
+ * @author Jason Fok
+ * @version 3.0
  */
 public class Constant extends Variable {
 

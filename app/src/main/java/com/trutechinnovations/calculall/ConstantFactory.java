@@ -1,7 +1,14 @@
+/*
+ * Copyright (c) 2016 TruTech Innovations Inc - All Rights Reserved
+ */
+
 package com.trutechinnovations.calculall;
 
 /**
- * Created by Ejaaz on 2/7/2015.
+ * A Factory that produces specific Mathematical and Physical Constants.
+ *
+ * @author Ejaaz Merali
+ * @version 3.0
  */
 public class ConstantFactory {
 

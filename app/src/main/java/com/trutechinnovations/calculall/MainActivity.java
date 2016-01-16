@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2016 TruTech Innovations Inc - All Rights Reserved
+ */
+
 package com.trutechinnovations.calculall;
 
 import android.content.Context;
@@ -27,10 +31,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-/**
- import com.mopub.mobileads.MoPubErrorCode;
- import com.mopub.mobileads.MoPubInterstitial;
- **/
 
 /**
  * Entry point to the application as well as the only Activity. Sets
@@ -462,22 +462,6 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
             default:
                 throw new IllegalArgumentException("The current pager item index could not be handled");
         }
-        /**
-         //Possibly shows ads
-         if (interstitial != null) {
-         interstitial.destroy(); //Prevents Ads from other activities appearing if it is not loaded before switching between them
-         }
-         if (position != 0 && showAd) { //Deos not show ads in Basic
-         Random random = new Random();
-         if (random.nextInt(AD_RATE) == 0) {
-         // Create the interstitial.
-         interstitial = new MoPubInterstitial(this, AD_ID);
-         interstitial.setInterstitialAdListener(this);
-         interstitial.load();
-         interstitial.load();
-         }
-         }
-         **/
     }
 
     @Override
@@ -548,30 +532,4 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
             return NUM_PAGES;
         }
     }
-
-    /**
-     @Override public void onInterstitialLoaded(MoPubInterstitial interstitial) {
-     showAd = false;
-     if (interstitial.isReady()) {
-     interstitial.show();
-     }
-     }
-
-     @Override public void onInterstitialFailed(MoPubInterstitial interstitial, MoPubErrorCode errorCode) {
-
-     }
-
-     @Override public void onInterstitialShown(MoPubInterstitial interstitial) {
-
-     }
-
-     @Override public void onInterstitialClicked(MoPubInterstitial interstitial) {
-
-     }
-
-     @Override public void onInterstitialDismissed(MoPubInterstitial interstitial) {
-
-     }
-     **/
-
 }

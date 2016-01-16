@@ -1,14 +1,14 @@
--injars 'E:\Documents\GitHub\Calculall\app\build\intermediates\multi-dex\debug\allclasses.jar'
--outjars 'E:\Documents\GitHub\Calculall\app\build\intermediates\multi-dex\debug\componentClasses.jar'
+-injars /home/alston/Projects/Calculall/app/build/intermediates/multi-dex/debug/allclasses.jar
+-outjars /home/alston/Projects/Calculall/app/build/intermediates/multi-dex/debug/componentClasses.jar
 
--libraryjars 'C:\Users\ejaaz\AppData\Local\Android\sdk1\build-tools\21.1.2\lib\shrinkedAndroid.jar'
+-libraryjars /home/alston/Android/Sdk/build-tools/21.1.2/lib/shrinkedAndroid.jar
 
 -forceprocessing
 -dontoptimize
 -dontobfuscate
 -dontpreverify
 -dontwarn
--printconfiguration 'E:\Documents\GitHub\Calculall\app\build\intermediates\multi-dex\debug\components.flags'
+-printconfiguration /home/alston/Projects/Calculall/app/build/intermediates/multi-dex/debug/components.flags
 
 
 -keep class android.support.multidex.MultiDexApplication {
