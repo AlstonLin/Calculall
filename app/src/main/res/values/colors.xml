@@ -1,52 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="backgroundDavid">#21303f</color>
-    <color name="textDisplayColorDavid">#21303f</color>
-    <color name="displayDavid">#ecf0f0</color>
-    <color name="color1David">#ff34495d</color>
-    <color name="color2David">#ff1a2531</color>
-    <color name="textColorDavid">#fff</color>
-    <color name="numPadColorDavid">#ef4848</color>
+    <color name="redThemePrimary">#F44336</color>
+    <color name="redThemeDark">#B71C1C</color>
+    <color name="redThemeHighlight">#FF1744</color>
 
-    <color name="backgroundTheme2">#ff282f34</color>
-    <color name="textDisplayColorTheme2">#ffFF9900</color>
-    <color name="displayTheme2">#ff333c42</color>
-    <color name="color1Theme2">#ff333c42</color>
-    <color name="color2Theme2">#ff1b2023</color>
-    <color name="textColorTheme2">#fff</color>
-    <color name="numPadColorTheme2">#ffFF9900</color>
+    <color name="byThemePrimaryDark">#ff282f34</color>
+    <color name="byThemeHighlight">#ffFF9900</color>
+    <color name="byThemePrimary">#ff333c42</color>
+    <color name="byThemeTextColor">#fff</color>
 
-    <color name="backgroundTheme3">#250f34</color>
-    <color name="textDisplayColorTheme3">#d1a7ff</color>
-    <color name="displayTheme3">#9591a4</color>
-    <color name="color1Theme3">#3a215f</color>
-    <color name="color2Theme3">#1b0b22</color>
-    <color name="textColorTheme3">#fff</color>
-    <color name="numPadColorTheme3">#d1a7ff</color>
+    <color name="dThemePrimaryDark">#21303f</color>
+    <color name="dThemePrimary">#ff34495d</color>
+    <color name="dThemeTextColor">#ecf0f0</color>
+    <color name="dThemeHighlight">#ef4848</color>
 
-    <color name="backgroundTheme4">#123435</color>
-    <color name="textDisplayColorTheme4">#9affd0</color>
-    <color name="displayTheme4">#3ea499</color>
-    <color name="color1Theme4">#1c393a</color>
-    <color name="color2Theme4">#245554</color>
-    <color name="textColorTheme4">#fff</color>
-    <color name="numPadColorTheme4">#ff9974</color>
+    <color name="pThemePrimaryDark">#1b0b22</color>
+    <color name="pThemePrimary">#3a215f</color>
+    <color name="pThemeTextColor">#ecf0f0</color>
+    <color name="pThemeHighlight">#d1a7ff</color>
 
-    <color name="backgroundTheme5">#3B8686</color>
-    <color name="textDisplayColorTheme5">#3B8686</color>
-    <color name="displayTheme5">#98f0b6</color>
-    <color name="color1Theme5">#0B486B</color>
-    <color name="color2Theme5">#3B8686</color>
-    <color name="textColorTheme5">#fff</color>
-    <color name="numPadColorTheme5">#9affd0</color>
+    <color name="bThemePrimaryDark">#1c393a</color>
+    <color name="bThemePrimary">#245554</color>
+    <color name="bThemeTextColor">#ecf0f0</color>
+    <color name="bThemeHighlight">#9affd0</color>
 
+    <color name="bgThemePrimaryDark">#0B486B</color>
+    <color name="bgThemePrimary">#3B8686</color>
+    <color name="bgThemeTextColor">#ecf0f0</color>
+    <color name="bgThemeHighlight">#98f0b6</color>
 
-    <color name="backgroundTheme6">#cebb0f</color>
-    <color name="textDisplayColorTheme6">#1c3c3a</color>
-    <color name="displayTheme6">#ffe113</color>
-    <color name="color1Theme6">#e8c400</color>
-    <color name="color2Theme6">#c5b210</color>
-    <color name="textColorTheme6">#ffffff</color>
-    <color name="numPadColorTheme6">#427b7d</color>
+    <color name="donateThemePrimaryDark">#c5b210</color>
+    <color name="donateThemePrimary">#e8c400</color>
+    <color name="donateThemeTextColor">#ecf0f0</color>
+    <color name="donateThemeHighlight">#ffe113</color>
+
+    <color name="darkenOverlay">#33000000</color>
+    <color name="textColor">#222</color>
+    <color name="transparent">#00ffffff</color>
 
 </resources>

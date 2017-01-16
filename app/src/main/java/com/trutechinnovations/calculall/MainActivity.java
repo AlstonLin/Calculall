@@ -9,8 +9,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.annotation.StringRes;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerAdapter;
@@ -31,7 +35,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-
 /**
  * Entry point to the application as well as the only Activity. Sets
  * up the fragments and the entry point for UI events.
@@ -46,7 +49,6 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
     public static final int AD_RATE = 2; //Ads will show 1 in 2 activity opens
     private static final String AD_ID = "3ae32e9f72e2402cb01bbbaf1d6ba1f4";
     private static final String TOKENS_FILENAME = "tokens";
-    private static final int NUM_PAGES = 5;
     private static final int VIRBRATE_DURATION = 17;
     //Display Objects
     protected DisplayView display;
@@ -57,7 +59,7 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
     private boolean feedbackOn;
     private int lastMode;
     private int fontSize;
-    private int currentTheme;
+    private int currentTheme = -1;
     //For temporarily storing expressions between modes
     private ArrayList<Token> basicExpr, advancedExpr, functionExpr, vectorExpr, matrixExpr;
     //private MoPubInterstitial interstitial;
@@ -65,11 +67,7 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //Fullscreen
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setupThemes();
+        int tmpTheme = ThemeHelper.setUpTheme(this,false);
         setContentView(R.layout.frame);
         //Sets up the fragments
         if (savedInstanceState != null) {
@@ -84,7 +82,6 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
         matrixExpr = new ArrayList<>();
     }
 
-
     /**
      * Sets up the settings from preferences.
      */
@@ -94,77 +91,12 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
         feedbackOn = pref.getBoolean(getString(R.string.haptic), SettingsActivity.DEFAULT_FEEDBACK);
         fontSize = pref.getInt(getString(R.string.font_size), SettingsActivity.DEFAULT_FONT_SIZE);
         int roundTo = pref.getInt(getString(R.string.round_to), SettingsActivity.DEFAULT_ROUND);
-        boolean swipeOnly = pref.getBoolean(getString(R.string.mode_switch), SettingsActivity.DEFAULT_SWIPE);
-        int theme = pref.getInt(getString(R.string.theme), SettingsActivity.DEFAULT_THEME);
 
         //Sets the decimal rounding
         Number.roundTo = roundTo;
         //Sets the font sizes
         display.setFontSize(fontSize);
 
-        //Checks if the Theme has changes
-        if (theme != currentTheme) {
-            //Needs to restart the activity
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-        }
-
-        //Sets up swipe only
-        ToggleButton basic = (ToggleButton) findViewById(R.id.basic_button);
-        ToggleButton advanced = (ToggleButton) findViewById(R.id.advanced_button);
-        ToggleButton function = (ToggleButton) findViewById(R.id.function_button);
-        ToggleButton vector = (ToggleButton) findViewById(R.id.vector_button);
-        ToggleButton matrix = (ToggleButton) findViewById(R.id.matrix_button);
-        basic.setEnabled(!swipeOnly);
-        advanced.setEnabled(!swipeOnly);
-        function.setEnabled(!swipeOnly);
-        vector.setEnabled(!swipeOnly);
-        matrix.setEnabled(!swipeOnly);
-    }
-
-    /**
-     * Sets the current theme.
-     */
-    private void setupThemes() {
-        SharedPreferences pref = getSharedPreferences(getString(R.string.preference_key), Context.MODE_PRIVATE);
-        currentTheme = pref.getInt(getString(R.string.theme), SettingsActivity.DEFAULT_THEME);
-        //Sets Theme
-        switch (currentTheme) {
-            case SettingsActivity.DAVID:
-                setTheme(R.style.Theme1);
-                break;
-            case SettingsActivity.THEME2:
-                setTheme(R.style.Theme2);
-                break;
-            case SettingsActivity.THEME3:
-                setTheme(R.style.Theme3);
-                break;
-            case SettingsActivity.THEME4:
-                setTheme(R.style.Theme4);
-                break;
-            case SettingsActivity.THEME5:
-                setTheme(R.style.Theme5);
-                break;
-            case SettingsActivity.DONATE:
-                setTheme(R.style.Theme6);
-                break;
-            default: //Default theme
-                setTheme(R.style.Theme2);
-        }
-    }
-
-    @Override
-    protected void onResumeFragments() {
-        super.onResumeFragments();
-        TypedValue typedValue = new TypedValue();
-        getTheme().resolveAttribute(R.attr.displayColor, typedValue, true);
-        int displayColor = typedValue.data;
-        findViewById(R.id.left_scroll).setBackgroundColor(displayColor);
-        findViewById(R.id.right_scroll).setBackgroundColor(displayColor);
-        getTheme().resolveAttribute(R.attr.displayTextColor, typedValue, true);
-        displayColor = typedValue.data;
-        ((TextView) findViewById(R.id.left_scroll)).setTextColor(displayColor);
-        ((TextView) findViewById(R.id.right_scroll)).setTextColor(displayColor);
     }
 
     public void onPause() {
@@ -190,9 +122,12 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
     public void onResume() {
         super.onResume();
         mPager = (ViewPager) findViewById(R.id.pager);
-        PagerAdapter mPagerAdapter = new ScreenSlidePagerAdapter(mg);
+        PagerAdapter mPagerAdapter = new ModeFragmentPagerAdapter(mg);
         mPager.setAdapter(mPagerAdapter);
-        mPager.setOnPageChangeListener(this);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.modes);
+        tabLayout.setupWithViewPager(mPager);
+
+        mPager.addOnPageChangeListener(this);
         //Sets up the display
         output = (OutputView) findViewById(R.id.output);
         display = (DisplayView) findViewById(R.id.display);
@@ -207,6 +142,12 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
         //Resumes last mode and tokens
         loadFromPrevious();
         setupSettings();
+        int tmpTheme = ThemeHelper.setUpTheme(this,false);
+        if(currentTheme!=-1 && tmpTheme!=currentTheme){
+            finish();
+            startActivity(getIntent());
+        }
+        currentTheme = tmpTheme;
         //In case the expressions beccome null
         if (basicExpr == null) {
             basicExpr = new ArrayList<>();
@@ -254,7 +195,6 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
         } catch (ClassNotFoundException | IOException ignored) {
         }
     }
-
 
     /**
      * When the settings button has been pressed.
@@ -332,51 +272,6 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
         }
     }
 
-    /**
-     * When the user wants to change to Basic Mode.
-     *
-     * @param v Not Used
-     */
-    public void clickBasic(View v) {
-        mPager.setCurrentItem(0);
-    }
-
-    /**
-     * When the user wants to change to Advanced Mode.
-     *
-     * @param v Not Used
-     */
-    public void clickAdvanced(View v) {
-        mPager.setCurrentItem(1);
-    }
-
-    /**
-     * When the user wants to change to Function Mode.
-     *
-     * @param v Not Used
-     */
-    public void clickFunction(View v) {
-        mPager.setCurrentItem(2);
-    }
-
-    /**
-     * When the user wants to change to Vector Mode.
-     *
-     * @param v Not Used
-     */
-    public void clickVector(View v) {
-        mPager.setCurrentItem(3);
-    }
-
-    /**
-     * When the user wants to change to Vector Mode.
-     *
-     * @param v Not Used
-     */
-    public void clickMatrix(View v) {
-        mPager.setCurrentItem(4);
-    }
-
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -407,55 +302,25 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
             display.displayOutput(new ArrayList<Token>());
             lastMode = position;
         }
-        ToggleButton basic = (ToggleButton) findViewById(R.id.basic_button);
-        ToggleButton advanced = (ToggleButton) findViewById(R.id.advanced_button);
-        ToggleButton function = (ToggleButton) findViewById(R.id.function_button);
-        ToggleButton vector = (ToggleButton) findViewById(R.id.vector_button);
-        ToggleButton matrix = (ToggleButton) findViewById(R.id.matrix_button);
 
         switch (position) {
             case BASIC:
-                basic.setChecked(true);
-                advanced.setChecked(false);
-                function.setChecked(false);
-                vector.setChecked(false);
-                matrix.setChecked(false);
                 display.displayInput(basicExpr);
                 Basic.getInstance().setTokens(basicExpr);
                 break;
             case ADVANCED:
-                basic.setChecked(false);
-                advanced.setChecked(true);
-                function.setChecked(false);
-                vector.setChecked(false);
-                matrix.setChecked(false);
                 display.displayInput(advancedExpr);
                 Advanced.getInstance().setTokens(advancedExpr);
                 break;
             case FUNCTION:
-                basic.setChecked(false);
-                advanced.setChecked(false);
-                function.setChecked(true);
-                vector.setChecked(false);
-                matrix.setChecked(false);
                 display.displayInput(functionExpr);
                 FunctionMode.getInstance().setTokens(functionExpr);
                 break;
             case VECTOR:
-                basic.setChecked(false);
-                advanced.setChecked(false);
-                function.setChecked(false);
-                vector.setChecked(true);
-                matrix.setChecked(false);
                 display.displayInput(vectorExpr);
                 VectorMode.getInstance().setTokens(vectorExpr);
                 break;
             case MATRIX:
-                basic.setChecked(false);
-                advanced.setChecked(false);
-                function.setChecked(false);
-                vector.setChecked(false);
-                matrix.setChecked(true);
                 display.displayInput(matrixExpr);
                 MatrixMode.getInstance().setTokens(matrixExpr);
                 break;
@@ -507,8 +372,18 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
      * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in
      * sequence.
      */
-    private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
-        public ScreenSlidePagerAdapter(android.support.v4.app.FragmentManager fm) {
+
+    class ModeFragmentPagerAdapter extends FragmentPagerAdapter{
+
+        private @StringRes int[] title = new int[]{
+                R.string.basic,
+                R.string.advanced,
+                R.string.function,
+                R.string.vector,
+                R.string.matrix
+        };
+
+        public ModeFragmentPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
@@ -529,7 +404,12 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
 
         @Override
         public int getCount() {
-            return NUM_PAGES;
+            return title.length;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return getString(title[position]);
         }
     }
 }

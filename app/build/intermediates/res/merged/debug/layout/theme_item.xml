@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="?colorPrimary"
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
@@ -30,6 +31,8 @@
             android:orientation="horizontal">
 
             <ImageButton
+                android:padding="1dp"
+                android:background="#fff"
                 android:id="@+id/color1"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -39,6 +42,8 @@
                 android:layout_marginTop="20dp" />
 
             <ImageButton
+                android:padding="1dp"
+                android:background="#fff"
                 android:id="@+id/color2"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -52,4 +57,4 @@
 
     </LinearLayout>
 
-</LinearLayout><!-- From: file:/home/alston/Projects/Calculall/app/src/main/res/layout/theme_item.xml -->
+</LinearLayout>

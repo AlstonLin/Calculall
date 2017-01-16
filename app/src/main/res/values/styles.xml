@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="rootButtonStyle"  parent="Widget.AppCompat.Button">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+    <style name="buttonDark" parent="rootButtonStyle">
+        <item name="android:background">@drawable/ripple_button_dark</item>
+        <item name="android:fontFamily">"sans-serif-thin"</item>
+        <item name="android:textColor">?buttonTextColor</item>
+    </style>
+    <style name="buttonPrimary" parent="rootButtonStyle">
+        <item name="android:background">@drawable/ripple_button</item>
+        <item name="android:fontFamily">"sans-serif-thin"</item>
+        <item name="android:textColor">?buttonTextColor</item>
+    </style>
+    <style name="buttonPrimaryHighlight" parent="rootButtonStyle">
+        <item name="android:background">@drawable/ripple_button</item>
+        <item name="android:textColor">?colorAccent</item>
+        <item name="android:fontFamily">"sans-serif-thin"</item>
+    </style>
+
+    <style name="buttonDark.MediumText">
+        <item name="android:fontFamily">"sans-serif-medium"</item>
+    </style>
+    <style name="buttonPrimary.MediumText">
+        <item name="android:fontFamily">"sans-serif-medium"</item>
+    </style>
+    <style name="buttonPrimaryHighlight.MediumText">
+        <item name="android:fontFamily">"sans-serif-medium"</item>
+    </style>
+
+
+
+    <style name="settingsTextSeperator">
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:fontFamily">"sans-serif-medium"</item>
+        <item name="android:textColor">?buttonTextColor</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:background">?colorPrimaryDark</item>
+    </style>
+</resources>

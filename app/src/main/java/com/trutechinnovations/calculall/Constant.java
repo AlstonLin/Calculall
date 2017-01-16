@@ -1,6 +1,5 @@
 package com.trutechinnovations.calculall;
 
-
 import java.util.ArrayList;
 
 /**

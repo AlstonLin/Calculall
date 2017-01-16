@@ -6,7 +6,6 @@
     android:background="?android:colorBackground"
     android:orientation="vertical">
 
-
     <LinearLayout
         style="?attr/buttonFunction"
         android:layout_width="match_parent"
@@ -43,6 +42,5 @@
         android:id="@+id/reductionList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-
 
 </LinearLayout>

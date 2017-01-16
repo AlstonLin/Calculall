@@ -67,7 +67,6 @@ public class GraphView extends View {
         }
     };
 
-
     /**
      * Constructor for a Graph View, a custom view with the sole purpose
      * of graphing a function.
@@ -219,7 +218,6 @@ public class GraphView extends View {
         }
     }
 
-
     /**
      * Finds th slopes in between each points on the given list.
      *
@@ -244,7 +242,6 @@ public class GraphView extends View {
         }
         return slopes;
     }
-
 
     /**
      * Draws the axises for the graph. This will draw the x and y axises

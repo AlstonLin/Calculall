@@ -12,6 +12,6 @@
     <attr name="history_img" format="reference" />
     <attr name="settings_img" format="reference" />
     <attr name="displayColor" format="reference" />
-    <attr name="displayTextColor" format="reference" />
+    <attr name="buttonTextColor" format="reference" />
     <attr name="history_style" format="reference" />
 </resources>

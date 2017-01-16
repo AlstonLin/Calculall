@@ -147,7 +147,6 @@ public class VectorFragment extends BasicFragment {
             }
         };
 
-
         sinButton.setModeTexts(sinStrings);
         sinButton.setOnClicks(sinCommands);
 

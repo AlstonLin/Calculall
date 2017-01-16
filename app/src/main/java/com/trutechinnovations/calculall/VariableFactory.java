@@ -24,7 +24,6 @@ public class VariableFactory {
     public static ArrayList<Token> sValue = new ArrayList<>();
     public static ArrayList<Token> tValue = new ArrayList<>();
 
-
     //Matrix
     public static ArrayList<Token> matrixAValue = new ArrayList<>();
     public static ArrayList<Token> matrixBValue = new ArrayList<>();
@@ -35,7 +34,6 @@ public class VariableFactory {
     public static ArrayList<Token> ansValueFunc = new ArrayList<>(); //Values of the variables
     public static ArrayList<Token> ansValueVec = new ArrayList<>(); //Values of the variables
     public static ArrayList<Token> ansValueMat = new ArrayList<>(); //Values of the variables
-
 
     public static Variable makeA() {
         return new Variable(Variable.A, "A") {
@@ -215,6 +213,5 @@ public class VariableFactory {
             }
         };
     }
-
 
 }

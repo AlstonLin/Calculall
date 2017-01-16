@@ -274,7 +274,6 @@ public class VectorMode extends Advanced {
         vMemButton.setChecked(mem);
     }
 
-
     /**
      * Stores the a variable into the memory; the assignment itself will occur in the given Command.
      *
@@ -297,7 +296,6 @@ public class VectorMode extends Advanced {
         }
     }
 
-
     /**
      * When the user presses the T button.
      */
@@ -315,7 +313,6 @@ public class VectorMode extends Advanced {
         display.setCursorIndex(display.getCursorIndex() + 1);
         updateInput();
     }
-
 
     /**
      * When the user presses the [ Button.

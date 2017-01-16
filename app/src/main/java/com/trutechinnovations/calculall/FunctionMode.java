@@ -44,7 +44,6 @@ import java.util.concurrent.TimeUnit;
  */
 public class FunctionMode extends Advanced {
 
-
     //Some Threading stuff
     private static final int CPU_COUNT = Runtime.getRuntime().availableProcessors();
     private static final int CORE_POOL_SIZE = CPU_COUNT + 1;
@@ -136,11 +135,7 @@ public class FunctionMode extends Advanced {
      * When the user clicks the History button.
      */
     public void clickHistory() {
-        try {
-            openHistory(filename);
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        openHistory(filename);
     }
 
     public void clickRoots() {
@@ -298,7 +293,6 @@ public class FunctionMode extends Advanced {
             }
         };
 
-
         if (tokens.size() == 0) { //No tokens
             Toast.makeText(activity, "There is no expression. You would need to enter an expression first, then press the integrate button.", Toast.LENGTH_LONG).show();
             return;
@@ -341,7 +335,6 @@ public class FunctionMode extends Advanced {
                 return null;
             }
         };
-
 
         if (tokens.size() == 0) { //No tokens
             Toast.makeText(activity, "There is no expression. You would need to enter an expression first, then press the expand button.", Toast.LENGTH_LONG).show();
@@ -427,7 +420,6 @@ public class FunctionMode extends Advanced {
 
         TypedValue typedValue = new TypedValue();
         Resources.Theme theme = activity.getTheme();
-        theme.resolveAttribute(R.attr.displayTextColor, typedValue, true);
 
         ((EditText) layout.findViewById(R.id.x_min)).setText(Float.toString(minX));
         //((EditText) layout.findViewById(R.id.x_min)).setTextColor(typedValue.data);
@@ -528,7 +520,6 @@ public class FunctionMode extends Advanced {
         pw.setBackgroundDrawable(new BitmapDrawable());
         pw.showAtLocation(activity.findViewById(R.id.frame), Gravity.CENTER, 0, 0);
     }
-
 
     private ArrayList<Token> subAns(ArrayList<Token> tokens) {
         ArrayList<Token> function = new ArrayList<>();

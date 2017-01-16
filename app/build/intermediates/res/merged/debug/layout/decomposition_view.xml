@@ -6,7 +6,6 @@
     android:background="?android:colorBackground"
     android:orientation="vertical">
 
-
     <LinearLayout
         style="?attr/buttonFunction"
         android:layout_width="match_parent"
@@ -44,5 +43,4 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-
-</LinearLayout><!-- From: file:/home/alston/Projects/Calculall/app/src/main/res/layout/decomposition_view.xml -->
+</LinearLayout>

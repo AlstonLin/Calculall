@@ -146,7 +146,6 @@ public class FunctionFactory {
         };
     }
 
-
     public static Function makeCos() { //In degrees
         return new Function("cos", Function.COS) {
             @Override
@@ -194,7 +193,6 @@ public class FunctionFactory {
         };
     }
 
-
     public static Function makeTan() { //In degrees
         return new Function("tan", Function.TAN) {
             @Override
@@ -239,7 +237,6 @@ public class FunctionFactory {
             }
         };
     }
-
 
     //NOTE: Hyperbolic functions do not use angles
     public static Function makeSinh() {
@@ -321,7 +318,6 @@ public class FunctionFactory {
             }
         };
     }
-
 
     public static Function makeSqrt() {
         return new Function("√", Function.SQRT) {

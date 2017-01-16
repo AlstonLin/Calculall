@@ -5,10 +5,12 @@
 package com.trutechinnovations.calculall;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
@@ -28,7 +30,6 @@ import java.util.Stack;
  * @version 3.0
  */
 public abstract class NaturalView extends View {
-
 
     //Constant ratios of variables to the text height value
     public static final float RESERVED_TO_ACTUAL_TEXT_HEIGHT = 5 / 4f; // The ratio of the height of the space reserved for text to actually used
@@ -52,7 +53,6 @@ public abstract class NaturalView extends View {
     private float matrixPadding; //The padding between Matrix entries
     private float paddingAfterMatrix; //The padding after a Matrix
 
-
     /**
      * Should only be called by a subclass.
      *
@@ -74,7 +74,7 @@ public abstract class NaturalView extends View {
      */
     private int getDisplayColor(Context context) {
         TypedValue typedValue = new TypedValue();
-        boolean resolved = context.getTheme().resolveAttribute(R.attr.displayTextColor, typedValue, true);
+        boolean resolved = context.getTheme().resolveAttribute(R.attr.buttonTextColor, typedValue, true);
         if (resolved) {
             lastColor = typedValue.data; //Saves it
             return typedValue.data;
@@ -88,7 +88,7 @@ public abstract class NaturalView extends View {
      *
      * @param displayColor The color of the paints
      */
-    private void setupPaints(int displayColor) {
+    public void setupPaints(int displayColor) {
         textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         textPaint.setColor(displayColor);
         fracPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -110,7 +110,6 @@ public abstract class NaturalView extends View {
         calculateAttributes();
     }
 
-
     /**
      * Calculates specific attributes of the NaturalView
      */
@@ -127,7 +126,6 @@ public abstract class NaturalView extends View {
         matrixPadding = textPaint.measureText("  ");
         paddingAfterMatrix = MATRIX_PADDING_TO_TEXT_HEIGHT * textHeight;
     }
-
 
     /**
      * Draws the expression onto the canvas at a vertical offset.
@@ -456,7 +454,6 @@ public abstract class NaturalView extends View {
         return y;
     }
 
-
     /**
      * Draws the given Matrix on the given Canvas.
      *
@@ -741,7 +738,6 @@ public abstract class NaturalView extends View {
         }
         return maxHeight;
     }
-
 
     /**
      * Finds the max number of lines of text (vertically) there are in the expression

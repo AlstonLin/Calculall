@@ -40,7 +40,7 @@ public class DisplayView extends NaturalView {
         super(context, attr);
 
         TypedValue typedValue = new TypedValue();
-        context.getTheme().resolveAttribute(R.attr.displayTextColor, typedValue, true);
+        context.getTheme().resolveAttribute(R.attr.buttonTextColor, typedValue, true);
         int displayColor = typedValue.data;
 
         cursorPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -120,7 +120,6 @@ public class DisplayView extends NaturalView {
         } else if (cursorX > startX + getWidth()) {
             startX = cursorX - getWidth() + cursorPadding;
         }
-
 
         float xModifier = -startX;
 
@@ -221,7 +220,6 @@ public class DisplayView extends NaturalView {
         }
     }
 
-
     /**
      * Calculates the value of realCursorX based on cursorX.
      */
@@ -239,7 +237,6 @@ public class DisplayView extends NaturalView {
                 doNotCountNext = false;
                 doNotCount = true;
             }
-
 
             //SPECIAL CASES FOR DO NOT COUNTS
             if (token instanceof Placeholder && (token.getType() == Placeholder.SUPERSCRIPT_BLOCK || token.getType() == Placeholder.BASE_BLOCK)) {
@@ -308,7 +305,6 @@ public class DisplayView extends NaturalView {
             cursorIndex = expression.size();
         }
     }
-
 
     /**
      * Overrides the superclass' onMeasure to set the dimensions of the View

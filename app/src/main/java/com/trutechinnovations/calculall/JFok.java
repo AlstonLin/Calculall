@@ -67,7 +67,6 @@ public class JFok {
         return expression;
     }
 
-
     /**
      * Converts the given Number into a fraction. If the denominator if more
      * than 1000, it will assume the result is inaccurate and leave it.
@@ -209,7 +208,6 @@ public class JFok {
         return root;
     }
 
-
     /**
      * Applies the math rules to simplify and factor the expression/
      *
@@ -346,7 +344,6 @@ public class JFok {
         }
         return root;
     }
-
 
     private static Node<Token> applyTrigSpecialValues(Node<Token> root) {
         if (root.getContent() instanceof Function && root.getChildren().get(0).getContent() instanceof Number) {
@@ -544,7 +541,6 @@ public class JFok {
         expression = addFractionalBrackets(expression);
         return expression;
     }
-
 
     private static ArrayList<Token> addFractionalBrackets(ArrayList<Token> expression) {
         ArrayList<Token> newExp = new ArrayList<>();
@@ -746,7 +742,6 @@ public class JFok {
         }
         return node;
     }
-
 
     /**
      * Replaces all instances of E ^ (1/2) to SQRT E
@@ -1849,7 +1844,6 @@ public class JFok {
         }
         return newExpression;
     }
-
 
     /**
      * Removes redundant divisions of one, such as x / 1 -> x.

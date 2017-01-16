@@ -1,44 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?android:colorBackground"
+    android:background="?colorPrimary"
     android:orientation="vertical"
     tools:context=".SettingsActivity">
-
-    <LinearLayout
-        style="?attr/buttonFunction"
-        android:layout_width="match_parent"
-        android:layout_height="?android:actionBarSize"
-        android:layout_gravity="center_horizontal"
-        android:orientation="horizontal"
-        android:padding="0dp">
-
-        <Button
-            android:id="@+id/exit_button"
-            style="?attr/buttonFunction"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:onClick="clickBack"
-            android:text="Back"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/textView2"
-            style="?attr/buttonNum"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_weight="25"
-            android:gravity="center"
-            android:text="Settings"
-            android:textColor="#fff"
-            android:textSize="16sp" />
-
-    </LinearLayout>
 
     <LinearLayout
         style="?attr/buttonOperator"
@@ -46,12 +15,17 @@
         android:layout_height="fill_parent"
         android:orientation="vertical"
         android:weightSum="8">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Styling Changes"
+            style="@style/settingsTextSeperator"/>
 
-        <Button
+        <TextView
             android:id="@+id/theme_button"
-            style="?attr/buttonOperator"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:textColor="#fff"
             android:layout_gravity="center_horizontal"
             android:layout_weight="1"
             android:gravity="left|center_vertical"
@@ -74,15 +48,16 @@
                 android:layout_gravity="center"
                 android:gravity="center_vertical|right"
                 android:paddingLeft="16dp"
+                android:textColor="#fff"
                 android:text="@string/round_to"
                 android:textSize="14sp" />
 
-            <Spinner
+            <android.support.v7.widget.AppCompatSpinner
                 android:id="@+id/decimal_spinner"
-                android:layout_width="0dp"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
+                android:textColor="#fff"
                 android:gravity="center_vertical"
                 android:spinnerMode="dropdown"
                 android:textSize="14sp" />
@@ -96,6 +71,7 @@
                 android:layout_weight="2"
                 android:gravity="left|center_vertical"
                 android:paddingLeft="16dp"
+                android:textColor="#fff"
                 android:text="@string/decimals"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -108,26 +84,26 @@
 
             <TextView
                 android:id="@+id/font_text"
-                style="?attr/buttonOperator"
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
+                android:textColor="#fff"
                 android:layout_gravity="center"
                 android:gravity="left|center_vertical"
                 android:padding="16dp"
                 android:text="@string/font_size"
                 android:textSize="14sp" />
 
-            <Spinner
+            <android.support.v7.widget.AppCompatSpinner
                 android:id="@+id/font_spinner"
-                android:layout_width="wrap_content"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:textColor="#fff"
                 android:textSize="14sp" />
-
 
         </LinearLayout>
 
-        <Button
+        <TextView
             android:id="@+id/upgrade_button"
             style="?attr/buttonOperator"
             android:layout_width="match_parent"
@@ -135,34 +111,11 @@
             android:layout_gravity="left"
             android:layout_weight="1"
             android:gravity="left|center_vertical"
+            android:textColor="#fff"
             android:onClick="clickUpgrade"
             android:padding="16dp"
             android:text="@string/upgrade"
             android:textAlignment="gravity"
-            android:textSize="14sp" />
-
-        <Button
-            android:id="@+id/report_button"
-            style="?attr/buttonOperator"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="left|center_vertical"
-            android:onClick="clickReport"
-            android:padding="16dp"
-            android:text="@string/report"
-            android:textSize="14sp" />
-
-        <CheckBox
-            android:id="@+id/swipe_only_switch"
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:checked="false"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:text="@string/mode_switch"
             android:textSize="14sp" />
 
         <CheckBox
@@ -175,16 +128,34 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:text="@string/haptic"
+            android:textSize="14sp"
+            android:textColor="#fff" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Support Us"
+            style="@style/settingsTextSeperator"/>
+
+        <TextView
+            android:id="@+id/report_button"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="left|center_vertical"
+            android:textColor="#fff"
+            android:onClick="clickReport"
+            android:padding="16dp"
+            android:text="@string/report"
             android:textSize="14sp" />
 
-        <Button
+        <TextView
             android:id="@+id/about_button"
-            style="?attr/buttonOperator"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_gravity="center_horizontal"
             android:layout_weight="1"
             android:gravity="left|center_vertical"
+            android:textColor="#fff"
             android:onClick="clickAbout"
             android:padding="16dp"
             android:text="@string/about"

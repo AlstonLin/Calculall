@@ -229,7 +229,6 @@ public class Advanced extends Basic {
                 VariableFactory.ansValueAdv = output;
             }
 
-
         } catch (Exception e) { //User did a mistake
             handleExceptions(e);
         }
@@ -1045,7 +1044,6 @@ public class Advanced extends Basic {
             arrayOfConstants.add(ConstantFactory.makeEulerMascheroni());
         }
 
-
         //Create the adapter to convert the array to views
         ConstantsAdapter adapter = new ConstantsAdapter(activity, arrayOfConstants);
 
@@ -1119,7 +1117,6 @@ public class Advanced extends Basic {
             this.activity = activity;
         }
 
-
         /**
          * Prepares the View of each item in the ListView that this Adapter will be attached to.
          *
@@ -1144,10 +1141,8 @@ public class Advanced extends Basic {
             TextView constantVal = (TextView) convertView.findViewById(R.id.constantVal);
             TextView constantUnits = (TextView) convertView.findViewById(R.id.constantUnits);
 
-
             TypedValue typedValue = new TypedValue();
             Resources.Theme theme = activity.getTheme();
-            theme.resolveAttribute(R.attr.displayTextColor, typedValue, true);
 
             constantName.setText(constant.getName());
             constantName.setTextColor(typedValue.data);
@@ -1162,7 +1157,6 @@ public class Advanced extends Basic {
 
             constantUnits.setText(Html.fromHtml(constant.getUnits()));
             constantUnits.setTextColor(typedValue.data);
-
 
             //To respond to user touches
             final Constant cnst = arrayOfConstants.get(position); //Makes a constant reference so that cnst can be accessed by an inner class

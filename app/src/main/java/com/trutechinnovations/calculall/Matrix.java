@@ -32,7 +32,6 @@ public class Matrix extends Token {
         this.entries = temp;
     }
 
-
     /**
      * Changes the size of the Matrix while keeping the values
      *
@@ -108,7 +107,6 @@ public class Matrix extends Token {
             throw new IllegalArgumentException("Not enough columns");
         }
     }
-
 
     public int getNumOfRows() {
         return entries.length;

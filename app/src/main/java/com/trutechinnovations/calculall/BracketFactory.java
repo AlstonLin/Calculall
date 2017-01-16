@@ -64,5 +64,4 @@ public class BracketFactory {
         return new Bracket("", Bracket.FRACTION_CLOSE);
     }
 
-
 }

@@ -278,7 +278,6 @@ public class Utility {
         return negative ? value * -1 : value;
     }
 
-
     /**
      * Transforms all the digits into numbers as well as replacing Variables with numbers.
      *
@@ -548,7 +547,6 @@ public class Utility {
 
     }
 
-
     /**
      * Cleans up the given expression to render it more human-readable.
      *
@@ -622,7 +620,6 @@ public class Utility {
             return Integer.MAX_VALUE;
         }
     }
-
 
     /**
      * Calculates the quadrant that the vector is in. Only works in 2D.
@@ -853,7 +850,6 @@ public class Utility {
         }
     }
 
-
     /**
      * Rounds the given double to the given amount of significant digits.
      *
@@ -865,7 +861,6 @@ public class Utility {
         BigDecimal rounded = new BigDecimal(unrounded);
         return rounded.round(new MathContext(sigDigs)).doubleValue();
     }
-
 
     /**
      * Adds any missing end brackets to the expression.
@@ -955,7 +950,6 @@ public class Utility {
         }
         return dvalues;
     }
-
 
     /**
      * Returns the gcd of all the values

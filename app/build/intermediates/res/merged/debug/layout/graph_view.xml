@@ -13,4 +13,4 @@
         android:background="@android:color/transparent"
         android:fadingEdge="vertical"
         android:scrollbars="vertical" />
-</LinearLayout><!-- From: file:/home/alston/Projects/Calculall/app/src/main/res/layout/graph_view.xml -->
+</LinearLayout>

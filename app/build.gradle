@@ -1,18 +1,12 @@
 apply plugin: 'com.android.application'
 android {
-    compileSdkVersion 21
-    buildToolsVersion '21.1.2'
-
-    dexOptions {
-        javaMaxHeapSize "4g"
-        preDexLibraries = false
-    }
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
 
     defaultConfig {
         applicationId "com.trutechinnovations.calculall"
-        minSdkVersion 14
-        targetSdkVersion 21
-        multiDexEnabled true
+        minSdkVersion 19
+        targetSdkVersion 25
     }
     buildTypes {
         release {
@@ -24,9 +18,8 @@ android {
 }
 
 dependencies {
-    compile 'com.balysv:material-ripple:1.0.2'
-    compile 'com.android.support:multidex:1.0.0'
-    compile 'com.google.android.gms:play-services:6.5.87'
-    compile 'com.balysv:material-ripple:1.0.2'
+    compile 'com.android.support:support-compat:25.1.0'
+    compile 'com.android.support:appcompat-v7:25.1.0'
     compile files('libs/symja-2015-08-09.jar')
+    compile 'com.android.support:design:25.1.0'
 }

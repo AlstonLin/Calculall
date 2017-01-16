@@ -20,7 +20,6 @@ import java.util.ArrayList;
  */
 public class AdvancedFragment extends BasicFragment {
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.advanced, container, false);
@@ -34,20 +33,6 @@ public class AdvancedFragment extends BasicFragment {
         setupButtons(v);
         Advanced.getInstance().setFragment(this);
         return v;
-    }
-
-    /**
-     * When the user switches to or away from this fragment.
-     *
-     * @param hidden If it is visible or not
-     */
-    public void onHiddenChanged(boolean hidden) {
-        ToggleButton b = (ToggleButton) activity.findViewById(R.id.advanced_button);
-        if (!hidden) {
-            b.setChecked(true);
-        } else {
-            b.setChecked(false);
-        }
     }
 
     /**

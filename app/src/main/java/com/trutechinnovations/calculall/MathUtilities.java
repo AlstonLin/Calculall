@@ -4,7 +4,6 @@
 
 package com.trutechinnovations.calculall;
 
-
 import org.matheclipse.core.eval.EvalUtilities;
 import org.matheclipse.core.eval.exception.WrongArgumentType;
 import org.matheclipse.core.interfaces.IExpr;

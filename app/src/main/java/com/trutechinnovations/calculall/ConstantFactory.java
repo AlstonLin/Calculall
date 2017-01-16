@@ -12,7 +12,6 @@ package com.trutechinnovations.calculall;
  */
 public class ConstantFactory {
 
-
     public static Constant makeSpeedOfLight() {
         return new Constant("Speed of Light", "c", "c", 299792458, "m·s<sup><small>-1</small></sup>") {
             public String toLaTeX() {

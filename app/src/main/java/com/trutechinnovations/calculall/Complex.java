@@ -4,7 +4,6 @@
 
 package com.trutechinnovations.calculall;
 
-
 /**
  * Object which represents a complex number
  *

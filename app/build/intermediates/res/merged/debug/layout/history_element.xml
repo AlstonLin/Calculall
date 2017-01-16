@@ -6,9 +6,10 @@
     android:scrollbars="horizontal">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="16dp">
 
         <view
             android:id="@+id/input"
@@ -17,6 +18,7 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:fadingEdge="vertical"
+
             android:scrollbars="vertical" />
 
         <view
@@ -24,10 +26,8 @@
             class="com.trutechinnovations.calculall.OutputView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
             android:background="@android:color/transparent"
             android:fadingEdge="vertical"
             android:scrollbars="vertical" />
     </LinearLayout>
 </HorizontalScrollView>
-<!-- From: file:/home/alston/Projects/Calculall/app/src/main/res/layout/history_element.xml -->

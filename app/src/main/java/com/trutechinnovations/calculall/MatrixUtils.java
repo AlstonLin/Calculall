@@ -24,7 +24,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
 
-
 /**
  * Contains the Matrix Utilities (row reduction algorithms, matrix entry simplifier, etc.)
  *
@@ -41,7 +40,6 @@ public class MatrixUtils {
             return o[0] + o[1];
         }
     };
-
 
     private static Command<Double, double[]> subtractCommand = new Command<Double, double[]>() {
         @Override
@@ -556,7 +554,6 @@ public class MatrixUtils {
         } else {
             output[1] = roundInfinitesimals(multiply(output[2], multiply(a, output[0])));
         }
-
 
         return output;
     }

@@ -224,7 +224,6 @@ public class VectorUtilities {
         return scalar;
     }
 
-
     /**
      * Converts the series of Numbers, Vector Brackets and Commas into Vectors.
      *
@@ -443,7 +442,6 @@ public class VectorUtilities {
         }
         return toReturn;
     }
-
 
     /**
      * Calculates the Vector expression.

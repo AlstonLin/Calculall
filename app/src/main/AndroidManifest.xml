@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.trutechinnovations.calculall"
-    android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
     android:versionCode="7"
     android:versionName="3.1">
 
@@ -9,18 +8,15 @@
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
-        android:name="android.support.multidex.MultiDexApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:theme="@style/Theme1">
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
+        android:theme="@style/AppTheme">
 
         <activity
             android:name="com.trutechinnovations.calculall.MainActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeNoActionBar.BlackAndYellow">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,6 +26,19 @@
         <activity
             android:name="com.trutechinnovations.calculall.SettingsActivity"
             android:label="@string/title_activity_settings"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.trutechinnovations.calculall.HistoryActivity"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.trutechinnovations.calculall.AboutActivity"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.trutechinnovations.calculall.ThemeSelectActivity"
+            android:theme="@style/AppTheme"
             android:screenOrientation="portrait" />
     </application>
 

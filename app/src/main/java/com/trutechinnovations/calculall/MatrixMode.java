@@ -4,6 +4,8 @@
 
 package com.trutechinnovations.calculall;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.res.Resources;
@@ -288,30 +290,18 @@ public class MatrixMode extends FunctionMode {
     public void clickNum() {
         //Replaces the current fragment with the matrix_num (for now)
         ViewGroup v = (ViewGroup) fragment.getView();
-        LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View numView = inflater.inflate(R.layout.matrix_num, null, false);
         if (v != null) {
-            v.removeAllViews();
-            v.addView(numView);
+            View numView = v.findViewById(R.id.matrix_num);
+            numView.setVisibility(View.VISIBLE);
         }
     }
 
     public void clickDoneNum() {
         ViewGroup v = (ViewGroup) fragment.getView();
-        LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View matrixView = inflater.inflate(R.layout.matrix, null, false);
         if (v != null) {
-            v.removeAllViews();
+            final View numView = v.findViewById(R.id.matrix_num);
+            numView.setVisibility(View.GONE);
         }
-        v.addView(matrixView);
-        Button transButton = (Button) matrixView.findViewById(R.id.transpose_button);
-        Button powButton = (Button) matrixView.findViewById(R.id.pow_button);
-        Button inverseButton = (Button) matrixView.findViewById(R.id.inverse_button);
-        Button newButton = (Button) matrixView.findViewById(R.id.new_button);
-        transButton.setText(Html.fromHtml(activity.getString(R.string.transpose)));
-        powButton.setText(Html.fromHtml(activity.getString(R.string.matrix_pow)));
-        inverseButton.setText(Html.fromHtml(activity.getString(R.string.inverse_a)));
-        newButton.setText(Html.fromHtml(activity.getString(R.string.newe)));
     }
 
     /**
@@ -1109,7 +1099,6 @@ public class MatrixMode extends FunctionMode {
                 output.add(new StringToken("R = "));
                 output.add(r);
 
-
                 display.displayOutput(output);
 
                 saveEquation(input, output, filename);
@@ -1311,7 +1300,6 @@ public class MatrixMode extends FunctionMode {
             super.handleExceptions(e);
         }
 
-
         //Finds the ListView from the inflated consts XML so it could be manipulated
         ListView lv = (ListView) layout.findViewById(R.id.reductionList);
 
@@ -1434,7 +1422,6 @@ public class MatrixMode extends FunctionMode {
         } catch (Exception e) { //an error was thrown
             super.handleExceptions(e);
         }
-
 
         //Finds the ListView from the inflated consts XML so it could be manipulated
         ListView lv = (ListView) layout.findViewById(R.id.decompList);
@@ -1606,7 +1593,6 @@ public class MatrixMode extends FunctionMode {
             Token[] entry = decompositions.get(position);
             TypedValue typedValue = new TypedValue();
             Resources.Theme theme = activity.getTheme();
-            theme.resolveAttribute(R.attr.displayTextColor, typedValue, true);
 
             type.setText(entry[0].getSymbol());
             type.setTextColor(typedValue.data);

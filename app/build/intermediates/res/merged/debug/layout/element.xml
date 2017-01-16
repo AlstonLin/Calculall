@@ -5,5 +5,4 @@
     android:background="?android:colorBackground"
     android:gravity="center"
     android:lines="1"
-    android:textColor="?displayTextColor"
-    android:textSize="24sp" /><!-- From: file:/home/alston/Projects/Calculall/app/src/main/res/layout/element.xml -->
+    android:textSize="24sp" />

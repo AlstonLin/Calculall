@@ -45,7 +45,6 @@ public abstract class Operator extends Token implements Serializable, OrderCompa
      */
     public abstract double operate(double left, double right) throws NumberTooLargeException;
 
-
     /**
      * @return The type of operation this is (see class constants for possible values)
      */

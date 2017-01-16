@@ -47,7 +47,6 @@ public class OutputView extends NaturalView {
         drawExpression(expression, canvas, 0);
     }
 
-
     /**
      * Overrides the superclass' onMeasure to set the dimensions of the View
      * according to the parent's.

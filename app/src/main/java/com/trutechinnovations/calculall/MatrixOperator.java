@@ -6,7 +6,6 @@ package com.trutechinnovations.calculall;
  * @author Alston Lin, Ejaaz Merali
  */
 
-
 public abstract class MatrixOperator extends Token {
     public static final int ADD = 1, SUBTRACT = 2, MULTIPLY = 3, DIVIDE = 4, EXPONENT = 5;
     private int precedence;
@@ -32,7 +31,6 @@ public abstract class MatrixOperator extends Token {
         this.associative = a;
     }
 
-
     /**
      * Performs the operation with the given surrounding values.
      *
@@ -41,7 +39,6 @@ public abstract class MatrixOperator extends Token {
      * @return The result of the operation
      */
     public abstract Object operate(Object left, Object right);
-
 
     /**
      * @return The type of operation this is (see class constants for possible values)
@@ -101,5 +98,4 @@ public abstract class MatrixOperator extends Token {
         return precedence;
     }
 }
-
 

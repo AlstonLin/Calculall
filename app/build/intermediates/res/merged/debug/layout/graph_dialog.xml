@@ -11,7 +11,6 @@
         android:layout_margin="16dp"
         android:gravity="center_horizontal"
         android:text="@string/select_bounds"
-        android:textColor="?displayTextColor"
         android:textSize="26sp" />
 
     <LinearLayout
@@ -31,7 +30,6 @@
             android:layout_weight="2"
             android:gravity="center_horizontal"
             android:text="@string/x_min"
-            android:textColor="?displayTextColor"
             android:textSize="18dp" />
 
         <EditText
@@ -43,7 +41,6 @@
             android:layout_weight="3"
             android:inputType="numberSigned|numberDecimal"
             android:padding="0dp"
-            android:textColor="?displayTextColor"
             android:textIsSelectable="false"
             android:textSize="18dp" />
 
@@ -54,7 +51,6 @@
             android:layout_weight="2"
             android:gravity="center_horizontal"
             android:text="@string/x_max"
-            android:textColor="?displayTextColor"
             android:textSize="18dp" />
 
         <EditText
@@ -65,7 +61,6 @@
             android:layout_weight="3"
             android:inputType="numberSigned|numberDecimal"
             android:padding="0dp"
-            android:textColor="?displayTextColor"
             android:textSize="18dp" />
 
     </LinearLayout>
@@ -87,7 +82,6 @@
             android:layout_weight="2"
             android:gravity="center_horizontal"
             android:text="@string/y_min"
-            android:textColor="?displayTextColor"
             android:textSize="18dp" />
 
         <EditText
@@ -98,7 +92,6 @@
             android:layout_weight="3"
             android:inputType="numberSigned|numberDecimal"
             android:padding="0dp"
-            android:textColor="?displayTextColor"
             android:textSize="18dp" />
 
         <TextView
@@ -108,7 +101,6 @@
             android:layout_weight="2"
             android:gravity="center_horizontal"
             android:text="@string/y_max"
-            android:textColor="?displayTextColor"
             android:textSize="18sp" />
 
         <EditText
@@ -119,7 +111,6 @@
             android:layout_weight="3"
             android:inputType="numberSigned|numberDecimal"
             android:padding="0dp"
-            android:textColor="?displayTextColor"
             android:textSize="18dp" />
 
     </LinearLayout>
@@ -129,8 +120,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/graph_note"
-        android:textColor="?displayTextColor" />
+        android:text="@string/graph_note" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -138,10 +128,7 @@
         android:layout_gravity="center_horizontal"
         android:orientation="horizontal">
 
-        <com.balysv.materialripple.MaterialRippleLayout
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1">
+
 
             <Button
                 android:id="@+id/cancel_button"
@@ -152,12 +139,9 @@
                 android:onClick="onClick"
                 android:text="@string/cancel"
                 android:textSize="24sp" />
-        </com.balysv.materialripple.MaterialRippleLayout>
 
-        <com.balysv.materialripple.MaterialRippleLayout
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1">
+
+
 
             <Button
                 android:id="@+id/graph_dialog_button"
@@ -169,6 +153,6 @@
                 android:onClick="onClick"
                 android:text="@string/graph"
                 android:textSize="24sp" />
-        </com.balysv.materialripple.MaterialRippleLayout>
+
     </LinearLayout>
-</LinearLayout><!-- From: file:/home/alston/Projects/Calculall/app/src/main/res/layout/graph_dialog.xml -->
+</LinearLayout>
