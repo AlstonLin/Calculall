@@ -251,7 +251,7 @@ public class Advanced extends Basic {
 
     protected void updateOutput() {
         ViewPager mPager = (ViewPager) activity.findViewById(R.id.pager);
-        if (mPager.getCurrentItem() == 1) { // checks if the current mode is Advanced
+        if (mPager.getCurrentItem() == MainActivity.ADVANCED && activity.isAutocalculateOn()) { // checks if the current mode is Advanced
             try {
                 display.displayOutput(equals());
             } catch (Exception e) {

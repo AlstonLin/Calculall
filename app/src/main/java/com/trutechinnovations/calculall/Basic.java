@@ -492,18 +492,11 @@ public class Basic implements View.OnClickListener {
     protected void updateInput() {
         updatePlaceHolders();
         ViewPager mPager = (ViewPager) activity.findViewById(R.id.pager);
-        if (mPager.getCurrentItem() == 0) { // checks if the current mode is Basic
-            ArrayList<Token> output = new ArrayList<Token>();
-            boolean failed = false;
+        if (mPager.getCurrentItem() == MainActivity.BASIC && activity.isAutocalculateOn()) { // checks if the current mode is Basic
             try {
-                output = equals();
+                display.displayOutput(equals()); // Autocalculates if possible
             } catch (Exception e) {
-                failed = true;
-            }
-            if (!failed) {
-                display.displayOutput(output);
-            } else {
-                display.displayOutput(new ArrayList<Token>()); //Clears output
+                display.displayOutput(new ArrayList<Token>());
             }
         } else {
             display.displayOutput(new ArrayList<Token>()); //Clears output

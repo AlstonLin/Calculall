@@ -646,6 +646,7 @@
     <string name="arctanh">tanh&lt;sup>&lt;small>-1&lt;/small>&lt;/sup></string>
     <string name="argument">Arg</string>
     <string name="augment">[A|B]</string>
+    <string name="autocalculate">Automatically Calculate</string>
     <string name="backspace">⇤</string>
     <string name="base10">DEC</string>
     <string name="base16">HEX</string>

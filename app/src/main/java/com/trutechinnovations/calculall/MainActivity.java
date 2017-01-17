@@ -56,7 +56,7 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
     private ViewPager mPager;
     private boolean showAd = false;
     private android.support.v4.app.FragmentManager mg = getSupportFragmentManager();
-    private boolean feedbackOn;
+    private boolean feedbackOn, autocalculateOn;
     private int lastMode;
     private int fontSize;
     private int currentTheme = -1;
@@ -89,6 +89,7 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
         SharedPreferences pref = getSharedPreferences(getString(R.string.preference_key), Context.MODE_PRIVATE);
         //Retrieves the defailt values from Preferences
         feedbackOn = pref.getBoolean(getString(R.string.haptic), SettingsActivity.DEFAULT_FEEDBACK);
+        autocalculateOn = pref.getBoolean(getString(R.string.autocalculate), SettingsActivity.AUTOCALCULATE_ON);
         fontSize = pref.getInt(getString(R.string.font_size), SettingsActivity.DEFAULT_FONT_SIZE);
         int roundTo = pref.getInt(getString(R.string.round_to), SettingsActivity.DEFAULT_ROUND);
 
@@ -340,6 +341,10 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
 
     public int getFontSize() {
         return fontSize;
+    }
+
+    public boolean isAutocalculateOn() {
+        return autocalculateOn;
     }
 
     public void setShowAd(boolean showAd) {

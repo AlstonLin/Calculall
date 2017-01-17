@@ -53,21 +53,23 @@ public class SettingsActivity extends AppCompatActivity {
     public static final int DEFAULT_FONT_SIZE = 96;
     public static final boolean DEFAULT_FEEDBACK = false;
     public static final boolean DEFAULT_SWIPE = false;
+    public static final boolean AUTOCALCULATE_ON = false;
     //Fields
     private int currentTheme  = -1;
     private PopupWindow popup;
     private SharedPreferences pref;
-    private boolean feedbackOn, swipeOnly;
+    private boolean feedbackOn, swipeOnly, autocalculateOn;
     private int roundTo;
     private int fontSize;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //Reads prefereces
+        //Reads preferences
         pref = getSharedPreferences(getString(R.string.preference_key), Context.MODE_PRIVATE);
         currentTheme = pref.getInt(getString(R.string.theme), ThemeHelper.DEFAULT_THEME);
         feedbackOn = pref.getBoolean(getString(R.string.haptic), DEFAULT_FEEDBACK);
+        autocalculateOn = pref.getBoolean(getString(R.string.autocalculate), AUTOCALCULATE_ON);
         roundTo = pref.getInt(getString(R.string.round_to), DEFAULT_ROUND);
         fontSize = pref.getInt(getString(R.string.font_size), DEFAULT_FONT_SIZE);
         swipeOnly = pref.getBoolean(getString(R.string.mode_switch), DEFAULT_SWIPE);
@@ -169,6 +171,7 @@ public class SettingsActivity extends AppCompatActivity {
         int backgroundColor = typedValue.data;
 
         CheckBox haptic = (CheckBox) findViewById(R.id.haptic_switch);
+        CheckBox autocalculate = (CheckBox) findViewById(R.id.autocalculate_switch);
 
         haptic.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             /**
@@ -187,6 +190,24 @@ public class SettingsActivity extends AppCompatActivity {
         });
 
         haptic.setChecked(feedbackOn);
+
+        autocalculate.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            /**
+             * When the check has been changed.
+             *
+             * @param buttonView Not Used
+             * @param isChecked  If it is now checked
+             */
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                autocalculateOn = isChecked;
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putBoolean(getString(R.string.autocalculate), isChecked);
+                editor.apply();
+            }
+        });
+
+        autocalculate.setChecked(autocalculateOn);
     }
 
     /**
