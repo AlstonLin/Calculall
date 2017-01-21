@@ -477,10 +477,6 @@ public class Basic implements View.OnClickListener {
      * @param filename The file name of the history file
      */
     public void openHistory(String filename){
-        //Inflates the XML file so you get the View to add to the PopupWindow
-
-        //Creates the popupWindow, with the width matching the parent's and height matching the parent's
-
         Intent intent  = new Intent(activity, HistoryActivity.class);
         intent.putExtra(HistoryActivity.FILENAME,filename);
         activity.startActivity(intent);

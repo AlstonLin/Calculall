@@ -57,7 +57,7 @@ public class FunctionMode extends Advanced {
             return new Thread(group, r, "Calculus Thread", STACK_SIZE);
         }
     };
-    private static final Basic INSTANCE = new FunctionMode();
+    private static final FunctionMode INSTANCE = new FunctionMode();
     private static final BlockingQueue<Runnable> sPoolWorkQueue = new LinkedBlockingQueue<Runnable>(128);
     public static final Executor EXECUTOR = new ThreadPoolExecutor(CORE_POOL_SIZE, MAXIMUM_POOL_SIZE, KEEP_ALIVE, TimeUnit.SECONDS, sPoolWorkQueue, threadFactory);
     //Actual variables used
@@ -75,7 +75,7 @@ public class FunctionMode extends Advanced {
      *
      * @return The singleton instance
      */
-    public static Basic getInstance() {
+    public static FunctionMode getInstance() {
         return INSTANCE;
     }
 

@@ -167,33 +167,35 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
         SharedPreferences pref = getSharedPreferences(getString(R.string.preference_key), Context.MODE_PRIVATE);
         lastMode = pref.getInt(getString(R.string.mode_key), 0);
         mPager.setCurrentItem(lastMode);
-        //Tokens
-        try {
-            FileInputStream stream = openFileInput(TOKENS_FILENAME);
-            ObjectInputStream objectStream = new ObjectInputStream(stream);
-            ArrayList<Token> tokens = (ArrayList<Token>) objectStream.readObject();
-            display.displayInput(tokens);
-            objectStream.close();
-            stream.close();
-            //Now sets the tokens
-            switch (lastMode) {
-                case BASIC:
-                    Basic.getInstance().setTokens(tokens);
-                    break;
-                case ADVANCED:
-                    Advanced.getInstance().setTokens(tokens);
-                    break;
-                case FUNCTION:
-                    FunctionMode.getInstance().setTokens(tokens);
-                    break;
-                case VECTOR:
-                    VectorMode.getInstance().setTokens(tokens);
-                    break;
-                case MATRIX:
-                    MatrixMode.getInstance().setTokens(tokens);
-                    break;
+        if (display.getExpression().size()==0) {
+            //Tokens
+            try {
+                FileInputStream stream = openFileInput(TOKENS_FILENAME);
+                ObjectInputStream objectStream = new ObjectInputStream(stream);
+                ArrayList<Token> tokens = (ArrayList<Token>) objectStream.readObject();
+                display.displayInput(tokens);
+                objectStream.close();
+                stream.close();
+                //Now sets the tokens
+                switch (lastMode) {
+                    case BASIC:
+                        Basic.getInstance().setTokens(tokens);
+                        break;
+                    case ADVANCED:
+                        Advanced.getInstance().setTokens(tokens);
+                        break;
+                    case FUNCTION:
+                        FunctionMode.getInstance().setTokens(tokens);
+                        break;
+                    case VECTOR:
+                        VectorMode.getInstance().setTokens(tokens);
+                        break;
+                    case MATRIX:
+                        MatrixMode.getInstance().setTokens(tokens);
+                        break;
+                }
+            } catch (ClassNotFoundException | IOException ignored) {
             }
-        } catch (ClassNotFoundException | IOException ignored) {
         }
     }
 
@@ -354,14 +356,11 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
     @Override
     public void onBackPressed() {
         PopupWindow historyPw = Basic.historyWindow;
-        PopupWindow advancedPw = ((Advanced) Advanced.getInstance()).getPopup();
         PopupWindow functionPw = ((FunctionMode) FunctionMode.getInstance()).getPw();
         PopupWindow elementPw = ((MatrixMode) MatrixMode.getInstance()).getElementWindow();
         PopupWindow elementsPw = ((MatrixMode) MatrixMode.getInstance()).getElementsWindow();
         if (historyPw != null && historyPw.isShowing()) {
             historyPw.dismiss();
-        } else if (advancedPw != null && advancedPw.isShowing()) {
-            advancedPw.dismiss();
         } else if (functionPw != null && functionPw.isShowing()) {
             functionPw.dismiss();
         } else if (elementPw != null && elementPw.isShowing()) {

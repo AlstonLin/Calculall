@@ -6,6 +6,7 @@ package com.trutechinnovations.calculall;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.view.ViewPager;
@@ -40,13 +41,11 @@ public class Advanced extends Basic {
     public static final int DEC = 1, FRAC = 2;
     public static final double CONSTANTS_IO_RATIO = 0.7; //The size of the output / input in the
     private static final String FILENAME = "history_advanced";
-    private static final Basic INSTANCE = new Advanced();
+    private static final Advanced INSTANCE = new Advanced();
     protected int fracMode = DEC;
     //Fields
     protected ArrayList<MultiButton> multiButtons;
     protected boolean hyperbolic = false, shift = false, mem = false;
-    ArrayList<Constant> arrayOfConstants = new ArrayList<Constant>();//Constants data
-    private PopupWindow constWindow;
 
     { //pseudo-constructor
         filename = "history_advanced";
@@ -57,49 +56,8 @@ public class Advanced extends Basic {
      *
      * @return The singleton instance
      */
-    public static Basic getInstance() {
+    public static Advanced getInstance() {
         return INSTANCE;
-    }
-
-    private static String prettifyConstValue(double d) {
-        String s = Double.toString(d);
-        String[] parts = s.split("E");
-        if (parts.length < 2) {
-            String[] temp = s.split("\\.");
-            if (temp.length < 2 || temp.length > 2) {
-                return s;
-            } else if (temp.length == 2) {
-                if (temp[0].length() >= 4) {
-                    temp[0] = spaceOutString(new StringBuilder(temp[0]).reverse().toString());
-                    temp[0] = new StringBuilder(temp[0]).reverse().toString();
-                }
-                if (temp[1].length() >= 4) {
-                    temp[1] = spaceOutString(temp[1]);
-                }
-                s = temp[0].concat("." + temp[1]);
-                return s;
-            }
-        } else if (parts.length == 2) {
-            String[] temp = parts[0].split("\\.");
-            if (temp.length < 2 || temp.length > 2) {
-                return parts[0].concat(" × 10<sup><small>" + parts[1] + "</small></sup>");
-            } else if (temp.length == 2) {
-                if (temp[0].length() >= 4) {
-                    temp[0] = spaceOutString(new StringBuilder(temp[0]).reverse().toString());
-                    temp[0] = new StringBuilder(temp[0]).reverse().toString();
-                }
-                if (temp[1].length() >= 4) {
-                    temp[1] = spaceOutString(temp[1]);
-                }
-                parts[0] = temp[0].concat("." + temp[1]);
-                return parts[0].concat(" × 10<sup><small>" + parts[1] + "</small></sup>");
-            }
-        }
-        return s;
-    }
-
-    private static String spaceOutString(String s) {
-        return s.replaceAll("(.{3})", "$1 ");
     }
 
     public void setMultiButtons(ArrayList<MultiButton> multiButtons) {
@@ -177,9 +135,6 @@ public class Advanced extends Basic {
             case R.id.const_button:
                 clickConst();
                 break;
-            case R.id.exit_const_button:
-                clickExitConst();
-                break;
             default:
                 super.onClick(v);
         }
@@ -203,10 +158,6 @@ public class Advanced extends Basic {
                 String[] dank = {
                         "Ayy Lmao",
                         "JET FUEL CAN'T MELT DANK MEMES",
-                        "node.js",
-                        "node.js is the only REAL dev language",
-                        "JET FUEL CAN'T MELT STEEL BEAMS",
-                        "#sariahismyOTP"
                 };
                 Random rand = new Random();
                 Toast.makeText(activity, dank[rand.nextInt(dank.length)], Toast.LENGTH_LONG).show();
@@ -249,7 +200,7 @@ public class Advanced extends Basic {
         return new ArrayList<>();
     }
 
-    protected void updateOutput() {
+    public void updateOutput() {
         ViewPager mPager = (ViewPager) activity.findViewById(R.id.pager);
         if (mPager.getCurrentItem() == MainActivity.ADVANCED && activity.isAutocalculateOn()) { // checks if the current mode is Advanced
             try {
@@ -987,72 +938,14 @@ public class Advanced extends Basic {
         openConst();
     }
 
-    /**
-     * Exits the consts view.
-     */
-    public void clickExitConst() {
-        constWindow.dismiss();
-    }
 
     /**
      * Opens the constants list.
      *
      */
     public void openConst() {
-        //Inflates the XML file so you get the View to add to the PopupWindow
-        LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View layout = inflater.inflate(R.layout.constants_view, null, false);
-
-        //Creates the popupWindow, with the width matching the parent's and height matching the parent's
-        constWindow = new PopupWindow(layout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
-        constWindow.setBackgroundDrawable(new BitmapDrawable());
-
-        //Populate arraylist
-        if (arrayOfConstants.size() == 0) {
-            arrayOfConstants.add(ConstantFactory.makeSpeedOfLight());
-            arrayOfConstants.add(ConstantFactory.makePlanck());
-            arrayOfConstants.add(ConstantFactory.makeRedPlanck());
-            arrayOfConstants.add(ConstantFactory.makeGravitational());
-            arrayOfConstants.add(ConstantFactory.makeGasConst());
-            arrayOfConstants.add(ConstantFactory.makeBoltzmann());
-            arrayOfConstants.add(ConstantFactory.makeAvogadro());
-            arrayOfConstants.add(ConstantFactory.makeStefanBoltzmann());
-            arrayOfConstants.add(ConstantFactory.makeFaraday());
-            arrayOfConstants.add(ConstantFactory.makeMagnetic());
-            arrayOfConstants.add(ConstantFactory.makeElectric());
-            arrayOfConstants.add(ConstantFactory.makeCoulomb());
-            arrayOfConstants.add(ConstantFactory.makeElemCharge());
-            arrayOfConstants.add(ConstantFactory.makeElectronVolt());
-            arrayOfConstants.add(ConstantFactory.makeElectronMass());
-            arrayOfConstants.add(ConstantFactory.makeProtonMass());
-            arrayOfConstants.add(ConstantFactory.makeNeutronMass());
-            arrayOfConstants.add(ConstantFactory.makeAtomicMass());
-            arrayOfConstants.add(ConstantFactory.makeBohrMagneton());
-            arrayOfConstants.add(ConstantFactory.makeBohrRadius());
-            arrayOfConstants.add(ConstantFactory.makeRydberg());
-            arrayOfConstants.add(ConstantFactory.makeFineStruct());
-            arrayOfConstants.add(ConstantFactory.makeMagneticFluxQuantum());
-            arrayOfConstants.add(ConstantFactory.makeEarthGrav());
-            arrayOfConstants.add(ConstantFactory.makeEarthMass());
-            arrayOfConstants.add(ConstantFactory.makeEarthRadius());
-            arrayOfConstants.add(ConstantFactory.makeSolarMass());
-            arrayOfConstants.add(ConstantFactory.makeSolarRadius());
-            arrayOfConstants.add(ConstantFactory.makeSolarLuminosity());
-            arrayOfConstants.add(ConstantFactory.makeAU());
-            arrayOfConstants.add(ConstantFactory.makeLightYear());
-            arrayOfConstants.add(ConstantFactory.makePhi());
-            arrayOfConstants.add(ConstantFactory.makeEulerMascheroni());
-        }
-
-        //Create the adapter to convert the array to views
-        ConstantsAdapter adapter = new ConstantsAdapter(activity, arrayOfConstants);
-
-        //Finds the ListView from the inflated consts XML so it could be manipulated
-        ListView lv = (ListView) layout.findViewById(R.id.constantsList);
-        //Attaches the custom Adapter to the ListView so that it can configure the items and their Views within it
-        lv.setAdapter(adapter);
-        //Displays the created PopupWindow on top of the LinearLayout with ID frame, which is being shown by the Activity
-        constWindow.showAtLocation(activity.findViewById(R.id.frame), Gravity.CENTER, 0, 0);
+        Intent intent  = new Intent(activity, ConstantsActivity.class);
+        activity.startActivity(intent);
     }
 
     /**
@@ -1087,10 +980,6 @@ public class Advanced extends Basic {
         updateInput();
     }
 
-    public PopupWindow getPopup() {
-        return constWindow;
-    }
-
     public boolean isShift() {
         return shift;
     }
@@ -1101,82 +990,6 @@ public class Advanced extends Basic {
 
     public boolean isHyperbolic() {
         return hyperbolic;
-    }
-
-    /**
-     * The custom Adapter for the ListView in the consts list.
-     */
-    private class ConstantsAdapter extends ArrayAdapter<Constant> {
-
-        private MainActivity activity;
-        private ArrayList<Constant> constants; //The data that will be shown in the ListView
-
-        public ConstantsAdapter(MainActivity activity, ArrayList<Constant> constants) {
-            super(activity, 0, constants);
-            this.constants = constants;
-            this.activity = activity;
-        }
-
-        /**
-         * Prepares the View of each item in the ListView that this Adapter will be attached to.
-         *
-         * @param position    The index of the item
-         * @param convertView The old view that may be reused, or null if not possible
-         * @param parent      The parent view
-         * @return The newly prepared View that will visually represent the item in the ListView in the given position
-         */
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            //Get the data item for this position
-            Constant constant = getItem(position);
-            if (convertView == null) { //For efficiency purposes so that it does not unnecessarily inflate Views
-                //Inflates the XML file to get the View of the consts element
-                LayoutInflater inflater = (LayoutInflater) activity.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = inflater.inflate(R.layout.constants_element, parent, false);
-            }
-
-            //Sets up the child Views within each item in the ListView
-            TextView constantName = (TextView) convertView.findViewById(R.id.constantName);
-            TextView constantSymbol = (TextView) convertView.findViewById(R.id.constantSymbol);
-            TextView constantVal = (TextView) convertView.findViewById(R.id.constantVal);
-            TextView constantUnits = (TextView) convertView.findViewById(R.id.constantUnits);
-
-            TypedValue typedValue = new TypedValue();
-            Resources.Theme theme = activity.getTheme();
-
-            constantName.setText(constant.getName());
-            constantName.setTextColor(typedValue.data);
-
-            //Set the constant symbol to be the actual symbol, the symbol var of the constant
-            //is the numeric value to be displayed in the user's input
-            constantSymbol.setText(Html.fromHtml(constant.getHTML()));
-            constantSymbol.setTextColor(typedValue.data);
-
-            constantVal.setText(Html.fromHtml(prettifyConstValue(constant.getNumericValue())));
-            constantVal.setTextColor(typedValue.data);
-
-            constantUnits.setText(Html.fromHtml(constant.getUnits()));
-            constantUnits.setTextColor(typedValue.data);
-
-            //To respond to user touches
-            final Constant cnst = arrayOfConstants.get(position); //Makes a constant reference so that cnst can be accessed by an inner class
-            convertView.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    if (event.getAction() == MotionEvent.ACTION_UP) {
-                        tokens.add(display.getRealCursorIndex(), VariableFactory.makeConstantToken(cnst)); //Adds the token to the input
-                        updateInput();
-                        display.setCursorIndex(display.getCursorIndex() + 1); //Moves the cursor to the right of the constant
-                        constWindow.dismiss(); //Exits constWindow once an Item has been selected
-                        updateOutput();
-                        return true;
-                    } else {
-                        return false;
-                    }
-                }
-            });
-            return convertView;
-        }
     }
 
 }

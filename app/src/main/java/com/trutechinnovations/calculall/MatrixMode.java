@@ -8,6 +8,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.BitmapDrawable;
 import android.text.Html;
@@ -44,11 +45,11 @@ public class MatrixMode extends FunctionMode {
     public static final int DEFAULT_ROWS = 3;
     public static final int DEFAULT_COLS = 3;
     public static final int MAX_DIMENSIONS = 7;
-    private static final Basic INSTANCE = new MatrixMode();
+    private static final MatrixMode INSTANCE = new MatrixMode();
 
     protected PopupWindow reductionWindow;
     protected PopupWindow decompWindow;
-    private Command<Void, Void> lastAction; // The last method the user has used to compute
+    public Command<Void, Void> lastAction; // The last method the user has used to compute
     //Variables used only when in ElementView
     private PopupWindow elementsWindow;
     private PopupWindow elementWindow;
@@ -66,7 +67,7 @@ public class MatrixMode extends FunctionMode {
      *
      * @return The singleton instance
      */
-    public static Basic getInstance() {
+    public static MatrixMode getInstance() {
         return INSTANCE;
     }
 
@@ -188,9 +189,6 @@ public class MatrixMode extends FunctionMode {
                 break;
             case R.id.exit_reduction_button:
                 clickExitReduction();
-                break;
-            case R.id.exit_decomp_button:
-                clickExitDecomp();
                 break;
             default:
                 super.onClick(v);
@@ -1321,123 +1319,8 @@ public class MatrixMode extends FunctionMode {
      * Opens the matrix decompositions window
      */
     public void openDecomp() {
-        //Inflates the XML file so you get the View to add to the PopupWindow
-        LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View layout = inflater.inflate(R.layout.decomposition_view, null, false);
-
-        //Creates the popupWindow, with the width matching the parent's and height matching the parent's
-        decompWindow = new PopupWindow(layout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
-
-        //Retrieves the user data from saved memory
-
-        ArrayList<Token[]> decomps = new ArrayList<>();
-        try {
-            if (tokens.isEmpty()) {
-                throw new IllegalArgumentException("Please enter a Matrix expression first");
-            }
-            ArrayList<Token> temp = MatrixUtils.setupExpression(Utility.condenseDigits(tokens));
-            temp = MatrixUtils.convertToReversePolish(temp);
-            Token t = MatrixUtils.evaluateExpression(temp, false);
-            if (t instanceof Matrix) {
-                double[][] a = MatrixUtils.evaluateMatrixEntries((Matrix) t);
-                String[][] decompositions = {
-                        {"LUP factorization",
-                                "Finds matrices <b>P</b>, <b>L</b> and <b>U</b> such that" +
-                                        "<div><b>PA = LU</b></div>" +
-                                        "where <b>L</b> and <b>U</b> are lower and upper triangular, respectively, and <b>P</b> is the pivot matrix.",
-                                "LUP"},
-                        {"Diagonalization",
-                                "Finds matrices <b>P</b> and <b>D</b> such that" +
-                                        "<div><b>A = PDP</b><sup><small>-1</small></sup></div>" +
-                                        "where <b>D</b> is a diagonal matrix with the eigenvalues of <b>A</b> as its diagonal entries, " +
-                                        "and <b>P</b> is a matrix with the eigenvectors of <b>A</b> as its columns.",
-                                "DIAG"},
-                        {"QR decomposition",
-                                "Finds matrices <b>Q</b> and <b>R</b> such that" +
-                                        "<div><b>A = QR</b></div>" +
-                                        "where <b>Q</b> is orthogonal, <b>R</b> is upper triangular.",
-                                "QR"},
-                        {"Rank Revealing QR decomposition",
-                                "Finds matrices <b>P</b>, <b>Q</b> and <b>R</b> such that" +
-                                        "<div><b>AP = QR</b></div>" +
-                                        "where <b>Q</b> is orthogonal, <b>R</b> is upper triangular, and <b>P</b> is the pivot matrix.",
-                                "RRQR"},
-                        {"Cholesky decomposition",
-                                "Finds a matrix <b>L</b> such that" +
-                                        "<div><b>A = LL</b><sup><small>T</small></sup></div>" +
-                                        "where <b>L</b> is lower triangular.",
-                                "Cholesky"},
-                        {"Singular value decomposition",
-                                "Finds matrices <b>U</b>, <b>Σ</b> and <b>V</b> such that" +
-                                        "<div><b>A = UΣV</b><sup><small>T</small></sup></div>" +
-                                        "If <b>A</b> is an <i>m×n</i> matrix, then <b>U</b> is an <i>m×p</i> orthogonal matrix, " +
-                                        "<b>Σ</b> is a <i>p×p</i> diagonal matrix with positive or null elements " +
-                                        "(the nonzero elements are the singular values of <b>A</b>), " +
-                                        "<b>V</b> is a <i>p×n</i> orthogonal matrix (hence <b>V</b><sup><small>T</small></sup> is also orthogonal) " +
-                                        "where <i>p=min(m,n)</i>.",
-                                "SVD"}
-                };
-
-                for (int i = 0; i < decompositions.length; i++) {
-                    Token[] tempToken = new Token[3];
-                    if (i == 0) {
-                        if (((Matrix) t).isSquare() && MatrixUtils.findDeterminant(a) != 0) {//LUP
-                            for (int j = 0; j < tempToken.length; j++) {
-                                tempToken[j] = new StringToken(decompositions[i][j]);
-                            }
-                            decomps.add(tempToken);
-                        }
-                    } else if (i == 1) {
-                        if (((Matrix) t).isSquare()) {//Diagonalization
-                            for (int j = 0; j < tempToken.length; j++) {
-                                tempToken[j] = new StringToken(decompositions[i][j]);
-                            }
-                            decomps.add(tempToken);
-                        }
-                    } else if (i == 4) { //Cholesky
-                        if (((Matrix) t).isSymmetric() && MatrixUtils.findDeterminant(a) != 0) {
-                            for (int j = 0; j < tempToken.length; j++) {
-                                tempToken[j] = new StringToken(decompositions[i][j]);
-                            }
-                            decomps.add(tempToken);
-                        }
-                    } else {//QR, RRQR, SVD
-                        for (int j = 0; j < tempToken.length; j++) {
-                            tempToken[j] = new StringToken(decompositions[i][j]);
-                        }
-                        decomps.add(tempToken);
-                    }
-                }
-
-                if (decomps.size() == 0) {
-                    Token[] tempToken = new Token[3];
-                    tempToken[0] = new StringToken("No decompositions available for this matrix");
-                    tempToken[1] = new StringToken("");
-                    tempToken[2] = new StringToken("");
-                    decomps.add(tempToken);
-                }
-            } else {
-                throw new IllegalArgumentException("The result must be a single Matrix to be factorizable");
-            }
-        } catch (Exception e) { //an error was thrown
-            super.handleExceptions(e);
-        }
-
-        //Finds the ListView from the inflated consts XML so it could be manipulated
-        ListView lv = (ListView) layout.findViewById(R.id.decompList);
-
-        //Attaches the custom Adapter to the ListView so that it can configure the items and their Views within it
-        lv.setAdapter(new DecompAdapter(decomps, activity));
-
-        //Displays the created PopupWindow on top of the LinearLayout with ID frame, which is being shown by the Activity
-        decompWindow.showAtLocation(activity.findViewById(R.id.frame), Gravity.CENTER, 0, 0);
-    }
-
-    /**
-     * Exits the decomp view.
-     */
-    public void clickExitDecomp() {
-        decompWindow.dismiss();
+        Intent intent  = new Intent(activity, DecompositionSelectionActivity.class);
+        activity.startActivity(intent);
     }
 
     public PopupWindow getElementsWindow() {
@@ -1525,145 +1408,6 @@ public class MatrixMode extends FunctionMode {
                         tokens.addAll(input); //Adds the input of the entry
                         reductionWindow.dismiss(); //Exits reductionWindow once a matrix has been selected
                         updateInput();
-                        return true;
-                    } else {
-                        return false;
-                    }
-                }
-            });
-            return convertView;
-        }
-    }
-
-    /**
-     * The custom Adapter for the ListView in the row reduction steps.
-     */
-    private class DecompAdapter extends BaseAdapter {
-
-        private MainActivity activity;
-        private ArrayList<Token[]> decompositions; //The data that will be shown in the ListView
-
-        public DecompAdapter(ArrayList<Token[]> decompositions, MainActivity activity) {
-            this.decompositions = decompositions;
-            this.activity = activity;
-        }
-
-        @Override
-        public int getCount() {
-            return decompositions.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return decompositions.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        /**
-         * Prepares the View of each item in the ListView that this Adapter will be attached to.
-         *
-         * @param position    The index of the item
-         * @param convertView The old view that may be reused, or null if not possible
-         * @param parent      The parent view
-         * @return The newly prepared View that will visually represent the item in the ListView in the given position
-         */
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            if (convertView == null) { //For efficiency purposes so that it does not unnecessarily inflate Views
-                //Inflates the XML file to get the View of the decomposition element
-                LayoutInflater inflater = (LayoutInflater) activity.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = inflater.inflate(R.layout.decomposition_element, parent, false);
-            }
-
-            //Sets up the child Views within each item in the ListView
-            TextView type = (TextView) convertView.findViewById(R.id.type);
-            TextView info = (TextView) convertView.findViewById(R.id.info);
-
-            //Sets the font size of each OutputView
-            /*
-            type.setFontSize((int) (activity.getFontSize() * CONSTANTS_IO_RATIO));
-            info.setFontSize((int) (activity.getFontSize() * CONSTANTS_IO_RATIO * CONSTANTS_IO_RATIO));
-            */
-
-            //Enters the appropriate expressions to the TextViews
-            Token[] entry = decompositions.get(position);
-            TypedValue typedValue = new TypedValue();
-            Resources.Theme theme = activity.getTheme();
-
-            type.setText(entry[0].getSymbol());
-            type.setTextColor(typedValue.data);
-            info.setText(Html.fromHtml(entry[1].getSymbol()));
-            info.setTextColor(typedValue.data);
-
-            //To respond to user touches
-            final Token INPUT = decompositions.get(position)[2]; //Makes a constant reference so that intermediate matrices can be accessed by an inner class
-            convertView.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    if (event.getAction() == MotionEvent.ACTION_UP) {
-                        decompWindow.dismiss(); //Exits decompWindow once a matrix decomposition has been selected
-                        if (INPUT instanceof StringToken) {
-                            String s = INPUT.getSymbol();
-                            if (s.equals("LUP")) {
-                                lastAction = new Command<Void, Void>() {
-                                    @Override
-                                    public Void execute(Void o) {
-                                        clickLUP();
-                                        return null;
-                                    }
-                                };
-                                clickLUP();
-                            } else if (s.equals("DIAG")) {
-                                lastAction = new Command<Void, Void>() {
-                                    @Override
-                                    public Void execute(Void o) {
-                                        clickDiagonalize();
-                                        return null;
-                                    }
-                                };
-                                clickDiagonalize();
-                            } else if (s.equals("QR")) {
-                                lastAction = new Command<Void, Void>() {
-                                    @Override
-                                    public Void execute(Void o) {
-                                        clickQR();
-                                        return null;
-                                    }
-                                };
-                                clickQR();
-                            } else if (s.equals("RRQR")) {
-                                lastAction = new Command<Void, Void>() {
-                                    @Override
-                                    public Void execute(Void o) {
-                                        clickRRQR();
-                                        return null;
-                                    }
-                                };
-                                clickRRQR();
-                            } else if (s.equals("Cholesky")) {
-                                lastAction = new Command<Void, Void>() {
-                                    @Override
-                                    public Void execute(Void o) {
-                                        clickCholesky();
-                                        return null;
-                                    }
-                                };
-                                clickCholesky();
-                            } else if (s.equals("SVD")) {
-                                lastAction = new Command<Void, Void>() {
-                                    @Override
-                                    public Void execute(Void o) {
-                                        clickSVD();
-                                        return null;
-                                    }
-                                };
-                                clickSVD();
-                            }
-                        }
                         return true;
                     } else {
                         return false;

@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 public class VectorMode extends Advanced {
     private static final String FILENAME = "history_vector";
-    private static final Basic INSTANCE = new VectorMode();
+    private static final VectorMode INSTANCE = new VectorMode();
 
     { //pseudo-constructor
         filename = "history_vector";
@@ -33,7 +33,7 @@ public class VectorMode extends Advanced {
      *
      * @return The singleton instance
      */
-    public static Basic getInstance() {
+    public static VectorMode getInstance() {
         return INSTANCE;
     }
 

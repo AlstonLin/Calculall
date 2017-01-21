@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\david\Documents\Projects\Calculall\app\src\main\AndroidManifest.xml:2:1-45:12
+ADDED from C:\Users\david\Documents\Projects\Calculall\app\src\main\AndroidManifest.xml:2:1-53:12
 	package
 		ADDED from C:\Users\david\Documents\Projects\Calculall\app\src\main\AndroidManifest.xml:3:5-47
 		INJECTED from C:\Users\david\Documents\Projects\Calculall\app\src\main\AndroidManifest.xml
@@ -24,7 +24,7 @@ ADDED from C:\Users\david\Documents\Projects\Calculall\app\src\main\AndroidManif
 	android:name
 		ADDED from C:\Users\david\Documents\Projects\Calculall\app\src\main\AndroidManifest.xml:8:22-63
 application
-ADDED from C:\Users\david\Documents\Projects\Calculall\app\src\main\AndroidManifest.xml:10:5-43:19
+ADDED from C:\Users\david\Documents\Projects\Calculall\app\src\main\AndroidManifest.xml:10:5-51:19
 MERGED from [com.android.support:design:25.1.0] C:\Users\david\Documents\Projects\Calculall\app\build\intermediates\exploded-aar\com.android.support\design\25.1.0\AndroidManifest.xml:25:5-20
 MERGED from [com.android.support:appcompat-v7:25.1.0] C:\Users\david\Documents\Projects\Calculall\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\25.1.0\AndroidManifest.xml:25:5-20
 MERGED from [com.android.support:animated-vector-drawable:25.1.0] C:\Users\david\Documents\Projects\Calculall\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\25.1.0\AndroidManifest.xml:22:5-20
@@ -41,7 +41,7 @@ MERGED from [com.android.support:support-compat:25.1.0] C:\Users\david\Documents
 	android:icon
 		ADDED from C:\Users\david\Documents\Projects\Calculall\app\src\main\AndroidManifest.xml:12:9-45
 	android:theme
-		ADDED from C:\Users\david\Documents\Projects\Calculall\app\src\main\AndroidManifest.xml:13:9-40
+		ADDED from C:\Users\david\Documents\Projects\Calculall\app\src\main\AndroidManifest.xml:13:9-55
 activity#com.trutechinnovations.calculall.MainActivity
 ADDED from C:\Users\david\Documents\Projects\Calculall\app\src\main\AndroidManifest.xml:15:9-25:20
 	android:screenOrientation
@@ -96,6 +96,22 @@ ADDED from C:\Users\david\Documents\Projects\Calculall\app\src\main\AndroidManif
 		ADDED from C:\Users\david\Documents\Projects\Calculall\app\src\main\AndroidManifest.xml:41:13-44
 	android:name
 		ADDED from C:\Users\david\Documents\Projects\Calculall\app\src\main\AndroidManifest.xml:40:13-80
+activity#com.trutechinnovations.calculall.ConstantsActivity
+ADDED from C:\Users\david\Documents\Projects\Calculall\app\src\main\AndroidManifest.xml:43:9-46:52
+	android:screenOrientation
+		ADDED from C:\Users\david\Documents\Projects\Calculall\app\src\main\AndroidManifest.xml:46:13-49
+	android:theme
+		ADDED from C:\Users\david\Documents\Projects\Calculall\app\src\main\AndroidManifest.xml:45:13-44
+	android:name
+		ADDED from C:\Users\david\Documents\Projects\Calculall\app\src\main\AndroidManifest.xml:44:13-78
+activity#com.trutechinnovations.calculall.DecompositionSelectionActivity
+ADDED from C:\Users\david\Documents\Projects\Calculall\app\src\main\AndroidManifest.xml:47:9-50:52
+	android:screenOrientation
+		ADDED from C:\Users\david\Documents\Projects\Calculall\app\src\main\AndroidManifest.xml:50:13-49
+	android:theme
+		ADDED from C:\Users\david\Documents\Projects\Calculall\app\src\main\AndroidManifest.xml:49:13-44
+	android:name
+		ADDED from C:\Users\david\Documents\Projects\Calculall\app\src\main\AndroidManifest.xml:48:13-91
 uses-sdk
 INJECTED from C:\Users\david\Documents\Projects\Calculall\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 MERGED from [com.android.support:design:25.1.0] C:\Users\david\Documents\Projects\Calculall\app\build\intermediates\exploded-aar\com.android.support\design\25.1.0\AndroidManifest.xml:21:5-23:62

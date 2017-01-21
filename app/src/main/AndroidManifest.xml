@@ -10,7 +10,7 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme.BlackAndYellow">
 
         <activity
             android:name="com.trutechinnovations.calculall.MainActivity"
@@ -38,6 +38,14 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.trutechinnovations.calculall.ThemeSelectActivity"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.trutechinnovations.calculall.ConstantsActivity"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.trutechinnovations.calculall.DecompositionSelectionActivity"
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait" />
     </application>
