@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="?android:colorBackground"
+    android:background="?colorPrimary"
     android:orientation="vertical"
     android:paddingBottom="0dp"
     android:weightSum="10">
@@ -12,13 +12,16 @@
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="3"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:elevation="2dp">
 
         <Button
             android:id="@+id/left_scroll"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="5"
+            style="@style/buttonDark"
+            android:background="@drawable/ripple_button"
             android:onClick="onClick"
             android:text="@string/leftscroll" />
 
@@ -69,6 +72,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="right"
+            style="@style/buttonDark"
+            android:background="@drawable/ripple_button"
             android:layout_weight="5"
             android:onClick="onClick"
             android:text="@string/rightscroll" />

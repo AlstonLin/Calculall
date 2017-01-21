@@ -7,6 +7,7 @@ package com.trutechinnovations.calculall;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -125,6 +126,7 @@ public class SettingsActivity extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ((TextView) parent.getChildAt(0)).setTextColor(Color.WHITE);
                 roundTo = position + MIN_DIGITS;
                 SharedPreferences.Editor editor = pref.edit();
                 editor.putInt(getString(R.string.round_to), roundTo);
@@ -149,6 +151,7 @@ public class SettingsActivity extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ((TextView) parent.getChildAt(0)).setTextColor(Color.WHITE);
                 fontSize = FONT_SIZES[position];
                 SharedPreferences.Editor editor = pref.edit();
                 editor.putInt(getString(R.string.font_size), fontSize);

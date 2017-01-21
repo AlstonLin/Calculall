@@ -10,7 +10,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.support.v7.widget.AppCompatSpinner;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.SpannedString;
@@ -395,8 +397,8 @@ public class MatrixMode extends FunctionMode {
             }
         });
         //Sets the Spinners
-        Spinner xSpinner = (Spinner) layout.findViewById(R.id.x_spinner);
-        Spinner ySpinner = (Spinner) layout.findViewById(R.id.y_spinner);
+        AppCompatSpinner xSpinner = (AppCompatSpinner) layout.findViewById(R.id.x_spinner);
+        AppCompatSpinner ySpinner = (AppCompatSpinner) layout.findViewById(R.id.y_spinner);
         Integer[] items = new Integer[MAX_DIMENSIONS];
         for (int i = 0; i < MAX_DIMENSIONS; i++) {
             items[i] = i + 1;
@@ -412,6 +414,7 @@ public class MatrixMode extends FunctionMode {
         xSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ((TextView) parent.getChildAt(0)).setTextColor(Color.WHITE);
                 if (position + 1 != m.getNumOfRows()) { //Makes sure its actually changed
                     m.changeSize(position + 1, m.getNumOfCols());
                     loadElementsView(m); //Reloads the View
@@ -425,6 +428,7 @@ public class MatrixMode extends FunctionMode {
         ySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ((TextView) parent.getChildAt(0)).setTextColor(Color.WHITE);
                 if (position + 1 != m.getNumOfCols()) { //Makes sure its actually changed
                     m.changeSize(m.getNumOfRows(), position + 1);
                     loadElementsView(m); //Reloads the View
