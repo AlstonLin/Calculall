@@ -4,32 +4,23 @@
 
 package com.trutechinnovations.calculall;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.widget.AppCompatSpinner;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.SpannedString;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.GridView;
-import android.widget.ListView;
 import android.widget.PopupWindow;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -49,8 +40,6 @@ public class MatrixMode extends FunctionMode {
     public static final int MAX_DIMENSIONS = 7;
     private static final MatrixMode INSTANCE = new MatrixMode();
 
-    protected PopupWindow reductionWindow;
-    protected PopupWindow decompWindow;
     public Command<Void, Void> lastAction; // The last method the user has used to compute
     //Variables used only when in ElementView
     private PopupWindow elementsWindow;
@@ -188,9 +177,6 @@ public class MatrixMode extends FunctionMode {
                 break;
             case R.id.frac_mode:
                 clickFracMode();
-                break;
-            case R.id.exit_reduction_button:
-                clickExitReduction();
                 break;
             default:
                 super.onClick(v);
@@ -1261,62 +1247,9 @@ public class MatrixMode extends FunctionMode {
      * @param rref is the RREF being computed?(TRUE) or just the REF?(FALSE)
      */
     public void openReduction(boolean rref) {
-        //Inflates the XML file so you get the View to add to the PopupWindow
-        LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View layout = inflater.inflate(R.layout.reduction_view, null, false);
-
-        //Creates the popupWindow, with the width matching the parent's and height matching the parent's
-        reductionWindow = new PopupWindow(layout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
-
-        //Retrieves the user data from saved memory
-
-        ArrayList<Token[]> steps = new ArrayList<>();
-        try {
-            ArrayList<Token> temp = MatrixUtils.setupExpression(Utility.condenseDigits(tokens));
-            temp = MatrixUtils.convertToReversePolish(temp);
-            Token t = MatrixUtils.evaluateExpression(temp, false);
-            if (t instanceof Matrix) {
-                double[][] a = ((Matrix) t).getEntriesAsDbls();
-                ArrayList<Token> input = new ArrayList<>();
-                ArrayList<Token> output = new ArrayList<>();
-                if (rref) {
-                    steps = MatrixUtils.knitSteps(a, MatrixUtils.getRREFSteps(a));
-                    input.add(0, new StringToken("RREF of "));
-                } else {
-                    steps = MatrixUtils.knitSteps(a, MatrixUtils.getREFSteps(a));
-                    input.add(0, new StringToken("REF of "));
-                }
-                if (steps.size() == 0) {
-                    Token[] temp1 = new Token[2];
-                    temp1[0] = new StringToken("No Steps to show");
-                    temp1[1] = new StringToken("");
-                    steps.add(temp1);
-                }
-                input.addAll(tokens);
-                output.add(steps.get(steps.size() - 1)[0]);
-                saveEquation(input, output, filename);
-            } else {
-                throw new IllegalArgumentException("The result must be a single Matrix to be row reducible");
-            }
-        } catch (Exception e) { //an error was thrown
-            super.handleExceptions(e);
-        }
-
-        //Finds the ListView from the inflated consts XML so it could be manipulated
-        ListView lv = (ListView) layout.findViewById(R.id.reductionList);
-
-        //Attaches the custom Adapter to the ListView so that it can configure the items and their Views within it
-        lv.setAdapter(new ReductionAdapter(steps, activity));
-
-        //Displays the created PopupWindow on top of the LinearLayout with ID frame, which is being shown by the Activity
-        reductionWindow.showAtLocation(activity.findViewById(R.id.frame), Gravity.CENTER, 0, 0);
-    }
-
-    /**
-     * Exits the reduction view.
-     */
-    public void clickExitReduction() {
-        reductionWindow.dismiss();
+        Intent intent = new Intent(activity,ReductionActivity.class);
+        intent.putExtra(ReductionActivity.RREF,rref);
+        activity.startActivity(intent);
     }
 
     /**
@@ -1333,92 +1266,5 @@ public class MatrixMode extends FunctionMode {
 
     public PopupWindow getElementWindow() {
         return elementWindow;
-    }
-
-    /**
-     * The custom Adapter for the ListView in the row reduction steps.
-     */
-    private class ReductionAdapter extends BaseAdapter {
-
-        private MainActivity activity;
-        private ArrayList<Token[]> reduction; //The data that will be shown in the ListView
-
-        public ReductionAdapter(ArrayList<Token[]> reduction, MainActivity activity) {
-            this.reduction = reduction;
-            this.activity = activity;
-        }
-
-        @Override
-        public int getCount() {
-            return reduction.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return reduction.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        /**
-         * Prepares the View of each item in the ListView that this Adapter will be attached to.
-         *
-         * @param position    The index of the item
-         * @param convertView The old view that may be reused, or null if not possible
-         * @param parent      The parent view
-         * @return The newly prepared View that will visually represent the item in the ListView in the given position
-         */
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            if (convertView == null) { //For efficiency purposes so that it does not unnecessarily inflate Views
-                //Inflates the XML file to get the View of the consts element
-                LayoutInflater inflater = (LayoutInflater) activity.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = inflater.inflate(R.layout.reduction_element, parent, false);
-            }
-
-            //Sets up the child Views within each item in the ListView
-            OutputView intermediate = (OutputView) convertView.findViewById(R.id.input);
-            OutputView step = (OutputView) convertView.findViewById(R.id.step);
-
-            //Sets the font size of each OutputView
-            intermediate.setFontSize(activity.getFontSize());
-            step.setFontSize((int) (activity.getFontSize() * CONSTANTS_IO_RATIO));
-
-            //Enters the appropriate expressions to the OutputView
-            Token[] entry = reduction.get(position);
-            ArrayList<Token> temp = new ArrayList<>();
-            temp.add(entry[0]);
-            intermediate.display(temp);
-            temp.clear();
-            temp.add(entry[1]);
-            step.display(temp);
-            temp.clear();
-
-            //To respond to user touches
-            final Token INPUT = reduction.get(position)[0]; //Makes a constant reference so that intermediate matrices can be accessed by an inner class
-            convertView.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    if (event.getAction() == MotionEvent.ACTION_UP) {
-                        ArrayList<Token> input = new ArrayList<>();
-                        //Removes any StringTokens
-                        if (!(INPUT instanceof StringToken)) {
-                            input.add(INPUT);
-                        }
-                        //Adds the input expression to the current tokens
-                        tokens.addAll(input); //Adds the input of the entry
-                        reductionWindow.dismiss(); //Exits reductionWindow once a matrix has been selected
-                        updateInput();
-                        return true;
-                    } else {
-                        return false;
-                    }
-                }
-            });
-            return convertView;
-        }
     }
 }

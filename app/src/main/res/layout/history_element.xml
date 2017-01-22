@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="8dp">
 
         <view
             android:id="@+id/input"
@@ -18,7 +18,6 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:fadingEdge="vertical"
-
             android:scrollbars="vertical" />
 
         <view

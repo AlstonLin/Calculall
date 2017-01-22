@@ -39,7 +39,6 @@ import java.util.Random;
 public class Advanced extends Basic {
 
     public static final int DEC = 1, FRAC = 2;
-    public static final double CONSTANTS_IO_RATIO = 0.7; //The size of the output / input in the
     private static final String FILENAME = "history_advanced";
     private static final Advanced INSTANCE = new Advanced();
     protected int fracMode = DEC;

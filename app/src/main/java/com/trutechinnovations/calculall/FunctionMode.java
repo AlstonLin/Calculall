@@ -114,12 +114,6 @@ public class FunctionMode extends Advanced {
             case R.id.graph:
                 clickGraph();
                 break;
-            case R.id.graph_dialog_button:
-                clickGraphDialog();
-                break;
-            case R.id.cancel_button:
-                cancelGraph();
-                break;
             default:
                 super.onClick(v);
         }
@@ -148,7 +142,7 @@ public class FunctionMode extends Advanced {
             protected void onPreExecute() {
                 if (pd == null) { //Lazy Initialization
                     //Loading dialog
-                    pd = new ProgressDialog(activity, R.style.CustomAlertDialog);
+                    pd = new ProgressDialog(activity, R.style.progressDialog);
                     pd.setTitle("Calculating...");
                     pd.setMessage("This may take a while. ");
                     pd.setCancelable(false);
@@ -406,10 +400,23 @@ public class FunctionMode extends Advanced {
      * Shows the graph dialog.
      */
     public void clickGraph() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity,R.style.alertDialog);
         LayoutInflater inflater = activity.getLayoutInflater();
         View layout = inflater.inflate(R.layout.graph_dialog, null);
         builder.setView(layout);
+        builder.setTitle(R.string.select_bounds);
+        builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                clickGraphDialog(dialog);
+            }
+        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                graphDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+                dialog.cancel();
+            }
+        });
         graphDialog = builder.create();
         //Sets the numbers from the previous graph, if any
         SharedPreferences pref = activity.getSharedPreferences(activity.getString(R.string.preference_key), Context.MODE_PRIVATE);
@@ -417,9 +424,6 @@ public class FunctionMode extends Advanced {
         float minY = pref.getFloat(activity.getString(R.string.y_min), -10f);
         float maxX = pref.getFloat(activity.getString(R.string.x_max), 10f);
         float maxY = pref.getFloat(activity.getString(R.string.y_max), 10f);
-
-        TypedValue typedValue = new TypedValue();
-        Resources.Theme theme = activity.getTheme();
 
         ((EditText) layout.findViewById(R.id.x_min)).setText(Float.toString(minX));
         //((EditText) layout.findViewById(R.id.x_min)).setTextColor(typedValue.data);
@@ -436,19 +440,12 @@ public class FunctionMode extends Advanced {
         graphDialog.show();
     }
 
-    /**
-     * Cancels the graph dialog.
-     */
-    public void cancelGraph() {
-        graphDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        graphDialog.dismiss();
-    }
 
     /**
      * User had finished choosing graph bounds; shows
      * the graph dialog.
      */
-    public void clickGraphDialog() {
+    public void clickGraphDialog(DialogInterface dialog) {
         try {
             EditText xMinEdit = (EditText) graphDialog.findViewById(R.id.x_min);
             EditText xMaxEdit = (EditText) graphDialog.findViewById(R.id.x_max);
@@ -485,7 +482,7 @@ public class FunctionMode extends Advanced {
             im.hideSoftInputFromWindow(xMaxEdit.getWindowToken(), 0);
             im.hideSoftInputFromWindow(yMinEdit.getWindowToken(), 0);
             im.hideSoftInputFromWindow(yMaxEdit.getWindowToken(), 0);
-            graphDialog.cancel();
+            dialog.cancel();
         } catch (NumberFormatException e) { //Wrong text format
             Toast.makeText(activity, "Invalid Number Format", Toast.LENGTH_SHORT).show();
         }
@@ -570,7 +567,7 @@ public class FunctionMode extends Advanced {
         protected void onPreExecute() {
             if (pd == null) { //Lazy Initialization
                 //Loading dialog
-                pd = new ProgressDialog(activity, R.style.CustomAlertDialog);
+                pd = new ProgressDialog(activity, R.style.progressDialog);
                 pd.setTitle("Calculating...");
                 if (historyInput.get(0).getSymbol().equals("∫ ")) { //Very lazy way of doing this
                     pd.setMessage("This may take a while. Some integrations, especially ones relating to partial fractions can take several minutes or may be impossible.");

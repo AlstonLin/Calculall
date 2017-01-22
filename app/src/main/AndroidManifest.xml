@@ -48,6 +48,10 @@
             android:name="com.trutechinnovations.calculall.DecompositionSelectionActivity"
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="com.trutechinnovations.calculall.ReductionActivity"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

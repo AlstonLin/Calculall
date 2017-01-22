@@ -7,22 +7,29 @@
     android:background="?colorPrimary"
     android:orientation="vertical">
 
-    <GridView
-        android:id="@+id/elements_grid"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_margin="25dp"
-        android:columnWidth="50dp"
-        android:horizontalSpacing="10dp"
-        android:numColumns="3"
-        android:stretchMode="columnWidth"
-        android:verticalSpacing="10dp"
         android:layout_above="@+id/linearLayout2"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"
-        tools:listitem="@layout/element"/>
+        android:layout_alignParentStart="true">
+
+        <GridView
+            android:id="@+id/elements_grid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:columnWidth="50dp"
+            android:horizontalSpacing="10dp"
+            android:numColumns="3"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="10dp"
+            tools:listitem="@layout/element"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true" />
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout2"

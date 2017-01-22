@@ -1929,12 +1929,6 @@
         <item name="tabTextAppearance">@style/TextAppearance.Design.Tab</item>
         <item name="tabSelectedTextColor">?android:textColorPrimary</item>
     </style>
-    <style name="CustomAlertDialog" parent="android:style/Theme.Dialog">
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowIsFloating">true</item>
-        <item name="android:backgroundDimEnabled">true</item>
-        <item name="android:textColor">#9E9E9E</item>
-    </style>
     <style name="Platform.AppCompat" parent="android:Theme">
         <item name="android:windowNoTitle">true</item>
 
@@ -2417,6 +2411,10 @@
         <item name="android:background">?colorAccent</item>
         <item name="background">?colorAccent</item>
     </style>
+    <style name="alertDialog" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:textColor">?buttonTextColor</item>
+        <item name="android:background">?colorPrimary</item>
+    </style>
     <style name="buttonDark" parent="rootButtonStyle">
         <item name="android:background">@drawable/ripple_button_dark</item>
         <item name="android:fontFamily">"sans-serif-thin"</item>
@@ -2440,6 +2438,12 @@
     </style>
     <style name="buttonPrimaryHighlight.MediumText">
         <item name="android:fontFamily">"sans-serif-medium"</item>
+    </style>
+    <style name="progressDialog" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:textColor">?buttonTextColor</item>
+        <item name="android:background">?colorPrimary</item>
     </style>
     <style name="rootButtonStyle" parent="Widget.AppCompat.Button">
         <item name="android:layout_width">0dp</item>
