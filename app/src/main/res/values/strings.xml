@@ -38,7 +38,7 @@
     <string name="arctanh"><![CDATA[tanh<sup><small>-1</small></sup>]]></string>
     <string name="done">DONE</string>
     <string name="num">#</string>
-    <string name="edit">Edit</string>
+    <string name="edit">EDIT</string>
     <string name="newe"><![CDATA[[ ]<sup><small>+</small></sup>]]></string>
     <string name="rank">rank</string>
     <string name="ref">REF</string>
@@ -94,7 +94,7 @@
     <string name="bear">Bea</string>
     <string name="trueB">Tru</string>
     <string name="projection">proj</string>
-    <string name="scalar">Scalar</string>
+    <string name="scalar">SCALAR</string>
     <string name="angle_between_vectors">∠</string>
     <string name="vect_u">U</string>
     <string name="vect_v">V</string>
@@ -104,13 +104,13 @@
     <string name="cross">×</string>
     <string name="comma">,</string>
     <string name="power_ten">Exp</string>
-    <string name="hyp">hyp</string>
+    <string name="hyp">HYP</string>
     <string name="sin">sin</string>
     <string name="cos">cos</string>
     <string name="tan">tan</string>
     <string name="pi">"π"</string>
     <string name="e">e</string>
-    <string name="shift">2nd</string>
+    <string name="shift">2ND</string>
     <string name="backspace">⇤</string>
     <string name="rightArrow">→</string>
     <string name="sqrt">√</string>

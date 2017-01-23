@@ -26,31 +26,31 @@
         <activity
             android:name="com.trutechinnovations.calculall.SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:theme="@style/AppTheme"
+            android:theme="@style/AppTheme.BlackAndYellow"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.trutechinnovations.calculall.HistoryActivity"
-            android:theme="@style/AppTheme"
+            android:theme="@style/AppTheme.BlackAndYellow"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.trutechinnovations.calculall.AboutActivity"
-            android:theme="@style/AppTheme"
+            android:theme="@style/AppTheme.BlackAndYellow"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.trutechinnovations.calculall.ThemeSelectActivity"
-            android:theme="@style/AppTheme"
+            android:theme="@style/AppTheme.BlackAndYellow"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.trutechinnovations.calculall.ConstantsActivity"
-            android:theme="@style/AppTheme"
+            android:theme="@style/AppTheme.BlackAndYellow"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.trutechinnovations.calculall.DecompositionSelectionActivity"
-            android:theme="@style/AppTheme"
+            android:theme="@style/AppTheme.BlackAndYellow"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.trutechinnovations.calculall.ReductionActivity"
-            android:theme="@style/AppTheme"
+            android:theme="@style/AppTheme.BlackAndYellow"
             android:screenOrientation="portrait" />
     </application>
 

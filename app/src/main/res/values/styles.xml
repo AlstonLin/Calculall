@@ -3,6 +3,7 @@
     <style name="rootButtonStyle"  parent="Widget.AppCompat.Button">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_weight">1</item>
+        <item name="android:textAllCaps">false</item>
     </style>
     <style name="buttonDark" parent="rootButtonStyle">
         <item name="android:background">@drawable/ripple_button_dark</item>
