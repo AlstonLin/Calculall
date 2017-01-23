@@ -5,8 +5,9 @@ android {
 
     defaultConfig {
         applicationId "com.trutechinnovations.calculall"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 25
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
